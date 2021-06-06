@@ -1,0 +1,21 @@
+#device-panel {
+  width: calc(100% - 230px - 280px);
+  background-color: #e6e2e3;
+}
+
+#no-devices {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+#unsupported-device {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  color: #272727;
+  top: 50%;
+  transform: translate(0, -50%);
+}

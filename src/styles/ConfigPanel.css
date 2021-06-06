@@ -1,0 +1,132 @@
+#config-panel {
+  width: 280px;
+  background-color: #f2eeef;
+  overflow-y: scroll;
+  position: relative;
+  z-index: 999;
+  box-shadow: -1px 0 1px #dbd7d8;
+}
+
+#config-panel h3 {
+  color: #272727;
+  font-family: Arial;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 0.8em;
+}
+
+#config-panel p {
+  color: #272727;
+  font-size: 0.8em;
+  display: inline-block;
+  font-family: Arial;
+  width: 38%;
+  vertical-align: top;
+}
+
+#config-panel .settings-line {
+  height: 30px;
+  margin-left: 12px;
+}
+
+#config-panel #controls-container button {
+  margin-left: 50%;
+  transform: translate(-50%, 0);
+}
+
+#config-panel select {
+  vertical-align: top;
+  max-width: 150px;
+}
+
+#config-panel .settings-line.color-setting p {
+  width: calc(38% - 21px);
+}
+
+#config-panel .message {
+  width: 100%;
+  text-align: center;
+  left: 0;
+}
+
+#config-panel .message p {
+  width: 100%;
+  line-height: 50px;
+}
+
+#config-panel .color-sample {
+  height: 16px;
+  width: 16px;
+  display: inline-block;
+  border-radius: 3px;
+  margin-right: 3px;
+  border: 1px solid #dbd7d8;
+}
+
+#device-config {
+  border-bottom: 1px solid #e6e6e6;
+  padding-bottom: 20px;
+}
+
+#device-config p {
+  margin-left: 12px;
+  width: 36%;
+  line-height: 20px;
+}
+
+#device-config input {
+  padding: 2px;
+  padding-left: 4px;
+  color: #262626;
+  border: 1px solid #dbd7d8;
+  border-bottom: 1px solid #b8b6b7;
+  border-radius: 4px;
+  vertical-align: top;
+}
+
+#device-config #nickname {
+}
+
+#device-config .share-sustain {
+  height: 28px;
+}
+
+#device-config .share-sustain input {
+  margin-left: 12px;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+#device-config .share-sustain p {
+  width: calc(100% - 50px);
+  line-height: 28px;
+}
+
+#device-config h4 {
+  color: #272727;
+  margin-left: 12px;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+
+#device-config #remove-device input {
+  margin-left: 12px;
+  margin-top: 4px;
+}
+
+#device-config #remove-device button {
+  cursor: auto;
+  height: 21px;
+  margin-top: 4px;
+  width: calc(100% - 180px);
+  margin-left: 4px;
+}
+
+#device-config #remove-device p {
+  width: calc(100% - 80px);
+}

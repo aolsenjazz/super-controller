@@ -1,0 +1,43 @@
+.ios-select {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.ios-select img {
+  width: 6px;
+  left: 3px;
+  position: absolute;
+}
+
+.ios-select img:first-of-type {
+  top: 1px;
+}
+
+.ios-select img:last-of-type {
+  bottom: 2px;
+  transform: rotate(180deg);
+}
+
+select {
+  border-radius: 4px;
+  font-size: 0.7em;
+  padding: 1px;
+  height: 18px;
+  color: #262626;
+  border: 1px solid #dbd7d8;
+  border-bottom: 1px solid #b8b6b7;
+  cursor: pointer;
+}
+
+.ios-select-tab {
+  width: 12px;
+  height: 12px;
+  background-image: linear-gradient(180deg, #4392f7, #297df6);
+  background-color: #3789f7;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  border-radius: 3px;
+  pointer-events: none;
+}

@@ -1,0 +1,147 @@
+@keyframes blink {
+  50.0% {
+    background-color: transparent;
+  }
+}
+
+/* positional stuff for the device layout really belongs in a parent file */
+.device-layout {
+  margin-left: 50%;
+  top: 50%;
+  width: 80%;
+  transform: translate(-50%, -50%);
+  border: solid 1px #3a84e9;
+}
+
+.device-layout .input-grid {
+  position: absolute !important;
+}
+
+.device-layout .input-container {
+  display: inline-block;
+  float: left;
+  position: relative;
+  text-align: center;
+}
+
+.device-layout .pad.focus {
+  border-style: dashed !important;
+  filter: sepia(0.2);
+}
+
+.device-layout .knob .outer.focus {
+  border-style: dashed !important;
+  filter: sepia(0.2);
+}
+
+.device-layout .wheel.focus {
+  border-style: dashed !important;
+  filter: sepia(0.2);
+}
+
+.device-layout .pad {
+  position: absolute;
+  border: 1px solid #3a84e9;
+  top: 50%;
+  margin-left: 50%;
+  transform: translate(-50%, -50%);
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: steps(1);
+  animation-fill-mode: both;
+}
+
+.device-layout .hoverable {
+  cursor: pointer;
+}
+
+.device-layout .hoverable:hover {
+  filter: sepia(0.1);
+}
+
+.device-layout .hoverable:active:hover {
+  filter: sepia(0.2);
+}
+
+.device-layout .knob {
+  display: flex;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.device-layout .knob .inner {
+  position: absolute;
+}
+
+.device-layout .knob .outer {
+  border: 1px solid #3a84e9;
+  overflow: hidden;
+  position: absolute;
+}
+.device-layout .knob .inner .grip {
+  position: absolute;
+  width: 5%;
+  height: 30%;
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #748fb2;
+}
+
+.device-layout #keyboard-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid #3a84e9;
+  border-right: 1px solid #3a84e9;
+}
+
+.device-layout .octave {
+  height: 100%;
+  display: inline-block;
+  position: relative;
+}
+
+.device-layout .key {
+  border-left: 1px solid #3a84e9;
+  display: inline-block;
+}
+
+.device-layout .key:last-of-type {
+  border-right: 1px solid #3a84e9;
+}
+
+.device-layout .octave:last-of-type {
+  border-right: 1px solid #3a84e9;
+}
+
+.device-layout .key-black {
+  position: absolute;
+  border-left: 1px solid #3a84e9;
+  border-right: 1px solid #3a84e9;
+  border-bottom: 1px solid #3a84e9;
+  top: 0;
+  height: 60%;
+  background-color: #e6e2e3;
+}
+
+.device-layout .key-white {
+  height: 100%;
+  display: inline-block;
+  width: calc(14% - 1px);
+}
+
+.device-layout .wheel {
+  position: relative;
+  border: 1px solid #3a84e9;
+  margin: 0 auto;
+}
+
+.device-layout .wheel .inner {
+  border: 1px solid #3a84e9;
+  position: absolute;
+  transform: translateY(50%);
+}

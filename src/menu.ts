@@ -1,10 +1,6 @@
-import {
-  app,
-  Menu,
-  shell,
-  BrowserWindow,
-  MenuItemConstructorOptions,
-} from 'electron';
+import { app, Menu, BrowserWindow, MenuItemConstructorOptions } from 'electron';
+
+import { Background } from './background';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
@@ -14,11 +10,14 @@ interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
 
-  constructor(mainWindow: BrowserWindow) {
+  background: Background;
+
+  constructor(mainWindow: BrowserWindow, background: Background) {
     this.mainWindow = mainWindow;
+    this.background = background;
   }
 
-  buildMenu(): Menu {
+  buildMenu(createWindow: () => void): Menu {
     if (
       process.env.NODE_ENV === 'development' ||
       process.env.DEBUG_PROD === 'true'
@@ -28,7 +27,7 @@ export default class MenuBuilder {
 
     const template =
       process.platform === 'darwin'
-        ? this.buildDarwinTemplate()
+        ? this.buildDarwinTemplate(createWindow)
         : this.buildDefaultTemplate();
 
     const menu = Menu.buildFromTemplate(template);
@@ -52,19 +51,17 @@ export default class MenuBuilder {
     });
   }
 
-  buildDarwinTemplate(): MenuItemConstructorOptions[] {
+  buildDarwinTemplate(createWindow: () => void): MenuItemConstructorOptions[] {
     const subMenuAbout: DarwinMenuItemConstructorOptions = {
-      label: 'Electron',
+      label: 'SuperController',
       submenu: [
         {
-          label: 'About ElectronReact',
+          label: 'About SuperController',
           selector: 'orderFrontStandardAboutPanel:',
         },
         { type: 'separator' },
-        { label: 'Services', submenu: [] },
-        { type: 'separator' },
         {
-          label: 'Hide ElectronReact',
+          label: 'Hide SuperController',
           accelerator: 'Command+H',
           selector: 'hide:',
         },
@@ -81,6 +78,55 @@ export default class MenuBuilder {
           click: () => {
             app.quit();
           },
+        },
+      ],
+    };
+    const subMenuFile: DarwinMenuItemConstructorOptions = {
+      label: 'File',
+      submenu: [
+        {
+          label: 'New',
+          accelerator: 'Command+N',
+          click: () => {
+            this.background
+              .onNew()
+              .then(createWindow)
+              .catch(() => {});
+          },
+        },
+        {
+          label: 'Save',
+          accelerator: 'Command+S',
+          click: () => {
+            this.background.onSave().catch(() => {}); // ignore cancels
+          },
+        },
+        {
+          label: 'Save As',
+          accelerator: 'Shift+Command+S',
+          click: () => {
+            this.background.onSaveAs().catch(() => {}); // ignore cancels
+          },
+        },
+        {
+          label: 'Open',
+          accelerator: 'Command+O',
+          click: () => {
+            this.background
+              .onOpen()
+              .then(createWindow)
+              .catch(() => {});
+          },
+        },
+        {
+          label: 'Open Recent',
+          role: 'recentDocuments',
+          submenu: [
+            {
+              label: 'Clear Recent',
+              role: 'clearRecentDocuments',
+            },
+          ],
         },
       ],
     };
@@ -151,37 +197,38 @@ export default class MenuBuilder {
         { label: 'Bring All to Front', selector: 'arrangeInFront:' },
       ],
     };
-    const subMenuHelp: MenuItemConstructorOptions = {
-      label: 'Help',
-      submenu: [
-        {
-          label: 'Learn More',
-          click() {
-            shell.openExternal('https://electronjs.org');
-          },
-        },
-        {
-          label: 'Documentation',
-          click() {
-            shell.openExternal(
-              'https://github.com/electron/electron/tree/master/docs#readme'
-            );
-          },
-        },
-        {
-          label: 'Community Discussions',
-          click() {
-            shell.openExternal('https://www.electronjs.org/community');
-          },
-        },
-        {
-          label: 'Search Issues',
-          click() {
-            shell.openExternal('https://github.com/electron/electron/issues');
-          },
-        },
-      ],
-    };
+    // TODO: Further down the line
+    // const subMenuHelp: MenuItemConstructorOptions = {
+    //   label: 'Help',
+    //   submenu: [
+    //     {
+    //       label: 'Learn More',
+    //       click() {
+    //         shell.openExternal('https://electronjs.org');
+    //       },
+    //     },
+    //     {
+    //       label: 'Documentation',
+    //       click() {
+    //         shell.openExternal(
+    //           'https://github.com/electron/electron/tree/master/docs#readme'
+    //         );
+    //       },
+    //     },
+    //     {
+    //       label: 'Community Discussions',
+    //       click() {
+    //         shell.openExternal('https://www.electronjs.org/community');
+    //       },
+    //     },
+    //     {
+    //       label: 'Search Issues',
+    //       click() {
+    //         shell.openExternal('https://github.com/electron/electron/issues');
+    //       },
+    //     },
+    //   ],
+    // };
 
     const subMenuView =
       process.env.NODE_ENV === 'development' ||
@@ -189,7 +236,14 @@ export default class MenuBuilder {
         ? subMenuViewDev
         : subMenuViewProd;
 
-    return [subMenuAbout, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
+    return [
+      subMenuAbout,
+      subMenuFile,
+      subMenuEdit,
+      subMenuView,
+      subMenuWindow,
+      // subMenuHelp,
+    ];
   }
 
   buildDefaultTemplate() {
@@ -252,37 +306,38 @@ export default class MenuBuilder {
                 },
               ],
       },
-      {
-        label: 'Help',
-        submenu: [
-          {
-            label: 'Learn More',
-            click() {
-              shell.openExternal('https://electronjs.org');
-            },
-          },
-          {
-            label: 'Documentation',
-            click() {
-              shell.openExternal(
-                'https://github.com/electron/electron/tree/master/docs#readme'
-              );
-            },
-          },
-          {
-            label: 'Community Discussions',
-            click() {
-              shell.openExternal('https://www.electronjs.org/community');
-            },
-          },
-          {
-            label: 'Search Issues',
-            click() {
-              shell.openExternal('https://github.com/electron/electron/issues');
-            },
-          },
-        ],
-      },
+      // TODO: further down the line
+      // {
+      //   label: 'Help',
+      //   submenu: [
+      //     {
+      //       label: 'Learn More',
+      //       click() {
+      //         shell.openExternal('https://electronjs.org');
+      //       },
+      //     },
+      //     {
+      //       label: 'Documentation',
+      //       click() {
+      //         shell.openExternal(
+      //           'https://github.com/electron/electron/tree/master/docs#readme'
+      //         );
+      //       },
+      //     },
+      //     {
+      //       label: 'Community Discussions',
+      //       click() {
+      //         shell.openExternal('https://www.electronjs.org/community');
+      //       },
+      //     },
+      //     {
+      //       label: 'Search Issues',
+      //       click() {
+      //         shell.openExternal('https://github.com/electron/electron/issues');
+      //       },
+      //     },
+      //   ],
+      // },
     ];
 
     return templateDefault;

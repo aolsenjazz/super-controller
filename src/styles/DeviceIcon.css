@@ -1,0 +1,78 @@
+.device-icon {
+  width: 100% !important;
+  border: 1px solid #808080;
+}
+
+.device-icon .input-grid {
+  position: absolute !important;
+}
+
+.device-icon .input-container {
+  display: inline-block;
+  float: left;
+  position: relative;
+}
+
+.device-icon .pad {
+  position: absolute;
+  background-color: #808080;
+  top: 50%;
+  margin-left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.device-icon .pad.active {
+  background-color: #3a84e9 !important;
+}
+
+.device-icon #keyboard-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid #808080;
+  border-right: 1px solid #808080;
+}
+
+.device-icon .octave {
+  height: 100%;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+
+.device-icon .key-black {
+  position: absolute;
+  top: 0;
+  height: 60%;
+  width: 6%;
+  background-color: #808080;
+}
+
+.device-icon .key-white {
+  height: 100%;
+  display: inline-block;
+  width: calc(14% - 1px);
+  vertical-align: top;
+}
+
+.device-icon .key-black.active {
+  background-color: #3a84e9 !important;
+}
+
+.device-icon .key {
+  border-left: 1px solid #808080;
+  display: inline-block;
+  top: 0;
+}
+
+.device-icon .key-white:last-of-type {
+  border-right: 1px solid #808080;
+}
+
+.device-icon .key-black {
+  margin-left: 1px;
+}
+
+.device-icon .octave:last-of-type {
+  border-right: 1px solid #808080;
+}

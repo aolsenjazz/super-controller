@@ -1,0 +1,311 @@
+{
+  "aspectRatio": "39/7",
+  "name": "Keystation 61 MK3 (USB MIDI)",
+  "style": {
+    "borderTopLeftRadius": "0.1em",
+    "borderTopRightRadius": "0.1em",
+    "borderBottomLeftRadius": "0.1em",
+    "borderBottomRightRadius": "0.1em"
+  },
+  "keyboard": {
+    "defaultOctave": 1,
+    "nOctaves": 5,
+    "channel": 10,
+    "style": {
+      "width": "88%",
+      "height": "88%",
+      "bottom": 0,
+      "right": "1.5%"
+    }
+  },
+  "inputGrids": [
+    {
+      "id": "Wheels",
+      "height": 0.05,
+      "width": 0.02,
+      "nRows": 1,
+      "nCols": 2,
+      "style": {
+        "width": "6%",
+        "height": "28.5%",
+        "top": "60%",
+        "left": "2.5%"
+      },
+      "inputs": [
+        {
+          "default": {
+            "channel": 10,
+            "number": 1,
+            "eventType": "pitchbend",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "wheel",
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 10,
+            "number": 1,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "wheel",
+          "shape": "rect",
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "OctavePlusMinus",
+      "height": 0.011,
+      "width": 0.0128,
+      "nRows": 1,
+      "nCols": 2,
+      "style": {
+        "width": "3.84%",
+        "height": "5.3%",
+        "top": "47%",
+        "left": "5.12%"
+      },
+      "inputs": [
+        {
+          "default": {
+            "channel": -1,
+            "number": -1,
+            "eventType": "octdown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -1,
+            "eventType": "octup",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Advanced",
+      "height": 0.011,
+      "width": 0.0128,
+      "nRows": 1,
+      "nCols": 2,
+      "style": {
+        "width": "3.84%",
+        "height": "5.3%",
+        "top": "35%",
+        "left": "5.12%"
+      },
+      "inputs": [
+        {
+          "default": {
+            "channel": -1,
+            "number": -1,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Volume",
+      "height": 0.0512,
+      "width": 0.0128,
+      "nRows": 1,
+      "nCols": 2,
+      "style": {
+        "width": "1.28%",
+        "height": "28%",
+        "top": "25%",
+        "left": "1.92%"
+      },
+      "inputs": [
+        {
+          "default": {
+            "channel": 10,
+            "number": 7,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "slider",
+          "shape": "rect",
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Playback",
+      "height": 0.007,
+      "width": 0.007,
+      "nRows": 1,
+      "nCols": 3,
+      "style": {
+        "width": "4%",
+        "height": "7%",
+        "top": "10%",
+        "left": "5.12%"
+      },
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": 93,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 94,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 95,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "circ",
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Nav1",
+      "height": 0.004,
+      "width": 0.004,
+      "nRows": 1,
+      "nCols": 1,
+      "style": {
+        "width": "0.6%",
+        "height": "1.5%",
+        "top": "7.14%",
+        "left": "1.78%"
+      },
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": 96,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "type": "pad",
+          "shape": "rect",
+          "overrideable": false,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Nav2",
+      "height": 0.004,
+      "width": 0.004,
+      "nRows": 1,
+      "nCols": 3,
+      "style": {
+        "width": "3.2%",
+        "height": "5%",
+        "top": "10%",
+        "left": ".48%"
+      },
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": 98,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 100,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 99,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "type": "pad",
+          "shape": "rect",
+          "overrideable": false,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Nav3",
+      "height": 0.004,
+      "width": 0.004,
+      "nRows": 1,
+      "nCols": 1,
+      "style": {
+        "width": "0.6%",
+        "height": "1.5%",
+        "top": "16%",
+        "left": "1.78%"
+      },
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": 97,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        }
+      ]
+    }
+  ]
+}

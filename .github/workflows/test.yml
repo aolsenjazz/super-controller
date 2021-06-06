@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        os: [macos-latest, windows-latest]
 
     steps:
       - name: Check out Git repository
@@ -23,9 +23,14 @@ jobs:
         run: |
           yarn install --frozen-lockfile --network-timeout 300000
 
+      - name: rebuild midi module
+        run: |
+          yarn rebuild:test
+
       - name: yarn test
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
         run: |
           yarn package
           yarn lint

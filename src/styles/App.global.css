@@ -1,0 +1,82 @@
+@import './ConfigPanel.css';
+@import './IosSelect.css';
+@import './IosButton.css';
+@import './TitleBar.css';
+@import './NavBar.css';
+@import './DeviceView.css';
+@import './DevicePanel.css';
+@import './DeviceLayout.css';
+@import './DeviceIcon.css';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  user-select: none;
+}
+
+a:hover {
+  opacity: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+*:focus {
+  outline: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #272727;
+  font-family: Arial;
+  user-select: none;
+}
+
+h1 {
+  font-size: 0.8em;
+  color: #4a4848;
+}
+
+#root {
+  height: 100%;
+}
+
+.top-level {
+  display: inline-block;
+  vertical-align: top;
+  height: calc(100% - 52px);
+}
+
+.center-vert {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.border-red {
+  border: 1px solid red !important;
+}
+
+.border-green {
+  border: 1px solid green !important;
+}
+
+.hoverable {
+  cursor: pointer !important;
+}

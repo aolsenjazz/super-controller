@@ -1,0 +1,100 @@
+#nav-bar {
+  width: 230px;
+  background-color: #f4f0f1;
+  float: left;
+  text-align: center;
+  box-shadow: 1px 0 1px #dbd7d8;
+}
+
+.nav-item .selected {
+  color: #3a84e9 !important;
+}
+
+.nav-item {
+  width: 210px;
+  position: relative;
+  display: inline-block;
+  height: 49px;
+  text-align: left;
+  border-bottom: 1px solid #e6e6e6;
+  padding-bottom: 4px;
+  margin-top: 10px;
+}
+
+.nav-item:last-of-type {
+  border-bottom: none;
+}
+
+.nav-item .active {
+  border-color: #3a84e9 !important;
+}
+
+.nav-item h2 {
+  color: #272727;
+  font-size: 0.9em;
+  height: 16px;
+  margin-bottom: 2px;
+}
+
+.nav-item .id {
+}
+
+.nav-item p {
+  color: #808080;
+}
+
+.nav-item .connection-status {
+  color: #808080;
+  font-size: 0.8em;
+  font-weight: normal;
+  margin-left: 16px;
+  line-height: 14px;
+}
+
+.nav-item .configured {
+  background-color: #61c355;
+  border: solid 1px #52a43b;
+}
+
+.nav-item .connected {
+  background-color: #f5be4f;
+  border: solid 1px #d89d3d;
+}
+
+.nav-item .disconnected {
+  background-color: #ed685e;
+  border: solid 1px #d14e40;
+}
+
+.nav-item .device-icon-container {
+  width: 36px;
+  height: 36px;
+  left: 0;
+  top: 0;
+}
+
+.nav-item .nav-item-label {
+  left: 46px;
+  position: absolute;
+  top: 0;
+  font-weight: bold;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: calc(100% - 48px);
+}
+
+.nav-item .connection-color {
+  border-radius: 100px;
+  width: 8px;
+  height: 8px;
+  margin-top: 1px;
+  position: absolute;
+}
+
+.nav-item .id {
+  font-size: 0.7em;
+  font-weight: normal;
+  margin-bottom: 6px;
+}

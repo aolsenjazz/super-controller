@@ -1,20 +1,14 @@
 /* eslint global-require: off, no-console: off */
 
-/**
- * This module executes inside of electron's main process. You can start
- * electron renderer process from here and communicate with the other processes
- * through IPC.
- *
- * When running `yarn build` or `yarn build:main`, this file is compiled to
- * `./src/main.prod.js` using webpack. This gives us some performance wins.
- */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, shell, Event } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+
+import { Background } from './background';
 
 export default class AppUpdater {
   constructor() {
@@ -24,6 +18,9 @@ export default class AppUpdater {
   }
 }
 
+app.allowRendererProcessReuse = false;
+
+const background = new Background();
 let mainWindow: BrowserWindow | null = null;
 
 if (process.env.NODE_ENV === 'production') {
@@ -52,6 +49,8 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
+  if (mainWindow !== null) return; // don't let users open more than 1 window
+
   if (
     process.env.NODE_ENV === 'development' ||
     process.env.DEBUG_PROD === 'true'
@@ -71,6 +70,7 @@ const createWindow = async () => {
     show: false,
     width: 1024,
     height: 728,
+    titleBarStyle: 'hiddenInset',
     icon: getAssetPath('icon.png'),
     webPreferences: {
       nodeIntegration: true,
@@ -90,15 +90,18 @@ const createWindow = async () => {
     } else {
       mainWindow.show();
       mainWindow.focus();
+
+      background.onDidFinishLoad();
     }
   });
 
   mainWindow.on('closed', () => {
+    background.onClosed();
     mainWindow = null;
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  const menuBuilder = new MenuBuilder(mainWindow, background);
+  menuBuilder.buildMenu(createWindow);
 
   // Open urls in the user's browser
   mainWindow.webContents.on('new-window', (event, url) => {
@@ -111,22 +114,24 @@ const createWindow = async () => {
   new AppUpdater();
 };
 
-/**
- * Add event listeners...
- */
-
-app.on('window-all-closed', () => {
-  // Respect the OSX convention of having the application in memory even
-  // after all windows have been closed
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
 app.whenReady().then(createWindow).catch(console.log);
 
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
+});
+
+app.on('open-file', (_event: Event, filePath: string) => {
+  if (mainWindow === null) createWindow();
+  background.onOpenFile(filePath);
+});
+
+app.on('window-all-closed', () => {}); // do nothing, continue to run
+
+app.on('before-quit', (event) => {
+  const shouldQuit = background.beforeQuit();
+  if (!shouldQuit) {
+    event.preventDefault();
+  }
 });

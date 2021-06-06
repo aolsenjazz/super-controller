@@ -1,7 +1,8 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
+  "name": "super-controller",
+  "productName": "SuperController",
+  "version": "1.0.1",
+  "description": "Give your MIDI devices super powers; take control of the lights, messages, and communications between controllers.",
   "scripts": {
     "build": "concurrently \"yarn build:main\" \"yarn build:renderer\"",
     "build:main": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.main.prod.babel.js",
@@ -10,9 +11,10 @@
     "lint": "cross-env NODE_ENV=development eslint . --cache --ext .js,.jsx,.ts,.tsx",
     "package": "rm -rf src/dist && yarn build && electron-builder build --publish never",
     "postinstall": "node -r @babel/register .erb/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
-    "start": "node -r @babel/register ./.erb/scripts/CheckPortInUse.js && yarn start:renderer",
+    "start": "node -r @babel/register ./.erb/scripts/CheckPortInUse.js && cross-env yarn start:renderer",
     "start:main": "cross-env NODE_ENV=development electron -r ./.erb/scripts/BabelRegister ./src/main.dev.ts",
     "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./.erb/configs/webpack.config.renderer.dev.babel.js",
+    "rebuild:test": "cd src && cd node_modules && cd midi && npm rebuild",
     "test": "jest"
   },
   "lint-staged": {
@@ -30,15 +32,22 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "SuperController",
+    "appId": "com.aofx.SuperController",
+    "npmRebuild": false,
+    "fileAssociations": {
+      "ext": "controller",
+      "description": "SuperController project file",
+      "role": "Editor"
+    },
     "files": [
       "dist/",
       "node_modules/",
       "index.html",
       "main.prod.js",
       "main.prod.js.map",
-      "package.json"
+      "package.json",
+      "drivers/"
     ],
     "afterSign": ".erb/scripts/Notarize.js",
     "mac": {
@@ -86,34 +95,21 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate"
+      "owner": "aolsenjazz",
+      "repo": "super-controller"
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/aolsenjazz/super-controller.git"
   },
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "Alexander Olsen",
+    "email": "aolsenjazz@gmail.com"
   },
-  "contributors": [
-    {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
-    },
-    {
-      "name": "John Tran",
-      "email": "jptran318@gmail.com",
-      "url": "https://github.com/jooohhn"
-    }
-  ],
-  "license": "MIT",
+  "contributors": [],
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/aolsenjazz/super-controller/issues"
   },
   "keywords": [
     "electron",
@@ -126,7 +122,8 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "license": "MIT",
+  "homepage": "https://github.com/aolsenjazz/super-controller#readme",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {
@@ -202,7 +199,7 @@
     "css-minimizer-webpack-plugin": "^1.1.5",
     "detect-port": "^1.3.0",
     "electron": "^11.0.1",
-    "electron-builder": "^22.10.5",
+    "electron-builder": "^22.3.6",
     "electron-devtools-installer": "^3.1.1",
     "electron-notarize": "^1.0.0",
     "electron-rebuild": "^2.3.2",
@@ -248,11 +245,17 @@
     "yarn-deduplicate": "^3.1.0"
   },
   "dependencies": {
+    "caniuse-lite": "^1.0.30001228",
     "electron-debug": "^3.1.0",
     "electron-log": "^4.2.4",
+    "electron-main-window": "^1.0.4",
+    "electron-root-path": "^1.0.16",
+    "electron-store": "^8.0.0",
     "electron-updater": "^4.3.4",
     "history": "^5.0.0",
+    "midi-message-parser": "^2.0.1",
     "react": "^17.0.1",
+    "react-aspect-ratio": "^1.0.49",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.5",
@@ -262,9 +265,6 @@
     "node": ">=10.x",
     "npm": ">=6.x",
     "yarn": ">=1.21.3"
-  },
-  "collective": {
-    "url": "https://opencollective.com/electron-react-boilerplate-594"
   },
   "browserslist": [],
   "prettier": {
