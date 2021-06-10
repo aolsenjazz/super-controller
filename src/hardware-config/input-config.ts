@@ -149,7 +149,10 @@ export class InputConfig {
         lastResponse
       );
     } else {
-      this.devicePropagator = new NullPropagator();
+      this.devicePropagator = new NullPropagator(
+        this.default.response,
+        this.override.response || this.default.response
+      );
     }
   }
 
@@ -218,6 +221,12 @@ export class InputConfig {
     if (this.default.response === 'gate') return ['gate', 'toggle', 'constant'];
 
     if (this.default.response === 'toggle') return ['toggle', 'constant'];
+
+    if (this.default.response === 'constant') {
+      return ['noteon/noteoff', 'controlchange'].includes(this.eventType)
+        ? ['toggle', 'constant']
+        : ['constant'];
+    }
 
     return ['linear'];
   }

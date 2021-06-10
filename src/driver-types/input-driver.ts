@@ -6,7 +6,7 @@ export type InputDefault = {
   readonly number: MidiValue;
   readonly channel: Channel;
   readonly eventType: EventType;
-  readonly response: 'gate' | 'toggle' | 'linear';
+  readonly response: 'gate' | 'toggle' | 'linear' | 'constant';
 };
 
 export type InputDriver = {

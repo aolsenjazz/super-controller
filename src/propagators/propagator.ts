@@ -3,14 +3,14 @@ import { MidiValue, MidiMessage } from 'midi-message-parser';
 import { isOnMessage } from '../util';
 
 export abstract class Propagator {
-  readonly inputResponse: 'gate' | 'toggle' | 'linear';
+  readonly inputResponse: 'gate' | 'toggle' | 'linear' | 'constant';
 
   outputResponse: 'gate' | 'toggle' | 'linear' | 'constant';
 
   lastPropagated?: MidiMessage;
 
   constructor(
-    inputResponse: 'gate' | 'toggle' | 'linear',
+    inputResponse: 'gate' | 'toggle' | 'linear' | 'constant',
     outputResponse: 'gate' | 'toggle' | 'linear' | 'constant',
     lastPropagated?: MidiMessage
   ) {
@@ -31,6 +31,9 @@ export abstract class Propagator {
         break;
       case 'linear':
         toPropagate = this.#handleAsContinuous(msg);
+        break;
+      case 'constant':
+        toPropagate = this.#handleAsConstant(msg);
         break;
       default:
         throw new Error(`unknown inputResponse ${this.inputResponse}`);
@@ -54,6 +57,10 @@ export abstract class Propagator {
   };
 
   #handleAsContinuous = (msg: MidiValue[]) => {
+    return this.getResponse(msg);
+  };
+
+  #handleAsConstant = (msg: MidiValue[]) => {
     return this.getResponse(msg);
   };
 

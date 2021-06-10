@@ -3,8 +3,11 @@ import { MidiValue } from 'midi-message-parser';
 import { Propagator } from './propagator';
 
 export class NullPropagator extends Propagator {
-  constructor() {
-    super('gate', 'gate', undefined);
+  constructor(
+    inputResponse: 'gate' | 'toggle' | 'linear' | 'constant',
+    outputResponse: 'gate' | 'toggle' | 'linear' | 'constant'
+  ) {
+    super(inputResponse, outputResponse, undefined);
   }
 
   /* eslint-disable-next-line */

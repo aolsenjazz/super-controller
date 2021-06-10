@@ -9,6 +9,8 @@ import { Propagator } from './propagator';
 import { isOnMessage } from '../util';
 
 export class OutputPropagator extends Propagator {
+  constantState: 'on' | 'off' = 'off';
+
   eventType: EventType;
 
   number: MidiValue;
@@ -18,7 +20,7 @@ export class OutputPropagator extends Propagator {
   value: MidiValue;
 
   constructor(
-    inputResponse: 'gate' | 'toggle' | 'linear',
+    inputResponse: 'gate' | 'toggle' | 'linear' | 'constant',
     outputResponse: 'gate' | 'toggle' | 'linear' | 'constant',
     eventType: EventType,
     number: MidiValue,
@@ -51,18 +53,23 @@ export class OutputPropagator extends Propagator {
   }
 
   get state() {
-    if (['gate', 'toggle'].includes(this.outputResponse)) {
-      return isOnMessage(this.lastPropagated) ? 'on' : 'off';
+    if (this.inputResponse === 'constant') {
+      return this.constantState;
     }
 
-    if (this.outputResponse === 'constant') {
-      // TODO: probably program change, need to figure this out
+    if (['gate', 'toggle'].includes(this.outputResponse)) {
+      return isOnMessage(this.lastPropagated) ? 'on' : 'off';
     }
 
     return this.lastPropagated ? this.lastPropagated.value.toString() : '0';
   }
 
   protected getResponse(msg: MidiValue[]) {
+    // we currently need to manually flip states if hardware response is constant
+    if (this.inputResponse === 'constant') {
+      this.constantState = this.constantState === 'on' ? 'off' : 'on';
+    }
+
     switch (this.outputResponse) {
       case 'gate':
         return this.#handleAsGate(msg);
@@ -89,6 +96,10 @@ export class OutputPropagator extends Propagator {
   #handleAsToggle = (msg: MidiValue[]) => {
     const eventType = this.#nextEventType();
     let value = this.#nextValue(msg[2]);
+
+    if (this.inputResponse === 'constant') {
+      value = this.constantState === 'on' ? 127 : 0;
+    }
 
     if (this.inputResponse === 'gate') {
       const defaultVal = !this.lastPropagated?.value ? 127 : 0;
