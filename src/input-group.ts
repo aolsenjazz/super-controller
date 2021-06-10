@@ -118,6 +118,13 @@ export class InputGroup {
     );
   }
 
+  get value() {
+    return this.#groupValue<MidiValue>(
+      (c) => c.value,
+      (a, b) => a === b
+    );
+  }
+
   get channel() {
     return this.#groupValue<Channel>(
       (c) => c.channel,

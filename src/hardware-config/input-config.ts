@@ -76,7 +76,7 @@ export class InputConfig {
       other.availableColors,
       other.overrideable,
       other.type,
-      undefined,
+      other.value,
       other.lastPropagated
         ? new MidiMessage(other.lastPropagated, 0)
         : undefined,
@@ -247,6 +247,14 @@ export class InputConfig {
       : undefined;
   }
 
+  get value(): MidiValue {
+    return this.outputPropagator.value;
+  }
+
+  set value(value: MidiValue) {
+    this.outputPropagator.value = value;
+  }
+
   get currentColor(): Color | undefined {
     const config = this.#lightConfig();
     return config.get(this.devicePropagator.state);
@@ -375,6 +383,7 @@ export class InputConfig {
       response: this.response,
       availableColors: this.availableColors,
       lightResponse: this.lightResponse,
+      value: this.outputPropagator.value,
       lastPropagated: includeState
         ? this.outputPropagator.lastPropagated?.toMidiArray()
         : undefined,

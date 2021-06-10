@@ -24,12 +24,14 @@ export default function MonoInputConfigPanel(props: PropTypes) {
     channel,
     eventType,
     response,
+    value,
     eligibleEventTypes,
     eligibleResponses,
   } = group;
 
   const eligibleChannels = [...Array(16).keys()] as Channel[];
   const eligibleNumbers = [...Array(128).keys()] as MidiValue[];
+  const eligibleValues = [...Array(128).keys()] as MidiValue[];
 
   const numberLabels = eligibleNumbers.map((v) => {
     if (eventType === 'controlchange') {
@@ -89,6 +91,19 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             });
           }}
         />
+        {eventType === 'controlchange' && response === 'constant' ? (
+          <SettingsLineItem
+            label="Value:"
+            value={value}
+            valueList={eligibleValues}
+            labelList={eligibleValues.map((v) => v.toString())}
+            onChange={(v) => {
+              onChange((c) => {
+                c.value = v as MidiValue;
+              });
+            }}
+          />
+        ) : null}
         {eventType === 'pitchbend' ? null : (
           <SettingsLineItem
             label="Number:"
