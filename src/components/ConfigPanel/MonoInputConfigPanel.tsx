@@ -23,7 +23,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
     number,
     channel,
     eventType,
-    propagationStrategy,
+    response,
     eligibleEventTypes,
     eligibleResponses,
   } = group;
@@ -80,7 +80,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
         />
         <SettingsLineItem
           label="Input Response:"
-          value={propagationStrategy}
+          value={response}
           valueList={eligibleResponses}
           labelList={responseLabels}
           onChange={(v) => {

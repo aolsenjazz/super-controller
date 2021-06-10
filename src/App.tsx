@@ -43,18 +43,23 @@ export default function App() {
     if (!device && ports.length > 0 && selectedId) {
       const portInfo = ports.filter((info) => info.id === selectedId)[0];
 
-      if (Array.from(drivers.keys()).includes(portInfo.name)) {
+      if (Array.from(drivers.keys()).includes(portInfo?.name)) {
+        // This port exists in config or hardware
         device = SupportedDeviceConfig.fromDriver(
           portInfo.id,
           portInfo.occurrenceNumber,
           drivers.get(portInfo.name)!
         );
       } else {
-        device = new UnsupportedDeviceConfig(
-          portInfo.id,
-          portInfo.name,
-          portInfo.occurrenceNumber
-        );
+        // this port may or may not exist. if it exists, it must not be supported
+        device =
+          portInfo === undefined
+            ? null
+            : new UnsupportedDeviceConfig(
+                portInfo.id,
+                portInfo.name,
+                portInfo.occurrenceNumber
+              );
       }
     }
 

@@ -132,7 +132,7 @@ export class InputGroup {
     );
   }
 
-  get propagationStrategy() {
+  get response() {
     return this.#groupValue(
       (c) => c.response,
       (a, b) => a === b

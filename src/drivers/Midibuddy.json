@@ -23,7 +23,7 @@
             "channel": 0,
             "number": -1,
             "eventType": "programchange",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": false,
           "type": "pad",
@@ -37,7 +37,7 @@
             "channel": 0,
             "number": 0,
             "eventType": "programchange",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": true,
           "type": "pad",
@@ -51,7 +51,7 @@
             "channel": 0,
             "number": 1,
             "eventType": "programchange",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": true,
           "type": "pad",
@@ -65,7 +65,7 @@
             "channel": 0,
             "number": 2,
             "eventType": "programchange",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": true,
           "type": "pad",
@@ -79,7 +79,7 @@
             "channel": 0,
             "number": 3,
             "eventType": "programchange",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": true,
           "type": "pad",
@@ -93,7 +93,7 @@
             "channel": 0,
             "number": 4,
             "eventType": "programchange",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": true,
           "type": "pad",
@@ -107,7 +107,7 @@
             "channel": 0,
             "number": -2,
             "eventType": "programchange",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": false,
           "type": "pad",
@@ -121,7 +121,7 @@
             "channel": 0,
             "number": 5,
             "eventType": "programchange",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": true,
           "type": "pad",
@@ -135,7 +135,7 @@
             "channel": 0,
             "number": 6,
             "eventType": "programchange",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": true,
           "type": "pad",
@@ -149,7 +149,7 @@
             "channel": 0,
             "number": 7,
             "eventType": "programchange",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": true,
           "type": "pad",
@@ -163,7 +163,7 @@
             "channel": 0,
             "number": 8,
             "eventType": "programchange",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": true,
           "type": "pad",
@@ -177,7 +177,7 @@
             "channel": 0,
             "number": 9,
             "eventType": "programchange",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": true,
           "type": "pad",
