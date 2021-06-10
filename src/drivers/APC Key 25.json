@@ -1,364 +1,194 @@
 {
-  "height": 7.5,
-  "width": 12.125,
-  "name": "APC Key 25",
+  "width": 12.375,
+  "height": 6.75,
+  "name": "MPKmini2",
   "style": {
-    "borderTopLeftRadius": "2em",
-    "borderTopRightRadius": "2em",
-    "borderBottomLeftRadius": "1em",
-    "borderBottomRightRadius": "1em"
+    "borderTopLeftRadius": "0.5em",
+    "borderTopRightRadius": "0.5em",
+    "borderBottomLeftRadius": "0.5em",
+    "borderBottomRightRadius": "0.5em"
   },
   "keyboard": {
     "defaultOctave": 2,
     "nOctaves": 2,
-    "channel": 1,
+    "channel": 0,
     "width": 11.5,
-    "height": 3.125,
-    "left": 0.3125,
+    "height": 3.2,
+    "left": 0.4375,
     "bottom": 0
   },
   "inputGrids": [
     {
-      "id": "MainPads",
-      "height": 3.75,
-      "width": 6.375,
-      "left": 0.375,
-      "bottom": 3.5,
-      "nRows": 6,
-      "nCols": 8,
+      "id": "XY",
+      "height": 1,
+      "width": 1,
+      "left": 0.625,
+      "bottom": 5.5,
+      "nRows": 1,
+      "nCols": 1,
       "inputs": [
         {
           "default": {
             "channel": 0,
-            "number": 32,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
+            "number": 0,
+            "eventType": "pitchbend",
+            "response": "linear"
           },
-          "type": "pad",
-          "width": 0.5,
-          "height": 0.3,
           "overrideable": true,
-          "shape": "rect",
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
+          "type": "xy",
+          "shape": "circle",
+          "width": 1,
+          "height": 1,
+          "availableColors": []
         },
         {
           "default": {
             "channel": 0,
-            "number": 33,
-            "eventType": "noteon/noteoff",
+            "number": 1,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "xy",
+          "shape": "circle",
+          "width": 1,
+          "height": 1,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Arpeggiator",
+      "height": 1.75,
+      "width": 1.625,
+      "left": 0.3,
+      "bottom": 3.7,
+      "nRows": 3,
+      "nCols": 2,
+      "inputs": [
+        {
+          "default": {
+            "channel": -1,
+            "number": -1,
+            "eventType": "unknown",
             "response": "gate"
           },
+          "overrideable": false,
           "type": "pad",
-          "overrideable": true,
           "shape": "rect",
           "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
+          "height": 0.25,
+          "availableColors": []
         },
         {
           "default": {
-            "channel": 0,
-            "number": 34,
-            "eventType": "noteon/noteoff",
+            "channel": -1,
+            "number": -2,
+            "eventType": "unknown",
             "response": "gate"
           },
+          "overrideable": false,
           "type": "pad",
-          "overrideable": true,
           "shape": "rect",
           "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
+          "height": 0.25,
+          "availableColors": []
         },
         {
           "default": {
-            "channel": 0,
-            "number": 35,
-            "eventType": "noteon/noteoff",
+            "channel": -1,
+            "number": -3,
+            "eventType": "unknown",
             "response": "gate"
           },
+          "overrideable": false,
           "type": "pad",
           "shape": "rect",
-          "overrideable": true,
           "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
+          "height": 0.25,
+          "availableColors": []
         },
+        {
+          "default": {
+            "channel": -1,
+            "number": -4,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "width": 0.5,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -5,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "width": 0.5,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -6,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "width": 0.5,
+          "height": 0.25,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Pads",
+      "height": 2.75,
+      "width": 5.25,
+      "bottom": 3.7,
+      "left": 2.125,
+      "nRows": 2,
+      "nCols": 4,
+      "inputs": [
         {
           "default": {
             "channel": 0,
             "number": 36,
-            "eventType": "noteon/noteoff",
+            "eventType": "unknown",
             "response": "gate"
           },
+          "overrideable": false,
           "type": "pad",
           "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
+          "width": 1,
+          "height": 1,
           "availableColors": [
             {
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "string": "transparent",
+              "number": 9
             },
             {
               "name": "Red",
               "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
+              "value": 127,
+              "number": 9
             }
           ]
         },
@@ -366,66 +196,30 @@
           "default": {
             "channel": 0,
             "number": 37,
-            "eventType": "noteon/noteoff",
+            "eventType": "unknown",
             "response": "gate"
           },
+          "overrideable": false,
           "type": "pad",
-          "overrideable": true,
           "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
+          "width": 1,
+          "height": 1,
           "availableColors": [
             {
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "string": "transparent",
+              "number": 10
             },
             {
               "name": "Red",
               "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
+              "value": 127,
+              "number": 10
             }
           ]
         },
@@ -433,66 +227,30 @@
           "default": {
             "channel": 0,
             "number": 38,
-            "eventType": "noteon/noteoff",
+            "eventType": "unknown",
             "response": "gate"
           },
+          "overrideable": false,
           "type": "pad",
-          "overrideable": true,
           "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
+          "width": 1,
+          "height": 1,
           "availableColors": [
             {
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "string": "transparent",
+              "number": 11
             },
             {
               "name": "Red",
               "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
+              "value": 127,
+              "number": 11
             }
           ]
         },
@@ -500,2725 +258,154 @@
           "default": {
             "channel": 0,
             "number": 39,
-            "eventType": "noteon/noteoff",
+            "eventType": "unknown",
             "response": "gate"
           },
+          "overrideable": false,
           "type": "pad",
-          "overrideable": true,
           "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
+          "width": 1,
+          "height": 1,
           "availableColors": [
             {
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "string": "transparent",
+              "number": 12
             },
             {
               "name": "Red",
               "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
+              "value": 127,
+              "number": 12
             }
           ]
         },
         {
           "default": {
             "channel": 0,
-            "number": 24,
-            "eventType": "noteon/noteoff",
+            "number": 32,
+            "eventType": "unknown",
             "response": "gate"
           },
+          "overrideable": false,
           "type": "pad",
-          "overrideable": true,
           "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
+          "width": 1,
+          "height": 1,
           "availableColors": [
             {
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "string": "transparent",
+              "number": 13
             },
             {
               "name": "Red",
               "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
+              "value": 127,
+              "number": 13
             }
           ]
         },
         {
           "default": {
             "channel": 0,
-            "number": 25,
-            "eventType": "noteon/noteoff",
+            "number": 33,
+            "eventType": "unknown",
             "response": "gate"
           },
+          "overrideable": false,
           "type": "pad",
-          "overrideable": true,
           "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
+          "width": 1,
+          "height": 1,
           "availableColors": [
             {
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "string": "transparent",
+              "number": 14
             },
             {
               "name": "Red",
               "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
+              "value": 127,
+              "number": 14
             }
           ]
         },
         {
           "default": {
             "channel": 0,
-            "number": 26,
-            "eventType": "noteon/noteoff",
+            "number": 34,
+            "eventType": "unknown",
             "response": "gate"
           },
-          "overrideable": true,
+          "overrideable": false,
           "type": "pad",
           "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
+          "width": 1,
+          "height": 1,
           "availableColors": [
             {
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "string": "transparent",
+              "number": 15
             },
             {
               "name": "Red",
               "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
+              "value": 127,
+              "number": 15
             }
           ]
         },
         {
           "default": {
             "channel": 0,
-            "number": 27,
-            "eventType": "noteon/noteoff",
+            "number": 35,
+            "eventType": "unknown",
             "response": "gate"
           },
+          "overrideable": false,
           "type": "pad",
-          "overrideable": true,
           "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
+          "width": 1,
+          "height": 1,
           "availableColors": [
             {
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "number": 16
             },
             {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 28,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 29,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 30,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 31,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 16,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 17,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 18,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 19,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 20,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 21,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 22,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 23,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 8,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 9,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 10,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 11,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 12,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 13,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 14,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 15,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 0,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 1,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 2,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 3,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 4,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 5,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 6,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 7,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.3,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 3
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 4,
-              "modifier": "blink"
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 5
-            },
-            {
-              "name": "Yellow",
-              "default": false,
-              "string": "#FFC107",
-              "eventType": "noteon",
-              "value": 6,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 64,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "circle",
-          "overrideable": true,
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 65,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "circle",
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 66,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "circle",
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 67,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "circle",
-          "overrideable": true,
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 68,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "circle",
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 69,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "circle",
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 70,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "circle",
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 71,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "circle",
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Red",
-              "default": false,
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
               "name": "Red",
               "default": false,
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "VertCircles",
-      "height": 3.75,
-      "width": 0.5,
-      "left": 6.85,
-      "bottom": 3.5,
-      "nRows": 6,
-      "nCols": 1,
-      "inputs": [
-        {
-          "default": {
-            "channel": 0,
-            "number": 82,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "circle",
-          "width": 0.25,
-          "height": 0.25,
-          "overrideable": true,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 83,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "circle",
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 84,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "circle",
-          "overrideable": true,
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 85,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "circle",
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 86,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "circle",
-          "overrideable": true,
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
-            }
-          ]
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 81,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "circle",
-          "overrideable": true,
-          "width": 0.25,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "default": true,
-              "eventType": "noteon",
-              "value": 0
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
-              "eventType": "noteon",
-              "value": 1
-            },
-            {
-              "name": "Green",
-              "default": false,
-              "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "value": 127,
+              "number": 16
             }
           ]
         }
@@ -3226,24 +413,23 @@
     },
     {
       "id": "Knobs",
-      "height": 2.25,
-      "width": 4.25,
-      "bottom": 5,
-      "left": 7.45,
+      "height": 2.5,
+      "width": 4.5,
+      "bottom": 4.25,
+      "left": 7.5,
       "nRows": 2,
       "nCols": 4,
-      "type": "knob",
-
       "inputs": [
         {
           "default": {
             "channel": 0,
-            "number": 48,
+            "number": 1,
             "eventType": "controlchange",
             "response": "linear"
           },
-          "type": "knob",
           "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
           "width": 0.5,
           "height": 0.5,
           "availableColors": []
@@ -3251,12 +437,13 @@
         {
           "default": {
             "channel": 0,
-            "number": 49,
+            "number": 2,
             "eventType": "controlchange",
             "response": "linear"
           },
-          "type": "knob",
           "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
           "width": 0.5,
           "height": 0.5,
           "availableColors": []
@@ -3264,38 +451,13 @@
         {
           "default": {
             "channel": 0,
-            "number": 50,
+            "number": 3,
             "eventType": "controlchange",
             "response": "linear"
           },
-          "type": "knob",
-          "width": 0.5,
-          "height": 0.5,
           "overrideable": true,
-          "availableColors": []
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 51,
-            "eventType": "controlchange",
-            "response": "linear"
-          },
           "type": "knob",
-          "width": 0.5,
-          "height": 0.5,
-          "overrideable": true,
-          "availableColors": []
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 52,
-            "eventType": "controlchange",
-            "response": "linear"
-          },
-          "type": "knob",
-          "overrideable": true,
+          "shape": "circle",
           "width": 0.5,
           "height": 0.5,
           "availableColors": []
@@ -3303,12 +465,13 @@
         {
           "default": {
             "channel": 0,
-            "number": 53,
+            "number": 4,
             "eventType": "controlchange",
             "response": "linear"
           },
-          "type": "knob",
           "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
           "width": 0.5,
           "height": 0.5,
           "availableColors": []
@@ -3316,12 +479,13 @@
         {
           "default": {
             "channel": 0,
-            "number": 54,
+            "number": 5,
             "eventType": "controlchange",
             "response": "linear"
           },
-          "type": "knob",
           "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
           "width": 0.5,
           "height": 0.5,
           "availableColors": []
@@ -3329,12 +493,41 @@
         {
           "default": {
             "channel": 0,
-            "number": 55,
+            "number": 6,
             "eventType": "controlchange",
             "response": "linear"
           },
-          "type": "knob",
           "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
+          "width": 0.5,
+          "height": 0.5,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 7,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
+          "width": 0.5,
+          "height": 0.5,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 8,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
           "width": 0.5,
           "height": 0.5,
           "availableColors": []
@@ -3342,94 +535,77 @@
       ]
     },
     {
-      "id": "Aux1",
-      "height": 1.25,
-      "width": 4,
+      "id": "PAD CONTROLS",
+      "height": 0.25,
+      "width": 2.625,
+      "bottom": 3.875,
       "left": 7.625,
-      "bottom": 3.5,
-      "nRows": 2,
-      "nCols": 5,
+      "nRows": 1,
+      "nCols": 3,
       "inputs": [
         {
           "default": {
-            "channel": 1,
-            "number": 64,
-            "eventType": "controlchange",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.25,
-          "availableColors": []
-        },
-        {
-          "default": {
-            "channel": 1,
+            "channel": -1,
             "number": -1,
-            "eventType": "octdown",
+            "eventType": "unknown",
             "response": "gate"
           },
+          "overrideable": false,
           "type": "pad",
           "shape": "rect",
-          "overrideable": false,
           "width": 0.5,
           "height": 0.25,
           "availableColors": []
         },
         {
           "default": {
-            "channel": 1,
+            "channel": -1,
+            "number": -2,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "width": 0.5,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -3,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "width": 0.5,
+          "height": 0.25,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "PROG SELECT",
+      "height": 0.25,
+      "width": 0.5,
+      "left": 10.75,
+      "bottom": 3.875,
+      "nRows": 1,
+      "nCols": 1,
+      "inputs": [
+        {
+          "default": {
+            "channel": -1,
             "number": -1,
-            "eventType": "octup",
+            "eventType": "unknown",
             "response": "gate"
           },
-          "type": "pad",
-          "shape": "rect",
           "overrideable": false,
-          "width": 0.5,
-          "height": 0.25,
-          "availableColors": []
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 91,
-            "eventType": "controlchange",
-            "response": "gate"
-          },
           "type": "pad",
           "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.25,
-          "availableColors": []
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 93,
-            "eventType": "controlchange",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 0.5,
-          "height": 0.25,
-          "availableColors": []
-        },
-        {
-          "default": {
-            "channel": 0,
-            "number": 98,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
           "width": 0.5,
           "height": 0.25,
           "availableColors": []
