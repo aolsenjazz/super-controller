@@ -16,13 +16,13 @@ export type DeviceStyle = {
 };
 
 export type DeviceDriver = {
-  /** e.g. '3/1' */
-  aspectRatio: string;
-
   /** Device-reported name */
   name: string;
 
-  /** See DeviceStyle type */
+  width: number;
+
+  height: number;
+
   style: DeviceStyle;
 
   keyboard?: KeyboardDriver;

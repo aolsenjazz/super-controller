@@ -5,8 +5,8 @@ type PropTypes = {
   value: number;
   enabled: boolean;
   focus: boolean;
-  width: number;
-  height: number;
+  width: string;
+  height: string;
   onClick: (event: React.MouseEvent) => void;
 };
 
@@ -19,7 +19,7 @@ export function WheelLayout(props: PropTypes) {
     bottom: `${shift * 100}%`,
     left: 0,
     width: `calc(100% - 2px)`,
-    height: `${width - 2}px`,
+    height: `calc(${width} - 2px)`,
   };
 
   const oStyle = {
@@ -29,7 +29,7 @@ export function WheelLayout(props: PropTypes) {
 
   return (
     <div
-      className={`wheel ${enabled ? 'Hoverable' : ''} ${focus ? 'focus' : ''}`}
+      className={`wheel ${enabled ? 'hoverable' : ''} ${focus ? 'focus' : ''}`}
       style={oStyle}
       onClick={(e) => onClick(e)}
       tabIndex={0}
@@ -38,7 +38,7 @@ export function WheelLayout(props: PropTypes) {
     >
       <div
         style={{
-          top: width / 2,
+          top: `calc(${width} / 2)`,
           position: 'absolute',
           width: '100%',
           height: `calc(100% - ${width}px)`,

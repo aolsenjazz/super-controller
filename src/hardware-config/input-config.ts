@@ -35,7 +35,7 @@ export class InputConfig {
 
   readonly overrideable: boolean;
 
-  readonly type: 'pad' | 'knob' | 'slider' | 'wheel';
+  readonly type: 'pad' | 'knob' | 'slider' | 'wheel' | 'xy';
 
   /**
    * Object containing overridden values. E.g. a given Pad which typically send
@@ -130,12 +130,22 @@ export class InputConfig {
     );
 
     if (['gate', 'toggle'].includes(this.default.response)) {
+      const defaultColor =
+        this.availableColors.length > 0
+          ? this.availableColors.filter((c) => c.default)[0]
+          : undefined;
+
+      const isOffSet = override.lightConfig.get('off') !== undefined;
+      const offColor = isOffSet
+        ? override.lightConfig.get('off')
+        : defaultColor;
+
       type Type = 'gate' | 'toggle' | 'constant';
       this.devicePropagator = new BinaryPropagator(
         this.default.response as 'gate' | 'toggle',
         (this.override.response || this.default.response) as Type,
         InputConfig.msgFor(this, override.lightConfig.get('on')),
-        InputConfig.msgFor(this, override.lightConfig.get('off')),
+        InputConfig.msgFor(this, offColor),
         lastResponse
       );
     } else {
@@ -217,12 +227,15 @@ export class InputConfig {
       return ['noteon', 'noteoff', 'controlchange', 'programchange'];
     }
 
+    if (this.eventType === 'pitchbend') return ['pitchbend'];
+
     return ['noteon/noteoff', 'controlchange', 'programchange'];
   }
 
   get defaultColor(): Color | undefined {
-    const config = this.#lightConfig();
-    return config.get(this.devicePropagator.defaultState);
+    return this.availableColors.length > 0
+      ? this.availableColors.filter((c) => c.default === true)[0]
+      : undefined;
   }
 
   get currentColor(): Color | undefined {

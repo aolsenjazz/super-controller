@@ -1,5 +1,6 @@
 {
-  "aspectRatio": "592/393",
+  "height": 7.5,
+  "width": 12.125,
   "name": "APC Key 25",
   "style": {
     "borderTopLeftRadius": "2em",
@@ -11,26 +12,20 @@
     "defaultOctave": 2,
     "nOctaves": 2,
     "channel": 1,
-    "style": {
-      "width": "95%",
-      "height": "45%",
-      "bottom": 0,
-      "left": "2.5%"
-    }
+    "width": 11.5,
+    "height": 3.125,
+    "left": 0.3125,
+    "bottom": 0
   },
   "inputGrids": [
     {
       "id": "MainPads",
-      "height": 0.023,
-      "width": 0.044,
-      "nRows": 5,
+      "height": 3.75,
+      "width": 6.375,
+      "left": 0.375,
+      "bottom": 3.5,
+      "nRows": 6,
       "nCols": 8,
-      "style": {
-        "width": "50%",
-        "height": "40%",
-        "top": "4%",
-        "left": "4%"
-      },
       "inputs": [
         {
           "default": {
@@ -40,6 +35,8 @@
             "response": "gate"
           },
           "type": "pad",
+          "width": 0.5,
+          "height": 0.3,
           "overrideable": true,
           "shape": "rect",
           "availableColors": [
@@ -107,6 +104,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -172,6 +171,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -237,6 +238,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -302,6 +305,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -367,6 +372,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -432,6 +439,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -497,6 +506,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -562,6 +573,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -627,6 +640,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -692,6 +707,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -757,6 +774,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -822,6 +841,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -887,6 +908,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -952,6 +975,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1017,6 +1042,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1082,6 +1109,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1147,6 +1176,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1212,6 +1243,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1277,6 +1310,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1342,6 +1377,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1407,6 +1444,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1472,6 +1511,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1537,6 +1578,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1602,6 +1645,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1667,6 +1712,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1732,6 +1779,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1797,6 +1846,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1862,6 +1913,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1927,6 +1980,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -1992,6 +2047,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -2057,6 +2114,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -2122,6 +2181,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -2187,6 +2248,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -2252,6 +2315,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -2317,6 +2382,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -2382,6 +2449,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -2447,6 +2516,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -2512,6 +2583,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -2577,6 +2650,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": [
             {
               "name": "Clear",
@@ -2631,22 +2706,7 @@
               "modifier": "blink"
             }
           ]
-        }
-      ]
-    },
-    {
-      "id": "HoriCircles",
-      "height": 0.022,
-      "width": 0.022,
-      "nRows": 1,
-      "nCols": 8,
-      "style": {
-        "width": "50%",
-        "height": "8%",
-        "top": "44%",
-        "left": "4%"
-      },
-      "inputs": [
+        },
         {
           "default": {
             "channel": 0,
@@ -2657,6 +2717,8 @@
           "type": "pad",
           "shape": "circle",
           "overrideable": true,
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -2691,6 +2753,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -2725,6 +2789,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -2759,6 +2825,8 @@
           "type": "pad",
           "shape": "circle",
           "overrideable": true,
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -2793,6 +2861,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -2827,6 +2897,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -2861,6 +2933,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -2895,6 +2969,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -2923,16 +2999,12 @@
     },
     {
       "id": "VertCircles",
-      "height": 0.022,
-      "width": 0.022,
+      "height": 3.75,
+      "width": 0.5,
+      "left": 6.85,
+      "bottom": 3.5,
       "nRows": 6,
       "nCols": 1,
-      "style": {
-        "width": "8%",
-        "height": "48%",
-        "top": "4%",
-        "left": "54%"
-      },
       "inputs": [
         {
           "default": {
@@ -2943,6 +3015,8 @@
           },
           "type": "pad",
           "shape": "circle",
+          "width": 0.25,
+          "height": 0.25,
           "overrideable": true,
           "availableColors": [
             {
@@ -2978,6 +3052,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -3012,6 +3088,8 @@
           "type": "pad",
           "shape": "circle",
           "overrideable": true,
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -3046,6 +3124,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -3080,6 +3160,8 @@
           "type": "pad",
           "shape": "circle",
           "overrideable": true,
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -3114,6 +3196,8 @@
           "type": "pad",
           "shape": "circle",
           "overrideable": true,
+          "width": 0.25,
+          "height": 0.25,
           "availableColors": [
             {
               "name": "Clear",
@@ -3142,17 +3226,14 @@
     },
     {
       "id": "Knobs",
-      "height": 0.047,
-      "width": 0.047,
+      "height": 2.25,
+      "width": 4.25,
+      "bottom": 5,
+      "left": 7.45,
       "nRows": 2,
       "nCols": 4,
       "type": "knob",
-      "style": {
-        "width": "35%",
-        "height": "30%",
-        "top": "2.5%",
-        "left": "61%"
-      },
+
       "inputs": [
         {
           "default": {
@@ -3163,6 +3244,8 @@
           },
           "type": "knob",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -3174,6 +3257,8 @@
           },
           "type": "knob",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -3184,6 +3269,8 @@
             "response": "linear"
           },
           "type": "knob",
+          "width": 0.5,
+          "height": 0.5,
           "overrideable": true,
           "availableColors": []
         },
@@ -3195,6 +3282,8 @@
             "response": "linear"
           },
           "type": "knob",
+          "width": 0.5,
+          "height": 0.5,
           "overrideable": true,
           "availableColors": []
         },
@@ -3207,6 +3296,8 @@
           },
           "type": "knob",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -3218,6 +3309,8 @@
           },
           "type": "knob",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -3229,6 +3322,8 @@
           },
           "type": "knob",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -3240,22 +3335,20 @@
           },
           "type": "knob",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.5,
           "availableColors": []
         }
       ]
     },
     {
       "id": "Aux1",
-      "height": 0.023,
-      "width": 0.044,
-      "nRows": 1,
+      "height": 1.25,
+      "width": 4,
+      "left": 7.625,
+      "bottom": 3.5,
+      "nRows": 2,
       "nCols": 5,
-      "style": {
-        "width": "35%",
-        "height": "15%",
-        "top": "32.5%",
-        "left": "61%"
-      },
       "inputs": [
         {
           "default": {
@@ -3267,6 +3360,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.25,
           "availableColors": []
         },
         {
@@ -3279,6 +3374,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": false,
+          "width": 0.5,
+          "height": 0.25,
           "availableColors": []
         },
         {
@@ -3291,6 +3388,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": false,
+          "width": 0.5,
+          "height": 0.25,
           "availableColors": []
         },
         {
@@ -3303,6 +3402,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.25,
           "availableColors": []
         },
         {
@@ -3315,23 +3416,10 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.25,
           "availableColors": []
-        }
-      ]
-    },
-    {
-      "id": "Aux2",
-      "height": 0.023,
-      "width": 0.044,
-      "nRows": 1,
-      "nCols": 1,
-      "style": {
-        "width": "calc(35% * 0.2)",
-        "height": "7.5%",
-        "top": "44.5%",
-        "left": "61%"
-      },
-      "inputs": [
+        },
         {
           "default": {
             "channel": 0,
@@ -3342,6 +3430,8 @@
           "type": "pad",
           "shape": "rect",
           "overrideable": true,
+          "width": 0.5,
+          "height": 0.25,
           "availableColors": []
         }
       ]

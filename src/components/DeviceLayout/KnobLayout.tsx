@@ -48,12 +48,13 @@ export function Knob(props: PropTypes) {
   );
 
   const kStyle = {
-    width: size,
-    height: size,
+    width: `${size}`,
+    height: `${size}`,
   };
-  const iStyle = dcpy(kStyle);
-  const oStyle = dcpy(kStyle);
-  iStyle.transform = `rotate(${curDeg}deg)`;
+
+  const iStyle = {
+    transform: `rotate(${curDeg}deg)`,
+  };
 
   return (
     <div
@@ -69,8 +70,7 @@ export function Knob(props: PropTypes) {
         role="button"
         tabIndex={0}
         style={{
-          borderRadius: shape === 'circle' || !shape ? size : '',
-          ...oStyle,
+          borderRadius: shape === 'circle' || !shape ? '100%' : '',
         }}
       >
         <div className={`inner ${enabled ? 'hoverable' : ''}`} style={iStyle}>

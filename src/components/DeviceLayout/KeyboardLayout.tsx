@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-import { InputGridStyle } from '../../driver-types';
 import KeyWhite from './KeyWhite';
 import KeyBlack from './KeyBlack';
 
@@ -10,12 +9,34 @@ const FUNDAMENTALS_WHITE = [0, 2, 4, 5, 7, 9, 11];
 const FUNDAMENTALS_BLACK = [1, 3, 6, 8, 10];
 
 type PropTypes = {
-  style: InputGridStyle;
   nOctaves: number;
+  width: number;
+  height: number;
+  left: number;
+  bottom: number;
+  deviceWidth: number;
+  deviceHeight: number;
 };
 
 export default function Keyboard(props: PropTypes) {
-  const { nOctaves, style } = props;
+  const {
+    nOctaves,
+    width,
+    height,
+    left,
+    bottom,
+    deviceWidth,
+    deviceHeight,
+  } = props;
+
+  console.log(width, deviceWidth);
+
+  const style = {
+    width: `${(width / deviceWidth) * 100}%`,
+    height: `${(height / deviceHeight) * 100}%`,
+    left: `${(left / deviceWidth) * 100}%`,
+    bottom: `${(bottom / deviceHeight) * 100}%`,
+  };
 
   return (
     <div id="keyboard-container" style={style} className="input-grid">

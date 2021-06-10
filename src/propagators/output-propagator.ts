@@ -69,7 +69,9 @@ export class OutputPropagator extends Propagator {
       case 'toggle':
         return this.#handleAsToggle(msg);
       case 'linear':
-        return this.#handleAsLinear(msg);
+        return this.eventType === 'pitchbend'
+          ? this.#handleAsPitchbend(msg)
+          : this.#handleAsLinear(msg);
       case 'constant':
         return this.#handleAsConstant();
       default:
@@ -105,6 +107,12 @@ export class OutputPropagator extends Propagator {
       this.channel,
       0
     );
+  };
+
+  #handleAsPitchbend = (msg: MidiValue[]) => {
+    const mm = new MidiMessage(msg, 0);
+    mm.channel = this.channel;
+    return mm;
   };
 
   #handleAsConstant = () => {

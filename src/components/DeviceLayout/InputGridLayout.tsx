@@ -15,17 +15,19 @@ type ElementPropTypes = {
   input: VirtualInput;
   config: InputConfig;
   configured: boolean;
-  width: number;
-  height: number;
+  width: string;
+  height: string;
   focus: boolean;
   onClick: (event: React.MouseEvent, id: string) => void;
 };
 
 function Element(props: ElementPropTypes) {
   const { input, config, configured, width, height, onClick, focus } = props;
-  const [value, setValue] = useState(0);
   const [color, setColor] = useState<Color | undefined>(config.currentColor);
   const enabled = configured && input.overrideable;
+
+  const defaultVal = config.eventType === 'pitchbend' ? 64 : 0;
+  const [value, setValue] = useState(defaultVal);
 
   // Whenever a light config is change, change accordingly
   useEffect(() => {
@@ -102,8 +104,9 @@ function Element(props: ElementPropTypes) {
 type PropTypes = {
   inputGrid: VirtualInputGrid;
   deviceWidth: number;
+  deviceHeight: number;
   deviceConfig: SupportedDeviceConfig;
-  onClick: (event: React.MouseEvent, id: string) => void;
+  onClick: (event: React.MouseEvent, ids: string[]) => void;
   configured: boolean;
   selectedInputs: string[];
 };
@@ -116,12 +119,22 @@ const InputGridLayout = (props: PropTypes) => {
     configured,
     selectedInputs,
     deviceConfig,
+    deviceHeight,
   } = props;
 
+  const style = {
+    ...inputGrid.style,
+    width: `${(inputGrid.width / deviceWidth) * 100}%`,
+    height: `${(inputGrid.height / deviceHeight) * 100}%`,
+    left: `${(inputGrid.left / deviceWidth) * 100}%`,
+    bottom: `${(inputGrid.bottom / deviceHeight) * 100}%`,
+  };
+
   return (
-    <div className="input-grid" style={inputGrid.style}>
+    <div className="input-grid" style={style}>
       {inputGrid.inputs.map((input) => {
         const inputConfig = deviceConfig.getInput(input.id);
+        const inputHeight = input.shape === 'rect' ? input.height : input.width;
 
         return (
           <div
@@ -133,13 +146,17 @@ const InputGridLayout = (props: PropTypes) => {
             }}
           >
             <Element
-              width={inputGrid.width * deviceWidth}
-              height={inputGrid.height * deviceWidth}
+              width={`${
+                (input.width / (inputGrid.width / inputGrid.nCols)) * 100
+              }%`}
+              height={`${
+                (inputHeight / (inputGrid.height / inputGrid.nRows)) * 100
+              }%`}
               input={input}
               config={inputConfig!}
               configured={configured}
               onClick={(_e, id: string) => {
-                if (input.overrideable && configured) onClick(_e, id);
+                if (input.overrideable && configured) onClick(_e, [id]);
               }}
               focus={selectedInputs.includes(input.id) && configured}
             />

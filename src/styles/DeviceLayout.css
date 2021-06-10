@@ -24,17 +24,7 @@
   text-align: center;
 }
 
-.device-layout .pad.focus {
-  border-style: dashed !important;
-  filter: sepia(0.2);
-}
-
-.device-layout .knob .outer.focus {
-  border-style: dashed !important;
-  filter: sepia(0.2);
-}
-
-.device-layout .wheel.focus {
+.device-layout .focus {
   border-style: dashed !important;
   filter: sepia(0.2);
 }
@@ -73,12 +63,16 @@
 
 .device-layout .knob .inner {
   position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .device-layout .knob .outer {
   border: 1px solid #3a84e9;
   overflow: hidden;
   position: absolute;
+  width: 100%;
+  height: 100%;
 }
 .device-layout .knob .inner .grip {
   position: absolute;
@@ -144,4 +138,19 @@
   border: 1px solid #3a84e9;
   position: absolute;
   transform: translateY(50%);
+}
+
+.device-layout .xy {
+  position: relative;
+  border: 1px solid #3a84e9;
+  width: 100%;
+  height: 100%;
+}
+
+.device-layout .xy .inner {
+  border: 1px solid #3a84e9;
+  border-radius: 100%;
+  position: absolute;
+  background-color: #e6e2e3;
+  transform: translate(-50%, 50%);
 }

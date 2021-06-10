@@ -15,4 +15,6 @@ export type InputDriver = {
   type: 'knob' | 'pad' | 'slider' | 'wheel';
   availableColors: Color[];
   overrideable: boolean;
+  height: number;
+  width: number;
 };

@@ -10,6 +10,10 @@ export class VirtualInput {
 
   readonly overrideable: boolean;
 
+  readonly height: number;
+
+  readonly width: number;
+
   #eventType: EventType;
 
   #number: MidiValue;
@@ -18,6 +22,8 @@ export class VirtualInput {
 
   static fromDriver(driver: InputDriver) {
     return new VirtualInput(
+      driver.width,
+      driver.height,
       driver.default.eventType,
       driver.default.channel,
       driver.default.number,
@@ -28,6 +34,8 @@ export class VirtualInput {
   }
 
   constructor(
+    width: number,
+    height: number,
     eventType: EventType,
     channel: Channel,
     number: MidiValue,
@@ -35,6 +43,8 @@ export class VirtualInput {
     type: string,
     overrideable: boolean
   ) {
+    this.width = width;
+    this.height = height;
     this.shape = shape;
     this.type = type;
     this.#eventType = eventType;

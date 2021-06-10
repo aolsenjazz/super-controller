@@ -1,18 +1,12 @@
-import React, { useCallback } from 'react';
-import { EventType, MidiValue, Channel } from 'midi-message-parser';
+import React from 'react';
 
-import SettingsLineItem from './SettingsLineItem';
 import BasicMessage from './BasicMessage';
 import NotConfigured from './NotConfigured';
-import BacklightSettings from './BacklightSettings';
 import DeviceConfigPanel from './DeviceConfigPanel';
+import MonoInputConfigPanel from './MonoInputConfigPanel';
+import XYConfigPanel from './XYConfigPanel';
 
-import {
-  DeviceConfig,
-  SupportedDeviceConfig,
-  InputConfig,
-} from '../../hardware-config';
-import { ipcRenderer } from '../../ipc-renderer';
+import { DeviceConfig, SupportedDeviceConfig } from '../../hardware-config';
 import { Project } from '../../project';
 import { InputGroup } from '../../input-group';
 
@@ -25,104 +19,21 @@ type InputConfigurationProps = {
 function InputConfiguration(props: InputConfigurationProps) {
   const { device, project, group } = props;
 
-  const {
-    number,
-    channel,
-    eventType,
-    propagationStrategy,
-    eligibleEventTypes,
-    eligibleResponses,
-  } = group;
-
-  const eligibleChannels = [...Array(16).keys()] as Channel[];
-  const eligibleNumbers = [...Array(128).keys()] as MidiValue[];
-
-  const numberLabels = eligibleNumbers.map((v) => {
-    if (eventType === 'controlchange') {
-      const inUseLabel = v === number ? '' : ' [in use]';
-      return device.bindingAvailable(eventType, v, channel) || v === number
-        ? group.labelForNumber(v)
-        : `${v}${inUseLabel}`;
-    }
-
-    return group.labelForNumber(v);
-  });
-  const channelLabels = eligibleChannels.map((v) => group.labelForChannel(v));
-  const eventTypeLabels = eligibleEventTypes.map((v) =>
-    group.labelForEventType(v)
+  const InputConfigPanel = group.isMultiInput ? (
+    <XYConfigPanel project={project} device={device} group={group} />
+  ) : (
+    <MonoInputConfigPanel
+      project={project}
+      device={device}
+      group={group}
+      title="MIDI Settings"
+    />
   );
-  const responseLabels = eligibleResponses.map((v) =>
-    group.labelForResponse(v)
-  );
-
-  const onChange = useCallback(
-    (setter: (c: InputConfig) => void) => {
-      group.inputs.forEach((i) => setter(i));
-
-      ipcRenderer.sendProject(project, true);
-    },
-    [group, project]
-  );
-
-  const restoreDefaults = useCallback(() => {
-    group.inputs.forEach((input) => input.restoreDefaults());
-    ipcRenderer.sendProject(project, true);
-  }, [group, project]);
 
   return (
     <>
       <DeviceConfigPanel project={project} config={device} />
-      <h3>MIDI Settings</h3>
-      <div id="controls-container">
-        <SettingsLineItem
-          label="Event Type:"
-          value={eventType}
-          valueList={eligibleEventTypes}
-          labelList={eventTypeLabels}
-          onChange={(v) =>
-            onChange((c) => {
-              c.eventType = v as EventType;
-            })
-          }
-        />
-        <SettingsLineItem
-          label="Input Response:"
-          value={propagationStrategy}
-          valueList={eligibleResponses}
-          labelList={responseLabels}
-          onChange={(v) => {
-            onChange((c) => {
-              c.response = v as 'gate' | 'toggle' | 'linear';
-            });
-          }}
-        />
-        <SettingsLineItem
-          label="Number:"
-          value={number}
-          valueList={eligibleNumbers}
-          labelList={numberLabels}
-          onChange={(v) => {
-            onChange((c) => {
-              c.number = v as MidiValue;
-            });
-          }}
-        />
-        <SettingsLineItem
-          label="Channel:"
-          value={channel}
-          labelList={channelLabels}
-          valueList={eligibleChannels}
-          onChange={(v) => {
-            onChange((c) => {
-              c.channel = v as Channel;
-            });
-          }}
-        />
-        <button type="button" onClick={restoreDefaults}>
-          Restore Defaults
-        </button>
-        <BacklightSettings group={group} project={project} device={device} />
-      </div>
+      {InputConfigPanel}
     </>
   );
 }

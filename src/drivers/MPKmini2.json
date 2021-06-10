@@ -1,0 +1,585 @@
+{
+  "aspectRatio": "12.5/6.5",
+  "name": "MPKmini2",
+  "style": {
+    "borderTopLeftRadius": "0.5em",
+    "borderTopRightRadius": "0.5em",
+    "borderBottomLeftRadius": "0.5em",
+    "borderBottomRightRadius": "0.5em"
+  },
+  "keyboard": {
+    "defaultOctave": 2,
+    "nOctaves": 2,
+    "channel": 0,
+    "style": {
+      "width": "96%",
+      "height": "50%",
+      "bottom": 0,
+      "left": "2%"
+    }
+  },
+  "inputGrids": [
+    {
+      "id": "XY",
+      "height": 0.04,
+      "width": 0.04,
+      "nRows": 1,
+      "nCols": 1,
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": 0,
+            "eventType": "pitchbend",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "xy",
+          "shape": "circle",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 1,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "xy",
+          "shape": "circle",
+          "availableColors": []
+        }
+      ],
+      "style": {
+        "width": "8%",
+        "height": "15%",
+        "top": "3.8%",
+        "left": "4%"
+      }
+    },
+    {
+      "id": "Arpeggiator",
+      "height": 0.02,
+      "width": 0.04,
+      "nRows": 3,
+      "nCols": 2,
+      "style": {
+        "width": "12.5%",
+        "height": "23%",
+        "top": "23%",
+        "left": "2%"
+      },
+      "inputs": [
+        {
+          "default": {
+            "channel": -1,
+            "number": -1,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -2,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -3,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -4,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -5,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -6,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Pads",
+      "height": 0.08,
+      "width": 0.08,
+      "nRows": 2,
+      "nCols": 4,
+      "style": {
+        "width": "45%",
+        "height": "43%",
+        "top": "3.8%",
+        "left": "16%"
+      },
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": 36,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "noteon",
+              "value": 0,
+              "string": "transparent",
+              "number": 9
+            },
+            {
+              "name": "Red",
+              "default": false,
+              "string": "#F44336",
+              "eventType": "noteon",
+              "value": 127,
+              "number": 9
+            }
+          ]
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 37,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "noteon",
+              "value": 0,
+              "string": "transparent",
+              "number": 10
+            },
+            {
+              "name": "Red",
+              "default": false,
+              "string": "#F44336",
+              "eventType": "noteon",
+              "value": 127,
+              "number": 10
+            }
+          ]
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 38,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "noteon",
+              "value": 0,
+              "string": "transparent",
+              "number": 11
+            },
+            {
+              "name": "Red",
+              "default": false,
+              "string": "#F44336",
+              "eventType": "noteon",
+              "value": 127,
+              "number": 11
+            }
+          ]
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 39,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "noteon",
+              "value": 0,
+              "string": "transparent",
+              "number": 12
+            },
+            {
+              "name": "Red",
+              "default": false,
+              "string": "#F44336",
+              "eventType": "noteon",
+              "value": 127,
+              "number": 12
+            }
+          ]
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 32,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "noteon",
+              "value": 0,
+              "string": "transparent",
+              "number": 13
+            },
+            {
+              "name": "Red",
+              "default": false,
+              "string": "#F44336",
+              "eventType": "noteon",
+              "value": 127,
+              "number": 13
+            }
+          ]
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 33,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "noteon",
+              "value": 0,
+              "string": "transparent",
+              "number": 14
+            },
+            {
+              "name": "Red",
+              "default": false,
+              "string": "#F44336",
+              "eventType": "noteon",
+              "value": 127,
+              "number": 14
+            }
+          ]
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 34,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "noteon",
+              "value": 0,
+              "string": "transparent",
+              "number": 15
+            },
+            {
+              "name": "Red",
+              "default": false,
+              "string": "#F44336",
+              "eventType": "noteon",
+              "value": 127,
+              "number": 15
+            }
+          ]
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 35,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "noteon",
+              "value": 0,
+              "string": "transparent",
+              "number": 16
+            },
+            {
+              "name": "Red",
+              "default": false,
+              "string": "#F44336",
+              "eventType": "noteon",
+              "value": 127,
+              "number": 16
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Knobs",
+      "height": 0.04,
+      "width": 0.04,
+      "nRows": 2,
+      "nCols": 4,
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": 1,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 2,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 3,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 4,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 5,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 6,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 7,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 8,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
+          "availableColors": []
+        }
+      ],
+      "style": {
+        "width": "34%",
+        "height": "27%",
+        "top": "3.8%",
+        "right": "4%"
+      }
+    },
+    {
+      "id": "PAD CONTROLS",
+      "height": 0.02,
+      "width": 0.04,
+      "nRows": 1,
+      "nCols": 3,
+      "style": {
+        "width": "18%",
+        "height": "3.8%",
+        "top": "38%",
+        "right": "18%"
+      },
+      "inputs": [
+        {
+          "default": {
+            "channel": -1,
+            "number": -1,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -2,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -3,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "PROG SELECT",
+      "height": 0.02,
+      "width": 0.04,
+      "nRows": 1,
+      "nCols": 1,
+      "style": {
+        "width": "4%",
+        "height": "3.8%",
+        "top": "38%",
+        "right": "8%"
+      },
+      "inputs": [
+        {
+          "default": {
+            "channel": -1,
+            "number": -1,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "availableColors": []
+        }
+      ]
+    }
+  ]
+}

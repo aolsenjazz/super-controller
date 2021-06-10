@@ -11,7 +11,9 @@ export class VirtualDevice {
 
   readonly name: string;
 
-  readonly aspectRatio: string;
+  readonly width: number;
+
+  readonly height: number;
 
   readonly style: DeviceStyle;
 
@@ -22,12 +24,17 @@ export class VirtualDevice {
   constructor(id: string, driver: DeviceDriver) {
     this.id = id;
     this.name = driver.name;
-    this.aspectRatio = driver.aspectRatio;
+    this.width = driver.width;
+    this.height = driver.height;
     this.style = driver.style;
     this.keyboard = driver.keyboard;
 
     this.inputGrids = driver.inputGrids.map(
       (gridDriver: InputGridDriver) => new VirtualInputGrid(gridDriver)
     );
+  }
+
+  get aspectRatio() {
+    return this.width / this.height;
   }
 }

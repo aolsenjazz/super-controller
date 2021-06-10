@@ -74,9 +74,10 @@ export default function BacklightSettings(props: PropTypes) {
             const stateColor = group.colorForState(state);
             const isMultiple = stateColor === '<multiple values>';
 
-            let colorString = isMultiple
-              ? undefined
-              : (stateColor as Color).string;
+            let colorString =
+              isMultiple || stateColor === null
+                ? undefined
+                : (stateColor as Color).string;
             colorString =
               colorString === undefined ? 'transparent' : colorString;
 

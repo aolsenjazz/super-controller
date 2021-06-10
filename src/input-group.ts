@@ -104,6 +104,13 @@ export class InputGroup {
     return color === undefined ? null : color;
   }
 
+  get isMultiInput() {
+    return (
+      this.inputs.filter((input) => input.type !== 'xy').length === 0 &&
+      this.inputs.length > 1
+    );
+  }
+
   get number() {
     return this.#groupValue<MidiValue>(
       (c) => c.number,

@@ -6,6 +6,43 @@ import { ipcRenderer } from '../../ipc-renderer';
 import { SupportedDeviceConfig } from '../../hardware-config';
 import { Project } from '../../project';
 
+type ShareSustainPropTypes = {
+  config: SupportedDeviceConfig;
+  shareableDevices: SupportedDeviceConfig[];
+  project: Project;
+};
+
+function ShareSustain(props: ShareSustainPropTypes) {
+  const { config, shareableDevices, project } = props;
+
+  if (config.keyboardConfig === undefined || shareableDevices.length === 0)
+    return null;
+
+  return (
+    <>
+      <h4>Share sustain:</h4>
+      {shareableDevices.map((dev) => {
+        return (
+          <ShareSustainLine
+            name={dev.nickname}
+            key={dev.id}
+            value={config.sharingWith(dev.id)}
+            onChange={(checked) => {
+              if (checked) {
+                config.shareWith(dev.id);
+              } else {
+                config.stopSharing(dev.id);
+              }
+
+              ipcRenderer.sendProject(project, true);
+            }}
+          />
+        );
+      })}
+    </>
+  );
+}
+
 type PropTypes = {
   project: Project;
   config: SupportedDeviceConfig;
@@ -22,7 +59,9 @@ export default function DeviceConfigPanel(props: PropTypes) {
     [config, project]
   );
 
-  const otherDevices = project.devices.filter((dev) => dev.id !== config.id);
+  const shareableDevices = project.devices.filter(
+    (dev) => dev.id !== config.id && dev.keyboardConfig !== undefined
+  );
 
   const [confirm, setConfirm] = useState<string>('');
   const [confirmClass, setConfirmClass] = useState<string>('');
@@ -47,25 +86,11 @@ export default function DeviceConfigPanel(props: PropTypes) {
       <h3>Device Settings</h3>
       <p>Nickname:</p>
       <input id="nickname" value={config.nickname} onChange={onNameChange} />
-      <h4>Share sustain:</h4>
-      {otherDevices.map((dev) => {
-        return (
-          <ShareSustainLine
-            name={dev.nickname}
-            key={dev.id}
-            value={config.sharingWith(dev.id)}
-            onChange={(checked) => {
-              if (checked) {
-                config.shareWith(dev.id);
-              } else {
-                config.stopSharing(dev.id);
-              }
-
-              ipcRenderer.sendProject(project, true);
-            }}
-          />
-        );
-      })}
+      <ShareSustain
+        config={config}
+        shareableDevices={shareableDevices}
+        project={project}
+      />
       <h4>Delete Configuration:</h4>
       <div id="remove-device">
         <p>

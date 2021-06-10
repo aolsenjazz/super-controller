@@ -7,8 +7,8 @@ type PropTypes = {
   id: string;
   shape: string | undefined;
   color: Color | undefined;
-  width: number;
-  height: number;
+  width: string;
+  height: string;
   enabled: boolean;
   focus: boolean;
 };
@@ -23,8 +23,8 @@ export default function Pad(props: PropTypes) {
         onClick(event, id);
       }}
       style={{
-        width: Math.floor(width),
-        height: Math.floor(height),
+        width,
+        height,
         animationName: color?.modifier,
         backgroundColor: color?.string,
         borderRadius: shape === 'circle' ? '100%' : 0,
