@@ -11,6 +11,7 @@ import { VirtualInputGrid } from '../../virtual-devices';
 type PropTypes = {
   inputGrid: VirtualInputGrid;
   deviceWidth: number;
+  deviceHeight: number;
   deviceConfig: SupportedDeviceConfig;
   onClick: (event: React.MouseEvent, ids: string[]) => void;
   configured: boolean;
@@ -25,6 +26,7 @@ const XYGridLayout = (props: PropTypes) => {
     configured,
     selectedInputs,
     deviceConfig,
+    deviceHeight,
   } = props;
 
   const xInput = inputGrid.inputs[0];
@@ -70,8 +72,15 @@ const XYGridLayout = (props: PropTypes) => {
     };
   }, [xInput, yInput]);
 
+  const igStyle = {
+    width: `${(inputGrid.width / deviceWidth) * 100}%`,
+    height: `${(inputGrid.height / deviceHeight) * 100}%`,
+    left: `${(inputGrid.left / deviceWidth) * 100}%`,
+    bottom: `${(inputGrid.bottom / deviceHeight) * 100}%`,
+  };
+
   return (
-    <div className="input-grid" style={inputGrid.style}>
+    <div className="input-grid" style={igStyle}>
       <div
         className="input-container"
         key={xInput.id}
@@ -81,8 +90,8 @@ const XYGridLayout = (props: PropTypes) => {
         }}
       >
         <XYLayout
-          width={inputGrid.width * deviceWidth}
-          height={inputGrid.height * deviceWidth}
+          width={`${(xInput.width / inputGrid.width) * 100}%`}
+          height={`${(xInput.height / inputGrid.height) * 100}%`}
           xMax={127}
           yMax={127}
           xValue={xValue}

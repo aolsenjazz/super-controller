@@ -7,8 +7,8 @@ type PropTypes = {
   yValue: number;
   enabled: boolean;
   focus: boolean;
-  width: number;
-  height: number;
+  width: string;
+  height: string;
   shape: string;
   onClick: (event: React.MouseEvent) => void;
 };
@@ -33,8 +33,8 @@ export default function XYLayout(props: PropTypes) {
   const iStyle = {
     bottom: `${yShift * 100}%`,
     left: `${xShift * 100}%`,
-    width: `${width}px`,
-    height: `${height}px`,
+    width: `${width}`,
+    height: `${height}`,
   };
 
   return (
@@ -50,11 +50,11 @@ export default function XYLayout(props: PropTypes) {
     >
       <div
         style={{
-          top: width / 2,
-          left: width / 2,
+          top: `calc(${height} / 4)`,
+          left: `calc(${width} / 4)`,
           position: 'absolute',
-          width: `calc(100% - ${width}px)`,
-          height: `calc((100% - ${width}px) / 2)`,
+          width: `calc(100% - (${width}) / 2)`,
+          height: `calc(100% - (${height}) / 2)`,
         }}
       >
         <div className={`inner `} style={iStyle} />

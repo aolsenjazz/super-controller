@@ -29,8 +29,6 @@ export default function Keyboard(props: PropTypes) {
     deviceHeight,
   } = props;
 
-  console.log(width, deviceWidth);
-
   const style = {
     width: `${(width / deviceWidth) * 100}%`,
     height: `${(height / deviceHeight) * 100}%`,

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import AspectRatio from 'react-aspect-ratio';
 
 import Keyboard from './KeyboardLayout';
