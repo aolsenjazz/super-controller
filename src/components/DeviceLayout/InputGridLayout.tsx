@@ -123,7 +123,6 @@ const InputGridLayout = (props: PropTypes) => {
   } = props;
 
   const style = {
-    ...inputGrid.style,
     width: `${(inputGrid.width / deviceWidth) * 100}%`,
     height: `${(inputGrid.height / deviceHeight) * 100}%`,
     left: `${(inputGrid.left / deviceWidth) * 100}%`,

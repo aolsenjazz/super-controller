@@ -4,17 +4,35 @@ import React from 'react';
 
 import KeyBlackIcon from './KeyBlackIcon';
 
-import { InputGridStyle } from '../../driver-types';
-
 const FUNDAMENTALS_BLACK = [1, 3, 6, 8, 10];
 
 type PropTypes = {
-  style: InputGridStyle;
   active: boolean;
+  width: number;
+  height: number;
+  left: number;
+  bottom: number;
+  deviceWidth: number;
+  deviceHeight: number;
 };
 
 export default function Keyboard(props: PropTypes) {
-  const { style, active } = props;
+  const {
+    active,
+    height,
+    width,
+    left,
+    bottom,
+    deviceWidth,
+    deviceHeight,
+  } = props;
+
+  const style = {
+    width: `${(width / deviceWidth) * 100}%`,
+    height: `${(height / deviceHeight) * 100}%`,
+    left: `${(left / deviceWidth) * 100 - 1}%`,
+    bottom: `${(bottom / deviceHeight) * 100}%`,
+  };
 
   return (
     <div id="keyboard-container" style={style} className="Input">

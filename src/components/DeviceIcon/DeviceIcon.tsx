@@ -17,39 +17,33 @@ type PropTypes = {
 
 export default function DeviceLayout(props: PropTypes) {
   const { device, active } = props;
-  const rootRef = useRef<HTMLDivElement>(null);
-
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-    const resizeListener = () => {
-      if (!rootRef.current) return;
-      setWidth(rootRef.current.getBoundingClientRect().width);
-    };
-    resizeListener();
-
-    window.addEventListener('resize', resizeListener);
-
-    return () => window.removeEventListener('resize', resizeListener);
-  }, []);
 
   return (
     <AspectRatio
-      ratio={device.aspectRatio}
+      ratio={device.width / device.height}
       style={{ maxWidth: 'calc(100vh)' }}
       className={`device-icon ${active ? 'active' : ''}`}
     >
-      <div id={device.name} ref={rootRef}>
+      <div id={device.name}>
         {device.keyboard ? (
-          <KeyboardIcon style={device.keyboard.style} active={active} />
+          <KeyboardIcon
+            active={active}
+            width={device.keyboard.width}
+            height={device.keyboard.height}
+            left={device.keyboard.left}
+            bottom={device.keyboard.bottom}
+            deviceWidth={device.width}
+            deviceHeight={device.height}
+          />
         ) : null}
 
         {device.inputGrids.map((inputGrid) => (
           <InputGridIcon
             key={inputGrid.id}
             inputGrid={inputGrid}
-            deviceWidth={width}
             active={active}
+            deviceWidth={device.width}
+            deviceHeight={device.height}
           />
         ))}
       </div>

@@ -5,14 +5,22 @@ import { InputGridDriver } from '../../driver-types';
 type PropTypes = {
   inputGrid: InputGridDriver;
   deviceWidth: number;
+  deviceHeight: number;
   active: boolean;
 };
 
 const InputGridIcon = (props: PropTypes) => {
-  const { inputGrid, deviceWidth, active } = props;
+  const { inputGrid, deviceWidth, deviceHeight, active } = props;
+
+  const igStyle = {
+    width: `${(inputGrid.width / deviceWidth) * 100}%`,
+    height: `${(inputGrid.height / deviceHeight) * 100}%`,
+    left: `${(inputGrid.left / deviceWidth) * 100}%`,
+    bottom: `${(inputGrid.bottom / deviceHeight) * 100}%`,
+  };
 
   return (
-    <div className="input-grid" style={inputGrid.style}>
+    <div className="input-grid" style={igStyle}>
       {inputGrid.inputs.map((input) => {
         return (
           <div
@@ -27,8 +35,12 @@ const InputGridIcon = (props: PropTypes) => {
               className={`pad ${active ? 'active' : ''}`}
               style={{
                 borderRadius: input.shape === 'circle' ? '100%' : '',
-                width: Math.min(inputGrid.width * deviceWidth),
-                height: Math.min(inputGrid.height * deviceWidth),
+                width: `${
+                  (input.width / (inputGrid.width / inputGrid.nCols)) * 100
+                }%`,
+                height: `${
+                  (input.height / (inputGrid.height / inputGrid.nRows)) * 100
+                }%`,
               }}
             />
           </div>
