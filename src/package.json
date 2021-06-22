@@ -15,7 +15,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@alexanderolsen/port-manager": "^1.2.72",
-    "midi": "^1.0.4"
+    "@alexanderolsen/port-manager": "^1.2.8",
+    "midi": "^2.0.0"
   }
 }

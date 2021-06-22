@@ -1,0 +1,305 @@
+{
+  "width": 38,
+  "height": 7.75,
+  "name": "Impact GX61 MIDI1",
+  "style": {
+    "borderTopLeftRadius": "0.1em",
+    "borderTopRightRadius": "0.1em",
+    "borderBottomLeftRadius": "0.1em",
+    "borderBottomRightRadius": "0.1em"
+  },
+  "keyboard": {
+    "defaultOctave": 1,
+    "nOctaves": 5,
+    "channel": 1,
+    "width": 33,
+    "height": 5.5,
+    "left": 4,
+    "bottom": 0.5
+  },
+  "inputGrids": [
+    {
+      "id": "Wheels",
+      "nRows": 1,
+      "nCols": 2,
+      "width": 2.125,
+      "height": 1.875,
+      "left": 1,
+      "bottom": 1,
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": 0,
+            "eventType": "pitchbend",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "wheel",
+          "shape": "rect",
+          "width": 0.5,
+          "height": 2.125,
+          "handleWidth": 0.5,
+          "handleHeight": 0.5,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 1,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "type": "wheel",
+          "overrideable": true,
+          "shape": "rect",
+          "width": 0.5,
+          "height": 2.125,
+          "handleWidth": 0.5,
+          "handleHeight": 0.5,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Internal Controls",
+      "nRows": 1,
+      "nCols": 4,
+      "width": 2.5,
+      "height": 0.25,
+      "left": 0.75,
+      "bottom": 3.7,
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": -1,
+            "eventType": "unknown",
+            "response": "linear"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": -2,
+            "eventType": "unknown",
+            "response": "linear"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": -3,
+            "eventType": "unknown",
+            "response": "linear"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": -4,
+            "eventType": "unknown",
+            "response": "linear"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Playback",
+      "nRows": 2,
+      "nCols": 4,
+      "width": 2.5,
+      "height": 1.15,
+      "left": 0.75,
+      "bottom": 4.5,
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": -1,
+            "eventType": "unknown",
+            "response": "linear"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 0,
+            "eventType": "controlchange",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": true,
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 2,
+            "eventType": "controlchange",
+            "response": "gate"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 3,
+            "eventType": "controlchange",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": true,
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 4,
+            "eventType": "controlchange",
+            "response": "gate"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 6,
+            "eventType": "controlchange",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": true,
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 8,
+            "eventType": "controlchange",
+            "response": "gate"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 9,
+            "eventType": "controlchange",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": true,
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Knob",
+      "nRows": 1,
+      "nCols": 1,
+      "width": 0.875,
+      "height": 0.875,
+      "left": 1,
+      "bottom": 6.14,
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": 7,
+            "eventType": "controlchange",
+            "response": "linear"
+          },
+          "overrideable": true,
+          "type": "knob",
+          "shape": "circle",
+          "width": 0.875,
+          "height": 0.875,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Setup",
+      "nRows": 1,
+      "nCols": 1,
+      "width": 0.25,
+      "height": 0.4,
+      "left": 2.5,
+      "bottom": 6.3,
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": -1,
+            "eventType": "unknown",
+            "response": "linear"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.25,
+          "availableColors": []
+        }
+      ]
+    }
+  ]
+}

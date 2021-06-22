@@ -92,6 +92,8 @@ const XYGridLayout = (props: PropTypes) => {
         <XYLayout
           width={`${(xInput.width / inputGrid.width) * 100}%`}
           height={`${(xInput.height / inputGrid.height) * 100}%`}
+          handleWidth={`${(xInput.handleWidth! / xInput.width) * 100}%`}
+          handleHeight={`${(xInput.handleHeight! / xInput.height) * 100}%`}
           xMax={127}
           yMax={127}
           xValue={xValue}

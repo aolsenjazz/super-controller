@@ -1,5 +1,6 @@
 {
-  "aspectRatio": "7/1",
+  "width": 16.375,
+  "height": 2.25,
   "name": "JS10D0AA",
   "style": {
     "borderTopLeftRadius": "0.5em",
@@ -10,16 +11,12 @@
   "inputGrids": [
     {
       "id": "Mute",
-      "height": 0.1,
-      "width": 0.046,
+      "height": 2,
+      "width": 0.75,
       "nRows": 1,
-      "nCols": 4,
-      "style": {
-        "width": "4.6%",
-        "height": "90%",
-        "top": "5%",
-        "right": "1.5%"
-      },
+      "nCols": 1,
+      "left": 15,
+      "bottom": 0.125,
       "inputs": [
         {
           "default": {
@@ -31,22 +28,20 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "height": 2,
+          "width": 0.75,
           "availableColors": []
         }
       ]
     },
     {
       "id": "LowE",
-      "height": 0.005,
-      "width": 0.09,
+      "height": 0.125,
+      "width": 6.5,
+      "left": 1.75,
+      "bottom": 1.95,
       "nRows": 1,
       "nCols": 5,
-      "style": {
-        "width": "45%",
-        "height": "5%",
-        "top": "5%",
-        "left": "11%"
-      },
       "inputs": [
         {
           "default": {
@@ -58,6 +53,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -70,6 +67,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -82,6 +81,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -94,6 +95,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -106,14 +109,18 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         }
       ]
     },
     {
       "id": "A",
-      "height": 0.005,
-      "width": 0.09,
+      "height": 0.125,
+      "width": 6.5,
+      "left": 1.75,
+      "bottom": 1.57,
       "nRows": 1,
       "nCols": 5,
       "style": {
@@ -133,6 +140,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -145,6 +154,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -157,6 +168,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -169,6 +182,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -181,22 +196,20 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         }
       ]
     },
     {
       "id": "D",
-      "height": 0.005,
-      "width": 0.09,
+      "height": 0.125,
+      "width": 6.5,
+      "left": 1.75,
+      "bottom": 1.2,
       "nRows": 1,
       "nCols": 5,
-      "style": {
-        "width": "45%",
-        "height": "5%",
-        "top": "38%",
-        "left": "11%"
-      },
       "inputs": [
         {
           "default": {
@@ -208,6 +221,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -220,6 +235,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -232,6 +249,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -244,6 +263,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -256,22 +277,20 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         }
       ]
     },
     {
       "id": "G",
-      "height": 0.005,
-      "width": 0.09,
+      "height": 0.125,
+      "width": 6.5,
+      "left": 1.75,
+      "bottom": 0.85,
       "nRows": 1,
       "nCols": 5,
-      "style": {
-        "width": "45%",
-        "height": "5%",
-        "top": "57%",
-        "left": "11%"
-      },
       "inputs": [
         {
           "default": {
@@ -283,6 +302,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -295,6 +316,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -307,6 +330,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -319,6 +344,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -331,22 +358,20 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         }
       ]
     },
     {
       "id": "B",
-      "height": 0.005,
-      "width": 0.09,
+      "height": 0.125,
+      "width": 6.5,
+      "left": 1.75,
+      "bottom": 0.5,
       "nRows": 1,
       "nCols": 5,
-      "style": {
-        "width": "45%",
-        "height": "5%",
-        "bottom": "21%",
-        "left": "11%"
-      },
       "inputs": [
         {
           "default": {
@@ -358,6 +383,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -370,6 +397,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -382,6 +411,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -394,6 +425,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -406,22 +439,20 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         }
       ]
     },
     {
       "id": "E",
-      "height": 0.005,
-      "width": 0.09,
+      "height": 0.125,
+      "width": 6.5,
+      "left": 1.75,
+      "bottom": 0.125,
       "nRows": 1,
       "nCols": 5,
-      "style": {
-        "width": "45%",
-        "height": "5%",
-        "bottom": "5%",
-        "left": "11%"
-      },
       "inputs": [
         {
           "default": {
@@ -433,6 +464,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -445,6 +478,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -457,6 +492,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -469,6 +506,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -481,14 +520,18 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 1.125,
+          "height": 0.125,
           "availableColors": []
         }
       ]
     },
     {
       "id": "Bridge",
-      "height": 0.14,
-      "width": 0.046,
+      "height": 2.25,
+      "width": 1,
+      "left": 8.7,
+      "bottom": 0,
       "nRows": 1,
       "nCols": 4,
       "style": {
@@ -508,22 +551,20 @@
           "overrideable": false,
           "type": "pad",
           "shape": "rect",
+          "height": 2.25,
+          "width": 1,
           "availableColors": []
         }
       ]
     },
     {
       "id": "Open String",
-      "height": 0.005,
-      "width": 0.27,
+      "height": 2.25,
+      "width": 4.5,
+      "bottom": 0,
+      "left": 9.6,
       "nRows": 6,
       "nCols": 1,
-      "style": {
-        "width": "27%",
-        "height": "100%",
-        "bottom": "0",
-        "right": "11.9%"
-      },
       "inputs": [
         {
           "default": {
@@ -535,6 +576,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 4.5,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -547,6 +590,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 4.5,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -559,6 +604,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 4.5,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -571,6 +618,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 4.5,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -583,6 +632,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 4.5,
+          "height": 0.125,
           "availableColors": []
         },
         {
@@ -595,6 +646,8 @@
           "overrideable": true,
           "type": "pad",
           "shape": "rect",
+          "width": 4.5,
+          "height": 0.125,
           "availableColors": []
         }
       ]

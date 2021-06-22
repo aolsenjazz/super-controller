@@ -8,8 +8,6 @@ import XYGridLayout from './XYGridLayout';
 import { SupportedDeviceConfig } from '../../hardware-config';
 import { VirtualDevice } from '../../virtual-devices';
 
-import 'react-aspect-ratio/aspect-ratio.css';
-
 type PropTypes = {
   device: VirtualDevice;
   deviceConfig: SupportedDeviceConfig;
@@ -28,7 +26,7 @@ export default function DeviceLayout(props: PropTypes) {
   return (
     <AspectRatio
       ratio={device.aspectRatio}
-      style={{ maxWidth: 'calc(100vh)', ...device.style }}
+      style={{ ...device.style }}
       className="device-layout"
     >
       <div id={device.name}>

@@ -15,7 +15,6 @@ export default function KeyBlack(props: PropTypes) {
     <div
       className="key-black key"
       style={{
-        width: `calc(10%)`,
         left: `${16.2 * numKeysFromLeft - adjustment}%`,
       }}
     />

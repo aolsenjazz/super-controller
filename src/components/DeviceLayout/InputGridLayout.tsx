@@ -90,6 +90,8 @@ function Element(props: ElementPropTypes) {
         max={127}
         value={value}
         width={width}
+        handleWidth={`${(input.handleWidth! / input.width) * 100}%`}
+        handleHeight={`${(input.handleHeight! / input.height) * 100}%`}
         height={height}
         enabled={enabled}
         focus={focus}
@@ -133,7 +135,6 @@ const InputGridLayout = (props: PropTypes) => {
     <div className="input-grid" style={style}>
       {inputGrid.inputs.map((input) => {
         const inputConfig = deviceConfig.getInput(input.id);
-        const inputHeight = input.shape === 'rect' ? input.height : input.width;
 
         return (
           <div
@@ -149,7 +150,7 @@ const InputGridLayout = (props: PropTypes) => {
                 (input.width / (inputGrid.width / inputGrid.nCols)) * 100
               }%`}
               height={`${
-                (inputHeight / (inputGrid.height / inputGrid.nRows)) * 100
+                (input.height / (inputGrid.height / inputGrid.nRows)) * 100
               }%`}
               input={input}
               config={inputConfig!}

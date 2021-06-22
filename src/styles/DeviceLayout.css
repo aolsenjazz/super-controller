@@ -33,6 +33,7 @@
   position: absolute;
   border: 1px solid #3a84e9;
   top: 50%;
+  display: table;
   margin-left: 50%;
   transform: translate(-50%, -50%);
   animation-duration: 2s;
@@ -56,8 +57,8 @@
 .device-layout .knob {
   display: flex;
   position: relative;
-  top: 50%;
-  left: 50%;
+  margin-left: 50%;
+  margin-top: 50%;
   transform: translate(-50%, -50%);
 }
 
@@ -91,6 +92,7 @@
   height: 100%;
   border-top: 1px solid #3a84e9;
   border-right: 1px solid #3a84e9;
+  border-bottom: 1px solid #3a84e9;
 }
 
 .device-layout .octave {
@@ -120,6 +122,7 @@
   top: 0;
   height: 60%;
   background-color: #e6e2e3;
+  width: 10%;
 }
 
 .device-layout .key-white {
@@ -140,11 +143,14 @@
   transform: translateY(50%);
 }
 
+.device-layout .wheel .bounding-box {
+  position: absolute;
+  width: 100%;
+}
+
 .device-layout .xy {
   position: relative;
   border: 1px solid #3a84e9;
-  width: 100%;
-  height: 100%;
 }
 
 .device-layout .xy .inner {
@@ -152,5 +158,4 @@
   border-radius: 100%;
   position: absolute;
   background-color: #e6e2e3;
-  transform: translate(-50%, 50%);
 }

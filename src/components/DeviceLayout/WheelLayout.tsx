@@ -7,24 +7,41 @@ type PropTypes = {
   focus: boolean;
   width: string;
   height: string;
+  handleWidth: string;
+  handleHeight: string;
   onClick: (event: React.MouseEvent) => void;
 };
 
 export function WheelLayout(props: PropTypes) {
-  const { width, height, max, value, enabled, focus, onClick } = props;
+  const {
+    width,
+    height,
+    max,
+    value,
+    enabled,
+    focus,
+    onClick,
+    handleWidth,
+    handleHeight,
+  } = props;
 
   const shift = value / max;
-
-  const iStyle = {
-    bottom: `${shift * 100}%`,
-    left: 0,
-    width: `calc(100% - 2px)`,
-    height: `calc(${width} - 2px)`,
-  };
 
   const oStyle = {
     width,
     height,
+  };
+
+  const boundingStyle = {
+    bottom: `calc(${handleHeight} / 2)`,
+    height: `calc(100% - ${handleHeight})`,
+  };
+
+  const iStyle = {
+    bottom: `${shift * 100}%`,
+    left: 0,
+    width: `calc(${handleWidth} - 2px)`,
+    height: `calc(${handleHeight} + ${handleHeight} / 2 - 2px)`,
   };
 
   return (
@@ -36,14 +53,7 @@ export function WheelLayout(props: PropTypes) {
       onKeyDown={() => {}}
       role="button"
     >
-      <div
-        style={{
-          top: `calc(${width} / 2)`,
-          position: 'absolute',
-          width: '100%',
-          height: `calc(100% - ${width}px)`,
-        }}
-      >
+      <div className="bounding-box" style={boundingStyle}>
         <div className={`inner `} style={iStyle} />
       </div>
     </div>

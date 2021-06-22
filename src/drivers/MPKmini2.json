@@ -37,8 +37,10 @@
           "overrideable": true,
           "type": "xy",
           "shape": "circle",
-          "width": 0.5,
-          "height": 0.5,
+          "height": 0.9,
+          "width": 0.9,
+          "handleWidth": 0.5,
+          "handleHeight": 0.5,
           "availableColors": []
         },
         {
@@ -51,8 +53,10 @@
           "overrideable": true,
           "type": "xy",
           "shape": "circle",
-          "width": 0.5,
-          "height": 0.5,
+          "height": 0.9,
+          "width": 0.9,
+          "handleWidth": 0.5,
+          "handleHeight": 0.5,
           "availableColors": []
         }
       ]

@@ -9,6 +9,8 @@ type PropTypes = {
   focus: boolean;
   width: string;
   height: string;
+  handleWidth: string;
+  handleHeight: string;
   shape: string;
   onClick: (event: React.MouseEvent) => void;
 };
@@ -25,16 +27,18 @@ export default function XYLayout(props: PropTypes) {
     focus,
     onClick,
     shape,
+    handleWidth,
+    handleHeight,
   } = props;
 
   const xShift = xValue / xMax;
   const yShift = yValue / yMax;
 
   const iStyle = {
-    bottom: `${yShift * 100}%`,
-    left: `${xShift * 100}%`,
     width: `${width}`,
     height: `${height}`,
+    marginLeft: -1,
+    marginTop: -1,
   };
 
   return (
@@ -45,16 +49,19 @@ export default function XYLayout(props: PropTypes) {
       onKeyDown={() => {}}
       style={{
         borderRadius: shape === 'circle' ? '100%' : '',
+        height,
+        width,
       }}
       role="button"
     >
       <div
         style={{
-          top: `calc(${height} / 4)`,
-          left: `calc(${width} / 4)`,
+          top: `calc(50% + 25% * ${yShift})`,
+          left: `calc(${xShift} * 50%)`,
           position: 'absolute',
-          width: `calc(100% - (${width}) / 2)`,
-          height: `calc(100% - (${height}) / 2)`,
+          width: handleWidth,
+          height: handleHeight,
+          transform: `translate(0, -50%)`,
         }}
       >
         <div className={`inner `} style={iStyle} />

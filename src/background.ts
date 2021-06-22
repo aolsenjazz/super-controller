@@ -1,5 +1,4 @@
 import { ipcMain, Event, dialog } from 'electron';
-import { all } from '@alexanderolsen/port-manager';
 
 import { Project } from './project';
 import { windowService } from './window-service';
@@ -102,7 +101,7 @@ export class Background {
     windowService.sendProject(this.project);
     windowService.setEdited(windowService.edited);
 
-    this.portService.onPortsChange(all());
+    this.portService.sendToFrontend();
     windowService.sendDrivers(DRIVERS);
   }
 

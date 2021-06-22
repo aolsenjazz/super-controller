@@ -70,10 +70,10 @@ export class VirtualPortService {
   }
 
   close(deviceId: string) {
-    const ports = this.getVirtualEquivalent(deviceId);
-    if (ports !== undefined) {
-      ports.close();
-      this.#removePair(ports.id);
+    const port = this.getVirtualEquivalent(deviceId);
+    if (port) {
+      port.close();
+      this.#removePair(port.id);
     }
   }
 
@@ -84,22 +84,19 @@ export class VirtualPortService {
   }
 
   send(msg: MidiValue[], devId: string) {
-    const ports = this.getVirtualEquivalent(devId);
+    const port = this.getVirtualEquivalent(devId);
 
-    ports.send(msg);
+    if (port) port.send(msg);
   }
 
   /**
    * Get virtual PortPair by id
    */
-  #getVirtualPortPair = (id: string): PortPair => {
+  #getVirtualPortPair = (id: string): PortPair | null => {
     let targetPair: PortPair | null = null;
     this.virtualPorts.forEach((pair) => {
       if (pair.id === id) targetPair = pair;
     });
-
-    if (targetPair === null)
-      throw new Error(`No matching virtual PortPair for id[${id}]`);
 
     return targetPair;
   };

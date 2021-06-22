@@ -1,4 +1,5 @@
 import React from 'react';
+import AspectRatio from 'react-aspect-ratio';
 
 type PropTypes = {
   size: number | string;
@@ -20,11 +21,6 @@ const convertRange = (
   oldValue: number
 ) => {
   return ((oldValue - oldMin) * (newMax - newMin)) / (oldMax - oldMin) + newMin;
-};
-
-/* eslint-disable-next-line */
-const dcpy = (o: any) => {
-  return JSON.parse(JSON.stringify(o));
 };
 
 export function Knob(props: PropTypes) {
@@ -57,26 +53,28 @@ export function Knob(props: PropTypes) {
   };
 
   return (
-    <div
-      className="knob"
-      style={kStyle}
-      onClick={(event) => onClick(event)}
-      tabIndex={0}
-      onKeyDown={() => {}}
-      role="button"
-    >
+    <AspectRatio ratio={1}>
       <div
-        className={`outer ${focus ? 'focus' : ''}`}
-        role="button"
+        className="knob"
+        style={kStyle}
+        onClick={(event) => onClick(event)}
         tabIndex={0}
-        style={{
-          borderRadius: shape === 'circle' || !shape ? '100%' : '',
-        }}
+        onKeyDown={() => {}}
+        role="button"
       >
-        <div className={`inner ${enabled ? 'hoverable' : ''}`} style={iStyle}>
-          <div className="grip" />
+        <div
+          className={`outer ${focus ? 'focus' : ''}`}
+          role="button"
+          tabIndex={0}
+          style={{
+            borderRadius: shape === 'circle' || !shape ? '100%' : '',
+          }}
+        >
+          <div className={`inner ${enabled ? 'hoverable' : ''}`} style={iStyle}>
+            <div className="grip" />
+          </div>
         </div>
       </div>
-    </div>
+    </AspectRatio>
   );
 }

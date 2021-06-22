@@ -12,9 +12,11 @@ export type InputDefault = {
 export type InputDriver = {
   default: InputDefault;
   shape: 'circle' | 'rect';
-  type: 'knob' | 'pad' | 'slider' | 'wheel';
+  type: 'knob' | 'pad' | 'slider' | 'wheel' | 'xy';
   availableColors: Color[];
   overrideable: boolean;
   height: number;
   width: number;
+  handleWidth?: number;
+  handleHeight?: number;
 };

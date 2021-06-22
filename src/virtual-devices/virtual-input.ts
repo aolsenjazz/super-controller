@@ -14,6 +14,10 @@ export class VirtualInput {
 
   readonly width: number;
 
+  readonly handleWidth?: number;
+
+  readonly handleHeight?: number;
+
   #eventType: EventType;
 
   #number: MidiValue;
@@ -29,7 +33,9 @@ export class VirtualInput {
       driver.default.number,
       driver.shape,
       driver.type,
-      driver.overrideable
+      driver.overrideable,
+      driver.handleWidth,
+      driver.handleHeight
     );
   }
 
@@ -41,7 +47,9 @@ export class VirtualInput {
     number: MidiValue,
     shape: string,
     type: string,
-    overrideable: boolean
+    overrideable: boolean,
+    handleWidth?: number,
+    handleHeight?: number
   ) {
     this.width = width;
     this.height = height;
@@ -51,6 +59,8 @@ export class VirtualInput {
     this.#channel = channel;
     this.#number = number;
     this.overrideable = overrideable;
+    this.handleWidth = handleWidth;
+    this.handleHeight = handleHeight;
   }
 
   get id() {

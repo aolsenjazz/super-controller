@@ -2,7 +2,8 @@ import { VirtualDevice } from './virtual-devices';
 import { DeviceDriver } from './driver-types';
 
 export const anonymousDriver: DeviceDriver = {
-  aspectRatio: '4/2',
+  width: 12,
+  height: 6,
   name: 'Anonymous',
   style: {
     borderBottomLeftRadius: '1em',
@@ -14,26 +15,20 @@ export const anonymousDriver: DeviceDriver = {
     defaultOctave: 0,
     nOctaves: 1,
     channel: 0,
-    style: {
-      width: '95%',
-      height: '70%',
-      bottom: '0',
-      left: '2.5%',
-    },
+    width: 12,
+    height: 4,
+    bottom: 0,
+    left: 0,
   },
   inputGrids: [
     {
       id: 'MainPads',
-      height: 0.05,
-      width: 0.05,
       nRows: 1,
       nCols: 6,
-      style: {
-        width: '95%',
-        height: '10%',
-        top: '5%',
-        left: '2.5%',
-      },
+      width: 12,
+      height: 2,
+      bottom: 4,
+      left: 0,
       inputs: [
         {
           default: {
@@ -42,6 +37,8 @@ export const anonymousDriver: DeviceDriver = {
             eventType: 'noteon/noteoff',
             response: 'gate',
           },
+          width: 1,
+          height: 1,
           shape: 'rect',
           type: 'pad',
           overrideable: false,
@@ -54,6 +51,8 @@ export const anonymousDriver: DeviceDriver = {
             eventType: 'noteon/noteoff',
             response: 'gate',
           },
+          width: 1,
+          height: 1,
           shape: 'rect',
           overrideable: false,
           type: 'pad',
@@ -66,6 +65,8 @@ export const anonymousDriver: DeviceDriver = {
             eventType: 'noteon/noteoff',
             response: 'gate',
           },
+          width: 1,
+          height: 1,
           shape: 'rect',
           overrideable: false,
           type: 'pad',
@@ -78,6 +79,8 @@ export const anonymousDriver: DeviceDriver = {
             eventType: 'noteon/noteoff',
             response: 'gate',
           },
+          width: 1,
+          height: 1,
           shape: 'rect',
           overrideable: false,
           type: 'pad',
@@ -90,6 +93,8 @@ export const anonymousDriver: DeviceDriver = {
             eventType: 'noteon/noteoff',
             response: 'gate',
           },
+          width: 1,
+          height: 1,
           shape: 'rect',
           type: 'pad',
           overrideable: false,
@@ -102,6 +107,8 @@ export const anonymousDriver: DeviceDriver = {
             eventType: 'noteon/noteoff',
             response: 'gate',
           },
+          width: 1,
+          height: 1,
           shape: 'rect',
           overrideable: false,
           type: 'pad',

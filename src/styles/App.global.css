@@ -7,6 +7,7 @@
 @import './DevicePanel.css';
 @import './DeviceLayout.css';
 @import './DeviceIcon.css';
+@import '~react-aspect-ratio/aspect-ratio.css';
 
 * {
   margin: 0;

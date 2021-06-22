@@ -1,6 +1,7 @@
 {
-  "aspectRatio": "13/7",
-  "name": "Keystation 61 MK3 (Transport)",
+  "width": 39,
+  "height": 7,
+  "name": "Keystation 61 MK3 (USB MIDI)",
   "style": {
     "borderTopLeftRadius": "0.1em",
     "borderTopRightRadius": "0.1em",
@@ -9,28 +10,22 @@
   },
   "keyboard": {
     "defaultOctave": 1,
-    "nOctaves": 1,
+    "nOctaves": 5,
     "channel": 10,
-    "style": {
-      "width": "61%",
-      "height": "88%",
-      "bottom": 0,
-      "right": 0
-    }
+    "width": 33.375,
+    "height": 5.375,
+    "bottom": 0,
+    "left": 4.25
   },
   "inputGrids": [
     {
       "id": "Wheels",
-      "height": 0.15,
-      "width": 0.05,
+      "height": 2.125,
+      "width": 2.125,
+      "left": 1,
+      "bottom": 1,
       "nRows": 1,
       "nCols": 2,
-      "style": {
-        "width": "25%",
-        "height": "28.5%",
-        "top": "60%",
-        "left": "7%"
-      },
       "inputs": [
         {
           "default": {
@@ -39,9 +34,13 @@
             "eventType": "pitchbend",
             "response": "linear"
           },
-          "overrideable": false,
+          "overrideable": true,
           "type": "wheel",
           "shape": "rect",
+          "width": 0.625,
+          "height": 2.125,
+          "handleWidth": 0.625,
+          "handleHeight": 0.625,
           "availableColors": []
         },
         {
@@ -51,25 +50,25 @@
             "eventType": "controlchange",
             "response": "linear"
           },
-          "overrideable": false,
+          "overrideable": true,
           "type": "wheel",
           "shape": "rect",
+          "width": 0.625,
+          "height": 2.125,
+          "handleWidth": 0.625,
+          "handleHeight": 0.625,
           "availableColors": []
         }
       ]
     },
     {
       "id": "OctavePlusMinus",
-      "height": 0.023,
-      "width": 0.038,
+      "height": 0.3,
+      "width": 1.5,
+      "left": 2,
+      "bottom": 3.75,
       "nRows": 1,
       "nCols": 2,
-      "style": {
-        "width": "14%",
-        "height": "12%",
-        "top": "40%",
-        "left": "19%"
-      },
       "inputs": [
         {
           "default": {
@@ -81,6 +80,8 @@
           "overrideable": false,
           "type": "pad",
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": []
         },
         {
@@ -93,22 +94,20 @@
           "overrideable": false,
           "type": "pad",
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": []
         }
       ]
     },
     {
       "id": "Advanced",
-      "height": 0.023,
-      "width": 0.038,
+      "height": 0.3,
+      "width": 1.5,
+      "left": 2,
+      "bottom": 4.5,
       "nRows": 1,
       "nCols": 2,
-      "style": {
-        "width": "14%",
-        "height": "12%",
-        "top": "30%",
-        "left": "19%"
-      },
       "inputs": [
         {
           "default": {
@@ -120,22 +119,20 @@
           "type": "pad",
           "overrideable": false,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.3,
           "availableColors": []
         }
       ]
     },
     {
       "id": "Volume",
-      "height": 0.13,
-      "width": 0.05,
+      "height": 1.5,
+      "width": 0.4,
+      "left": 0.6,
+      "bottom": 3.5,
       "nRows": 1,
       "nCols": 1,
-      "style": {
-        "width": "5%",
-        "height": "28%",
-        "top": "25%",
-        "left": "5.8%"
-      },
       "inputs": [
         {
           "default": {
@@ -144,25 +141,25 @@
             "eventType": "controlchange",
             "response": "linear"
           },
-          "overrideable": false,
+          "overrideable": true,
           "type": "slider",
           "shape": "rect",
+          "width": 0.4,
+          "height": 1.5,
+          "handleWidth": 0.4,
+          "handleHeight": 0.4,
           "availableColors": []
         }
       ]
     },
     {
       "id": "Playback",
-      "height": 0.035,
-      "width": 0.035,
+      "height": 0.5,
+      "width": 2.25,
+      "left": 2,
+      "bottom": 5.75,
       "nRows": 1,
       "nCols": 3,
-      "style": {
-        "width": "18%",
-        "height": "7%",
-        "top": "7%",
-        "left": "19%"
-      },
       "inputs": [
         {
           "default": {
@@ -172,8 +169,10 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": true,
+          "overrideable": false,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -184,8 +183,10 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": true,
+          "overrideable": false,
           "shape": "rect",
+          "width": 0.5,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -196,24 +197,22 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": true,
-          "shape": "circle",
+          "overrideable": false,
+          "shape": "circ",
+          "width": 0.5,
+          "height": 0.5,
           "availableColors": []
         }
       ]
     },
     {
       "id": "Nav1",
-      "height": 0.015,
-      "width": 0.015,
+      "height": 0.25,
+      "width": 0.25,
+      "left": 0.75,
+      "bottom": 6.375,
       "nRows": 1,
       "nCols": 1,
-      "style": {
-        "width": "7%",
-        "height": "1.5%",
-        "top": "7.14%",
-        "left": "5%"
-      },
       "inputs": [
         {
           "default": {
@@ -224,23 +223,21 @@
           },
           "type": "pad",
           "shape": "rect",
-          "overrideable": true,
+          "overrideable": false,
+          "height": 0.25,
+          "width": 0.25,
           "availableColors": []
         }
       ]
     },
     {
       "id": "Nav2",
-      "height": 0.015,
-      "width": 0.015,
+      "height": 0.25,
+      "width": 1.5,
+      "left": 0.1,
+      "bottom": 5.875,
       "nRows": 1,
       "nCols": 3,
-      "style": {
-        "width": "7%",
-        "height": "5%",
-        "top": "10%",
-        "left": "5%"
-      },
       "inputs": [
         {
           "default": {
@@ -250,8 +247,10 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": true,
+          "overrideable": false,
           "shape": "rect",
+          "height": 0.25,
+          "width": 0.25,
           "availableColors": []
         },
         {
@@ -262,8 +261,10 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": true,
+          "overrideable": false,
           "shape": "rect",
+          "height": 0.25,
+          "width": 0.25,
           "availableColors": []
         },
         {
@@ -275,23 +276,21 @@
           },
           "type": "pad",
           "shape": "rect",
-          "overrideable": true,
+          "overrideable": false,
+          "height": 0.25,
+          "width": 0.25,
           "availableColors": []
         }
       ]
     },
     {
       "id": "Nav3",
-      "height": 0.015,
-      "width": 0.015,
+      "height": 0.25,
+      "width": 0.25,
+      "left": 0.75,
+      "bottom": 5.3,
       "nRows": 1,
       "nCols": 1,
-      "style": {
-        "width": "7%",
-        "height": "1.5%",
-        "top": "16%",
-        "left": "5%"
-      },
       "inputs": [
         {
           "default": {
@@ -300,9 +299,11 @@
             "eventType": "noteon/noteoff",
             "response": "gate"
           },
-          "overrideable": true,
+          "overrideable": false,
           "type": "pad",
           "shape": "rect",
+          "height": 0.25,
+          "width": 0.25,
           "availableColors": []
         }
       ]

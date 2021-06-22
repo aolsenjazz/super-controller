@@ -112,7 +112,7 @@ export default function App() {
         selectedId={selectedId}
       />
       <DevicePanel
-        device={activeDevice}
+        config={activeDevice}
         project={project}
         selectedInputs={selectedInputs}
         setSelectedInputs={setSelectedInputs}

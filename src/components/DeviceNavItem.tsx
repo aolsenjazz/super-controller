@@ -1,9 +1,18 @@
 import React from 'react';
 
 import DeviceIcon from './DeviceIcon/DeviceIcon';
+
 import { DeviceDriver } from '../driver-types';
+import { nameFromId } from '../device-util';
 import { anonymousDriver } from '../anonymous-device';
 
+/**
+ * Returns the css class depending on connection and configuration status
+ *
+ * @param { boolean } connected Is the device connected?
+ * @param { boolean } configured Is the device added to the current project?
+ * @return { string } A css class
+ */
 function cssClassFor(connected: boolean, configured: boolean) {
   if (connected) {
     return configured ? 'configured' : 'connected';
@@ -11,22 +20,31 @@ function cssClassFor(connected: boolean, configured: boolean) {
   return 'disconnected';
 }
 
+/**
+ * Returns a human-readable string containing the connection and configuration status
+ *
+ * @param { boolean } connected Is the device connected?
+ * @param { boolean } configured Is the device added to the current project?
+ * @return { string } A status string
+ */
 function statusFor(connected: boolean, configured: boolean) {
   return `${connected ? 'Connected' : 'Disconnected'}${
     configured ? ', Configured' : ''
   }`;
 }
 
+/**
+ * Reformats an id into a more human-readable string
+ *
+ * @param { string } id The id of the device/port
+ * @param { number } occurNumber The nth time this device model is connected
+ * @return { string } A prettier id
+ */
 function reformatId(id: string, occurNumber: number) {
   const lastSpaceIdx = id.lastIndexOf(' ');
   const deviceName = id.substring(0, lastSpaceIdx);
 
   return occurNumber === 0 ? deviceName : `${deviceName} (${occurNumber})`;
-}
-
-function nameFromId(id: string) {
-  const lastSpaceIdx = id.lastIndexOf(' ');
-  return id.substring(0, lastSpaceIdx);
 }
 
 type PropTypes = {
@@ -40,6 +58,19 @@ type PropTypes = {
   drivers: Map<string, DeviceDriver>;
 };
 
+/**
+ * List item in the devices panel. Displays name, a stylized ID icon, and connection status.
+ *
+ * @param { object } props Component props
+ * @param { string } props.name The name of the port
+ * @param { string } props.id Port id
+ * @param { number } props.occurenceNumber The nth time this device is connected (if > 1 device of same model connected)
+ * @param { () => void } props.onClick Click listener
+ * @param { boolean } props.active Is this the currently selected device?
+ * @param { boolean } props.configured Is this device added to the current project?
+ * @param { boolean } props.connected Is the device connected?
+ * @param { Map<string, DeviceDriver> } props.drivers All available drivers
+ */
 export default function DeviceNavItem(props: PropTypes) {
   const {
     onClick,

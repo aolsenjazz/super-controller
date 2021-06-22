@@ -108,7 +108,7 @@ export class InputConfig {
     override: InputOverride,
     availableColors: Color[],
     overrideable: boolean,
-    type: 'pad' | 'knob' | 'slider' | 'wheel',
+    type: 'pad' | 'knob' | 'slider' | 'wheel' | 'xy',
     value?: MidiValue,
     lastPropagated?: MidiMessage,
     lastResponse?: MidiMessage
@@ -236,6 +236,10 @@ export class InputConfig {
       return ['noteon', 'noteoff', 'controlchange', 'programchange'];
     }
 
+    if (this.response === 'linear') {
+      return ['noteon', 'noteoff', 'controlchange', 'programchange'];
+    }
+
     if (this.eventType === 'pitchbend') return ['pitchbend'];
 
     return ['noteon/noteoff', 'controlchange', 'programchange'];
@@ -331,8 +335,8 @@ export class InputConfig {
         : this.eventType;
     }
 
-    if (response === 'toggle') {
-      this.devicePropagator.outputResponse = 'toggle';
+    if (response === 'toggle' || response === 'gate') {
+      this.devicePropagator.outputResponse = response;
     }
 
     this.outputPropagator.outputResponse = response;
@@ -393,7 +397,7 @@ export class InputConfig {
     });
   }
 
-  /* Basically just a smarter equality operator */
+  /* smarter equality operator */
   equals(other: InputConfig | null) {
     if (other === null) return false;
 

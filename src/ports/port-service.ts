@@ -1,4 +1,4 @@
-import { addListener, PortPair } from '@alexanderolsen/port-manager';
+import { addListener, PortPair, all } from '@alexanderolsen/port-manager';
 import { MidiValue, MidiMessage } from 'midi-message-parser';
 
 import { InputConfig } from '../hardware-config';
@@ -25,6 +25,7 @@ export class PortService {
 
     this.initAllDevices();
     addListener(this.onPortsChange);
+    this.onPortsChange(all());
   }
 
   initAllDevices() {
@@ -119,7 +120,7 @@ export class PortService {
     this.portPairs = filtered.map((pair) => new DrivenPortPair(pair));
     this.#virtService.onHardwarePortsChange(filtered);
 
-    this.#sendToFrontend(filtered);
+    this.sendToFrontend();
 
     // listen to message from devices
     portPairs.forEach((pair) => {
@@ -131,13 +132,14 @@ export class PortService {
     this.initAllDevices();
   };
 
-  #sendToFrontend = (portPairs: PortPair[]) => {
+  sendToFrontend() {
     // pass port info to frontend
-    const info = portPairs.map(
+    const info = this.portPairs.map(
       (p) => new PortInfo(p.id, p.name, p.occurrenceNumber, true)
     );
+
     windowService.sendPortInfos(info);
-  };
+  }
 
   #getPair = (id: string) => {
     const pairs = this.portPairs.filter((p) => p.id === id);
