@@ -182,6 +182,7 @@ test('getVirtualEquivalent returns correct portPair', () => {
   service.onHardwarePortsChange(pairs);
 
   const result = service.getVirtualEquivalent('Device1 0');
-  expect(result.id).toBe('SC Device1 0');
+
+  expect(result?.id).toBe('SC Device1 0');
   service.shutdown();
 });
