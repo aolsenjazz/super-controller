@@ -5,7 +5,7 @@ import {
   EventType,
 } from 'midi-message-parser';
 
-import { inputIdFor } from '../device-util';
+import { inputIdFor, msgForColor } from '../device-util';
 import { Propagator } from '../propagators/propagator';
 import { OutputPropagator } from '../propagators/output-propagator';
 import { NullPropagator } from '../propagators/null-propagator';
@@ -17,24 +17,66 @@ import { InputDefault, Color, InputDriver } from '../driver-types';
  * accessible via `InputConfig.default`.
  */
 export type InputOverride = {
+  /* User-defined nickname */
   nickname?: string;
+
+  /* Note number, CC number, program number, etc */
   number?: MidiValue;
+
+  /* MIDI channel */
   channel?: Channel;
+
+  /* MIDI event type */
   eventType?: EventType;
+
+  /**
+   * Describes how event are propagated to clients. Not all inputs are eligible for
+   * all responses; inputs who hardware response is 'toggle' can only propagate in
+   * 'toggle' or 'constant' mode, because no events are fired from hardware on input release
+   *
+   * gate: event fired on press and release
+   * toggle: event fired on press
+   * linear: continuous input (TODO: should probably be renamed to 'continuous')
+   * constant: event fired on press, always the same event
+   */
   response?: 'gate' | 'toggle' | 'linear' | 'constant';
+
+  /**
+   * Maintains hardware color per state. For more, see `DevicePropagator`
+   *
+   * TODO: this is smelly. probably makes more sense to make this a member of
+   * `DevicePropagator`
+   */
   lightConfig: Map<string, Color>;
 };
 
+/**
+ * Contains configuration details and maintains state for individual hardware
+ * inputs. Layout information is delegated to the `VirtualInput` class.
+ */
 export class InputConfig {
+  /**
+   * Manages event propagation to clients and maintains state related to event
+   * propagation to clients.
+   */
   outputPropagator: OutputPropagator;
 
+  /**
+   * Manages event propagation to device and maintains state related to event
+   * propagation to device.
+   */
   devicePropagator: Propagator;
 
   /* Array of `Color`s the hardware input can be. */
   readonly availableColors: Color[];
 
+  /* Can this control be overridden? `false` if events aren't transmitted from device */
   readonly overrideable: boolean;
 
+  /**
+   * Input type. 'xy' is the only non-straightforward type; xy inputs are comprised of
+   * *two* inputs which aren't aware of one-another.
+   */
   readonly type: 'pad' | 'knob' | 'slider' | 'wheel' | 'xy';
 
   /**
@@ -50,18 +92,13 @@ export class InputConfig {
    */
   default: InputDefault;
 
-  static msgFor(i: InputConfig, c?: Color) {
-    if (!c) return undefined;
-
-    return new MidiMessage(
-      c.eventType,
-      i.default.number,
-      c.value,
-      i.default.channel,
-      0
-    );
-  }
-
+  /**
+   * Convert from JSON string into an InputConfig object. Reconstructs
+   * state if state was saved to JSON string.
+   *
+   * @param { string } json JSON string
+   * @return { InputConfig } new instance of InputConfig
+   */
   static fromJSON(json: string) {
     const other = JSON.parse(json);
 
@@ -87,6 +124,12 @@ export class InputConfig {
     return instance;
   }
 
+  /**
+   * Constructs and initialize a new instance of `InputConfig` from driver
+   *
+   * @param { InputDriver } other Input driver
+   * @return { InputConfig } new instance of InputConfig
+   */
   static fromDriver(other: InputDriver) {
     const inputOverride = {
       lightConfig: new Map<string, Color>(),
@@ -129,6 +172,8 @@ export class InputConfig {
       lastPropagated
     );
 
+    // create the devicePropagator
+    // TODO: this is gross. surely this can be made cleaner
     if (['gate', 'toggle'].includes(this.default.response)) {
       const defaultColor =
         this.availableColors.length > 0
@@ -144,8 +189,12 @@ export class InputConfig {
       this.devicePropagator = new BinaryPropagator(
         this.default.response as 'gate' | 'toggle',
         (this.override.response || this.default.response) as Type,
-        InputConfig.msgFor(this, override.lightConfig.get('on')),
-        InputConfig.msgFor(this, offColor),
+        msgForColor(
+          defaultVals.number,
+          defaultVals.channel,
+          override.lightConfig.get('on')
+        ),
+        msgForColor(defaultVals.number, defaultVals.channel, offColor),
         lastResponse
       );
     } else {
@@ -156,6 +205,12 @@ export class InputConfig {
     }
   }
 
+  /**
+   * Handles a message from a device.
+   *
+   * @param { MidiValue[] } msg The midi value array
+   * @return { (MidiValue[] | null)[] } [message_to_device | null, message_to_clients | null]
+   */
   handleMessage(msg: MidiValue[]): (MidiValue[] | null)[] {
     const toPropagate = this.outputPropagator.handleMessage(msg);
     const toDevice = this.devicePropagator.handleMessage(msg);
@@ -163,10 +218,22 @@ export class InputConfig {
     return [toDevice, toPropagate];
   }
 
+  /**
+   * Returns the Color for the given state or undefined
+   *
+   * @param { string } state The state
+   * @return { Color | undefined } The associated color or undefined if not set
+   */
   colorForState(state: string) {
     return this.#lightConfig().get(state);
   }
 
+  /**
+   * Set a color for the given state.
+   *
+   * @param { string } state The state value
+   * @param { Color } color The color
+   */
   setColorForState(state: string, color: Color) {
     // this is terrible, but I don't know how to handle RBG, n-step, etc
     this.override.lightConfig.set(state, color);
@@ -185,6 +252,54 @@ export class InputConfig {
     }
   }
 
+  /* Restores all default, numeric values (nothing color-related) */
+  restoreDefaults() {
+    this.number = this.default.number;
+    this.eventType = this.default.eventType;
+    this.channel = this.default.channel;
+    this.response = this.default.response;
+  }
+
+  /**
+   * Serialize a similar representation of the object. Can't use JSON.stringify
+   * because we neeed to serialize a map.
+   *
+   * @param { boolean } includeState Should we include state?
+   */
+  toJSON(includeState: boolean) {
+    return JSON.stringify({
+      default: this.default,
+      override: {
+        nickname: this.nickname,
+        lightConfig: Array.from(this.override.lightConfig.entries()),
+        number: this.number,
+        eventType: this.eventType,
+        channel: this.channel,
+        response: this.response,
+      },
+      type: this.type,
+      overrideable: this.overrideable,
+      response: this.response,
+      availableColors: this.availableColors,
+      lightResponse: this.lightResponse,
+      value: this.outputPropagator.value,
+      lastPropagated: includeState
+        ? this.outputPropagator.lastPropagated?.toMidiArray()
+        : undefined,
+      lastResponse: includeState
+        ? this.devicePropagator.lastPropagated?.toMidiArray()
+        : undefined,
+    });
+  }
+
+  /**
+   * Constructs a map of `Color`-per-state configurations.
+   *
+   * TODO: This is just disgusting. Gotta figure out how to handle RGB before this
+   * is worth fixing.
+   *
+   * @return { Map<string, Color> } Color-per-state map
+   */
   #lightConfig = () => {
     const config = new Map<string, Color>();
 
@@ -209,13 +324,6 @@ export class InputConfig {
 
     return config;
   };
-
-  restoreDefaults() {
-    this.number = this.default.number;
-    this.eventType = this.default.eventType;
-    this.channel = this.default.channel;
-    this.response = this.default.response;
-  }
 
   get eligibleResponses() {
     if (this.default.response === 'gate') return ['gate', 'toggle', 'constant'];
@@ -365,50 +473,5 @@ export class InputConfig {
     this.devicePropagator.outputResponse = response;
     this.devicePropagator.lastPropagated = undefined; // reset propagator state
     this.outputPropagator.lastPropagated = undefined; // reset propagator state
-  }
-
-  /**
-   * Serialize a similar representation of the object. Can't use JSON.stringify
-   * because we neeed to serialize a map.
-   */
-  toJSON(includeState: boolean) {
-    return JSON.stringify({
-      default: this.default,
-      override: {
-        nickname: this.nickname,
-        lightConfig: Array.from(this.override.lightConfig.entries()),
-        number: this.number,
-        eventType: this.eventType,
-        channel: this.channel,
-        response: this.response,
-      },
-      type: this.type,
-      overrideable: this.overrideable,
-      response: this.response,
-      availableColors: this.availableColors,
-      lightResponse: this.lightResponse,
-      value: this.outputPropagator.value,
-      lastPropagated: includeState
-        ? this.outputPropagator.lastPropagated?.toMidiArray()
-        : undefined,
-      lastResponse: includeState
-        ? this.devicePropagator.lastPropagated?.toMidiArray()
-        : undefined,
-    });
-  }
-
-  /* smarter equality operator */
-  equals(other: InputConfig | null) {
-    if (other === null) return false;
-
-    return (
-      this.id === other.id &&
-      this.nickname === other.nickname &&
-      this.number === other.number &&
-      this.eventType === other.eventType &&
-      this.channel === other.channel &&
-      this.response === other.response &&
-      this.overrideable === other.overrideable
-    );
   }
 }

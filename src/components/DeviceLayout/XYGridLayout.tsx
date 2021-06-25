@@ -5,7 +5,6 @@ import { ipcRenderer, IpcRendererEvent } from 'electron';
 import XYLayout from './XYLayout';
 
 import { SupportedDeviceConfig } from '../../hardware-config';
-
 import { VirtualInputGrid } from '../../virtual-devices';
 
 type PropTypes = {
@@ -18,7 +17,27 @@ type PropTypes = {
   selectedInputs: string[];
 };
 
-const XYGridLayout = (props: PropTypes) => {
+/**
+ * @callback onClick
+ * @param { React.MouseEvent } event Click event
+ * @param { string[] } ids List of selected IDs
+ */
+
+/**
+ * Graphical representation of a grid of XY inputs. XY inputs can be a pain; some inputs
+ * whose 0-values are in the center will transmit the same MIDI information going either left or right,
+ * or either top or bottom; the software can't tell the difference between motion in opposing axes.
+ *
+ * @param { object } props Component props
+ * @param { VirtualInputGrid } props.inputGrid Contains driver and layout info
+ * @param { number } props.deviceWidth Width (in inches) of device
+ * @param { number } props.deviceHeight Height (in inches) of device
+ * @param { SupportedDeviceConfig } props.deviceConfig Configuration of parent device
+ * @param { onClick } props.onClick Click callback
+ * @param { boolean } props.configured Is the device configured // TODO: should be able to replace
+ * @Param { string[] } props.selectedInputs Currently-selected inputs
+ */
+export default function XYGridLayout(props: PropTypes) {
   const {
     inputGrid,
     deviceWidth,
@@ -110,6 +129,4 @@ const XYGridLayout = (props: PropTypes) => {
       </div>
     </div>
   );
-};
-
-export default XYGridLayout;
+}

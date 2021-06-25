@@ -4,36 +4,19 @@ import { Color } from './driver-types';
 import { InputConfig } from './hardware-config';
 import { CC_BINDINGS, stringVal } from './util';
 
+/**
+ * A pseudo-`InputConfig` used to show the values of multiple inputs in a group.
+ *
+ * E.g. the eventType of several inputs whose `eventType`s are all 'noteon' would be
+ * 'noteon' (of course). If one input in the group has a different value, the
+ * `InputGroup` `eventType` value would be '<multiple values>'
+ */
 export class InputGroup {
   inputs: InputConfig[];
 
   constructor(inputs: (InputConfig | undefined)[]) {
     this.inputs = inputs.filter((c) => c !== undefined) as InputConfig[];
   }
-
-  #groupValue = <T>(
-    getterFn: (config: InputConfig) => T,
-    equalityFn: (a: T, b: T) => boolean
-  ) => {
-    if (this.inputs.length === 0) return null;
-
-    const vals = this.inputs.map(getterFn);
-    const allMatch = vals.filter((v) => !equalityFn(v, vals[0])).length === 0;
-
-    return allMatch ? vals[0] : '<multiple values>';
-  };
-
-  #getEligibleValues = <T>(
-    getterFn: (i: InputConfig) => T[],
-    equalityFn: (a: T[], b: T[]) => boolean
-  ) => {
-    if (this.inputs.length === 0) return [];
-
-    const eligible = this.#groupValue(getterFn, equalityFn);
-    return eligible === '<multiple values>'
-      ? ([] as T[])
-      : getterFn(this.inputs[0]);
-  };
 
   labelForNumber(n: MidiValue) {
     const nInputs = this.inputs.length;
@@ -81,6 +64,65 @@ export class InputGroup {
     return `${ps}${isDefault ? ' [default]' : ''}`;
   }
 
+  colorForState(state: string) {
+    const color = this.#groupValue<Color | undefined>(
+      (c) => c.colorForState(state),
+      (a, b) => JSON.stringify(a) === JSON.stringify(b)
+    );
+
+    return color === undefined ? null : color;
+  }
+
+  /**
+   * Returns a value of type T which represents the value for all inputs in
+   * the group. The field being accessed (eventType, number, etc) is determined
+   * by `getterFn` while equality between individual values is determined with
+   * `equalityFn`
+   *
+   * @param { (config) => T } getterFn Returns the value being retrieve from `InputConfig`s
+   * @param { (a, b) => boolean } equalityFn Returns whether the values are equal
+   * @return { T | '<multiple values>' | null } A value representing all of the values in the group
+   */
+  #groupValue = <T>(
+    getterFn: (config: InputConfig) => T,
+    equalityFn: (a: T, b: T) => boolean
+  ) => {
+    if (this.inputs.length === 0) return null;
+
+    const vals = this.inputs.map(getterFn);
+    const allMatch = vals.filter((v) => !equalityFn(v, vals[0])).length === 0;
+
+    return allMatch ? vals[0] : '<multiple values>';
+  };
+
+  /**
+   * Returns a list of all eligible values for the specified field in this `InputGroup`.
+   * The list of eligible values in every `InputConfig` in this `InputGroup` must be
+   * *exactly* the same.
+   *
+   * E.g. if InputA.availableColors === [RED] and InputB.availableColors === [RED, GREEN],
+   * this function will return '<multiple values>'
+   *
+   * The field being accessed (eventType, number, etc) is determined
+   * by `getterFn` while equality between individual values is determined with
+   * `equalityFn`
+   *
+   * @param { (config) => T } getterFn Returns the value being retrieve from `InputConfig`s
+   * @param { (a, b) => boolean } equalityFn Returns whether the values are equal
+   * @return { T | '<multiple values>' | null } A value representing all of the values in the group
+   */
+  #getEligibleValues = <T>(
+    getterFn: (i: InputConfig) => T[],
+    equalityFn: (a: T[], b: T[]) => boolean
+  ) => {
+    if (this.inputs.length === 0) return [];
+
+    const eligible = this.#groupValue(getterFn, equalityFn);
+    return eligible === '<multiple values>'
+      ? ([] as T[])
+      : getterFn(this.inputs[0]);
+  };
+
   get eligibleLightStates() {
     const getter = (c: InputConfig) => c.eligibleLightStates;
     const equality = (a: string[], b: string[]) =>
@@ -93,15 +135,6 @@ export class InputGroup {
     const equality = (a: Color[], b: Color[]) =>
       JSON.stringify(a) === JSON.stringify(b);
     return this.#getEligibleValues(getter, equality);
-  }
-
-  colorForState(state: string) {
-    const color = this.#groupValue<Color | undefined>(
-      (c) => c.colorForState(state),
-      (a, b) => JSON.stringify(a) === JSON.stringify(b)
-    );
-
-    return color === undefined ? null : color;
   }
 
   get isMultiInput() {

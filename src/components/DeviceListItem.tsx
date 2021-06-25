@@ -71,7 +71,7 @@ type PropTypes = {
  * @param { boolean } props.connected Is the device connected?
  * @param { Map<string, DeviceDriver> } props.drivers All available drivers
  */
-export default function DeviceNavItem(props: PropTypes) {
+export default function DeviceListItem(props: PropTypes) {
   const {
     onClick,
     active,

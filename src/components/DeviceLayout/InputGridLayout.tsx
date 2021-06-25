@@ -21,6 +21,24 @@ type ElementPropTypes = {
   onClick: (event: React.MouseEvent, id: string) => void;
 };
 
+/**
+ * @callback onClick
+ * @param { React.MouseEvent } event Click event
+ * @param { string } id Id of the input
+ */
+
+/**
+ * Returns an element basic on input configuration
+ *
+ * @param { object } props Component props
+ * @param { VirtualInput } props.input Contains layout information + driver for an input
+ * @param { InputConfig } props.config Configuration for input control
+ * @param { boolean } props.configured Is the device configured // TODO: can probably replace
+ * @param { string } props.width CSS width of the input
+ * @param { string } props.height CSS height of the input
+ * @param { boolean } props.focus Should this control be highlighted?
+ * @param { onClick } props.onClick Click listener for setting selected inputs
+ */
 function Element(props: ElementPropTypes) {
   const { input, config, configured, width, height, onClick, focus } = props;
   const [color, setColor] = useState<Color | undefined>(config.currentColor);
@@ -34,7 +52,7 @@ function Element(props: ElementPropTypes) {
     setColor(config.currentColor);
   }, [config]);
 
-  // Whenever input is received, change the virtual layout accordingly
+  // Whenever input from related port is received, change the virtual layout accordingly
   useEffect(() => {
     const cb = (
       _e: IpcRendererEvent,
@@ -113,6 +131,23 @@ type PropTypes = {
   selectedInputs: string[];
 };
 
+/**
+ * @callback onClick
+ * @param { React.MouseEvent } event Click event
+ * @param { string[] } ids Newly-selected input IDs
+ */
+
+/**
+ * Contains a grid of input single-config VirtualInputs.
+ *
+ * @param { object } props Component props
+ * @param { number } props.deviceWidth Width of device (in inches)
+ * @param { number } props.deviceHeight Height of device (in inches)
+ * @param { SupportedDeviceConfig } props.deviceConfig Configuration for parent device
+ * @param { onClick } props.onClick Click callback for setting selected IDs
+ * @param { boolean } props.configured Is the current device configured? // TODO: can probably replace this
+ * @param { selectedInputs } props.selectedInputs The currently-selected inputs
+ */
 const InputGridLayout = (props: PropTypes) => {
   const {
     inputGrid,

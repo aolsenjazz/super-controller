@@ -4,9 +4,16 @@ import { MidiMessage } from 'midi-message-parser';
 import { DeviceDriver } from './driver-types';
 import { DRIVERS } from './drivers';
 
+/**
+ * PortPair with an attached driver. Useful so that we can reset the lights
+ * on devices to their initial state without having to know a device's configuration
+ * (if it has any).
+ */
 export class DrivenPortPair implements PortPair {
+  /* The actual PortPair */
   #pair: PortPair;
 
+  /* The related driver, if any */
   driver?: DeviceDriver;
 
   constructor(pair: PortPair) {
@@ -28,6 +35,7 @@ export class DrivenPortPair implements PortPair {
     this.name = pair.name;
   }
 
+  /* Reset all of the lights on the device to their initial state. */
   resetLights() {
     const d = this.driver;
 
@@ -53,27 +61,39 @@ export class DrivenPortPair implements PortPair {
       });
   }
 
+  /* See `PortPair` */
   id: string;
 
+  /* See `PortPair` */
   occurrenceNumber: number;
 
+  /* See `PortPair` */
   hasInput: boolean;
 
+  /* See `PortPair` */
   hasOutput: boolean;
 
+  /* See `PortPair` */
   name: string;
 
+  /* See `PortPair` */
   iPort: null | Port;
 
+  /* See `PortPair` */
   oPort: null | Port;
 
+  /* See `PortPair` */
   open: () => void;
 
+  /* See `PortPair` */
   close: () => void;
 
+  /* See `PortPair` */
   send: (msg: number[]) => void;
 
+  /* See `PortPair` */
   onMessage: (cb: (delta: number, msg: number[]) => void) => void;
 
+  /* See `PortPair` */
   _equals: (other: PortPair) => boolean;
 }

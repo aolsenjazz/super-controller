@@ -47,64 +47,6 @@ test('nickname return nickname when set', () => {
   expect(config.nickname).toBe(nickname);
 });
 
-test('equals returns true for objects with same class members', () => {
-  const id = 'SomeId';
-  const name = 'SomeName';
-  const shareSustain: string[] = [];
-  const inputConfigs: InputConfig[] = [];
-  const nickname = 'SomeNickname';
-
-  const config1 = new SupportedDeviceConfig(
-    id,
-    name,
-    0,
-    shareSustain,
-    inputConfigs,
-    nickname
-  );
-
-  const config2 = new SupportedDeviceConfig(
-    id,
-    name,
-    0,
-    shareSustain,
-    inputConfigs,
-    nickname
-  );
-
-  const result = config1.equals(config2);
-  expect(result).toBe(true);
-});
-
-test('equals returns false for objs with diff class members', () => {
-  const id = 'SomeId';
-  const name = 'SomeName';
-  const shareSustain: string[] = [];
-  const inputConfigs: InputConfig[] = [];
-  const nickname = 'SomeNickname';
-
-  const config1 = new SupportedDeviceConfig(
-    id,
-    name,
-    0,
-    shareSustain,
-    inputConfigs,
-    nickname
-  );
-
-  const config2 = new SupportedDeviceConfig(
-    id,
-    'DIFFERENT NAME',
-    1,
-    shareSustain,
-    inputConfigs,
-    nickname
-  );
-
-  const result = config1.equals(config2);
-  expect(result).toBe(false);
-});
-
 test('getInput throws for bad id', () => {
   const inputDefault = {
     channel: 0 as Channel,

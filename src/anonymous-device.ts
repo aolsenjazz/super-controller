@@ -1,6 +1,10 @@
 import { VirtualDevice } from './virtual-devices';
 import { DeviceDriver } from './driver-types';
 
+/**
+ * Driver for any device which does not yet have a driver. Made to look
+ * as generic as possible.
+ */
 export const anonymousDriver: DeviceDriver = {
   width: 12,
   height: 6,

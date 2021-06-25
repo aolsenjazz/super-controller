@@ -10,6 +10,7 @@ export interface DeviceConfig extends PortIdentifier {
   /* Device-reported name */
   readonly name: string;
 
+  /* nth-occurence of this device. applicable if > 1 device of same model is connected/configured */
   readonly occurrenceNumber: number;
 
   /* `${name} ${occurrenceNumber}` */

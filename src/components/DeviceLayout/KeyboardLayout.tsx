@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-import KeyWhite from './KeyWhite';
 import KeyBlack from './KeyBlack';
 
 const FUNDAMENTALS_WHITE = [0, 2, 4, 5, 7, 9, 11];
@@ -18,6 +17,18 @@ type PropTypes = {
   deviceHeight: number;
 };
 
+/**
+ * Graphical representation of a keyboard
+ *
+ * @param { object } props Component props
+ * @param { number } props.nOctaves Number of octaves in keyboard
+ * @param { number } props.width Width of keyboard (in inches)
+ * @param { number } props.height Height of keyboard (in inches)
+ * @param { number } props.left Distance from left edge of device (in inches)
+ * @param { number } props.bottom Distance from bottom edge of device (in inches)
+ * @param { number } props.deviceWidth Width (in inches) of device
+ * @param { number } props.deviceHeight Height (in inches) of device
+ */
 export default function Keyboard(props: PropTypes) {
   const {
     nOctaves,
@@ -49,7 +60,7 @@ export default function Keyboard(props: PropTypes) {
           }}
         >
           {FUNDAMENTALS_WHITE.map((fundamental) => (
-            <KeyWhite key={fundamental * octave + fundamental} />
+            <div className="key-white key" key={fundamental} />
           ))}
 
           {FUNDAMENTALS_BLACK.map((fundamental) => (

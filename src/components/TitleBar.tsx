@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * The uppermost gray bar. Draggable
+ *
+ * @param { string } title The title of the window, probably the Project name
+ */
 export default function TitleBar(props: { title: string }) {
   const { title } = props;
 

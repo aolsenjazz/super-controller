@@ -3,6 +3,12 @@ import React, { useCallback } from 'react';
 import { ipcRenderer } from '../../ipc-renderer';
 import { SupportedDeviceConfig } from '../../hardware-config';
 
+/**
+ * Inform the current user that the device isn't configured, and allow them to configure
+ *
+ * @param { object } props Component props
+ * @param { SupportedDeviceConfig } props.config Configuration of the current device
+ */
 export default function NotConfigured(props: {
   config: SupportedDeviceConfig;
 }) {

@@ -10,13 +10,13 @@ type Color = {
   /* The event type which triggers the color. E.g. noteon */
   eventType: EventType;
 
-  /* The value (velocity) value which triggers the color */
+  /* The value (velocity) which triggers the color */
   value: MidiValue;
 
-  /* css-valid string value. e.g. #FFF or rgba(100, 100, 100, 0.5) */
+  /* css-valid background-color attribute e.g. #FFF or rgba(100, 100, 100, 0.5) */
   string: string;
 
-  /* is this the active color when pad turns on? */
+  /* is this the active color when the device is connected? */
   default: boolean;
 
   /* Descriptive modifier of color behavior */

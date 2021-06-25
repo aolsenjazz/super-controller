@@ -14,10 +14,29 @@ type PropTypes = {
   setSelectedInputs: (inputs: string[]) => void;
 };
 
-export default function DeviceView(props: PropTypes) {
+/**
+ * @callback setSelectedInputs
+ * @param { string[] } inputs The newly-selected inputs
+ */
+
+/**
+ * Wrapper for the DeviceLayout
+ *
+ * @param { object } props Component props
+ * @param { VirtualDevice } props.device The VirtualDevice representation
+ * @param { SupportedDeviceConfig } props.config Device config
+ * @param { Project } props.project The active Project
+ * @param { string[] } props.selectedInputs List of the ids of the selected inputs
+ * @param { setSelectedInputs } props.setSelectedInputs Sets the selected inputs
+ */
+export default function DeviceLayoutWrapper(
+  props: PropTypes
+): React.ReactElement {
   const { device, project, selectedInputs, setSelectedInputs, config } = props;
+
   const configured = project.getDevice(device.id) !== null;
 
+  // on input click (or ctrl+click) update selectedInputs
   const onInputSelect = useCallback(
     (event: React.MouseEvent, ids: string[]) => {
       let next: string[] = [];
@@ -42,14 +61,12 @@ export default function DeviceView(props: PropTypes) {
   );
 
   return (
-    <>
-      <DeviceLayout
-        device={device}
-        onClick={onInputSelect}
-        selectedInputs={selectedInputs}
-        configured={configured}
-        deviceConfig={config}
-      />
-    </>
+    <DeviceLayout
+      device={device}
+      onClick={onInputSelect}
+      selectedInputs={selectedInputs}
+      configured={configured}
+      deviceConfig={config}
+    />
   );
 }

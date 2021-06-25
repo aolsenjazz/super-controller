@@ -5,8 +5,14 @@ type PropTypes = {
   active: boolean;
 };
 
-/* Basic non-interactive black key */
-export default function KeyBlack(props: PropTypes) {
+/**
+ * Simplified graphical representation of a black key
+ *
+ * @param { object } props Component props
+ * @param { number } props.fundamental Zero-based offset from C in the same octave (1,3,6,8 or 10)
+ * @param { boolean } props.active Should the key be highlighted?
+ */
+export default function KeyBlackIcon(props: PropTypes) {
   const { fundamental, active } = props;
 
   const numKeysFromLeft = 0.5 + Math.floor(fundamental / 2);

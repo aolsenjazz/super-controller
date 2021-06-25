@@ -2,6 +2,7 @@ import { MidiValue, MidiMessage } from 'midi-message-parser';
 
 const fs = require('fs');
 
+/* Mapping between MIDI values and human-readable strings */
 const NOTE_BINDINGS = new Map([
   [0, 'C-2'],
   [1, 'C#-2'],
@@ -133,11 +134,23 @@ const NOTE_BINDINGS = new Map([
   [127, 'G#8'],
 ]);
 
+/**
+ * Is this a sustain message?
+ *
+ * @param { MidiValue[] } msg Maybe a sustain message
+ * @return { boolean } true if msg is a sustain message
+ */
 export function isSustain(msg: MidiValue[]) {
   const mm = new MidiMessage(msg, 0);
   return mm.number === 64 && mm.type === 'controlchange';
 }
 
+/**
+ * Returns a human-readable string value for the given MIDI value
+ *
+ * @param { MidiValue } midiInt The MIDI number
+ * @return { string } Human-readable note string
+ */
 export function stringVal(midiInt: MidiValue) {
   const str = NOTE_BINDINGS.get(midiInt);
 
@@ -146,16 +159,34 @@ export function stringVal(midiInt: MidiValue) {
   return str;
 }
 
+/**
+ * Loads a JSON file
+ *
+ * @param { string } filePath The path to the JSON file
+ * @return { object } The parsed object
+ */
 export function loadJSON(filePath: string) {
   return JSON.parse(fs.readFileSync(filePath));
 }
 
+/**
+ * Appends a .controller extension if necessary
+ *
+ * @param { string } fileName The file name with or without '.controller'
+ * @return { string } fileName File name with '.controller'
+ */
 export function appendExtension(fileName: string) {
   if (fileName.endsWith('.controller')) return fileName;
 
   return `${fileName}.controller`;
 }
 
+/**
+ * Generally speaking, is this message and 'on' message?
+ *
+ * @param { MidiMessage | MidiValue[] | undefined } msg The message
+ * @return { boolean } `true` if message is on-ish
+ */
 export function isOnMessage(msg: MidiMessage | MidiValue[] | undefined) {
   if (msg === undefined) return false;
 
@@ -175,6 +206,7 @@ export function isOnMessage(msg: MidiMessage | MidiValue[] | undefined) {
   }
 }
 
+/* Mappings from CC number to a human-readable string */
 export const CC_BINDINGS = new Map<number, string>([
   [0, 'Bank Select'],
   [1, 'Mod Wheel'],
@@ -306,6 +338,7 @@ export const CC_BINDINGS = new Map<number, string>([
   [127, 'Poly Mode'],
 ]);
 
+/* CC numbers which don't have a default interpretation */
 export const UNMAPPED_CC: MidiValue[] = [
   3,
   9,

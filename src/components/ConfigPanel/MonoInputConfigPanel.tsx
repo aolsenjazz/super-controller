@@ -12,12 +12,21 @@ import { Project } from '../../project';
 type PropTypes = {
   group: InputGroup;
   project: Project;
-  device: SupportedDeviceConfig;
+  config: SupportedDeviceConfig;
   title: string;
 };
 
+/**
+ * Configuration controls for individual inputs
+ *
+ * @param { object } props Component props
+ * @param { InputGroup } props.inputGroup Input group for selected inputs
+ * @param { Project } props.project Current project
+ * @param { SupportedDeviceConfig } prop.config Current device's configuration
+ * @param { string } title Title of the input configuration panel
+ */
 export default function MonoInputConfigPanel(props: PropTypes) {
-  const { group, device, project, title } = props;
+  const { group, config, project, title } = props;
 
   const {
     number,
@@ -29,14 +38,16 @@ export default function MonoInputConfigPanel(props: PropTypes) {
     eligibleResponses,
   } = group;
 
+  // get all eligible values the given input group can be
   const eligibleChannels = [...Array(16).keys()] as Channel[];
   const eligibleNumbers = [...Array(128).keys()] as MidiValue[];
   const eligibleValues = [...Array(128).keys()] as MidiValue[];
 
+  // get labels for all eligible values
   const numberLabels = eligibleNumbers.map((v) => {
     if (eventType === 'controlchange') {
       const inUseLabel = v === number ? '' : ' [in use]';
-      return device.bindingAvailable(eventType, v, channel) || v === number
+      return config.bindingAvailable(eventType, v, channel) || v === number
         ? group.labelForNumber(v)
         : `${v}${inUseLabel}`;
     }
@@ -131,7 +142,11 @@ export default function MonoInputConfigPanel(props: PropTypes) {
         <button type="button" onClick={restoreDefaults}>
           Restore Defaults
         </button>
-        <BacklightSettings group={group} project={project} device={device} />
+        <BacklightSettings
+          group={group}
+          project={project}
+          deviceId={config.id}
+        />
       </div>
     </>
   );

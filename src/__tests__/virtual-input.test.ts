@@ -12,6 +12,8 @@ test('input.id returns correct ID', () => {
   const overrideable = true;
 
   const input = new VirtualInput(
+    1,
+    1,
     eventType,
     channel,
     number,
@@ -34,6 +36,8 @@ test('pad is overrideable', () => {
   const overrideable = true;
 
   const input = new VirtualInput(
+    1,
+    1,
     eventType,
     channel,
     number,
@@ -55,6 +59,8 @@ test('pad is not overrideable', () => {
   const overrideable = false;
 
   const input = new VirtualInput(
+    1,
+    1,
     eventType,
     channel,
     number,
@@ -75,6 +81,8 @@ test('fromDriver correctly assembles VirtualInput', () => {
       eventType: 'controlchange',
       response: 'toggle',
     },
+    width: 1,
+    height: 1,
     shape: 'rect',
     type: 'pad',
     availableColors: [],

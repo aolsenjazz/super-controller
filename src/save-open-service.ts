@@ -9,16 +9,28 @@ const Store = require('electron-store');
 const SAVE_DIR = 'dir';
 const store = new Store();
 
-/** Returns the most recent save/open location or Desktop */
+/**
+ * Returns the most recent save/open location or Desktop
+ *
+ * @return { string } Recommended save/open dir
+ */
 function recommendedDir(): string {
   return store.get(SAVE_DIR, app.getPath('desktop'));
 }
 
+/**
+ * Convenience class for opening, saving, remembering convenient paths.
+ */
 export class SaveOpenService {
+  /* The most-recently-used folder path */
   currentPath?: string;
 
   /**
-   * Write current project to disk at `project`s default path without giving the user a save dialog.
+   * Write current project to disk at `project`s default path without giving the
+   * user a save dialog.
+   *
+   * @param { Project } project The project to save
+   * @return { Promise<Project> } resolves once save complete/canceled
    */
   save(project: Project): Promise<Project> {
     if (!this.currentPath) {
@@ -35,6 +47,14 @@ export class SaveOpenService {
     });
   }
 
+  /**
+   * *Syncronous*
+   * If a file has already been opened/saved, saves automatically to the same path.
+   * Otherwise, opens a save dialog.
+   *
+   * @param { Project } project The project to save
+   * @return { boolean } true if save was complete, false if canceled
+   */
   saveSync(project: Project): boolean {
     if (this.currentPath) {
       const filePath = path.join(recommendedDir(), project.name);
@@ -60,6 +80,9 @@ export class SaveOpenService {
 
   /**
    * Create a save dialog, update `project` `path` and `name`, write to disk.
+   *
+   * @param { Project } project The project to save
+   * @return { Promise<Project> } resolves once the save is complete or canceled
    */
   saveAs(project: Project): Promise<Project> {
     return dialog
@@ -79,6 +102,11 @@ export class SaveOpenService {
       .then(() => this.save(project));
   }
 
+  /**
+   * Opens an open dialog and loads a Project if not canceled
+   *
+   * @return { Promise<Project> } The loaded project
+   */
   open() {
     return dialog
       .showOpenDialog({

@@ -8,11 +8,20 @@ import { SupportedDeviceConfig } from './hardware-config';
 import { SaveOpenService } from './save-open-service';
 import { PortService } from './ports/port-service';
 
+/**
+ * Manages communications to and from controllers, and acts as the ground-truth.
+ * `this.project` should be regarded as the only true and correct version of the project
+ * (compared to the `Project` object in frontend), and the frontend project object should
+ * always be a copy of this project.
+ */
 export class Background {
+  /* The ground-truth current project */
   project: Project;
 
+  /* Manages communications to/from ports */
   portService: PortService;
 
+  /* Saves + opens files */
   saveOpenService: SaveOpenService;
 
   constructor() {
@@ -23,6 +32,7 @@ export class Background {
     this.initIpc();
   }
 
+  /* When the project is updated, update our 'master' version and send our version to frontend */
   initIpc() {
     ipcMain.on(
       'project',
@@ -32,6 +42,7 @@ export class Background {
       }
     );
 
+    /* When a device is added to project, added it to the ground-truth project and send to frontend */
     ipcMain.on(
       'add-device',
       (_e: Event, id: string, name: string, occurNum: number) => {
@@ -42,6 +53,7 @@ export class Background {
       }
     );
 
+    /* When a device is removed from project, remove it and re-init all devices, send to frontend */
     ipcMain.on('remove-device', (_e: Event, deviceId: string) => {
       const device = this.project.getDevice(deviceId);
       this.project.removeDevice(device!);
@@ -50,6 +62,15 @@ export class Background {
     });
   }
 
+  /**
+   * The project has been updated. Set the window to edited (little red dot in the X button),
+   * send the new ground-truth project to frontend, update hardware lights.
+   *
+   * @param { Project } p The new version of the project
+   * @param { boolean } edited Is the document in an edited state?
+   * @param { string } dId The id of the updated device, if a device config was updated
+   * @param { string[] } iIds List of input ids that were updated, if any
+   */
   onProjectUpdate(p: Project, edited: boolean, dId?: string, iIds?: string[]) {
     this.project = p;
 

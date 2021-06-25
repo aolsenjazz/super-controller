@@ -13,6 +13,13 @@ type PropTypes = {
   active: boolean;
 };
 
+/**
+ * Simplified graphical representation of a hardware device
+ *
+ * @param { object } props Component props
+ * @param { DeviceDriver } props.device Driver for the given device
+ * @param { boolean } props.active Is the current device selected?
+ */
 export default function DeviceLayout(props: PropTypes) {
   const { device, active } = props;
 

@@ -12,6 +12,12 @@ export class KeyboardConfig {
   /* Channel on which keyboard MIDI events are transmitted */
   channel: Channel;
 
+  /**
+   * Constructs a new KeyboardConfig from driver, or returns undefined
+   *
+   * @param { KeyboardDriver | undefined } driver The keyboard driver
+   * @return { KeyboardConfig } A new instance of KeyboardConfig
+   */
   static fromDriver(driver?: KeyboardDriver) {
     return driver
       ? new KeyboardConfig(
@@ -22,6 +28,12 @@ export class KeyboardConfig {
       : undefined;
   }
 
+  /**
+   * Constructs a new KeyboardConfig from JSON, or returns undefined.
+   *
+   * @param { KeyboardDriver | undefined } obj The driver
+   * @return { KeyboardConfig | undefined } A new instance or undefined
+   */
   static fromParsedJSON(obj?: KeyboardDriver) {
     if (obj === undefined) return undefined;
 

@@ -7,6 +7,10 @@ import { VirtualOutput } from './virtual-output';
 /**
  * Returns a list of `PortPair` which are present in pairs1 and not in pairs2. If `stripPrefix`
  * is set to `true`, removes 'SC ' prefix so that 'SC APC Key' === 'APC Key'
+ *
+ * @param { PortPair[] } pairs1 The first list
+ * @param { PortPair[] } pairs2 the second list
+ * @param { boolean } stripPrefix Should the 'SC ' prefix be stripped from SuperController-created virtual ports?
  */
 function getDiff(pairs1: PortPair[], pairs2: PortPair[], stripPrefix: boolean) {
   let ids1: string[];
@@ -39,6 +43,8 @@ export class VirtualPortService {
    * Invoked when the list of available hardware ports changes. Updates the corresponding
    * list of virtual ports using `#updateVirtualPorts`. Adds a message listener to each hardware
    * port and invokes `this.onPortMsg`
+   *
+   * @param { PortPair[] } ports the list of new ports
    */
   onHardwarePortsChange(ports: PortPair[]) {
     const toBeAdded = getDiff(ports, this.virtualPorts, true);
@@ -50,7 +56,7 @@ export class VirtualPortService {
     });
 
     toBeAdded.forEach((pair) => {
-      this.#open(pair.name, pair.occurrenceNumber);
+      this.open(pair.name, pair.occurrenceNumber);
     });
 
     return toBeAdded;
@@ -59,16 +65,42 @@ export class VirtualPortService {
   /**
    * Retrieves the virtual `PortPair` equivalent of a hardware `PortPair`.
    * E.g. getVirtualEquivalent('APC Key 25') will return 'SC APC Key 25' `PortPair`.
+   *
+   * @param { string } id The ID of the requested port pair
+   * @return { PortPair | null }
    */
   getVirtualEquivalent(id: string) {
+    if (id.startsWith('SC '))
+      throw new Error(
+        'Requested the virtual equivalent of a virtual port. Use getVirtualPortPair instead'
+      );
+
     const parsed = `SC ${id}`;
     return this.#getVirtualPortPair(parsed);
   }
 
+  /**
+   * Opens the virtual port using the given name and occurrence number
+   *
+   * @param { string } deviceName The name of the virtual port
+   * @param { number } occurrenceNumber The nth-occurrence of the given port. useful if >1 ports are opened with the same name
+   */
   open(deviceName: string, occurrenceNumber: number) {
-    this.#open(deviceName, occurrenceNumber);
+    const name = `SC ${deviceName}`;
+    const iPort = new VirtualInput(occurrenceNumber, name);
+    const oPort = new VirtualOutput(occurrenceNumber, name);
+
+    const portPair = new PortPair(iPort, oPort);
+    portPair.open();
+
+    this.virtualPorts.push(portPair);
   }
 
+  /**
+   * Tries to close the port with the given id. If no port exists for the id, does nothing.
+   *
+   * @param { string } deviceId The device id
+   */
   close(deviceId: string) {
     const port = this.getVirtualEquivalent(deviceId);
     if (port) {
@@ -77,12 +109,21 @@ export class VirtualPortService {
     }
   }
 
+  /* Closes all virtual ports */
   shutdown() {
     this.virtualPorts.forEach((pp) => {
       pp.close();
     });
+    this.virtualPorts = [];
   }
 
+  /**
+   * Send the given message thru the virtual port with the given ID. If no virtual port
+   * exists for given ID, does nothing
+   *
+   * @param { MidiValue[] } msg The message to send
+   * @param { string } devId The virtual port ID
+   */
   send(msg: MidiValue[], devId: string) {
     const port = this.getVirtualEquivalent(devId);
 
@@ -91,6 +132,9 @@ export class VirtualPortService {
 
   /**
    * Get virtual PortPair by id
+   *
+   * @param { string } id The ID of the requested PortPair
+   * @return { PortPair | null }
    */
   #getVirtualPortPair = (id: string): PortPair | null => {
     let targetPair: PortPair | null = null;
@@ -101,19 +145,11 @@ export class VirtualPortService {
     return targetPair;
   };
 
-  #open = (deviceName: string, occurrenceNumber: number) => {
-    const name = `SC ${deviceName}`;
-    const iPort = new VirtualInput(occurrenceNumber, name);
-    const oPort = new VirtualOutput(occurrenceNumber, name);
-
-    const portPair = new PortPair(iPort, oPort);
-    portPair.open();
-
-    this.virtualPorts.push(portPair);
-  };
-
   /**
-   * Remove a virtual `PortPair` from `virtualPorts` by `id`
+   * Remove a virtual `PortPair` from `virtualPorts` by `id`. Throws if no
+   * match is found
+   *
+   * @param { string } id The requested ID
    */
   #removePair = (id: string) => {
     let idx = -1;

@@ -6,14 +6,20 @@ import { ipcRenderer } from '../../ipc-renderer';
 import { SupportedDeviceConfig } from '../../hardware-config';
 import { Project } from '../../project';
 
-type ShareSustainPropTypes = {
-  config: SupportedDeviceConfig;
-  shareableDevices: SupportedDeviceConfig[];
-  project: Project;
-};
+/**
+ * List of all devices eligible to share sustain events
+ *
+ * @param { object } props Component props
+ * @param { Project } props.project Current project
+ * @param { SupportedDeviceConfig } props.config Device configuration
+ */
+function ShareSustain(props: PropTypes) {
+  const { config, project } = props;
 
-function ShareSustain(props: ShareSustainPropTypes) {
-  const { config, shareableDevices, project } = props;
+  // get all devices which are eligible for sharing sustain
+  const shareableDevices = project.devices.filter(
+    (dev) => dev.id !== config.id && dev.keyboardConfig !== undefined
+  );
 
   if (config.keyboardConfig === undefined || shareableDevices.length === 0)
     return null;
@@ -48,6 +54,13 @@ type PropTypes = {
   config: SupportedDeviceConfig;
 };
 
+/**
+ * Panel for device-specific configuration
+ *
+ * @param { object } props Component props
+ * @param { Project } props.project Current project
+ * @param { SupportedDeviceConfig } props.config Device configuration
+ */
 export default function DeviceConfigPanel(props: PropTypes) {
   const { project, config } = props;
 
@@ -59,15 +72,13 @@ export default function DeviceConfigPanel(props: PropTypes) {
     [config, project]
   );
 
-  const shareableDevices = project.devices.filter(
-    (dev) => dev.id !== config.id && dev.keyboardConfig !== undefined
-  );
-
+  // require use to type in device name before deleting config
   const [confirm, setConfirm] = useState<string>('');
   const [confirmClass, setConfirmClass] = useState<string>('');
   const confirmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
 
+    // provide visual feedback on correctness of string
     if (val.length === 0) setConfirmClass('');
     else if (val === config.nickname) setConfirmClass('border-green');
     else setConfirmClass('border-red');
@@ -86,11 +97,7 @@ export default function DeviceConfigPanel(props: PropTypes) {
       <h3>Device Settings</h3>
       <p>Nickname:</p>
       <input id="nickname" value={config.nickname} onChange={onNameChange} />
-      <ShareSustain
-        config={config}
-        shareableDevices={shareableDevices}
-        project={project}
-      />
+      <ShareSustain config={config} project={project} />
       <h4>Delete Configuration:</h4>
       <div id="remove-device">
         <p>

@@ -17,8 +17,21 @@ type PropTypes = {
 };
 
 /**
+ * @callback onClick
+ * @param { React.MouseEvent } event Click event
+ * @param { string[] } ids List of selected ids
+ */
+
+/**
  * Root container for virtual device layouts. `DeviceLayout`, graphically, covers all
  * of the area contained in and including the outline of the device.
+ *
+ * @param { object } props Component props
+ * @param { VirtualDevice } props.device Containing driver and layout info for the device
+ * @param { SupportedDeviceConfig } props.deviceConfig Configuration for the device
+ * @param { onClick } props.onClick Click listener for input. used to set selected inputs
+ * @param { string[] } props.selectedInputs Currently-selected input IDs
+ * @param { boolean } props.configured Is the current device configured?
  */
 export default function DeviceLayout(props: PropTypes) {
   const { device, onClick, selectedInputs, configured, deviceConfig } = props;

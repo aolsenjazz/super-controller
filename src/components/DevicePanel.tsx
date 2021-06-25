@@ -1,16 +1,22 @@
 import React from 'react';
 
-import DeviceView from './DeviceView';
+import DeviceView from './DeviceLayoutWrapper';
 
 import { DeviceConfig, SupportedDeviceConfig } from '../hardware-config';
 import { VirtualDevice } from '../virtual-devices';
 import { DRIVERS } from '../drivers';
 import { Project } from '../project';
 
+/**
+ * Tell the user that there aren't any devices connected (nor configured)
+ */
 function NoDevicesView() {
   return <p id="no-devices">No connected devices.</p>;
 }
 
+/**
+ * Tell the user that this device isn't supported
+ */
 function UnsupportedView() {
   return <p id="unsupported-device">This device isn&apos;t supported yet.</p>;
 }

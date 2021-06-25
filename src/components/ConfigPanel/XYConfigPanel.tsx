@@ -9,11 +9,19 @@ import { Project } from '../../project';
 type PropTypes = {
   group: InputGroup;
   project: Project;
-  device: SupportedDeviceConfig;
+  config: SupportedDeviceConfig;
 };
 
+/**
+ * Configuration panel for hardware inputs which control two inputs via X + Y axes
+ *
+ * @param { object } props Component props
+ * @param { InputGroup } props.group InputGroup for selected inputs
+ * @param { Project } props.project Current project
+ * @param { SupportedDeviceConfig } props.config Configuration for current device
+ */
 export default function XYConfigPanel(props: PropTypes) {
-  const { group, device, project } = props;
+  const { group, config, project } = props;
 
   const xInput = group.inputs[0];
   const yInput = group.inputs[1];
@@ -24,7 +32,7 @@ export default function XYConfigPanel(props: PropTypes) {
         project={project}
         key={xInput.id}
         title="MIDI Settings - X Axis"
-        device={device}
+        config={config}
         group={new InputGroup([xInput])}
       />
 
@@ -32,7 +40,7 @@ export default function XYConfigPanel(props: PropTypes) {
         project={project}
         key={yInput.id}
         title="MIDI Settings - Y Axis"
-        device={device}
+        config={config}
         group={new InputGroup([yInput])}
       />
     </>

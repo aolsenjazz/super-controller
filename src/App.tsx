@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ipcRenderer, Event, IpcRendererEvent } from 'electron';
 
 import TitleBar from './components/TitleBar';
-import NavBar from './components/NavBar';
+import NavBar from './components/DeviceList';
 import DevicePanel from './components/DevicePanel';
 import ConfigPanel from './components/ConfigPanel';
 
@@ -17,10 +17,26 @@ import { DeviceDriver } from './driver-types';
 
 import './styles/App.global.css';
 
+/**
+ * Entry point for the frontend application. No calls to node modules are permitted
+ * from the front end as they behave different due to different entry points
+ * (.../src vs .../super-controller)
+ *
+ * DEVICE STATE + COMMUNICATION
+ * State and communication are managed in the backend. The backend notifies
+ * individual components via IPC when an input or device state is changed.
+ *
+ * PROJECT + CONFIGURATION UPDATES
+ * Updates to the project/device configuration/input configuration are
+ * always received from the backend; even configuration changes resulting from
+ * manipulating GUI controls are passed to the backend for processing before
+ * being received here and reflected in the DOM
+ */
 export default function App() {
   /**
    * Current project. `project` is never mutated locally, but instead passed
-   * to the backend for mutation, then reloaded here.
+   * to the backend for mutation, then reloaded here. As such this object should
+   * not be thought of as ground-truth, but as a copy of the backend's project.
    */
   const [project, setProject] = useState(new Project());
 
