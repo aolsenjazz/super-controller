@@ -344,11 +344,12 @@ export class InputConfig {
       return ['noteon', 'noteoff', 'controlchange', 'programchange'];
     }
 
+    // TODO: really shouldn't need this extra line. pitchbend should be treated as linear where possible
+    if (this.eventType === 'pitchbend') return ['pitchbend'];
+
     if (this.response === 'linear') {
       return ['noteon', 'noteoff', 'controlchange', 'programchange'];
     }
-
-    if (this.eventType === 'pitchbend') return ['pitchbend'];
 
     return ['noteon/noteoff', 'controlchange', 'programchange'];
   }
@@ -373,15 +374,15 @@ export class InputConfig {
   }
 
   get eligibleLightResponses() {
-    if (this.response === 'constant') {
+    if (this.default.response === 'constant') {
       return ['gate', 'toggle'];
     }
 
-    if (this.response === 'gate') {
+    if (this.default.response === 'gate') {
       return ['gate', 'toggle'];
     }
 
-    if (this.response === 'toggle') {
+    if (this.default.response === 'toggle') {
       return ['toggle'];
     }
 

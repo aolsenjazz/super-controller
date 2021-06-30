@@ -142,6 +142,16 @@
     ],
     "setupFiles": [
       "./.erb/scripts/CheckBuildsExist.js"
+    ],
+    "collectCoverageFrom": [
+      "src/hardware-config/**",
+      "src/ports/**",
+      "src/propagators/**",
+      "src/virtual-devices/**",
+      "!**/index.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/hardware-config/device-config.ts"
     ]
   },
   "devDependencies": {
