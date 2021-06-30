@@ -143,9 +143,9 @@ export class PortService {
     shareWith.forEach((devId) => {
       const device = this.project.getDevice(devId);
 
-      if (device?.keyboardConfig !== undefined) {
+      if (device?.keyboardDriver !== undefined) {
         const mm = new MidiMessage(msg, 0);
-        mm.channel = device?.keyboardConfig?.channel;
+        mm.channel = device?.keyboardDriver?.channel;
         this.#virtService.send(mm.toMidiArray(), devId);
       }
     });

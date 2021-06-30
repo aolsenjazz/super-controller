@@ -1,9 +1,8 @@
 import { MidiMessage, MidiValue, Channel } from 'midi-message-parser';
 
 import { inputIdFor } from '../device-util';
-import { DeviceDriver } from '../driver-types';
+import { DeviceDriver, KeyboardDriver } from '../driver-types';
 
-import { KeyboardConfig } from './keyboard-config';
 import { DeviceConfig } from './device-config';
 import { InputConfig } from './input-config';
 
@@ -36,8 +35,8 @@ export class SupportedDeviceConfig implements DeviceConfig {
   /* User-defined nickname */
   #nickname?: string;
 
-  /* See `KeyboardConfig` */
-  keyboardConfig?: KeyboardConfig;
+  /* See `KeyboardDriver` */
+  keyboardDriver?: KeyboardDriver;
 
   /**
    * Constructs a new instance of SupportedDeviceConfig from DeviceDriver.
@@ -65,7 +64,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
       [],
       inputs,
       undefined,
-      KeyboardConfig.fromDriver(driver.keyboard)
+      driver.keyboard
     );
 
     return newConfig;
@@ -90,7 +89,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
       parsed.shareSustain,
       inputs,
       parsed.nickname,
-      KeyboardConfig.fromParsedJSON(parsed.keyboardConfig)
+      parsed.keyboardDriver
     );
 
     return newDevice;
@@ -103,7 +102,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
     shareSustain: string[],
     inputs: InputConfig[],
     nickname?: string,
-    keyboardConfig?: KeyboardConfig
+    keyboardDriver?: KeyboardDriver
   ) {
     this.id = id;
     this.name = name;
@@ -111,7 +110,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
     this.shareSustain = shareSustain;
     this.inputs = inputs;
     this.#nickname = nickname;
-    this.keyboardConfig = keyboardConfig;
+    this.keyboardDriver = keyboardDriver;
   }
 
   /**
@@ -198,7 +197,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
       shareSustain: this.shareSustain,
       nickname: this.nickname,
       inputs: this.inputs.map((input) => input.toJSON(includeState)),
-      keyboardConfig: this.keyboardConfig,
+      keyboardDriver: this.keyboardDriver,
     };
 
     return JSON.stringify(obj);
@@ -247,7 +246,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
   #isKeyboardMsg = (msg: MidiValue[]) => {
     const mm = new MidiMessage(msg, 0);
     return (
-      mm.channel === this.keyboardConfig?.channel &&
+      mm.channel === this.keyboardDriver?.channel &&
       ['noteoff', 'noteon'].includes(mm.type)
     );
   };

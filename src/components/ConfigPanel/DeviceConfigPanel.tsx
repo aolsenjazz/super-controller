@@ -18,10 +18,10 @@ function ShareSustain(props: PropTypes) {
 
   // get all devices which are eligible for sharing sustain
   const shareableDevices = project.devices.filter(
-    (dev) => dev.id !== config.id && dev.keyboardConfig !== undefined
+    (dev) => dev.id !== config.id && dev.keyboardDriver !== undefined
   );
 
-  if (config.keyboardConfig === undefined || shareableDevices.length === 0)
+  if (config.keyboardDriver === undefined || shareableDevices.length === 0)
     return null;
 
   return (
