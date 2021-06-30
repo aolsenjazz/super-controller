@@ -17,6 +17,11 @@ import { DeviceDriver } from './driver-types';
 
 import './styles/App.global.css';
 
+document.body.ondragover = (event) => {
+  if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
+  event.preventDefault();
+};
+
 /**
  * Entry point for the frontend application. No calls to node modules are permitted
  * from the front end as they behave different due to different entry points

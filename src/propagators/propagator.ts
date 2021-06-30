@@ -54,16 +54,16 @@ export abstract class Propagator {
 
     switch (this.inputResponse) {
       case 'gate':
-        toPropagate = this.#handleAsGate(msg);
+        toPropagate = this.#handleInputAsGate(msg);
         break;
       case 'toggle':
-        toPropagate = this.#handleAsToggle(msg);
+        toPropagate = this.#handleInputAsToggle(msg);
         break;
       case 'linear':
-        toPropagate = this.#handleAsContinuous(msg);
+        toPropagate = this.#handleInputAsContinuous(msg);
         break;
       case 'constant':
-        toPropagate = this.#handleAsConstant(msg);
+        toPropagate = this.#handleInputAsConstant(msg);
         break;
       default:
         throw new Error(`unknown inputResponse ${this.inputResponse}`);
@@ -81,7 +81,7 @@ export abstract class Propagator {
    * @param { MidiValue[] } msg The message from device
    * @return { MidiMessage } the message to propagate
    */
-  #handleAsGate = (msg: MidiValue[]) => {
+  #handleInputAsGate = (msg: MidiValue[]) => {
     // if outputResponse === 'toggle' | 'constant', only respond to 'noteon' messages
     if (this.outputResponse !== 'gate' && !isOnMessage(msg)) return null;
 
@@ -94,7 +94,7 @@ export abstract class Propagator {
    * @param { MidiValue[] } msg The message from device
    * @return { MidiMessage } the message to propagate
    */
-  #handleAsToggle = (msg: MidiValue[]) => {
+  #handleInputAsToggle = (msg: MidiValue[]) => {
     return this.getResponse(msg);
   };
 
@@ -104,7 +104,7 @@ export abstract class Propagator {
    * @param { MidiValue[] } msg The message from device
    * @return { MidiMessage } the message to propagate
    */
-  #handleAsContinuous = (msg: MidiValue[]) => {
+  #handleInputAsContinuous = (msg: MidiValue[]) => {
     return this.getResponse(msg);
   };
 
@@ -114,7 +114,7 @@ export abstract class Propagator {
    * @param { MidiValue[] } msg The message from device
    * @return { MidiMessage } the message to propagate
    */
-  #handleAsConstant = (msg: MidiValue[]) => {
+  #handleInputAsConstant = (msg: MidiValue[]) => {
     return this.getResponse(msg);
   };
 
