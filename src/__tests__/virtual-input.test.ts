@@ -96,3 +96,23 @@ test('fromDriver correctly assembles VirtualInput', () => {
     `${driverLike.default.eventType}.${driverLike.default.channel}.${driverLike.default.number}`
   );
 });
+
+test('isPitchbend returns true', () => {
+  const driverLike: InputDriver = {
+    default: {
+      number: 69,
+      channel: 7,
+      eventType: 'pitchbend',
+      response: 'toggle',
+    },
+    width: 1,
+    height: 1,
+    shape: 'rect',
+    type: 'pad',
+    availableColors: [],
+    overrideable: true,
+  };
+
+  const result = VirtualInput.fromDriver(driverLike);
+  expect(result.isPitchbend).toBe(true);
+});
