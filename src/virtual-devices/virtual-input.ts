@@ -40,49 +40,17 @@ export class VirtualInput {
   /* MIDI channel */
   #channel: Channel;
 
-  /**
-   * Constructs a VirtualInput from a driver
-   *
-   * @param { InputDriver } driver The Driver
-   * @return { VirtualInput } A new instance of VirtualInput
-   */
-  static fromDriver(driver: InputDriver) {
-    return new VirtualInput(
-      driver.width,
-      driver.height,
-      driver.default.eventType,
-      driver.default.channel,
-      driver.default.number,
-      driver.shape,
-      driver.type,
-      driver.overrideable,
-      driver.handleWidth,
-      driver.handleHeight
-    );
-  }
-
-  constructor(
-    width: number,
-    height: number,
-    eventType: EventType,
-    channel: Channel,
-    number: MidiValue,
-    shape: 'rect' | 'square' | 'circle',
-    type: string,
-    overrideable: boolean,
-    handleWidth?: number,
-    handleHeight?: number
-  ) {
-    this.width = width;
-    this.height = height;
-    this.shape = shape;
-    this.type = type;
-    this.#eventType = eventType;
-    this.#channel = channel;
-    this.#number = number;
-    this.overrideable = overrideable;
-    this.handleWidth = handleWidth;
-    this.handleHeight = handleHeight;
+  constructor(driver: InputDriver) {
+    this.width = driver.width;
+    this.height = driver.height;
+    this.shape = driver.shape;
+    this.type = driver.type;
+    this.#eventType = driver.default.eventType;
+    this.#channel = driver.default.channel;
+    this.#number = driver.default.number;
+    this.overrideable = driver.overrideable;
+    this.handleWidth = driver.handleWidth;
+    this.handleHeight = driver.handleHeight;
   }
 
   get id() {
