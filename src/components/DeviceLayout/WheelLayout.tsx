@@ -9,6 +9,7 @@ type PropTypes = {
   height: string;
   handleWidth: string;
   handleHeight: string;
+  overrideable: boolean;
   onClick: (event: React.MouseEvent) => void;
 };
 
@@ -25,6 +26,7 @@ type PropTypes = {
  * @param { number } props.value Current value represented by the wheel
  * @param { boolean } props.enabled Should the wheel respond to click events?
  * @param { boolean } props.focus Should the wheel be highlighted?
+ * @param { boolean } props.overrideable Can this input be overridden?
  * @param { string } props.width CSS width attribute
  * @param { string } props.height CSS height attribute
  * @param { string } props.handleWidth CSS width attribute of the "grabbable" part of the input
@@ -42,6 +44,7 @@ export function WheelLayout(props: PropTypes) {
     onClick,
     handleWidth,
     handleHeight,
+    overrideable,
   } = props;
 
   const boundingStyle = {
@@ -59,7 +62,9 @@ export function WheelLayout(props: PropTypes) {
 
   return (
     <div
-      className={`wheel ${enabled ? 'hoverable' : ''} ${focus ? 'focus' : ''}`}
+      className={`wheel ${enabled ? 'hoverable' : ''} ${focus ? 'focus' : ''}${
+        overrideable ? '' : 'disabled'
+      }`}
       style={{ height, width }}
       onClick={(e) => onClick(e)}
       tabIndex={0}

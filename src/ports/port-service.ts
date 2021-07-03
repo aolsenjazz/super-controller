@@ -37,7 +37,10 @@ export class PortService {
 
   /* Returns all connected devices to their default state, then applies lights configs */
   initAllDevices() {
-    this.portPairs.forEach((pp) => pp.resetLights());
+    this.portPairs.forEach((pp) => {
+      pp.runControlSequence();
+      pp.resetLights();
+    });
     this.initConfiguredDevices();
   }
 

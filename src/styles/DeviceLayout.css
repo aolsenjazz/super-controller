@@ -95,6 +95,11 @@
   border-bottom: 1px solid #3a84e9;
 }
 
+.device-layout #keyboard-container.disabled *,
+.device-layout #keyboard-container.disabled {
+  border-color: #bcbec0;
+}
+
 .device-layout .octave {
   height: 100%;
   display: inline-block;
@@ -158,4 +163,12 @@
   border-radius: 100%;
   position: absolute;
   background-color: #e6e2e3;
+}
+
+.device-layout .disabled {
+  border-color: #bcbec0 !important;
+}
+
+.device-layout .disabled .grip {
+  background-color: #bcbec0 !important;
 }

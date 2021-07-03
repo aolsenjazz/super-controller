@@ -11,6 +11,7 @@ type PropTypes = {
   height: string;
   enabled: boolean;
   focus: boolean;
+  overrideable: boolean;
 };
 
 /**
@@ -30,13 +31,26 @@ type PropTypes = {
  * @param { string } props.hieght CSS height attribute
  * @param { boolean } enabled Should this input respond to click events?
  * @param { boolean } focus Should this input be highlighted?
+ * @param { boolean } overrideable Can this input be overridden?
  */
 export default function Pad(props: PropTypes) {
-  const { shape, width, height, onClick, enabled, focus, color, id } = props;
+  const {
+    shape,
+    width,
+    height,
+    onClick,
+    enabled,
+    focus,
+    color,
+    id,
+    overrideable,
+  } = props;
 
   return (
     <div
-      className={`pad ${focus ? 'focus' : ''} ${enabled ? 'hoverable' : ''}`}
+      className={`pad ${focus ? 'focus' : ''} ${enabled ? 'hoverable' : ''}${
+        overrideable ? '' : 'disabled'
+      }`}
       onMouseDown={(event) => {
         onClick(event, id);
       }}

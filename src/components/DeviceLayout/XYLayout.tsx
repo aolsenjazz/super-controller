@@ -7,6 +7,7 @@ type PropTypes = {
   yValue: number;
   enabled: boolean;
   focus: boolean;
+  overrideable: boolean;
   width: string;
   height: string;
   handleWidth: string;
@@ -30,6 +31,7 @@ type PropTypes = {
  * @param { number } props.yValue Value currently represented by the y-axis
  * @param { boolean } props.enabled Should the input respond to click events?
  * @param { boolean } props.focus Should the input be highlighted?
+ * @param { boolean } props.overrideable Can this input be overriden?
  * @param { string } props.width CSS width attribute
  * @param { string } props.height CSS height attribute
  * @param { string } props.handleWidth CSS width attribute of the "grabbable" portion of input
@@ -51,6 +53,7 @@ export default function XYLayout(props: PropTypes) {
     shape,
     handleWidth,
     handleHeight,
+    overrideable,
   } = props;
 
   const xShift = xValue / xMax;
@@ -65,7 +68,9 @@ export default function XYLayout(props: PropTypes) {
 
   return (
     <div
-      className={`xy ${enabled ? 'hoverable' : ''} ${focus ? 'focus' : ''}`}
+      className={`xy ${enabled ? 'hoverable' : ''} ${focus ? 'focus' : ''}${
+        overrideable ? '' : 'disabled'
+      }`}
       onClick={(e) => onClick(e)}
       tabIndex={0}
       onKeyDown={() => {}}

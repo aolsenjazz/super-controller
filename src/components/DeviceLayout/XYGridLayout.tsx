@@ -124,6 +124,7 @@ export default function XYGridLayout(props: PropTypes) {
               onClick(e, [xInput.id, yInput.id]);
             }
           }}
+          overrideable={xInput.overrideable}
           focus={selectedInputs.includes(xInput.id) && configured}
         />
       </div>

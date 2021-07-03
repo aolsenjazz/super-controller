@@ -1,5 +1,14 @@
+import { Channel, MidiValue, EventType } from 'midi-message-parser';
+
 import { InputGridDriver } from './input-grid-driver';
 import { KeyboardDriver } from './keyboard-driver';
+
+/**
+ * Human-readable representation of a midi message to be sent devices upon
+ * intialization. Running a control sequence relinquishes control of device
+ * lights, though not all device require control sequences to achieve this.
+ */
+type ControlSequenceMessage = [EventType, MidiValue, MidiValue, Channel];
 
 export type DeviceStyle = {
   /* Radius in `em` or `px` */
@@ -33,4 +42,7 @@ export type DeviceDriver = {
 
   /* See `KeyboardDriver` */
   keyboard?: KeyboardDriver;
+
+  /* See `ControlSequenceMessage` */
+  controlSequence?: ControlSequenceMessage[];
 };

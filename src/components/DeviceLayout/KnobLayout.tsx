@@ -29,6 +29,7 @@ type PropTypes = {
   enabled: boolean;
   focus: boolean;
   shape: string;
+  overrideable: boolean;
   onClick: (event: React.MouseEvent) => void;
 };
 
@@ -48,6 +49,7 @@ type PropTypes = {
  * @param { number } props.value Value currently represented by the knob
  * @param { boolean } props.enabled Can be the knob be clicked?
  * @param { boolean } props.focus Should the knob be highlighted?
+ * @param { boolean } props.overrideable Can this control be overridden?
  * @param { string } props.shape What is the shape of the knob? probably 'circ'
  * @param { onClick } props.onClick Click listener to set selected inputs
  */
@@ -62,6 +64,7 @@ export function Knob(props: PropTypes) {
     enabled,
     shape,
     onClick,
+    overrideable,
   } = props;
 
   const startAngle = (360 - degrees) / 2;
@@ -85,7 +88,9 @@ export function Knob(props: PropTypes) {
         role="button"
       >
         <div
-          className={`outer ${focus ? 'focus' : ''}`}
+          className={`outer ${focus ? 'focus' : ''} ${
+            overrideable ? '' : 'disabled'
+          }`}
           role="button"
           tabIndex={0}
           style={{

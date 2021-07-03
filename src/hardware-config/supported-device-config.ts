@@ -204,52 +204,22 @@ export class SupportedDeviceConfig implements DeviceConfig {
   }
 
   /**
-   * Passes the message to an `InputConfig` for overrides, or does nothing if
-   * no matching `InputConfig`
+   * Tries to pass the message to an `InputConfig`. If no matching `InputConfig`s,
+   * send a propagates the message and sends nothing to device.
    *
    * @param { MidiValue[] } message The MidiValue[] from device
    * @return { (MidiValue[] | null)[] } [messageToDevice | null, messageToPropagate]
    */
   handleMessage(message: MidiValue[]): (MidiValue[] | null)[] {
-    if (this.#isKeyboardMsg(message)) return this.#handleKeyboardMsg(message);
-
     const mm = new MidiMessage(message, 0);
     const id = inputIdFor(mm.number, mm.channel, mm.type);
 
     const input = this.getInput(id);
 
-    if (input !== undefined) {
-      return input.handleMessage(message);
-    }
+    if (input !== undefined) return input.handleMessage(message);
 
     return [null, message]; // if no input config, just propagate the message
   }
-
-  /**
-   * Handle a message from the keyboard. Just propagate to clients.
-   *
-   * @param { MidiValue[] } msg The MidiValue[] from device
-   * @return { [null, MidiValue[]] }
-   */
-  #handleKeyboardMsg = (msg: MidiValue[]) => {
-    return [null, msg];
-  };
-
-  /**
-   * Is this a message from the keyboard? *NOTE: this is not conclusive!!* Many midi
-   * controllers have pads that send noteon/noteoff events on the same channel as its
-   * keyboard, and as a result, are virtually indistinguishable from keyboard events :(
-   *
-   * @param { MidiValue[] } msg The message from the device
-   * @return { boolean } you know
-   */
-  #isKeyboardMsg = (msg: MidiValue[]) => {
-    const mm = new MidiMessage(msg, 0);
-    return (
-      mm.channel === this.keyboardDriver?.channel &&
-      ['noteoff', 'noteon'].includes(mm.type)
-    );
-  };
 
   get nickname() {
     return this.#nickname !== undefined ? this.#nickname : this.name;

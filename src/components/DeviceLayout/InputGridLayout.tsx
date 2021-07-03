@@ -18,6 +18,7 @@ type ElementPropTypes = {
   width: string;
   height: string;
   focus: boolean;
+  overrideable: boolean;
   onClick: (event: React.MouseEvent, id: string) => void;
 };
 
@@ -37,10 +38,21 @@ type ElementPropTypes = {
  * @param { string } props.width CSS width of the input
  * @param { string } props.height CSS height of the input
  * @param { boolean } props.focus Should this control be highlighted?
+ * @param { boolean } props.overrideable Can this input be overridden?
  * @param { onClick } props.onClick Click listener for setting selected inputs
  */
 function Element(props: ElementPropTypes) {
-  const { input, config, configured, width, height, onClick, focus } = props;
+  const {
+    input,
+    config,
+    configured,
+    width,
+    height,
+    onClick,
+    focus,
+    overrideable,
+  } = props;
+
   const [color, setColor] = useState<Color | undefined>(config.currentColor);
   const enabled = configured && input.overrideable;
 
@@ -86,6 +98,7 @@ function Element(props: ElementPropTypes) {
         color={color}
         enabled={enabled}
         focus={focus}
+        overrideable={overrideable}
       />
     );
   } else if (input.type === 'knob') {
@@ -100,6 +113,7 @@ function Element(props: ElementPropTypes) {
         enabled={enabled}
         focus={focus}
         shape={input.shape}
+        overrideable={overrideable}
       />
     );
   } else {
@@ -113,6 +127,7 @@ function Element(props: ElementPropTypes) {
         height={height}
         enabled={enabled}
         focus={focus}
+        overrideable={overrideable}
         onClick={(e) => onClick(e, input.id)}
       />
     );
@@ -190,6 +205,7 @@ const InputGridLayout = (props: PropTypes) => {
               input={input}
               config={inputConfig!}
               configured={configured}
+              overrideable={input.overrideable}
               onClick={(_e, id: string) => {
                 if (input.overrideable && configured) onClick(_e, [id]);
               }}

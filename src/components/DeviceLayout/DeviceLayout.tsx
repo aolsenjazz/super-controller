@@ -52,6 +52,7 @@ export default function DeviceLayout(props: PropTypes) {
             bottom={device.keyboard.bottom}
             deviceWidth={device.width}
             deviceHeight={device.height}
+            enabled={device.keyboard.enabled}
           />
         ) : null}
 

@@ -21,4 +21,10 @@ export type KeyboardDriver = {
 
   /* Distance, in inches, from bottom edge of device */
   bottom: number;
+
+  /**
+   * Does the keyboard transmit data? Some devices have separate ports for keyboard
+   * and other inputs, so a keyboard may not necessarily transmit for a given port.
+   */
+  enabled: boolean;
 };

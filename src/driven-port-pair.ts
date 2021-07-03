@@ -61,6 +61,21 @@ export class DrivenPortPair implements PortPair {
       });
   }
 
+  /**
+   * Sends a sequence of MIDI messages to the device in order to gain control of its
+   * lights. This sequence of messages is the same sequence sent by Ableton in order
+   * to put devices into Control Surface mode. Not all devices require a control
+   * sequence in order to relinquish control of lights.
+   */
+  runControlSequence() {
+    if (this.driver) {
+      this.driver.controlSequence?.forEach((msgArray) => {
+        const mm = new MidiMessage(...msgArray, 0);
+        this.#pair.send(mm.toMidiArray());
+      });
+    }
+  }
+
   /* See `PortPair` */
   id: string;
 
