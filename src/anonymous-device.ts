@@ -23,6 +23,7 @@ export const anonymousDriver: DeviceDriver = {
     height: 4,
     bottom: 0,
     left: 0,
+    enabled: true,
   },
   inputGrids: [
     {
