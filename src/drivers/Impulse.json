@@ -1,6 +1,7 @@
 {
-  "aspectRatio": "20/12.5",
-  "name": "Impulse  Impulse ",
+  "width": 20,
+  "height": 11.75,
+  "name": "Impulse",
   "style": {
     "borderTopLeftRadius": "0.5em",
     "borderTopRightRadius": "0.5em",
@@ -11,18 +12,18 @@
     "defaultOctave": 2,
     "nOctaves": 2,
     "channel": 0,
-    "style": {
-      "width": "67.5%",
-      "height": "44%",
-      "bottom": 0,
-      "right": "7%"
-    }
+    "width": 14.75,
+    "height": 5.625,
+    "left": 3.875,
+    "bottom": 0
   },
   "inputGrids": [
     {
       "id": "Wheels",
-      "height": 0.13,
-      "width": 0.035,
+      "height": 1.875,
+      "width": 2.125,
+      "left": 1,
+      "bottom": 2.375,
       "nRows": 1,
       "nCols": 2,
       "inputs": [
@@ -36,6 +37,10 @@
           "overrideable": true,
           "type": "wheel",
           "shape": "rect",
+          "width": 0.55,
+          "height": 1.875,
+          "handleWidth": 0.55,
+          "handleHeight": 0.25,
           "availableColors": []
         },
         {
@@ -48,20 +53,20 @@
           "type": "wheel",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.55,
+          "height": 1.875,
+          "handleWidth": 0.55,
+          "handleHeight": 0.25,
           "availableColors": []
         }
-      ],
-      "style": {
-        "width": "12%",
-        "height": "20%",
-        "bottom": "12.5%",
-        "left": "7%"
-      }
+      ]
     },
     {
       "id": "Screen",
-      "height": 0.13,
-      "width": 0.175,
+      "height": 2,
+      "width": 3.625,
+      "left": 2.6,
+      "bottom": 8.5,
       "nRows": 1,
       "nCols": 1,
       "inputs": [
@@ -75,20 +80,57 @@
           "type": "pad",
           "overrideable": false,
           "shape": "rect",
+          "height": 2,
+          "width": 3.625,
           "availableColors": []
         }
-      ],
-      "style": {
-        "width": "17.5%",
-        "height": "16.5%",
-        "left": "12.5%",
-        "top": "12.5%"
-      }
+      ]
+    },
+    {
+      "id": "Transpose",
+      "height": 0.4,
+      "width": 1.125,
+      "left": 1.5,
+      "bottom": 5,
+      "nRows": 1,
+      "nCols": 2,
+      "inputs": [
+        {
+          "default": {
+            "channel": -1,
+            "number": -1,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "height": 0.4,
+          "width": 0.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -2,
+            "eventType": "unknown",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "height": 0.4,
+          "width": 0.4,
+          "availableColors": []
+        }
+      ]
     },
     {
       "id": "Fader",
-      "height": 0.15,
-      "width": 0.0375,
+      "height": 3,
+      "width": 0.7,
+      "left": 1,
+      "bottom": 7.35,
       "nRows": 1,
       "nCols": 1,
       "inputs": [
@@ -102,20 +144,20 @@
           "type": "slider",
           "overrideable": true,
           "shape": "rect",
+          "height": 2.875,
+          "width": 0.7,
+          "handleWidth": 0.7,
+          "handleHeight": 0.625,
           "availableColors": []
         }
-      ],
-      "style": {
-        "width": "3.75%",
-        "height": "24%",
-        "left": "5%",
-        "top": "8.5%"
-      }
+      ]
     },
     {
       "id": "MixerButton",
-      "height": 0.03,
-      "width": 0.035,
+      "height": 0.4,
+      "width": 0.5,
+      "left": 1.375,
+      "bottom": 6,
       "nRows": 1,
       "nCols": 1,
       "inputs": [
@@ -129,20 +171,18 @@
           "type": "pad",
           "overrideable": false,
           "shape": "rect",
+          "height": 0.4,
+          "width": 0.5,
           "availableColors": []
         }
-      ],
-      "style": {
-        "width": "3.5%",
-        "height": "6%",
-        "left": "calc(5% + 1px)",
-        "top": "43%"
-      }
+      ]
     },
     {
       "id": "Template Edit",
-      "height": 0.03,
-      "width": 0.035,
+      "height": 1.5,
+      "width": 5.6,
+      "left": 2.375,
+      "bottom": 6.25,
       "nRows": 2,
       "nCols": 4,
       "inputs": [
@@ -156,6 +196,8 @@
           "type": "pad",
           "overrideable": false,
           "shape": "rect",
+          "width": 0.75,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -168,6 +210,8 @@
           "type": "pad",
           "overrideable": false,
           "shape": "rect",
+          "width": 0.75,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -180,6 +224,8 @@
           "type": "pad",
           "overrideable": false,
           "shape": "rect",
+          "width": 0.75,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -192,6 +238,8 @@
           "type": "pad",
           "overrideable": false,
           "shape": "rect",
+          "width": 0.75,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -204,6 +252,8 @@
           "type": "pad",
           "overrideable": false,
           "shape": "rect",
+          "width": 0.75,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -216,6 +266,8 @@
           "type": "pad",
           "overrideable": false,
           "shape": "rect",
+          "width": 0.75,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -228,6 +280,8 @@
           "type": "pad",
           "overrideable": false,
           "shape": "rect",
+          "width": 0.75,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -240,20 +294,96 @@
           "type": "pad",
           "overrideable": false,
           "shape": "rect",
+          "width": 0.75,
+          "height": 0.5,
           "availableColors": []
         }
-      ],
-      "style": {
-        "width": "27%",
-        "height": "17%",
-        "left": "11%",
-        "top": "34%"
-      }
+      ]
+    },
+    {
+      "id": "Clip Launch",
+      "height": 0.5,
+      "width": 2.125,
+      "left": 15.6,
+      "bottom": 6.75,
+      "nRows": 1,
+      "nCols": 2,
+      "inputs": [
+        {
+          "default": {
+            "channel": -1,
+            "number": -1,
+            "eventType": "controlchange",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "width": 0.75,
+          "height": 0.5,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -2,
+            "eventType": "controlchange",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "width": 0.75,
+          "height": 0.5,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "Page",
+      "height": 1,
+      "width": 0.4,
+      "left": 8.25,
+      "bottom": 9,
+      "nRows": 2,
+      "nCols": 1,
+      "inputs": [
+        {
+          "default": {
+            "channel": -1,
+            "number": -1,
+            "eventType": "controlchange",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": -1,
+            "number": -2,
+            "eventType": "controlchange",
+            "response": "gate"
+          },
+          "type": "pad",
+          "overrideable": false,
+          "shape": "rect",
+          "width": 0.4,
+          "height": 0.4,
+          "availableColors": []
+        }
+      ]
     },
     {
       "id": "DataKnob",
-      "height": 0.05,
-      "width": 0.05,
+      "height": 0.875,
+      "width": 0.875,
+      "left": 6.75,
+      "bottom": 9.125,
       "nRows": 1,
       "nCols": 1,
       "inputs": [
@@ -267,20 +397,18 @@
           "type": "knob",
           "overrideable": false,
           "shape": "circle",
+          "height": 0.875,
+          "width": 0.875,
           "availableColors": []
         }
-      ],
-      "style": {
-        "width": "3.5%",
-        "height": "6%",
-        "left": "32.9%",
-        "top": "19%"
-      }
+      ]
     },
     {
       "id": "TransportCtrls",
-      "height": 0.03,
-      "width": 0.035,
+      "height": 0.4,
+      "width": 5,
+      "left": 8.5,
+      "bottom": 6.4,
       "nRows": 1,
       "nCols": 6,
       "inputs": [
@@ -294,6 +422,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.6,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -306,6 +436,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.6,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -318,6 +450,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.6,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -330,6 +464,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.6,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -342,6 +478,8 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.6,
+          "height": 0.5,
           "availableColors": []
         },
         {
@@ -354,20 +492,18 @@
           "type": "pad",
           "overrideable": true,
           "shape": "rect",
+          "width": 0.6,
+          "height": 0.5,
           "availableColors": []
         }
-      ],
-      "style": {
-        "width": "27.5%",
-        "height": "10%",
-        "left": "39%",
-        "top": "42%"
-      }
+      ]
     },
     {
       "id": "CCKnobs",
-      "height": 0.045,
-      "width": 0.045,
+      "height": 2.125,
+      "width": 4.375,
+      "left": 9,
+      "bottom": 8.375,
       "nRows": 2,
       "nCols": 4,
       "inputs": [
@@ -381,6 +517,8 @@
           "type": "knob",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.75,
+          "height": 0.75,
           "availableColors": []
         },
         {
@@ -393,6 +531,8 @@
           "type": "knob",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.75,
+          "height": 0.75,
           "availableColors": []
         },
         {
@@ -405,6 +545,8 @@
           "type": "knob",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.75,
+          "height": 0.75,
           "availableColors": []
         },
         {
@@ -417,6 +559,8 @@
           "type": "knob",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.75,
+          "height": 0.75,
           "availableColors": []
         },
         {
@@ -429,6 +573,8 @@
           "type": "knob",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.75,
+          "height": 0.75,
           "availableColors": []
         },
         {
@@ -441,6 +587,8 @@
           "type": "knob",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.75,
+          "height": 0.75,
           "availableColors": []
         },
         {
@@ -453,6 +601,8 @@
           "type": "knob",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.75,
+          "height": 0.75,
           "availableColors": []
         },
         {
@@ -465,20 +615,18 @@
           "type": "knob",
           "overrideable": true,
           "shape": "circle",
+          "width": 0.75,
+          "height": 0.75,
           "availableColors": []
         }
-      ],
-      "style": {
-        "width": "25%",
-        "height": "25%",
-        "right": "32.9%",
-        "top": "10%"
-      }
+      ]
     },
     {
       "id": "Pads",
-      "height": 0.055,
-      "width": 0.055,
+      "height": 2.375,
+      "width": 5.25,
+      "left": 14,
+      "bottom": 8.25,
       "nRows": 2,
       "nCols": 4,
       "inputs": [
@@ -490,8 +638,10 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "rect",
+          "height": 1,
+          "width": 1,
           "availableColors": []
         },
         {
@@ -502,8 +652,10 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "rect",
+          "height": 1,
+          "width": 1,
           "availableColors": []
         },
         {
@@ -514,8 +666,10 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "rect",
+          "height": 1,
+          "width": 1,
           "availableColors": []
         },
         {
@@ -526,8 +680,10 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "rect",
+          "height": 1,
+          "width": 1,
           "availableColors": []
         },
         {
@@ -538,8 +694,10 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "rect",
+          "height": 1,
+          "width": 1,
           "availableColors": []
         },
         {
@@ -550,8 +708,10 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "rect",
+          "height": 1,
+          "width": 1,
           "availableColors": []
         },
         {
@@ -562,8 +722,10 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "rect",
+          "height": 1,
+          "width": 1,
           "availableColors": []
         },
         {
@@ -574,17 +736,13 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "rect",
+          "height": 1,
+          "width": 1,
           "availableColors": []
         }
-      ],
-      "style": {
-        "width": "28%",
-        "height": "22%",
-        "right": "3%",
-        "top": "12%"
-      }
+      ]
     }
   ]
 }
