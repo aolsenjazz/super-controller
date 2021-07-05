@@ -165,7 +165,8 @@
   background-color: #e6e2e3;
 }
 
-.device-layout .disabled {
+.device-layout .disabled,
+.device-layout .wheel.disabled .inner {
   border-color: #bcbec0 !important;
 }
 
