@@ -15,7 +15,19 @@
   width: 100%;
   text-align: center;
   position: absolute;
-  color: #272727;
+  color: rgba(0, 0, 0, 0.3);
   top: 50%;
   transform: translate(0, -50%);
+}
+
+#unsupported-device > * {
+  display: inline-block;
+}
+
+#unsupported-device > p {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#unsupported-device .help-tip {
+  margin-left: 5px;
 }

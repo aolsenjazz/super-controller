@@ -6,24 +6,57 @@ import { Color } from './driver-types';
  *
  * TODO: Probably should move this to an abstract class
  *
- * @param { MidiValue } number The MIDI number (note value, CC number, etc)
+ * @param { MidiValue | MidiMessage } numOrMsg The MIDI number (note value, CC number, etc) or MidiMessage
  * @param { Channel } channel The MIDI channel
  * @param { string } eventType The event type
  * @return { string } The ID of the input
  */
 export function inputIdFor(
-  number: MidiValue,
-  channel: Channel,
-  eventType: string
+  numOrMsg: MidiValue | MidiMessage,
+  channel?: Channel,
+  eventType?: string
 ) {
-  if (eventType === 'pitchbend') {
-    return `${eventType}.${channel}`;
+  let n: MidiValue;
+  let c: Channel;
+  let e: string;
+  if (numOrMsg instanceof MidiMessage) {
+    n = numOrMsg.number;
+    c = numOrMsg.channel;
+    e = numOrMsg.type;
+  } else {
+    n = numOrMsg;
+    c = channel!;
+    e = eventType!;
   }
 
-  let parsedEventType = eventType;
+  if (e === 'pitchbend') {
+    return `${e}.${c}`;
+  }
+
+  let parsedEventType = e;
   if (['noteon', 'noteoff'].includes(parsedEventType))
     parsedEventType = 'noteon/noteoff';
-  return `${parsedEventType}.${channel}.${number}`;
+  return `${parsedEventType}.${c}.${n}`;
+}
+
+/**
+ * Convert an input id string to a MidiMessage
+ *
+ * @param { string } id The input ID
+ * @return { MidiMessage } A MidiMessage representation
+ */
+export function inputIdToMidiMessage(id: string) {
+  const parts = id.split('.');
+  const channel = parseInt(parts[1], 10);
+
+  if (id.includes('pitchbend')) {
+    return new MidiMessage('pitchbend', 0, channel, 0, 0);
+  }
+
+  const eventType = parts[0];
+  const number = parseInt(parts[2], 10) as MidiValue;
+
+  return new MidiMessage(eventType, number, channel, 0, 0);
 }
 
 /**

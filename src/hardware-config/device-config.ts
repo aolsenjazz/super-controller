@@ -1,7 +1,8 @@
+import { KeyboardDriver } from '../driver-types';
 import { PortIdentifier } from '../ports/port-info';
 
 /**
- * Base interface for SupportedDeviceConfig and UnsupportedDeviceConfig.
+ * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.
  */
 export interface DeviceConfig extends PortIdentifier {
   /* True if a driver exists for the given name */
@@ -15,4 +16,6 @@ export interface DeviceConfig extends PortIdentifier {
 
   /* `${name} ${occurrenceNumber}` */
   id: string;
+
+  keyboardDriver?: KeyboardDriver;
 }

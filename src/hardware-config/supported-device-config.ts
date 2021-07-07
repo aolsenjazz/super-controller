@@ -73,11 +73,11 @@ export class SupportedDeviceConfig implements DeviceConfig {
   /**
    * Constructs a new instance of SupportedDeviceConfig from a json string.
    *
-   * @param { string } json JSON string
+   * @param { string } parsed JSON string
    * @return { SupportedDeviceConfig } A new instance of SupportedDeviceConfig
    */
-  static fromJSON(json: string) {
-    const parsed = JSON.parse(json);
+  /* eslint-disable-next-line */
+  static fromParsedJSON(parsed: any) {
     const inputs = parsed.inputs.map((inputJSON: string) =>
       InputConfig.fromJSON(inputJSON)
     );
@@ -183,7 +183,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
 
   /**
    * Serializes this device config and all child configs. Useful in tandem
-   * with SupportedDeviceConfig.fromJSON()
+   * with SupportedDeviceConfig.fromParsedJSON()
    *
    * @param { boolean } includeState Should we include state information?
    * @return { string } JSON string

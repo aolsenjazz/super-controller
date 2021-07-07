@@ -1,12 +1,17 @@
 import React from 'react';
 
+import Forwarder from './Forwarder';
 import BasicMessage from './BasicMessage';
 import NotConfigured from './NotConfigured';
 import DeviceConfigPanel from './DeviceConfigPanel';
 import MonoInputConfigPanel from './MonoInputConfigPanel';
 import XYConfigPanel from './XYConfigPanel';
 
-import { DeviceConfig, SupportedDeviceConfig } from '../../hardware-config';
+import {
+  DeviceConfig,
+  SupportedDeviceConfig,
+  AnonymousDeviceConfig,
+} from '../../hardware-config';
 import { Project } from '../../project';
 import { InputGroup } from '../../input-group';
 
@@ -68,13 +73,20 @@ export default function ConfigPanel(props: PropTypes) {
   const isConfigured = project.getDevice(device?.id) ? true : false;
   const asSupported = device as SupportedDeviceConfig;
 
-  let Element: React.ReactElement;
+  let Element: JSX.Element;
 
   // show a diff view depending on if device is supported, configured, etc
   if (device === null) Element = <BasicMessage msg="No connected devices." />;
-  else if (!device.supported) Element = <BasicMessage msg="" />;
   else if (!isConfigured) Element = <NotConfigured config={asSupported} />;
-  else if (selectedInputs.length === 0) {
+  else if (!device.supported) {
+    // device is not supported, handle as anonymous device
+    Element = (
+      <>
+        <DeviceConfigPanel project={project} config={asSupported} />
+        <Forwarder config={device as AnonymousDeviceConfig} project={project} />
+      </>
+    );
+  } else if (selectedInputs.length === 0) {
     Element = (
       <>
         <DeviceConfigPanel project={project} config={asSupported} />

@@ -62,6 +62,10 @@ class WindowService {
     this.#send(inputId, toDevice, toPropagate);
   }
 
+  onDeviceMessage(deviceId: string, msg: MidiValue[]) {
+    this.#send(deviceId, msg);
+  }
+
   /**
    * Sends the list of drivers to the frontend.
    *

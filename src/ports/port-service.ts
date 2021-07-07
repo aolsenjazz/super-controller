@@ -58,7 +58,7 @@ export class PortService {
     this.turnOffLights(deviceId);
     const dev = this.project.getDevice(deviceId);
 
-    if (dev) {
+    if (dev && dev.supported) {
       const inputIds = dev.inputs.map((input) => input.id);
       this.updateLights(deviceId, inputIds);
     }
@@ -84,7 +84,7 @@ export class PortService {
     const dev = this.project.getDevice(dId);
     const pp = this.#getPair(dId);
 
-    if (dev && pp) {
+    if (dev && pp && dev.supported) {
       type Tuple = [InputConfig, Color | undefined];
 
       iIds
@@ -132,6 +132,7 @@ export class PortService {
       const mm = new MidiMessage(msg, 0);
       const id = inputIdFor(mm.number, mm.channel, mm.type);
       windowService.sendInputState(id, toDevice, toPropagate);
+      windowService.onDeviceMessage(deviceOrNull.id, msg);
     }
   };
 

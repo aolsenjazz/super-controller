@@ -3,7 +3,10 @@ import { ipcMain, Event, dialog } from 'electron';
 import { Project } from './project';
 import { windowService } from './window-service';
 import { DRIVERS } from './drivers';
-import { SupportedDeviceConfig } from './hardware-config';
+import {
+  SupportedDeviceConfig,
+  AnonymousDeviceConfig,
+} from './hardware-config';
 
 import { SaveOpenService } from './save-open-service';
 import { PortService } from './ports/port-service';
@@ -47,7 +50,10 @@ export class Background {
       'add-device',
       (_e: Event, id: string, name: string, occurNum: number) => {
         const driver = DRIVERS.get(name);
-        const config = SupportedDeviceConfig.fromDriver(id, occurNum, driver!);
+
+        const config = driver
+          ? SupportedDeviceConfig.fromDriver(id, occurNum, driver!)
+          : new AnonymousDeviceConfig(id, name, occurNum, new Map());
         this.project.addDevice(config);
         this.onProjectUpdate(this.project, true);
       }

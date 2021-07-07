@@ -18,7 +18,17 @@ function NoDevicesView() {
  * Tell the user that this device isn't supported
  */
 function UnsupportedView() {
-  return <p id="unsupported-device">This device isn&apos;t supported yet.</p>;
+  return (
+    <div id="unsupported-device">
+      <p>No preview available.</p>
+      <div className="help-tip">
+        <p>
+          This device doesn&apos;t have a driver yet. You can still override
+          events manually and set its nickname in the configuration panel.
+        </p>
+      </div>
+    </div>
+  );
 }
 
 type PropTypes = {

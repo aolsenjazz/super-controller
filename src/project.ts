@@ -1,4 +1,7 @@
-import { SupportedDeviceConfig } from './hardware-config';
+import {
+  SupportedDeviceConfig,
+  AnonymousDeviceConfig,
+} from './hardware-config';
 
 const fs = require('fs');
 
@@ -11,7 +14,7 @@ export class Project {
   name: string;
 
   /* Configured devices. See `SupportedDeviceConfig` for more. */
-  devices: SupportedDeviceConfig[];
+  devices: (SupportedDeviceConfig | AnonymousDeviceConfig)[];
 
   constructor(name = 'Untitled Project') {
     this.name = name;
@@ -41,9 +44,12 @@ export class Project {
     const newProj = new Project();
 
     Object.assign(newProj, obj);
-    newProj.devices = obj.devices.map((j: string) =>
-      SupportedDeviceConfig.fromJSON(j)
-    );
+    newProj.devices = obj.devices.map((j: string) => {
+      const o = JSON.parse(j);
+      return o.supported
+        ? SupportedDeviceConfig.fromParsedJSON(o)
+        : AnonymousDeviceConfig.fromParsedJSON(o);
+    });
 
     return newProj;
   }
@@ -51,18 +57,18 @@ export class Project {
   /**
    * Adds a device configuration to this project.
    *
-   * @param { SupportedDeviceConfig } config The config to add
+   * @param { SupportedDeviceConfig | AnonymousDeviceConfig } config The config to add
    */
-  addDevice(config: SupportedDeviceConfig) {
+  addDevice(config: SupportedDeviceConfig | AnonymousDeviceConfig) {
     this.devices.push(config);
   }
 
   /**
    * Removes a device configuration to this project.
    *
-   * @param { SupportedDeviceConfig } config The config to add
+   * @param { SupportedDeviceConfig | AnonymousDeviceConfig } config The config to remove
    */
-  removeDevice(config: SupportedDeviceConfig) {
+  removeDevice(config: SupportedDeviceConfig | AnonymousDeviceConfig) {
     let idx = -1;
     this.devices.forEach((d, index) => {
       if (d.id === config.id) {

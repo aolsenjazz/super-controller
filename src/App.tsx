@@ -10,7 +10,7 @@ import { Project } from './project';
 import { PortInfo } from './ports/port-info';
 import {
   DeviceConfig,
-  UnsupportedDeviceConfig,
+  AnonymousDeviceConfig,
   SupportedDeviceConfig,
 } from './hardware-config';
 import { DeviceDriver } from './driver-types';
@@ -76,10 +76,11 @@ export default function App() {
         device =
           portInfo === undefined
             ? null
-            : new UnsupportedDeviceConfig(
+            : new AnonymousDeviceConfig(
                 portInfo.id,
                 portInfo.name,
-                portInfo.occurrenceNumber
+                portInfo.occurrenceNumber,
+                new Map()
               );
       }
     }
