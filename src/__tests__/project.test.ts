@@ -87,5 +87,6 @@ test('to and from JSON correctly transfers input configs', () => {
   const json = proj.toJSON(true);
   const result = Project.fromJSON(json);
 
-  expect(result.devices[0].inputs[0].number).toBe(input.number);
+  const d = result.devices[0] as SupportedDeviceConfig;
+  expect(d.inputs[0].number).toBe(input.number);
 });

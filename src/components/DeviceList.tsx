@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 
 import DeviceListItem from './DeviceListItem';
 
-import { SupportedDeviceConfig } from '../hardware-config';
+import {
+  SupportedDeviceConfig,
+  AnonymousDeviceConfig,
+} from '../hardware-config';
 import { DeviceDriver } from '../driver-types';
 import { PortInfo, PortIdentifier } from '../ports/port-info';
 import { Project } from '../project';
@@ -17,7 +20,7 @@ import { Project } from '../project';
  */
 function sortPorts(
   portInfos: PortInfo[],
-  deviceConfigs: SupportedDeviceConfig[]
+  deviceConfigs: (SupportedDeviceConfig | AnonymousDeviceConfig)[]
 ) {
   // sort by ID descending
   const sortAlg = (a: PortIdentifier, b: PortIdentifier) =>
