@@ -24,8 +24,8 @@ export class Project {
   /**
    * Loads the file at given path. *DO NOT* invoke from frontend
    *
-   * @param { string } filePath The path to the file
-   * @return { Project } the project
+   * @param filePath The path to the file
+   * @returns the project
    */
   static fromFile(filePath: string) {
     const jsonString = fs.readFileSync(filePath);
@@ -57,7 +57,7 @@ export class Project {
   /**
    * Adds a device configuration to this project.
    *
-   * @param { SupportedDeviceConfig | AnonymousDeviceConfig } config The config to add
+   * @param config The config to add
    */
   addDevice(config: SupportedDeviceConfig | AnonymousDeviceConfig) {
     this.devices.push(config);
@@ -66,7 +66,7 @@ export class Project {
   /**
    * Removes a device configuration to this project.
    *
-   * @param { SupportedDeviceConfig | AnonymousDeviceConfig } config The config to remove
+   * @param config The config to remove
    */
   removeDevice(config: SupportedDeviceConfig | AnonymousDeviceConfig) {
     let idx = -1;
@@ -84,8 +84,8 @@ export class Project {
   /**
    * Returns the device config for given id.
    *
-   * @param { string | undefined | null } id The requested device id
-   * @return { SupportedDeviceConfig | null }
+   * @param id The requested device id
+   * @returns device config
    */
   getDevice(id: string | undefined | null) {
     for (let i = 0; i < this.devices.length; i++) {
@@ -97,8 +97,8 @@ export class Project {
   /**
    * Serialize the project and all child configs
    *
-   * @param { boolean } includeState Should `InputConfig` state be added?
-   * @return { string } Serialized JSON string
+   * @param includeState Should `InputConfig` state be added?
+   * @returns Serialized JSON string
    */
   toJSON(includeState: boolean) {
     const project = {
