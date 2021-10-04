@@ -52,7 +52,7 @@ export class PortService {
   /**
    * Turns off all lights on device, then applies light configs
    *
-   * @param { string } deviceId The id of the device
+   * @param deviceId The id of the device
    */
   initLights(deviceId: string) {
     this.turnOffLights(deviceId);
@@ -67,7 +67,7 @@ export class PortService {
   /**
    * Turns off all lights on the device
    *
-   * @param { string } deviceId The id of the device
+   * @param deviceId The id of the device
    */
   turnOffLights(deviceId: string) {
     const pair = this.#getPair(deviceId);
@@ -77,8 +77,8 @@ export class PortService {
   /**
    * Synchronize device hardware color with InputConfig.currentColor for all ids
    *
-   * @param { string } dId The id of the device
-   * @param { string[] } iIds The list of input ids to sync
+   * @param dId The id of the device
+   * @param iIds The list of input ids to sync
    */
   updateLights(dId: string, iIds: string[]) {
     const dev = this.project.getDevice(dId);
@@ -101,7 +101,7 @@ export class PortService {
   /**
    * Turn off all lights (if disconnected, does nothing) and close virtual port
    *
-   * @param { string } id The device id
+   * @param id The device id
    */
   close(id: string) {
     this.turnOffLights(id);
@@ -113,8 +113,8 @@ export class PortService {
    * 2. If sustain event, send sustain events for all devices in config.shareSustain
    * 3. Sync state with frontend
    *
-   * @param { PortPair } pair The input+output ports for device
-   * @param { MidiValue[] } msg The message from the device
+   * @param pair The input+output ports for device
+   * @param msg The message from the device
    */
   #onMessage = (pair: PortPair, msg: MidiValue[]) => {
     const deviceOrNull = this.project.getDevice(pair.id);
@@ -140,8 +140,8 @@ export class PortService {
    * Send sustain events from all devices shareWith on the same channel as their
    * respective keyboards
    *
-   * @param { MidiValue[] } msg The event from the device
-   * @param { string[] } The list of ids with which sustain events are being shared
+   * @param msg The event from the device
+   * @param The list of ids with which sustain events are being shared
    */
   #handleSustain = (msg: MidiValue[], shareWith: string[]) => {
     shareWith.forEach((devId) => {
@@ -159,7 +159,7 @@ export class PortService {
    * Close/open virtual ports as required, set listeners, pass info to frontend,
    * and initialize device backlights
    *
-   * @param { PortPair[] } portPairs The new list of port pairs
+   * @param portPairs The new list of port pairs
    */
   onPortsChange = (portPairs: PortPair[]) => {
     // pass to portService to open/close corresponding virtual ports

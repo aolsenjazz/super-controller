@@ -84,8 +84,9 @@ export class Background {
     windowService.sendProject(this.project);
     windowService.setEdited(edited);
 
-    if (dId !== undefined && iIds !== undefined)
+    if (dId !== undefined && iIds !== undefined) {
       this.portService.updateLights(dId, iIds);
+    }
   }
 
   /**
