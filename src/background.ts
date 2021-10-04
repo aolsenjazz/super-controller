@@ -72,10 +72,10 @@ export class Background {
    * The project has been updated. Set the window to edited (little red dot in the X button),
    * send the new ground-truth project to frontend, update hardware lights.
    *
-   * @param { Project } p The new version of the project
-   * @param { boolean } edited Is the document in an edited state?
-   * @param { string } dId The id of the updated device, if a device config was updated
-   * @param { string[] } iIds List of input ids that were updated, if any
+   * @param p The new version of the project
+   * @param edited Is the document in an edited state?
+   * @param dId The id of the updated device, if a device config was updated
+   * @param iIds List of input ids that were updated, if any
    */
   onProjectUpdate(p: Project, edited: boolean, dId?: string, iIds?: string[]) {
     this.project = p;
