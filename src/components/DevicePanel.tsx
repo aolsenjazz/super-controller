@@ -46,11 +46,11 @@ type PropTypes = {
 /**
  * Displays the device diagram
  *
- * @param { object } props Component props
- * @param { DeviceConfig | null } props.config Config for current device
- * @param { Project } props.project The current Project
- * @param { string[] } props.selectedInputs List of ids of the selected inputs
- * @param { setSelectedInputs } props.setSelectedInputs sets the selected inputs
+ * @param props Component props
+ * @param props.config Config for current device
+ * @param props.project The current Project
+ * @param props.selectedInputs List of ids of the selected inputs
+ * @param props.setSelectedInputs sets the selected inputs
  */
 export default function DevicePanel(props: PropTypes) {
   const { config, project, selectedInputs, setSelectedInputs } = props;

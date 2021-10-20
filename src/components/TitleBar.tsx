@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { ipcRenderer } from 'electron';
 
 /**
  * The uppermost gray bar. Draggable
- *
- * @param { string } title The title of the window, probably the Project name
  */
-export default function TitleBar(props: { title: string }) {
-  const { title } = props;
+export default function TitleBar() {
+  const [title, setTitle] = useState('Untitled Project');
+
+  /* Listen to changes to available MIDI ports */
+  useEffect(() => {
+    const cb = (_e: Event, tit: string) => {
+      setTitle(tit);
+    };
+
+    ipcRenderer.on('title', cb);
+    return () => {
+      ipcRenderer.removeListener('title', cb);
+    };
+  });
 
   return (
     <div id="title-bar">

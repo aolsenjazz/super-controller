@@ -124,8 +124,7 @@ export default function App() {
 
   return (
     <>
-      <title>{project.name}</title>
-      <TitleBar title={project.name} />
+      <TitleBar />
       <NavBar
         ports={ports}
         drivers={drivers}

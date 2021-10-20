@@ -26,29 +26,24 @@ export class SaveOpenService {
   currentPath?: string;
 
   /**
-   * Write current project to disk at `project`s default path without giving the
-   * user a save dialog.
+   * Write current project to disk at `project`s default path. If no such default path
+   * exists, create a saveAs dialog
    *
    * @param project The project to save
    * @returns resolves once save complete/canceled
    */
-  save(project: Project): Promise<Project> {
-    if (!this.currentPath) {
-      return this.saveAs(project);
-    }
+  save(project: Project): Promise<[Project, string]> {
+    if (!this.currentPath) return this.saveAs(project);
 
-    const filePath = path.join(recommendedDir(), project.name);
-
-    return new Promise<Project>((resolve) => {
-      fs.writeFile(filePath, project.toJSON(false), {}, () => {
-        app.addRecentDocument(filePath);
-        resolve(project);
+    return new Promise<[Project, string]>((resolve) => {
+      fs.writeFile(this.currentPath, project.toJSON(false), {}, () => {
+        app.addRecentDocument(this.currentPath!);
+        resolve([project, path.basename(this.currentPath!)]);
       });
     });
   }
 
   /**
-   * *Syncronous*
    * If a file has already been opened/saved, saves automatically to the same path.
    * Otherwise, opens a save dialog.
    *
@@ -57,22 +52,19 @@ export class SaveOpenService {
    */
   saveSync(project: Project): boolean {
     if (this.currentPath) {
-      const filePath = path.join(recommendedDir(), project.name);
-
-      fs.writeFileSync(filePath, project.toJSON(false), {});
-      app.addRecentDocument(filePath);
+      fs.writeFileSync(this.currentPath, project.toJSON(false), {});
+      app.addRecentDocument(this.currentPath);
       return true;
     }
 
     const filePath = dialog.showSaveDialogSync({
       filters: [{ name: 'SuperController', extensions: ['controller'] }],
-      defaultPath: path.join(recommendedDir(), project.name),
+      defaultPath: path.join(recommendedDir(), 'Untitled Project'),
     });
 
     if (filePath === undefined) return false;
 
     store.set(SAVE_DIR, path.parse(filePath).dir);
-    project.name = path.parse(filePath).base;
     this.currentPath = filePath;
 
     return this.saveSync(project);
@@ -84,11 +76,14 @@ export class SaveOpenService {
    * @param project The project to save
    * @returns resolves once the save is complete or canceled
    */
-  saveAs(project: Project): Promise<Project> {
+  saveAs(project: Project): Promise<[Project, string]> {
+    const suggestedName = this.currentPath || 'Untitled Project';
+    console.log(this.currentPath);
+
     return dialog
       .showSaveDialog({
         filters: [{ name: 'SuperController', extensions: ['controller'] }],
-        defaultPath: path.join(recommendedDir(), project.name),
+        defaultPath: path.join(recommendedDir(), suggestedName),
       })
       .then((result) => {
         if (result.canceled) throw new Error('aborted');
@@ -96,7 +91,6 @@ export class SaveOpenService {
         const filePath = result.filePath!;
         store.set(SAVE_DIR, path.parse(filePath).dir);
         this.currentPath = filePath;
-        project.name = path.parse(filePath).base;
         return project;
       })
       .then(() => this.save(project));
@@ -105,9 +99,9 @@ export class SaveOpenService {
   /**
    * Opens an open dialog and loads a Project if not canceled
    *
-   * @return The loaded project
+   * @return Promise with the loaded project and the file name
    */
-  open() {
+  open(): Promise<[Project, string]> {
     return dialog
       .showOpenDialog({
         defaultPath: recommendedDir(),
@@ -118,10 +112,11 @@ export class SaveOpenService {
 
         const filePath = result.filePaths[0];
         store.set(SAVE_DIR, path.parse(filePath).dir);
+        app.addRecentDocument(filePath);
         this.currentPath = filePath;
-        const project = Project.fromFile(filePath);
 
-        return project;
+        const project = Project.fromFile(filePath);
+        return [project, path.basename(filePath)];
       });
   }
 }

@@ -35,7 +35,12 @@ export class PortService {
     this.onPortsChange(all());
   }
 
-  /* Returns all connected devices to their default state, then applies lights configs */
+  /**
+   * Returns all connected devices to their default state, then applies lights configs.
+   *
+   * TODO: I don't like that we're automatically running control sequences. should really only
+   * be run if the device is configured in project
+   */
   initAllDevices() {
     this.portPairs.forEach((pp) => {
       pp.runControlSequence();
@@ -125,11 +130,11 @@ export class PortService {
         msg as MidiValue[]
       );
 
-      // propagate the msg thru virtual port to clients
-      if (toPropagate) this.#virtService.send(toPropagate, deviceOrNull.id);
-
       // send sustain events thru all virtual ports in config
       if (isSustain(msg)) this.#handleSustain(msg, deviceOrNull.shareSustain);
+
+      // propagate the msg thru virtual port to clients
+      if (toPropagate) this.#virtService.send(toPropagate, deviceOrNull.id);
 
       // send response to hardware device
       if (toDevice) pair.send(toDevice);

@@ -7,6 +7,7 @@ import { PortInfo } from './ports/port-info';
 
 const PROJECT_CHANNEL = 'project';
 const PORTS_CHANNEL = 'ports';
+const TITLE_CHANNEL = 'title';
 
 /**
  * Convenience class for referring to the main window.
@@ -22,6 +23,13 @@ class WindowService {
    */
   sendProject(project: Project) {
     this.#send(PROJECT_CHANNEL, project.toJSON(true));
+  }
+
+  /**
+   * Send the new name of the project to the frontend.
+   */
+  sendTitle(title: string) {
+    this.#send(TITLE_CHANNEL, title);
   }
 
   /**
@@ -62,6 +70,9 @@ class WindowService {
     this.#send(inputId, toDevice, toPropagate);
   }
 
+  /**
+   * TODO: What is this doing? Why does it need to exist when we have input state
+   */
   onDeviceMessage(deviceId: string, msg: MidiValue[]) {
     this.#send(deviceId, msg);
   }

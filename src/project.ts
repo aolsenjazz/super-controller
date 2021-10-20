@@ -10,14 +10,10 @@ const fs = require('fs');
  * backend, and is frequently sent to the frontend to show config/environment changes.
  */
 export class Project {
-  /* Name of the project */
-  name: string;
-
   /* Configured devices. See `SupportedDeviceConfig` for more. */
   devices: (SupportedDeviceConfig | AnonymousDeviceConfig)[];
 
-  constructor(name = 'Untitled Project') {
-    this.name = name;
+  constructor() {
     this.devices = [];
   }
 
@@ -102,7 +98,6 @@ export class Project {
    */
   toJSON(includeState: boolean) {
     const project = {
-      name: this.name,
       devices: this.devices.map((dev) => dev.toJSON(includeState)),
     };
 

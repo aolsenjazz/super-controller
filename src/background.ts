@@ -1,4 +1,4 @@
-import { ipcMain, Event, dialog } from 'electron';
+import { ipcMain, Event, dialog, app } from 'electron';
 
 import { Project } from './project';
 import { windowService } from './window-service';
@@ -10,6 +10,8 @@ import {
 
 import { SaveOpenService } from './save-open-service';
 import { PortService } from './ports/port-service';
+
+const path = require('path');
 
 /**
  * Manages communications to and from controllers, and acts as the ground-truth.
@@ -149,9 +151,11 @@ export class Background {
 
   /* File->New or cmd+N */
   onNew() {
-    this.saveOpenService = new SaveOpenService();
+    this.saveOpenService.currentPath = undefined;
+
     return this.unsavedCheck().then((didSave) => {
       if (didSave) this.onProjectUpdate(new Project(), false);
+      windowService.sendTitle('Untitled Project');
       return null;
     });
   }
@@ -160,29 +164,43 @@ export class Background {
   onOpen() {
     return this.unsavedCheck()
       .then(() => this.saveOpenService.open())
-      .then((proj) => this.onProjectUpdate(proj, false))
+      .then(([proj, fName]) => {
+        windowService.sendTitle(fName);
+        return this.onProjectUpdate(proj, false);
+      })
       .then(() => this.portService.initAllDevices())
       .catch(() => {}); // ignore cancel dialogs
   }
 
   /* File->SaveAs or shift+cmd+s */
   onSaveAs() {
-    return this.saveOpenService
-      .saveAs(this.project)
-      .then((proj) => this.onProjectUpdate(proj, false));
+    return this.saveOpenService.saveAs(this.project).then(([proj, fName]) => {
+      windowService.sendTitle(fName);
+      return this.onProjectUpdate(proj, false);
+    });
   }
 
   /* File->Save or cmd+s */
   onSave() {
-    return this.saveOpenService
-      .save(this.project)
-      .then((proj) => this.onProjectUpdate(proj, false));
+    return this.saveOpenService.save(this.project).then(([proj, fName]) => {
+      windowService.sendTitle(fName);
+      return this.onProjectUpdate(proj, false);
+    });
   }
 
-  /* Called on .controller double click, menu->Open Recent */
+  /**
+   * Called on .controller double click, menu->Open Recent
+   *
+   * TODO: Might be more sensible to instead do most of this work saveOpenService to be
+   * more consistent
+   */
   onOpenFile(filePath: string) {
+    app.addRecentDocument(filePath);
+
     this.unsavedCheckSync();
     const proj = Project.fromFile(filePath);
+    windowService.sendTitle(path.basename(filePath));
+    this.saveOpenService.currentPath = filePath;
     this.onProjectUpdate(proj, false);
     this.portService.initAllDevices();
   }
