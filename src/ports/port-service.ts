@@ -120,15 +120,21 @@ export class PortService {
     const deviceOrNull = this.project.getDevice(pair.id);
 
     if (deviceOrNull !== null) {
-      // device exists. hand to `Device` object, and propagate responses
+      // device exists. process it
       const [toDevice, toPropagate] = deviceOrNull.handleMessage(
         msg as MidiValue[]
       );
 
+      // propagate the msg thru virtual port to clients
       if (toPropagate) this.#virtService.send(toPropagate, deviceOrNull.id);
+
+      // send sustain events thru all virtual ports in config
       if (isSustain(msg)) this.#handleSustain(msg, deviceOrNull.shareSustain);
+
+      // send response to hardware device
       if (toDevice) pair.send(toDevice);
 
+      // send new state to frontend
       const mm = new MidiMessage(msg, 0);
       const id = inputIdFor(mm.number, mm.channel, mm.type);
       windowService.sendInputState(id, toDevice, toPropagate);
@@ -162,10 +168,11 @@ export class PortService {
    * @param portPairs The new list of port pairs
    */
   onPortsChange = (portPairs: PortPair[]) => {
-    // pass to portService to open/close corresponding virtual ports
+    // Filter out SuperController-created ports.
     const filtered = portPairs.filter((pair) => !pair.id.startsWith('SC '));
-
     this.portPairs = filtered.map((pair) => new DrivenPortPair(pair));
+
+    // pass to virtualPortService to open/close corresponding virtual ports
     this.#virtService.onHardwarePortsChange(filtered);
 
     this.sendToFrontend();

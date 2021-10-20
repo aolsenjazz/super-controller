@@ -18,7 +18,7 @@ class WindowService {
   /**
    * Send a `Project` instance to the frontend
    *
-   * @param { Project } project The project
+   * @param project The project
    */
   sendProject(project: Project) {
     this.#send(PROJECT_CHANNEL, project.toJSON(true));
@@ -27,7 +27,7 @@ class WindowService {
   /**
    * Send a list of `PortInfo` to the frontend
    *
-   * @param { PortInfo[] } portInfos List `PortInfo`s
+   * @param portInfos List `PortInfo`s
    */
   sendPortInfos(portInfos: PortInfo[]) {
     this.#send(PORTS_CHANNEL, portInfos);
@@ -36,7 +36,7 @@ class WindowService {
   /**
    * Sets the `window.documentEdited` to `edited`
    *
-   * @param { boolean } edited Is the document edited?
+   * @param edited Is the document edited?
    */
   setEdited(edited: boolean) {
     const windowOrNull = getMainWindow();
@@ -50,9 +50,9 @@ class WindowService {
   /**
    * Send the current state of an `InputConfig` to the frontend
    *
-   * @param { string } inputId The id of the input
-   * @param { MidiValue[] | null } The last message propagated to device
-   * @param { MidiValue[] | null } The last message propagated to clients
+   * @param inputId The id of the input
+   * @param The last message propagated to device
+   * @param The last message propagated to clients
    */
   sendInputState(
     inputId: string,
