@@ -2,12 +2,19 @@
 # yarn lockfile v1
 
 
-"@alexanderolsen/port-manager@^1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@alexanderolsen/port-manager/-/port-manager-1.2.8.tgz#2478b495f1d859bd0e3b4cdeffac116aadc9c53e"
-  integrity sha512-H8G2gi12P+m+HcWeoi5iw+aXionhGBsfhYZIGNNrl0l0iE+yVEEw8204gmOjLfIiJy0C7aliaE7L/YVLUngG9A==
+"@alexanderolsen/port-manager@^1.2.81":
+  version "1.2.81"
+  resolved "https://registry.yarnpkg.com/@alexanderolsen/port-manager/-/port-manager-1.2.81.tgz#d189278f5a8b9b7da211a4e3ffe337418747bf1d"
+  integrity sha512-Apod7hf8Kg/nXNhDxdvpyW7/IXrtAmqjl8I9amNANSkY7IA+ohu6B092VdgehBQIxuiCO5U7LtwREP1oDOsLmw==
   dependencies:
     midi "^2.0.0"
+
+"@babel/runtime@^7.16.3":
+  version "7.16.3"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.16.3.tgz#b86f0db02a04187a3c17caa77de69840165d42d5"
+  integrity sha512-WBwekcqacdY2e9AF/Q7WLFUWmdJGJTkbjqTjoMDgXkVZ3ZRUvOPsLb5KdwISoQVsbP+DQzVZW4Zhci0DvpbNTQ==
+  dependencies:
+    regenerator-runtime "^0.13.4"
 
 bindings@~1.5.0:
   version "1.5.0"
@@ -33,3 +40,8 @@ nan@^2.14.2:
   version "2.14.2"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
   integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
+
+regenerator-runtime@^0.13.4:
+  version "0.13.9"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
+  integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==

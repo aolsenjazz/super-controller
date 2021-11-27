@@ -49,6 +49,16 @@ export class VirtualPortService {
   openLock: string[] = [];
 
   /**
+   * Expose some interal private methods for testing
+   */
+  testables: Map<string, (...args: any[]) => any>;
+
+  constructor() {
+    this.testables = new Map();
+    this.testables.set('getVirtualEquivalent', this.#getVirtualEquivalent);
+  }
+
+  /**
    * Close all virtual ports for which the hardware is no longer connected.
    *
    * @param ports The list of new ports

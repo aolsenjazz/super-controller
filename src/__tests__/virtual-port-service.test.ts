@@ -72,78 +72,33 @@ test('getDiff returns 1 pair', () => {
   expect(result.length).toBe(1);
 });
 
-test('onHardwarePortsChange adds all to new port list', () => {
-  const numPorts = 3;
-  const pairs = [...Array(numPorts)].map((_v, i) => makePortPair(i, 'Fake'));
-  const service = new VirtualPortService();
-
-  service.onHardwarePortsChange(pairs);
-
-  expect(service.virtualPorts.length).toBe(numPorts);
-
-  service.shutdown();
-});
-
 test('onHardwarePortsChange removes 1 port', () => {
   const numPorts = 3;
   const pairs = [...Array(numPorts)].map((_v, i) => makePortPair(i, 'Fake'));
   const service = new VirtualPortService();
 
   // add all ports
-  service.onHardwarePortsChange(pairs);
+  pairs.forEach((pp) => service.open(pp.name, pp.occurrenceNumber));
 
   // get rid of a port
   pairs.splice(0, 1);
 
   // tell the service that avail ports have changed
-  service.onHardwarePortsChange(pairs);
+  service.closeOldPorts(pairs);
 
   expect(service.virtualPorts.length).toBe(numPorts - 1);
 
   service.shutdown();
 });
 
-test('onHardwarePortsChange adds 1 port', () => {
-  const numPorts = 3;
-  const pairs = [...Array(numPorts)].map((_v, i) => makePortPair(i, 'Fake'));
-  const service = new VirtualPortService();
-
-  // add all ports
-  service.onHardwarePortsChange(pairs);
-
-  // get rid of a port
-  pairs.push(makePortPair(5, 'Fake'));
-
-  // tell the service that avail ports have changed
-  service.onHardwarePortsChange(pairs);
-
-  expect(service.virtualPorts.length).toBe(numPorts + 1);
-
-  service.shutdown();
-});
-
-test('onHardwarePortsChange removes and adds 1 port', () => {
-  const pairs1 = [makePortPair(0, 'Device1')];
-  const pairs2 = [makePortPair(1, 'Device1')]; // yes, same port name
-  const service = new VirtualPortService();
-
-  service.onHardwarePortsChange(pairs1);
-  service.onHardwarePortsChange(pairs2);
-
-  expect(service.virtualPorts.length).toBe(1);
-  expect(service.virtualPorts[0].occurrenceNumber).toBe(1);
-
-  service.shutdown();
-});
-
 test('removing a VPortPair calls close()', () => {
-  const pairs1 = [makePortPair(0, 'Device1')];
+  const pair1 = makePortPair(0, 'Device1');
   const pairs2 = [makePortPair(1, 'Device1')]; // yes, same port name
   const service = new VirtualPortService();
 
-  service.onHardwarePortsChange(pairs1);
+  service.open(pair1.name, pair1.occurrenceNumber);
   const spy = jest.spyOn(service.virtualPorts[0], 'close');
-  service.onHardwarePortsChange(pairs2);
+  service.closeOldPorts(pairs2);
 
   expect(spy).toHaveBeenCalledTimes(1);
 
@@ -154,34 +109,36 @@ test('ports is neither open nor closed when unaffected', () => {
   const pairs = [makePortPair(0, 'Device1')];
   const service = new VirtualPortService();
 
-  service.onHardwarePortsChange(pairs);
+  service.open(pairs[0].name, pairs[0].occurrenceNumber);
   const closeSpy = jest.spyOn(service.virtualPorts[0], 'close');
-  const openSpy = jest.spyOn(service.virtualPorts[0], 'open');
-  service.onHardwarePortsChange(pairs);
+  service.closeOldPorts(pairs);
 
   expect(closeSpy).toHaveBeenCalledTimes(0);
-  expect(openSpy).toHaveBeenCalledTimes(0);
 
   service.shutdown();
 });
 
 test('getVirtualEquivalent throws when "SC " included', () => {
-  const pairs = [makePortPair(0, 'Device1')];
+  const pair = makePortPair(0, 'Device1');
   const service = new VirtualPortService();
-  service.onHardwarePortsChange(pairs);
+  service.open(pair.name, pair.occurrenceNumber);
+
+  const getVirtualEquivalent = service.testables.get('getVirtualEquivalent');
 
   expect(() => {
-    service.getVirtualEquivalent('SC Device1');
+    getVirtualEquivalent!('SC Device1');
   }).toThrow();
   service.shutdown();
 });
 
 test('getVirtualEquivalent returns correct portPair', () => {
-  const pairs = [makePortPair(0, 'Device1')];
+  const pair = makePortPair(0, 'Device1');
   const service = new VirtualPortService();
-  service.onHardwarePortsChange(pairs);
+  service.open(pair.name, pair.occurrenceNumber);
 
-  const result = service.getVirtualEquivalent('Device1 0');
+  const getVirtualEquivalent = service.testables.get('getVirtualEquivalent');
+
+  const result = getVirtualEquivalent!('Device1 0');
 
   expect(result?.id).toBe('SC Device1 0');
   service.shutdown();

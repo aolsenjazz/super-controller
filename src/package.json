@@ -15,7 +15,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@alexanderolsen/port-manager": "^1.2.8",
+    "@alexanderolsen/port-manager": "^1.2.81",
+    "@babel/runtime": "^7.16.3",
     "midi": "^2.0.0"
   }
 }

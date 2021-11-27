@@ -6,17 +6,6 @@ import { DRIVERS } from '../drivers';
 
 const APC_DRIVER = DRIVERS.get('APC Key 25');
 
-test('creating project without name gives Untitled Project', () => {
-  const proj = new Project();
-  expect(proj.name).toBe('Untitled Project');
-});
-
-test('creating project with name assigns name', () => {
-  const name = 'Cool Project Bro!';
-  const proj = new Project(name);
-  expect(proj.name).toBe(name);
-});
-
 test('addDevice() adds to project.devices', () => {
   const proj = new Project();
   const device = SupportedDeviceConfig.fromDriver('APC', 0, APC_DRIVER!);
