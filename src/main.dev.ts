@@ -124,7 +124,7 @@ app.on('activate', () => {
 
 app.on('open-file', (_event: Event, filePath: string) => {
   if (mainWindow === null) createWindow();
-  background.onOpenFile(filePath);
+  background.onOpenFile(filePath, true);
 });
 
 app.on('window-all-closed', () => {}); // do nothing, continue to run

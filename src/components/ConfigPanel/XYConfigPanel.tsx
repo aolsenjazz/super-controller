@@ -10,18 +10,20 @@ type PropTypes = {
   group: InputGroup;
   project: Project;
   config: SupportedDeviceConfig;
+  setProject: (p: Project) => void;
 };
 
 /**
  * Configuration panel for hardware inputs which control two inputs via X + Y axes
  *
- * @param { object } props Component props
- * @param { InputGroup } props.group InputGroup for selected inputs
- * @param { Project } props.project Current project
- * @param { SupportedDeviceConfig } props.config Configuration for current device
+ * @param props Component props
+ * @param props.group InputGroup for selected inputs
+ * @param props.project Current project
+ * @param props.config Configuration for current device
+ * @param props.setProject updates the project in the frontend
  */
 export default function XYConfigPanel(props: PropTypes) {
-  const { group, config, project } = props;
+  const { group, config, project, setProject } = props;
 
   const xInput = group.inputs[0];
   const yInput = group.inputs[1];
@@ -34,6 +36,7 @@ export default function XYConfigPanel(props: PropTypes) {
         title="MIDI Settings - X Axis"
         config={config}
         group={new InputGroup([xInput])}
+        setProject={setProject}
       />
 
       <MonoInputConfigPanel
@@ -42,6 +45,7 @@ export default function XYConfigPanel(props: PropTypes) {
         title="MIDI Settings - Y Axis"
         config={config}
         group={new InputGroup([yInput])}
+        setProject={setProject}
       />
     </>
   );

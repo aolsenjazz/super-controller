@@ -32,15 +32,9 @@ export class SaveOpenService {
    * @param project The project to save
    * @returns resolves once save complete/canceled
    */
-  save(project: Project): Promise<[Project, string]> {
+  save(project: Project): Promise<string> {
     if (!this.currentPath) return this.saveAs(project);
-
-    return new Promise<[Project, string]>((resolve) => {
-      fs.writeFile(this.currentPath, project.toJSON(false), {}, () => {
-        app.addRecentDocument(this.currentPath!);
-        resolve([project, path.basename(this.currentPath!)]);
-      });
-    });
+    return new Promise<string>((resolve) => resolve(this.saveSync(project)));
   }
 
   /**
@@ -50,11 +44,11 @@ export class SaveOpenService {
    * @param project The project to save
    * @returns true if save was complete, false if canceled
    */
-  saveSync(project: Project): boolean {
+  saveSync(project: Project): string {
     if (this.currentPath) {
       fs.writeFileSync(this.currentPath, project.toJSON(false), {});
       app.addRecentDocument(this.currentPath);
-      return true;
+      return this.currentPath;
     }
 
     const filePath = dialog.showSaveDialogSync({
@@ -62,7 +56,7 @@ export class SaveOpenService {
       defaultPath: path.join(recommendedDir(), 'Untitled Project'),
     });
 
-    if (filePath === undefined) return false;
+    if (filePath === undefined) throw new Error('aborted');
 
     store.set(SAVE_DIR, path.parse(filePath).dir);
     this.currentPath = filePath;
@@ -76,9 +70,8 @@ export class SaveOpenService {
    * @param project The project to save
    * @returns resolves once the save is complete or canceled
    */
-  saveAs(project: Project): Promise<[Project, string]> {
+  saveAs(project: Project): Promise<string> {
     const suggestedName = this.currentPath || 'Untitled Project';
-    console.log(this.currentPath);
 
     return dialog
       .showSaveDialog({
@@ -97,11 +90,11 @@ export class SaveOpenService {
   }
 
   /**
-   * Opens an open dialog and loads a Project if not canceled
+   * Shows an open dialog to the user
    *
-   * @return Promise with the loaded project and the file name
+   * @return Promise<string> promise which resolves with the filePath
    */
-  open(): Promise<[Project, string]> {
+  open(): Promise<string> {
     return dialog
       .showOpenDialog({
         defaultPath: recommendedDir(),
@@ -112,11 +105,9 @@ export class SaveOpenService {
 
         const filePath = result.filePaths[0];
         store.set(SAVE_DIR, path.parse(filePath).dir);
-        app.addRecentDocument(filePath);
         this.currentPath = filePath;
 
-        const project = Project.fromFile(filePath);
-        return [project, path.basename(filePath)];
+        return filePath;
       });
   }
 }

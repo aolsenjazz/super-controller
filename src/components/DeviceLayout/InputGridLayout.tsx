@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { MidiMessage, MidiValue } from 'midi-message-parser';
-import { ipcRenderer, IpcRendererEvent } from 'electron';
+import React from 'react';
 
 import Pad from './PadLayout';
 import { Knob } from './KnobLayout';
 import { WheelLayout } from './WheelLayout';
 
-import { Color } from '../../driver-types';
 import { SupportedDeviceConfig, InputConfig } from '../../hardware-config';
 
 import { VirtualInput, VirtualInputGrid } from '../../virtual-devices';
@@ -53,38 +50,7 @@ function Element(props: ElementPropTypes) {
     overrideable,
   } = props;
 
-  const [color, setColor] = useState<Color | undefined>(config.currentColor);
   const enabled = configured && input.overrideable;
-
-  const defaultVal = config.eventType === 'pitchbend' ? 64 : 0;
-  const [value, setValue] = useState(defaultVal);
-
-  // Whenever a light config is change, change accordingly
-  useEffect(() => {
-    setColor(config.currentColor);
-  }, [config]);
-
-  // Whenever input from related port is received, change the virtual layout accordingly
-  useEffect(() => {
-    const cb = (
-      _e: IpcRendererEvent,
-      toDevice: MidiValue[] | null,
-      toPropagate: MidiValue[] | null
-    ) => {
-      if (toDevice) {
-        const mm = new MidiMessage(toDevice, 0);
-        config.devicePropagator.lastPropagated = mm;
-        setColor(config.currentColor);
-      }
-
-      if (toPropagate) setValue(toPropagate[2]);
-    };
-
-    ipcRenderer.on(input.id, cb);
-    return () => {
-      ipcRenderer.removeListener(input.id, cb);
-    };
-  }, [input, config]);
 
   let elem;
   if (input.type === 'pad') {
@@ -95,7 +61,7 @@ function Element(props: ElementPropTypes) {
         width={width}
         height={height}
         onClick={(e) => onClick(e, input.id)}
-        color={color}
+        color={config.currentColor}
         enabled={enabled}
         focus={focus}
         overrideable={overrideable}
@@ -108,7 +74,7 @@ function Element(props: ElementPropTypes) {
         min={0}
         max={127}
         degrees={270}
-        value={value}
+        value={config.value}
         onClick={(e) => onClick(e, input.id)}
         enabled={enabled}
         focus={focus}
@@ -120,7 +86,7 @@ function Element(props: ElementPropTypes) {
     elem = (
       <WheelLayout
         max={127}
-        value={value}
+        value={config.value}
         width={width}
         handleWidth={`${(input.handleWidth! / input.width) * 100}%`}
         handleHeight={`${(input.handleHeight! / input.height) * 100}%`}

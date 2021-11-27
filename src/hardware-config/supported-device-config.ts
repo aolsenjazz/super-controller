@@ -41,10 +41,10 @@ export class SupportedDeviceConfig implements DeviceConfig {
   /**
    * Constructs a new instance of SupportedDeviceConfig from DeviceDriver.
    *
-   * @param { string } id The id of the device's port
-   * @param { number } occurrencenumber The nth-occurence of this device. Relevant when >1 device of same model is connected
-   * @param { DeviceDriver } driver The driver
-   * @return { SupportedDeviceConfig } a new instance of SupportedDeviceConfig
+   * @param id The id of the device's port
+   * @param occurrencenumber The nth-occurence of this device. Relevant when >1 device of same model is connected
+   * @param driver The driver
+   * @return a new instance of SupportedDeviceConfig
    */
   static fromDriver(
     id: string,
@@ -73,7 +73,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
   /**
    * Constructs a new instance of SupportedDeviceConfig from a json string.
    *
-   * @param { string } parsed JSON string
+   * @param parsed JSON.parse()'d string
    * @return { SupportedDeviceConfig } A new instance of SupportedDeviceConfig
    */
   /* eslint-disable-next-line */

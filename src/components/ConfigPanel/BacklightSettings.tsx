@@ -11,29 +11,32 @@ import { Project } from '../../project';
 type LightResponsePropTypes = {
   group: InputGroup;
   project: Project;
-  deviceId: string;
+  setProject: (p: Project) => void;
+  configId: string;
 };
 
 /**
  * Multi-select for the event propagation response to devices.
  *
- * @param { object } props Component props
- * @param { InputGroup } props.group Input group
- * @param { Project } props.project Current project
- * @param { string } props.deviceId ID of the selected device
+ * @param props Component props
+ * @param props.group Input group
+ * @param props.project Current project
+ * @param props.deviceId ID of the selected device
+ * @param props.setProject Frontend project setter
  */
 function LightResponse(props: LightResponsePropTypes) {
-  const { group, project, deviceId } = props;
+  const { group, project, setProject, configId } = props;
 
   const { eligibleLightResponses } = group;
 
   const onChange = (val: string | number) => {
-    const inputIds = group.inputs.map((input) => input.id);
     group.inputs.forEach((config) => {
+      // TODO: really should reset state here
       config.lightResponse = val as 'gate' | 'toggle';
+      ipcRenderer.updateInput(configId, config.toJSON(true));
     });
 
-    ipcRenderer.sendProject(project, true, deviceId, inputIds);
+    setProject(new Project(project.devices));
   };
 
   return (
@@ -50,19 +53,20 @@ function LightResponse(props: LightResponsePropTypes) {
 type PropTypes = {
   group: InputGroup;
   project: Project;
-  deviceId: string;
+  setProject: (p: Project) => void;
+  configId: string;
 };
 
 /**
  * Controls for adjusting the settings of backlights. Choose colors, propagation method, etc.
  *
- * @param { object } props Component props
- * @param { InputGroup } props.group Input group
- * @param { Project } props.project Current project
- * @param { string } props.deviceId ID of the currently-selected device
+ * @param props Component props
+ * @param props.group Input group
+ * @param props.project Current project
+ * @param props.configId Device config ID
  */
 export default function BacklightSettings(props: PropTypes) {
-  const { group, project, deviceId } = props;
+  const { group, project, setProject, configId } = props;
 
   const { eligibleLightStates, eligibleColors } = group;
   const isLightable = eligibleColors.length > 0;
@@ -71,13 +75,14 @@ export default function BacklightSettings(props: PropTypes) {
     (e, state: string) => {
       // Update all InputConfigs in the InputGroup
       const color = JSON.parse(e.target.value);
-      const inputIds = group.inputs.map((input) => input.id);
       group.inputs.forEach((input) => {
         input.setColorForState(state, color);
-        ipcRenderer.sendProject(project, true, deviceId, inputIds);
+        ipcRenderer.updateInput(configId, input.toJSON(true));
       });
+
+      setProject(new Project(project.devices));
     },
-    [group, project, deviceId]
+    [group, project, setProject]
   );
 
   return (
@@ -85,7 +90,12 @@ export default function BacklightSettings(props: PropTypes) {
       {isLightable ? (
         <>
           <h3>Backlight Settings</h3>
-          <LightResponse group={group} project={project} deviceId={deviceId} />
+          <LightResponse
+            group={group}
+            project={project}
+            setProject={setProject}
+            configId={configId}
+          />
           {eligibleLightStates.map((state: string) => {
             const stateColor = group.colorForState(state);
             const isMultiple = stateColor === '<multiple values>';

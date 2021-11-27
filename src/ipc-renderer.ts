@@ -1,43 +1,47 @@
 import { ipcRenderer as electronIpc } from 'electron';
 
-import { Project } from './project';
+const ADD_DEVICE = 'add-device';
+const REMOVE_DEVICE = 'remove-device';
+const UPDATE_DEVICE = 'update-device';
+const UPDATE_INPUT = 'update-input';
 
 /* Convenience class for communicting with the backend */
 class IpcRenderer {
-  sendProject(
-    project: Project,
-    preserveState: boolean,
-    deviceId?: string,
-    inputIds?: string[]
-  ) {
-    electronIpc.send(
-      'project',
-      project.toJSON(preserveState),
-      deviceId,
-      inputIds
-    );
-  }
-
   /**
-   * Inform the backend that the given device has been removed
+   * Inform the backend to add the device
    *
-   * TODO: kind of silly to require all three of these arguments.
-   *
-   * @param { string } id The id of the device
-   * @param { string } name The name of the device
-   * @param { number } occurrenceNumber nth-occurrence of this device
+   * @param configJSON JSON representation of the device config
    */
-  addDevice(id: string, name: string, occurrenceNumber: number) {
-    electronIpc.send('add-device', id, name, occurrenceNumber);
+  addDevice(configJSON: string) {
+    electronIpc.send(ADD_DEVICE, configJSON);
   }
 
   /**
    * Inform that backend that the given device was removed
    *
-   * @param { string } id The id of the device being removed
+   * @param id The id of the device being removed
    */
   removeDevice(id: string) {
-    electronIpc.send('remove-device', id);
+    electronIpc.send(REMOVE_DEVICE, id);
+  }
+
+  /**
+   * Send an updated copy of a device config to the backend.
+   *
+   * @param deviceString Serialized version of the device
+   */
+  updateDevice(deviceString: string) {
+    electronIpc.send(UPDATE_DEVICE, deviceString);
+  }
+
+  /**
+   * Send an updated copy of the configuration for the given input for the given device.
+   *
+   * @param deviceId The ID of the parent device
+   * @param inputString The serialized `InputConfig`
+   */
+  updateInput(deviceId: string, inputString: string) {
+    electronIpc.send(UPDATE_INPUT, deviceId, inputString);
   }
 }
 

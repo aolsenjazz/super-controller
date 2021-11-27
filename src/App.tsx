@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { ipcRenderer, Event, IpcRendererEvent } from 'electron';
 
 import TitleBar from './components/TitleBar';
-import NavBar from './components/DeviceList';
+import DeviceList from './components/DeviceList';
 import DevicePanel from './components/DevicePanel';
 import ConfigPanel from './components/ConfigPanel';
+import ProjectChangeListener from './components/ProjectChangeListener';
 
 import { Project } from './project';
 import { PortInfo } from './ports/port-info';
@@ -28,21 +29,16 @@ document.body.ondragover = (event) => {
  * (.../src vs .../super-controller)
  *
  * DEVICE STATE + COMMUNICATION
- * State and communication are managed in the backend. The backend notifies
- * individual components via IPC when an input or device state is changed.
+ * State and communication are managed in the backend. When device state changes
+ * (an input is manipulated), those messages are forwarded from the backend to
+ * update state appropriately here (more below).
  *
  * PROJECT + CONFIGURATION UPDATES
- * Updates to the project/device configuration/input configuration are
- * always received from the backend; even configuration changes resulting from
- * manipulating GUI controls are passed to the backend for processing before
- * being received here and reflected in the DOM
+ * `Project` state is stored both in the front and backend. As such, all changes to
+ * state in either part of the application need to be propagated to the other process
+ * and have the same update made.
  */
 export default function App() {
-  /**
-   * Current project. `project` is never mutated locally, but instead passed
-   * to the backend for mutation, then reloaded here. As such this object should
-   * not be thought of as ground-truth, but as a copy of the backend's project.
-   */
   const [project, setProject] = useState(new Project());
 
   /* Currently-available hardware ports */
@@ -90,9 +86,8 @@ export default function App() {
 
   /* Receive drivers from the backend */
   useEffect(() => {
-    const cb = (_e: IpcRendererEvent, d: [string, DeviceDriver][]) => {
+    const cb = (_e: IpcRendererEvent, d: [string, DeviceDriver][]) =>
       setDrivers(new Map(d));
-    };
 
     ipcRenderer.once('drivers', cb);
   }, []);
@@ -109,23 +104,11 @@ export default function App() {
     };
   }, [project]);
 
-  /* Listen to changes to current project */
-  useEffect(() => {
-    const cb = (_e: Event, projString: string) => {
-      const proj = Project.fromJSON(projString);
-      setProject(proj);
-    };
-
-    ipcRenderer.on('project', cb);
-    return () => {
-      ipcRenderer.removeListener('project', cb);
-    };
-  }, [ports]);
-
   return (
     <>
+      <ProjectChangeListener setProject={setProject} project={project} />
       <TitleBar />
-      <NavBar
+      <DeviceList
         ports={ports}
         drivers={drivers}
         project={project}
@@ -142,6 +125,7 @@ export default function App() {
         device={activeDevice}
         project={project}
         selectedInputs={selectedInputs}
+        setProject={setProject}
       />
     </>
   );

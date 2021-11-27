@@ -5,19 +5,25 @@ import { DeviceDriver } from './driver-types';
 import { Project } from './project';
 import { PortInfo } from './ports/port-info';
 
-const PROJECT_CHANNEL = 'project';
-const PORTS_CHANNEL = 'ports';
-const TITLE_CHANNEL = 'title';
+import {
+  MSG_CHANNEL,
+  TITLE_CHANNEL,
+  PROJECT_CHANNEL,
+  PORTS_CHANNEL,
+} from './ipc-channels';
 
 /**
- * Convenience class for referring to the main window.
+ * Convenience class for accessing the main window. Used for:
+ *
+ * 1. Sending information to the client
+ * 2. Setting the document-edited state
  */
 class WindowService {
   /* Has the document been edited (should there be a dot in the close button)? */
   edited = false;
 
   /**
-   * Send a `Project` instance to the frontend
+   * Send a serialized `Project` to the frontend
    *
    * @param project The project
    */
@@ -26,7 +32,7 @@ class WindowService {
   }
 
   /**
-   * Send the new name of the project to the frontend.
+   * Send the new name of the current document to the frontend.
    */
   sendTitle(title: string) {
     this.#send(TITLE_CHANNEL, title);
@@ -55,26 +61,8 @@ class WindowService {
     }
   }
 
-  /**
-   * Send the current state of an `InputConfig` to the frontend
-   *
-   * @param inputId The id of the input
-   * @param The last message propagated to device
-   * @param The last message propagated to clients
-   */
-  sendInputState(
-    inputId: string,
-    toDevice: MidiValue[] | null,
-    toPropagate: MidiValue[] | null
-  ) {
-    this.#send(inputId, toDevice, toPropagate);
-  }
-
-  /**
-   * TODO: What is this doing? Why does it need to exist when we have input state
-   */
-  onDeviceMessage(deviceId: string, msg: MidiValue[]) {
-    this.#send(deviceId, msg);
+  sendInputMsg(inputId: string, deviceId: string, msg: MidiValue[]) {
+    this.#send(MSG_CHANNEL, inputId, deviceId, msg);
   }
 
   /**

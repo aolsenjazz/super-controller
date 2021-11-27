@@ -5,16 +5,12 @@ import {
 
 const fs = require('fs');
 
-/**
- * Master project class. The ground-truth `Project` object is located in the
- * backend, and is frequently sent to the frontend to show config/environment changes.
- */
 export class Project {
   /* Configured devices. See `SupportedDeviceConfig` for more. */
   devices: (SupportedDeviceConfig | AnonymousDeviceConfig)[];
 
-  constructor() {
-    this.devices = [];
+  constructor(devices?: (SupportedDeviceConfig | AnonymousDeviceConfig)[]) {
+    this.devices = devices || [];
   }
 
   /**

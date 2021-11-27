@@ -1,7 +1,7 @@
 import { addListener, PortPair, all } from '@alexanderolsen/port-manager';
 import { MidiValue, MidiMessage } from 'midi-message-parser';
 
-import { InputConfig } from '../hardware-config';
+import { InputConfig, SupportedDeviceConfig } from '../hardware-config';
 import { Color } from '../driver-types';
 import { inputIdFor, msgForColor } from '../device-util';
 import { DrivenPortPair } from '../driven-port-pair';
@@ -18,7 +18,7 @@ import { VirtualPortService } from './virtual-port-service';
  */
 export class PortService {
   /* The current project */
-  project: Project;
+  #project: Project;
 
   /* List of available port pairs */
   portPairs: DrivenPortPair[] = [];
@@ -27,91 +27,130 @@ export class PortService {
   #virtService: VirtualPortService;
 
   constructor(project: Project) {
-    this.project = project;
+    this.#project = project;
     this.#virtService = new VirtualPortService();
 
-    this.initAllDevices();
-    addListener(this.onPortsChange);
-    this.onPortsChange(all());
+    addListener(this.#onPortsChange); // listen to changes to available hardware
+
+    this.#onPortsChange(all()); // Scan for ports right away
   }
 
   /**
-   * Returns all connected devices to their default state, then applies lights configs.
+   * If hardware device is connected && configured:
    *
-   * TODO: I don't like that we're automatically running control sequences. should really only
-   * be run if the device is configured in project
-   */
-  initAllDevices() {
-    this.portPairs.forEach((pp) => {
-      pp.runControlSequence();
-      pp.resetLights();
-    });
-    this.initConfiguredDevices();
-  }
-
-  /* Applies light configs to connected devices */
-  initConfiguredDevices() {
-    this.project.devices.forEach((d) => this.initLights(d.id));
-  }
-
-  /**
-   * Turns off all lights on device, then applies light configs
+   * 1. Opens a virtual port for event propagation
+   * 2. Takes control of the device
+   * 3. Resets lights to reasonable defaults
+   * 4. Sets callbacks for receiving messages from hardware
+   * 5. Applies default backlight configuration
    *
-   * @param deviceId The id of the device
+   * @param deviceId The idea of the device
    */
-  initLights(deviceId: string) {
-    this.turnOffLights(deviceId);
-    const dev = this.project.getDevice(deviceId);
+  initDevice(deviceId: string) {
+    const pp = this.#getPair(deviceId);
+    const config = this.#project.getDevice(deviceId);
 
-    if (dev && dev.supported) {
-      const inputIds = dev.inputs.map((input) => input.id);
-      this.updateLights(deviceId, inputIds);
+    // if hardware is connected and configured in project, run initialization
+    if (pp && config) {
+      this.#virtService.open(pp.name, pp.occurrenceNumber); // open virtual port
+
+      pp.runControlSequence(); // take control of midi device
+      pp.resetLights(); // init default lights
+
+      pp.onMessage((_delta: number, msg: number[]) =>
+        this.#onMessage(pp, msg as MidiValue[])
+      );
+
+      // if device is configured, apply default light config
+      if (config.supported) this.#syncDeviceLights(pp, config);
     }
   }
 
   /**
-   * Turns off all lights on the device
+   * If supported, reset lights to defaults.
+   * TODO: should run device relinquish sequence too
    *
-   * @param deviceId The id of the device
+   * @param deviceId The ID associated with the device
    */
-  turnOffLights(deviceId: string) {
+  relinquishDevice(deviceId: string) {
     const pair = this.#getPair(deviceId);
     if (pair) pair.resetLights();
+    this.#virtService.close(deviceId);
+  }
+
+  /* Pass current list of `PortPair`s to the front end */
+  sendToFrontend() {
+    // pass port info to frontend
+    const info = this.portPairs.map(
+      (p) => new PortInfo(p.id, p.name, p.occurrenceNumber, true)
+    );
+
+    windowService.sendPortInfos(info);
+  }
+
+  syncDeviceLights = (deviceId: string) => {
+    const pp = this.#getPair(deviceId);
+    const config = this.#project.getDevice(deviceId);
+
+    if (pp && config && config.supported) this.#syncDeviceLights(pp, config);
+  };
+
+  /* On project update, reset all devices, init defaults in fresh copy of `Project` */
+  set project(p: Project) {
+    this.#project = p;
+
+    this.portPairs.forEach((pp) => pp.resetLights()); // reset light for each device
+
+    this.#virtService.shutdown(); // close all open vPorts
+    p.devices.forEach((config) => this.initDevice(config.id)); // init each configured device
   }
 
   /**
-   * Synchronize device hardware color with InputConfig.currentColor for all ids
+   * Synchronize device hardware lights with software state
    *
-   * @param dId The id of the device
-   * @param iIds The list of input ids to sync
+   * @param pp The PortPair for device
+   * @param config The SupportedDeviceConfig for device
    */
-  updateLights(dId: string, iIds: string[]) {
-    const dev = this.project.getDevice(dId);
-    const pp = this.#getPair(dId);
+  #syncDeviceLights = (pp: PortPair, config: SupportedDeviceConfig) => {
+    type Tuple = [InputConfig, Color | undefined];
 
-    if (dev && pp && dev.supported) {
-      type Tuple = [InputConfig, Color | undefined];
-
-      iIds
-        .map((id) => dev.getInput(id)) // get the InputConfig
-        .filter((i) => i !== undefined) // filter undefined
-        .map((i) => [i, i!.currentColor] as Tuple) // get current color
-        .filter((tuple) => tuple[1] !== undefined) // eslint-disable-line
-        .map(([i, c]) => msgForColor(i.default.number, i.default.channel, c)) // get message for color
-        .filter((conf) => conf !== undefined) // filter undefined
-        .forEach((conf) => pp.send(conf!.toMidiArray())); // send color message
-    }
-  }
+    config.inputs
+      .map((i) => [i, i!.currentColor] as Tuple) // get current color
+      .filter((tuple) => tuple[1] !== undefined) // eslint-disable-line
+      .map(([i, c]) => msgForColor(i.default.number, i.default.channel, c)) // get message for color
+      .filter((conf) => conf !== undefined) // filter undefined
+      .forEach((conf) => pp.send(conf!.toMidiArray())); // send color message
+  };
 
   /**
-   * Turn off all lights (if disconnected, does nothing) and close virtual port
+   * Send sustain events from all devices shareWith on the same channel as their
+   * respective keyboards
    *
-   * @param id The device id
+   * @param msg The event from the device
+   * @param The list of ids with which sustain events are being shared
    */
-  close(id: string) {
-    this.turnOffLights(id);
-    this.#virtService.close(id);
-  }
+  #handleSustain = (msg: MidiValue[], shareWith: string[]) => {
+    shareWith.forEach((devId) => {
+      const device = this.#project.getDevice(devId);
+
+      if (device?.keyboardDriver !== undefined) {
+        const mm = new MidiMessage(msg, 0);
+        mm.channel = device?.keyboardDriver?.channel;
+        this.#virtService.send(mm.toMidiArray(), devId);
+      }
+    });
+  };
+
+  /**
+   * Gets the given `PortPair` by id
+   *
+   * @param id The requested PortPair id
+   * @returns A matching `PortPair` if exists, or null
+   */
+  #getPair = (id: string) => {
+    const pairs = this.portPairs.filter((p) => p.id === id);
+    return pairs.length === 0 ? null : pairs[0];
+  };
 
   /**
    * 1. If device is configured, pass msg to config and respond/propagate.
@@ -122,7 +161,7 @@ export class PortService {
    * @param msg The message from the device
    */
   #onMessage = (pair: PortPair, msg: MidiValue[]) => {
-    const deviceOrNull = this.project.getDevice(pair.id);
+    const deviceOrNull = this.#project.getDevice(pair.id);
 
     if (deviceOrNull !== null) {
       // device exists. process it
@@ -142,28 +181,8 @@ export class PortService {
       // send new state to frontend
       const mm = new MidiMessage(msg, 0);
       const id = inputIdFor(mm.number, mm.channel, mm.type);
-      windowService.sendInputState(id, toDevice, toPropagate);
-      windowService.onDeviceMessage(deviceOrNull.id, msg);
+      windowService.sendInputMsg(id, deviceOrNull.id, msg);
     }
-  };
-
-  /**
-   * Send sustain events from all devices shareWith on the same channel as their
-   * respective keyboards
-   *
-   * @param msg The event from the device
-   * @param The list of ids with which sustain events are being shared
-   */
-  #handleSustain = (msg: MidiValue[], shareWith: string[]) => {
-    shareWith.forEach((devId) => {
-      const device = this.project.getDevice(devId);
-
-      if (device?.keyboardDriver !== undefined) {
-        const mm = new MidiMessage(msg, 0);
-        mm.channel = device?.keyboardDriver?.channel;
-        this.#virtService.send(mm.toMidiArray(), devId);
-      }
-    });
   };
 
   /**
@@ -172,44 +191,29 @@ export class PortService {
    *
    * @param portPairs The new list of port pairs
    */
-  onPortsChange = (portPairs: PortPair[]) => {
+  #onPortsChange = (portPairs: PortPair[]) => {
     // Filter out SuperController-created ports.
-    const filtered = portPairs.filter((pair) => !pair.id.startsWith('SC '));
-    this.portPairs = filtered.map((pair) => new DrivenPortPair(pair));
+    const filtered = portPairs
+      .filter((pair) => !pair.id.startsWith('SC '))
+      .map((pair) => new DrivenPortPair(pair));
 
-    // pass to virtualPortService to open/close corresponding virtual ports
-    this.#virtService.onHardwarePortsChange(filtered);
+    // We only care about non-SC-created ports. The ports will change when a new
+    // project is opened, etc because virtual ports will be opened/closed. ignore these
+    if (JSON.stringify(this.portPairs) === JSON.stringify(filtered)) {
+      return;
+    }
 
+    // Update local port list
+    this.portPairs = filtered;
     this.sendToFrontend();
 
-    // listen to message from devices
-    portPairs.forEach((pair) => {
-      pair.onMessage((_delta: number, msg: number[]) =>
-        this.#onMessage(pair, msg as MidiValue[])
-      );
-    });
+    // Close all virtual ports
+    this.#virtService.shutdown();
 
-    this.initAllDevices();
-  };
-
-  /* Pass current list of `PortPair`s to the front end */
-  sendToFrontend() {
-    // pass port info to frontend
-    const info = this.portPairs.map(
-      (p) => new PortInfo(p.id, p.name, p.occurrenceNumber, true)
-    );
-
-    windowService.sendPortInfos(info);
-  }
-
-  /**
-   * Gets the given `PortPair` by id
-   *
-   * @param { string } id The requested PortPair id
-   * @return { PortPair | null }
-   */
-  #getPair = (id: string) => {
-    const pairs = this.portPairs.filter((p) => p.id === id);
-    return pairs.length === 0 ? null : pairs[0];
+    // Reinitialize all devices
+    // This might seem heavy-handed, but it's so much easier than account for
+    // when a user disconnects a controller of index 0 where there is more than
+    // one of that controller connected.
+    filtered.forEach((pp) => this.initDevice(pp.id));
   };
 }

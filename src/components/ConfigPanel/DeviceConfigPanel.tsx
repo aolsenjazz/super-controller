@@ -9,12 +9,13 @@ import { Project } from '../../project';
 /**
  * List of all devices eligible to share sustain events
  *
- * @param { object } props Component props
- * @param { Project } props.project Current project
- * @param { SupportedDeviceConfig } props.config Device configuration
+ * @param props Component props
+ * @param props.project Current project
+ * @param props.config Device configuration
+ * @param props.setProject updates the project in frontend
  */
 function ShareSustain(props: PropTypes) {
-  const { config, project } = props;
+  const { config, project, setProject } = props;
 
   // get all devices which are eligible for sharing sustain
   const shareableDevices = project.devices.filter(
@@ -34,13 +35,11 @@ function ShareSustain(props: PropTypes) {
             key={dev.id}
             value={config.sharingWith(dev.id)}
             onChange={(checked) => {
-              if (checked) {
-                config.shareWith(dev.id);
-              } else {
-                config.stopSharing(dev.id);
-              }
+              if (checked) config.shareWith(dev.id);
+              else config.stopSharing(dev.id);
 
-              ipcRenderer.sendProject(project, true);
+              ipcRenderer.updateDevice(config.toJSON(true)); // send update to the backend
+              setProject(new Project(project.devices)); // update in frontend
             }}
           />
         );
@@ -52,24 +51,28 @@ function ShareSustain(props: PropTypes) {
 type PropTypes = {
   project: Project;
   config: SupportedDeviceConfig;
+  setProject: (p: Project) => void;
 };
 
 /**
  * Panel for device-specific configuration
  *
- * @param { object } props Component props
- * @param { Project } props.project Current project
- * @param { SupportedDeviceConfig } props.config Device configuration
+ * @param props Component props
+ * @param props.project Current project
+ * @param props.config Device configuration
+ * @param props.setProject Sets the project in frontend
  */
 export default function DeviceConfigPanel(props: PropTypes) {
-  const { project, config } = props;
+  const { project, config, setProject } = props;
 
   const onNameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       config.nickname = e.target.value;
-      ipcRenderer.sendProject(project, true);
+
+      ipcRenderer.updateDevice(config.toJSON(true)); // send update to the backend
+      setProject(new Project(project.devices)); // update in frontend
     },
-    [config, project]
+    [config, project.devices, setProject]
   );
 
   // require use to type in device name before deleting config
@@ -88,16 +91,18 @@ export default function DeviceConfigPanel(props: PropTypes) {
 
   const confirmEquals = confirm === config.nickname;
 
-  const onDelete = useCallback(() => ipcRenderer.removeDevice(config.id), [
-    config,
-  ]);
+  const onDelete = useCallback(() => {
+    project.removeDevice(config);
+    setProject(new Project(project.devices));
+    ipcRenderer.removeDevice(config.id);
+  }, [config, project, setProject]);
 
   return (
     <div id="device-config">
       <h3>Device Settings</h3>
       <p>Nickname:</p>
       <input id="nickname" value={config.nickname} onChange={onNameChange} />
-      <ShareSustain config={config} project={project} />
+      <ShareSustain config={config} project={project} setProject={setProject} />
       <h4>Delete Configuration:</h4>
       <div id="remove-device">
         <p>

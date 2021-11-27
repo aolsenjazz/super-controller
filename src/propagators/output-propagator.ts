@@ -52,20 +52,29 @@ export class OutputPropagator extends Propagator {
       this.constantState = this.constantState === 'on' ? 'off' : 'on';
     }
 
+    let response: MidiMessage;
     switch (this.outputResponse) {
       case 'gate':
-        return this.#handleAsGate(msg);
+        response = this.#handleAsGate(msg);
+        break;
       case 'toggle':
-        return this.#handleAsToggle(msg);
+        response = this.#handleAsToggle(msg);
+        break;
       case 'linear':
-        return this.eventType === 'pitchbend'
-          ? this.#handleAsPitchbend(msg)
-          : this.#handleAsLinear(msg);
+        response =
+          this.eventType === 'pitchbend'
+            ? this.#handleAsPitchbend(msg)
+            : this.#handleAsLinear(msg);
+        break;
       case 'constant':
-        return this.#handleAsConstant();
+        response = this.#handleAsConstant();
+        break;
       default:
         throw new Error(`unknown outputResponse ${this.outputResponse}`);
     }
+
+    this.value = response.value as MidiValue;
+    return response;
   }
 
   /**

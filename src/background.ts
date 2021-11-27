@@ -5,22 +5,28 @@ import { windowService } from './window-service';
 import { DRIVERS } from './drivers';
 import {
   SupportedDeviceConfig,
+  InputConfig,
   AnonymousDeviceConfig,
 } from './hardware-config';
 
 import { SaveOpenService } from './save-open-service';
 import { PortService } from './ports/port-service';
 
+import {
+  ADD_DEVICE_CHANNEL,
+  REMOVE_DEVICE_CHANNEL,
+  UPDATE_DEVICE_CHANNEL,
+  UPDATE_INPUT_CHANNEL,
+} from './ipc-channels';
+
 const path = require('path');
 
 /**
- * Manages communications to and from controllers, and acts as the ground-truth.
- * `this.project` should be regarded as the only true and correct version of the project
- * (compared to the `Project` object in frontend), and the frontend project object should
- * always be a copy of this project.
+ * Manages communications to/from controllers, and informs the front end.
+ * `this.project` shoul be an identical copy to the front end's `Project` object.
  */
 export class Background {
-  /* The ground-truth current project */
+  /* The current project */
   project: Project;
 
   /* Manages communications to/from ports */
@@ -37,58 +43,65 @@ export class Background {
     this.initIpc();
   }
 
-  /* When the project is updated, update our 'master' version and send our version to frontend */
   initIpc() {
-    ipcMain.on(
-      'project',
-      (_e: Event, projString: string, deviceId: string, inputIds: string[]) => {
-        const proj = Project.fromJSON(projString);
-        this.onProjectUpdate(proj, true, deviceId, inputIds);
-      }
-    );
+    /* When a device is added to project in the frontend, add to our `Project` */
+    ipcMain.on(ADD_DEVICE_CHANNEL, (_e: Event, deviceJSON: string) => {
+      windowService.setEdited(true);
 
-    /* When a device is added to project, added it to the ground-truth project and send to frontend */
-    ipcMain.on(
-      'add-device',
-      (_e: Event, id: string, name: string, occurNum: number) => {
-        const driver = DRIVERS.get(name);
+      // deserialize device
+      const deviceObj = JSON.parse(deviceJSON);
+      const config = deviceObj.supported
+        ? SupportedDeviceConfig.fromParsedJSON(deviceObj)
+        : AnonymousDeviceConfig.fromParsedJSON(deviceObj);
 
-        const config = driver
-          ? SupportedDeviceConfig.fromDriver(id, occurNum, driver!)
-          : new AnonymousDeviceConfig(id, name, occurNum, new Map());
-        this.project.addDevice(config);
-        this.onProjectUpdate(this.project, true);
-      }
-    );
+      this.project.addDevice(config);
 
-    /* When a device is removed from project, remove it and re-init all devices, send to frontend */
-    ipcMain.on('remove-device', (_e: Event, deviceId: string) => {
-      const device = this.project.getDevice(deviceId);
-      this.project.removeDevice(device!);
-      this.onProjectUpdate(this.project, true);
-      this.portService.initAllDevices();
+      // init light defaults, run device control sequence
+      this.portService.initDevice(config.id);
     });
-  }
 
-  /**
-   * The project has been updated. Set the window to edited (little red dot in the X button),
-   * send the new ground-truth project to frontend, update hardware lights.
-   *
-   * @param p The new version of the project
-   * @param edited Is the document in an edited state?
-   * @param dId The id of the updated device, if a device config was updated
-   * @param iIds List of input ids that were updated, if any
-   */
-  onProjectUpdate(p: Project, edited: boolean, dId?: string, iIds?: string[]) {
-    this.project = p;
+    /* When a device is removed from project, remove it here and re-init all devices */
+    ipcMain.on(REMOVE_DEVICE_CHANNEL, (_e: Event, deviceId: string) => {
+      windowService.setEdited(true);
 
-    this.portService.project = this.project;
-    windowService.sendProject(this.project);
-    windowService.setEdited(edited);
+      const config = this.project.getDevice(deviceId);
+      this.project.removeDevice(config!);
 
-    if (dId !== undefined && iIds !== undefined) {
-      this.portService.updateLights(dId, iIds);
-    }
+      this.portService.relinquishDevice(deviceId);
+    });
+
+    ipcMain.on(UPDATE_DEVICE_CHANNEL, (_e: Event, deviceJSON: string) => {
+      windowService.setEdited(true);
+
+      // deserialize device
+      const deviceObj = JSON.parse(deviceJSON);
+      const config = deviceObj.supported
+        ? SupportedDeviceConfig.fromParsedJSON(deviceObj)
+        : AnonymousDeviceConfig.fromParsedJSON(deviceObj);
+
+      this.project.removeDevice(config);
+      this.project.addDevice(config);
+    });
+
+    ipcMain.on(
+      UPDATE_INPUT_CHANNEL,
+      (_e: Event, configId: string, inputJSON: string) => {
+        const config = this.project.getDevice(
+          configId
+        ) as SupportedDeviceConfig;
+        const inputConfig = InputConfig.fromJSON(inputJSON);
+
+        const inputConfigIdx = config.inputs
+          .map((conf, i) => [conf, i] as [InputConfig, number])
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          .filter(([conf, _i]) => conf.id === inputConfig.id)
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          .map(([_conf, i]) => i)[0];
+
+        config.inputs.splice(inputConfigIdx, 1, inputConfig);
+        this.portService.syncDeviceLights(configId);
+      }
+    );
   }
 
   /**
@@ -96,8 +109,7 @@ export class Background {
    * changes were saved.
    */
   async unsavedCheck() {
-    const wereResultsSaved = this.unsavedCheckSync();
-    return wereResultsSaved;
+    this.unsavedCheckSync();
   }
 
   /**
@@ -114,14 +126,8 @@ export class Background {
       });
 
       const yes = 0;
-      if (value === yes) {
-        return this.saveOpenService.saveSync(this.project);
-      }
-
-      return false;
+      if (value === yes) this.saveOpenService.saveSync(this.project);
     }
-
-    return true;
   }
 
   /* LIFECYCLE */
@@ -153,10 +159,12 @@ export class Background {
   onNew() {
     this.saveOpenService.currentPath = undefined;
 
-    return this.unsavedCheck().then((didSave) => {
-      if (didSave) this.onProjectUpdate(new Project(), false);
-      windowService.sendTitle('Untitled Project');
-      return null;
+    return this.unsavedCheck().then(() => {
+      this.project = new Project();
+      this.portService.project = this.project;
+      windowService.sendProject(new Project());
+      windowService.setEdited(false);
+      return windowService.sendTitle('Untitled Project');
     });
   }
 
@@ -164,44 +172,48 @@ export class Background {
   onOpen() {
     return this.unsavedCheck()
       .then(() => this.saveOpenService.open())
-      .then(([proj, fName]) => {
-        windowService.sendTitle(fName);
-        return this.onProjectUpdate(proj, false);
-      })
-      .then(() => this.portService.initAllDevices())
+      .then((fPath) => this.onOpenFile(fPath, false))
       .catch(() => {}); // ignore cancel dialogs
   }
 
   /* File->SaveAs or shift+cmd+s */
   onSaveAs() {
-    return this.saveOpenService.saveAs(this.project).then(([proj, fName]) => {
-      windowService.sendTitle(fName);
-      return this.onProjectUpdate(proj, false);
-    });
+    return this.saveOpenService
+      .saveAs(this.project)
+      .then((fPath) => path.basename(fPath))
+      .then((fName) => windowService.sendTitle(fName))
+      .then(() => windowService.setEdited(false));
   }
 
   /* File->Save or cmd+s */
   onSave() {
-    return this.saveOpenService.save(this.project).then(([proj, fName]) => {
-      windowService.sendTitle(fName);
-      return this.onProjectUpdate(proj, false);
-    });
+    return this.saveOpenService
+      .save(this.project)
+      .then((fPath) => path.basename(fPath))
+      .then((fName) => windowService.sendTitle(fName))
+      .then(() => windowService.setEdited(false));
   }
 
   /**
-   * Called on .controller double click, menu->Open Recent
+   * Open the file at the given location
    *
-   * TODO: Might be more sensible to instead do most of this work saveOpenService to be
-   * more consistent
+   * @param filePath /the/path/to/the/file.controller
+   * @param doUnsavedCheck Notify the user thhat they're about to lose unsaved work?
    */
-  onOpenFile(filePath: string) {
+  onOpenFile(filePath: string, doUnsavedCheck: boolean) {
+    if (doUnsavedCheck) this.unsavedCheckSync();
+
     app.addRecentDocument(filePath);
 
-    this.unsavedCheckSync();
     const proj = Project.fromFile(filePath);
+
+    this.project = proj;
+    this.portService.project = proj;
+
     windowService.sendTitle(path.basename(filePath));
+    windowService.setEdited(false);
+    windowService.sendProject(proj);
+
     this.saveOpenService.currentPath = filePath;
-    this.onProjectUpdate(proj, false);
-    this.portService.initAllDevices();
   }
 }

@@ -19,6 +19,7 @@ type InputConfigurationProps = {
   config: SupportedDeviceConfig;
   project: Project;
   selectedInputs: string[];
+  setProject: (p: Project) => void;
 };
 
 /**
@@ -30,25 +31,35 @@ type InputConfigurationProps = {
  * @param { string[] } props.selectedInputs The currently-selected inputs
  */
 function InputConfiguration(props: InputConfigurationProps) {
-  const { config, project, selectedInputs } = props;
+  const { config, project, selectedInputs, setProject } = props;
 
   const group = new InputGroup(selectedInputs.map((i) => config.getInput(i)));
 
   // display config panel for multi-input control if necessary, other single-input control panel
   const InputConfigPanel = group.isMultiInput ? (
-    <XYConfigPanel project={project} config={config} group={group} />
+    <XYConfigPanel
+      project={project}
+      config={config}
+      group={group}
+      setProject={setProject}
+    />
   ) : (
     <MonoInputConfigPanel
       project={project}
       config={config}
       group={group}
       title="MIDI Settings"
+      setProject={setProject}
     />
   );
 
   return (
     <>
-      <DeviceConfigPanel project={project} config={config} />
+      <DeviceConfigPanel
+        project={project}
+        config={config}
+        setProject={setProject}
+      />
       {InputConfigPanel}
     </>
   );
@@ -58,17 +69,19 @@ type PropTypes = {
   device: DeviceConfig | null;
   project: Project;
   selectedInputs: string[];
+  setProject: (p: Project) => void;
 };
 
 /**
  * Parent for device and input configuration controls, or a status message
  *
- * @param { object } props Component props
- * @param { project } props.project Current project
- * @param { string[] } props.selectedInputs Currently-selected inputs
+ * @param props Component props
+ * @param props.project Current project
+ * @param props.selectedInputs Currently-selected inputs
+ * @param props.setProject Updated the project in frontend
  */
 export default function ConfigPanel(props: PropTypes) {
-  const { selectedInputs, device, project } = props;
+  const { selectedInputs, device, project, setProject } = props;
   /* eslint-disable-next-line */
   const isConfigured = project.getDevice(device?.id) ? true : false;
   const asSupported = device as SupportedDeviceConfig;
@@ -77,19 +90,38 @@ export default function ConfigPanel(props: PropTypes) {
 
   // show a diff view depending on if device is supported, configured, etc
   if (device === null) Element = <BasicMessage msg="No connected devices." />;
-  else if (!isConfigured) Element = <NotConfigured config={asSupported} />;
+  else if (!isConfigured)
+    Element = (
+      <NotConfigured
+        config={asSupported}
+        setProject={setProject}
+        project={project}
+      />
+    );
   else if (!device.supported) {
     // device is not supported, handle as anonymous device
     Element = (
       <>
-        <DeviceConfigPanel project={project} config={asSupported} />
-        <Forwarder config={device as AnonymousDeviceConfig} project={project} />
+        <DeviceConfigPanel
+          project={project}
+          config={asSupported}
+          setProject={setProject}
+        />
+        <Forwarder
+          config={device as AnonymousDeviceConfig}
+          project={project}
+          setProject={setProject}
+        />
       </>
     );
   } else if (selectedInputs.length === 0) {
     Element = (
       <>
-        <DeviceConfigPanel project={project} config={asSupported} />
+        <DeviceConfigPanel
+          project={project}
+          config={asSupported}
+          setProject={setProject}
+        />
         <BasicMessage msg="No inputs selected." />
       </>
     );
@@ -99,6 +131,7 @@ export default function ConfigPanel(props: PropTypes) {
         selectedInputs={selectedInputs}
         project={project}
         config={asSupported}
+        setProject={setProject}
       />
     );
   }

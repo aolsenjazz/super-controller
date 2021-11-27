@@ -14,19 +14,21 @@ type PropTypes = {
   project: Project;
   config: SupportedDeviceConfig;
   title: string;
+  setProject: (p: Project) => void;
 };
 
 /**
  * Configuration controls for individual inputs
  *
- * @param { object } props Component props
- * @param { InputGroup } props.inputGroup Input group for selected inputs
- * @param { Project } props.project Current project
- * @param { SupportedDeviceConfig } prop.config Current device's configuration
- * @param { string } title Title of the input configuration panel
+ * @param props Component props
+ * @param props.inputGroup Input group for selected inputs
+ * @param props.project Current project
+ * @param props.config Current device's configuration
+ * @param props.setProject updates the project in the frontend
+ * @param props.title Title of the input configuration panel
  */
 export default function MonoInputConfigPanel(props: PropTypes) {
-  const { group, config, project, title } = props;
+  const { group, config, project, title, setProject } = props;
 
   const {
     number,
@@ -64,17 +66,24 @@ export default function MonoInputConfigPanel(props: PropTypes) {
 
   const onChange = useCallback(
     (setter: (c: InputConfig) => void) => {
-      group.inputs.forEach((i) => setter(i));
+      group.inputs.forEach((i) => {
+        setter(i);
+        ipcRenderer.updateInput(config.id, i.toJSON(true));
+      });
 
-      ipcRenderer.sendProject(project, true);
+      setProject(new Project(project.devices));
     },
-    [group, project]
+    [group, project, setProject, config]
   );
 
   const restoreDefaults = useCallback(() => {
-    group.inputs.forEach((input) => input.restoreDefaults());
-    ipcRenderer.sendProject(project, true);
-  }, [group, project]);
+    group.inputs.forEach((i) => {
+      i.restoreDefaults();
+      ipcRenderer.updateInput(config.id, i.toJSON(true));
+    });
+
+    setProject(new Project(project.devices));
+  }, [group, project, setProject, config]);
 
   return (
     <>
@@ -145,7 +154,8 @@ export default function MonoInputConfigPanel(props: PropTypes) {
         <BacklightSettings
           group={group}
           project={project}
-          deviceId={config.id}
+          setProject={setProject}
+          configId={config.id}
         />
       </div>
     </>
