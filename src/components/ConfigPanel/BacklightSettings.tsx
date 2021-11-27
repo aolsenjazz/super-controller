@@ -31,7 +31,6 @@ function LightResponse(props: LightResponsePropTypes) {
 
   const onChange = (val: string | number) => {
     group.inputs.forEach((config) => {
-      // TODO: really should reset state here
       config.lightResponse = val as 'gate' | 'toggle';
       ipcRenderer.updateInput(configId, config.toJSON(true));
     });
