@@ -66,6 +66,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
+  transition: bottom 0.1s linear;
 }
 
 .device-layout .knob .outer {
@@ -146,6 +147,7 @@
   border: 1px solid #3a84e9;
   position: absolute;
   transform: translateY(50%);
+  transition: bottom 0.1s linear;
 }
 
 .device-layout .wheel .bounding-box {

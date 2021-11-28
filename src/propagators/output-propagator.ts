@@ -137,6 +137,8 @@ export class OutputPropagator extends Propagator {
   #handleAsPitchbend = (msg: MidiValue[]) => {
     const mm = new MidiMessage(msg, 0);
     mm.channel = this.channel;
+    // eslint-disable-next-line prefer-destructuring
+    mm.value = msg[2];
     return mm;
   };
 

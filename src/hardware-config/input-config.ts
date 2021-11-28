@@ -162,13 +162,15 @@ export class InputConfig {
     this.overrideable = overrideable;
     this.type = type;
 
+    const isPitchbend = defaultVals.eventType === 'pitchbend';
+
     this.outputPropagator = new OutputPropagator(
       this.default.response,
       this.override.response || this.default.response,
       this.override.eventType || this.default.eventType,
       this.override.number || this.default.number,
       this.override.channel || this.default.channel,
-      value,
+      isPitchbend ? 64 : value,
       lastPropagated
     );
 
