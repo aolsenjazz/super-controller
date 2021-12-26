@@ -1,7 +1,7 @@
 {
   "name": "super-controller",
   "productName": "SuperController",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Give your MIDI devices super powers; take control of the lights, messages, and communications between controllers.",
   "main": "./main.prod.js",
   "author": {
