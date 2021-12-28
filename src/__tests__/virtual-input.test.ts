@@ -1,7 +1,7 @@
 import { test, expect } from '@jest/globals';
 import { MidiValue, Channel, EventType } from 'midi-message-parser';
 
-import { VirtualInput } from '../virtual-devices';
+import { VirtualInput } from '../renderer/virtual-devices';
 
 function BasicInputDriver() {
   return {

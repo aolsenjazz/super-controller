@@ -1,7 +1,5 @@
 import { MidiValue, MidiMessage } from 'midi-message-parser';
 
-const fs = require('fs');
-
 /* Mapping between MIDI values and human-readable strings */
 const NOTE_BINDINGS = new Map([
   [0, 'C-2'],
@@ -157,16 +155,6 @@ export function stringVal(midiInt: MidiValue) {
   if (str === undefined) throw new Error(`bad MIDI value [${midiInt}]`);
 
   return str;
-}
-
-/**
- * Loads a JSON file
- *
- * @param { string } filePath The path to the JSON file
- * @return { object } The parsed object
- */
-export function loadJSON(filePath: string) {
-  return JSON.parse(fs.readFileSync(filePath));
 }
 
 /**

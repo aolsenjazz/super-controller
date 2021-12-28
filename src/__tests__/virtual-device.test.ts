@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals';
-import { VirtualDevice } from '../virtual-devices';
+import { VirtualDevice } from '../renderer/virtual-devices';
 import { DRIVERS } from '../drivers';
 
 test('constructing a VirtualDevice sets values correctly', () => {

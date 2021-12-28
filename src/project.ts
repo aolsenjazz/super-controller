@@ -3,25 +3,12 @@ import {
   AnonymousDeviceConfig,
 } from './hardware-config';
 
-const fs = require('fs');
-
 export class Project {
   /* Configured devices. See `SupportedDeviceConfig` for more. */
   devices: (SupportedDeviceConfig | AnonymousDeviceConfig)[];
 
   constructor(devices?: (SupportedDeviceConfig | AnonymousDeviceConfig)[]) {
     this.devices = devices || [];
-  }
-
-  /**
-   * Loads the file at given path. *DO NOT* invoke from frontend
-   *
-   * @param filePath The path to the file
-   * @returns the project
-   */
-  static fromFile(filePath: string) {
-    const jsonString = fs.readFileSync(filePath);
-    return Project.fromJSON(jsonString);
   }
 
   /**

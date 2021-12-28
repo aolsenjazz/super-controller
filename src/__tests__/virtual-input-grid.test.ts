@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals';
-import { VirtualInputGrid } from '../virtual-devices';
+import { VirtualInputGrid } from '../renderer/virtual-devices';
 import { DRIVERS } from '../drivers';
 
 test('constructing VirtualInputGrid set values correctly', () => {

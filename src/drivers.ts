@@ -10,13 +10,19 @@ const fs = require('fs');
 
 const fNameRegex = new RegExp(/^.+\.json$/);
 
+const resourcePath =
+  !process.env.NODE_ENV || process.env.NODE_ENV === "production"
+    ? process.resourcesPath // Live Mode
+    : path.join(__dirname, '..'); // Dev Mode
+
 /**
  * Returns a list of the names of available drivers.
  *
  * @return { string[] } List of names of driver files e.g. 'APC Key 25.json'
  */
 export function getAvailableDrivers(): string[] {
-  const allFiles: string[] = fs.readdirSync(path.join(__dirname, 'drivers'));
+  const driversPath = path.join(resourcePath, 'drivers');
+  const allFiles: string[] = fs.readdirSync(driversPath);
   const filtered = allFiles.filter((fName) => fNameRegex.test(fName));
   return filtered;
 }
@@ -31,7 +37,7 @@ function loadDriver(fileName: string): DeviceDriver {
   let fName = fileName;
   if (!fName.endsWith('.json')) fName = `${fName}.json`;
 
-  const filePath = path.join(__dirname, 'drivers', fName);
+  const filePath = path.join(resourcePath, 'drivers', fName);
   return JSON.parse(fs.readFileSync(filePath));
 }
 
