@@ -2,11 +2,12 @@ import { useCallback } from 'react';
 
 import SelectTab from '../../assets/select-tab.svg';
 import SettingsLineItem from './SettingsLineItem';
-import { Color } from '../../../driver-types';
 import { InputGroup } from '../../input-group';
-import { Project } from '../../../project';
 
-const ipcRenderer = window.ipcRenderer;
+import { Color } from '@shared/driver-types';
+import { Project } from '@shared/project';
+
+const { ipcRenderer } = window;
 
 type LightResponsePropTypes = {
   group: InputGroup;
@@ -81,7 +82,7 @@ export default function BacklightSettings(props: PropTypes) {
 
       setProject(new Project(project.devices));
     },
-    [group, project, setProject]
+    [group, project, setProject, configId]
   );
 
   return (

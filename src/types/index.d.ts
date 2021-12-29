@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/no-explicit-any: 0 */
+
 export interface IpcRendererAPI {
   send: (channel: string, ...args: any[]) => void;
   on: (channel: string, func: (...args: any[]) => void) => () => void;

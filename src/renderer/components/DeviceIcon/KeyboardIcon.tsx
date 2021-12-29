@@ -27,15 +27,8 @@ type PropTypes = {
  * @param { number } props.deviceHeight height (in inches) of the device
  */
 export default function Keyboard(props: PropTypes) {
-  const {
-    active,
-    height,
-    width,
-    left,
-    bottom,
-    deviceWidth,
-    deviceHeight,
-  } = props;
+  const { active, height, width, left, bottom, deviceWidth, deviceHeight } =
+    props;
 
   const style = {
     width: `${(width / deviceWidth) * 100}%`,

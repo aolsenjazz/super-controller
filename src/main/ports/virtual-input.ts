@@ -1,5 +1,4 @@
 import { Port } from '@alexanderolsen/port-manager';
-
 import { Input } from 'midi';
 
 /**

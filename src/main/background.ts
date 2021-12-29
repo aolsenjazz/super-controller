@@ -1,24 +1,23 @@
 import { ipcMain, Event, dialog, app } from 'electron';
 
-import { Project } from '../project';
 import { windowService } from './window-service';
-import { DRIVERS } from '../drivers';
+import { DRIVERS } from './drivers';
 import { projectFromFile } from './util-main';
-import {
-  SupportedDeviceConfig,
-  InputConfig,
-  AnonymousDeviceConfig,
-} from '../hardware-config';
-
 import { SaveOpenService } from './save-open-service';
-import { PortService } from '../ports/port-service';
+import { PortService } from './ports/port-service';
 
 import {
   ADD_DEVICE,
   REMOVE_DEVICE,
   UPDATE_DEVICE,
   UPDATE_INPUT,
-} from '../ipc-channels';
+} from '@shared/ipc-channels';
+import {
+  SupportedDeviceConfig,
+  InputConfig,
+  AnonymousDeviceConfig,
+} from '@shared/hardware-config';
+import { Project } from '@shared/project';
 
 const path = require('path');
 
@@ -66,7 +65,10 @@ export class Background {
       windowService.setEdited(true);
 
       const config = this.project.getDevice(deviceId);
-      this.project.removeDevice(config!);
+
+      if (!config) throw new Error(`no config exists for device ${deviceId}`);
+
+      this.project.removeDevice(config);
 
       this.portService.relinquishDevice(deviceId);
     });

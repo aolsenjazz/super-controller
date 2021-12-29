@@ -5,13 +5,14 @@ import DeviceConfigPanel from './DeviceConfigPanel';
 import MonoInputConfigPanel from './MonoInputConfigPanel';
 import XYConfigPanel from './XYConfigPanel';
 
+import { InputGroup } from '../../input-group';
+
 import {
   DeviceConfig,
   SupportedDeviceConfig,
   AnonymousDeviceConfig,
-} from '../../../hardware-config';
-import { Project } from '../../../project';
-import { InputGroup } from '../../input-group';
+} from '@shared/hardware-config';
+import { Project } from '@shared/project';
 
 type InputConfigurationProps = {
   config: SupportedDeviceConfig;

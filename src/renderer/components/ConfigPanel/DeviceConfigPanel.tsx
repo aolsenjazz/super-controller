@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 
 import ShareSustainLine from './ShareSustainLine';
 
-import { SupportedDeviceConfig } from '../../../hardware-config';
-import { Project } from '../../../project';
+import { SupportedDeviceConfig } from '@shared/hardware-config';
+import { Project } from '@shared/project';
 
-const ipcRenderer = window.ipcRenderer;
+const { ipcRenderer } = window;
 
 /**
  * List of all devices eligible to share sustain events

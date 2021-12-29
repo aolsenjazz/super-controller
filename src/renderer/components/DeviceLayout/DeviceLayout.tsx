@@ -4,8 +4,9 @@ import Keyboard from './KeyboardLayout';
 import InputGridLayout from './InputGridLayout';
 import XYGridLayout from './XYGridLayout';
 
-import { SupportedDeviceConfig } from '../../../hardware-config';
 import { VirtualDevice } from '../../virtual-devices';
+
+import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 type PropTypes = {
   device: VirtualDevice;

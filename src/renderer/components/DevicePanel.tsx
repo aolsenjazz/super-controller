@@ -1,9 +1,10 @@
 import DeviceView from './DeviceLayoutWrapper';
 
-import { DeviceConfig, SupportedDeviceConfig } from '../../hardware-config';
 import { VirtualDevice } from '../virtual-devices';
-import { Project } from '../../project';
-import { DeviceDriver } from '../../driver-types';
+
+import { DeviceConfig, SupportedDeviceConfig } from '@shared/hardware-config';
+import { Project } from '@shared/project';
+import { DeviceDriver } from '@shared/driver-types';
 
 /**
  * Tell the user that there aren't any devices connected (nor configured)
@@ -63,14 +64,16 @@ export default function DevicePanel(props: PropTypes) {
     Element = <UnsupportedView />;
   } else {
     const nonUndefinedConfig = config as SupportedDeviceConfig;
-    const vDevice = new VirtualDevice(
-      nonUndefinedConfig.id,
-      drivers.get(nonUndefinedConfig.name)!
-    );
+    const driver = drivers.get(nonUndefinedConfig.name);
+
+    if (driver === undefined)
+      throw new Error(`unable to locate driver for ${nonUndefinedConfig.name}`);
+
+    const vDevice = new VirtualDevice(nonUndefinedConfig.id, driver);
 
     Element = (
       <DeviceView
-        device={vDevice!}
+        device={vDevice}
         config={nonUndefinedConfig}
         project={project}
         selectedInputs={selectedInputs}

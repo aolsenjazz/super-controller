@@ -1,6 +1,6 @@
 import { dialog, app } from 'electron';
 
-import { Project } from '../project';
+import { Project } from '@shared/project';
 
 const fs = require('fs');
 const path = require('path');
@@ -80,8 +80,9 @@ export class SaveOpenService {
       })
       .then((result) => {
         if (result.canceled) throw new Error('aborted');
+        if (!result.filePath) throw new Error(`filePath must not be falsy`);
 
-        const filePath = result.filePath!;
+        const { filePath } = result;
         store.set(SAVE_DIR, path.parse(filePath).dir);
         this.currentPath = filePath;
         return project;

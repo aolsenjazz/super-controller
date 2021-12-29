@@ -51,6 +51,7 @@ export class VirtualPortService {
   /**
    * Expose some interal private methods for testing
    */
+  // eslint-disable-next-line
   testables: Map<string, (...args: any[]) => any>;
 
   constructor() {

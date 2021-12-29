@@ -1,5 +1,5 @@
 import { VirtualInput } from './virtual-input';
-import { InputGridDriver } from '../../driver-types';
+import { InputGridDriver } from '@shared/driver-types';
 
 /**
  * Contains layout information to display a virtual representation of an input grid.

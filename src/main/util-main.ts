@@ -1,8 +1,11 @@
-const fs = require('fs');
+/* eslint import/prefer-default-export: off, import/no-mutable-exports: off */
 
-import { Project } from '../project';
-import { URL } from 'url';
 import path from 'path';
+import { URL } from 'url';
+
+import { Project } from '@shared/project';
+
+const fs = require('fs');
 
 export let resolveHtmlPath: (htmlFileName: string) => string;
 

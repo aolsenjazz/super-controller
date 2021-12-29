@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-const ipcRenderer = window.ipcRenderer;
+
+const { ipcRenderer } = window;
 
 /**
  * The uppermost gray bar. Draggable

@@ -6,6 +6,12 @@ import { Propagator } from './propagator';
  * Propagator that only propagates null
  */
 export class NullPropagator extends Propagator {
+  #eligibleStates = [];
+
+  #defaultState = 'off';
+
+  #state = 'off';
+
   constructor(
     inputResponse: 'gate' | 'toggle' | 'linear' | 'constant',
     outputResponse: 'gate' | 'toggle' | 'linear' | 'constant'
@@ -24,14 +30,14 @@ export class NullPropagator extends Propagator {
   }
 
   get eligibleStates() {
-    return [];
+    return this.#eligibleStates;
   }
 
   get defaultState() {
-    return 'off';
+    return this.#defaultState;
   }
 
   get state() {
-    return 'off';
+    return this.#state;
   }
 }

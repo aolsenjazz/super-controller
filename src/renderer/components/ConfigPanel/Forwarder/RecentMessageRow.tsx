@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { MidiMessage, MidiValue } from 'midi-message-parser';
 
-import { MSG } from '../../../../ipc-channels';
+import { MSG } from '@shared/ipc-channels';
 
-import { AnonymousDeviceConfig } from '../../../../hardware-config';
+import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
-const ipcRenderer = window.ipcRenderer;
+const { ipcRenderer } = window;
 
 type RecentMessageRowPropTypes = {
   config: AnonymousDeviceConfig;

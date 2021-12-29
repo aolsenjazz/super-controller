@@ -5,10 +5,10 @@ import DeviceListItem from './DeviceListItem';
 import {
   SupportedDeviceConfig,
   AnonymousDeviceConfig,
-} from '../../hardware-config';
-import { DeviceDriver } from '../../driver-types';
-import { PortInfo, PortIdentifier } from '../../ports/port-info';
-import { Project } from '../../project';
+} from '@shared/hardware-config';
+import { DeviceDriver } from '@shared/driver-types';
+import { PortInfo, PortIdentifier } from '@shared/port-info';
+import { Project } from '@shared/project';
 
 /**
  * Merge available hardware portInfos with device configurations to make

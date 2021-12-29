@@ -4,11 +4,12 @@ import { Channel, MidiValue, EventType } from 'midi-message-parser';
 import SettingsLineItem from './SettingsLineItem';
 import BacklightSettings from './BacklightSettings';
 
-import { InputConfig, SupportedDeviceConfig } from '../../../hardware-config';
 import { InputGroup } from '../../input-group';
-import { Project } from '../../../project';
 
-const ipcRenderer = window.ipcRenderer;
+import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
+import { Project } from '@shared/project';
+
+const { ipcRenderer } = window;
 
 type PropTypes = {
   group: InputGroup;

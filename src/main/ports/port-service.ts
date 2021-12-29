@@ -1,16 +1,18 @@
+/* eslint @typescript-eslint/no-non-null-assertion: 0 */
+
 import { addListener, PortPair, all } from '@alexanderolsen/port-manager';
 import { MidiValue, MidiMessage } from 'midi-message-parser';
 
-import { InputConfig, SupportedDeviceConfig } from '../hardware-config';
-import { Color } from '../driver-types';
-import { inputIdFor, msgForColor } from '../device-util';
-import { DrivenPortPair } from '../main/driven-port-pair';
-import { windowService } from '../main/window-service';
-import { Project } from '../project';
-import { isSustain } from '../util';
-import { PortInfo } from './port-info';
-
+import { DrivenPortPair } from '../driven-port-pair';
+import { windowService } from '../window-service';
 import { VirtualPortService } from './virtual-port-service';
+
+import { inputIdFor, msgForColor } from '@shared/device-util';
+import { Project } from '@shared/project';
+import { isSustain } from '@shared/util';
+import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
+import { Color } from '@shared/driver-types';
+import { PortInfo } from '@shared/port-info';
 
 /**
  * Manages sending/receiving of messages to and from device, as well as syncing
@@ -115,7 +117,7 @@ export class PortService {
     type Tuple = [InputConfig, Color | undefined];
 
     config.inputs
-      .map((i) => [i, i!.currentColor] as Tuple) // get current color
+      .map((i) => [i, i.currentColor] as Tuple) // get current color
       .filter((tuple) => tuple[1] !== undefined) // eslint-disable-line
       .map(([i, c]) => msgForColor(i.default.number, i.default.channel, c)) // get message for color
       .filter((conf) => conf !== undefined) // filter undefined

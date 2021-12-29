@@ -4,7 +4,7 @@ import {
   DeviceStyle,
   DeviceDriver,
   InputGridDriver,
-} from '../../driver-types';
+} from '@shared/driver-types';
 
 /**
  * Contains layout information to display virtual representations of devices.

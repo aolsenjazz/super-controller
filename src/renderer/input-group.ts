@@ -1,8 +1,8 @@
 import { MidiValue, Channel, EventType } from 'midi-message-parser';
 
-import { Color } from '../driver-types';
-import { InputConfig } from '../hardware-config';
-import { CC_BINDINGS, stringVal } from '../util';
+import { Color } from '@shared/driver-types';
+import { InputConfig } from '@shared/hardware-config';
+import { CC_BINDINGS, stringVal } from '@shared/util';
 
 /**
  * A pseudo-`InputConfig` used to show the values of multiple inputs in a group.

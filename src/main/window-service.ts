@@ -1,11 +1,11 @@
 import { getMainWindow } from 'electron-main-window';
 import { MidiValue } from 'midi-message-parser';
 
-import { DeviceDriver } from '../driver-types';
-import { Project } from '../project';
-import { PortInfo } from '../ports/port-info';
+import { DeviceDriver } from '@shared/driver-types';
+import { Project } from '@shared/project';
+import { PortInfo } from '@shared/port-info';
 
-import { MSG, TITLE, PROJECT, PORTS } from '../ipc-channels';
+import { MSG, TITLE, PROJECT, PORTS } from '@shared/ipc-channels';
 
 /**
  * Convenience class for accessing the main window. Used for:

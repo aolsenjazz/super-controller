@@ -1,8 +1,9 @@
 import { PortPair, Port } from '@alexanderolsen/port-manager';
 import { MidiMessage } from 'midi-message-parser';
 
-import { DeviceDriver } from '../driver-types';
-import { DRIVERS } from '../drivers';
+import { DRIVERS } from './drivers';
+
+import { DeviceDriver } from '@shared/driver-types';
 
 /**
  * PortPair with an attached driver. Useful so that we can reset the lights

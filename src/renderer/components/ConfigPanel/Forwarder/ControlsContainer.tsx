@@ -5,9 +5,9 @@ import {
   Channel,
 } from 'midi-message-parser';
 
-import SettingsLineItem from '../SettingsLineItem';
+import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
-import { AnonymousDeviceConfig } from '../../../../hardware-config';
+import SettingsLineItem from '../SettingsLineItem';
 
 type ControlsContainerPropTypes = {
   config: AnonymousDeviceConfig;

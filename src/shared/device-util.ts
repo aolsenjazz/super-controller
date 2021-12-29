@@ -24,9 +24,11 @@ export function inputIdFor(
     c = numOrMsg.channel;
     e = numOrMsg.type;
   } else {
+    if (!channel || !eventType)
+      throw new Error('channel && eventType must be truthy');
     n = numOrMsg;
-    c = channel!;
-    e = eventType!;
+    c = channel;
+    e = eventType;
   }
 
   if (e === 'pitchbend') {

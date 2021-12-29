@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
 
-import { SupportedDeviceConfig } from '../../../hardware-config';
+import { SupportedDeviceConfig } from '@shared/hardware-config';
+import { Project } from '@shared/project';
 
-import { Project } from '../../../project';
-
-const ipcRenderer = window.ipcRenderer;
+const { ipcRenderer } = window;
 
 /**
  * Inform the current user that the device isn't configured, and allow them to configure

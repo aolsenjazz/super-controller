@@ -2,7 +2,7 @@ import Pad from './PadLayout';
 import { Knob } from './KnobLayout';
 import { WheelLayout } from './WheelLayout';
 
-import { SupportedDeviceConfig, InputConfig } from '../../../hardware-config';
+import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
 
 import { VirtualInput, VirtualInputGrid } from '../../virtual-devices';
 
@@ -49,6 +49,7 @@ function Element(props: ElementPropTypes) {
   } = props;
 
   const enabled = configured && input.overrideable;
+  const handleWidth = input.handleWidth as number;
 
   let elem;
   if (input.type === 'pad') {
@@ -86,8 +87,8 @@ function Element(props: ElementPropTypes) {
         max={127}
         value={config.value}
         width={width}
-        handleWidth={`${(input.handleWidth! / input.width) * 100}%`}
-        handleHeight={`${(input.handleHeight! / input.height) * 100}%`}
+        handleWidth={`${(handleWidth / input.width) * 100}%`}
+        handleHeight={`${(handleWidth / input.height) * 100}%`}
         height={height}
         enabled={enabled}
         focus={focus}
@@ -150,6 +151,9 @@ const InputGridLayout = (props: PropTypes) => {
       {inputGrid.inputs.map((input) => {
         const inputConfig = deviceConfig.getInput(input.id);
 
+        if (!inputConfig)
+          throw new Error(`No config exists for input ${input.id}`);
+
         return (
           <div
             className="input-container"
@@ -167,7 +171,7 @@ const InputGridLayout = (props: PropTypes) => {
                 (input.height / (inputGrid.height / inputGrid.nRows)) * 100
               }%`}
               input={input}
-              config={inputConfig!}
+              config={inputConfig}
               configured={configured}
               overrideable={input.overrideable}
               onClick={(_e, id: string) => {

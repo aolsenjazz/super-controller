@@ -12,7 +12,7 @@ const {
   REMOVE_DEVICE,
   UPDATE_DEVICE,
   UPDATE_INPUT,
-} = require('../ipc-channels.js');
+} = require('../shared/ipc-channels');
 
 contextBridge.exposeInMainWorld('ipcRenderer', {
   send(channel, ...args) {

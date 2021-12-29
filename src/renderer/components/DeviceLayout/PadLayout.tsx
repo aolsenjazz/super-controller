@@ -1,4 +1,4 @@
-import { Color } from '../../../driver-types';
+import { Color } from '@shared/driver-types';
 
 type PropTypes = {
   onClick: (event: React.MouseEvent, id: string) => void;

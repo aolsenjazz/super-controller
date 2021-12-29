@@ -1,4 +1,5 @@
 /* eslint @typescript-eslint/prefer-as-const: 0 */
+/* eslint @typescript-eslint/no-non-null-assertion: 0 */
 
 import { test, expect } from '@jest/globals';
 import {

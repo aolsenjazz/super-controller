@@ -1,8 +1,9 @@
 import MonoInputConfigPanel from './MonoInputConfigPanel';
 
-import { SupportedDeviceConfig } from '../../../hardware-config';
 import { InputGroup } from '../../input-group';
-import { Project } from '../../../project';
+
+import { Project } from '@shared/project';
+import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 type PropTypes = {
   group: InputGroup;

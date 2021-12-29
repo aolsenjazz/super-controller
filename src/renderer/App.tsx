@@ -6,18 +6,18 @@ import DevicePanel from './components/DevicePanel';
 import ConfigPanel from './components/ConfigPanel';
 import ProjectChangeListener from './components/ProjectChangeListener';
 
-import { Project } from '../project';
-import { PortInfo } from '../ports/port-info';
+import { Project } from '@shared/project';
+import { PortInfo } from '@shared/port-info';
+import { DeviceDriver } from '@shared/driver-types';
 import {
   DeviceConfig,
   AnonymousDeviceConfig,
   SupportedDeviceConfig,
-} from '../hardware-config';
-import { DeviceDriver } from '../driver-types';
-
-const ipcRenderer = window.ipcRenderer;
+} from '@shared/hardware-config';
 
 import './styles/App.global.css';
+
+const { ipcRenderer } = window;
 
 document.body.ondragover = (event) => {
   if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
@@ -63,10 +63,15 @@ export default function App() {
 
       if (Array.from(drivers.keys()).includes(portInfo?.name)) {
         // This port exists in config or hardware
+        const driver = drivers.get(portInfo.name);
+
+        if (!driver)
+          throw new Error(`Unable to located driver for ${portInfo.name}`);
+
         device = SupportedDeviceConfig.fromDriver(
           portInfo.id,
           portInfo.occurrenceNumber,
-          drivers.get(portInfo.name)!
+          driver
         );
       } else {
         // this port may or may not exist. if it exists, it must not be supported

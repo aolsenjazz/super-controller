@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/no-non-null-assertion: 0 */
+
 import { test, expect } from '@jest/globals';
 
 import { getAvailableDrivers, DRIVERS } from '../drivers';

@@ -12,6 +12,10 @@ export class BinaryPropagator extends Propagator {
   /* Message to send to device when state changes to 'off' */
   offMessage?: MidiMessage;
 
+  #eligibleStates = ['on', 'off'];
+
+  #defaultState = 'off';
+
   constructor(
     inputResponse: 'gate' | 'toggle',
     outputResponse: 'gate' | 'toggle' | 'constant',
@@ -57,11 +61,11 @@ export class BinaryPropagator extends Propagator {
   };
 
   get eligibleStates() {
-    return ['off', 'on'];
+    return this.#eligibleStates;
   }
 
   get defaultState() {
-    return 'off';
+    return this.#defaultState;
   }
 
   get state() {

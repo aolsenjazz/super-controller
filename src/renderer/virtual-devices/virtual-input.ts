@@ -1,7 +1,7 @@
 import { EventType, MidiValue, Channel } from 'midi-message-parser';
 
-import { InputDriver } from '../../driver-types';
-import { inputIdFor } from '../../device-util';
+import { InputDriver } from '@shared/driver-types';
+import { inputIdFor } from '@shared/device-util';
 
 /**
  * Contains layout information to create a virtual representation of an input.

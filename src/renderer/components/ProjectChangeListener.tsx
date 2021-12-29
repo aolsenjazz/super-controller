@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { MidiValue, MidiMessage } from 'midi-message-parser';
 
-import { Project } from '../../project';
+import { Project } from '@shared/project';
+import { MSG, PROJECT } from '@shared/ipc-channels';
 
-import { MSG, PROJECT } from '../../ipc-channels';
-
-const ipcRenderer = window.ipcRenderer;
+const { ipcRenderer } = window;
 
 /**
  * Convenience function to wrap another function in a throttle. Useful to prevent

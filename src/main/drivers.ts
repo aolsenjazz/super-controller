@@ -3,7 +3,7 @@
  * *SHOULD NOT BE CALLED FROM FRONTEND* as paths will vary.
  */
 
-import { DeviceDriver } from './driver-types';
+import { DeviceDriver } from '@shared/driver-types';
 
 const path = require('path');
 const fs = require('fs');
@@ -11,9 +11,9 @@ const fs = require('fs');
 const fNameRegex = new RegExp(/^.+\.json$/);
 
 const resourcePath =
-  !process.env.NODE_ENV || process.env.NODE_ENV === "production"
+  !process.env.NODE_ENV || process.env.NODE_ENV === 'production'
     ? process.resourcesPath // Live Mode
-    : path.join(__dirname, '..'); // Dev Mode
+    : path.join(__dirname, '..', '..'); // Dev Mode
 
 /**
  * Returns a list of the names of available drivers.
