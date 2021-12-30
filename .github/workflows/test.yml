@@ -23,6 +23,10 @@ jobs:
         run: |
           npm install
 
+      - name: rebuild midi module
+        run: |
+          npm run rebuild:test
+
       - name: npm test
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
