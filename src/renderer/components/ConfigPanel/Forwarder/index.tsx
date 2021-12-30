@@ -6,12 +6,12 @@ import {
   Channel,
 } from 'midi-message-parser';
 
+import { Project } from '@shared/project';
+import { AnonymousDeviceConfig } from '@shared/hardware-config';
+
 import RecentMessageRow from './RecentMessageRow';
 import ControlsContainer from './ControlsContainer';
 import OverrideRow from './OverrideRow';
-
-import { Project } from '@shared/project';
-import { AnonymousDeviceConfig } from 'shared/hardware-config';
 
 const scIpc = window.ipcRenderer;
 

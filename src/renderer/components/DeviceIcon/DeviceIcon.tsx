@@ -2,10 +2,10 @@
 
 import AspectRatio from 'react-aspect-ratio';
 
+import { DeviceDriver } from '@shared/driver-types';
+
 import KeyboardIcon from './KeyboardIcon';
 import InputGridIcon from './InputGridIcon';
-
-import { DeviceDriver } from '@shared/driver-types';
 
 type PropTypes = {
   device: DeviceDriver;

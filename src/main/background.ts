@@ -1,11 +1,5 @@
 import { ipcMain, Event, dialog, app } from 'electron';
 
-import { windowService } from './window-service';
-import { DRIVERS } from './drivers';
-import { projectFromFile } from './util-main';
-import { SaveOpenService } from './save-open-service';
-import { PortService } from './ports/port-service';
-
 import {
   ADD_DEVICE,
   REMOVE_DEVICE,
@@ -18,6 +12,12 @@ import {
   AnonymousDeviceConfig,
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
+
+import { windowService } from './window-service';
+import { DRIVERS } from './drivers';
+import { projectFromFile } from './util-main';
+import { SaveOpenService } from './save-open-service';
+import { PortService } from './ports/port-service';
 
 const path = require('path');
 

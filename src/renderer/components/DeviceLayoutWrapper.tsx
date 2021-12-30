@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 
+import { SupportedDeviceConfig } from '@shared/hardware-config';
+import { Project } from '@shared/project';
+
 import DeviceLayout from './DeviceLayout/DeviceLayout';
 
 import { VirtualDevice } from '../virtual-devices';
-
-import { SupportedDeviceConfig } from '@shared/hardware-config';
-import { Project } from '@shared/project';
 
 type PropTypes = {
   device: VirtualDevice;

@@ -1,10 +1,10 @@
-import { VirtualInputGrid } from './virtual-input-grid';
 import {
   KeyboardDriver,
   DeviceStyle,
   DeviceDriver,
   InputGridDriver,
 } from '@shared/driver-types';
+import { VirtualInputGrid } from './virtual-input-grid';
 
 /**
  * Contains layout information to display virtual representations of devices.

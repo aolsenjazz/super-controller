@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 
+import { Color } from '@shared/driver-types';
+import { Project } from '@shared/project';
+
 import SelectTab from '../../assets/select-tab.svg';
 import SettingsLineItem from './SettingsLineItem';
 import { InputGroup } from '../../input-group';
-
-import { Color } from '@shared/driver-types';
-import { Project } from '@shared/project';
 
 const { ipcRenderer } = window;
 

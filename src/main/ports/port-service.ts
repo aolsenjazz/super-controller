@@ -3,16 +3,16 @@
 import { addListener, PortPair, all } from '@alexanderolsen/port-manager';
 import { MidiValue, MidiMessage } from 'midi-message-parser';
 
-import { DrivenPortPair } from '../driven-port-pair';
-import { windowService } from '../window-service';
-import { VirtualPortService } from './virtual-port-service';
-
 import { inputIdFor, msgForColor } from '@shared/device-util';
 import { Project } from '@shared/project';
 import { isSustain } from '@shared/util';
 import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
 import { Color } from '@shared/driver-types';
 import { PortInfo } from '@shared/port-info';
+
+import { DrivenPortPair } from '../driven-port-pair';
+import { windowService } from '../window-service';
+import { VirtualPortService } from './virtual-port-service';
 
 /**
  * Manages sending/receiving of messages to and from device, as well as syncing

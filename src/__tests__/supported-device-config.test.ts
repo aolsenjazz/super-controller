@@ -8,8 +8,8 @@ import {
   MidiValue,
 } from 'midi-message-parser';
 
-import { SupportedDeviceConfig, InputConfig } from '../hardware-config';
-import { Color } from '../driver-types';
+import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
+import { Color } from '@shared/driver-types';
 
 function BasicInputConfig() {
   const inputDefault = {

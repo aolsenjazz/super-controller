@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals';
-import { PortInfo } from '../ports/port-info';
+import { PortInfo } from '@shared/port-info';
 
 test('constructing a PortInfo set all values correctly', () => {
   const name = 'name';

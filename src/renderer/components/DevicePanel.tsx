@@ -1,10 +1,10 @@
-import DeviceView from './DeviceLayoutWrapper';
-
-import { VirtualDevice } from '../virtual-devices';
-
 import { DeviceConfig, SupportedDeviceConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 import { DeviceDriver } from '@shared/driver-types';
+
+import DeviceView from './DeviceLayoutWrapper';
+
+import { VirtualDevice } from '../virtual-devices';
 
 /**
  * Tell the user that there aren't any devices connected (nor configured)

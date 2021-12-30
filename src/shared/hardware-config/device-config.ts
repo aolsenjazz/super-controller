@@ -1,5 +1,5 @@
 import { KeyboardDriver } from '../driver-types';
-import { PortIdentifier } from '../ports/port-info';
+import { PortIdentifier } from '../port-info';
 
 /**
  * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.

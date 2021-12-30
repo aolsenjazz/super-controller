@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 
-import ShareSustainLine from './ShareSustainLine';
-
 import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';
+
+import ShareSustainLine from './ShareSustainLine';
 
 const { ipcRenderer } = window;
 

@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 
-import DeviceListItem from './DeviceListItem';
-
 import {
   SupportedDeviceConfig,
   AnonymousDeviceConfig,
@@ -9,6 +7,8 @@ import {
 import { DeviceDriver } from '@shared/driver-types';
 import { PortInfo, PortIdentifier } from '@shared/port-info';
 import { Project } from '@shared/project';
+
+import DeviceListItem from './DeviceListItem';
 
 /**
  * Merge available hardware portInfos with device configurations to make

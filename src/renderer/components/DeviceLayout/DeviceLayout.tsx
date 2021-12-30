@@ -1,12 +1,12 @@
 import AspectRatio from 'react-aspect-ratio';
 
+import { SupportedDeviceConfig } from '@shared/hardware-config';
+
 import Keyboard from './KeyboardLayout';
 import InputGridLayout from './InputGridLayout';
 import XYGridLayout from './XYGridLayout';
 
 import { VirtualDevice } from '../../virtual-devices';
-
-import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 type PropTypes = {
   device: VirtualDevice;

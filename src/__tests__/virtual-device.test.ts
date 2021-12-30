@@ -2,7 +2,7 @@
 
 import { test, expect } from '@jest/globals';
 import { VirtualDevice } from '../renderer/virtual-devices';
-import { DRIVERS } from '../drivers';
+import { DRIVERS } from '../main/drivers';
 
 test('constructing a VirtualDevice sets values correctly', () => {
   const driver = DRIVERS.get('APC Key 25');

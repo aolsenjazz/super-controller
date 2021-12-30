@@ -1,8 +1,8 @@
+import { SupportedDeviceConfig } from '@shared/hardware-config';
+
 import XYLayout from './XYLayout';
 
 import { VirtualInputGrid } from '../../virtual-devices';
-
-import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 type PropTypes = {
   inputGrid: VirtualInputGrid;

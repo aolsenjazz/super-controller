@@ -1,3 +1,10 @@
+import {
+  DeviceConfig,
+  SupportedDeviceConfig,
+  AnonymousDeviceConfig,
+} from '@shared/hardware-config';
+import { Project } from '@shared/project';
+
 import Forwarder from './Forwarder';
 import BasicMessage from './BasicMessage';
 import NotConfigured from './NotConfigured';
@@ -6,13 +13,6 @@ import MonoInputConfigPanel from './MonoInputConfigPanel';
 import XYConfigPanel from './XYConfigPanel';
 
 import { InputGroup } from '../../input-group';
-
-import {
-  DeviceConfig,
-  SupportedDeviceConfig,
-  AnonymousDeviceConfig,
-} from '@shared/hardware-config';
-import { Project } from '@shared/project';
 
 type InputConfigurationProps = {
   config: SupportedDeviceConfig;

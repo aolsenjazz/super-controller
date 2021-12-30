@@ -43,7 +43,9 @@ const configuration: webpack.Configuration = {
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     modules: [webpackPaths.srcPath, 'node_modules'],
-    alias: { '@shared': path.join(__dirname, '../../src/shared') },
+    alias: {
+      '@shared': path.resolve(__dirname, '..', '..', 'src/shared/'),
+    },
   },
 
   plugins: [

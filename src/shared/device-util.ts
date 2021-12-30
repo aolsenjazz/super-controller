@@ -24,7 +24,7 @@ export function inputIdFor(
     c = numOrMsg.channel;
     e = numOrMsg.type;
   } else {
-    if (!channel || !eventType)
+    if (channel === undefined || eventType === undefined)
       throw new Error('channel && eventType must be truthy');
     n = numOrMsg;
     c = channel;

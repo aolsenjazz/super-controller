@@ -2,7 +2,7 @@
 
 import { test, expect } from '@jest/globals';
 
-import { AnonymousDeviceConfig } from '../hardware-config';
+import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
 test('new UnsupportedDevice() correctly assigns values', () => {
   const id = 'BIGID';

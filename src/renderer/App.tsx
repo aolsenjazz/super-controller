@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import TitleBar from './components/TitleBar';
-import DeviceList from './components/DeviceList';
-import DevicePanel from './components/DevicePanel';
-import ConfigPanel from './components/ConfigPanel';
-import ProjectChangeListener from './components/ProjectChangeListener';
-
 import { Project } from '@shared/project';
 import { PortInfo } from '@shared/port-info';
 import { DeviceDriver } from '@shared/driver-types';
@@ -14,6 +8,12 @@ import {
   AnonymousDeviceConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
+
+import TitleBar from './components/TitleBar';
+import DeviceList from './components/DeviceList';
+import DevicePanel from './components/DevicePanel';
+import ConfigPanel from './components/ConfigPanel';
+import ProjectChangeListener from './components/ProjectChangeListener';
 
 import './styles/App.global.css';
 

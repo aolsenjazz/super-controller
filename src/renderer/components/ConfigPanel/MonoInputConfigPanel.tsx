@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import { Channel, MidiValue, EventType } from 'midi-message-parser';
 
+import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
+import { Project } from '@shared/project';
+
 import SettingsLineItem from './SettingsLineItem';
 import BacklightSettings from './BacklightSettings';
 
 import { InputGroup } from '../../input-group';
-
-import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
-import { Project } from '@shared/project';
 
 const { ipcRenderer } = window;
 

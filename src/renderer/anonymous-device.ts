@@ -1,5 +1,5 @@
-import { VirtualDevice } from './virtual-devices';
 import { DeviceDriver } from '@shared/driver-types';
+import { VirtualDevice } from './virtual-devices';
 
 /**
  * Driver for any device which does not yet have a driver. Made to look

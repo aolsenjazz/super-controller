@@ -9,10 +9,10 @@ import {
   MidiMessage,
 } from 'midi-message-parser';
 
-import { InputConfig } from '../hardware-config';
-import { Color } from '../driver-types';
+import { InputConfig } from '@shared/hardware-config';
+import { Color } from '@shared/driver-types';
 
-import { DRIVERS } from '../drivers';
+import { DRIVERS } from '../main/drivers';
 
 const RED: Color = {
   name: 'Red',

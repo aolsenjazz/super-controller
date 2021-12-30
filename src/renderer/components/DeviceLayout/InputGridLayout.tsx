@@ -1,8 +1,8 @@
+import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
+
 import Pad from './PadLayout';
 import { Knob } from './KnobLayout';
 import { WheelLayout } from './WheelLayout';
-
-import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
 
 import { VirtualInput, VirtualInputGrid } from '../../virtual-devices';
 

@@ -2,7 +2,7 @@
 
 import { test, expect } from '@jest/globals';
 import { VirtualInputGrid } from '../renderer/virtual-devices';
-import { DRIVERS } from '../drivers';
+import { DRIVERS } from '../main/drivers';
 
 test('constructing VirtualInputGrid set values correctly', () => {
   const deviceDriver = DRIVERS.get('APC Key 25');

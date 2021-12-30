@@ -2,7 +2,7 @@
 
 import { test, expect } from '@jest/globals';
 
-import { getAvailableDrivers, DRIVERS } from '../drivers';
+import { getAvailableDrivers, DRIVERS } from '../main/drivers';
 
 const fNameRegex = new RegExp(/^.+\.json$/);
 

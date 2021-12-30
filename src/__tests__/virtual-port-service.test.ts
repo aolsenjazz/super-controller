@@ -3,7 +3,10 @@
 import { test, expect, jest } from '@jest/globals';
 import { Port, PortPair } from '@alexanderolsen/port-manager';
 
-import { testables, VirtualPortService } from '../ports/virtual-port-service';
+import {
+  testables,
+  VirtualPortService,
+} from '../main/ports/virtual-port-service';
 
 const { getDiff } = testables;
 
