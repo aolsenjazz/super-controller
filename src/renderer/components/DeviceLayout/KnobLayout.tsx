@@ -1,5 +1,3 @@
-import AspectRatio from 'react-aspect-ratio';
-
 /**
  * Converts a value in given range to the equivalent value in a new range
  *
@@ -73,37 +71,36 @@ export function Knob(props: PropTypes) {
     convertRange(min, max, startAngle, endAngle, value)
   );
 
+  const layoutDimens = /(circle|square)/.test(shape)
+    ? { width: `${size}`, aspectRatio: '1' }
+    : { width: `${size}`, height: `${size}` };
+
   return (
-    <AspectRatio ratio={1}>
+    <div
+      className="knob"
+      style={layoutDimens}
+      onClick={(event) => onClick(event)}
+      tabIndex={0}
+      onKeyDown={() => {}}
+      role="button"
+    >
       <div
-        className="knob"
-        style={{
-          width: `${size}`,
-          height: `${size}`,
-        }}
-        onClick={(event) => onClick(event)}
-        tabIndex={0}
-        onKeyDown={() => {}}
+        className={`outer ${focus ? 'focus' : ''} ${
+          overrideable ? '' : 'disabled'
+        }`}
         role="button"
+        tabIndex={0}
+        style={{
+          borderRadius: shape === 'circle' || !shape ? '100%' : '',
+        }}
       >
         <div
-          className={`outer ${focus ? 'focus' : ''} ${
-            overrideable ? '' : 'disabled'
-          }`}
-          role="button"
-          tabIndex={0}
-          style={{
-            borderRadius: shape === 'circle' || !shape ? '100%' : '',
-          }}
+          className={`inner ${enabled ? 'hoverable' : ''}`}
+          style={{ transform: `rotate(${curDeg}deg)` }}
         >
-          <div
-            className={`inner ${enabled ? 'hoverable' : ''}`}
-            style={{ transform: `rotate(${curDeg}deg)` }}
-          >
-            <div className="grip" />
-          </div>
+          <div className="grip" />
         </div>
       </div>
-    </AspectRatio>
+    </div>
   );
 }

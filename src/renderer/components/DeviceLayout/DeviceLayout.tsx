@@ -1,5 +1,3 @@
-import AspectRatio from 'react-aspect-ratio';
-
 import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 import Keyboard from './KeyboardLayout';
@@ -37,9 +35,11 @@ export default function DeviceLayout(props: PropTypes) {
   const { device, onClick, selectedInputs, configured, deviceConfig } = props;
 
   return (
-    <AspectRatio
-      ratio={device.aspectRatio}
-      style={{ ...device.style }}
+    <div
+      style={{
+        aspectRatio: `${device.width}/${device.height}`,
+        ...device.style,
+      }}
       className="device-layout"
     >
       <div id={device.name}>
@@ -82,6 +82,6 @@ export default function DeviceLayout(props: PropTypes) {
           );
         })}
       </div>
-    </AspectRatio>
+    </div>
   );
 }

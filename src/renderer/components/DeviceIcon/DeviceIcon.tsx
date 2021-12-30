@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-
-import AspectRatio from 'react-aspect-ratio';
-
 import { DeviceDriver } from '@shared/driver-types';
 
 import KeyboardIcon from './KeyboardIcon';
@@ -23,8 +20,8 @@ export default function DeviceLayout(props: PropTypes) {
   const { device, active } = props;
 
   return (
-    <AspectRatio
-      ratio={device.width / device.height}
+    <div
+      style={{ aspectRatio: `${device.width}/${device.height}` }}
       className={`device-icon ${active ? 'active' : ''}`}
     >
       <div id={device.name}>
@@ -50,6 +47,6 @@ export default function DeviceLayout(props: PropTypes) {
           />
         ))}
       </div>
-    </AspectRatio>
+    </div>
   );
 }

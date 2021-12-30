@@ -9,7 +9,6 @@
 @import './DeviceIcon.css';
 @import './HelpTip.css';
 @import './Forwarder.css';
-@import '~react-aspect-ratio/aspect-ratio.css';
 
 * {
   margin: 0;

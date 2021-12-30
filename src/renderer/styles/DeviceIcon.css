@@ -1,6 +1,7 @@
 .device-icon {
   width: 100% !important;
   border: 1px solid #808080;
+  position: relative;
 }
 
 .device-icon .input-grid {

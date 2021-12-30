@@ -44,6 +44,10 @@ export default function Pad(props: PropTypes) {
     overrideable,
   } = props;
 
+  const layoutDimens = /(circle|square)/.test(shape)
+    ? { width: `${width}`, aspectRatio: '1' }
+    : { width: `${width}`, height: `${height}` };
+
   return (
     <div
       className={`pad ${focus ? 'focus' : ''} ${enabled ? 'hoverable' : ''}${
@@ -53,8 +57,7 @@ export default function Pad(props: PropTypes) {
         onClick(event, id);
       }}
       style={{
-        width,
-        height,
+        ...layoutDimens,
         animationName: color?.modifier,
         backgroundColor: color?.string,
         borderRadius: shape === 'circle' ? '100%' : 0,

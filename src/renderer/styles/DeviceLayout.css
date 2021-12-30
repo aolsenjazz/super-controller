@@ -7,6 +7,7 @@
 /* positional stuff for the device layout really belongs in a parent file */
 .device-layout {
   margin-left: 50%;
+  position: relative;
   top: 50%;
   width: 80%;
   transform: translate(-50%, -50%);
@@ -74,7 +75,7 @@
   overflow: hidden;
   position: absolute;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1;
 }
 .device-layout .knob .inner .grip {
   position: absolute;
