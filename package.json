@@ -6,7 +6,7 @@
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
     "build:main": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.main.prod.ts",
     "build:renderer": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.prod.ts",
-    "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir src",
+    "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir release/app",
     "rebuild:test": "cd release/app/node_modules/midi && npm rebuild",
     "lint": "cross-env NODE_ENV=development eslint . --cache --ext .js,.jsx,.ts,.tsx",
     "package": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --publish never",
