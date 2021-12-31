@@ -1,4 +1,4 @@
-import { getMainWindow } from 'electron-main-window';
+import { BrowserWindow } from 'electron';
 import { MidiValue } from 'midi-message-parser';
 
 import { Project } from '@shared/project';
@@ -47,7 +47,7 @@ class WindowService {
    * @param edited Is the document edited?
    */
   setEdited(edited: boolean) {
-    const windowOrNull = getMainWindow();
+    const windowOrNull = BrowserWindow.getFocusedWindow();
     this.edited = edited;
 
     if (windowOrNull !== null) {
@@ -67,7 +67,7 @@ class WindowService {
    */
   /* eslint-disable-next-line */
   #send = (channel: string, ...args: any[]) => {
-    const windowOrNull = getMainWindow();
+    const windowOrNull = BrowserWindow.getFocusedWindow();
 
     if (windowOrNull !== null) {
       windowOrNull.webContents.send(channel, ...args);
