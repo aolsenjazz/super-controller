@@ -1,7 +1,6 @@
 import { getMainWindow } from 'electron-main-window';
 import { MidiValue } from 'midi-message-parser';
 
-import { DeviceDriver } from '@shared/driver-types';
 import { Project } from '@shared/project';
 import { PortInfo } from '@shared/port-info';
 
@@ -61,22 +60,10 @@ class WindowService {
   }
 
   /**
-   * Sends the list of drivers to the frontend.
-   *
-   * TODO: this is gross. surely there's a clean way to load from frontend
-   *
-   * @param { Map<string, DeviceDriver> } drivers Driver map
-   */
-  sendDrivers(drivers: Map<string, DeviceDriver>) {
-    const list = Array.from(drivers.entries());
-    this.#send('drivers', list);
-  }
-
-  /**
    * Send objects to the frontend
    *
-   * @param { string } channel The IPC channel on which to send
-   * @param { any[] } args The objects to send
+   * @param channel The IPC channel on which to send
+   * @param args The objects to send
    */
   /* eslint-disable-next-line */
   #send = (channel: string, ...args: any[]) => {

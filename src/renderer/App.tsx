@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import { Project } from '@shared/project';
 import { PortInfo } from '@shared/port-info';
-import { DeviceDriver } from '@shared/driver-types';
 import {
   DeviceConfig,
   AnonymousDeviceConfig,
@@ -17,7 +16,8 @@ import ProjectChangeListener from './components/ProjectChangeListener';
 
 import './styles/App.global.css';
 
-const { ipcRenderer } = window;
+const { ipcRenderer, driverService } = window;
+const drivers = driverService.getDrivers();
 
 document.body.ondragover = (event) => {
   if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
@@ -48,7 +48,6 @@ export default function App() {
   const [activeDevice, setActiveDevice] = useState<DeviceConfig | null>(null);
   const [selectedId, setSelectedId] = useState<string>();
   const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
-  const [drivers, setDrivers] = useState<Map<string, DeviceDriver>>(new Map());
 
   /* Clear selected inputs when selectedId changes */
   useEffect(() => {
@@ -88,14 +87,7 @@ export default function App() {
     }
 
     setActiveDevice(device);
-  }, [ports, project, selectedId, drivers]);
-
-  /* Receive drivers from the backend */
-  useEffect(() => {
-    const cb = (_e: Event, d: [string, DeviceDriver][]) =>
-      setDrivers(new Map(d));
-    ipcRenderer.once('drivers', cb);
-  }, []);
+  }, [ports, project, selectedId]);
 
   /* Listen to changes to available MIDI ports */
   useEffect(() => {
@@ -110,7 +102,6 @@ export default function App() {
       <TitleBar />
       <DeviceList
         ports={ports}
-        drivers={drivers}
         project={project}
         setSelectedId={setSelectedId}
         selectedId={selectedId}
@@ -118,7 +109,6 @@ export default function App() {
       <DevicePanel
         config={activeDevice}
         project={project}
-        drivers={drivers}
         selectedInputs={selectedInputs}
         setSelectedInputs={setSelectedInputs}
       />

@@ -44,6 +44,10 @@ export class Background {
   }
 
   initIpc() {
+    ipcMain.on('drivers', (e: Event) => {
+      e.returnValue = Array.from(DRIVERS.entries());
+    });
+
     /* When a device is added to project in the frontend, add to our `Project` */
     ipcMain.on(ADD_DEVICE, (_e: Event, deviceJSON: string) => {
       windowService.setEdited(true);

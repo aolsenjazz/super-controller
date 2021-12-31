@@ -1,4 +1,9 @@
+import { DeviceDriver } from '@shared/driver-types';
+
 /* eslint @typescript-eslint/no-explicit-any: 0 */
+export interface DriverServiceAPI {
+  getDrivers: () => Map<string, DeviceDriver>;
+}
 
 export interface IpcRendererAPI {
   send: (channel: string, ...args: any[]) => void;
@@ -38,5 +43,6 @@ export interface IpcRendererAPI {
 declare global {
   interface Window {
     ipcRenderer: IpcRendererAPI;
+    driverService: DriverServiceAPI;
   }
 }

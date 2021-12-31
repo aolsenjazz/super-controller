@@ -1,10 +1,12 @@
 import { DeviceConfig, SupportedDeviceConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';
-import { DeviceDriver } from '@shared/driver-types';
 
 import DeviceView from './DeviceLayoutWrapper';
 
 import { VirtualDevice } from '../virtual-devices';
+
+const { driverService } = window;
+const drivers = driverService.getDrivers();
 
 /**
  * Tell the user that there aren't any devices connected (nor configured)
@@ -35,7 +37,6 @@ type PropTypes = {
   project: Project;
   selectedInputs: string[];
   setSelectedInputs: (inputs: string[]) => void;
-  drivers: Map<string, DeviceDriver>;
 };
 
 /**
@@ -54,7 +55,7 @@ type PropTypes = {
  * @param props.drivers The supported drivers
  */
 export default function DevicePanel(props: PropTypes) {
-  const { config, project, selectedInputs, setSelectedInputs, drivers } = props;
+  const { config, project, selectedInputs, setSelectedInputs } = props;
 
   let Element: React.ReactElement;
 
@@ -64,6 +65,7 @@ export default function DevicePanel(props: PropTypes) {
     Element = <UnsupportedView />;
   } else {
     const nonUndefinedConfig = config as SupportedDeviceConfig;
+
     const driver = drivers.get(nonUndefinedConfig.name);
 
     if (driver === undefined)

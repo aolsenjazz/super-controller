@@ -4,11 +4,15 @@ import {
   SupportedDeviceConfig,
   AnonymousDeviceConfig,
 } from '@shared/hardware-config';
-import { DeviceDriver } from '@shared/driver-types';
 import { PortInfo, PortIdentifier } from '@shared/port-info';
 import { Project } from '@shared/project';
 
+import { anonymousDriver } from '../anonymous-device';
+
 import DeviceListItem from './DeviceListItem';
+
+const { driverService } = window;
+const drivers = driverService.getDrivers();
 
 /**
  * Merge available hardware portInfos with device configurations to make
@@ -69,7 +73,6 @@ type PropTypes = {
   project: Project;
   setSelectedId: (selectedId: string | undefined) => void;
   selectedId: string | undefined;
-  drivers: Map<string, DeviceDriver>;
 };
 
 /**
@@ -80,10 +83,9 @@ type PropTypes = {
  * @param { Project } props.project The current project
  * @param  { setSelectedId } props.setSelectedId Sets the current device ID
  * @param { string } props.selectedId The active device ID
- * @param { Map<string, DeviceDriver> } props.drivers All available device drivers
  */
 export default function DeviceList(props: PropTypes) {
-  const { ports, setSelectedId, selectedId, project, drivers } = props;
+  const { ports, setSelectedId, selectedId, project } = props;
   const sorted = sortPorts(ports, project.devices);
 
   // Updated selectedId when anything changes
@@ -110,12 +112,14 @@ export default function DeviceList(props: PropTypes) {
   // Assemble the JSX for device list
   const elements = sorted.map((info) => {
     const configured = project.getDevice(info.id) !== null;
+    let driver = drivers.get(info.name);
+    if (!driver) driver = anonymousDriver;
 
     return (
       <DeviceListItem
         key={info.id}
         id={info.id}
-        drivers={drivers}
+        driver={driver}
         onClick={() => setSelectedId(info.id)}
         active={selectedId === info.id}
         connected={info.connected}

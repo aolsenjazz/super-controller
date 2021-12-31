@@ -1,9 +1,6 @@
 import { DeviceDriver } from '@shared/driver-types';
-import { nameFromId } from '@shared/device-util';
 
-import DeviceIcon from './DeviceIcon/DeviceIcon';
-
-import { anonymousDriver } from '../anonymous-device';
+import DeviceIcon from './DeviceIcon';
 
 /**
  * Returns the css class depending on connection and configuration status
@@ -54,21 +51,21 @@ type PropTypes = {
   active: boolean;
   configured: boolean;
   connected: boolean;
-  drivers: Map<string, DeviceDriver>;
+  driver: DeviceDriver;
 };
 
 /**
  * List item in the devices panel. Displays name, a stylized ID icon, and connection status.
  *
- * @param { object } props Component props
- * @param { string } props.name The name of the port
- * @param { string } props.id Port id
- * @param { number } props.occurenceNumber The nth time this device is connected (if > 1 device of same model connected)
- * @param { () => void } props.onClick Click listener
- * @param { boolean } props.active Is this the currently selected device?
- * @param { boolean } props.configured Is this device added to the current project?
- * @param { boolean } props.connected Is the device connected?
- * @param { Map<string, DeviceDriver> } props.drivers All available drivers
+ * @param props Component props
+ * @param props.name The name of the port
+ * @param props.id Port id
+ * @param props.occurenceNumber The nth time this device is connected (if > 1 device of same model connected)
+ * @param props.onClick Click listener
+ * @param props.active Is this the currently selected device?
+ * @param props.configured Is this device added to the current project?
+ * @param props.connected Is the device connected?
+ * @param props.driver The driver for this list item
  */
 export default function DeviceListItem(props: PropTypes) {
   const {
@@ -79,16 +76,13 @@ export default function DeviceListItem(props: PropTypes) {
     name,
     occurenceNumber,
     id,
-    drivers,
+    driver,
   } = props;
-
-  const device = drivers.get(nameFromId(id));
-  const deviceOrAnonymous = device || anonymousDriver;
 
   return (
     <div className={`nav-item ${active ? 'selected' : ''}`}>
       <div className="device-icon-container">
-        <DeviceIcon device={deviceOrAnonymous} active={active} />
+        <DeviceIcon driver={driver} active={active} />
       </div>
       <div
         className="nav-item-label"

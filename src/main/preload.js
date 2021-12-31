@@ -14,6 +14,18 @@ const {
   UPDATE_INPUT,
 } = require('../shared/ipc-channels');
 
+let drivers;
+
+contextBridge.exposeInMainWorld('driverService', {
+  getDrivers: () => {
+    if (!drivers) {
+      const response = ipcRenderer.sendSync('drivers');
+      drivers = new Map(response);
+    }
+    return drivers;
+  },
+});
+
 contextBridge.exposeInMainWorld('ipcRenderer', {
   send(channel, ...args) {
     ipcRenderer.send(channel, args);
