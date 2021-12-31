@@ -5,6 +5,8 @@ import {
   REMOVE_DEVICE,
   UPDATE_DEVICE,
   UPDATE_INPUT,
+  PORTS,
+  DRIVERS as DRIVERS_CHANNEL,
 } from '@shared/ipc-channels';
 import {
   SupportedDeviceConfig,
@@ -44,11 +46,17 @@ export class Background {
   }
 
   initIpc() {
-    ipcMain.on('drivers', (e: Event) => {
+    // When the frontend requests an updated port list, send it
+    ipcMain.on(PORTS, () => {
+      this.portService.sendToFrontend();
+    });
+
+    // When the frontend requests the drivers, send them
+    ipcMain.on(DRIVERS_CHANNEL, (e: Event) => {
       e.returnValue = Array.from(DRIVERS.entries());
     });
 
-    /* When a device is added to project in the frontend, add to our `Project` */
+    // When a device is added to project in the frontend, add to our `Project`
     ipcMain.on(ADD_DEVICE, (_e: Event, deviceJSON: string) => {
       windowService.setEdited(true);
 
@@ -143,8 +151,6 @@ export class Background {
   onDidFinishLoad() {
     windowService.sendProject(this.project);
     windowService.setEdited(windowService.edited);
-
-    this.portService.sendToFrontend();
   }
 
   /* Invoked when a `BrowserWindow` is closed */

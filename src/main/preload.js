@@ -12,9 +12,16 @@ const {
   REMOVE_DEVICE,
   UPDATE_DEVICE,
   UPDATE_INPUT,
+  PORTS,
 } = require('../shared/ipc-channels');
 
 let drivers;
+
+contextBridge.exposeInMainWorld('portService', {
+  requestPorts: () => {
+    ipcRenderer.send(PORTS);
+  },
+});
 
 contextBridge.exposeInMainWorld('driverService', {
   getDrivers: () => {
@@ -38,6 +45,7 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
       ipcRenderer.removeListener(channel, subscription);
     };
   },
+
   once(channel, func) {
     ipcRenderer.once(channel, func);
   },

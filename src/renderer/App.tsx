@@ -16,7 +16,7 @@ import ProjectChangeListener from './components/ProjectChangeListener';
 
 import './styles/App.global.css';
 
-const { ipcRenderer, driverService } = window;
+const { ipcRenderer, driverService, portService } = window;
 const drivers = driverService.getDrivers();
 
 document.body.ondragover = (event) => {
@@ -42,19 +42,28 @@ document.body.ondragover = (event) => {
 export default function App() {
   const [project, setProject] = useState(new Project());
 
-  /* Currently-available hardware ports */
+  // Currently-available hardware ports
   const [ports, setPorts] = useState<PortInfo[]>([]);
 
   const [activeDevice, setActiveDevice] = useState<DeviceConfig | null>(null);
   const [selectedId, setSelectedId] = useState<string>();
   const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
 
-  /* Clear selected inputs when selectedId changes */
+  // Clear selected inputs when selectedId changes
   useEffect(() => {
     setSelectedInputs([]);
   }, [selectedId]);
 
-  /* Update the active device when selected index, project, or ports change */
+  // Listen to changes to available MIDI ports
+  useEffect(() => {
+    const cb = (_e: Event, pairs: PortInfo[]) => setPorts(pairs);
+    const unsubscribe = ipcRenderer.on('ports', cb);
+    portService.requestPorts();
+
+    return () => unsubscribe();
+  }, [project]);
+
+  // Update the active device when selected index, project, or ports change
   useEffect(() => {
     let device: DeviceConfig | null = project.getDevice(selectedId);
     if (!device && ports.length > 0 && selectedId) {
@@ -88,13 +97,6 @@ export default function App() {
 
     setActiveDevice(device);
   }, [ports, project, selectedId]);
-
-  /* Listen to changes to available MIDI ports */
-  useEffect(() => {
-    const cb = (_e: Event, pairs: PortInfo[]) => setPorts(pairs);
-    const unsubscribe = ipcRenderer.on('ports', cb);
-    return () => unsubscribe();
-  }, [project]);
 
   return (
     <>

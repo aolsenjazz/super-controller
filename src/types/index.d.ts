@@ -5,6 +5,10 @@ export interface DriverServiceAPI {
   getDrivers: () => Map<string, DeviceDriver>;
 }
 
+export interface PortServiceAPI {
+  requestPorts: () => void;
+}
+
 export interface IpcRendererAPI {
   send: (channel: string, ...args: any[]) => void;
   on: (channel: string, func: (...args: any[]) => void) => () => void;
@@ -44,5 +48,6 @@ declare global {
   interface Window {
     ipcRenderer: IpcRendererAPI;
     driverService: DriverServiceAPI;
+    portService: PortServiceAPI;
   }
 }

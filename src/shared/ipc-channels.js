@@ -1,5 +1,6 @@
 module.exports = {
   PROJECT: 'project',
+  DRIVERS: 'drivers',
   PORTS: 'ports',
   TITLE: 'title',
   MSG: 'msg',
