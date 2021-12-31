@@ -5,9 +5,9 @@ import DeviceIcon from './DeviceIcon';
 /**
  * Returns the css class depending on connection and configuration status
  *
- * @param { boolean } connected Is the device connected?
- * @param { boolean } configured Is the device added to the current project?
- * @return { string } A css class
+ * @param connected Is the device connected?
+ * @param configured Is the device added to the current project?
+ * @returns A css class
  */
 function cssClassFor(connected: boolean, configured: boolean) {
   if (connected) {
@@ -19,9 +19,9 @@ function cssClassFor(connected: boolean, configured: boolean) {
 /**
  * Returns a human-readable string containing the connection and configuration status
  *
- * @param { boolean } connected Is the device connected?
- * @param { boolean } configured Is the device added to the current project?
- * @return { string } A status string
+ * @param connected Is the device connected?
+ * @param configured Is the device added to the current project?
+ * @returns A status string
  */
 function statusFor(connected: boolean, configured: boolean) {
   return `${connected ? 'Connected' : 'Disconnected'}${
@@ -32,9 +32,9 @@ function statusFor(connected: boolean, configured: boolean) {
 /**
  * Reformats an id into a more human-readable string
  *
- * @param { string } id The id of the device/port
- * @param { number } occurNumber The nth time this device model is connected
- * @return { string } A prettier id
+ * @param id The id of the device/port
+ * @param occurNumber The nth time this device model is connected
+ * @returns A prettier id
  */
 function reformatId(id: string, occurNumber: number) {
   const lastSpaceIdx = id.lastIndexOf(' ');

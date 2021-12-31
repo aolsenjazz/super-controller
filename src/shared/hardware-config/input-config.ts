@@ -96,8 +96,8 @@ export class InputConfig {
    * Convert from JSON string into an InputConfig object. Reconstructs
    * state if state was saved to JSON string.
    *
-   * @param { string } json JSON string
-   * @return { InputConfig } new instance of InputConfig
+   * @param json JSON string
+   * @returns new instance of InputConfig
    */
   static fromJSON(json: string) {
     const other = JSON.parse(json);
@@ -127,8 +127,8 @@ export class InputConfig {
   /**
    * Constructs and initialize a new instance of `InputConfig` from driver
    *
-   * @param { InputDriver } other Input driver
-   * @return { InputConfig } new instance of InputConfig
+   * @param other Input driver
+   * @returnsnew instance of InputConfig
    */
   static fromDriver(other: InputDriver) {
     const inputOverride = {
@@ -210,8 +210,8 @@ export class InputConfig {
   /**
    * Handles a message from a device.
    *
-   * @param { MidiValue[] } msg The midi value array
-   * @return { (MidiValue[] | null)[] } [message_to_device | null, message_to_clients | null]
+   * @param msg The midi value array
+   * @returns [message_to_device | null, message_to_clients | null]
    */
   handleMessage(msg: MidiValue[]): (MidiValue[] | null)[] {
     const toPropagate = this.outputPropagator.handleMessage(msg);
@@ -223,8 +223,8 @@ export class InputConfig {
   /**
    * Returns the Color for the given state or undefined
    *
-   * @param { string } state The state
-   * @return { Color | undefined } The associated color or undefined if not set
+   * @param state The state
+   * @returns The associated color or undefined if not set
    */
   colorForState(state: string) {
     return this.#lightConfig().get(state);
@@ -233,8 +233,8 @@ export class InputConfig {
   /**
    * Set a color for the given state.
    *
-   * @param { string } state The state value
-   * @param { Color } color The color
+   * @param state The state value
+   * @param color The color
    */
   setColorForState(state: string, color: Color) {
     // this is terrible, but I don't know how to handle RBG, n-step, etc
@@ -266,7 +266,7 @@ export class InputConfig {
    * Serialize a similar representation of the object. Can't use JSON.stringify
    * because we neeed to serialize a map.
    *
-   * @param { boolean } includeState Should we include state?
+   * @param includeState Should we include state?
    */
   toJSON(includeState: boolean) {
     return JSON.stringify({
@@ -300,7 +300,7 @@ export class InputConfig {
    * TODO: This is just disgusting. Gotta figure out how to handle RGB before this
    * is worth fixing.
    *
-   * @return { Map<string, Color> } Color-per-state map
+   * @returns Color-per-state map
    */
   #lightConfig = () => {
     const config = new Map<string, Color>();

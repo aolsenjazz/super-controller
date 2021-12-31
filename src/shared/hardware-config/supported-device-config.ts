@@ -44,7 +44,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
    * @param id The id of the device's port
    * @param occurrencenumber The nth-occurence of this device. Relevant when >1 device of same model is connected
    * @param driver The driver
-   * @return a new instance of SupportedDeviceConfig
+   * @returns a new instance of SupportedDeviceConfig
    */
   static fromDriver(
     id: string,
@@ -74,7 +74,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
    * Constructs a new instance of SupportedDeviceConfig from a json string.
    *
    * @param parsed JSON.parse()'d string
-   * @return { SupportedDeviceConfig } A new instance of SupportedDeviceConfig
+   * @returns A new instance of SupportedDeviceConfig
    */
   /* eslint-disable-next-line */
   static fromParsedJSON(parsed: any) {
@@ -117,10 +117,10 @@ export class SupportedDeviceConfig implements DeviceConfig {
    * Are the eventType, number, and channel currently in use? Returns true if an input
    * uses all three params. Useful for avoiding inputs sending the same events
    *
-   * @param { string | null } eventType The MIDI event type (probably 'controlchange')
-   * @param { MidiValue | null | string } number The MIDI number
-   * @param { Channel | null | string } channel The MIDI channel
-   * @return { boolean } Is this binding available?
+   * @param eventType The MIDI event type (probably 'controlchange')
+   * @param number The MIDI number
+   * @param channel The MIDI channel
+   * @returns Is this binding available?
    */
   bindingAvailable(
     eventType: string | null,
@@ -140,8 +140,8 @@ export class SupportedDeviceConfig implements DeviceConfig {
   /**
    * Is this device currently sharing sustain events with the given device?
    *
-   * @param { string } id The id of the other device
-   * @return { boolean } You know
+   * @param id The id of the other device
+   * @returns You know
    */
   sharingWith(id: string) {
     return this.shareSustain.includes(id);
@@ -150,7 +150,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
   /**
    * Shares sustain events with the given device
    *
-   * @param { string } id The id of the other device
+   * @param id The id of the other device
    */
   shareWith(id: string) {
     this.shareSustain.push(id);
@@ -159,7 +159,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
   /**
    * Stops sharing sustain events with the given device
    *
-   * @param { string } id The id of the other device
+   * @param id The id of the other device
    */
   stopSharing(id: string) {
     const idx = this.shareSustain.indexOf(id);
@@ -169,8 +169,8 @@ export class SupportedDeviceConfig implements DeviceConfig {
   /**
    * Get an input by id
    *
-   * @param { string } id The ID of the requested input
-   * @return { InputConfig | undefined }
+   * @param id The ID of the requested input
+   * @returns
    */
   getInput(id: string) {
     for (let i = 0; i < this.inputs.length; i++) {
@@ -185,8 +185,8 @@ export class SupportedDeviceConfig implements DeviceConfig {
    * Serializes this device config and all child configs. Useful in tandem
    * with SupportedDeviceConfig.fromParsedJSON()
    *
-   * @param { boolean } includeState Should we include state information?
-   * @return { string } JSON string
+   * @param includeState Should we include state information?
+   * @returns JSON string
    */
   toJSON(includeState: boolean) {
     const obj = {
@@ -207,8 +207,8 @@ export class SupportedDeviceConfig implements DeviceConfig {
    * Tries to pass the message to an `InputConfig`. If no matching `InputConfig`s,
    * send a propagates the message and sends nothing to device.
    *
-   * @param { MidiValue[] } message The MidiValue[] from device
-   * @return { (MidiValue[] | null)[] } [messageToDevice | null, messageToPropagate]
+   * @param message The MidiValue[] from device
+   * @returns [messageToDevice | null, messageToPropagate]
    */
   handleMessage(message: MidiValue[]): (MidiValue[] | null)[] {
     const mm = new MidiMessage(message, 0);

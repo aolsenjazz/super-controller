@@ -15,8 +15,8 @@ export class Project {
    * Loads a project from JSON string, used either in IPC or when loading
    * saved file. Should be used in combination with `project.toJSON()`
    *
-   * @param { string } json Serialized representation of the project
-   * @return { Project } The deserialized project
+   * @param json Serialized representation of the project
+   * @returns The deserialized project
    */
   static fromJSON(json: string) {
     const obj = JSON.parse(json);

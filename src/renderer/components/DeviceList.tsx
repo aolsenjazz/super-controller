@@ -18,9 +18,9 @@ const drivers = driverService.getDrivers();
  * Merge available hardware portInfos with device configurations to make
  * a master list.
  *
- * @param { PortInfo[] } portInfos The available ports
- * @param { SupportedDeviceConfig[] } deviceConfigs The device configurations in the current project
- * @return { PortInfo[] } A sorted list of all connected, available, and disconnected ports/devices.
+ * @param portInfos The available ports
+ * @param deviceConfigs The device configurations in the current project
+ * @returns A sorted list of all connected, available, and disconnected ports/devices.
  */
 function sortPorts(
   portInfos: PortInfo[],
@@ -65,7 +65,7 @@ function sortPorts(
 
 /**
  * @callback setSelectedId
- * @param { string } selectedId The id of the active device
+ * @param selectedId The id of the active device
  */
 
 type PropTypes = {
@@ -78,11 +78,11 @@ type PropTypes = {
 /**
  * Displays available ports + configurations, and manages selectedId.
  *
- * @param { object } props Component props
- * @param { PortInfo[] } props.ports The available ports
- * @param { Project } props.project The current project
- * @param  { setSelectedId } props.setSelectedId Sets the current device ID
- * @param { string } props.selectedId The active device ID
+ * @param props Component props
+ * @param props.ports The available ports
+ * @param props.project The current project
+ * @param props.setSelectedId Sets the current device ID
+ * @param props.selectedId The active device ID
  */
 export default function DeviceList(props: PropTypes) {
   const { ports, setSelectedId, selectedId, project } = props;

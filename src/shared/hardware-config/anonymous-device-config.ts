@@ -52,8 +52,8 @@ export class AnonymousDeviceConfig implements DeviceConfig {
    * Tries to apply overrides. If no matching overrides available,
    * send a propagates the message and sends nothing to device.
    *
-   * @param { MidiValue[] } message The MidiValue[] from device
-   * @return { (MidiValue[] | null)[] } [messageToDevice | null, messageToPropagate]
+   * @param message The MidiValue[] from device
+   * @returns [messageToDevice | null, messageToPropagate]
    */
   handleMessage(msg: MidiValue[] | null) {
     if (msg === null) return [null, null];

@@ -32,8 +32,8 @@ export class BinaryPropagator extends Propagator {
   /**
    * Returns what message should be sent to the device given its current state
    *
-   * @param { MidiValue[] } _msg Not used
-   * @return { MidiMessage } this.onMessage || this.offMessage
+   * @param _msg Not used
+   * @returns this.onMessage || this.offMessage
    */
   /* eslint-disable-next-line */
   protected getResponse(_msg: MidiValue[]) {
@@ -47,8 +47,8 @@ export class BinaryPropagator extends Propagator {
   /**
    * Returns whether or not mm is equivalent to this propagator's 'on' message
    *
-   * @param { MidiMessage | undefined } mm Other message
-   * @return { boolean } true if mm === this.onMessage
+   * @param mm Other message
+   * @returns true if mm === this.onMessage
    */
   #isOnMessage = (mm: MidiMessage | undefined) => {
     if (mm === undefined) return false;

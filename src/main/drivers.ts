@@ -18,7 +18,7 @@ const resourcePath =
 /**
  * Returns a list of the names of available drivers.
  *
- * @return { string[] } List of names of driver files e.g. 'APC Key 25.json'
+ * @returns List of names of driver files e.g. 'APC Key 25.json'
  */
 export function getAvailableDrivers(): string[] {
   const driversPath = path.join(resourcePath, 'drivers');
@@ -30,8 +30,8 @@ export function getAvailableDrivers(): string[] {
 /**
  * Loads a driver by file name
  *
- * @param { string } fileName The file name
- * @return { DeviceDriver } The driver
+ * @param fileName The file name
+ * @returns The driver
  */
 function loadDriver(fileName: string): DeviceDriver {
   let fName = fileName;
@@ -44,7 +44,7 @@ function loadDriver(fileName: string): DeviceDriver {
 /**
  * Loads all available drivers. *CANNOT BE CALLED FROM FRONTED*
  *
- * @return { DeviceDriver[] } All drivers
+ * @returns All drivers
  */
 function loadAll(): DeviceDriver[] {
   const allNames = getAvailableDrivers();

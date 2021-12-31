@@ -93,7 +93,7 @@ export class SaveOpenService {
   /**
    * Shows an open dialog to the user
    *
-   * @return Promise<string> promise which resolves with the filePath
+   * @returns Promise<string> promise which resolves with the filePath
    */
   open(): Promise<string> {
     return dialog

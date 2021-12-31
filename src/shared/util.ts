@@ -135,8 +135,8 @@ const NOTE_BINDINGS = new Map([
 /**
  * Is this a sustain message?
  *
- * @param { MidiValue[] } msg Maybe a sustain message
- * @return { boolean } true if msg is a sustain message
+ * @param msg Maybe a sustain message
+ * @returns true if msg is a sustain message
  */
 export function isSustain(msg: MidiValue[]) {
   const mm = new MidiMessage(msg, 0);
@@ -146,8 +146,8 @@ export function isSustain(msg: MidiValue[]) {
 /**
  * Returns a human-readable string value for the given MIDI value
  *
- * @param { MidiValue } midiInt The MIDI number
- * @return { string } Human-readable note string
+ * @param midiInt The MIDI number
+ * @returns Human-readable note string
  */
 export function stringVal(midiInt: MidiValue) {
   const str = NOTE_BINDINGS.get(midiInt);
@@ -160,8 +160,8 @@ export function stringVal(midiInt: MidiValue) {
 /**
  * Appends a .controller extension if necessary
  *
- * @param { string } fileName The file name with or without '.controller'
- * @return { string } fileName File name with '.controller'
+ * @param fileName The file name with or without '.controller'
+ * @returns fileName File name with '.controller'
  */
 export function appendExtension(fileName: string) {
   if (fileName.endsWith('.controller')) return fileName;
@@ -172,8 +172,8 @@ export function appendExtension(fileName: string) {
 /**
  * Generally speaking, is this message and 'on' message?
  *
- * @param { MidiMessage | MidiValue[] | undefined } msg The message
- * @return { boolean } `true` if message is on-ish
+ * @param msg The message
+ * @returns `true` if message is on-ish
  */
 export function isOnMessage(msg: MidiMessage | MidiValue[] | undefined) {
   if (msg === undefined) return false;

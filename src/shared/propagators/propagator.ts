@@ -46,8 +46,8 @@ export abstract class Propagator {
    * Returns different messages to propgate depending on `this.outputResponse`
    * and `this.lastPropagated`.
    *
-   * @param { MidiValue[] } msg Message from device to respond to
-   * @return { MidiValue[] } The message to propagate
+   * @param msg Message from device to respond to
+   * @returns The message to propagate
    */
   handleMessage(msg: MidiValue[]) {
     let toPropagate: MidiMessage | null = null;
@@ -78,8 +78,8 @@ export abstract class Propagator {
   /**
    * Returns the message to propagate if inputResponse is gate
    *
-   * @param { MidiValue[] } msg The message from device
-   * @return { MidiMessage } the message to propagate
+   * @param msg The message from device
+   * @returns the message to propagate
    */
   #handleInputAsGate = (msg: MidiValue[]) => {
     // if outputResponse === 'toggle' | 'constant', only respond to 'noteon' messages
@@ -91,8 +91,8 @@ export abstract class Propagator {
   /**
    * Returns the message to propagate if inputResponse is toggle
    *
-   * @param { MidiValue[] } msg The message from device
-   * @return { MidiMessage } the message to propagate
+   * @param msg The message from device
+   * @returns the message to propagate
    */
   #handleInputAsToggle = (msg: MidiValue[]) => {
     return this.getResponse(msg);
@@ -101,8 +101,8 @@ export abstract class Propagator {
   /**
    * Returns the message to propagate if inputResponse is continuous
    *
-   * @param { MidiValue[] } msg The message from device
-   * @return { MidiMessage } the message to propagate
+   * @param msg The message from device
+   * @returns the message to propagate
    */
   #handleInputAsContinuous = (msg: MidiValue[]) => {
     return this.getResponse(msg);
@@ -111,8 +111,8 @@ export abstract class Propagator {
   /**
    * Returns the message to propagate if inputResponse is constant
    *
-   * @param { MidiValue[] } msg The message from device
-   * @return { MidiMessage } the message to propagate
+   * @param msg The message from device
+   * @returns the message to propagate
    */
   #handleInputAsConstant = (msg: MidiValue[]) => {
     return this.getResponse(msg);

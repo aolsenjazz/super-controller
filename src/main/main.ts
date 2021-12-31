@@ -56,6 +56,8 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
+  if (mainWindow !== null) return; // don't let users open more than 1 window
+
   if (isDevelopment) {
     await installExtensions();
   }

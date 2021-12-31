@@ -6,10 +6,10 @@ import { Color } from './driver-types';
  *
  * TODO: Probably should move this to an abstract class
  *
- * @param { MidiValue | MidiMessage } numOrMsg The MIDI number (note value, CC number, etc) or MidiMessage
- * @param { Channel } channel The MIDI channel
- * @param { string } eventType The event type
- * @return { string } The ID of the input
+ * @param numOrMsg The MIDI number (note value, CC number, etc) or MidiMessage
+ * @param channel The MIDI channel
+ * @param eventType The event type
+ * @returns The ID of the input
  */
 export function inputIdFor(
   numOrMsg: MidiValue | MidiMessage,
@@ -44,8 +44,8 @@ export function inputIdFor(
 /**
  * Convert an input id string to a MidiMessage
  *
- * @param { string } id The input ID
- * @return { MidiMessage } A MidiMessage representation
+ * @param id The input ID
+ * @returns A MidiMessage representation
  */
 export function inputIdToMidiMessage(id: string) {
   const parts = id.split('.');
@@ -64,8 +64,8 @@ export function inputIdToMidiMessage(id: string) {
 /**
  * Retrieves device/port name from id
  *
- * @param { string } id The id of the device/port
- * @return { string } The name of the device/port
+ * @param id The id of the device/port
+ * @returns The name of the device/port
  */
 export function nameFromId(id: string) {
   const lastSpaceIdx = id.lastIndexOf(' ');
@@ -75,10 +75,10 @@ export function nameFromId(id: string) {
 /**
  * Returns the message to be send to devices in order to trigger the given color.
  *
- * @param { MidiValue } number The MIDI number
- * @param { Channel } channel The MIDI channel
- * @param { Color | undefined } c The color to set
- * @return { MidiMessage | undefined }
+ * @param number The MIDI number
+ * @param channel The MIDI channel
+ * @param c The color to set
+ * @returns A `MidiMessage` which can be used to trigger the color
  */
 export function msgForColor(number: MidiValue, channel: Channel, c?: Color) {
   if (!c) return undefined;

@@ -43,8 +43,8 @@ export class OutputPropagator extends Propagator {
   /**
    * Returns the next message to propagate given the received message
    *
-   * @param { MidiValue[] } msg The message to respond to
-   * @return { MidiMessage } The message to propagate
+   * @param msg The message to respond to
+   * @returns The message to propagate
    */
   protected getResponse(msg: MidiValue[]) {
     // we currently need to manually flip states if hardware response is constant
@@ -80,7 +80,7 @@ export class OutputPropagator extends Propagator {
   /**
    * Returns the next message to propagate if in 'gate' mode
    *
-   * @return { MidiMessage } The message to propagate
+   * @returns The message to propagate
    */
   #handleAsGate = (msg: MidiValue[]) => {
     const eventType = this.#nextEventType();
@@ -92,7 +92,7 @@ export class OutputPropagator extends Propagator {
   /**
    * Returns the next message to propagate if in 'toggle' mode
    *
-   * @return { MidiMessage } The message to propagate
+   * @returns The message to propagate
    */
   #handleAsToggle = (msg: MidiValue[]) => {
     const eventType = this.#nextEventType();
@@ -113,8 +113,8 @@ export class OutputPropagator extends Propagator {
   /**
    * Returns the next message that should be propagated while in 'linear' mode
    *
-   * @param { MidiValue[] } msg The message being responded to
-   * @return { MidiMessage } The message to propagate
+   * @param msg The message being responded to
+   * @returns The message to propagate
    */
   #handleAsLinear = (msg: MidiValue[]) => {
     // forward the same message every time, with overrides and value replaced
@@ -131,8 +131,8 @@ export class OutputPropagator extends Propagator {
    * Returns the next message that should be propagated if the message being
    * responded to is of EventType 'pitchbend'
    *
-   * @param { MidiValue[] } msg The message from device being responded to
-   * @return { MidiMessage } The message to propagate
+   * @param msg The message from device being responded to
+   * @returns The message to propagate
    */
   #handleAsPitchbend = (msg: MidiValue[]) => {
     const mm = new MidiMessage(msg, 0);
@@ -145,7 +145,7 @@ export class OutputPropagator extends Propagator {
   /**
    * Returns the next message that should be propagated while in 'constant' mode
    *
-   * @return { MidiMessage } The message to propagate
+   * @returns The message to propagate
    */
   #handleAsConstant = () => {
     if (this.value === undefined)
@@ -181,7 +181,7 @@ export class OutputPropagator extends Propagator {
   /**
    * Returns the next MIDI value (velocity, etc) that should be propagated
    *
-   * @param { MidiValue } defaultVal Value to return if a specific value isn't required
+   * @param defaultVal Value to return if a specific value isn't required
    */
   #nextValue = (defaultVal: MidiValue) => {
     switch (this.#nextEventType()) {

@@ -25,8 +25,8 @@ if (process.env.NODE_ENV === 'development') {
 /**
  * Loads a JSON file
  *
- * @param { string } filePath The path to the JSON file
- * @return { object } The parsed object
+ * @param filePath The path to the JSON file
+ * @returns The parsed object
  */
 export function loadJSON(filePath: string) {
   return JSON.parse(fs.readFileSync(filePath));

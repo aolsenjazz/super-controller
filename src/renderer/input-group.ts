@@ -79,9 +79,9 @@ export class InputGroup {
    * by `getterFn` while equality between individual values is determined with
    * `equalityFn`
    *
-   * @param { (config) => T } getterFn Returns the value being retrieve from `InputConfig`s
-   * @param { (a, b) => boolean } equalityFn Returns whether the values are equal
-   * @return { T | '<multiple values>' | null } A value representing all of the values in the group
+   * @param getterFn Returns the value being retrieve from `InputConfig`s
+   * @param equalityFn Returns whether the values are equal
+   * @returns A value representing all of the values in the group
    */
   #groupValue = <T>(
     getterFn: (config: InputConfig) => T,
@@ -107,9 +107,9 @@ export class InputGroup {
    * by `getterFn` while equality between individual values is determined with
    * `equalityFn`
    *
-   * @param { (config) => T } getterFn Returns the value being retrieve from `InputConfig`s
-   * @param { (a, b) => boolean } equalityFn Returns whether the values are equal
-   * @return { T | '<multiple values>' | null } A value representing all of the values in the group
+   * @param getterFn Returns the value being retrieve from `InputConfig`s
+   * @param equalityFn Returns whether the values are equal
+   * @returns A value representing all of the values in the group
    */
   #getEligibleValues = <T>(
     getterFn: (i: InputConfig) => T[],
