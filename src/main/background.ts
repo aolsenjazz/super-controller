@@ -145,7 +145,6 @@ export class Background {
     windowService.setEdited(windowService.edited);
 
     this.portService.sendToFrontend();
-    windowService.sendDrivers(DRIVERS);
   }
 
   /* Invoked when a `BrowserWindow` is closed */
