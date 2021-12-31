@@ -21,24 +21,29 @@
 SuperController is an [electron](https://www.electronjs.org/) application boostrapped with [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). Designed with music preformance in mind, SuperController can be used to interact with MIDI clients in ways new and creative ways. Simply plug in devices, add the device to the current project, and take greater control over your devices than ever before.
 
 ## Device Support
+
 If a device is supported, it will have a driver file in the drivers folder. Supporting more devices make this software more useful for everyone so if you are able to write drivers for your devices, please do so! If not, please [open a pull request](https://github.com/aolsenjazz/super-controller/pulls) and we'll work together to get your device supported.
 
 ## Build + run locally
-```` shell
+
+```shell
 git clone https://github.com/aolsenjazz/super-controller
 cd super-controller
-yarn
-yarn start
-````
+npm run post-clone
+npm start
+```
 
 ## Tests
+
 The midi module needs to be rebuilt before running tests, as the test environment uses a different version of node.
-```` shell
-yarn rebuild:test
-yarn test
-````
+
+```shell
+npm rebuild:test
+npm test
+```
 
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
