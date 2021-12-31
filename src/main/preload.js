@@ -6,6 +6,7 @@
  */
 
 const { contextBridge, ipcRenderer } = require('electron');
+const os = require('os');
 
 const {
   ADD_DEVICE,
@@ -16,6 +17,12 @@ const {
 } = require('../shared/ipc-channels');
 
 let drivers;
+
+contextBridge.exposeInMainWorld('hostService', {
+  getHost: () => {
+    return os.platform();
+  },
+});
 
 contextBridge.exposeInMainWorld('portService', {
   requestPorts: () => {

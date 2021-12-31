@@ -9,6 +9,10 @@ export interface PortServiceAPI {
   requestPorts: () => void;
 }
 
+export interface HostServiceAPI {
+  getHost: () => 'win32' | 'darwin' | 'browser';
+}
+
 export interface IpcRendererAPI {
   send: (channel: string, ...args: any[]) => void;
   on: (channel: string, func: (...args: any[]) => void) => () => void;
@@ -49,5 +53,6 @@ declare global {
     ipcRenderer: IpcRendererAPI;
     driverService: DriverServiceAPI;
     portService: PortServiceAPI;
+    hostService: HostServiceAPI;
   }
 }

@@ -19,6 +19,8 @@ import { resolveHtmlPath } from './util-main';
 
 import { Background } from './background';
 
+const os = require('os');
+
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -74,7 +76,7 @@ const createWindow = async () => {
     show: false,
     width: 1024,
     height: 728,
-    titleBarStyle: 'hiddenInset',
+    titleBarStyle: os.platform() === 'darwin' ? 'hiddenInset' : 'default',
     icon: getAssetPath('icon.png'),
     webPreferences: {
       contextIsolation: true,

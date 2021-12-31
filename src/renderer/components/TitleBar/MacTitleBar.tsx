@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 const { ipcRenderer } = window;
 
 /**
- * The uppermost gray bar. Draggable
+ * On mac, stoplight controls are overlaid over this draggable title bar
  */
 export default function TitleBar() {
   const [title, setTitle] = useState('Untitled Project');

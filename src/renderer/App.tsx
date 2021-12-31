@@ -102,24 +102,26 @@ export default function App() {
     <>
       <ProjectChangeListener setProject={setProject} project={project} />
       <TitleBar />
-      <DeviceList
-        ports={ports}
-        project={project}
-        setSelectedId={setSelectedId}
-        selectedId={selectedId}
-      />
-      <DevicePanel
-        config={activeDevice}
-        project={project}
-        selectedInputs={selectedInputs}
-        setSelectedInputs={setSelectedInputs}
-      />
-      <ConfigPanel
-        device={activeDevice}
-        project={project}
-        selectedInputs={selectedInputs}
-        setProject={setProject}
-      />
+      <div id="main-content">
+        <DeviceList
+          ports={ports}
+          project={project}
+          setSelectedId={setSelectedId}
+          selectedId={selectedId}
+        />
+        <DevicePanel
+          config={activeDevice}
+          project={project}
+          selectedInputs={selectedInputs}
+          setSelectedInputs={setSelectedInputs}
+        />
+        <ConfigPanel
+          device={activeDevice}
+          project={project}
+          selectedInputs={selectedInputs}
+          setProject={setProject}
+        />
+      </div>
     </>
   );
 }
