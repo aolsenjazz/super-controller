@@ -164,7 +164,7 @@
             "channel": 0,
             "number": 0,
             "eventType": "octup",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": false,
           "type": "pad",
@@ -178,7 +178,7 @@
             "channel": 0,
             "number": -1,
             "eventType": "octdown",
-            "response": "gate"
+            "response": "constant"
           },
           "overrideable": false,
           "type": "pad",
