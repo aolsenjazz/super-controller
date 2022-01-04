@@ -50,6 +50,9 @@ export type InputDriver = {
   /* Width of the input in inches */
   width: number;
 
+  /* What is the default value of this control? */
+  value?: MidiValue;
+
   /* If input has a handle (think wheel or XY pad), width in inches */
   handleWidth?: number;
 

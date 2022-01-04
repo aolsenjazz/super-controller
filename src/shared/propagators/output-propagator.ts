@@ -37,7 +37,7 @@ export class OutputPropagator extends Propagator {
     this.eventType = eventType;
     this.number = number;
     this.channel = channel;
-    this.value = value || 127;
+    this.value = value === undefined ? 127 : value;
   }
 
   /**

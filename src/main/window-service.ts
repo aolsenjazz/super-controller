@@ -67,10 +67,11 @@ class WindowService {
    */
   /* eslint-disable-next-line */
   #send = (channel: string, ...args: any[]) => {
-    const windowOrNull = BrowserWindow.getFocusedWindow();
+    const windows = BrowserWindow.getAllWindows();
+    const window = windows.length ? windows[0] : null;
 
-    if (windowOrNull !== null) {
-      windowOrNull.webContents.send(channel, ...args);
+    if (window !== null) {
+      window.webContents.send(channel, ...args);
     }
   };
 }

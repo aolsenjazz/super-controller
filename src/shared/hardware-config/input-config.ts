@@ -140,7 +140,8 @@ export class InputConfig {
       inputOverride,
       other.availableColors,
       other.overrideable,
-      other.type
+      other.type,
+      other.value
     );
 
     return instance;
