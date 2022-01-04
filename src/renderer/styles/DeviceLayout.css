@@ -34,7 +34,6 @@
   position: absolute;
   border: 1px solid #3a84e9;
   top: 50%;
-  display: table;
   margin-left: 50%;
   transform: translate(-50%, -50%);
   animation-duration: 2s;
