@@ -5,6 +5,7 @@
   position: relative;
   z-index: 999;
   box-shadow: -1px 0 1px #dbd7d8;
+  max-height: calc(100vh - 30px);
 }
 
 #config-panel h3 {

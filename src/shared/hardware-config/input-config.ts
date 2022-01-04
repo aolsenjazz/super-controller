@@ -178,8 +178,8 @@ export class InputConfig {
     // TODO: this is gross. surely this can be made cleaner
     if (['gate', 'toggle'].includes(this.default.response)) {
       const defaultColor =
-        this.availableColors.length > 0
-          ? this.availableColors.filter((c) => c.default)[0]
+        availableColors.length > 0
+          ? availableColors.filter((c) => c.default)[0]
           : undefined;
 
       const isOffSet = override.lightConfig.get('off') !== undefined;
@@ -187,15 +187,14 @@ export class InputConfig {
         ? override.lightConfig.get('off')
         : defaultColor;
 
+      const isOnSet = override.lightConfig.get('on') !== undefined;
+      const onColor = isOnSet ? override.lightConfig.get('on') : defaultColor;
+
       type Type = 'gate' | 'toggle' | 'constant';
       this.devicePropagator = new BinaryPropagator(
         this.default.response as 'gate' | 'toggle',
         (this.override.response || this.default.response) as Type,
-        msgForColor(
-          defaultVals.number,
-          defaultVals.channel,
-          override.lightConfig.get('on')
-        ),
+        msgForColor(defaultVals.number, defaultVals.channel, onColor),
         msgForColor(defaultVals.number, defaultVals.channel, offColor),
         lastResponse
       );

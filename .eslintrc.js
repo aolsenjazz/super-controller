@@ -7,7 +7,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'import/prefer-default-export': 'off',
     'import/no-unresolved': 'error',
-
     'no-plusplus': 'off',
     'class-methods-use-this': 'off',
   },

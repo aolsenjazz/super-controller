@@ -1,6 +1,6 @@
 #title-bar {
   background-color: #f4f0f1;
-  height: 52px;
+  min-height: 30px;
   width: 100%;
   position: relative;
   -webkit-app-region: drag;
@@ -15,7 +15,7 @@
 
 #title {
   position: absolute;
-  line-height: 36px;
+  line-height: 30px;
   width: 100%;
   text-align: center;
 }
