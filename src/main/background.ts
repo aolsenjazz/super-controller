@@ -219,13 +219,16 @@ export class Background {
 
     const proj = projectFromFile(filePath);
 
-    this.project = proj;
-    this.portService.project = proj;
-
     windowService.sendTitle(path.basename(filePath));
     windowService.setEdited(false);
     windowService.sendProject(proj);
 
+    this.project = proj;
     this.saveOpenService.currentPath = filePath;
+
+    // this *must* be the last call on the stack. this triggers the `VirtualPortService`
+    // to open new virtual ports, which can cause a race condition (conflicting with the
+    // `proj` object) when accessing the native functions required to open a vPort
+    this.portService.project = proj;
   }
 }
