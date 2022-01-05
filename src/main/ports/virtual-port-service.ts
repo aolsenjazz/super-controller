@@ -178,7 +178,7 @@ export class VirtualPortService {
    * Remove a virtual `PortPair` from `virtualPorts` by `id`. Throws if no
    * match is found
    *
-   * @param { string } id The requested ID
+   * @param id The requested ID
    */
   #removePair = (id: string) => {
     let idx = -1;

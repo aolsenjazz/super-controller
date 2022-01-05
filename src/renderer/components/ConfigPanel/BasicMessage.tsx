@@ -1,8 +1,8 @@
 /**
  * A simple, centered message
  *
- * @param { object } props Component props
- * @param { string } msg The message to display
+ * @param props Component props
+ * @param props.msg The message to display
  */
 export default function BasicMessage(props: { msg: string }) {
   const { msg } = props;

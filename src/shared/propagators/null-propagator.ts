@@ -22,7 +22,7 @@ export class NullPropagator extends Propagator {
   /**
    * Returns null
    *
-   * @param { MidiValue[] } _msg The message to respond to
+   * @param _msg The message to respond to
    */
   /* eslint-disable-next-line */
   protected getResponse(_msg: MidiValue[]) {

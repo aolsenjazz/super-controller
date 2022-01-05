@@ -5,7 +5,7 @@ type PropTypes = {
 /**
  * Graphical representation of a black key
  *
- * @param { number } fundamental Zero-based, semitone offset from C
+ * @param fundamental Zero-based, semitone offset from C
  */
 export default function KeyBlack(props: PropTypes) {
   const { fundamental } = props;

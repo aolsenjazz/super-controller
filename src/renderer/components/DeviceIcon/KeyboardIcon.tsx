@@ -17,14 +17,14 @@ type PropTypes = {
 /**
  * Simplified graphical representation of a keyboard
  *
- * @param { object } props Component props
- * @param { boolean } props.active Should the keyboard be highlighted?
- * @param { number } props.width Width (in inches) of the keyboard
- * @param { number } props.height Height (in inches) of the keyboard
- * @param { number } props.left Distance (in inches) from the left edge of the device
- * @param { number } props.bottom Distance (in inches) from the bottom edge of the device
- * @param { number } props.deviceWidth Width (in inches) of the device
- * @param { number } props.deviceHeight height (in inches) of the device
+ * @param props Component props
+ * @param props.active Should the keyboard be highlighted?
+ * @param props.width Width (in inches) of the keyboard
+ * @param props.height Height (in inches) of the keyboard
+ * @param props.left Distance (in inches) from the left edge of the device
+ * @param props.bottom Distance (in inches) from the bottom edge of the device
+ * @param props.deviceWidth Width (in inches) of the device
+ * @param props.deviceHeight height (in inches) of the device
  */
 export default function Keyboard(props: PropTypes) {
   const { active, height, width, left, bottom, deviceWidth, deviceHeight } =

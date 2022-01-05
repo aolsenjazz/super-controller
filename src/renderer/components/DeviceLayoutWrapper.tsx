@@ -17,18 +17,18 @@ type PropTypes = {
 
 /**
  * @callback setSelectedInputs
- * @param { string[] } inputs The newly-selected inputs
+ * @param inputs The newly-selected inputs
  */
 
 /**
  * Wrapper for the DeviceLayout
  *
- * @param { object } props Component props
- * @param { VirtualDevice } props.device The VirtualDevice representation
- * @param { SupportedDeviceConfig } props.config Device config
- * @param { Project } props.project The active Project
- * @param { string[] } props.selectedInputs List of the ids of the selected inputs
- * @param { setSelectedInputs } props.setSelectedInputs Sets the selected inputs
+ * @param props Component props
+ * @param props.device The VirtualDevice representation
+ * @param props.config Device config
+ * @param props.project The active Project
+ * @param props.selectedInputs List of the ids of the selected inputs
+ * @param props.setSelectedInputs Sets the selected inputs
  */
 export default function DeviceLayoutWrapper(
   props: PropTypes

@@ -1,11 +1,11 @@
 /**
  * Converts a value in given range to the equivalent value in a new range
  *
- * @param { number } oldMin Minimum value of old range
- * @param { number } oldMax Maximum value of old range
- * @param { number } newMin Minimum value of new range
- * @param { number } newMax Maximum value of new range
- * @param { number } value The value to convert
+ * @param oldMin Minimum value of old range
+ * @param oldMax Maximum value of old range
+ * @param newMin Minimum value of new range
+ * @param newMax Maximum value of new range
+ * @param value The value to convert
  */
 const convertRange = (
   oldMin: number,
@@ -32,23 +32,23 @@ type PropTypes = {
 
 /**
  * @callback onClick
- * @param { React.MouseEvent } event Click event
+ * @param event Click event
  */
 
 /**
  * Graphical representation of a knob
  *
- * @param { object } props Component props
- * @param { number | string } props.size CSS size of knob
- * @param { number } props.min Minimum value knob can represent
- * @param { number } props.max Maximum value knob can represent
- * @param { number } props.degrees Number of degrees the knob can be rotated
- * @param { number } props.value Value currently represented by the knob
- * @param { boolean } props.enabled Can be the knob be clicked?
- * @param { boolean } props.focus Should the knob be highlighted?
- * @param { boolean } props.overrideable Can this control be overridden?
- * @param { string } props.shape What is the shape of the knob? probably 'circ'
- * @param { onClick } props.onClick Click listener to set selected inputs
+ * @param props Component props
+ * @param props.size CSS size of knob
+ * @param props.min Minimum value knob can represent
+ * @param props.max Maximum value knob can represent
+ * @param props.degrees Number of degrees the knob can be rotated
+ * @param props.value Value currently represented by the knob
+ * @param props.enabled Can be the knob be clicked?
+ * @param props.focus Should the knob be highlighted?
+ * @param props.overrideable Can this control be overridden?
+ * @param props.shape What is the shape of the knob? probably 'circ'
+ * @param props.onClick Click listener to set selected inputs
  */
 export function Knob(props: PropTypes) {
   const {

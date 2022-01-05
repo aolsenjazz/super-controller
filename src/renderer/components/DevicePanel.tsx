@@ -41,7 +41,7 @@ type PropTypes = {
 
 /**
  * @callback setSelectedInputs
- * @param { string[] } inputs The list of selected inputs
+ * @param inputs The list of selected inputs
  */
 
 /**

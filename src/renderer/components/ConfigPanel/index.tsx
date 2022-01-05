@@ -24,10 +24,10 @@ type InputConfigurationProps = {
 /**
  * Parent for configuration controls
  *
- * @param { object } props Component props
- * @param { SupportedDeviceConfig } props.config Configuration of current device
- * @param { Project } props.project Current project
- * @param { string[] } props.selectedInputs The currently-selected inputs
+ * @param props Component props
+ * @param props.config Configuration of current device
+ * @param props.project Current project
+ * @param props.selectedInputs The currently-selected inputs
  */
 function InputConfiguration(props: InputConfigurationProps) {
   const { config, project, selectedInputs, setProject } = props;

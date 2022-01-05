@@ -34,7 +34,7 @@
             "eventType": "pitchbend",
             "response": "linear"
           },
-          "overrideable": true,
+          "overrideable": false,
           "type": "wheel",
           "shape": "rect",
           "width": 0.625,
@@ -50,7 +50,7 @@
             "eventType": "controlchange",
             "response": "linear"
           },
-          "overrideable": true,
+          "overrideable": false,
           "type": "wheel",
           "shape": "rect",
           "width": 0.625,
@@ -141,7 +141,7 @@
             "eventType": "controlchange",
             "response": "linear"
           },
-          "overrideable": true,
+          "overrideable": false,
           "type": "slider",
           "shape": "rect",
           "width": 0.4,
@@ -169,7 +169,7 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "rect",
           "width": 0.5,
           "height": 0.5,
@@ -183,7 +183,7 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "rect",
           "width": 0.5,
           "height": 0.5,
@@ -197,7 +197,7 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "circ",
           "width": 0.5,
           "height": 0.5,
@@ -209,7 +209,7 @@
       "id": "Nav1",
       "height": 0.25,
       "width": 0.25,
-      "left": 0.75,
+      "left": 0.725,
       "bottom": 6.375,
       "nRows": 1,
       "nCols": 1,
@@ -223,7 +223,7 @@
           },
           "type": "pad",
           "shape": "rect",
-          "overrideable": false,
+          "overrideable": true,
           "height": 0.25,
           "width": 0.25,
           "availableColors": []
@@ -247,7 +247,7 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "rect",
           "height": 0.25,
           "width": 0.25,
@@ -261,7 +261,7 @@
             "response": "gate"
           },
           "type": "pad",
-          "overrideable": false,
+          "overrideable": true,
           "shape": "rect",
           "height": 0.25,
           "width": 0.25,
@@ -276,7 +276,7 @@
           },
           "type": "pad",
           "shape": "rect",
-          "overrideable": false,
+          "overrideable": true,
           "height": 0.25,
           "width": 0.25,
           "availableColors": []
@@ -287,8 +287,8 @@
       "id": "Nav3",
       "height": 0.25,
       "width": 0.25,
-      "left": 0.75,
-      "bottom": 5.3,
+      "left": 0.725,
+      "bottom": 5.4,
       "nRows": 1,
       "nCols": 1,
       "inputs": [
@@ -299,7 +299,7 @@
             "eventType": "noteon/noteoff",
             "response": "gate"
           },
-          "overrideable": false,
+          "overrideable": true,
           "type": "pad",
           "shape": "rect",
           "height": 0.25,

@@ -8,16 +8,16 @@ type PropTypes = {
 
 /**
  * @callback onChange
- * @param { boolean } checked Checkbox value
+ * @param checked Checkbox value
  */
 
 /**
  * Contains device name and checkbox representing whether or not sustain is shared with said device
  *
- * @param { object } props Component props
- * @param { string } props.name Name of the device sustain can be shared with
- * @param { boolean } props.value Is sustain currently shared with this device?
- * @param { onChange } props.onChange Value change callback
+ * @param props Component props
+ * @param props.name Name of the device sustain can be shared with
+ * @param props.value Is sustain currently shared with this device?
+ * @param props.onChange Value change callback
  */
 export default function ShareSustainLine(props: PropTypes) {
   const { name, value, onChange } = props;

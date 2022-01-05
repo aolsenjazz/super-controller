@@ -18,14 +18,14 @@ type PropTypes = {
 /**
  * Graphical representation of a keyboard
  *
- * @param { object } props Component props
- * @param { number } props.nOctaves Number of octaves in keyboard
- * @param { number } props.width Width of keyboard (in inches)
- * @param { number } props.height Height of keyboard (in inches)
- * @param { number } props.left Distance from left edge of device (in inches)
- * @param { number } props.bottom Distance from bottom edge of device (in inches)
- * @param { number } props.deviceWidth Width (in inches) of device
- * @param { number } props.deviceHeight Height (in inches) of device
+ * @param props Component props
+ * @param props.nOctaves Number of octaves in keyboard
+ * @param props.width Width of keyboard (in inches)
+ * @param props.height Height of keyboard (in inches)
+ * @param props.left Distance from left edge of device (in inches)
+ * @param props.bottom Distance from bottom edge of device (in inches)
+ * @param props.deviceWidth Width (in inches) of device
+ * @param props.deviceHeight Height (in inches) of device
  */
 export default function Keyboard(props: PropTypes) {
   const {

@@ -42,7 +42,7 @@ export class VirtualOutput implements Port {
   /**
    * Send the midi message thru the virtual port to clients
    *
-   * @param { number[] } msg The midi message
+   * @param msg The midi message
    */
   send(msg: number[]) {
     this.port.sendMessage(msg);

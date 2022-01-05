@@ -16,8 +16,8 @@ type PropTypes = {
 
 /**
  * @callback onClick
- * @param { React.MouseEvent } event Click event
- * @param { string[] } ids List of selected IDs
+ * @param event Click event
+ * @param ids List of selected IDs
  */
 
 /**
@@ -25,13 +25,13 @@ type PropTypes = {
  * whose 0-values are in the center will transmit the same MIDI information going either left or right,
  * or either top or bottom; the software can't tell the difference between motion in opposing axes.
  *
- * @param { object } props Component props
- * @param { VirtualInputGrid } props.inputGrid Contains driver and layout info
- * @param { number } props.deviceWidth Width (in inches) of device
- * @param { number } props.deviceHeight Height (in inches) of device
- * @param { SupportedDeviceConfig } props.deviceConfig Configuration of parent device
- * @param { onClick } props.onClick Click callback
- * @param { boolean } props.configured Is the device configured // TODO: should be able to replace
+ * @param props Component props
+ * @param props.inputGrid Contains driver and layout info
+ * @param props.deviceWidth Width (in inches) of device
+ * @param props.deviceHeight Height (in inches) of device
+ * @param props.deviceConfig Configuration of parent device
+ * @param props.onClick Click callback
+ * @param props.configured Is the device configured // TODO: should be able to replace
  * @Param { string[] } props.selectedInputs Currently-selected inputs
  */
 export default function XYGridLayout(props: PropTypes) {

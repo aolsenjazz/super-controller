@@ -3,8 +3,8 @@ import { Input } from 'midi';
 
 /**
  * @callback cb
- * @param { number } delta Delta time
- * @param { number[] } message The MIDI message triplet from device
+ * @param delta Delta time
+ * @param message The MIDI message triplet from device
  */
 
 /**
@@ -53,7 +53,7 @@ export class VirtualInput implements Port {
   /**
    * Set a callback for when messages are received from the `Port`
    *
-   * @param { cb } cb The callback
+   * @param cb The callback
    */
   onMessage(cb: (delta: number, message: number[]) => void) {
     this.port.on('message', cb);

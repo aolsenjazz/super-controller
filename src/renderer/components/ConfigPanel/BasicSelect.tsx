@@ -9,17 +9,17 @@ type PropTypes = {
 
 /**
  * @callback onChange
- * @param { string | number } value The new value
+ * @param value The new value
  */
 
 /**
  * Simple dropdown select
  *
- * @param { object } props Component props
- * @param { (string | number)[] } props.valueList List of values
- * @param { string[] } props.labelList String representation of the value in props.valueList
- * @param { string | number | null } props.value Current value
- * @param { onChange } onChange Value change callback
+ * @param props Component props
+ * @param props.valueList List of values
+ * @param props.labelList String representation of the value in props.valueList
+ * @param props.value Current value
+ * @param onChange Value change callback
  */
 export default function BasicSelect(props: PropTypes) {
   const { valueList, value, onChange, labelList } = props;

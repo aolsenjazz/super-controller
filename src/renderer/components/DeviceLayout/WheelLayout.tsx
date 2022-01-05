@@ -13,23 +13,23 @@ type PropTypes = {
 
 /**
  * @callback onClick
- * @param { React.MouseEvent } event Mouse event
+ * @param event Mouse event
  */
 
 /**
  * Graphical representation of a wheel input
  *
- * @param { object } props Component props
- * @param { number } props.max Maximum value the wheel can represent
- * @param { number } props.value Current value represented by the wheel
- * @param { boolean } props.enabled Should the wheel respond to click events?
- * @param { boolean } props.focus Should the wheel be highlighted?
- * @param { boolean } props.overrideable Can this input be overridden?
- * @param { string } props.width CSS width attribute
- * @param { string } props.height CSS height attribute
- * @param { string } props.handleWidth CSS width attribute of the "grabbable" part of the input
- * @param { string } props.handleHeight CSS height attribute of the "grabbable" part of the input
- * @param { onClick } props.onClick Click listener for setting selected inputs
+ * @param props Component props
+ * @param props.max Maximum value the wheel can represent
+ * @param props.value Current value represented by the wheel
+ * @param props.enabled Should the wheel respond to click events?
+ * @param props.focus Should the wheel be highlighted?
+ * @param props.overrideable Can this input be overridden?
+ * @param props.width CSS width attribute
+ * @param props.height CSS height attribute
+ * @param props.handleWidth CSS width attribute of the "grabbable" part of the input
+ * @param props.handleHeight CSS height attribute of the "grabbable" part of the input
+ * @param props.onClick Click listener for setting selected inputs
  */
 export function WheelLayout(props: PropTypes) {
   const {

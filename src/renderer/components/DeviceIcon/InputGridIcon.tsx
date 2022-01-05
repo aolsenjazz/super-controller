@@ -10,11 +10,11 @@ type PropTypes = {
 /**
  * Simplified graphical representation of an InputGrid containing input controls
  *
- * @param { object } props Component props
- * @param { InputGridDriver } props.inputGrid Driver for this InputGrid
- * @param { number } props.deviceWidth Width (in inches) of this device
- * @param { number } props.deviceHeight Height (in inches) of this device
- * @param { boolean } props.active Should the input grid be highlighted? TODO: remove me. see trello
+ * @param props Component props
+ * @param props.inputGrid Driver for this InputGrid
+ * @param props.deviceWidth Width (in inches) of this device
+ * @param props.deviceHeight Height (in inches) of this device
+ * @param props.active Should the input grid be highlighted? TODO: remove me. see trello
  */
 const InputGridIcon = (props: PropTypes) => {
   const { inputGrid, deviceWidth, deviceHeight, active } = props;

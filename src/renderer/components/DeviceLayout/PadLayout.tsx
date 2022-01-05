@@ -14,22 +14,22 @@ type PropTypes = {
 
 /**
  * @callback onClick
- * @param { React.MouseEvent } event Mouse event
- * @param { string } id Input id
+ * @param event Mouse event
+ * @param id Input id
  */
 
 /**
  * Graphical representation of a pad input
  *
- * @param { object } props Component props
- * @param { onClick } props.onClick Click listener to set selected inputs
- * @param { string } props.shape 'circle' | 'rect' | 'square'
- * @param { Color | undefined } props.color Backlight color
- * @param { string } props.width CSS width attribute
- * @param { string } props.hieght CSS height attribute
- * @param { boolean } enabled Should this input respond to click events?
- * @param { boolean } focus Should this input be highlighted?
- * @param { boolean } overrideable Can this input be overridden?
+ * @param props Component props
+ * @param props.onClick Click listener to set selected inputs
+ * @param props.shape 'circle' | 'rect' | 'square'
+ * @param props.color Backlight color
+ * @param props.width CSS width attribute
+ * @param props.hieght CSS height attribute
+ * @param enabled Should this input respond to click events?
+ * @param focus Should this input be highlighted?
+ * @param overrideable Can this input be overridden?
  */
 export default function Pad(props: PropTypes) {
   const {
