@@ -1,6 +1,7 @@
 #device-panel {
   width: calc(100% - 230px - 280px);
   background-color: #e6e2e3;
+  opacity: 0.95;
 }
 
 #no-devices {

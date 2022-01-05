@@ -4,6 +4,8 @@
   float: left;
   text-align: center;
   box-shadow: 1px 0 1px #dbd7d8;
+  overflow-y: scroll;
+  max-height: calc(100vh - 30px);
 }
 
 .nav-item .selected {

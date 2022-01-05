@@ -75,7 +75,11 @@ const createWindow = async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728,
+    height: 600,
+    transparent: true,
+    frame: false,
+    minHeight: 312,
+    minWidth: 850,
     titleBarStyle: os.platform() === 'darwin' ? 'hiddenInset' : 'default',
     icon: getAssetPath('icon.png'),
     webPreferences: {
