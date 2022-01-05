@@ -16,7 +16,6 @@
 - 🎹 **Share Sustain** Share sustain events between your controllers
 - 💡 **Custom Lights** Control color and behaviour of backlights
 - ⏩ **Low Latency**: < 1 ms latency
-- ✅ **Cross Platform**: Works on Mac and Windows
 
 SuperController is an [electron](https://www.electronjs.org/) application boostrapped with [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). Designed with music preformance in mind, SuperController can be used to interact with MIDI clients in ways new and creative ways. Simply plug in devices, add the device to the current project, and take greater control over your devices than ever before.
 
