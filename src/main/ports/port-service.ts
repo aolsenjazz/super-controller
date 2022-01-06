@@ -1,6 +1,4 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
-
-import { addListener, PortPair, all } from '@alexanderolsen/port-manager';
 import { MidiValue, MidiMessage } from 'midi-message-parser';
 
 import { inputIdFor, msgForColor } from '@shared/device-util';
@@ -10,7 +8,9 @@ import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
 import { Color } from '@shared/driver-types';
 import { PortInfo } from '@shared/port-info';
 
-import { DrivenPortPair } from '../driven-port-pair';
+import { PortPair } from './port-pair';
+import { all } from './port-manager';
+import { DrivenPortPair } from './driven-port-pair';
 import { windowService } from '../window-service';
 import { VirtualPortService } from './virtual-port-service';
 
@@ -32,9 +32,7 @@ export class PortService {
     this.#project = project;
     this.#virtService = new VirtualPortService();
 
-    addListener(this.#onPortsChange); // listen to changes to available hardware
-
-    this.#onPortsChange(all()); // Scan for ports right away
+    this.#onPortsChange(false); // Scan for ports right away
   }
 
   /**
@@ -54,17 +52,17 @@ export class PortService {
 
     // if hardware is connected and configured in project, run initialization
     if (pp && config) {
-      this.#virtService.open(pp.name, pp.occurrenceNumber); // open virtual port
-
       pp.runControlSequence(); // take control of midi device
       pp.resetLights(); // init default lights
 
-      pp.onMessage((_delta: number, msg: number[]) =>
-        this.#onMessage(pp, msg as MidiValue[])
-      );
+      pp.onMessage((_delta: number, msg: number[]) => {
+        this.#onMessage(pp, msg as MidiValue[]);
+      });
 
-      // if device is configured, apply default light config
+      // // if device is configured, apply default light config
       if (config.supported) this.#syncDeviceLights(pp, config);
+
+      this.#virtService.open(pp.name, pp.occurrenceNumber); // open virtual port
     }
   }
 
@@ -104,7 +102,7 @@ export class PortService {
     this.portPairs.forEach((pp) => pp.resetLights()); // reset light for each device
 
     this.#virtService.shutdown(); // close all open vPorts
-    p.devices.forEach((config) => this.initDevice(config.id)); // init each configured device
+    this.#onPortsChange(true);
   }
 
   /**
@@ -193,15 +191,19 @@ export class PortService {
    *
    * @param portPairs The new list of port pairs
    */
-  #onPortsChange = (portPairs: PortPair[]) => {
+  #onPortsChange = (newProject: boolean) => {
     // Filter out SuperController-created ports.
-    const filtered = portPairs
+    const filtered = all()
       .filter((pair) => !pair.id.startsWith('SC '))
       .map((pair) => new DrivenPortPair(pair));
 
     // We only care about non-SC-created ports. The ports will change when a new
     // project is opened, etc because virtual ports will be opened/closed. ignore these
-    if (JSON.stringify(this.portPairs) === JSON.stringify(filtered)) {
+    if (
+      JSON.stringify(this.portPairs) === JSON.stringify(filtered) &&
+      !newProject
+    ) {
+      setTimeout(() => this.#onPortsChange(false), 1000);
       return;
     }
 
@@ -210,12 +212,15 @@ export class PortService {
     this.sendToFrontend();
 
     // Close all virtual ports
-    this.#virtService.shutdown();
+    const toAdd = this.#virtService.closeOldPorts(filtered);
+    toAdd.forEach((pp) => pp.open());
 
     // Reinitialize all devices
     // This might seem heavy-handed, but it's so much easier than account for
     // when a user disconnects a controller of index 0 where there is more than
     // one of that controller connected.
-    filtered.forEach((pp) => this.initDevice(pp.id));
+    toAdd.forEach((pp) => this.initDevice(pp.id));
+
+    setTimeout(() => this.#onPortsChange(false), 1000);
   };
 }

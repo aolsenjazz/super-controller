@@ -1,5 +1,5 @@
-import { Port } from '@alexanderolsen/port-manager';
 import { Input } from 'midi';
+import { Port } from './port';
 
 /**
  * @callback cb
@@ -19,7 +19,8 @@ export class VirtualInput implements Port {
   occurrenceNumber: number;
 
   /* 'input' | 'output' */
-  type = 'input';
+  // eslint-disable-next-line @typescript-eslint/prefer-as-const
+  type = 'input' as 'input';
 
   /* name of the port */
   name: string;

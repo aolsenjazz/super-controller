@@ -1,6 +1,6 @@
-import { PortPair } from '@alexanderolsen/port-manager';
 import { MidiValue } from 'midi-message-parser';
 
+import { PortPair } from './port-pair';
 import { VirtualInput } from './virtual-input';
 import { VirtualOutput } from './virtual-output';
 

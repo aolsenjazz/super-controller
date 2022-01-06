@@ -1,7 +1,8 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 
 import { test, expect, jest } from '@jest/globals';
-import { Port, PortPair } from '@alexanderolsen/port-manager';
+import { Port } from '../main/ports/port';
+import { PortPair } from '../main/ports/port-pair';
 
 import {
   testables,
@@ -15,7 +16,7 @@ class MockPort implements Port {
 
   occurrenceNumber: number;
 
-  type: string;
+  type: 'input' | 'output';
 
   name: string;
 

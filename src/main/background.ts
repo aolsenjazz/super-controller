@@ -1,4 +1,5 @@
 import { ipcMain, Event, dialog, app } from 'electron';
+import path from 'path';
 
 import {
   ADD_DEVICE,
@@ -20,8 +21,6 @@ import { DRIVERS } from './drivers';
 import { projectFromFile } from './util-main';
 import { SaveOpenService } from './save-open-service';
 import { PortService } from './ports/port-service';
-
-const path = require('path');
 
 /**
  * Manages communications to/from controllers, and informs the front end.

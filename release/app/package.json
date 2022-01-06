@@ -1,7 +1,7 @@
 {
   "name": "super-controller",
   "productName": "SuperController",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Give your MIDI devices super powers; take control of the lights, messages, and communications between controllers.",
   "main": "./dist/main/main.js",
   "author": {
@@ -15,7 +15,6 @@
     "postinstall": "npm run electron-rebuild && npm run link-modules"
   },
   "dependencies": {
-    "@alexanderolsen/port-manager": "^1.2.82",
     "midi": "^2.0.0"
   },
   "license": "MIT"

@@ -1,5 +1,5 @@
-import { Port } from '@alexanderolsen/port-manager';
 import { Output } from 'midi';
+import { Port } from './port';
 
 /**
  * Manages a virtual output port. Virtual ports are opened automatically
@@ -13,7 +13,8 @@ export class VirtualOutput implements Port {
   occurrenceNumber: number;
 
   /* 'input' | 'output' */
-  type = 'output';
+  // eslint-disable-next-line @typescript-eslint/prefer-as-const
+  type = 'output' as 'output';
 
   /* name of the port */
   name: string;

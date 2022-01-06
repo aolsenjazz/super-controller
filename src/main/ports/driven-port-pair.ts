@@ -1,9 +1,10 @@
-import { PortPair, Port } from '@alexanderolsen/port-manager';
-import { MidiMessage } from 'midi-message-parser';
+import { MidiMessage, MidiValue } from 'midi-message-parser';
 
 import { DeviceDriver } from '@shared/driver-types';
 
-import { DRIVERS } from './drivers';
+import { Port } from './port';
+import { PortPair } from './port-pair';
+import { DRIVERS } from '../drivers';
 
 /**
  * PortPair with an attached driver. Useful so that we can reset the lights
@@ -27,8 +28,7 @@ export class DrivenPortPair implements PortPair {
     this.close = pair.close;
     this.send = pair.send;
     this.onMessage = pair.onMessage;
-    /* eslint-disable-next-line */
-    this._equals = pair._equals;
+    this.equals = pair.equals;
     this.id = pair.id;
     this.occurrenceNumber = pair.occurrenceNumber;
     this.hasInput = pair.hasInput;
@@ -105,11 +105,11 @@ export class DrivenPortPair implements PortPair {
   close: () => void;
 
   /* See `PortPair` */
-  send: (msg: number[]) => void;
+  send: (msg: MidiValue[]) => void;
 
   /* See `PortPair` */
   onMessage: (cb: (delta: number, msg: number[]) => void) => void;
 
   /* See `PortPair` */
-  _equals: (other: PortPair) => boolean;
+  equals: (other: PortPair) => boolean;
 }
