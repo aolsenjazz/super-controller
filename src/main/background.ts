@@ -68,7 +68,7 @@ export class Background {
       this.project.addDevice(config);
 
       // init light defaults, run device control sequence
-      this.portService.initDevice(config.id);
+      this.portService.updatePorts();
     });
 
     /* When a device is removed from project, remove it here and re-init all devices */
@@ -80,8 +80,7 @@ export class Background {
       if (!config) throw new Error(`no config exists for device ${deviceId}`);
 
       this.project.removeDevice(config);
-
-      this.portService.relinquishDevice(deviceId);
+      this.portService.updatePorts();
     });
 
     ipcMain.on(UPDATE_DEVICE, (_e: Event, deviceJSON: string) => {

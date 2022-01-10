@@ -29,7 +29,6 @@ function BasicInputConfig() {
 }
 
 function BasicSupportedDevice() {
-  const id = 'SomeId';
   const name = 'SomeName';
   const shareSustain: string[] = [];
   const inputConfigs: InputConfig[] = [];
@@ -38,7 +37,6 @@ function BasicSupportedDevice() {
   inputConfigs.push(BasicInputConfig());
 
   return new SupportedDeviceConfig(
-    id,
     name,
     0,
     shareSustain,
@@ -48,14 +46,12 @@ function BasicSupportedDevice() {
 }
 
 test('nickname returns device name when unset', () => {
-  const id = 'SomeId';
   const name = 'SomeName';
   const shareSustain: string[] = [];
   const inputConfigs: InputConfig[] = [];
   const nickname = undefined;
 
   const config = new SupportedDeviceConfig(
-    id,
     name,
     0,
     shareSustain,
@@ -67,14 +63,12 @@ test('nickname returns device name when unset', () => {
 });
 
 test('nickname return nickname when set', () => {
-  const id = 'SomeId';
   const name = 'SomeName';
   const shareSustain: string[] = [];
   const inputConfigs: InputConfig[] = [];
   const nickname = 'SomeNickname';
 
   const config = new SupportedDeviceConfig(
-    id,
     name,
     0,
     shareSustain,
@@ -96,7 +90,6 @@ test('getInput throws for bad id', () => {
     lightConfig: new Map<string, Color>(),
   };
 
-  const id = 'SomeId';
   const name = 'SomeName';
   const shareSustain: string[] = [];
   const nickname = 'SomeNickname';
@@ -106,7 +99,6 @@ test('getInput throws for bad id', () => {
   const input = new InputConfig(inputDefault, override, [], overrideable, type);
 
   const config = new SupportedDeviceConfig(
-    id,
     name,
     0,
     shareSustain,
@@ -128,7 +120,6 @@ test('getInput returns correct input for id', () => {
     lightConfig: new Map<string, Color>(),
   };
 
-  const id = 'SomeId';
   const name = 'SomeName';
   const shareSustain: string[] = [];
   const inputConfigs: InputConfig[] = [];
@@ -141,7 +132,6 @@ test('getInput returns correct input for id', () => {
   inputConfigs.push(input);
 
   const config = new SupportedDeviceConfig(
-    id,
     name,
     0,
     shareSustain,
@@ -164,7 +154,6 @@ test('handleMessage() passes to correct input for processing', () => {
     lightConfig: new Map<string, Color>(),
   };
 
-  const id = 'SomeId';
   const name = 'SomeName';
   const shareSustain: string[] = [];
   const inputConfigs: InputConfig[] = [];
@@ -177,7 +166,6 @@ test('handleMessage() passes to correct input for processing', () => {
   inputConfigs.push(input);
 
   const config = new SupportedDeviceConfig(
-    id,
     name,
     0,
     shareSustain,

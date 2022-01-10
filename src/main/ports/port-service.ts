@@ -13,6 +13,7 @@ import { all } from './port-manager';
 import { DrivenPortPair } from './driven-port-pair';
 import { windowService } from '../window-service';
 import { VirtualPortService } from './virtual-port-service';
+import { getDiff } from '../util-main';
 
 /**
  * Manages sending/receiving of messages to and from device, as well as syncing
@@ -32,7 +33,7 @@ export class PortService {
     this.#project = project;
     this.#virtService = new VirtualPortService();
 
-    this.#onPortsChange(false); // Scan for ports right away
+    this.#checkPorts(); // Scan for ports right away
   }
 
   /**
@@ -56,13 +57,17 @@ export class PortService {
       pp.resetLights(); // init default lights
 
       pp.onMessage((_delta: number, msg: number[]) => {
-        this.#onMessage(pp, msg as MidiValue[]);
+        // we'll occasionally receive message of length 1. ignore these.
+        // reason is unclear, message of lenght 1 don't match midi spec
+        if (msg.length >= 2) {
+          this.#onMessage(pp, msg as MidiValue[]);
+        }
       });
 
       // // if device is configured, apply default light config
-      if (config.supported) this.#syncDeviceLights(pp, config);
-
-      this.#virtService.open(pp.name, pp.occurrenceNumber); // open virtual port
+      if (config instanceof SupportedDeviceConfig) {
+        this.#syncDeviceLights(pp, config);
+      }
     }
   }
 
@@ -82,7 +87,7 @@ export class PortService {
   sendToFrontend() {
     // pass port info to frontend
     const info = this.portPairs.map(
-      (p) => new PortInfo(p.id, p.name, p.occurrenceNumber, true)
+      (p) => new PortInfo(p.name, p.siblingIndex, true)
     );
 
     windowService.sendPortInfos(info);
@@ -92,7 +97,8 @@ export class PortService {
     const pp = this.#getPair(deviceId);
     const config = this.#project.getDevice(deviceId);
 
-    if (pp && config && config.supported) this.#syncDeviceLights(pp, config);
+    if (pp && config instanceof SupportedDeviceConfig)
+      this.#syncDeviceLights(pp, config);
   };
 
   /* On project update, reset all devices, init defaults in fresh copy of `Project` */
@@ -101,8 +107,15 @@ export class PortService {
 
     this.portPairs.forEach((pp) => pp.resetLights()); // reset light for each device
 
+    const ids = this.portPairs.map((pp) => pp.id);
+
+    ids.forEach((id) => {
+      this.#getPair(id)?.close();
+      this.#removePair(id);
+    });
     this.#virtService.shutdown(); // close all open vPorts
-    this.#onPortsChange(true);
+
+    this.updatePorts();
   }
 
   /**
@@ -191,36 +204,122 @@ export class PortService {
    *
    * @param portPairs The new list of port pairs
    */
-  #onPortsChange = (newProject: boolean) => {
+  updatePorts() {
     // Filter out SuperController-created ports.
     const filtered = all()
       .filter((pair) => !pair.id.startsWith('SC '))
       .map((pair) => new DrivenPortPair(pair));
 
-    // We only care about non-SC-created ports. The ports will change when a new
-    // project is opened, etc because virtual ports will be opened/closed. ignore these
-    if (
-      JSON.stringify(this.portPairs) === JSON.stringify(filtered) &&
-      !newProject
-    ) {
-      setTimeout(() => this.#onPortsChange(false), 1000);
+    const [newPorts, brokenPorts] = getDiff(filtered, this.portPairs, true);
+
+    let doRefresh = false;
+
+    // close sibling ports for all broken ports
+    brokenPorts.forEach((pp) => {
+      const siblings = this.portPairs.filter((sib) => sib.name === pp.name);
+      siblings.forEach((sib) => {
+        sib.close();
+        this.#removePair(sib.id);
+        this.#virtService.close(sib.id);
+        doRefresh = true;
+      });
+    });
+
+    // for every device removed from Project, close virtual ports, reset, and close ports here if they exist
+    this.#virtService.virtualPorts
+      .filter((vPort) => !this.#project.getDevice(vPort.id.replace('SC ', '')))
+      .map((vPort) => {
+        this.#virtService.close(vPort.id);
+        doRefresh = true;
+        // map to a `PortPair` or null
+        const filt = this.portPairs.filter(
+          (pp) => pp.id === vPort.id.replace('SC ', '')
+        );
+        return filt.length === 1 ? filt[0] : null;
+      })
+      .filter((pp) => pp !== null) // filter non-null
+      .forEach((pp) => {
+        pp!.close();
+        this.#removePair(pp!.id);
+      });
+
+    // remove non-connected devices from this list
+    const toRemove = this.portPairs
+      .filter((pp) => pp.isPortOpen() === false)
+      .map((pp) => pp.id);
+    toRemove.forEach((id) => {
+      this.#removePair(id);
+    });
+
+    // for every removed ports, add in updated ports
+    const toUpdate = filtered.filter((pp) => toRemove.includes(pp.id));
+    this.portPairs = this.portPairs.concat(toUpdate);
+
+    // add new ports
+    this.portPairs = this.portPairs.concat(newPorts as DrivenPortPair[]);
+
+    if (doRefresh) {
+      this.updatePorts();
       return;
     }
 
-    // Update local port list
-    this.portPairs = filtered;
+    // for every device added to project, open port and init
+    this.#project.devices
+      .filter((dev) => !this.#virtService.isOpen(dev.id)) // get devices which aren't connected
+      .map((dev) => {
+        // map to a `PortPair` or null
+        const filt = filtered.filter((pp) => pp.id === dev.id);
+        return filt.length === 1 ? filt[0] : null;
+      })
+      .filter((pp) => pp !== null) // filter non-null
+      .forEach((pp) => {
+        pp!.open(); // open connection to device
+        this.#virtService.open(pp!.name, pp!.siblingIndex); // open virt port
+
+        this.initDevice(pp!.id);
+      });
+
     this.sendToFrontend();
+  }
 
-    // Close all virtual ports
-    const toAdd = this.#virtService.closeOldPorts(filtered);
-    toAdd.forEach((pp) => pp.open());
+  #checkPorts = () => {
+    // Filter out SuperController-created ports.
+    const filtered = all()
+      .filter((pair) => !pair.id.startsWith('SC '))
+      .map((pair) => new DrivenPortPair(pair));
 
-    // Reinitialize all devices
-    // This might seem heavy-handed, but it's so much easier than account for
-    // when a user disconnects a controller of index 0 where there is more than
-    // one of that controller connected.
-    toAdd.forEach((pp) => this.initDevice(pp.id));
+    const stalePortNames = this.portPairs.map((pp) => pp.id);
+    const freshPortNames = filtered.map((pp) => pp.id);
 
-    setTimeout(() => this.#onPortsChange(false), 1000);
+    // We only care about non-SC-created ports. The ports will change when a new
+    // project is opened, etc because virtual ports will be opened/closed. ignore these
+    if (
+      JSON.stringify(stalePortNames.sort()) !==
+      JSON.stringify(freshPortNames.sort())
+    ) {
+      this.updatePorts();
+    }
+
+    setTimeout(() => this.#checkPorts(), 1000);
+  };
+
+  /**
+   * Remove a virtual `PortPair` from `this.portPairs` by `id`. Throws if no
+   * match is found
+   *
+   * @param id The requested ID
+   */
+  #removePair = (id: string) => {
+    let idx = -1;
+
+    this.portPairs.forEach((pair, index) => {
+      if (pair.id === id) idx = index;
+    });
+
+    if (idx === -1) {
+      throw new Error(`No matching virtual PortPair for id[${id}]`);
+    }
+
+    this.portPairs.splice(idx, 1);
   };
 }

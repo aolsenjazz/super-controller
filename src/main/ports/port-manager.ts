@@ -15,7 +15,7 @@ function getSister(port: Port, sisterList: Port[]): Port | null {
   sisterList.forEach((candidate) => {
     if (
       port.name === candidate.name &&
-      port.occurrenceNumber === candidate.occurrenceNumber
+      port.siblingIndex === candidate.siblingIndex
     ) {
       sister = candidate;
     }

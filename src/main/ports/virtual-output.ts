@@ -10,7 +10,7 @@ export class VirtualOutput implements Port {
   index: number;
 
   /* nth-occurrence of this port. used when >1 devices of same model are connected */
-  occurrenceNumber: number;
+  siblingIndex: number;
 
   /* 'input' | 'output' */
   // eslint-disable-next-line @typescript-eslint/prefer-as-const
@@ -22,10 +22,10 @@ export class VirtualOutput implements Port {
   /* the port */
   port: Output;
 
-  constructor(occurrenceNumber: number, name: string) {
-    this.index = occurrenceNumber;
+  constructor(siblingIndex: number, name: string) {
+    this.index = siblingIndex;
     this.name = name;
-    this.occurrenceNumber = occurrenceNumber;
+    this.siblingIndex = siblingIndex;
 
     this.port = new Output();
   }
@@ -52,5 +52,9 @@ export class VirtualOutput implements Port {
   /* Carryover from `Port`. Throws if called */
   onMessage() {
     throw new Error('onMessage called on VirtualOutput');
+  }
+
+  isPortOpen() {
+    return this.port.isPortOpen();
   }
 }

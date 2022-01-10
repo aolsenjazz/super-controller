@@ -2,42 +2,37 @@
  * Basic information used to identify a port
  */
 export type PortIdentifier = {
-  /* `${name} ${occurrenceNumber}` */
-  id: string;
+  /* `${name} ${siblingIndex}` */
+  readonly id: string;
 
   /* Device-reported name */
-  name: string;
+  readonly name: string;
 
   /* nth-occurrence of device. Relevant when >1 devices of same model are connected */
-  occurrenceNumber: number;
+  siblingIndex: number;
 };
 
 /**
  * Contains identifying information and connection status. useful for describing
  * devices which are configured, but not connected
  */
-export class PortInfo implements PortIdentifier {
-  /* `${name} ${occurrenceNumber}` */
-  id: string;
-
+export class PortInfo {
   /* Device-reported name */
   name: string;
 
   /* nth-occurrence of device. Relevant when >1 devices of same model are connected */
-  occurrenceNumber: number;
+  siblingIndex: number;
 
   /* is a device with matching ID connected? */
   connected: boolean;
 
-  constructor(
-    id: string,
-    name: string,
-    occurrenceNumber: number,
-    connected: boolean
-  ) {
-    this.id = id;
+  constructor(name: string, siblingIndex: number, connected: boolean) {
     this.name = name;
-    this.occurrenceNumber = occurrenceNumber;
+    this.siblingIndex = siblingIndex;
     this.connected = connected;
+  }
+
+  get id() {
+    return `${this.name} ${this.siblingIndex}`;
   }
 }

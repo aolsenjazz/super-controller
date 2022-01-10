@@ -3,49 +3,32 @@ import { MidiValue, MidiMessage } from 'midi-message-parser';
 import { DeviceConfig } from './device-config';
 import { inputIdFor } from '../device-util';
 
-export class AnonymousDeviceConfig implements DeviceConfig {
-  readonly supported = false;
-
-  readonly id: string;
-
-  readonly name: string;
-
-  readonly occurrenceNumber: number;
-
+export class AnonymousDeviceConfig extends DeviceConfig {
   readonly overrides: Map<string, MidiValue[]>;
-
-  readonly keyboardDriver = undefined;
-
-  readonly shareSustain = [];
-
-  /* User-defined nickname */
-  #nickname?: string;
 
   /* eslint-disable-next-line */
   static fromParsedJSON(obj: any) {
     const overrides = new Map<string, MidiValue[]>(obj.overrides);
 
     return new AnonymousDeviceConfig(
-      obj.id,
       obj.name,
-      obj.occurrenceNumber,
+      obj.siblingIndex,
       overrides,
+      obj.shareSustain,
       obj.nickname
     );
   }
 
   constructor(
-    id: string,
     name: string,
-    occurrenceNumber: number,
+    siblingIndex: number,
     overrides: Map<string, MidiValue[]>,
+    shareSustain: string[],
     nickname?: string
   ) {
-    this.id = id;
-    this.name = name;
-    this.occurrenceNumber = occurrenceNumber;
+    super(name, siblingIndex, false, shareSustain, nickname);
+
     this.overrides = overrides;
-    this.#nickname = nickname;
   }
 
   /**
@@ -70,19 +53,10 @@ export class AnonymousDeviceConfig implements DeviceConfig {
 
   toJSON() {
     return JSON.stringify({
-      id: this.id,
       name: this.name,
-      occurrenceNumber: this.occurrenceNumber,
+      siblingIndex: this.siblingIndex,
       nickname: this.nickname,
       overrides: Array.from(this.overrides.entries()),
     });
-  }
-
-  get nickname() {
-    return this.#nickname !== undefined ? this.#nickname : this.name;
-  }
-
-  set nickname(nickname: string) {
-    this.#nickname = nickname;
   }
 }

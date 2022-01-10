@@ -1,4 +1,5 @@
 import { MidiValue } from 'midi-message-parser';
+import randomstring from 'randomstring';
 
 import { Port } from './port';
 
@@ -11,9 +12,12 @@ export class PortPair {
 
   oPort: Port | null;
 
+  connectionId: string;
+
   constructor(iPort: Port | null, oPort: Port | null) {
     this.iPort = iPort;
     this.oPort = oPort;
+    this.connectionId = randomstring.generate();
   }
 
   /**
@@ -48,11 +52,21 @@ export class PortPair {
     }
   }
 
+  isPortOpen() {
+    const open =
+      this.iPort != null ? this.iPort.isPortOpen() : this.oPort?.isPortOpen();
+
+    if (open === undefined)
+      throw new Error(`isPortOpen should not be undefined`);
+
+    return open;
+  }
+
   equals(other: PortPair) {
     if (this.hasInput !== other.hasInput) return false;
     if (this.hasOutput !== other.hasOutput) return false;
     if (this.name !== other.name) return false;
-    if (this.occurrenceNumber !== other.occurrenceNumber) return false;
+    if (this.siblingIndex !== other.siblingIndex) return false;
     return true;
   }
 
@@ -73,11 +87,9 @@ export class PortPair {
     return name;
   }
 
-  get occurrenceNumber() {
+  get siblingIndex() {
     const occurNum =
-      this.iPort !== null
-        ? this.iPort.occurrenceNumber
-        : this.oPort?.occurrenceNumber;
+      this.iPort !== null ? this.iPort.siblingIndex : this.oPort?.siblingIndex;
 
     if (occurNum === undefined)
       throw new Error(`occurNum should not be undefined`);
@@ -86,6 +98,6 @@ export class PortPair {
   }
 
   get id() {
-    return `${this.name} ${this.occurrenceNumber}`;
+    return `${this.name} ${this.siblingIndex}`;
   }
 }

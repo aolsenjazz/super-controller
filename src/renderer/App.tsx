@@ -56,7 +56,13 @@ export default function App() {
 
   // Listen to changes to available MIDI ports
   useEffect(() => {
-    const cb = (_e: Event, pairs: PortInfo[]) => setPorts(pairs);
+    const cb = (_e: Event, pairs: PortInfo[]) => {
+      setPorts(
+        pairs.map(
+          (port) => new PortInfo(port.name, port.siblingIndex, port.connected)
+        )
+      );
+    };
     const unsubscribe = ipcRenderer.on('ports', cb);
     portService.requestPorts();
 
@@ -77,8 +83,7 @@ export default function App() {
           throw new Error(`Unable to located driver for ${portInfo.name}`);
 
         device = SupportedDeviceConfig.fromDriver(
-          portInfo.id,
-          portInfo.occurrenceNumber,
+          portInfo.siblingIndex,
           driver
         );
       } else {
@@ -87,10 +92,10 @@ export default function App() {
           portInfo === undefined
             ? null
             : new AnonymousDeviceConfig(
-                portInfo.id,
                 portInfo.name,
-                portInfo.occurrenceNumber,
-                new Map()
+                portInfo.siblingIndex,
+                new Map(),
+                []
               );
       }
     }

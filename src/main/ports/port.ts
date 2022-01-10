@@ -4,7 +4,7 @@ import midi from 'midi';
 export class Port {
   index: number;
 
-  occurrenceNumber: number;
+  siblingIndex: number;
 
   type: 'input' | 'output';
 
@@ -14,12 +14,12 @@ export class Port {
 
   constructor(
     index: number,
-    occurrenceNumber: number,
+    siblingIndex: number,
     type: 'input' | 'output',
     name: string
   ) {
     this.index = index;
-    this.occurrenceNumber = occurrenceNumber;
+    this.siblingIndex = siblingIndex;
     this.type = type;
     this.name = name;
     this.port = type === 'input' ? new midi.Input() : new midi.Output();
@@ -43,5 +43,9 @@ export class Port {
     if (this.port instanceof midi.Input) {
       this.port.on('message', cb);
     }
+  }
+
+  isPortOpen() {
+    return this.port.isPortOpen();
   }
 }

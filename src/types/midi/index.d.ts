@@ -11,6 +11,7 @@ declare module 'midi' {
       cb: (deltaTime: number, message: number[]) => void
     ) => void;
     openVirtualPort: (name: string) => void;
+    isPortOpen: () => boolean;
   }
 
   export class Output {
@@ -20,5 +21,6 @@ declare module 'midi' {
     closePort: () => void;
     openVirtualPort: (name: string) => void;
     sendMessage: (message: number[]) => void;
+    isPortOpen: () => boolean;
   }
 }

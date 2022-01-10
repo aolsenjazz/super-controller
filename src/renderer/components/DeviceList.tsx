@@ -35,10 +35,7 @@ function sortPorts(
     .filter((config) => {
       return portInfos.filter((info) => info.id === config.id).length > 0;
     })
-    .map(
-      (config) =>
-        new PortInfo(config.id, config.nickname, config.occurrenceNumber, true)
-    );
+    .map((config) => new PortInfo(config.name, config.siblingIndex, true));
   connectedConfigured.sort(sortAlg);
 
   // find and sort connected, but unconfigured, devices
@@ -52,10 +49,7 @@ function sortPorts(
     .filter((config) => {
       return portInfos.filter((info) => info.id === config.id).length === 0;
     })
-    .map(
-      (config) =>
-        new PortInfo(config.id, config.nickname, config.occurrenceNumber, false)
-    );
+    .map((config) => new PortInfo(config.name, config.siblingIndex, false));
   unconnectedConfigured.sort(sortAlg);
 
   return connectedConfigured
@@ -111,7 +105,7 @@ export default function DeviceList(props: PropTypes) {
 
   // Assemble the JSX for device list
   const elements = sorted.map((info) => {
-    const configured = project.getDevice(info.id) !== null;
+    const config = project.getDevice(info.id);
     let driver = drivers.get(info.name);
     if (!driver) driver = anonymousDriver;
 
@@ -123,9 +117,10 @@ export default function DeviceList(props: PropTypes) {
         onClick={() => setSelectedId(info.id)}
         active={selectedId === info.id}
         connected={info.connected}
-        configured={configured}
+        configured={config !== null}
         name={info.name}
-        occurenceNumber={info.occurrenceNumber}
+        nickname={config?.nickname}
+        siblingIndex={info.siblingIndex}
       />
     );
   });

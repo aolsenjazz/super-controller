@@ -7,33 +7,9 @@ import { DeviceConfig } from './device-config';
 import { InputConfig } from './input-config';
 
 /* Contains device-specific configurations and managed `InputConfig`s */
-export class SupportedDeviceConfig implements DeviceConfig {
-  /* Does the device have a driver? */
-  readonly supported = true;
-
-  /* The device-reported name */
-  readonly name: string;
-
-  /* `${name} ${occurrenceNumber}` */
-  id: string;
-
-  /**
-   * List of devices with which sustain events are shared.
-   *
-   * Sharing a sustain event means that whenever a sustain message is received
-   * on this device, a sustain event will also be sent to clients from the shared
-   * devices, on the same channel as their respective keyboards.
-   */
-  shareSustain: string[];
-
+export class SupportedDeviceConfig extends DeviceConfig {
   /* See `InputConfig` */
   inputs: InputConfig[];
-
-  /* The nth-occurence of this device. Only relevant when >1 device of same model is connected */
-  #occurrenceNumber: number;
-
-  /* User-defined nickname */
-  #nickname?: string;
 
   /* See `KeyboardDriver` */
   keyboardDriver?: KeyboardDriver;
@@ -41,16 +17,11 @@ export class SupportedDeviceConfig implements DeviceConfig {
   /**
    * Constructs a new instance of SupportedDeviceConfig from DeviceDriver.
    *
-   * @param id The id of the device's port
-   * @param occurrencenumber The nth-occurence of this device. Relevant when >1 device of same model is connected
+   * @param siblingIndex The nth-occurrence of this device. Relevant when >1 device of same model is connected
    * @param driver The driver
    * @returns a new instance of SupportedDeviceConfig
    */
-  static fromDriver(
-    id: string,
-    occurrenceNumber: number,
-    driver: DeviceDriver
-  ) {
+  static fromDriver(siblingIndex: number, driver: DeviceDriver) {
     const inputs = driver.inputGrids
       .map((grid) => grid.inputs)
       .flat()
@@ -58,9 +29,8 @@ export class SupportedDeviceConfig implements DeviceConfig {
       .map((d) => InputConfig.fromDriver(d));
 
     const newConfig = new SupportedDeviceConfig(
-      id,
       driver.name,
-      occurrenceNumber,
+      siblingIndex,
       [],
       inputs,
       undefined,
@@ -83,9 +53,8 @@ export class SupportedDeviceConfig implements DeviceConfig {
     );
 
     const newDevice = new SupportedDeviceConfig(
-      parsed.id,
       parsed.name,
-      parsed.occurrenceNumber,
+      parsed.siblingIndex,
       parsed.shareSustain,
       inputs,
       parsed.nickname,
@@ -96,20 +65,15 @@ export class SupportedDeviceConfig implements DeviceConfig {
   }
 
   constructor(
-    id: string,
     name: string,
-    occurrenceNumber: number,
+    siblingIndex: number,
     shareSustain: string[],
     inputs: InputConfig[],
     nickname?: string,
     keyboardDriver?: KeyboardDriver
   ) {
-    this.id = id;
-    this.name = name;
-    this.#occurrenceNumber = occurrenceNumber;
-    this.shareSustain = shareSustain;
+    super(name, siblingIndex, true, shareSustain, nickname);
     this.inputs = inputs;
-    this.#nickname = nickname;
     this.keyboardDriver = keyboardDriver;
   }
 
@@ -138,35 +102,6 @@ export class SupportedDeviceConfig implements DeviceConfig {
   }
 
   /**
-   * Is this device currently sharing sustain events with the given device?
-   *
-   * @param id The id of the other device
-   * @returns You know
-   */
-  sharingWith(id: string) {
-    return this.shareSustain.includes(id);
-  }
-
-  /**
-   * Shares sustain events with the given device
-   *
-   * @param id The id of the other device
-   */
-  shareWith(id: string) {
-    this.shareSustain.push(id);
-  }
-
-  /**
-   * Stops sharing sustain events with the given device
-   *
-   * @param id The id of the other device
-   */
-  stopSharing(id: string) {
-    const idx = this.shareSustain.indexOf(id);
-    this.shareSustain.splice(idx, 1);
-  }
-
-  /**
    * Get an input by id
    *
    * @param id The ID of the requested input
@@ -191,7 +126,7 @@ export class SupportedDeviceConfig implements DeviceConfig {
   toJSON(includeState: boolean) {
     const obj = {
       supported: this.supported,
-      occurrenceNumber: this.occurrenceNumber,
+      siblingIndex: this.siblingIndex,
       id: this.id,
       name: this.name,
       shareSustain: this.shareSustain,
@@ -219,22 +154,5 @@ export class SupportedDeviceConfig implements DeviceConfig {
     if (input !== undefined) return input.handleMessage(message);
 
     return [null, message]; // if no input config, just propagate the message
-  }
-
-  get nickname() {
-    return this.#nickname !== undefined ? this.#nickname : this.name;
-  }
-
-  set nickname(nickname: string) {
-    this.#nickname = nickname;
-  }
-
-  get occurrenceNumber() {
-    return this.#occurrenceNumber;
-  }
-
-  set occurrenceNumber(occurrenceNumber: number) {
-    this.#occurrenceNumber = occurrenceNumber;
-    this.id = `${this.name} ${occurrenceNumber}`;
   }
 }

@@ -1,8 +1,7 @@
-import { MidiMessage, MidiValue } from 'midi-message-parser';
+import { MidiMessage } from 'midi-message-parser';
 
 import { DeviceDriver } from '@shared/driver-types';
 
-import { Port } from './port';
 import { PortPair } from './port-pair';
 import { DRIVERS } from '../drivers';
 
@@ -11,7 +10,7 @@ import { DRIVERS } from '../drivers';
  * on devices to their initial state without having to know a device's configuration
  * (if it has any).
  */
-export class DrivenPortPair implements PortPair {
+export class DrivenPortPair extends PortPair {
   /* The actual PortPair */
   #pair: PortPair;
 
@@ -19,21 +18,9 @@ export class DrivenPortPair implements PortPair {
   driver?: DeviceDriver;
 
   constructor(pair: PortPair) {
+    super(pair.iPort, pair.oPort);
     this.#pair = pair;
     this.driver = DRIVERS.get(pair.name);
-
-    this.iPort = pair.iPort;
-    this.oPort = pair.oPort;
-    this.open = pair.open;
-    this.close = pair.close;
-    this.send = pair.send;
-    this.onMessage = pair.onMessage;
-    this.equals = pair.equals;
-    this.id = pair.id;
-    this.occurrenceNumber = pair.occurrenceNumber;
-    this.hasInput = pair.hasInput;
-    this.hasOutput = pair.hasOutput;
-    this.name = pair.name;
   }
 
   /* Reset all of the lights on the device to their initial state. */
@@ -76,40 +63,4 @@ export class DrivenPortPair implements PortPair {
       });
     }
   }
-
-  /* See `PortPair` */
-  id: string;
-
-  /* See `PortPair` */
-  occurrenceNumber: number;
-
-  /* See `PortPair` */
-  hasInput: boolean;
-
-  /* See `PortPair` */
-  hasOutput: boolean;
-
-  /* See `PortPair` */
-  name: string;
-
-  /* See `PortPair` */
-  iPort: null | Port;
-
-  /* See `PortPair` */
-  oPort: null | Port;
-
-  /* See `PortPair` */
-  open: () => void;
-
-  /* See `PortPair` */
-  close: () => void;
-
-  /* See `PortPair` */
-  send: (msg: MidiValue[]) => void;
-
-  /* See `PortPair` */
-  onMessage: (cb: (delta: number, msg: number[]) => void) => void;
-
-  /* See `PortPair` */
-  equals: (other: PortPair) => boolean;
 }
