@@ -66,7 +66,7 @@ test('to and from JSON correct transfers device config', () => {
   const json = proj.toJSON(true);
   const result = Project.fromJSON(json);
 
-  expect(result.devices[0].id).toBe('APC');
+  expect(result.devices[0].id).toBe('APC Key 25 0');
 });
 
 test('to and from JSON correctly transfers input configs', () => {
