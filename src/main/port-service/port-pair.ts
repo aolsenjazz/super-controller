@@ -39,7 +39,7 @@ export class PortPair {
   /**
    * Send a message through the output port. If output port is null, does nothing.
    */
-  send(msg: MidiValue[]) {
+  send(msg: number[]) {
     if (this.oPort !== null) this.oPort.send(msg);
   }
 

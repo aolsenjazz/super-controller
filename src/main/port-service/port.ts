@@ -33,7 +33,7 @@ export class Port {
     this.port.closePort();
   }
 
-  send(msg: MidiValue[]) {
+  send(msg: number[]) {
     if (this.port instanceof midi.Output) {
       this.port.sendMessage(msg);
     }

@@ -58,7 +58,7 @@ export class VirtualPortService {
    * @param msg The message to send
    * @param id The virtual port ID
    */
-  send(msg: MidiValue[], id: string) {
+  send(msg: number[], id: string) {
     this.ports.get(id)?.send(msg);
   }
 }
