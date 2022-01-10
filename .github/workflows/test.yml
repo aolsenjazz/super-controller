@@ -19,9 +19,9 @@ jobs:
         with:
           node-version: 16
 
-      - name: run post-clone
+      - name: run install
         run: |
-          npm run post-clone
+          npm i
 
       - name: npm test
         env:
