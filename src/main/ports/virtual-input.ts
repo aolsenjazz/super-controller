@@ -38,7 +38,7 @@ export class VirtualInput implements Port {
 
   /* opens the port */
   open() {
-    this.port.openVirtualPort(this.name);
+    this.port.openVirtualPort(this.displayName);
   }
 
   /* closes the port */
@@ -62,5 +62,11 @@ export class VirtualInput implements Port {
 
   isPortOpen() {
     return this.port.isPortOpen();
+  }
+
+  get displayName() {
+    return this.siblingIndex === 0
+      ? `SC ${this.name}`
+      : `SC ${this.name} (${this.siblingIndex})`;
   }
 }

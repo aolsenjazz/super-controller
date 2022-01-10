@@ -59,11 +59,18 @@ function parsePorts(
   return ports;
 }
 
-export function all() {
+export function all(omitSCPorts = true) {
   const iPorts = parsePorts(INPUT, 'input');
   const oPorts = parsePorts(OUTPUT, 'output');
   const portMap = new Map<string, PortPair>();
   createPairsAndAddToDevices(iPorts, oPorts, portMap);
   createPairsAndAddToDevices(oPorts, iPorts, portMap);
-  return Array.from(portMap.values());
+
+  if (omitSCPorts) {
+    portMap.forEach((_value, key, map) => {
+      if (key.startsWith('SC ')) map.delete(key);
+    });
+  }
+
+  return portMap;
 }
