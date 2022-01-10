@@ -5,7 +5,7 @@ import {
   EventType,
 } from 'midi-message-parser';
 
-import { inputIdFor, msgForColor } from '../device-util';
+import { inputIdFor, msgForColor } from '../util';
 import { Propagator } from '../propagators/propagator';
 import { OutputPropagator } from '../propagators/output-propagator';
 import { NullPropagator } from '../propagators/null-propagator';
@@ -413,9 +413,9 @@ export class InputConfig {
 
   get id() {
     return inputIdFor(
-      this.default.number,
+      this.default.eventType,
       this.default.channel,
-      this.default.eventType
+      this.default.number
     );
   }
 

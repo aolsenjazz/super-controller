@@ -1,6 +1,6 @@
-import { MidiMessage, MidiValue, Channel } from 'midi-message-parser';
+import { MidiValue, Channel } from 'midi-message-parser';
 
-import { inputIdFor } from '../device-util';
+import { inputIdFor } from '../util';
 import { DeviceDriver, KeyboardDriver } from '../driver-types';
 
 import { DeviceConfig } from './device-config';
@@ -125,14 +125,14 @@ export class SupportedDeviceConfig extends DeviceConfig {
    */
   toJSON(includeState: boolean) {
     const obj = {
-      supported: this.supported,
-      siblingIndex: this.siblingIndex,
       id: this.id,
       name: this.name,
-      shareSustain: this.shareSustain,
+      siblingIndex: this.siblingIndex,
       nickname: this.nickname,
-      inputs: this.inputs.map((input) => input.toJSON(includeState)),
+      supported: this.supported,
+      shareSustain: this.shareSustain,
       keyboardDriver: this.keyboardDriver,
+      inputs: this.inputs.map((input) => input.toJSON(includeState)),
     };
 
     return JSON.stringify(obj);
@@ -142,17 +142,15 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * Tries to pass the message to an `InputConfig`. If no matching `InputConfig`s,
    * send a propagates the message and sends nothing to device.
    *
+   * TODO: doesn't feel righ tthat we're accepting null here
+   *
    * @param message The MidiValue[] from device
    * @returns [messageToDevice | null, messageToPropagate]
    */
   handleMessage(message: MidiValue[]): (MidiValue[] | null)[] {
-    const mm = new MidiMessage(message, 0);
-    const id = inputIdFor(mm.number, mm.channel, mm.type);
-
+    const id = inputIdFor(message);
     const input = this.getInput(id);
 
-    if (input !== undefined) return input.handleMessage(message);
-
-    return [null, message]; // if no input config, just propagate the message
+    return input !== undefined ? input.handleMessage(message) : [null, message];
   }
 }

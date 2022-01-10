@@ -40,9 +40,3 @@ export function projectFromFile(filePath: string) {
   const jsonString = fs.readFileSync(filePath, 'utf8');
   return Project.fromJSON(jsonString);
 }
-
-export function getDiff(l1: string[], l2: string[]) {
-  const ex1 = l1.filter((str) => !l2.includes(str));
-  const ex2 = l2.filter((str) => !l1.includes(str));
-  return [ex1, ex2];
-}

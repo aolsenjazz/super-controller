@@ -1,4 +1,4 @@
-import { MidiValue, MidiMessage } from 'midi-message-parser';
+import { MidiMessage } from 'midi-message-parser';
 
 import { isOnMessage } from '../util';
 
@@ -49,7 +49,7 @@ export abstract class Propagator {
    * @param msg Message from device to respond to
    * @returns The message to propagate
    */
-  handleMessage(msg: MidiValue[]) {
+  handleMessage(msg: number[]) {
     let toPropagate: MidiMessage | null = null;
 
     switch (this.inputResponse) {
@@ -81,9 +81,9 @@ export abstract class Propagator {
    * @param msg The message from device
    * @returns the message to propagate
    */
-  #handleInputAsGate = (msg: MidiValue[]) => {
+  #handleInputAsGate = (msg: number[]) => {
     // if outputResponse === 'toggle' | 'constant', only respond to 'noteon' messages
-    if (this.outputResponse !== 'gate' && !isOnMessage(msg)) return null;
+    if (this.outputResponse !== 'gate' && !isOnMessage(msg, true)) return null;
 
     return this.getResponse(msg);
   };
@@ -94,7 +94,7 @@ export abstract class Propagator {
    * @param msg The message from device
    * @returns the message to propagate
    */
-  #handleInputAsToggle = (msg: MidiValue[]) => {
+  #handleInputAsToggle = (msg: number[]) => {
     return this.getResponse(msg);
   };
 
@@ -104,7 +104,7 @@ export abstract class Propagator {
    * @param msg The message from device
    * @returns the message to propagate
    */
-  #handleInputAsContinuous = (msg: MidiValue[]) => {
+  #handleInputAsContinuous = (msg: number[]) => {
     return this.getResponse(msg);
   };
 
@@ -114,11 +114,11 @@ export abstract class Propagator {
    * @param msg The message from device
    * @returns the message to propagate
    */
-  #handleInputAsConstant = (msg: MidiValue[]) => {
+  #handleInputAsConstant = (msg: number[]) => {
     return this.getResponse(msg);
   };
 
-  protected abstract getResponse(msg: MidiValue[]): MidiMessage | null;
+  protected abstract getResponse(msg: number[]): MidiMessage | null;
 
   abstract get eligibleStates(): string[];
 

@@ -159,22 +159,22 @@ declare module 'midi-message-parser' {
     | 'octup';
 
   export class MidiMessage {
-    constructor(rawMidiData: MidiValue[], timestamp: number);
+    constructor(rawMidiData: number[], timestamp: number);
     constructor(
-      type: string,
+      type: EventType,
       number: MidiValue,
-      value: number,
+      value: MidiValue,
       channel: Channel,
       timestamp: number
     );
 
-    type: string;
+    type: EventType;
 
     channel: Channel;
 
     number: MidiValue;
 
-    value: number;
+    value: MidiValue;
 
     timestamp: number;
 

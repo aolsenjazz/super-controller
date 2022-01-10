@@ -1,136 +1,80 @@
-import { MidiValue, MidiMessage } from 'midi-message-parser';
+import {
+  MidiValue,
+  MidiMessage,
+  Channel,
+  EventType,
+} from 'midi-message-parser';
+import { Color } from './driver-types';
 
-/* Mapping between MIDI values and human-readable strings */
-const NOTE_BINDINGS = new Map([
-  [0, 'C-2'],
-  [1, 'C#-2'],
-  [2, 'D-2'],
-  [3, 'D#-2'],
-  [4, 'E-2'],
-  [5, 'F-2'],
-  [6, 'F#-2'],
-  [7, 'G-2'],
-  [8, 'G#-2'],
-  [9, 'A-2'],
-  [10, 'A#-2'],
-  [11, 'B-2'],
-  [12, 'C-1'],
-  [13, 'C#-1'],
-  [14, 'D-1'],
-  [15, 'D#-1'],
-  [16, 'E-1'],
-  [17, 'F-1'],
-  [18, 'F#-1'],
-  [19, 'G-1'],
-  [20, 'G#-1'],
-  [21, 'A-1'],
-  [22, 'A#-1'],
-  [23, 'B-1'],
-  [24, 'C0'],
-  [25, 'C#0'],
-  [26, 'D0'],
-  [27, 'D#0'],
-  [28, 'E0'],
-  [29, 'F0'],
-  [30, 'F#0'],
-  [31, 'G0'],
-  [32, 'G#0'],
-  [33, 'A0'],
-  [34, 'A#0'],
-  [35, 'B0'],
-  [36, 'C1'],
-  [37, 'C#1'],
-  [38, 'D1'],
-  [39, 'D#1'],
-  [40, 'E1'],
-  [41, 'F1'],
-  [42, 'F#1'],
-  [43, 'G1'],
-  [44, 'G#1'],
-  [45, 'A1'],
-  [46, 'A#1'],
-  [47, 'B1'],
-  [48, 'C2'],
-  [49, 'C#2'],
-  [50, 'D2'],
-  [51, 'D#2'],
-  [52, 'E2'],
-  [53, 'F2'],
-  [54, 'F#2'],
-  [55, 'G2'],
-  [56, 'G#2'],
-  [57, 'A2'],
-  [58, 'A#2'],
-  [59, 'B2'],
-  [60, 'Middle C'],
-  [61, 'C#3'],
-  [62, 'D3'],
-  [63, 'D#3'],
-  [64, 'E3'],
-  [65, 'F3'],
-  [66, 'F#3'],
-  [67, 'G3'],
-  [68, 'G#3'],
-  [69, 'A3'],
-  [70, 'A#3'],
-  [71, 'B3'],
-  [72, 'C'],
-  [73, 'C#4'],
-  [74, 'D4'],
-  [75, 'D#4'],
-  [76, 'E4'],
-  [77, 'F4'],
-  [78, 'F#4'],
-  [79, 'G4'],
-  [80, 'G#4'],
-  [81, 'A4'],
-  [82, 'A#4'],
-  [83, 'B4'],
-  [84, 'C5'],
-  [85, 'C#5'],
-  [86, 'D5'],
-  [87, 'D#5'],
-  [88, 'E5'],
-  [89, 'F5'],
-  [90, 'F#5'],
-  [91, 'G5'],
-  [92, 'G#5'],
-  [93, 'A5'],
-  [94, 'A#5'],
-  [95, 'B5'],
-  [96, 'C6'],
-  [97, 'C#6'],
-  [98, 'D6'],
-  [99, 'D#6'],
-  [100, 'E6'],
-  [101, 'F6'],
-  [102, 'F#6'],
-  [103, 'G6'],
-  [104, 'G#6'],
-  [105, 'A6'],
-  [106, 'A#6'],
-  [107, 'B6'],
-  [108, 'C7'],
-  [109, 'C#7'],
-  [110, 'D7'],
-  [111, 'D#7'],
-  [112, 'E7'],
-  [113, 'F7'],
-  [114, 'F#7'],
-  [115, 'G7'],
-  [116, 'G#7'],
-  [117, 'A7'],
-  [118, 'A#7'],
-  [119, 'B7'],
-  [120, 'C8'],
-  [121, 'C#8'],
-  [122, 'D8'],
-  [123, 'D#8'],
-  [124, 'E8'],
-  [125, 'F8'],
-  [126, 'G8'],
-  [127, 'G#8'],
-]);
+function inputIdForPitchbend(channel?: Channel) {
+  if (channel === undefined) throw new Error('channel must not be undefined');
+  return `pitchbend.${channel}`;
+}
+
+export function getDiff(l1: string[], l2: string[]) {
+  const ex1 = l1.filter((str) => !l2.includes(str));
+  const ex2 = l2.filter((str) => !l1.includes(str));
+  return [ex1, ex2];
+}
+
+/**
+ * Return the input id for the given details. Used by both `InputConfig` and `VirtualInput`s
+ *
+ * @param eventType EventType, MidiMessage, or midi array
+ * @param channel The MIDI channel, or undefined if eventType === (MidiMessage | array)
+ * @param number The midi number if exists or undefined if eventType === (MidiMessage | array)
+ * @returns The ID of the input
+ */
+export function inputIdFor(
+  eventType: EventType | MidiMessage | number[],
+  channel?: Channel,
+  number?: MidiValue
+): string {
+  let e: EventType | 'noteon/notoff';
+  let c: Channel | undefined;
+  let n: MidiValue | undefined;
+
+  if (Array.isArray(eventType)) {
+    const mm = new MidiMessage(eventType, 0);
+    return inputIdFor(mm);
+  }
+
+  if (eventType instanceof MidiMessage) {
+    n = eventType.number;
+    c = eventType.channel;
+    e = ['noteon', 'noteoff'].includes(eventType.type)
+      ? 'noteon/noteoff'
+      : eventType.type;
+  } else {
+    n = number;
+    c = channel;
+    e = ['noteon', 'noteoff'].includes(eventType)
+      ? 'noteon/noteoff'
+      : eventType;
+  }
+
+  if (e === 'pitchbend') return inputIdForPitchbend(c);
+
+  if (c === undefined || n === undefined)
+    throw new Error('channel and number must not be undefined');
+
+  return `${e}.${c}.${n}`;
+}
+
+/**
+ * Returns the message to be send to devices in order to trigger the given color.
+ *
+ * TODO: I don't like that we're accepting undefined here
+ *
+ * @param number The MIDI number
+ * @param channel The MIDI channel
+ * @param c The color to set
+ * @returns A `MidiMessage` which can be used to trigger the color
+ */
+export function msgForColor(number: MidiValue, channel: Channel, c?: Color) {
+  if (!c) return undefined;
+  return new MidiMessage(c.eventType, number, c.value, channel, 0);
+}
 
 /**
  * Is this a sustain message?
@@ -144,38 +88,19 @@ export function isSustain(msg: MidiValue[]) {
 }
 
 /**
- * Returns a human-readable string value for the given MIDI value
+ * Generally speaking, is this message and 'on' message? If message doesn't have
+ * a clear notion of on-ness (programchange), return `default`
  *
- * @param midiInt The MIDI number
- * @returns Human-readable note string
- */
-export function stringVal(midiInt: MidiValue) {
-  const str = NOTE_BINDINGS.get(midiInt);
-
-  if (str === undefined) throw new Error(`bad MIDI value [${midiInt}]`);
-
-  return str;
-}
-
-/**
- * Appends a .controller extension if necessary
- *
- * @param fileName The file name with or without '.controller'
- * @returns fileName File name with '.controller'
- */
-export function appendExtension(fileName: string) {
-  if (fileName.endsWith('.controller')) return fileName;
-
-  return `${fileName}.controller`;
-}
-
-/**
- * Generally speaking, is this message and 'on' message?
+ * TODO: I don't like that we're accepting undefined here
  *
  * @param msg The message
+ * @param msg The value to return if message type has no notion of on-ness
  * @returns `true` if message is on-ish
  */
-export function isOnMessage(msg: MidiMessage | MidiValue[] | undefined) {
+export function isOnMessage(
+  msg: MidiMessage | number[] | undefined,
+  def: boolean
+) {
   if (msg === undefined) return false;
 
   let mm;
@@ -190,7 +115,7 @@ export function isOnMessage(msg: MidiMessage | MidiValue[] | undefined) {
     case 'controlchange':
       return mm.value > 0;
     default:
-      throw new Error(`${mm} has no notion of 'on'/'off'`);
+      return def;
   }
 }
 
@@ -326,6 +251,138 @@ export const CC_BINDINGS = new Map<number, string>([
   [127, 'Poly Mode'],
 ]);
 
+/* Mapping between MIDI values and human-readable strings */
+const NOTE_BINDINGS = new Map([
+  [0, 'C-2'],
+  [1, 'C#-2'],
+  [2, 'D-2'],
+  [3, 'D#-2'],
+  [4, 'E-2'],
+  [5, 'F-2'],
+  [6, 'F#-2'],
+  [7, 'G-2'],
+  [8, 'G#-2'],
+  [9, 'A-2'],
+  [10, 'A#-2'],
+  [11, 'B-2'],
+  [12, 'C-1'],
+  [13, 'C#-1'],
+  [14, 'D-1'],
+  [15, 'D#-1'],
+  [16, 'E-1'],
+  [17, 'F-1'],
+  [18, 'F#-1'],
+  [19, 'G-1'],
+  [20, 'G#-1'],
+  [21, 'A-1'],
+  [22, 'A#-1'],
+  [23, 'B-1'],
+  [24, 'C0'],
+  [25, 'C#0'],
+  [26, 'D0'],
+  [27, 'D#0'],
+  [28, 'E0'],
+  [29, 'F0'],
+  [30, 'F#0'],
+  [31, 'G0'],
+  [32, 'G#0'],
+  [33, 'A0'],
+  [34, 'A#0'],
+  [35, 'B0'],
+  [36, 'C1'],
+  [37, 'C#1'],
+  [38, 'D1'],
+  [39, 'D#1'],
+  [40, 'E1'],
+  [41, 'F1'],
+  [42, 'F#1'],
+  [43, 'G1'],
+  [44, 'G#1'],
+  [45, 'A1'],
+  [46, 'A#1'],
+  [47, 'B1'],
+  [48, 'C2'],
+  [49, 'C#2'],
+  [50, 'D2'],
+  [51, 'D#2'],
+  [52, 'E2'],
+  [53, 'F2'],
+  [54, 'F#2'],
+  [55, 'G2'],
+  [56, 'G#2'],
+  [57, 'A2'],
+  [58, 'A#2'],
+  [59, 'B2'],
+  [60, 'Middle C'],
+  [61, 'C#3'],
+  [62, 'D3'],
+  [63, 'D#3'],
+  [64, 'E3'],
+  [65, 'F3'],
+  [66, 'F#3'],
+  [67, 'G3'],
+  [68, 'G#3'],
+  [69, 'A3'],
+  [70, 'A#3'],
+  [71, 'B3'],
+  [72, 'C'],
+  [73, 'C#4'],
+  [74, 'D4'],
+  [75, 'D#4'],
+  [76, 'E4'],
+  [77, 'F4'],
+  [78, 'F#4'],
+  [79, 'G4'],
+  [80, 'G#4'],
+  [81, 'A4'],
+  [82, 'A#4'],
+  [83, 'B4'],
+  [84, 'C5'],
+  [85, 'C#5'],
+  [86, 'D5'],
+  [87, 'D#5'],
+  [88, 'E5'],
+  [89, 'F5'],
+  [90, 'F#5'],
+  [91, 'G5'],
+  [92, 'G#5'],
+  [93, 'A5'],
+  [94, 'A#5'],
+  [95, 'B5'],
+  [96, 'C6'],
+  [97, 'C#6'],
+  [98, 'D6'],
+  [99, 'D#6'],
+  [100, 'E6'],
+  [101, 'F6'],
+  [102, 'F#6'],
+  [103, 'G6'],
+  [104, 'G#6'],
+  [105, 'A6'],
+  [106, 'A#6'],
+  [107, 'B6'],
+  [108, 'C7'],
+  [109, 'C#7'],
+  [110, 'D7'],
+  [111, 'D#7'],
+  [112, 'E7'],
+  [113, 'F7'],
+  [114, 'F#7'],
+  [115, 'G7'],
+  [116, 'G#7'],
+  [117, 'A7'],
+  [118, 'A#7'],
+  [119, 'B7'],
+  [120, 'C8'],
+  [121, 'C#8'],
+  [122, 'D8'],
+  [123, 'D#8'],
+  [124, 'E8'],
+  [125, 'F8'],
+  [126, 'G8'],
+  [127, 'G#8'],
+]);
+
 /* CC numbers which don't have a default interpretation */
 export const UNMAPPED_CC: MidiValue[] = [
   3, 9, 14, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 35, 41, 46, 47,
@@ -333,3 +390,17 @@ export const UNMAPPED_CC: MidiValue[] = [
   103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
   118, 119,
 ];
+
+/**
+ * Returns a human-readable string value for the given MIDI value
+ *
+ * @param midiInt The MIDI number
+ * @returns Human-readable note string
+ */
+export function stringVal(midiInt: MidiValue) {
+  const str = NOTE_BINDINGS.get(midiInt);
+
+  if (str === undefined) throw new Error(`bad MIDI value [${midiInt}]`);
+
+  return str;
+}

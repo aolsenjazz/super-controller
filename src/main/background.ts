@@ -20,7 +20,7 @@ import { windowService } from './window-service';
 import { DRIVERS } from './drivers';
 import { projectFromFile } from './util-main';
 import { SaveOpenService } from './save-open-service';
-import { PortService } from './ports/port-service';
+import { PortService } from './port-service';
 
 /**
  * Manages communications to/from controllers, and informs the front end.

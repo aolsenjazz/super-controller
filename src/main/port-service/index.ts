@@ -1,9 +1,8 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import { MidiValue, MidiMessage } from 'midi-message-parser';
 
-import { inputIdFor, msgForColor } from '@shared/device-util';
 import { Project } from '@shared/project';
-import { isSustain } from '@shared/util';
+import { isSustain, inputIdFor, msgForColor, getDiff } from '@shared/util';
 import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
 import { Color } from '@shared/driver-types';
 import { PortInfo } from '@shared/port-info';
@@ -13,7 +12,6 @@ import { all } from './port-manager';
 import { DrivenPortPair } from './driven-port-pair';
 import { windowService } from '../window-service';
 import { VirtualPortService } from './virtual-port-service';
-import { getDiff } from '../util-main';
 
 /**
  * Manages sending/receiving of messages to and from device, as well as syncing
@@ -201,7 +199,7 @@ export class PortService {
 
       // send new state to frontend
       const mm = new MidiMessage(msg, 0);
-      const id = inputIdFor(mm.number, mm.channel, mm.type);
+      const id = inputIdFor(mm);
       windowService.sendInputMsg(id, deviceOrNull.id, msg);
     }
   };

@@ -1,14 +1,12 @@
-import { MidiValue, MidiMessage } from 'midi-message-parser';
-
 import { DeviceConfig } from './device-config';
-import { inputIdFor } from '../device-util';
+import { inputIdFor } from '../util';
 
 export class AnonymousDeviceConfig extends DeviceConfig {
-  readonly overrides: Map<string, MidiValue[]>;
+  readonly overrides: Map<string, number[]>;
 
   /* eslint-disable-next-line */
   static fromParsedJSON(obj: any) {
-    const overrides = new Map<string, MidiValue[]>(obj.overrides);
+    const overrides = new Map<string, number[]>(obj.overrides);
 
     return new AnonymousDeviceConfig(
       obj.name,
@@ -22,7 +20,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
   constructor(
     name: string,
     siblingIndex: number,
-    overrides: Map<string, MidiValue[]>,
+    overrides: Map<string, number[]>,
     shareSustain: string[],
     nickname?: string
   ) {
@@ -35,27 +33,27 @@ export class AnonymousDeviceConfig extends DeviceConfig {
    * Tries to apply overrides. If no matching overrides available,
    * send a propagates the message and sends nothing to device.
    *
+   * TODO: doesn't feel right that we're accepting null here
+   *
    * @param message The MidiValue[] from device
    * @returns [messageToDevice | null, messageToPropagate]
    */
-  handleMessage(msg: MidiValue[] | null) {
+  handleMessage(msg: number[] | null) {
     if (msg === null) return [null, null];
 
-    const mm = new MidiMessage(msg, 0);
-    const override = this.overrides.get(
-      inputIdFor(mm.number, mm.channel, mm.type)
-    );
+    const id = inputIdFor(msg);
+    const override = this.overrides.get(id);
 
-    if (!override) return [null, msg];
-
-    return [null, override];
+    return [null, override || msg];
   }
 
   toJSON() {
     return JSON.stringify({
       name: this.name,
       siblingIndex: this.siblingIndex,
+      supported: this.supported,
       nickname: this.nickname,
+      shareSustain: this.shareSustain,
       overrides: Array.from(this.overrides.entries()),
     });
   }

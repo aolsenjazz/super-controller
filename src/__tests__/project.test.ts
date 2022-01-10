@@ -49,6 +49,22 @@ test('get() with nonexistent ID returns null', () => {
   expect(result).toBe(null);
 });
 
+test('get() with undefined ID returns null', () => {
+  const proj = new Project();
+  const device = SupportedDeviceConfig.fromDriver(0, APC_DRIVER!);
+  proj.addDevice(device);
+  const result = proj.getDevice(undefined);
+  expect(result).toBe(null);
+});
+
+test('get() with null ID returns null', () => {
+  const proj = new Project();
+  const device = SupportedDeviceConfig.fromDriver(0, APC_DRIVER!);
+  proj.addDevice(device);
+  const result = proj.getDevice(null);
+  expect(result).toBe(null);
+});
+
 test('toJSON() returns valid JSON', () => {
   const proj = new Project();
   const device = SupportedDeviceConfig.fromDriver(0, APC_DRIVER!);

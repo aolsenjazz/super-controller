@@ -1,7 +1,7 @@
 import { EventType, MidiValue, Channel } from 'midi-message-parser';
 
 import { InputDriver } from '@shared/driver-types';
-import { inputIdFor } from '@shared/device-util';
+import { inputIdFor } from '@shared/util';
 
 /**
  * Contains layout information to create a virtual representation of an input.
@@ -54,7 +54,7 @@ export class VirtualInput {
   }
 
   get id() {
-    return inputIdFor(this.#number, this.#channel, this.#eventType);
+    return inputIdFor(this.#eventType, this.#channel, this.#number);
   }
 
   get isPitchbend() {

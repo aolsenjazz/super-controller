@@ -45,40 +45,6 @@ function BasicSupportedDevice() {
   );
 }
 
-test('nickname returns device name when unset', () => {
-  const name = 'SomeName';
-  const shareSustain: string[] = [];
-  const inputConfigs: InputConfig[] = [];
-  const nickname = undefined;
-
-  const config = new SupportedDeviceConfig(
-    name,
-    0,
-    shareSustain,
-    inputConfigs,
-    nickname
-  );
-
-  expect(config.nickname).toBe(name);
-});
-
-test('nickname return nickname when set', () => {
-  const name = 'SomeName';
-  const shareSustain: string[] = [];
-  const inputConfigs: InputConfig[] = [];
-  const nickname = 'SomeNickname';
-
-  const config = new SupportedDeviceConfig(
-    name,
-    0,
-    shareSustain,
-    inputConfigs,
-    nickname
-  );
-
-  expect(config.nickname).toBe(nickname);
-});
-
 test('getInput throws for bad id', () => {
   const inputDefault = {
     channel: 0 as Channel,
@@ -201,16 +167,29 @@ test('bindingAvailable return true if binding is not taken', () => {
   expect(result).toBe(true);
 });
 
-test('shareWith and sharingWith effectively set and get', () => {
-  const otherDeviceId = 'some device';
-  const device = BasicSupportedDevice();
-  device.shareWith(otherDeviceId);
-  expect(device.sharingWith(otherDeviceId)).toBe(true);
-});
-
 test('handleMessage just propagates msgs when no matching inputConfig found', () => {
   const device = BasicSupportedDevice();
   const msg = new MidiMessage('noteon', 42, 127, 0, 0).toMidiArray();
   const result = device.handleMessage(msg);
   expect(result[1]).toStrictEqual(msg);
+});
+
+test('toJSON and fromParsedJSON correctly serializes + deserializes', () => {
+  const conf = BasicSupportedDevice();
+  const json = conf.toJSON(true);
+  const obj = JSON.parse(json);
+  const other = SupportedDeviceConfig.fromParsedJSON(obj);
+
+  expect(conf.id).toBe(other.id);
+  expect(conf.name).toBe(other.name);
+  expect(conf.siblingIndex).toBe(other.siblingIndex);
+  expect(conf.nickname).toBe(other.nickname);
+  expect(conf.supported).toBe(other.supported);
+  expect(JSON.stringify(conf.shareSustain)).toBe(
+    JSON.stringify(other.shareSustain)
+  );
+  expect(JSON.stringify(conf.keyboardDriver)).toBe(
+    JSON.stringify(other.keyboardDriver)
+  );
+  expect(JSON.stringify(conf.inputs)).toBe(JSON.stringify(other.inputs));
 });
