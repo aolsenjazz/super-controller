@@ -1,4 +1,3 @@
-import { MidiValue } from 'midi-message-parser';
 import randomstring from 'randomstring';
 
 import { Port } from './port';

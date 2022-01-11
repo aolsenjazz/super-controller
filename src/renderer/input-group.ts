@@ -1,6 +1,6 @@
 import { MidiValue, Channel, EventType } from 'midi-message-parser';
 
-import { Color } from '@shared/driver-types';
+import { Color, InputDefault } from '@shared/driver-types';
 import { InputConfig } from '@shared/hardware-config';
 import { CC_BINDINGS, stringVal } from '@shared/util';
 
@@ -14,6 +14,7 @@ import { CC_BINDINGS, stringVal } from '@shared/util';
 export class InputGroup {
   inputs: InputConfig[];
 
+  // TODO: I don't like that we're accepting undefined's here
   constructor(inputs: (InputConfig | undefined)[]) {
     this.inputs = inputs.filter((c) => c !== undefined) as InputConfig[];
   }
@@ -43,25 +44,23 @@ export class InputGroup {
     return `${n}${labelTitle}${isDefault ? ' [default]' : ''}`;
   }
 
-  labelForChannel(c: Channel) {
+  #labelFor = <T>(obj: T, defaultGetter: (inputDefault: InputDefault) => T) => {
     const nInputs = this.inputs.length;
-    const isDefault = nInputs === 1 && c === this.inputs[0].default.channel;
+    const isDefault =
+      nInputs === 1 && defaultGetter(this.inputs[0].default) === obj;
+    return `${obj}${isDefault ? ' [default]' : ''}`;
+  };
 
-    return `${c}${isDefault ? ' [default]' : ''}`;
+  labelForChannel(c: Channel) {
+    return this.#labelFor(c, (def) => def.channel);
   }
 
   labelForEventType(et: string) {
-    const nInputs = this.inputs.length;
-    const isDefault = nInputs === 1 && et === this.inputs[0].default.eventType;
-
-    return `${et}${isDefault ? ' [default]' : ''}`;
+    return this.#labelFor(et, (def) => def.eventType);
   }
 
-  labelForResponse(ps: string) {
-    const nInputs = this.inputs.length;
-    const isDefault = nInputs === 1 && ps === this.inputs[0].default.response;
-
-    return `${ps}${isDefault ? ' [default]' : ''}`;
+  labelForResponse(response: string) {
+    return this.#labelFor(response, (def) => def.response);
   }
 
   colorForState(state: string) {

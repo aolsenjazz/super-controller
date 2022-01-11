@@ -12,6 +12,9 @@ import { NullPropagator } from '../propagators/null-propagator';
 import { BinaryPropagator } from '../propagators/binary-propagator';
 import { InputDefault, Color, InputDriver } from '../driver-types';
 
+export type InputResponse = 'gate' | 'toggle' | 'linear' | 'constant';
+export type InputType = 'pad' | 'knob' | 'slider' | 'wheel' | 'xy';
+
 /**
  * Overrides the values which are propagated from devices. Default values remain
  * accessible via `InputConfig.default`.

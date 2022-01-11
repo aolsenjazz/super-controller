@@ -1,4 +1,3 @@
-import { MidiValue } from 'midi-message-parser';
 import midi from 'midi';
 
 export class Port {
