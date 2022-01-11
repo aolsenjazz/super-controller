@@ -22,7 +22,7 @@ export class PortService {
   #project: Project;
 
   /* List of available port pairs */
-  portPairs: Map<string, DrivenPortPair> = new Map();
+  portPairs: Map<string, PortPair> = new Map();
 
   /* See `VirtualPortService` */
   #virtService: VirtualPortService;
@@ -58,7 +58,7 @@ export class PortService {
     const config = this.#project.getDevice(deviceId);
 
     // if hardware is connected and configured in project, run initialization
-    if (pp && config) {
+    if (pp instanceof DrivenPortPair && config) {
       pp.runControlSequence(); // take control of midi device
       pp.resetLights(); // init default lights
 
@@ -126,7 +126,7 @@ export class PortService {
     this.#project = p;
 
     this.portPairs.forEach((pp) => {
-      pp.resetLights();
+      if (pp instanceof DrivenPortPair) pp.resetLights();
       pp.close();
     });
     this.portPairs.clear();
@@ -277,7 +277,7 @@ export class PortService {
       .map((pp) => pp.id);
     toUpdate.forEach((id) => {
       const freshPort = freshPorts.get(id);
-      if (freshPort) this.portPairs.set(id, new DrivenPortPair(freshPort));
+      if (freshPort) this.portPairs.set(id, freshPort);
     });
   };
 
@@ -292,7 +292,7 @@ export class PortService {
     toAdd
       .map((id) => freshPorts.get(id))
       .forEach((pp) => {
-        if (pp) this.portPairs.set(pp.id, new DrivenPortPair(pp));
+        if (pp) this.portPairs.set(pp.id, pp);
       });
   };
 

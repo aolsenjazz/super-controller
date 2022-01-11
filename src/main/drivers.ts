@@ -2,11 +2,10 @@
  * Contains a number of methods for accessing driver from their JSON files.
  * *SHOULD NOT BE CALLED FROM FRONTEND* as paths will vary.
  */
+import path from 'path';
+import fs from 'fs';
 
 import { DeviceDriver } from '@shared/driver-types';
-
-const path = require('path');
-const fs = require('fs');
 
 const fNameRegex = new RegExp(/^.+\.json$/);
 
@@ -38,7 +37,7 @@ function loadDriver(fileName: string): DeviceDriver {
   if (!fName.endsWith('.json')) fName = `${fName}.json`;
 
   const filePath = path.join(resourcePath, 'drivers', fName);
-  return JSON.parse(fs.readFileSync(filePath));
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
 /**

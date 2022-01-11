@@ -61,14 +61,6 @@ export class PortPair {
     return open;
   }
 
-  equals(other: PortPair) {
-    if (this.hasInput !== other.hasInput) return false;
-    if (this.hasOutput !== other.hasOutput) return false;
-    if (this.name !== other.name) return false;
-    if (this.siblingIndex !== other.siblingIndex) return false;
-    return true;
-  }
-
   /** getters */
   get hasInput() {
     return this.iPort != null;

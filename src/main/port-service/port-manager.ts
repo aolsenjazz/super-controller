@@ -2,6 +2,9 @@ import midi from 'midi';
 
 import { Port } from './port';
 import { PortPair } from './port-pair';
+import { DrivenPortPair } from './driven-port-pair';
+
+import { DRIVERS } from '../drivers';
 
 const INPUT = new midi.Input();
 const OUTPUT = new midi.Output();
@@ -35,7 +38,12 @@ function createPairsAndAddToDevices(
     const sister = getSister(port, sisterList);
     const first = port.type === 'input' ? port : sister;
     const second = port.type === 'input' ? sister : port;
-    const pair = new PortPair(first, second);
+
+    let pair = new PortPair(first, second);
+    const driver = DRIVERS.get(pair.name);
+
+    if (driver) pair = new DrivenPortPair(pair, driver);
+
     portMap.set(pair.id, pair);
   });
 }

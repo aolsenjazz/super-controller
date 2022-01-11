@@ -3,7 +3,6 @@ import { MidiMessage } from 'midi-message-parser';
 import { DeviceDriver } from '@shared/driver-types';
 
 import { PortPair } from './port-pair';
-import { DRIVERS } from '../drivers';
 
 /**
  * PortPair with an attached driver. Useful so that we can reset the lights
@@ -15,21 +14,23 @@ export class DrivenPortPair extends PortPair {
   #pair: PortPair;
 
   /* The related driver, if any */
-  driver?: DeviceDriver;
+  #driver: DeviceDriver;
 
-  constructor(pair: PortPair) {
+  /* eslint-disable-next-line */
+  testables = new Map<string, any>();
+
+  constructor(pair: PortPair, driver: DeviceDriver) {
     super(pair.iPort, pair.oPort);
+
     this.#pair = pair;
-    this.driver = DRIVERS.get(pair.name);
+    this.#driver = driver;
+
+    this.testables.set('pair', this.#pair);
   }
 
   /* Reset all of the lights on the device to their initial state. */
   resetLights() {
-    const d = this.driver;
-
-    if (d === undefined) return;
-
-    d.inputGrids
+    this.#driver.inputGrids
       .map((ig) => ig.inputs)
       .flat()
       .forEach((input) => {
@@ -56,11 +57,9 @@ export class DrivenPortPair extends PortPair {
    * sequence in order to relinquish control of lights.
    */
   runControlSequence() {
-    if (this.driver) {
-      this.driver.controlSequence?.forEach((msgArray) => {
-        const mm = new MidiMessage(...msgArray, 0);
-        this.#pair.send(mm.toMidiArray());
-      });
-    }
+    this.#driver.controlSequence?.forEach((msgArray) => {
+      const mm = new MidiMessage(...msgArray, 0);
+      this.#pair.send(mm.toMidiArray());
+    });
   }
 }
