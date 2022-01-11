@@ -1,6 +1,21 @@
 import { MidiValue, EventType, Channel } from 'midi-message-parser';
 import { Color } from './color';
 
+/**
+ * Describes how event are propagated to clients. Not all inputs are eligible for
+ * all responses; inputs who hardware response is 'toggle' can only propagate in
+ * 'toggle' or 'constant' mode, because no events are fired from hardware on input release
+ *
+ * gate: event fired on press and release
+ * toggle: event fired on press
+ * continuous: continuous input
+ * constant: event fired on press, always the same event
+ */
+export type InputResponse = 'gate' | 'toggle' | 'continuous' | 'constant';
+
+/* Input type */
+export type InputType = 'pad' | 'knob' | 'slider' | 'wheel' | 'xy';
+
 /* Default values for the input loaded in from a driver */
 export type InputDefault = {
   /* Note number, CC number, program number, etc */
@@ -12,15 +27,8 @@ export type InputDefault = {
   /* MIDI event type */
   readonly eventType: EventType;
 
-  /**
-   * Describes how the hardware input response to touch events
-   *
-   * gate: event fired on press and release
-   * toggle: event fired on press
-   * linear: continuous input (TODO: should probably be renamed to 'continuous')
-   * constant: event fired on press, always the same event
-   */
-  readonly response: 'gate' | 'toggle' | 'linear' | 'constant';
+  /* See InputResponse */
+  readonly response: InputResponse;
 };
 
 export type InputDriver = {
@@ -30,8 +38,8 @@ export type InputDriver = {
   /* Physical shape of the input. circle + square have 1:1 aspect ratio enforced */
   shape: 'circle' | 'rect' | 'square';
 
-  /* Input type */
-  type: 'knob' | 'pad' | 'slider' | 'wheel' | 'xy';
+  /* See InputType */
+  type: InputType;
 
   /**
    * List of `Color`s this input supports. For inputs whose colors are controlled by

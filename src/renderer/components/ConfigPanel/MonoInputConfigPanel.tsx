@@ -109,7 +109,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
           labelList={responseLabels}
           onChange={(v) => {
             onChange((c) => {
-              c.response = v as 'gate' | 'toggle' | 'linear';
+              c.response = v as 'gate' | 'toggle' | 'continuous';
             });
           }}
         />

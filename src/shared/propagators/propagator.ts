@@ -1,14 +1,15 @@
 import { MidiMessage } from 'midi-message-parser';
 
+import { InputResponse } from '../driver-types';
 import { isOnMessage } from '../util';
 
 const illogicalPairs = [
-  ['linear', 'gate'],
-  ['linear', 'toggle'],
-  ['gate', 'linear'],
-  ['toggle', 'linear'],
+  ['continuous', 'gate'],
+  ['continuous', 'toggle'],
+  ['gate', 'continuous'],
+  ['toggle', 'continuous'],
   ['toggle', 'gate'],
-  ['constant', 'linear'],
+  ['constant', 'continuous'],
 ];
 
 /**
@@ -17,45 +18,34 @@ const illogicalPairs = [
  */
 export abstract class Propagator {
   /**
-   * Describes how the hardware input response to touch events
-   *
-   * gate: event fired on press and release
-   * toggle: event fired on press
-   * linear: continuous input (TODO: should probably be renamed to 'continuous')
-   * constant: event fired on press, always the same event
+   * See InputResponse
    */
-  readonly inputResponse: 'gate' | 'toggle' | 'linear' | 'constant';
+  readonly hardwareResponse: InputResponse;
 
   /**
-   * Describes how event are propagated to clients. Not all inputs are eligible for
-   * all responses; inputs who hardware response is 'toggle' can only propagate in
-   * 'toggle' or 'constant' mode, because no events are fired from hardware on input release
-   *
-   * gate: event fired on press and release
-   * toggle: event fired on press
-   * linear: continuous input (TODO: should probably be renamed to 'continuous')
-   * constant: event fired on press, always the same event
+   * See InputResponse
    */
-  outputResponse: 'gate' | 'toggle' | 'linear' | 'constant';
+  outputResponse: InputResponse;
 
   /* The last-propagated message */
   lastPropagated?: MidiMessage;
 
   constructor(
-    inputResponse: 'gate' | 'toggle' | 'linear' | 'constant',
-    outputResponse: 'gate' | 'toggle' | 'linear' | 'constant',
+    hardwareResponse: InputResponse,
+    outputResponse: InputResponse,
     lastPropagated?: MidiMessage
   ) {
     illogicalPairs.forEach((pair) => {
       if (
-        JSON.stringify(pair) === JSON.stringify([inputResponse, outputResponse])
+        JSON.stringify(pair) ===
+        JSON.stringify([hardwareResponse, outputResponse])
       )
         throw new Error(
-          `InputResponse[${inputResponse}] and OutputResponse[${outputResponse}] is illogical`
+          `InputResponse[${hardwareResponse}] and OutputResponse[${outputResponse}] is illogical`
         );
     });
 
-    this.inputResponse = inputResponse;
+    this.hardwareResponse = hardwareResponse;
     this.outputResponse = outputResponse;
     this.lastPropagated = lastPropagated;
   }
@@ -70,21 +60,21 @@ export abstract class Propagator {
   handleMessage(msg: number[]) {
     let toPropagate: MidiMessage | null = null;
 
-    switch (this.inputResponse) {
+    switch (this.hardwareResponse) {
       case 'gate':
         toPropagate = this.#handleInputAsGate(msg);
         break;
       case 'toggle':
         toPropagate = this.#handleInputAsToggle(msg);
         break;
-      case 'linear':
+      case 'continuous':
         toPropagate = this.#handleInputAsContinuous(msg);
         break;
       case 'constant':
         toPropagate = this.#handleInputAsConstant(msg);
         break;
       default:
-        throw new Error(`unknown inputResponse ${this.inputResponse}`);
+        throw new Error(`unknown hardwareResponse ${this.hardwareResponse}`);
     }
 
     if (toPropagate === null) return toPropagate;
@@ -94,7 +84,7 @@ export abstract class Propagator {
   }
 
   /**
-   * Returns the message to propagate if inputResponse is gate
+   * Returns the message to propagate if hardwareResponse is gate
    *
    * @param msg The message from device
    * @returns the message to propagate
@@ -107,7 +97,7 @@ export abstract class Propagator {
   };
 
   /**
-   * Returns the message to propagate if inputResponse is toggle
+   * Returns the message to propagate if hardwareResponse is toggle
    *
    * @param msg The message from device
    * @returns the message to propagate
@@ -117,7 +107,7 @@ export abstract class Propagator {
   };
 
   /**
-   * Returns the message to propagate if inputResponse is continuous
+   * Returns the message to propagate if hardwareResponse is continuous
    *
    * @param msg The message from device
    * @returns the message to propagate
@@ -127,7 +117,7 @@ export abstract class Propagator {
   };
 
   /**
-   * Returns the message to propagate if inputResponse is constant
+   * Returns the message to propagate if hardwareResponse is constant
    *
    * @param msg The message from device
    * @returns the message to propagate

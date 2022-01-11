@@ -1,5 +1,6 @@
 import { MidiValue } from 'midi-message-parser';
 
+import { InputResponse } from '../driver-types';
 import { Propagator } from './propagator';
 
 /**
@@ -12,11 +13,8 @@ export class NullPropagator extends Propagator {
 
   #state = 'off';
 
-  constructor(
-    inputResponse: 'gate' | 'toggle' | 'linear' | 'constant',
-    outputResponse: 'gate' | 'toggle' | 'linear' | 'constant'
-  ) {
-    super(inputResponse, outputResponse, undefined);
+  constructor(hardwareResponse: InputResponse, outputResponse: InputResponse) {
+    super(hardwareResponse, outputResponse, undefined);
   }
 
   /**

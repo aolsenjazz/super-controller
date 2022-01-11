@@ -1,6 +1,6 @@
 import { EventType, MidiValue, Channel } from 'midi-message-parser';
 
-import { InputDriver } from '@shared/driver-types';
+import { InputDriver, InputType } from '@shared/driver-types';
 import { inputIdFor } from '@shared/util';
 
 /**
@@ -13,8 +13,7 @@ export class VirtualInput {
   readonly shape: 'rect' | 'circle' | 'square';
 
   /* 'knob' | 'pad' | 'slider' | 'wheel' | 'xy' */
-  /* TODO: should really change the ts type of this */
-  readonly type: string;
+  readonly type: InputType;
 
   /* Can the input be overridden? `false` if the input doesn't transmit data to clients */
   readonly overrideable: boolean;

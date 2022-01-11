@@ -5,6 +5,7 @@ import {
   EventType,
 } from 'midi-message-parser';
 
+import { InputResponse } from '../driver-types';
 import { Propagator } from './propagator';
 import { isOnMessage } from '../util';
 
@@ -24,15 +25,15 @@ export class OutputPropagator extends Propagator {
   value: MidiValue;
 
   constructor(
-    inputResponse: 'gate' | 'toggle' | 'linear' | 'constant',
-    outputResponse: 'gate' | 'toggle' | 'linear' | 'constant',
+    hardwareResponse: InputResponse,
+    outputResponse: InputResponse,
     eventType: EventType,
     number: MidiValue,
     channel: Channel,
     value?: MidiValue,
     lastPropagated?: MidiMessage
   ) {
-    super(inputResponse, outputResponse, lastPropagated);
+    super(hardwareResponse, outputResponse, lastPropagated);
 
     this.eventType = eventType;
     this.number = number;
@@ -49,7 +50,7 @@ export class OutputPropagator extends Propagator {
   protected getResponse(msg: MidiValue[]) {
     // manually slip constant state if output response !== constant
     if (
-      this.inputResponse === 'constant' &&
+      this.hardwareResponse === 'constant' &&
       this.outputResponse !== 'constant'
     ) {
       this.constantState = this.constantState === 'on' ? 'off' : 'on';
@@ -63,11 +64,11 @@ export class OutputPropagator extends Propagator {
       case 'toggle':
         response = this.#handleAsToggle(msg);
         break;
-      case 'linear':
+      case 'continuous':
         response =
           this.eventType === 'pitchbend'
             ? this.#handleAsPitchbend(msg)
-            : this.#handleAsLinear(msg);
+            : this.#handleAsContinuous(msg);
         break;
       case 'constant':
         response = this.#handleAsConstant();
@@ -101,11 +102,11 @@ export class OutputPropagator extends Propagator {
     const eventType = this.#nextEventType();
     let value = this.#nextValue(msg[2]);
 
-    if (this.inputResponse === 'constant') {
+    if (this.hardwareResponse === 'constant') {
       value = this.constantState === 'on' ? 127 : 0;
     }
 
-    if (this.inputResponse === 'gate') {
+    if (this.hardwareResponse === 'gate') {
       const defaultVal = !this.lastPropagated?.value ? 127 : 0;
       value = this.#nextValue(defaultVal);
     }
@@ -114,12 +115,12 @@ export class OutputPropagator extends Propagator {
   };
 
   /**
-   * Returns the next message that should be propagated while in 'linear' mode
+   * Returns the next message that should be propagated while in 'continuous' mode
    *
    * @param msg The message being responded to
    * @returns The message to propagate
    */
-  #handleAsLinear = (msg: MidiValue[]) => {
+  #handleAsContinuous = (msg: MidiValue[]) => {
     // forward the same message every time, with overrides and value replaced
     return new MidiMessage(
       this.eventType,
@@ -217,7 +218,7 @@ export class OutputPropagator extends Propagator {
   }
 
   get state() {
-    if (this.inputResponse === 'constant') {
+    if (this.hardwareResponse === 'constant') {
       return this.constantState;
     }
 

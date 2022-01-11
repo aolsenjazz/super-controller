@@ -5,7 +5,7 @@ import {
   MidiMessage,
 } from 'midi-message-parser';
 import { OutputPropagator } from '@shared/propagators/output-propagator';
-import { InputResponse } from '@shared/hardware-config/input-config';
+import { InputResponse } from '@shared/driver-types';
 
 function createPropagator(
   ir: InputResponse,
@@ -82,11 +82,11 @@ test('input:toggle output:toggle flips state correctly', () => {
   expect(prop.state).toBe('off');
 });
 
-test('input:linear output:linear props correctly', () => {
+test('input:continuous output:continuous props correctly', () => {
   const msg1 = createCC(0);
   const msg2 = createCC(10);
 
-  const prop = createPropagator('linear', 'linear', 'controlchange');
+  const prop = createPropagator('continuous', 'continuous', 'controlchange');
 
   const result1 = prop.handleMessage(msg1);
   expect(result1).toEqual(msg1);
@@ -96,7 +96,7 @@ test('input:linear output:linear props correctly', () => {
 });
 
 test('pitchbend propagator props correctly', () => {
-  const prop = createPropagator('linear', 'linear', 'pitchbend');
+  const prop = createPropagator('continuous', 'continuous', 'pitchbend');
 
   // 224 = pitchbend event on channel 0
   const msg1 = [224, 60, 60];
@@ -127,38 +127,38 @@ test('eligibleStates returns correct for output:toggle', () => {
   expect(prop.eligibleStates).toEqual(['off', 'on']);
 });
 
-test('eligibleStates returns correct for output:linear', () => {
-  const prop = createPropagator('linear', 'linear');
+test('eligibleStates returns correct for output:continuous', () => {
+  const prop = createPropagator('continuous', 'continuous');
   expect(prop.eligibleStates).toEqual([]);
 });
 
-test('creating input:linear output:gate throws', () => {
+test('creating input:continuous output:gate throws', () => {
   expect(() => {
-    createPropagator('linear', 'gate');
+    createPropagator('continuous', 'gate');
   }).toThrow();
 });
 
-test('creating input:linear output:toggle throws', () => {
+test('creating input:continuous output:toggle throws', () => {
   expect(() => {
-    createPropagator('linear', 'toggle');
+    createPropagator('continuous', 'toggle');
   }).toThrow();
 });
 
-test('creating input:gate output:linear throws', () => {
+test('creating input:gate output:continuous throws', () => {
   expect(() => {
-    createPropagator('gate', 'linear');
+    createPropagator('gate', 'continuous');
   }).toThrow();
 });
 
-test('creating input:toggle output:linear throws', () => {
+test('creating input:toggle output:continuous throws', () => {
   expect(() => {
-    createPropagator('toggle', 'linear');
+    createPropagator('toggle', 'continuous');
   }).toThrow();
 });
 
-test('creating input:constant output:linear throws', () => {
+test('creating input:constant output:continuous throws', () => {
   expect(() => {
-    createPropagator('constant', 'linear');
+    createPropagator('constant', 'continuous');
   }).toThrow();
 });
 

@@ -16,7 +16,7 @@ function BasicInputConfig() {
     channel: 0 as Channel,
     eventType: 'controlchange' as EventType,
     number: 0 as MidiValue,
-    response: 'linear' as 'linear' | 'toggle',
+    response: 'continuous' as 'continuous' | 'toggle',
   };
   const override = {
     lightConfig: new Map<string, Color>(),
@@ -50,7 +50,7 @@ test('getInput throws for bad id', () => {
     channel: 0 as Channel,
     eventType: 'controlchange' as EventType,
     number: 0 as MidiValue,
-    response: 'linear' as 'linear' | 'toggle',
+    response: 'continuous' as 'continuous' | 'toggle',
   };
   const override = {
     lightConfig: new Map<string, Color>(),
@@ -80,7 +80,7 @@ test('getInput returns correct input for id', () => {
     channel: 0 as Channel,
     eventType: 'controlchange' as EventType,
     number: 0 as MidiValue,
-    response: 'linear' as 'linear' | 'toggle',
+    response: 'continuous' as 'continuous' | 'toggle',
   };
   const override = {
     lightConfig: new Map<string, Color>(),
@@ -114,7 +114,7 @@ test('handleMessage() passes to correct input for processing', () => {
     channel: 0 as Channel,
     eventType: 'controlchange' as EventType,
     number: 0 as MidiValue,
-    response: 'linear' as 'linear' | 'toggle',
+    response: 'continuous' as 'continuous' | 'toggle',
   };
   const override = {
     lightConfig: new Map<string, Color>(),

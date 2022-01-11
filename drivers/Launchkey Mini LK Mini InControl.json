@@ -1876,7 +1876,7 @@
             "channel": 0,
             "number": 21,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -1890,7 +1890,7 @@
             "channel": 0,
             "number": 22,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -1904,7 +1904,7 @@
             "channel": 0,
             "number": 23,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -1918,7 +1918,7 @@
             "channel": 0,
             "number": 24,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -1932,7 +1932,7 @@
             "channel": 0,
             "number": 25,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -1946,7 +1946,7 @@
             "channel": 0,
             "number": 26,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -1960,7 +1960,7 @@
             "channel": 0,
             "number": 27,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -1974,7 +1974,7 @@
             "channel": 0,
             "number": 28,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",

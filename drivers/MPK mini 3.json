@@ -32,7 +32,7 @@
             "channel": 0,
             "number": 0,
             "eventType": "pitchbend",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "xy",
@@ -49,7 +49,7 @@
             "channel": 0,
             "number": 1,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "xy",
@@ -295,7 +295,7 @@
             "channel": 0,
             "number": 70,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -309,7 +309,7 @@
             "channel": 0,
             "number": 71,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -323,7 +323,7 @@
             "channel": 0,
             "number": 72,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -337,7 +337,7 @@
             "channel": 0,
             "number": 73,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -351,7 +351,7 @@
             "channel": 0,
             "number": 74,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -365,7 +365,7 @@
             "channel": 0,
             "number": 75,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -379,7 +379,7 @@
             "channel": 0,
             "number": 76,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -393,7 +393,7 @@
             "channel": 0,
             "number": 77,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",

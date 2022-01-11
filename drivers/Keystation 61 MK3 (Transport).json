@@ -32,7 +32,7 @@
             "channel": 10,
             "number": 1,
             "eventType": "pitchbend",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": false,
           "type": "wheel",
@@ -48,7 +48,7 @@
             "channel": 10,
             "number": 1,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": false,
           "type": "wheel",
@@ -139,7 +139,7 @@
             "channel": 10,
             "number": 7,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": false,
           "type": "slider",

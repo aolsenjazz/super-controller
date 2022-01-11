@@ -3,10 +3,13 @@ import { Channel, EventType, MidiValue } from 'midi-message-parser';
 import {
   InputConfig,
   InputOverride,
+} from '@shared/hardware-config/input-config';
+import {
+  InputDefault,
+  Color,
   InputResponse,
   InputType,
-} from '@shared/hardware-config/input-config';
-import { InputDefault, Color } from '@shared/driver-types';
+} from '@shared/driver-types';
 
 import { InputGroup } from '../renderer/input-group';
 
@@ -68,11 +71,18 @@ function createGatePadInput(
 }
 
 function createXYInput(seedNumber: Channel = 0) {
-  return createInput(seedNumber, 'pitchbend', 'linear', 'xy', [], new Map());
+  return createInput(
+    seedNumber,
+    'pitchbend',
+    'continuous',
+    'xy',
+    [],
+    new Map()
+  );
 }
 
 function createSliderInput(seedNumber: Channel = 0) {
-  return createInput(seedNumber, 'controlchange', 'linear', 'slider');
+  return createInput(seedNumber, 'controlchange', 'continuous', 'slider');
 }
 
 test('labelForNumber returns number for inputs w/diff eventTypes', () => {

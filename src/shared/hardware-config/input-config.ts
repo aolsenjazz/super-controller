@@ -10,10 +10,13 @@ import { Propagator } from '../propagators/propagator';
 import { OutputPropagator } from '../propagators/output-propagator';
 import { NullPropagator } from '../propagators/null-propagator';
 import { BinaryPropagator } from '../propagators/binary-propagator';
-import { InputDefault, Color, InputDriver } from '../driver-types';
-
-export type InputResponse = 'gate' | 'toggle' | 'linear' | 'constant';
-export type InputType = 'pad' | 'knob' | 'slider' | 'wheel' | 'xy';
+import {
+  InputDefault,
+  Color,
+  InputDriver,
+  InputResponse,
+  InputType,
+} from '../driver-types';
 
 /**
  * Overrides the values which are propagated from devices. Default values remain
@@ -32,17 +35,8 @@ export type InputOverride = {
   /* MIDI event type */
   eventType?: EventType;
 
-  /**
-   * Describes how event are propagated to clients. Not all inputs are eligible for
-   * all responses; inputs who hardware response is 'toggle' can only propagate in
-   * 'toggle' or 'constant' mode, because no events are fired from hardware on input release
-   *
-   * gate: event fired on press and release
-   * toggle: event fired on press
-   * linear: continuous input (TODO: should probably be renamed to 'continuous')
-   * constant: event fired on press, always the same event
-   */
-  response?: 'gate' | 'toggle' | 'linear' | 'constant';
+  /* See InputResponse */
+  response?: InputResponse;
 
   /**
    * Maintains hardware color per state. For more, see `DevicePropagator`
@@ -80,7 +74,7 @@ export class InputConfig {
    * Input type. 'xy' is the only non-straightforward type; xy inputs are comprised of
    * *two* inputs which aren't aware of one-another.
    */
-  readonly type: 'pad' | 'knob' | 'slider' | 'wheel' | 'xy';
+  readonly type: InputType;
 
   /**
    * Object containing overridden values. E.g. a given Pad which typically send
@@ -155,7 +149,7 @@ export class InputConfig {
     override: InputOverride,
     availableColors: Color[],
     overrideable: boolean,
-    type: 'pad' | 'knob' | 'slider' | 'wheel' | 'xy',
+    type: InputType,
     value?: MidiValue,
     lastPropagated?: MidiMessage,
     lastResponse?: MidiMessage
@@ -341,7 +335,7 @@ export class InputConfig {
         : ['constant'];
     }
 
-    return ['linear'];
+    return ['continuous'];
   }
 
   get eligibleEventTypes() {
@@ -349,10 +343,10 @@ export class InputConfig {
       return ['noteon', 'noteoff', 'controlchange', 'programchange'];
     }
 
-    // TODO: really shouldn't need this extra line. pitchbend should be treated as linear where possible
+    // TODO: really shouldn't need this extra line. pitchbend should be treated as continuous where possible
     if (this.eventType === 'pitchbend') return ['pitchbend'];
 
-    if (this.response === 'linear') {
+    if (this.response === 'continuous') {
       return ['noteon', 'noteoff', 'controlchange', 'programchange'];
     }
 
@@ -435,11 +429,11 @@ export class InputConfig {
     return overridden === undefined ? `Input ${this.number}` : overridden;
   }
 
-  get response(): 'linear' | 'gate' | 'toggle' | 'constant' {
+  get response(): InputResponse {
     return this.outputPropagator.outputResponse;
   }
 
-  set response(response: 'linear' | 'gate' | 'toggle' | 'constant') {
+  set response(response: InputResponse) {
     if (response === 'constant') {
       this.eventType =
         this.eventType === 'noteon/noteoff' ? 'noteon' : this.eventType;
@@ -470,9 +464,9 @@ export class InputConfig {
       );
     }
 
-    if (this.default.response === 'linear') {
+    if (this.default.response === 'continuous') {
       throw new Error(
-        'linear hardware response doesnt support lights right now'
+        'continuous hardware response doesnt support lights right now'
       );
     }
 

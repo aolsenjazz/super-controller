@@ -32,7 +32,7 @@
             "channel": 0,
             "number": 0,
             "eventType": "pitchbend",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "wheel",
@@ -48,7 +48,7 @@
             "channel": 0,
             "number": 1,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "type": "wheel",
           "overrideable": true,
@@ -75,7 +75,7 @@
             "channel": 0,
             "number": -1,
             "eventType": "unknown",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": false,
           "type": "pad",
@@ -89,7 +89,7 @@
             "channel": 0,
             "number": -2,
             "eventType": "unknown",
-            "response": "linear"
+            "response": "continuous"
           },
           "type": "pad",
           "overrideable": false,
@@ -103,7 +103,7 @@
             "channel": 0,
             "number": -3,
             "eventType": "unknown",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": false,
           "type": "pad",
@@ -117,7 +117,7 @@
             "channel": 0,
             "number": -4,
             "eventType": "unknown",
-            "response": "linear"
+            "response": "continuous"
           },
           "type": "pad",
           "overrideable": false,
@@ -142,7 +142,7 @@
             "channel": 0,
             "number": -1,
             "eventType": "unknown",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": false,
           "type": "pad",
@@ -265,7 +265,7 @@
             "channel": 0,
             "number": 7,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "knob",
@@ -290,7 +290,7 @@
             "channel": 0,
             "number": -1,
             "eventType": "unknown",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": false,
           "type": "pad",

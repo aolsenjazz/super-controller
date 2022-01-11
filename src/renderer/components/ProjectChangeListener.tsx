@@ -8,7 +8,7 @@ const { ipcRenderer } = window;
 
 /**
  * Convenience function to wrap another function in a throttle. Useful to prevent
- * linear CC inputs from sending hundreds of messages per second, forcing a ridiculous
+ * continuous CC inputs from sending hundreds of messages per second, forcing a ridiculous
  * number of state updates.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

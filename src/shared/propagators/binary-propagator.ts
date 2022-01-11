@@ -17,13 +17,13 @@ export class BinaryPropagator extends Propagator {
   #defaultState = 'off';
 
   constructor(
-    inputResponse: 'gate' | 'toggle' | 'constant',
+    hardwareResponse: 'gate' | 'toggle' | 'constant',
     outputResponse: 'gate' | 'toggle',
     onMessage?: MidiMessage,
     offMessage?: MidiMessage,
     lastPropagated?: MidiMessage
   ) {
-    super(inputResponse, outputResponse, lastPropagated);
+    super(hardwareResponse, outputResponse, lastPropagated);
 
     this.onMessage = onMessage;
     this.offMessage = offMessage;

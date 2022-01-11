@@ -23,7 +23,7 @@
             "channel": 0,
             "number": 48,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "slider",
@@ -39,7 +39,7 @@
             "channel": 0,
             "number": 49,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "slider",
@@ -55,7 +55,7 @@
             "channel": 0,
             "number": 50,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "slider",
@@ -71,7 +71,7 @@
             "channel": 0,
             "number": 51,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "slider",
@@ -87,7 +87,7 @@
             "channel": 0,
             "number": 52,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "slider",
@@ -103,7 +103,7 @@
             "channel": 0,
             "number": 53,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "slider",
@@ -119,7 +119,7 @@
             "channel": 0,
             "number": 54,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "slider",
@@ -135,7 +135,7 @@
             "channel": 0,
             "number": 55,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "slider",
@@ -151,7 +151,7 @@
             "channel": 0,
             "number": 56,
             "eventType": "controlchange",
-            "response": "linear"
+            "response": "continuous"
           },
           "overrideable": true,
           "type": "slider",

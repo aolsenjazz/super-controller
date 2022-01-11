@@ -145,7 +145,7 @@ function BasicConstantInputConfig() {
   return config;
 }
 
-function BasicLinearInputConfig() {
+function BasicContinuousInputConfig() {
   const overrideable = true;
   const type = 'slider';
   const lightConfig = new Map<string, Color>();
@@ -154,7 +154,7 @@ function BasicLinearInputConfig() {
     channel: 0 as Channel,
     eventType: 'controlchange' as EventType,
     number: 0 as MidiValue,
-    response: 'linear' as 'linear',
+    response: 'continuous' as 'continuous',
   };
 
   const override = {
@@ -185,7 +185,7 @@ test('fromJSON properly serializes inputConfig.type', () => {
     channel: 0 as Channel,
     eventType: 'controlchange' as EventType,
     number: 0 as MidiValue,
-    response: 'linear' as 'linear' | 'toggle',
+    response: 'continuous' as 'continuous' | 'toggle',
   };
   const override = {
     lightConfig: new Map<string, Color>(),
@@ -211,17 +211,17 @@ test('toJSON and fromJSON input restores defaults', () => {
     channel: 0 as Channel,
     eventType: 'controlchange' as EventType,
     number: 0 as MidiValue,
-    response: 'linear' as 'linear' | 'toggle',
+    response: 'continuous' as 'continuous' | 'toggle',
   };
 
-  const linear: 'linear' = 'linear';
+  const continuous: 'continuous' = 'continuous';
   const override = {
     lightConfig,
     channel: 1 as Channel,
     eventType: 'noteon/noteoff' as EventType,
     number: 1 as MidiValue,
     nickname: 'AYOO',
-    response: linear,
+    response: continuous,
   };
 
   const conf = new InputConfig(
@@ -261,8 +261,8 @@ test('toJSON + fromJSON correctly set outputProps lastPropagated', () => {
   expect(result).toStrictEqual(lastProp);
 });
 
-test('setColorForState does nothing with linear InputConfig', () => {
-  const config = BasicLinearInputConfig();
+test('setColorForState does nothing with continuous InputConfig', () => {
+  const config = BasicContinuousInputConfig();
   config.setColorForState('on', RED);
   expect(config.colorForState('on')).toBe(undefined);
 });
@@ -313,9 +313,9 @@ test('eligibleResponses are correct for constant InputConfig and programchange e
   expect(config.eligibleResponses).toStrictEqual(['constant']);
 });
 
-test('eligibleResponses are correct for linear InputConfig', () => {
-  const config = BasicLinearInputConfig();
-  expect(config.eligibleResponses).toStrictEqual(['linear']);
+test('eligibleResponses are correct for continuous InputConfig', () => {
+  const config = BasicContinuousInputConfig();
+  expect(config.eligibleResponses).toStrictEqual(['continuous']);
 });
 
 test('eligibleEventTypes are correct for constant InputConfig', () => {
@@ -329,9 +329,9 @@ test('eligibleEventTypes are correct for constant InputConfig', () => {
   ]);
 });
 
-test('eligibleEventTypes are correct for linear InputConfig', () => {
-  const config = BasicLinearInputConfig();
-  config.response = 'linear';
+test('eligibleEventTypes are correct for continuous InputConfig', () => {
+  const config = BasicContinuousInputConfig();
+  config.response = 'continuous';
   expect(config.eligibleEventTypes).toStrictEqual([
     'noteon',
     'noteoff',
@@ -341,8 +341,8 @@ test('eligibleEventTypes are correct for linear InputConfig', () => {
 });
 
 test('eligibleEventTypes are correct for pitchbend', () => {
-  const config = BasicLinearInputConfig();
-  config.response = 'linear';
+  const config = BasicContinuousInputConfig();
+  config.response = 'continuous';
   config.eventType = 'pitchbend';
   expect(config.eligibleEventTypes).toStrictEqual(['pitchbend']);
 });
@@ -363,7 +363,7 @@ test('defaultColor returns correct val', () => {
 });
 
 test('defaultColor returns undefined for empty availableColors list', () => {
-  const config = BasicLinearInputConfig();
+  const config = BasicContinuousInputConfig();
   expect(config.defaultColor).toStrictEqual(undefined);
 });
 
@@ -374,8 +374,8 @@ test('setLightResponse(`gate`) for toggle InputConfig throws', () => {
   }).toThrow();
 });
 
-test('setLightConfig() for linear InputConfig throws', () => {
-  const config = BasicLinearInputConfig();
+test('setLightConfig() for continuous InputConfig throws', () => {
+  const config = BasicContinuousInputConfig();
   expect(() => {
     config.lightResponse = 'toggle';
   }).toThrow();
@@ -393,8 +393,8 @@ test('setValue/getValue work', () => {
   expect(config.value).toBe(42);
 });
 
-test('currentColor returns undefined for linear InputConfig', () => {
-  const config = BasicLinearInputConfig();
+test('currentColor returns undefined for continuous InputConfig', () => {
+  const config = BasicContinuousInputConfig();
   expect(config.currentColor).toBe(undefined);
 });
 
@@ -420,7 +420,7 @@ test('eligibleLightResponses are correct for toggle InputConfig', () => {
   expect(config.eligibleLightResponses).toStrictEqual(['toggle']);
 });
 
-test('eligibleLightResponses are empty for linear InputConfig', () => {
-  const config = BasicLinearInputConfig();
+test('eligibleLightResponses are empty for continuous InputConfig', () => {
+  const config = BasicContinuousInputConfig();
   expect(config.eligibleLightResponses).toStrictEqual([]);
 });
