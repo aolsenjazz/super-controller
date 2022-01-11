@@ -185,11 +185,7 @@ test('toJSON and fromParsedJSON correctly serializes + deserializes', () => {
   expect(conf.siblingIndex).toBe(other.siblingIndex);
   expect(conf.nickname).toBe(other.nickname);
   expect(conf.supported).toBe(other.supported);
-  expect(JSON.stringify(conf.shareSustain)).toBe(
-    JSON.stringify(other.shareSustain)
-  );
-  expect(JSON.stringify(conf.keyboardDriver)).toBe(
-    JSON.stringify(other.keyboardDriver)
-  );
+  expect(conf.shareSustain).toEqual(other.shareSustain);
+  expect(conf.keyboardDriver).toEqual(other.keyboardDriver);
   expect(JSON.stringify(conf.inputs)).toBe(JSON.stringify(other.inputs));
 });

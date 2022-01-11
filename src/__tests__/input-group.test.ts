@@ -173,9 +173,7 @@ test('eligibleEventTypes returns correct eventTypes for similar inputs', () => {
     'controlchange',
     'programchange',
   ];
-  expect(JSON.stringify(group.eligibleEventTypes)).toBe(
-    JSON.stringify(eligibleEventTypes)
-  );
+  expect(group.eligibleEventTypes).toEqual(eligibleEventTypes);
 });
 
 test('eligibleEventTypes returns correct eventTypes for different inputs', () => {

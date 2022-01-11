@@ -47,8 +47,11 @@ export class OutputPropagator extends Propagator {
    * @returns The message to propagate
    */
   protected getResponse(msg: MidiValue[]) {
-    // we currently need to manually flip states if hardware response is constant
-    if (this.inputResponse === 'constant') {
+    // manually slip constant state if output response !== constant
+    if (
+      this.inputResponse === 'constant' &&
+      this.outputResponse !== 'constant'
+    ) {
       this.constantState = this.constantState === 'on' ? 'off' : 'on';
     }
 

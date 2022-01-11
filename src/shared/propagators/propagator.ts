@@ -2,6 +2,15 @@ import { MidiMessage } from 'midi-message-parser';
 
 import { isOnMessage } from '../util';
 
+const illogicalPairs = [
+  ['linear', 'gate'],
+  ['linear', 'toggle'],
+  ['gate', 'linear'],
+  ['toggle', 'linear'],
+  ['toggle', 'gate'],
+  ['constant', 'linear'],
+];
+
 /**
  * Manages propagation of messages to devices and clients. Can be set to propagate
  * message different by setting `outputResponse`
@@ -37,6 +46,15 @@ export abstract class Propagator {
     outputResponse: 'gate' | 'toggle' | 'linear' | 'constant',
     lastPropagated?: MidiMessage
   ) {
+    illogicalPairs.forEach((pair) => {
+      if (
+        JSON.stringify(pair) === JSON.stringify([inputResponse, outputResponse])
+      )
+        throw new Error(
+          `InputResponse[${inputResponse}] and OutputResponse[${outputResponse}] is illogical`
+        );
+    });
+
     this.inputResponse = inputResponse;
     this.outputResponse = outputResponse;
     this.lastPropagated = lastPropagated;

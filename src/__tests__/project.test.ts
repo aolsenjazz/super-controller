@@ -13,7 +13,7 @@ test('addDevice() adds to project.devices', () => {
   const proj = new Project();
   const device = SupportedDeviceConfig.fromDriver(0, APC_DRIVER!);
   proj.addDevice(device);
-  expect(JSON.stringify(device)).toBe(JSON.stringify(proj.devices[0]));
+  expect(device).toEqual(proj.devices[0]);
 });
 
 test('removeDevice() remove from project.devices', () => {
@@ -38,7 +38,7 @@ test('get() returns correct device', () => {
   const device = SupportedDeviceConfig.fromDriver(0, APC_DRIVER!);
   proj.addDevice(device);
   const result = proj.getDevice(device.id);
-  expect(JSON.stringify(result)).toBe(JSON.stringify(device));
+  expect(result).toEqual(device);
 });
 
 test('get() with nonexistent ID returns null', () => {

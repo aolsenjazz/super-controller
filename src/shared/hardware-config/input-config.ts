@@ -194,9 +194,9 @@ export class InputConfig {
       const isOnSet = override.lightConfig.get('on') !== undefined;
       const onColor = isOnSet ? override.lightConfig.get('on') : defaultColor;
 
-      type Type = 'gate' | 'toggle' | 'constant';
+      type Type = 'gate' | 'toggle';
       this.devicePropagator = new BinaryPropagator(
-        this.default.response as 'gate' | 'toggle',
+        this.default.response as Type | 'constant',
         (this.override.response || this.default.response) as Type,
         msgForColor(defaultVals.number, defaultVals.channel, onColor),
         msgForColor(defaultVals.number, defaultVals.channel, offColor),

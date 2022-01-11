@@ -20,8 +20,8 @@ test('new UnsupportedDevice() correctly assigns values', () => {
   expect(device.name).toBe(name);
   expect(device.siblingIndex).toBe(siblingIndex);
   expect(device.nickname).toBe(nickname);
-  expect(JSON.stringify(Array.from(device.overrides.entries()))).toBe(
-    JSON.stringify(Array.from(overrides.entries()))
+  expect(Array.from(device.overrides.entries())).toEqual(
+    Array.from(overrides.entries())
   );
 });
 
@@ -48,11 +48,9 @@ test('toJSON and fromJSON correctly serializes and deserializes', () => {
   expect(device.siblingIndex).toBe(other.siblingIndex);
   expect(device.nickname).toBe(other.nickname);
   expect(device.supported).toBe(other.supported);
-  expect(JSON.stringify(Array.from(device.overrides.entries()))).toBe(
-    JSON.stringify(Array.from(other.overrides.entries()))
-  );
-  expect(JSON.stringify(device.shareSustain)).toBe(
-    JSON.stringify(other.shareSustain)
+  expect(device.shareSustain).toEqual(other.shareSustain);
+  expect(Array.from(device.overrides.entries())).toEqual(
+    Array.from(other.overrides.entries())
   );
 });
 
@@ -63,7 +61,7 @@ test('handleMessage propagates message when not-overridden', () => {
   const msg = [144, 0, 0];
   /* eslint-disable-next-line */
   const [_toDevice, toPropagate] = device.handleMessage(msg);
-  expect(JSON.stringify(toPropagate)).toBe(JSON.stringify(msg));
+  expect(toPropagate).toEqual(msg);
 });
 
 test('handleMessage returns null message to prop to device', () => {
@@ -88,5 +86,5 @@ test('handleMessage applies override', () => {
   const device = new AnonymousDeviceConfig(name, 7, overrides, [], nickname);
   /* eslint-disable-next-line */
   const [_toDevice, toPropagate] = device.handleMessage(msg);
-  expect(JSON.stringify(toPropagate)).toBe(JSON.stringify(override));
+  expect(toPropagate).toEqual(override);
 });

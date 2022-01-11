@@ -17,7 +17,7 @@ test('constructor sets values correctly', () => {
   expect(dev.name).toBe(name);
   expect(dev.siblingIndex).toBe(siblingIndex);
   expect(dev.supported).toBe(supported);
-  expect(JSON.stringify(dev.shareSustain)).toBe(JSON.stringify(shareSustain));
+  expect(dev.shareSustain).toEqual(shareSustain);
   expect(dev.nickname).toBe(nickname);
 });
 

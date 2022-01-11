@@ -17,8 +17,8 @@ export class BinaryPropagator extends Propagator {
   #defaultState = 'off';
 
   constructor(
-    inputResponse: 'gate' | 'toggle',
-    outputResponse: 'gate' | 'toggle' | 'constant',
+    inputResponse: 'gate' | 'toggle' | 'constant',
+    outputResponse: 'gate' | 'toggle',
     onMessage?: MidiMessage,
     offMessage?: MidiMessage,
     lastPropagated?: MidiMessage
@@ -41,7 +41,7 @@ export class BinaryPropagator extends Propagator {
       ? this.offMessage
       : this.onMessage;
 
-    return response === undefined || response === null ? null : response;
+    return response === undefined ? null : response;
   }
 
   /**
