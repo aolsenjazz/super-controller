@@ -27,7 +27,6 @@ export default function DeviceLayout(props: PropTypes) {
       <div id={driver.name}>
         {driver.keyboard ? (
           <KeyboardIcon
-            active={active}
             width={driver.keyboard.width}
             height={driver.keyboard.height}
             left={driver.keyboard.left}
@@ -41,7 +40,6 @@ export default function DeviceLayout(props: PropTypes) {
           <InputGridIcon
             key={inputGrid.id}
             inputGrid={inputGrid}
-            active={active}
             deviceWidth={driver.width}
             deviceHeight={driver.height}
           />

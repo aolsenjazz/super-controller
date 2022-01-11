@@ -5,7 +5,6 @@ import KeyBlackIcon from './KeyBlackIcon';
 const FUNDAMENTALS_BLACK = [1, 3, 6, 8, 10];
 
 type PropTypes = {
-  active: boolean;
   width: number;
   height: number;
   left: number;
@@ -18,7 +17,6 @@ type PropTypes = {
  * Simplified graphical representation of a keyboard
  *
  * @param props Component props
- * @param props.active Should the keyboard be highlighted?
  * @param props.width Width (in inches) of the keyboard
  * @param props.height Height (in inches) of the keyboard
  * @param props.left Distance (in inches) from the left edge of the device
@@ -27,32 +25,27 @@ type PropTypes = {
  * @param props.deviceHeight height (in inches) of the device
  */
 export default function Keyboard(props: PropTypes) {
-  const { active, height, width, left, bottom, deviceWidth, deviceHeight } =
-    props;
+  const { height, width, left, bottom, deviceWidth, deviceHeight } = props;
 
   const style = {
-    width: `${(width / deviceWidth) * 100}%`,
+    width: `calc(${(width / deviceWidth) * 100}% - 1px)`, // -1px because of right border
     height: `${(height / deviceHeight) * 100}%`,
-    left: `${(left / deviceWidth) * 100 - 1}%`, // TODO: why is this 100-1
+    left: `${(left / deviceWidth) * 100}%`,
     bottom: `${(bottom / deviceHeight) * 100}%`,
   };
 
   return (
-    <div id="keyboard-container" style={style} className="Input">
-      <div className={`octave ${active ? 'active' : ''}`}>
-        <div className={`key key-white ${active ? 'active' : ''}`} />
-        <div className={`key key-white ${active ? 'active' : ''}`} />
-        <div className={`key key-white ${active ? 'active' : ''}`} />
-        <div className={`key key-white ${active ? 'active' : ''}`} />
-        <div className={`key key-white ${active ? 'active' : ''}`} />
-        <div className={`key key-white ${active ? 'active' : ''}`} />
-        <div className={`key key-white ${active ? 'active' : ''}`} />
+    <div className="keyboard-container input" style={style}>
+      <div className="octave">
+        <div className="key key-white" />
+        <div className="key key-white" />
+        <div className="key key-white" />
+        <div className="key key-white" />
+        <div className="key key-white" />
+        <div className="key key-white" />
+        <div className="key key-white" />
         {FUNDAMENTALS_BLACK.map((fundamental) => (
-          <KeyBlackIcon
-            fundamental={fundamental}
-            key={fundamental}
-            active={active}
-          />
+          <KeyBlackIcon fundamental={fundamental} key={fundamental} />
         ))}
       </div>
     </div>

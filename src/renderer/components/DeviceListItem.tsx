@@ -83,27 +83,23 @@ export default function DeviceListItem(props: PropTypes) {
   } = props;
 
   return (
-    <div className={`nav-item ${active ? 'selected' : ''}`}>
+    <div className={`device-list-item ${active ? 'active' : ''}`}>
       <div className="device-icon-container">
         <DeviceIcon driver={driver} active={active} />
       </div>
       <div
-        className="nav-item-label"
+        className="device-list-item-label"
         onClick={onClick}
         role="button"
         tabIndex={0}
         onKeyDown={onClick}
       >
-        <h2 className={`${active ? 'selected' : ''}`}>{nickname || name}</h2>
-        <p className={`id ${active ? 'selected' : ''}`}>
-          {reformatId(id, siblingIndex)}
-        </p>
+        <h2>{nickname || name}</h2>
+        <p className="id">{reformatId(id, siblingIndex)}</p>
         <div
           className={`connection-color ${cssClassFor(connected, configured)}`}
         />
-        <p className={`connection-status ${active ? 'selected' : ''}`}>
-          {statusFor(connected, configured)}
-        </p>
+        <p className="connection-status">{statusFor(connected, configured)}</p>
       </div>
     </div>
   );

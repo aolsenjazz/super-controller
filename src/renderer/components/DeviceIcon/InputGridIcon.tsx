@@ -4,7 +4,6 @@ type PropTypes = {
   inputGrid: InputGridDriver;
   deviceWidth: number;
   deviceHeight: number;
-  active: boolean;
 };
 
 /**
@@ -14,10 +13,9 @@ type PropTypes = {
  * @param props.inputGrid Driver for this InputGrid
  * @param props.deviceWidth Width (in inches) of this device
  * @param props.deviceHeight Height (in inches) of this device
- * @param props.active Should the input grid be highlighted? TODO: remove me. see trello
  */
 const InputGridIcon = (props: PropTypes) => {
-  const { inputGrid, deviceWidth, deviceHeight, active } = props;
+  const { inputGrid, deviceWidth, deviceHeight } = props;
 
   const igStyle = {
     width: `${(inputGrid.width / deviceWidth) * 100}%`,
@@ -39,7 +37,7 @@ const InputGridIcon = (props: PropTypes) => {
             }}
           >
             <div
-              className={`pad ${active ? 'active' : ''}`}
+              className="pad"
               style={{
                 borderRadius: input.shape === 'circle' ? '100%' : '',
                 width: `${

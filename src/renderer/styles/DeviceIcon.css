@@ -22,11 +22,17 @@
   transform: translate(-50%, -50%);
 }
 
-.device-icon .pad.active {
-  background-color: #3a84e9 !important;
+.device-icon.active .pad,
+.device-icon.active .key-black {
+  background-color: #3a84e9;
 }
 
-.device-icon #keyboard-container {
+.device-icon.active .key-white,
+.device-icon.active .keyboard-container {
+  border-color: #3a84e9;
+}
+
+.device-icon .keyboard-container {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -36,7 +42,7 @@
 
 .device-icon .octave {
   height: 100%;
-  display: inline-block;
+  display: flex;
   position: relative;
   width: 100%;
 }
@@ -45,23 +51,18 @@
   position: absolute;
   top: 0;
   height: 60%;
-  width: 6%;
+  width: 9%;
   background-color: #808080;
 }
 
 .device-icon .key-white {
   height: 100%;
-  display: inline-block;
-  width: calc(14% - 1px);
+  flex: 1;
   vertical-align: top;
-}
-
-.device-icon .key-black.active {
-  background-color: #3a84e9 !important;
+  border-left: 1px solid #808080;
 }
 
 .device-icon .key {
-  border-left: 1px solid #808080;
   display: inline-block;
   top: 0;
 }
@@ -72,8 +73,4 @@
 
 .device-icon .key-black {
   margin-left: 1px;
-}
-
-.device-icon .octave:last-of-type {
-  border-right: 1px solid #808080;
 }

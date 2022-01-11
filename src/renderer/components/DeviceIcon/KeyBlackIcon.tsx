@@ -1,6 +1,5 @@
 type PropTypes = {
   fundamental: number;
-  active: boolean;
 };
 
 /**
@@ -8,19 +7,19 @@ type PropTypes = {
  *
  * @param props Component props
  * @param props.fundamental Zero-based offset from C in the same octave (1,3,6,8 or 10)
- * @param props.active Should the key be highlighted?
  */
 export default function KeyBlackIcon(props: PropTypes) {
-  const { fundamental, active } = props;
+  const { fundamental } = props;
 
-  const numKeysFromLeft = 0.5 + Math.floor(fundamental / 2);
-  const adjustment = fundamental * Math.floor(fundamental / 6) * 1;
+  // B.S. math to calculate distance from the left edge of parent octave
+  const numKeysFromLeft = Math.floor(0.5 + Math.floor(fundamental / 2));
+  const adjustment = fundamental * Math.floor(fundamental / 6);
 
   return (
     <div
-      className={`key-black key ${active ? 'active' : ''}`}
+      className="key-black key"
       style={{
-        left: `${16.2 * numKeysFromLeft - adjustment}%`,
+        left: `${16.2 * numKeysFromLeft - adjustment + 9}%`,
       }}
     />
   );

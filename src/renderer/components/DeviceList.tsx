@@ -126,7 +126,7 @@ export default function DeviceList(props: PropTypes) {
   });
 
   return (
-    <div id="nav-bar" className="top-level">
+    <div id="device-list" className="top-level">
       {elements}
     </div>
   );
