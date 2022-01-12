@@ -64,15 +64,12 @@ export function inputIdFor(
 /**
  * Returns the message to be send to devices in order to trigger the given color.
  *
- * TODO: I don't like that we're accepting undefined here
- *
  * @param number The MIDI number
  * @param channel The MIDI channel
  * @param c The color to set
  * @returns A `MidiMessage` which can be used to trigger the color
  */
-export function msgForColor(number: MidiValue, channel: Channel, c?: Color) {
-  if (!c) return undefined;
+export function msgForColor(number: MidiValue, channel: Channel, c: Color) {
   return new MidiMessage(c.eventType, number, c.value, channel, 0);
 }
 
@@ -91,18 +88,11 @@ export function isSustain(msg: MidiValue[]) {
  * Generally speaking, is this message and 'on' message? If message doesn't have
  * a clear notion of on-ness (programchange), return `default`
  *
- * TODO: I don't like that we're accepting undefined here
- *
  * @param msg The message
  * @param msg The value to return if message type has no notion of on-ness
  * @returns `true` if message is on-ish
  */
-export function isOnMessage(
-  msg: MidiMessage | number[] | undefined,
-  def: boolean
-) {
-  if (msg === undefined) return false;
-
+export function isOnMessage(msg: MidiMessage | number[], def: boolean) {
   let mm;
   if (msg instanceof MidiMessage) mm = msg;
   else mm = new MidiMessage(msg, 0);

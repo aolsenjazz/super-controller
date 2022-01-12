@@ -62,12 +62,11 @@ export class Project {
 
   /**
    * Returns the device config for given id.
-   * TODO: I don't liek that we're accepting null here. undefined is fine
    *
    * @param id The requested device id
    * @returns device config
    */
-  getDevice(id: string | undefined | null) {
+  getDevice(id: string | undefined) {
     for (let i = 0; i < this.devices.length; i++) {
       if (this.devices[i].id === id) return this.devices[i];
     }

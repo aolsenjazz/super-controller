@@ -33,14 +33,10 @@ export class AnonymousDeviceConfig extends DeviceConfig {
    * Tries to apply overrides. If no matching overrides available,
    * send a propagates the message and sends nothing to device.
    *
-   * TODO: doesn't feel right that we're accepting null here
-   *
    * @param message The MidiValue[] from device
    * @returns [messageToDevice | null, messageToPropagate]
    */
-  handleMessage(msg: number[] | null) {
-    if (msg === null) return [null, null];
-
+  handleMessage(msg: number[]) {
     const id = inputIdFor(msg);
     const override = this.overrides.get(id);
 

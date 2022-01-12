@@ -14,9 +14,8 @@ import { CC_BINDINGS, stringVal } from '@shared/util';
 export class InputGroup {
   inputs: InputConfig[];
 
-  // TODO: I don't like that we're accepting undefined's here
-  constructor(inputs: (InputConfig | undefined)[]) {
-    this.inputs = inputs.filter((c) => c !== undefined) as InputConfig[];
+  constructor(inputs: InputConfig[]) {
+    this.inputs = inputs;
   }
 
   labelForNumber(n: MidiValue) {

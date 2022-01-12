@@ -29,7 +29,7 @@ type PropTypes = {
  * @param props.deviceConfig Configuration for the device
  * @param props.onClick Click listener for input. used to set selected inputs
  * @param props.selectedInputs Currently-selected input IDs
- * @param props.configured Is the current device configured? TODO: can't we just get this from deviceConfig
+ * @param props.configured Is the current device configured?
  */
 export default function DeviceLayout(props: PropTypes) {
   const { device, onClick, selectedInputs, configured, deviceConfig } = props;

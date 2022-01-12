@@ -1,7 +1,10 @@
+import { useState, useEffect } from 'react';
+
 import {
   DeviceConfig,
   SupportedDeviceConfig,
   AnonymousDeviceConfig,
+  InputConfig,
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 
@@ -32,7 +35,15 @@ type InputConfigurationProps = {
 function InputConfiguration(props: InputConfigurationProps) {
   const { config, project, selectedInputs, setProject } = props;
 
-  const group = new InputGroup(selectedInputs.map((i) => config.getInput(i)));
+  const [group, setGroup] = useState(new InputGroup([]));
+
+  // when selectedInputs/config change, update
+  useEffect(() => {
+    const inputs = selectedInputs
+      .map((i) => config.getInput(i))
+      .filter((i) => i !== undefined);
+    setGroup(new InputGroup(inputs as InputConfig[]));
+  }, [selectedInputs, config]);
 
   // display config panel for multi-input control if necessary, other single-input control panel
   const InputConfigPanel = group.isMultiInput ? (

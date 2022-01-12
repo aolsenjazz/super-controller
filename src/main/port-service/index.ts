@@ -149,9 +149,8 @@ export class PortService {
 
     config.inputs
       .map((i) => [i, i.currentColor] as Tuple) // get current color
-      .filter((tuple) => tuple[1] !== undefined) // eslint-disable-line
-      .map(([i, c]) => msgForColor(i.default.number, i.default.channel, c)) // get message for color
-      .filter((conf) => conf !== undefined) // filter undefined
+      .filter(([_i, c]) => c !== undefined) // eslint-disable-line
+      .map(([i, c]) => msgForColor(i.default.number, i.default.channel, c!)) // get message for color
       .forEach((conf) => pp.send(conf!.toMidiArray())); // send color message
   };
 

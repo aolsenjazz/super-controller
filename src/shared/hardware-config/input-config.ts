@@ -184,16 +184,22 @@ export class InputConfig {
       const offColor = isOffSet
         ? override.lightConfig.get('off')
         : defaultColor;
+      const offColorMsg = offColor
+        ? msgForColor(defaultVals.number, defaultVals.channel, offColor)
+        : undefined;
 
       const isOnSet = override.lightConfig.get('on') !== undefined;
       const onColor = isOnSet ? override.lightConfig.get('on') : defaultColor;
+      const onColorMsg = onColor
+        ? msgForColor(defaultVals.number, defaultVals.channel, onColor)
+        : undefined;
 
       type Type = 'gate' | 'toggle';
       this.devicePropagator = new BinaryPropagator(
         this.default.response as Type | 'constant',
         (this.override.response || this.default.response) as Type,
-        msgForColor(defaultVals.number, defaultVals.channel, onColor),
-        msgForColor(defaultVals.number, defaultVals.channel, offColor),
+        onColorMsg,
+        offColorMsg,
         lastResponse
       );
     } else {

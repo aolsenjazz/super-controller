@@ -223,6 +223,8 @@ export class OutputPropagator extends Propagator {
     }
 
     if (['gate', 'toggle'].includes(this.outputResponse)) {
+      if (this.lastPropagated === undefined) return 'off';
+
       return isOnMessage(this.lastPropagated, true) ? 'on' : 'off';
     }
 

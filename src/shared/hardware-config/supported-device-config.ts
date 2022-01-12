@@ -142,8 +142,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * Tries to pass the message to an `InputConfig`. If no matching `InputConfig`s,
    * send a propagates the message and sends nothing to device.
    *
-   * TODO: doesn't feel righ tthat we're accepting null here
-   *
    * @param message The MidiValue[] from device
    * @returns [messageToDevice | null, messageToPropagate]
    */
