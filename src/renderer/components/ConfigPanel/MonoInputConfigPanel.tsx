@@ -113,7 +113,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             });
           }}
         />
-        {eventType === 'controlchange' && response === 'constant' ? (
+        {eventType !== 'programchange' && response === 'constant' ? (
           <SettingsLineItem
             label="Value:"
             value={value}
