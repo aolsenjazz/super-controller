@@ -42,8 +42,6 @@ export class BinaryPropagator extends Propagator {
   /**
    * Returns whether or not mm is equivalent to this propagator's 'on' message
    *
-   * // TODO: can/should we also just compare msg[1]
-   *
    * @param mm Other message
    * @returns true if mm === this.onMessage
    */

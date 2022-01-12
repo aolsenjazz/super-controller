@@ -1,3 +1,4 @@
+import { StatusString, Channel } from '@shared/midi-util';
 import { inputIdFor } from '../util';
 import { DeviceDriver, KeyboardDriver } from '../driver-types';
 
@@ -86,17 +87,10 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * @param channel The MIDI channel
    * @returns Is this binding available?
    */
-  bindingAvailable(
-    eventType: string | null,
-    number: number | null | string,
-    channel: number | null | string
-  ) {
+  bindingAvailable(eventType: StatusString, number: number, channel: Channel) {
     return (
       this.inputs.filter(
-        (input) =>
-          input.eventType === eventType &&
-          input.number === number &&
-          input.channel === channel
+        (input) => input.id === inputIdFor(eventType, channel, number)
       ).length === 0
     );
   }

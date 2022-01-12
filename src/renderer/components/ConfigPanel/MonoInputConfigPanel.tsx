@@ -49,9 +49,10 @@ export default function MonoInputConfigPanel(props: PropTypes) {
 
   // get labels for all eligible values
   const numberLabels = eligibleNumbers.map((v) => {
-    if (eventType === 'controlchange') {
+    if (eventType === 'controlchange' && Number.isInteger(channel)) {
       const inUseLabel = v === number ? '' : ' [in use]';
-      return config.bindingAvailable(eventType, v, channel) || v === number
+      return config.bindingAvailable(eventType, v, channel as Channel) ||
+        v === number
         ? group.labelForNumber(v)
         : `${v}${inUseLabel}`;
     }

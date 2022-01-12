@@ -76,7 +76,7 @@ export class OutputPropagator extends Propagator {
       response = [response[0], response[1]];
     } else {
       /* eslint-disable-next-line */
-      this.value = response[2]; // TODO: maybe need to set this more intelligently for pitchbend
+      this.value = response[2];
     }
 
     return response;
