@@ -339,14 +339,18 @@ export class InputConfig {
       return ['noteon', 'noteoff', 'controlchange', 'programchange'];
     }
 
-    if (this.response === 'continuous') {
+    if (this.default.eventType === 'pitchbend') {
       return [
+        'pitchbend',
         'noteon',
         'noteoff',
         'controlchange',
         'programchange',
-        'pitchbend',
       ];
+    }
+
+    if (this.response === 'continuous') {
+      return ['noteon', 'noteoff', 'controlchange', 'programchange'];
     }
 
     return ['noteon/noteoff', 'controlchange', 'programchange'];

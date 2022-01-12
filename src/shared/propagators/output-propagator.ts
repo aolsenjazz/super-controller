@@ -43,7 +43,7 @@ export class OutputPropagator extends Propagator {
    * @returns The message to propagate
    */
   protected getResponse(msg: number[]) {
-    // manually slip constant state if output response !== constant
+    // manually flip constant state if output response !== constant
     if (
       this.hardwareResponse === 'constant' &&
       this.outputResponse !== 'constant'
@@ -72,8 +72,13 @@ export class OutputPropagator extends Propagator {
         throw new Error(`unknown outputResponse ${this.outputResponse}`);
     }
 
-    /* eslint-disable-next-line */
-    this.value = response[2]; // TODO: maybe need to set this more intelligently for pitchbend
+    if (getStatus(response).string === 'programchange') {
+      response = [response[0], response[1]];
+    } else {
+      /* eslint-disable-next-line */
+      this.value = response[2]; // TODO: maybe need to set this more intelligently for pitchbend
+    }
+
     return response;
   }
 
@@ -118,7 +123,6 @@ export class OutputPropagator extends Propagator {
    * @returns The message to propagate
    */
   #handleAsContinuous = (msg: number[]) => {
-    // forward the same message every time, with overrides and value replaced
     return setStatus(
       [this.channel, this.number, msg[2]],
       this.#nextEventType()
