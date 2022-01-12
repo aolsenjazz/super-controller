@@ -32,7 +32,7 @@ function UnsupportedView() {
 }
 
 type PropTypes = {
-  config: DeviceConfig | null;
+  config: DeviceConfig | undefined;
   configured: boolean;
   selectedInputs: string[];
   setSelectedInputs: (inputs: string[]) => void;
@@ -58,7 +58,7 @@ export default function DevicePanel(props: PropTypes) {
 
   let Element: React.ReactElement;
 
-  if (config === null) {
+  if (config === undefined) {
     Element = <NoDevicesView />;
   } else if (config.supported === false) {
     Element = <UnsupportedView />;

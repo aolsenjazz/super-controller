@@ -117,7 +117,7 @@ export default function DeviceList(props: PropTypes) {
         onClick={() => setSelectedId(info.id)}
         active={selectedId === info.id}
         connected={info.connected}
-        configured={config !== null}
+        configured={config !== undefined}
         name={info.name}
         nickname={config?.nickname}
         siblingIndex={info.siblingIndex}

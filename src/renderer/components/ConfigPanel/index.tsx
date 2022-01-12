@@ -65,7 +65,7 @@ function InputConfiguration(props: InputConfigurationProps) {
 }
 
 type PropTypes = {
-  device: DeviceConfig | null;
+  config: DeviceConfig | undefined;
   project: Project;
   selectedInputs: string[];
   setProject: (p: Project) => void;
@@ -80,15 +80,16 @@ type PropTypes = {
  * @param props.setProject Updated the project in frontend
  */
 export default function ConfigPanel(props: PropTypes) {
-  const { selectedInputs, device, project, setProject } = props;
+  const { selectedInputs, config, project, setProject } = props;
   /* eslint-disable-next-line */
-  const isConfigured = project.getDevice(device?.id) ? true : false;
-  const asSupported = device as SupportedDeviceConfig;
+  const isConfigured = project.getDevice(config?.id) ? true : false;
+  const asSupported = config as SupportedDeviceConfig;
 
   let Element: JSX.Element;
 
   // show a diff view depending on if device is supported, configured, etc
-  if (device === null) Element = <BasicMessage msg="No connected devices." />;
+  if (config === undefined)
+    Element = <BasicMessage msg="No connected devices." />;
   else if (!isConfigured)
     Element = (
       <NotConfigured
@@ -97,7 +98,7 @@ export default function ConfigPanel(props: PropTypes) {
         project={project}
       />
     );
-  else if (!device.supported) {
+  else if (!config?.supported) {
     // device is not supported, handle as anonymous device
     Element = (
       <>
@@ -107,7 +108,7 @@ export default function ConfigPanel(props: PropTypes) {
           setProject={setProject}
         />
         <Forwarder
-          config={device as AnonymousDeviceConfig}
+          config={config as AnonymousDeviceConfig}
           project={project}
           setProject={setProject}
         />

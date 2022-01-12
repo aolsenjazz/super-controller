@@ -41,7 +41,7 @@ export default function App() {
   // Currently-available hardware ports
   const [ports, setPorts] = useState<PortInfo[]>([]);
 
-  const [activeDevice, setActiveDevice] = useState<DeviceConfig | null>(null);
+  const [activeDevice, setActiveDevice] = useState<DeviceConfig | undefined>();
   const [selectedId, setSelectedId] = useState<string>();
   const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
 
@@ -67,7 +67,7 @@ export default function App() {
 
   // Update the active device when selected index, project, or ports change
   useEffect(() => {
-    let device: DeviceConfig | null = project.getDevice(selectedId);
+    let device = project.getDevice(selectedId);
     if (!device && ports.length > 0 && selectedId) {
       const portInfo = ports.filter((info) => info.id === selectedId)[0];
 
@@ -86,7 +86,7 @@ export default function App() {
         // this port may or may not exist. if it exists, it must not be supported
         device =
           portInfo === undefined
-            ? null
+            ? undefined
             : new AnonymousDeviceConfig(
                 portInfo.name,
                 portInfo.siblingIndex,
@@ -117,7 +117,7 @@ export default function App() {
           setSelectedInputs={setSelectedInputs}
         />
         <ConfigPanel
-          device={activeDevice}
+          config={activeDevice}
           project={project}
           selectedInputs={selectedInputs}
           setProject={setProject}
