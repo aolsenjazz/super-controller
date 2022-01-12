@@ -182,7 +182,6 @@ test('eligibleEventTypes returns correct eventTypes for similar inputs', () => {
     'noteoff',
     'controlchange',
     'programchange',
-    'pitchbend',
   ];
   expect(group.eligibleEventTypes).toEqual(eligibleEventTypes);
 });

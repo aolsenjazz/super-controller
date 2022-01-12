@@ -172,6 +172,41 @@ function BasicContinuousInputConfig() {
   return config;
 }
 
+function BasicPitchbendInputConfig() {
+  const overrideable = true;
+  const type = 'slider';
+  const lightConfig = new Map<string, Color>();
+
+  const inputDefault = {
+    channel: 0 as Channel,
+    eventType: 'pitchbend' as const,
+    number: 0,
+    response: 'continuous' as const,
+  };
+
+  const override = {
+    lightConfig,
+    channel: 1 as Channel,
+    eventType: 'programchange' as const,
+    number: 1,
+    nickname: 'AYOO',
+    response: 'constant' as const,
+  };
+
+  const msg = BasicMidiMsg();
+  const config = new InputConfig(
+    inputDefault,
+    override,
+    [],
+    overrideable,
+    type
+  );
+
+  config.handleMessage(msg);
+
+  return config;
+}
+
 test('fromJSON properly serializes inputConfig.type', () => {
   const inputDefault = {
     channel: 0 as Channel,
@@ -328,20 +363,18 @@ test('eligibleEventTypes are correct for continuous InputConfig', () => {
     'noteoff',
     'controlchange',
     'programchange',
-    'pitchbend',
   ]);
 });
 
 test('eligibleEventTypes are correct for pitchbend', () => {
-  const config = BasicContinuousInputConfig();
+  const config = BasicPitchbendInputConfig();
   config.response = 'continuous';
-  config.eventType = 'pitchbend';
   expect(config.eligibleEventTypes).toStrictEqual([
+    'pitchbend',
     'noteon',
     'noteoff',
     'controlchange',
     'programchange',
-    'pitchbend',
   ]);
 });
 

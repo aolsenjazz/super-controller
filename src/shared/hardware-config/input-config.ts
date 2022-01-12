@@ -36,8 +36,8 @@ export type InputOverride = {
   /**
    * Maintains hardware color per state. For more, see `DevicePropagator`
    *
-   * TODO: this is smelly. probably makes more sense to make this a member of
-   * `DevicePropagator`
+   * TODO: this is smelly. might make more sense to make this a member of
+   * `DevicePropagator`.
    */
   lightConfig: Map<string, Color>;
 };
@@ -166,23 +166,13 @@ export class InputConfig {
     );
 
     // create the devicePropagator
-    // TODO: this is gross. surely this can be made cleaner
     if (['gate', 'toggle'].includes(this.default.response)) {
-      const defaultColor =
-        availableColors.length > 0
-          ? availableColors.filter((c) => c.default)[0]
-          : undefined;
-
-      const isOffSet = override.lightConfig.get('off') !== undefined;
-      const offColor = isOffSet
-        ? override.lightConfig.get('off')
-        : defaultColor;
+      const offColor = override.lightConfig.get('off') || this.defaultColor;
       const offColorMsg = offColor
         ? msgForColor(defaultVals.number, defaultVals.channel, offColor)
         : undefined;
 
-      const isOnSet = override.lightConfig.get('on') !== undefined;
-      const onColor = isOnSet ? override.lightConfig.get('on') : defaultColor;
+      const onColor = override.lightConfig.get('on') || this.defaultColor;
       const onColorMsg = onColor
         ? msgForColor(defaultVals.number, defaultVals.channel, onColor)
         : undefined;
