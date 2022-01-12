@@ -91,12 +91,11 @@ export class PortService {
    * connections, runs device initialization, lets the frontend know.
    */
   updatePorts() {
-    let freshPorts = all();
-
     // midi clients which are present in the most recent scan but not in `this.portPairs`
     // should be added to current list. midi clients which are preset in `this.portPairs`
     // but not the most recent scan are broken and should be removed
-    const [toAdd, broken] = getDiff(
+    let freshPorts = all();
+    let [toAdd, broken] = getDiff(
       Array.from(freshPorts.keys()),
       Array.from(this.portPairs.keys())
     );
@@ -109,6 +108,10 @@ export class PortService {
     // at this point, ports *might* have been closed. if ports were closed, then port
     // indexes have changed. refresh the current midi client list to be safe
     freshPorts = all();
+    [toAdd, broken] = getDiff(
+      Array.from(freshPorts.keys()),
+      Array.from(this.portPairs.keys())
+    );
 
     // update all available, but not-configured, midi clients in `this.portPairs`
     this.#updateDisconnectedPorts(freshPorts);
@@ -182,7 +185,7 @@ export class PortService {
   #onMessage = (pair: PortPair, msg: MidiValue[]) => {
     const deviceOrNull = this.#project.getDevice(pair.id);
 
-    if (deviceOrNull !== null) {
+    if (deviceOrNull !== undefined) {
       // device exists. process it
       const [toDevice, toPropagate] = deviceOrNull.handleMessage(
         msg as MidiValue[]
@@ -271,10 +274,10 @@ export class PortService {
    * @param freshPorts The currently-available MIDI ports
    */
   #updateDisconnectedPorts = (freshPorts: Map<string, PortPair>) => {
-    // update non-connected ports
     const toUpdate = Array.from(this.portPairs.values())
-      .filter((pp) => !pp.isPortOpen())
+      .filter((pp) => !this.#virtService.isOpen(pp.id))
       .map((pp) => pp.id);
+
     toUpdate.forEach((id) => {
       const freshPort = freshPorts.get(id);
       if (freshPort) this.portPairs.set(id, freshPort);
