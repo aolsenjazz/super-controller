@@ -1,5 +1,4 @@
 import { BrowserWindow } from 'electron';
-import { MidiValue } from 'midi-message-parser';
 
 import { Project } from '@shared/project';
 import { PortInfo } from '@shared/port-info';
@@ -55,7 +54,7 @@ class WindowService {
     }
   }
 
-  sendInputMsg(inputId: string, deviceId: string, msg: MidiValue[]) {
+  sendInputMsg(inputId: string, deviceId: string, msg: number[]) {
     this.#send(MSG, inputId, deviceId, msg);
   }
 

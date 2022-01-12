@@ -232,7 +232,6 @@
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.4",
     "history": "^5.2.0",
-    "midi-message-parser": "^2.0.1",
     "randomstring": "^1.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

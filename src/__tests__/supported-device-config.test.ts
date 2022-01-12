@@ -1,22 +1,17 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 
 import { test, expect, jest } from '@jest/globals';
-import {
-  MidiMessage,
-  EventType,
-  Channel,
-  MidiValue,
-} from 'midi-message-parser';
 
+import { Channel, setStatus, StatusString } from '@shared/midi-util';
 import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
 import { Color } from '@shared/driver-types';
 
 function BasicInputConfig() {
   const inputDefault = {
     channel: 0 as Channel,
-    eventType: 'controlchange' as EventType,
-    number: 0 as MidiValue,
-    response: 'continuous' as 'continuous' | 'toggle',
+    eventType: 'controlchange' as const,
+    number: 0,
+    response: 'continuous' as const,
   };
   const override = {
     lightConfig: new Map<string, Color>(),
@@ -48,9 +43,9 @@ function BasicSupportedDevice() {
 test('getInput throws for bad id', () => {
   const inputDefault = {
     channel: 0 as Channel,
-    eventType: 'controlchange' as EventType,
-    number: 0 as MidiValue,
-    response: 'continuous' as 'continuous' | 'toggle',
+    eventType: 'controlchange' as const,
+    number: 0,
+    response: 'continuous' as const,
   };
   const override = {
     lightConfig: new Map<string, Color>(),
@@ -78,8 +73,8 @@ test('getInput throws for bad id', () => {
 test('getInput returns correct input for id', () => {
   const inputDefault = {
     channel: 0 as Channel,
-    eventType: 'controlchange' as EventType,
-    number: 0 as MidiValue,
+    eventType: 'controlchange' as const,
+    number: 0,
     response: 'continuous' as 'continuous' | 'toggle',
   };
   const override = {
@@ -112,8 +107,8 @@ test('getInput returns correct input for id', () => {
 test('handleMessage() passes to correct input for processing', () => {
   const inputDefault = {
     channel: 0 as Channel,
-    eventType: 'controlchange' as EventType,
-    number: 0 as MidiValue,
+    eventType: 'controlchange' as const,
+    number: 0,
     response: 'continuous' as 'continuous' | 'toggle',
   };
   const override = {
@@ -139,14 +134,11 @@ test('handleMessage() passes to correct input for processing', () => {
     nickname
   );
 
-  const mm = new MidiMessage(
-    input.eventType,
-    input.number,
-    127,
-    input.channel,
-    0
+  const mm = setStatus(
+    [input.channel, input.number, 127],
+    input.eventType as StatusString
   );
-  config.handleMessage(mm.toMidiArray());
+  config.handleMessage(mm);
   expect(spy).toHaveBeenCalledTimes(1);
 });
 
@@ -169,7 +161,7 @@ test('bindingAvailable return true if binding is not taken', () => {
 
 test('handleMessage just propagates msgs when no matching inputConfig found', () => {
   const device = BasicSupportedDevice();
-  const msg = new MidiMessage('noteon', 42, 127, 0, 0).toMidiArray();
+  const msg = setStatus([0, 42, 127], 'noteon');
   const result = device.handleMessage(msg);
   expect(result[1]).toStrictEqual(msg);
 });

@@ -1,14 +1,6 @@
 /* eslint @typescript-eslint/prefer-as-const: 0 */
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
-
-import { test, expect } from '@jest/globals';
-import {
-  EventType,
-  Channel,
-  MidiValue,
-  MidiMessage,
-} from 'midi-message-parser';
-
+import { Channel, setStatus } from '@shared/midi-util';
 import { InputConfig } from '@shared/hardware-config';
 import { Color } from '@shared/driver-types';
 
@@ -31,7 +23,7 @@ const GREEN: Color = {
 };
 
 function BasicMidiMsg() {
-  return new MidiMessage('noteon', 60, 127, 0, 0);
+  return setStatus([0, 60, 127], 'noteon');
 }
 
 function BasicGateInputConfig() {
@@ -43,21 +35,21 @@ function BasicGateInputConfig() {
 
   const inputDefault = {
     channel: 0 as Channel,
-    eventType: 'noteon/noteoff' as EventType,
-    number: 0 as MidiValue,
+    eventType: 'noteon/noteoff' as const,
+    number: 0,
     response: 'gate' as 'gate',
   };
 
   const override = {
     lightConfig,
     channel: 1 as Channel,
-    eventType: 'controlchange' as EventType,
-    number: 1 as MidiValue,
+    eventType: 'controlchange' as const,
+    number: 1,
     nickname: 'AYOO',
-    response: 'toggle' as 'toggle',
+    response: 'toggle' as const,
   };
 
-  const msg = BasicMidiMsg().toMidiArray();
+  const msg = BasicMidiMsg();
   const config = new InputConfig(
     inputDefault,
     override,
@@ -80,21 +72,21 @@ function BasicToggleInputConfig() {
 
   const inputDefault = {
     channel: 0 as Channel,
-    eventType: 'noteon/noteoff' as EventType,
-    number: 0 as MidiValue,
-    response: 'toggle' as 'toggle',
+    eventType: 'noteon/noteoff' as const,
+    number: 0,
+    response: 'toggle' as const,
   };
 
   const override = {
     lightConfig,
     channel: 1 as Channel,
-    eventType: 'controlchange' as EventType,
-    number: 1 as MidiValue,
+    eventType: 'controlchange' as const,
+    number: 1,
     nickname: 'AYOO',
-    response: 'constant' as 'constant',
+    response: 'constant' as const,
   };
 
-  const msg = BasicMidiMsg().toMidiArray();
+  const msg = BasicMidiMsg();
   const config = new InputConfig(
     inputDefault,
     override,
@@ -117,21 +109,21 @@ function BasicConstantInputConfig() {
 
   const inputDefault = {
     channel: 0 as Channel,
-    eventType: 'programchange' as EventType,
-    number: 0 as MidiValue,
-    response: 'constant' as 'constant',
+    eventType: 'programchange' as const,
+    number: 0,
+    response: 'constant' as const,
   };
 
   const override = {
     lightConfig,
     channel: 1 as Channel,
-    eventType: 'controlchange' as EventType,
-    number: 1 as MidiValue,
+    eventType: 'controlchange' as const,
+    number: 1,
     nickname: 'AYOO',
-    response: 'toggle' as 'toggle',
+    response: 'toggle' as const,
   };
 
-  const msg = BasicMidiMsg().toMidiArray();
+  const msg = BasicMidiMsg();
   const config = new InputConfig(
     inputDefault,
     override,
@@ -152,21 +144,21 @@ function BasicContinuousInputConfig() {
 
   const inputDefault = {
     channel: 0 as Channel,
-    eventType: 'controlchange' as EventType,
-    number: 0 as MidiValue,
-    response: 'continuous' as 'continuous',
+    eventType: 'controlchange' as const,
+    number: 0,
+    response: 'continuous' as const,
   };
 
   const override = {
     lightConfig,
     channel: 1 as Channel,
-    eventType: 'programchange' as EventType,
-    number: 1 as MidiValue,
+    eventType: 'programchange' as const,
+    number: 1,
     nickname: 'AYOO',
-    response: 'constant' as 'constant',
+    response: 'constant' as const,
   };
 
-  const msg = BasicMidiMsg().toMidiArray();
+  const msg = BasicMidiMsg();
   const config = new InputConfig(
     inputDefault,
     override,
@@ -183,9 +175,9 @@ function BasicContinuousInputConfig() {
 test('fromJSON properly serializes inputConfig.type', () => {
   const inputDefault = {
     channel: 0 as Channel,
-    eventType: 'controlchange' as EventType,
-    number: 0 as MidiValue,
-    response: 'continuous' as 'continuous' | 'toggle',
+    eventType: 'controlchange' as const,
+    number: 0,
+    response: 'continuous' as const,
   };
   const override = {
     lightConfig: new Map<string, Color>(),
@@ -209,19 +201,18 @@ test('toJSON and fromJSON input restores defaults', () => {
 
   const inputDefault = {
     channel: 0 as Channel,
-    eventType: 'controlchange' as EventType,
-    number: 0 as MidiValue,
-    response: 'continuous' as 'continuous' | 'toggle',
+    eventType: 'controlchange' as const,
+    number: 0,
+    response: 'continuous' as const,
   };
 
-  const continuous: 'continuous' = 'continuous';
   const override = {
     lightConfig,
     channel: 1 as Channel,
-    eventType: 'noteon/noteoff' as EventType,
-    number: 1 as MidiValue,
+    eventType: 'noteon/noteoff' as const,
+    number: 1,
     nickname: 'AYOO',
-    response: continuous,
+    response: 'continuous' as const,
   };
 
   const conf = new InputConfig(
@@ -337,6 +328,7 @@ test('eligibleEventTypes are correct for continuous InputConfig', () => {
     'noteoff',
     'controlchange',
     'programchange',
+    'pitchbend',
   ]);
 });
 
@@ -344,7 +336,13 @@ test('eligibleEventTypes are correct for pitchbend', () => {
   const config = BasicContinuousInputConfig();
   config.response = 'continuous';
   config.eventType = 'pitchbend';
-  expect(config.eligibleEventTypes).toStrictEqual(['pitchbend']);
+  expect(config.eligibleEventTypes).toStrictEqual([
+    'noteon',
+    'noteoff',
+    'controlchange',
+    'programchange',
+    'pitchbend',
+  ]);
 });
 
 test('eligibleEventTypes are correct for gate InputConfig', () => {

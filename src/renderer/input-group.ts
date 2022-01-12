@@ -1,5 +1,4 @@
-import { MidiValue, Channel, EventType } from 'midi-message-parser';
-
+import { StatusString, Channel } from '@shared/midi-util';
 import { Color, InputDefault } from '@shared/driver-types';
 import { InputConfig } from '@shared/hardware-config';
 import { CC_BINDINGS, stringVal } from '@shared/util';
@@ -18,7 +17,7 @@ export class InputGroup {
     this.inputs = inputs;
   }
 
-  labelForNumber(n: MidiValue) {
+  labelForNumber(n: number) {
     const nInputs = this.inputs.length;
     const et = this.eventType;
 
@@ -143,14 +142,14 @@ export class InputGroup {
   }
 
   get number() {
-    return this.#groupValue<MidiValue>(
+    return this.#groupValue<number>(
       (c) => c.number,
       (a, b) => a === b
     );
   }
 
   get value() {
-    return this.#groupValue<MidiValue>(
+    return this.#groupValue<number>(
       (c) => c.value,
       (a, b) => a === b
     );
@@ -164,7 +163,7 @@ export class InputGroup {
   }
 
   get eventType() {
-    return this.#groupValue<EventType>(
+    return this.#groupValue<StatusString | 'noteon/noteoff'>(
       (c) => c.eventType,
       (a, b) => a === b
     );

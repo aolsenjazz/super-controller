@@ -1,5 +1,3 @@
-import { MidiValue, Channel } from 'midi-message-parser';
-
 import { inputIdFor } from '../util';
 import { DeviceDriver, KeyboardDriver } from '../driver-types';
 
@@ -81,6 +79,8 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * Are the eventType, number, and channel currently in use? Returns true if an input
    * uses all three params. Useful for avoiding inputs sending the same events
    *
+   * TODO: this could definitely be done more elegantly
+   *
    * @param eventType The MIDI event type (probably 'controlchange')
    * @param number The MIDI number
    * @param channel The MIDI channel
@@ -88,8 +88,8 @@ export class SupportedDeviceConfig extends DeviceConfig {
    */
   bindingAvailable(
     eventType: string | null,
-    number: MidiValue | null | string,
-    channel: Channel | null | string
+    number: number | null | string,
+    channel: number | null | string
   ) {
     return (
       this.inputs.filter(
@@ -145,10 +145,10 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * @param message The MidiValue[] from device
    * @returns [messageToDevice | null, messageToPropagate]
    */
-  handleMessage(message: MidiValue[]): (MidiValue[] | null)[] {
-    const id = inputIdFor(message);
+  handleMessage(msg: number[]): (number[] | undefined)[] {
+    const id = inputIdFor(msg);
     const input = this.getInput(id);
 
-    return input !== undefined ? input.handleMessage(message) : [null, message];
+    return input !== undefined ? input.handleMessage(msg) : [undefined, msg];
   }
 }

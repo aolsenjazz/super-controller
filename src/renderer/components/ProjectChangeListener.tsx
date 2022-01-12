@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { MidiValue, MidiMessage } from 'midi-message-parser';
 
+import { getStatus } from '@shared/midi-util';
 import { Project } from '@shared/project';
 import { MSG, PROJECT } from '@shared/ipc-channels';
 
@@ -26,8 +26,9 @@ function throttle(func: (...args: any[]) => void, delay: number) {
   };
 }
 
-function shouldThrottle(mm: MidiMessage) {
-  return mm.type === 'controlchange' || mm.type === 'pitchbend';
+function shouldThrottle(msg: number[]) {
+  const status = getStatus(msg).string;
+  return status === 'controlchange' || status === 'pitchbend';
 }
 
 type PropTypes = {
@@ -58,7 +59,7 @@ export default function ProjectChangeListener(props: PropTypes) {
       _e: Event,
       _inputId: string,
       deviceId: string,
-      msg: MidiValue[]
+      msg: number[]
     ) => {
       const device = project.getDevice(deviceId);
       if (device) device.handleMessage(msg);
@@ -68,8 +69,7 @@ export default function ProjectChangeListener(props: PropTypes) {
 
       // If the message received is a controlchange, throttle the setProject just
       // in case. React can't handle 100+ state updates per second.
-      const mm = new MidiMessage(msg, 0);
-      if (shouldThrottle(mm)) throttledSetProject(newProj);
+      if (shouldThrottle(msg)) throttledSetProject(newProj);
       else setProject(newProj);
     };
 

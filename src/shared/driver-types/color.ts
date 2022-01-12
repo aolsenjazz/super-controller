@@ -1,4 +1,4 @@
-import { EventType, MidiValue } from 'midi-message-parser';
+import { StatusString } from '../midi-util';
 
 /**
  * Represents a color which a hardware input can be set to.
@@ -8,10 +8,10 @@ type Color = {
   name: string;
 
   /* The event type which triggers the color. E.g. noteon */
-  eventType: EventType;
+  eventType: StatusString;
 
   /* The value (velocity) which triggers the color */
-  value: MidiValue;
+  value: number;
 
   /* css-valid background-color attribute e.g. #FFF or rgba(100, 100, 100, 0.5) */
   string: string;

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Channel, MidiValue, EventType } from 'midi-message-parser';
+import { Channel, StatusString } from '@shared/midi-util';
 
 import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';
@@ -44,8 +44,8 @@ export default function MonoInputConfigPanel(props: PropTypes) {
 
   // get all eligible values the given input group can be
   const eligibleChannels = [...Array(16).keys()] as Channel[];
-  const eligibleNumbers = [...Array(128).keys()] as MidiValue[];
-  const eligibleValues = [...Array(128).keys()] as MidiValue[];
+  const eligibleNumbers = [...Array(128).keys()] as number[];
+  const eligibleValues = [...Array(128).keys()] as number[];
 
   // get labels for all eligible values
   const numberLabels = eligibleNumbers.map((v) => {
@@ -98,7 +98,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
           labelList={eventTypeLabels}
           onChange={(v) =>
             onChange((c) => {
-              c.eventType = v as EventType;
+              c.eventType = v as StatusString;
             })
           }
         />
@@ -121,7 +121,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             labelList={eligibleValues.map((v) => v.toString())}
             onChange={(v) => {
               onChange((c) => {
-                c.value = v as MidiValue;
+                c.value = v as number;
               });
             }}
           />
@@ -134,7 +134,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             labelList={numberLabels}
             onChange={(v) => {
               onChange((c) => {
-                c.number = v as MidiValue;
+                c.number = v as number;
               });
             }}
           />

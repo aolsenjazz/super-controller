@@ -1,4 +1,4 @@
-import { Channel, EventType, MidiValue } from 'midi-message-parser';
+import { Channel, StatusString } from '@shared/midi-util';
 
 import {
   InputConfig,
@@ -15,23 +15,23 @@ import { InputGroup } from '../renderer/input-group';
 
 const GREEN = {
   name: 'green',
-  eventType: 'noteon' as EventType,
-  value: 3 as MidiValue,
+  eventType: 'noteon' as StatusString,
+  value: 3,
   string: 'green',
   default: true,
 };
 
 const RED = {
   name: 'red',
-  eventType: 'noteon' as EventType,
-  value: 5 as MidiValue,
+  eventType: 'noteon' as StatusString,
+  value: 5,
   string: 'red',
   default: false,
 };
 
 function createInput(
   seedNumber: Channel,
-  eventType: EventType,
+  eventType: StatusString | 'noteon/noteoff',
   response: InputResponse,
   inputType: InputType,
   availableColors: Color[] = [],
@@ -182,6 +182,7 @@ test('eligibleEventTypes returns correct eventTypes for similar inputs', () => {
     'noteoff',
     'controlchange',
     'programchange',
+    'pitchbend',
   ];
   expect(group.eligibleEventTypes).toEqual(eligibleEventTypes);
 });

@@ -1,5 +1,4 @@
-import { MidiMessage } from 'midi-message-parser';
-
+import { setStatus } from '@shared/midi-util';
 import { DeviceDriver } from '@shared/driver-types';
 
 import { PortPair } from './port-pair';
@@ -37,15 +36,11 @@ export class DrivenPortPair extends PortPair {
         const defaultColor = input.availableColors.filter((c) => c.default)[0];
 
         if (defaultColor) {
-          const mm = new MidiMessage(
-            defaultColor.eventType,
-            input.default.number,
-            defaultColor.value,
-            input.default.channel,
-            0
+          const mm = setStatus(
+            [input.default.channel, input.default.number, defaultColor.value],
+            defaultColor.eventType
           );
-
-          this.#pair.send(mm.toMidiArray());
+          this.#pair.send(mm);
         }
       });
   }
@@ -58,8 +53,11 @@ export class DrivenPortPair extends PortPair {
    */
   runControlSequence() {
     this.#driver.controlSequence?.forEach((msgArray) => {
-      const mm = new MidiMessage(...msgArray, 0);
-      this.#pair.send(mm.toMidiArray());
+      const msg = setStatus(
+        [msgArray[3], msgArray[1], msgArray[2]],
+        msgArray[0]
+      );
+      this.#pair.send(msg);
     });
   }
 }

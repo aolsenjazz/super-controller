@@ -1,15 +1,11 @@
 import {
-  MidiValue,
-  MidiMessage,
   Channel,
-  EventType,
-} from 'midi-message-parser';
+  StatusString,
+  getStatus,
+  getChannel,
+  setStatus,
+} from './midi-util';
 import { Color } from './driver-types';
-
-function inputIdForPitchbend(channel?: Channel) {
-  if (channel === undefined) throw new Error('channel must not be undefined');
-  return `pitchbend.${channel}`;
-}
 
 export function getDiff(l1: string[], l2: string[]) {
   const ex1 = l1.filter((str) => !l2.includes(str));
@@ -20,45 +16,35 @@ export function getDiff(l1: string[], l2: string[]) {
 /**
  * Return the input id for the given details. Used by both `InputConfig` and `VirtualInput`s
  *
- * @param eventType EventType, MidiMessage, or midi array
- * @param channel The MIDI channel, or undefined if eventType === (MidiMessage | array)
- * @param number The midi number if exists or undefined if eventType === (MidiMessage | array)
+ * @param msg The message to encode or the msg status string
+ * @param number The message number if argument[0] is status string
  * @returns The ID of the input
  */
 export function inputIdFor(
-  eventType: EventType | MidiMessage | number[],
+  msg: number[] | (StatusString | 'noteon/noteoff'),
   channel?: Channel,
-  number?: MidiValue
-): string {
-  let e: EventType | 'noteon/notoff';
-  let c: Channel | undefined;
-  let n: MidiValue | undefined;
+  number?: number
+) {
+  let status;
+  let num = number;
+  let chan = channel;
 
-  if (Array.isArray(eventType)) {
-    const mm = new MidiMessage(eventType, 0);
-    return inputIdFor(mm);
-  }
-
-  if (eventType instanceof MidiMessage) {
-    n = eventType.number;
-    c = eventType.channel;
-    e = ['noteon', 'noteoff'].includes(eventType.type)
-      ? 'noteon/noteoff'
-      : eventType.type;
+  if (Array.isArray(msg)) {
+    status = getStatus(msg).string;
+    num = msg[1]; // eslint-disable-line
+    chan = getChannel(msg);
   } else {
-    n = number;
-    c = channel;
-    e = ['noteon', 'noteoff'].includes(eventType)
-      ? 'noteon/noteoff'
-      : eventType;
+    if (num === undefined && msg !== 'pitchbend')
+      throw new Error('number must not be undefined');
+    if (channel === undefined) throw new Error('channel must not be undefined');
+    status = msg;
   }
 
-  if (e === 'pitchbend') return inputIdForPitchbend(c);
+  status = ['noteon', 'noteoff'].includes(status) ? 'noteon/noteoff' : status;
 
-  if (c === undefined || n === undefined)
-    throw new Error('channel and number must not be undefined');
-
-  return `${e}.${c}.${n}`;
+  return status === 'pitchbend'
+    ? `${status}.${chan}`
+    : `${status}.${chan}.${num}`;
 }
 
 /**
@@ -69,8 +55,8 @@ export function inputIdFor(
  * @param c The color to set
  * @returns A `MidiMessage` which can be used to trigger the color
  */
-export function msgForColor(number: MidiValue, channel: Channel, c: Color) {
-  return new MidiMessage(c.eventType, number, c.value, channel, 0);
+export function msgForColor(number: number, channel: Channel, c: Color) {
+  return setStatus([channel, number, c.value], c.eventType);
 }
 
 /**
@@ -79,9 +65,8 @@ export function msgForColor(number: MidiValue, channel: Channel, c: Color) {
  * @param msg Maybe a sustain message
  * @returns true if msg is a sustain message
  */
-export function isSustain(msg: MidiValue[]) {
-  const mm = new MidiMessage(msg, 0);
-  return mm.number === 64 && mm.type === 'controlchange';
+export function isSustain(msg: number[]) {
+  return getStatus(msg).string === 'controlchange' && msg[1] === 64;
 }
 
 /**
@@ -89,21 +74,19 @@ export function isSustain(msg: MidiValue[]) {
  * a clear notion of on-ness (programchange), return `default`
  *
  * @param msg The message
- * @param msg The value to return if message type has no notion of on-ness
+ * @param def The value to return if message type has no notion of on-ness
  * @returns `true` if message is on-ish
  */
-export function isOnMessage(msg: MidiMessage | number[], def: boolean) {
-  let mm;
-  if (msg instanceof MidiMessage) mm = msg;
-  else mm = new MidiMessage(msg, 0);
+export function isOnMessage(msg: number[], def: boolean) {
+  const status = getStatus(msg).string;
 
-  switch (mm.type) {
+  switch (status) {
     case 'noteon':
       return true;
     case 'noteoff':
       return false;
     case 'controlchange':
-      return mm.value > 0;
+      return msg[2] > 0;
     default:
       return def;
   }
@@ -374,7 +357,7 @@ const NOTE_BINDINGS = new Map([
 ]);
 
 /* CC numbers which don't have a default interpretation */
-export const UNMAPPED_CC: MidiValue[] = [
+export const UNMAPPED_CC: number[] = [
   3, 9, 14, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 35, 41, 46, 47,
   52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 85, 86, 87, 88, 89, 90, 102,
   103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
@@ -387,7 +370,7 @@ export const UNMAPPED_CC: MidiValue[] = [
  * @param midiInt The MIDI number
  * @returns Human-readable note string
  */
-export function stringVal(midiInt: MidiValue) {
+export function stringVal(midiInt: number) {
   const str = NOTE_BINDINGS.get(midiInt);
 
   if (str === undefined) throw new Error(`bad MIDI value [${midiInt}]`);

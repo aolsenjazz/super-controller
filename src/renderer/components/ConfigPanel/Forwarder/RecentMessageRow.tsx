@@ -1,33 +1,31 @@
 import { useEffect, useState } from 'react';
-import { MidiMessage, MidiValue } from 'midi-message-parser';
 
+import { getChannel, getStatus } from '@shared/midi-util';
 import { MSG } from '@shared/ipc-channels';
-
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
 const { ipcRenderer } = window;
 
 type RecentMessageRowPropTypes = {
   config: AnonymousDeviceConfig;
-  setCurrentAction: (msg: MidiValue[]) => void;
-  currentAction: MidiValue[] | null;
+  setCurrentAction: (msg: number[]) => void;
+  currentAction: number[] | null;
 };
 
 export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
   const { config, setCurrentAction, currentAction } = props;
 
-  const [recentMessage, setRecentMessage] = useState<MidiValue[] | null>(null);
+  const [recentMessage, setRecentMessage] = useState<number[] | null>(null);
   const selected =
     recentMessage &&
     JSON.stringify(currentAction) === JSON.stringify(recentMessage);
-  const [recentMm, setRecentMm] = useState<MidiMessage | null>(null);
 
   useEffect(() => {
     const cb = (
       _e: Event,
       _inputId: string,
       deviceId: string,
-      msg: MidiValue[]
+      msg: number[]
     ) => {
       if (config.id !== deviceId) return;
 
@@ -41,10 +39,6 @@ export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
 
     return () => unsubscribe();
   }, [config, setCurrentAction, recentMessage]);
-
-  useEffect(() => {
-    if (recentMessage) setRecentMm(new MidiMessage(recentMessage, 0));
-  }, [recentMessage]);
 
   if (
     recentMessage === null ||
@@ -60,9 +54,13 @@ export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
       tabIndex={0}
       role="button"
     >
-      <p className="column event">{recentMm?.type}</p>
-      <p className="column number">{recentMm?.number}</p>
-      <p className="column channel">{recentMm?.channel}</p>
+      {recentMessage ? (
+        <>
+          <p className="column event">{getStatus(recentMessage).string}</p>
+          <p className="column number">{recentMessage[1]}</p>
+          <p className="column channel">{getChannel(recentMessage)}</p>
+        </>
+      ) : null}
     </div>
   );
 }

@@ -1,25 +1,23 @@
-import { Channel, MidiValue, MidiMessage } from 'midi-message-parser';
+import { Channel, setStatus } from '@shared/midi-util';
 import { BinaryPropagator } from '@shared/propagators/binary-propagator';
 
 function createPropagator(
   ir: 'gate' | 'toggle' | 'constant',
   or: 'gate' | 'toggle',
-  onMsg?: MidiMessage,
-  offMsg?: MidiMessage
+  onMsg?: number[],
+  offMsg?: number[]
 ) {
-  const on = onMsg || new MidiMessage('noteon', 0, 0, 0, 0);
-  const off = offMsg || new MidiMessage('noteoff', 0, 0, 0, 0);
+  const on = onMsg || setStatus([1, 1, 1], 'noteon');
+  const off = offMsg || setStatus([1, 1, 1], 'noteoff');
   return new BinaryPropagator(ir, or, on, off);
 }
 
-function createNoteOn(number: MidiValue = 0, channel: Channel = 0) {
-  const mm = new MidiMessage('noteon', number, 127, channel, 0);
-  return mm.toMidiArray();
+function createNoteOn(number = 0, channel: Channel = 0) {
+  return setStatus([channel, number, 127], 'noteon');
 }
 
-function createNoteOff(number: MidiValue = 0, channel: Channel = 0) {
-  const mm = new MidiMessage('noteoff', number, 0, channel, 0);
-  return mm.toMidiArray();
+function createNoteOff(number = 0, channel: Channel = 0) {
+  return setStatus([channel, number, 0], 'noteoff');
 }
 
 const NOTE_ON = createNoteOn();

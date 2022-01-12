@@ -1,5 +1,3 @@
-import { MidiValue, MidiMessage } from 'midi-message-parser';
-
 import { Propagator } from './propagator';
 
 /**
@@ -7,10 +5,10 @@ import { Propagator } from './propagator';
  */
 export class BinaryPropagator extends Propagator {
   /* Message to send to device when state changes to 'on' */
-  onMessage?: MidiMessage;
+  onMessage?: number[];
 
   /* Message to send to device when state changes to 'off' */
-  offMessage?: MidiMessage;
+  offMessage?: number[];
 
   #eligibleStates = ['on', 'off'];
 
@@ -19,9 +17,9 @@ export class BinaryPropagator extends Propagator {
   constructor(
     hardwareResponse: 'gate' | 'toggle' | 'constant',
     outputResponse: 'gate' | 'toggle',
-    onMessage?: MidiMessage,
-    offMessage?: MidiMessage,
-    lastPropagated?: MidiMessage
+    onMessage?: number[],
+    offMessage?: number[],
+    lastPropagated?: number[]
   ) {
     super(hardwareResponse, outputResponse, lastPropagated);
 
@@ -36,28 +34,23 @@ export class BinaryPropagator extends Propagator {
    * @returns this.onMessage || this.offMessage
    */
   /* eslint-disable-next-line */
-  protected getResponse(_msg: MidiValue[]) {
-    const response = this.#isOnMessage(this.lastPropagated)
-      ? this.offMessage
-      : this.onMessage;
-
-    return response === undefined ? null : response;
+  protected getResponse(_msg: number[]) {
+    const isLastPropagatedOn = this.#isOnMessage(this.lastPropagated);
+    return isLastPropagatedOn ? this.offMessage : this.onMessage;
   }
 
   /**
    * Returns whether or not mm is equivalent to this propagator's 'on' message
    *
+   * // TODO: can/should we also just compare msg[1]
+   *
    * @param mm Other message
    * @returns true if mm === this.onMessage
    */
-  #isOnMessage = (mm: MidiMessage | undefined) => {
-    if (mm === undefined) return false;
+  #isOnMessage = (msg: number[] | undefined) => {
+    if (msg === undefined || this.onMessage === undefined) return false;
 
-    return (
-      mm.channel === this.onMessage?.channel &&
-      mm.type === this.onMessage?.type &&
-      mm.value === this.onMessage?.value
-    );
+    return this.onMessage[0] === msg[0] && this.onMessage[2] === msg[2];
   };
 
   get eligibleStates() {

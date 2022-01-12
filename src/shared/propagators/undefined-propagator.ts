@@ -1,12 +1,10 @@
-import { MidiValue } from 'midi-message-parser';
-
 import { InputResponse } from '../driver-types';
 import { Propagator } from './propagator';
 
 /**
  * Propagator that only propagates null
  */
-export class NullPropagator extends Propagator {
+export class UndefinedPropagator extends Propagator {
   #eligibleStates = [];
 
   #defaultState = 'off';
@@ -23,8 +21,8 @@ export class NullPropagator extends Propagator {
    * @param _msg The message to respond to
    */
   /* eslint-disable-next-line */
-  protected getResponse(_msg: MidiValue[]) {
-    return null;
+  protected getResponse(_msg: number[]) {
+    return undefined;
   }
 
   get eligibleStates() {

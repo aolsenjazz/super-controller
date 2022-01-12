@@ -1,4 +1,4 @@
-import { EventType, MidiValue, Channel } from 'midi-message-parser';
+import { StatusString, Channel } from '@shared/midi-util';
 
 import { InputDriver, InputType } from '@shared/driver-types';
 import { inputIdFor } from '@shared/util';
@@ -31,10 +31,10 @@ export class VirtualInput {
   readonly handleHeight?: number;
 
   /* MIDI event type */
-  #eventType: EventType;
+  #eventType: StatusString | 'noteon/noteoff';
 
   /* Note number, CC number, program number, etc */
-  #number: MidiValue;
+  #number: number;
 
   /* MIDI channel */
   #channel: Channel;

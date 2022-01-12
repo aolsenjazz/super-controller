@@ -1,9 +1,4 @@
-import {
-  MidiValue,
-  MidiMessage,
-  Channel,
-  EventType,
-} from 'midi-message-parser';
+import { StatusString, Channel, setStatus, getStatus } from '../midi-util';
 
 import { InputResponse } from '../driver-types';
 import { Propagator } from './propagator';
@@ -16,22 +11,22 @@ import { isOnMessage } from '../util';
 export class OutputPropagator extends Propagator {
   constantState: 'on' | 'off' = 'off';
 
-  eventType: EventType;
+  eventType: StatusString | 'noteon/noteoff';
 
-  number: MidiValue;
+  number: number;
 
   channel: Channel;
 
-  value: MidiValue;
+  value: number;
 
   constructor(
     hardwareResponse: InputResponse,
     outputResponse: InputResponse,
-    eventType: EventType,
-    number: MidiValue,
+    eventType: StatusString | 'noteon/noteoff',
+    number: number,
     channel: Channel,
-    value?: MidiValue,
-    lastPropagated?: MidiMessage
+    value?: number,
+    lastPropagated?: number[]
   ) {
     super(hardwareResponse, outputResponse, lastPropagated);
 
@@ -47,7 +42,7 @@ export class OutputPropagator extends Propagator {
    * @param msg The message to respond to
    * @returns The message to propagate
    */
-  protected getResponse(msg: MidiValue[]) {
+  protected getResponse(msg: number[]) {
     // manually slip constant state if output response !== constant
     if (
       this.hardwareResponse === 'constant' &&
@@ -56,7 +51,7 @@ export class OutputPropagator extends Propagator {
       this.constantState = this.constantState === 'on' ? 'off' : 'on';
     }
 
-    let response: MidiMessage;
+    let response: number[];
     switch (this.outputResponse) {
       case 'gate':
         response = this.#handleAsGate(msg);
@@ -77,7 +72,8 @@ export class OutputPropagator extends Propagator {
         throw new Error(`unknown outputResponse ${this.outputResponse}`);
     }
 
-    this.value = response.value as MidiValue;
+    /* eslint-disable-next-line */
+    this.value = response[2]; // TODO: maybe need to set this more intelligently for pitchbend
     return response;
   }
 
@@ -86,11 +82,11 @@ export class OutputPropagator extends Propagator {
    *
    * @returns The message to propagate
    */
-  #handleAsGate = (msg: MidiValue[]) => {
+  #handleAsGate = (msg: number[]) => {
     const eventType = this.#nextEventType();
     const value = this.#nextValue(msg[2]);
 
-    return new MidiMessage(eventType, this.number, value, this.channel, 0);
+    return setStatus([this.channel, this.number, value], eventType);
   };
 
   /**
@@ -98,7 +94,7 @@ export class OutputPropagator extends Propagator {
    *
    * @returns The message to propagate
    */
-  #handleAsToggle = (msg: MidiValue[]) => {
+  #handleAsToggle = (msg: number[]) => {
     const eventType = this.#nextEventType();
     let value = this.#nextValue(msg[2]);
 
@@ -107,11 +103,12 @@ export class OutputPropagator extends Propagator {
     }
 
     if (this.hardwareResponse === 'gate') {
-      const defaultVal = !this.lastPropagated?.value ? 127 : 0;
+      const defaultVal =
+        !this.lastPropagated || !this.lastPropagated[2] ? 127 : 0;
       value = this.#nextValue(defaultVal);
     }
 
-    return new MidiMessage(eventType, this.number, value, this.channel, 0);
+    return setStatus([this.channel, this.number, value], eventType);
   };
 
   /**
@@ -120,14 +117,11 @@ export class OutputPropagator extends Propagator {
    * @param msg The message being responded to
    * @returns The message to propagate
    */
-  #handleAsContinuous = (msg: MidiValue[]) => {
+  #handleAsContinuous = (msg: number[]) => {
     // forward the same message every time, with overrides and value replaced
-    return new MidiMessage(
-      this.eventType,
-      this.number,
-      msg[2],
-      this.channel,
-      0
+    return setStatus(
+      [this.channel, this.number, msg[2]],
+      this.#nextEventType()
     );
   };
 
@@ -138,12 +132,8 @@ export class OutputPropagator extends Propagator {
    * @param msg The message from device being responded to
    * @returns The message to propagate
    */
-  #handleAsPitchbend = (msg: MidiValue[]) => {
-    const mm = new MidiMessage(msg, 0);
-    mm.channel = this.channel;
-    // eslint-disable-next-line prefer-destructuring
-    mm.value = msg[2];
-    return mm;
+  #handleAsPitchbend = (msg: number[]) => {
+    return setStatus([this.channel, msg[1], msg[2]], this.#nextEventType());
   };
 
   /**
@@ -155,15 +145,10 @@ export class OutputPropagator extends Propagator {
     if (this.value === undefined)
       throw new Error(`value must not be undefined`);
 
-    const mm = new MidiMessage(
-      this.eventType,
-      this.number,
-      this.value,
-      this.channel,
-      0
+    return setStatus(
+      [this.channel, this.number, this.#nextValue(this.value)],
+      this.#nextEventType()
     );
-
-    return mm;
   };
 
   /**
@@ -172,10 +157,17 @@ export class OutputPropagator extends Propagator {
   #nextEventType = () => {
     switch (this.eventType) {
       case 'noteon/noteoff':
-        return this.lastPropagated?.type === 'noteon' ? 'noteoff' : 'noteon';
+        if (this.lastPropagated) {
+          const status = getStatus(this.lastPropagated).string;
+          return status === 'noteon' ? 'noteoff' : 'noteon';
+        }
+
+        return 'noteon';
       case 'controlchange':
       case 'programchange':
       case 'pitchbend':
+      case 'noteon':
+      case 'noteoff':
         return this.eventType;
       default:
         throw new Error(`unknown eventType ${this.eventType}`);
@@ -187,7 +179,7 @@ export class OutputPropagator extends Propagator {
    *
    * @param defaultVal Value to return if a specific value isn't required
    */
-  #nextValue = (defaultVal: MidiValue) => {
+  #nextValue = (defaultVal: number) => {
     switch (this.#nextEventType()) {
       case 'noteoff':
         return 0;
@@ -228,6 +220,6 @@ export class OutputPropagator extends Propagator {
       return isOnMessage(this.lastPropagated, true) ? 'on' : 'off';
     }
 
-    return this.lastPropagated ? this.lastPropagated.value.toString() : '0';
+    return this.lastPropagated ? this.lastPropagated[2].toString() : '0';
   }
 }

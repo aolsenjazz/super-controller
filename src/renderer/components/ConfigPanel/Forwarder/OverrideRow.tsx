@@ -1,8 +1,8 @@
-import { MidiValue, MidiMessage } from 'midi-message-parser';
+import { getStatus, getChannel } from '@shared/midi-util';
 
 type PropTypes = {
-  currentAction: MidiValue[] | null;
-  setCurrentAction: (action: MidiValue[]) => void;
+  currentAction: number[] | null;
+  setCurrentAction: (action: number[]) => void;
   overrideKey: string;
 };
 
@@ -13,8 +13,7 @@ export default function OverrideRow(props: PropTypes) {
   const keyAsNumArray = overrideKey
     .replaceAll(/\[|\]/g, '')
     .split(',')
-    .map((stringVal) => parseInt(stringVal, 10)) as MidiValue[];
-  const keyAsMm = new MidiMessage(keyAsNumArray, 0);
+    .map((stringVal) => parseInt(stringVal, 10)) as number[];
 
   const onClick = () => {
     setCurrentAction(keyAsNumArray);
@@ -28,9 +27,9 @@ export default function OverrideRow(props: PropTypes) {
       tabIndex={0}
       onKeyDown={() => {}}
     >
-      <p className="column event">{keyAsMm.type}</p>
-      <p className="column number">{keyAsMm.number}</p>
-      <p className="column channel">{keyAsMm.channel}</p>
+      <p className="column event">{getStatus(keyAsNumArray).string}</p>
+      <p className="column number">{keyAsNumArray[1]}</p>
+      <p className="column channel">{getChannel(keyAsNumArray)}</p>
     </div>
   );
 }

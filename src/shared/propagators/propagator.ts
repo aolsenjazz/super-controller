@@ -1,5 +1,3 @@
-import { MidiMessage } from 'midi-message-parser';
-
 import { InputResponse } from '../driver-types';
 import { isOnMessage } from '../util';
 
@@ -28,12 +26,12 @@ export abstract class Propagator {
   outputResponse: InputResponse;
 
   /* The last-propagated message */
-  lastPropagated?: MidiMessage;
+  public lastPropagated?: number[];
 
   constructor(
     hardwareResponse: InputResponse,
     outputResponse: InputResponse,
-    lastPropagated?: MidiMessage
+    lastPropagated?: number[]
   ) {
     illogicalPairs.forEach((pair) => {
       if (
@@ -58,7 +56,7 @@ export abstract class Propagator {
    * @returns The message to propagate
    */
   handleMessage(msg: number[]) {
-    let toPropagate: MidiMessage | null = null;
+    let toPropagate: number[] | undefined;
 
     switch (this.hardwareResponse) {
       case 'gate':
@@ -77,10 +75,8 @@ export abstract class Propagator {
         throw new Error(`unknown hardwareResponse ${this.hardwareResponse}`);
     }
 
-    if (toPropagate === null) return toPropagate;
-
-    this.lastPropagated = toPropagate;
-    return toPropagate?.toMidiArray();
+    if (toPropagate !== undefined) this.lastPropagated = toPropagate;
+    return toPropagate;
   }
 
   /**
@@ -91,8 +87,9 @@ export abstract class Propagator {
    */
   #handleInputAsGate = (msg: number[]) => {
     // if outputResponse === 'toggle' | 'constant', only respond to 'noteon' messages
-    if (this.outputResponse !== 'gate' && !isOnMessage(msg, true)) return null;
-
+    if (this.outputResponse !== 'gate' && !isOnMessage(msg, true)) {
+      return undefined;
+    }
     return this.getResponse(msg);
   };
 
@@ -126,7 +123,7 @@ export abstract class Propagator {
     return this.getResponse(msg);
   };
 
-  protected abstract getResponse(msg: number[]): MidiMessage | null;
+  protected abstract getResponse(msg: number[]): number[] | undefined;
 
   abstract get eligibleStates(): string[];
 

@@ -1,40 +1,28 @@
-import {
-  EventType,
-  Channel,
-  MidiValue,
-  MidiMessage,
-} from 'midi-message-parser';
+import { StatusString, Channel, setStatus } from '@shared/midi-util';
 import { OutputPropagator } from '@shared/propagators/output-propagator';
 import { InputResponse } from '@shared/driver-types';
 
 function createPropagator(
   ir: InputResponse,
   or: InputResponse,
-  eventType: EventType = 'noteon/noteoff',
-  number: MidiValue = 0,
+  eventType: StatusString | 'noteon/noteoff' = 'noteon/noteoff',
+  number = 0,
   channel: Channel = 0,
-  value?: MidiValue
+  value?: number
 ) {
   return new OutputPropagator(ir, or, eventType, number, channel, value);
 }
 
-function createNoteOn(number: MidiValue = 0, channel: Channel = 0) {
-  const mm = new MidiMessage('noteon', number, 127, channel, 0);
-  return mm.toMidiArray();
+function createNoteOn(number = 0, channel: Channel = 0) {
+  return setStatus([channel, number, 127], 'noteon');
 }
 
-function createNoteOff(number: MidiValue = 0, channel: Channel = 0) {
-  const mm = new MidiMessage('noteoff', number, 0, channel, 0);
-  return mm.toMidiArray();
+function createNoteOff(number = 0, channel: Channel = 0) {
+  return setStatus([channel, number, 127], 'noteoff');
 }
 
-function createCC(
-  value: MidiValue = 0,
-  number: MidiValue = 0,
-  channel: Channel = 0
-) {
-  const mm = new MidiMessage('controlchange', number, value, channel, 0);
-  return mm.toMidiArray();
+function createCC(value = 0, number = 0, channel: Channel = 0) {
+  return setStatus([channel, number, value], 'controlchange');
 }
 
 const NOTE_ON = createNoteOn();

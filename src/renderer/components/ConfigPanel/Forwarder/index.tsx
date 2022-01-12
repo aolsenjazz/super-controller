@@ -1,10 +1,5 @@
 import { useState, useCallback } from 'react';
-import {
-  MidiMessage,
-  MidiValue,
-  EventType,
-  Channel,
-} from 'midi-message-parser';
+import { Channel, StatusString, setStatus } from '@shared/midi-util';
 
 import { Project } from '@shared/project';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
@@ -24,18 +19,18 @@ type PropTypes = {
 export default function Forwarder(props: PropTypes) {
   const { config, project, setProject } = props;
 
-  const [currentAction, setCurrentAction] = useState<MidiValue[] | null>(null);
+  const [currentAction, setCurrentAction] = useState<number[] | null>(null);
 
   const onChange = useCallback(
     (
-      eventType: EventType,
-      number: MidiValue,
+      eventType: StatusString,
+      number: number,
       channel: Channel,
-      value: MidiValue
+      value: number
     ) => {
-      const mm = new MidiMessage(eventType, number, value, channel, 0);
+      const msg = setStatus([channel, number, value], eventType);
 
-      config.overrides.set(JSON.stringify(currentAction), mm.toMidiArray());
+      config.overrides.set(JSON.stringify(currentAction), msg);
 
       setProject(new Project(project.devices));
       scIpc.updateDevice(config.toJSON());

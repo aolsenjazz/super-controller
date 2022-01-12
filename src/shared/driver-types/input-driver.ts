@@ -1,4 +1,4 @@
-import { MidiValue, EventType, Channel } from 'midi-message-parser';
+import { StatusString, Channel } from '../midi-util';
 import { Color } from './color';
 
 /**
@@ -19,13 +19,13 @@ export type InputType = 'pad' | 'knob' | 'slider' | 'wheel' | 'xy';
 /* Default values for the input loaded in from a driver */
 export type InputDefault = {
   /* Note number, CC number, program number, etc */
-  readonly number: MidiValue;
+  readonly number: number;
 
   /* MIDI channel */
   readonly channel: Channel;
 
   /* MIDI event type */
-  readonly eventType: EventType;
+  readonly eventType: StatusString | 'noteon/noteoff';
 
   /* See InputResponse */
   readonly response: InputResponse;
@@ -59,7 +59,7 @@ export type InputDriver = {
   width: number;
 
   /* What is the default value of this control? */
-  value?: MidiValue;
+  value?: number;
 
   /* If input has a handle (think wheel or XY pad), width in inches */
   handleWidth?: number;

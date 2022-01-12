@@ -1,16 +1,16 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 
 import { test, expect } from '@jest/globals';
-import { MidiValue, Channel, EventType } from 'midi-message-parser';
+import { Channel, StatusString } from '@shared/midi-util';
 
 import { VirtualInput } from '../renderer/virtual-devices';
 
 function BasicInputDriver() {
   return {
     default: {
-      number: 69 as MidiValue,
+      number: 69,
       channel: 7 as Channel,
-      eventType: 'noteon/noteoff' as EventType,
+      eventType: 'noteon/noteoff' as StatusString | 'noteon/noteoff',
       response: 'toggle' as 'toggle' | 'gate',
     },
     width: 1,

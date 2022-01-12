@@ -1,14 +1,9 @@
-import {
-  MidiMessage,
-  Channel,
-  MidiValue,
-  EventType,
-} from 'midi-message-parser';
+import { Channel, StatusString, setStatus, getStatus } from '@shared/midi-util';
 
 import { inputIdFor, msgForColor } from '../util';
 import { Propagator } from '../propagators/propagator';
 import { OutputPropagator } from '../propagators/output-propagator';
-import { NullPropagator } from '../propagators/null-propagator';
+import { UndefinedPropagator } from '../propagators/undefined-propagator';
 import { BinaryPropagator } from '../propagators/binary-propagator';
 import {
   InputDefault,
@@ -27,13 +22,13 @@ export type InputOverride = {
   nickname?: string;
 
   /* Note number, CC number, program number, etc */
-  number?: MidiValue;
+  number?: number;
 
   /* MIDI channel */
   channel?: Channel;
 
   /* MIDI event type */
-  eventType?: EventType;
+  eventType?: StatusString | 'noteon/noteoff';
 
   /* See InputResponse */
   response?: InputResponse;
@@ -111,10 +106,8 @@ export class InputConfig {
       other.overrideable,
       other.type,
       other.value,
-      other.lastPropagated
-        ? new MidiMessage(other.lastPropagated, 0)
-        : undefined,
-      other.lastResponse ? new MidiMessage(other.lastResponse, 0) : undefined
+      other.lastPropagated,
+      other.lastResponse
     );
     instance.devicePropagator.outputResponse = other.lightResponse;
 
@@ -150,9 +143,9 @@ export class InputConfig {
     availableColors: Color[],
     overrideable: boolean,
     type: InputType,
-    value?: MidiValue,
-    lastPropagated?: MidiMessage,
-    lastResponse?: MidiMessage
+    value?: number,
+    lastPropagated?: number[],
+    lastResponse?: number[]
   ) {
     this.default = defaultVals;
     this.override = override;
@@ -203,7 +196,7 @@ export class InputConfig {
         lastResponse
       );
     } else {
-      this.devicePropagator = new NullPropagator(
+      this.devicePropagator = new UndefinedPropagator(
         this.default.response,
         this.override.response || this.default.response
       );
@@ -214,9 +207,9 @@ export class InputConfig {
    * Handles a message from a device.
    *
    * @param msg The midi value array
-   * @returns [message_to_device | null, message_to_clients | null]
+   * @returns [message_to_device | undefined, message_to_clients | undefined]
    */
-  handleMessage(msg: MidiValue[]): (MidiValue[] | null)[] {
+  handleMessage(msg: number[]): (number[] | undefined)[] {
     const toPropagate = this.outputPropagator.handleMessage(msg);
     const toDevice = this.devicePropagator.handleMessage(msg);
 
@@ -244,12 +237,9 @@ export class InputConfig {
     this.override.lightConfig.set(state, color);
 
     if (this.devicePropagator instanceof BinaryPropagator) {
-      const msg = new MidiMessage(
-        color.eventType,
-        this.number,
-        color.value,
-        this.channel,
-        0
+      const msg = setStatus(
+        [this.channel, this.number, color.value],
+        color.eventType
       );
 
       if (state === 'on') this.devicePropagator.onMessage = msg;
@@ -289,10 +279,10 @@ export class InputConfig {
       lightResponse: this.lightResponse,
       value: this.outputPropagator.value,
       lastPropagated: includeState
-        ? this.outputPropagator.lastPropagated?.toMidiArray()
+        ? this.outputPropagator.lastPropagated
         : undefined,
       lastResponse: includeState
-        ? this.devicePropagator.lastPropagated?.toMidiArray()
+        ? this.devicePropagator.lastPropagated
         : undefined,
     });
   }
@@ -314,14 +304,14 @@ export class InputConfig {
 
       if (on) {
         const color = this.availableColors.filter(
-          (c) => c.value === on.value && c.eventType === on.type
+          (c) => c.value === on[2] && c.eventType === getStatus(on).string
         )[0];
         config.set('on', color);
       }
 
       if (off) {
         const color = this.availableColors.filter(
-          (c) => c.value === off.value && c.eventType === off.type
+          (c) => c.value === off[2] && c.eventType === getStatus(off).string
         )[0];
         config.set('off', color);
       }
@@ -349,11 +339,14 @@ export class InputConfig {
       return ['noteon', 'noteoff', 'controlchange', 'programchange'];
     }
 
-    // TODO: really shouldn't need this extra line. pitchbend should be treated as continuous where possible
-    if (this.eventType === 'pitchbend') return ['pitchbend'];
-
     if (this.response === 'continuous') {
-      return ['noteon', 'noteoff', 'controlchange', 'programchange'];
+      return [
+        'noteon',
+        'noteoff',
+        'controlchange',
+        'programchange',
+        'pitchbend',
+      ];
     }
 
     return ['noteon/noteoff', 'controlchange', 'programchange'];
@@ -365,11 +358,11 @@ export class InputConfig {
       : undefined;
   }
 
-  get value(): MidiValue {
+  get value(): number {
     return this.outputPropagator.value;
   }
 
-  set value(value: MidiValue) {
+  set value(value: number) {
     this.outputPropagator.value = value;
   }
 
@@ -410,7 +403,7 @@ export class InputConfig {
     return this.outputPropagator.number;
   }
 
-  set number(number: MidiValue) {
+  set number(number: number) {
     this.outputPropagator.number = number;
   }
 
@@ -422,11 +415,11 @@ export class InputConfig {
     );
   }
 
-  get eventType(): EventType {
+  get eventType(): StatusString | 'noteon/noteoff' {
     return this.outputPropagator.eventType;
   }
 
-  set eventType(eventType: EventType) {
+  set eventType(eventType: StatusString | 'noteon/noteoff') {
     this.outputPropagator.eventType = eventType;
   }
 
