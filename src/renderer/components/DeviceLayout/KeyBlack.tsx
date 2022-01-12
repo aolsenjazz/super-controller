@@ -12,7 +12,7 @@ export default function KeyBlack(props: PropTypes) {
 
   // calculate distance from the left edge of parent octave
   const numKeysFromLeft = 0.5 + Math.floor(fundamental / 2);
-  const adjustment = fundamental * Math.floor(fundamental / 6) * 1;
+  const adjustment = fundamental * Math.floor(fundamental / 6) * 0.9;
 
   return (
     <div

@@ -29,7 +29,7 @@ type PropTypes = {
  * @param props.deviceConfig Configuration for the device
  * @param props.onClick Click listener for input. used to set selected inputs
  * @param props.selectedInputs Currently-selected input IDs
- * @param props.configured Is the current device configured?
+ * @param props.configured Is the current device configured? TODO: can't we just get this from deviceConfig
  */
 export default function DeviceLayout(props: PropTypes) {
   const { device, onClick, selectedInputs, configured, deviceConfig } = props;
@@ -40,7 +40,7 @@ export default function DeviceLayout(props: PropTypes) {
         aspectRatio: `${device.width}/${device.height}`,
         ...device.style,
       }}
-      className="device-layout"
+      className={`device-layout ${configured ? 'configured' : ''}`}
     >
       <div id={device.name}>
         {device.keyboard ? (
@@ -65,7 +65,6 @@ export default function DeviceLayout(props: PropTypes) {
               deviceHeight={device.height}
               onClick={onClick}
               selectedInputs={selectedInputs}
-              configured={configured}
               deviceConfig={deviceConfig}
             />
           ) : (
@@ -76,7 +75,6 @@ export default function DeviceLayout(props: PropTypes) {
               deviceHeight={device.height}
               onClick={onClick}
               selectedInputs={selectedInputs}
-              configured={configured}
               deviceConfig={deviceConfig}
             />
           );

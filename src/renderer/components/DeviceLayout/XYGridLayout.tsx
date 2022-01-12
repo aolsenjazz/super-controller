@@ -10,7 +10,6 @@ type PropTypes = {
   deviceHeight: number;
   deviceConfig: SupportedDeviceConfig;
   onClick: (event: React.MouseEvent, ids: string[]) => void;
-  configured: boolean;
   selectedInputs: string[];
 };
 
@@ -31,7 +30,6 @@ type PropTypes = {
  * @param props.deviceHeight Height (in inches) of device
  * @param props.deviceConfig Configuration of parent device
  * @param props.onClick Click callback
- * @param props.configured Is the device configured // TODO: should be able to replace
  * @Param { string[] } props.selectedInputs Currently-selected inputs
  */
 export default function XYGridLayout(props: PropTypes) {
@@ -39,7 +37,6 @@ export default function XYGridLayout(props: PropTypes) {
     inputGrid,
     deviceWidth,
     onClick,
-    configured,
     selectedInputs,
     deviceConfig,
     deviceHeight,
@@ -53,7 +50,7 @@ export default function XYGridLayout(props: PropTypes) {
 
   if (!xConfig || !yConfig) throw new Error(`x or y input config is falsy`);
 
-  const enabled = configured && xConfig?.overrideable === true;
+  const enabled = xConfig?.overrideable === true;
   const handleWidth = xInput.handleWidth as number;
 
   const igStyle = {
@@ -85,12 +82,12 @@ export default function XYGridLayout(props: PropTypes) {
           enabled={enabled}
           shape={xInput.shape ? xInput.shape : 'rect'}
           onClick={(e) => {
-            if (xConfig?.overrideable && configured) {
+            if (xConfig?.overrideable) {
               onClick(e, [xInput.id, yInput.id]);
             }
           }}
           overrideable={xInput.overrideable}
-          focus={selectedInputs.includes(xInput.id) && configured}
+          focus={selectedInputs.includes(xInput.id)}
         />
       </div>
     </div>

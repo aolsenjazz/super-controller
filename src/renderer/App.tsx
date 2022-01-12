@@ -25,10 +25,6 @@ document.body.ondragover = (event) => {
 };
 
 /**
- * Entry point for the frontend application. No calls to node modules are permitted
- * from the front end as they behave different due to different entry points
- * (.../src vs .../super-controller)
- *
  * DEVICE STATE + COMMUNICATION
  * State and communication are managed in the backend. When device state changes
  * (an input is manipulated), those messages are forwarded from the backend to
@@ -116,7 +112,7 @@ export default function App() {
         />
         <DevicePanel
           config={activeDevice}
-          project={project}
+          configured={project.getDevice(activeDevice?.id) !== undefined}
           selectedInputs={selectedInputs}
           setSelectedInputs={setSelectedInputs}
         />

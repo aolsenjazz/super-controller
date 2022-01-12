@@ -9,7 +9,6 @@ import { VirtualInput, VirtualInputGrid } from '../../virtual-devices';
 type ElementPropTypes = {
   input: VirtualInput;
   config: InputConfig;
-  configured: boolean;
   width: string;
   height: string;
   focus: boolean;
@@ -29,7 +28,6 @@ type ElementPropTypes = {
  * @param props Component props
  * @param props.input Contains layout information + driver for an input
  * @param props.config Configuration for input control
- * @param props.configured Is the device configured // TODO: can probably replace
  * @param props.width CSS width of the input
  * @param props.height CSS height of the input
  * @param props.focus Should this control be highlighted?
@@ -37,18 +35,8 @@ type ElementPropTypes = {
  * @param props.onClick Click listener for setting selected inputs
  */
 function Element(props: ElementPropTypes) {
-  const {
-    input,
-    config,
-    configured,
-    width,
-    height,
-    onClick,
-    focus,
-    overrideable,
-  } = props;
+  const { input, config, width, height, onClick, focus, overrideable } = props;
 
-  const enabled = configured && input.overrideable;
   const handleWidth = input.handleWidth as number;
 
   let elem;
@@ -61,7 +49,7 @@ function Element(props: ElementPropTypes) {
         height={height}
         onClick={(e) => onClick(e, input.id)}
         color={config.currentColor}
-        enabled={enabled}
+        enabled={overrideable}
         focus={focus}
         overrideable={overrideable}
       />
@@ -75,7 +63,7 @@ function Element(props: ElementPropTypes) {
         degrees={270}
         value={config.value}
         onClick={(e) => onClick(e, input.id)}
-        enabled={enabled}
+        enabled={overrideable}
         focus={focus}
         shape={input.shape}
         overrideable={overrideable}
@@ -90,7 +78,7 @@ function Element(props: ElementPropTypes) {
         handleWidth={`${(handleWidth / input.width) * 100}%`}
         handleHeight={`${(handleWidth / input.height) * 100}%`}
         height={height}
-        enabled={enabled}
+        enabled={overrideable}
         focus={focus}
         overrideable={overrideable}
         onClick={(e) => onClick(e, input.id)}
@@ -107,7 +95,6 @@ type PropTypes = {
   deviceHeight: number;
   deviceConfig: SupportedDeviceConfig;
   onClick: (event: React.MouseEvent, ids: string[]) => void;
-  configured: boolean;
   selectedInputs: string[];
 };
 
@@ -125,7 +112,6 @@ type PropTypes = {
  * @param props.deviceHeight Height of device (in inches)
  * @param props.deviceConfig Configuration for parent device
  * @param props.onClick Click callback for setting selected IDs
- * @param props.configured Is the current device configured? // TODO: can probably replace this
  * @param props.selectedInputs The currently-selected inputs
  */
 const InputGridLayout = (props: PropTypes) => {
@@ -133,7 +119,6 @@ const InputGridLayout = (props: PropTypes) => {
     inputGrid,
     deviceWidth,
     onClick,
-    configured,
     selectedInputs,
     deviceConfig,
     deviceHeight,
@@ -172,12 +157,11 @@ const InputGridLayout = (props: PropTypes) => {
               }%`}
               input={input}
               config={inputConfig}
-              configured={configured}
               overrideable={input.overrideable}
               onClick={(_e, id: string) => {
-                if (input.overrideable && configured) onClick(_e, [id]);
+                if (input.overrideable) onClick(_e, [id]);
               }}
-              focus={selectedInputs.includes(input.id) && configured}
+              focus={selectedInputs.includes(input.id)}
             />
           </div>
         );

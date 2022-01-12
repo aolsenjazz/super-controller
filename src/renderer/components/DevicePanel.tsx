@@ -1,5 +1,4 @@
 import { DeviceConfig, SupportedDeviceConfig } from '@shared/hardware-config';
-import { Project } from '@shared/project';
 
 import DeviceView from './DeviceLayoutWrapper';
 
@@ -34,7 +33,7 @@ function UnsupportedView() {
 
 type PropTypes = {
   config: DeviceConfig | null;
-  project: Project;
+  configured: boolean;
   selectedInputs: string[];
   setSelectedInputs: (inputs: string[]) => void;
 };
@@ -49,13 +48,13 @@ type PropTypes = {
  *
  * @param props Component props
  * @param props.config Config for current device
- * @param props.project The current Project
+ * @param props.configured Has the current device been added to the project?
  * @param props.selectedInputs List of ids of the selected inputs
  * @param props.setSelectedInputs sets the selected inputs
  * @param props.drivers The supported drivers
  */
 export default function DevicePanel(props: PropTypes) {
-  const { config, project, selectedInputs, setSelectedInputs } = props;
+  const { config, configured, selectedInputs, setSelectedInputs } = props;
 
   let Element: React.ReactElement;
 
@@ -77,7 +76,7 @@ export default function DevicePanel(props: PropTypes) {
       <DeviceView
         device={vDevice}
         config={nonUndefinedConfig}
-        project={project}
+        configured={configured}
         selectedInputs={selectedInputs}
         setSelectedInputs={setSelectedInputs}
       />

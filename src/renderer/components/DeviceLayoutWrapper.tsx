@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 
 import { SupportedDeviceConfig } from '@shared/hardware-config';
-import { Project } from '@shared/project';
 
 import DeviceLayout from './DeviceLayout/DeviceLayout';
 
@@ -10,7 +9,7 @@ import { VirtualDevice } from '../virtual-devices';
 type PropTypes = {
   device: VirtualDevice;
   config: SupportedDeviceConfig;
-  project: Project;
+  configured: boolean;
   selectedInputs: string[];
   setSelectedInputs: (inputs: string[]) => void;
 };
@@ -26,16 +25,15 @@ type PropTypes = {
  * @param props Component props
  * @param props.device The VirtualDevice representation
  * @param props.config Device config
- * @param props.project The active Project
+ * @param props.configured Has the device been added to the project?
  * @param props.selectedInputs List of the ids of the selected inputs
  * @param props.setSelectedInputs Sets the selected inputs
  */
 export default function DeviceLayoutWrapper(
   props: PropTypes
 ): React.ReactElement {
-  const { device, project, selectedInputs, setSelectedInputs, config } = props;
-
-  const configured = project.getDevice(device.id) !== null;
+  const { device, configured, selectedInputs, setSelectedInputs, config } =
+    props;
 
   // on input click (or ctrl+click) update selectedInputs
   const onInputSelect = useCallback(

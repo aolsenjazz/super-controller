@@ -41,20 +41,20 @@ test('get() returns correct device', () => {
   expect(result).toEqual(device);
 });
 
-test('get() with nonexistent ID returns null', () => {
+test('get() with nonexistent ID returns undefined', () => {
   const proj = new Project();
   const device = SupportedDeviceConfig.fromDriver(0, APC_DRIVER!);
   proj.addDevice(device);
   const result = proj.getDevice('badId');
-  expect(result).toBe(null);
+  expect(result).toBe(undefined);
 });
 
-test('get() with undefined ID returns null', () => {
+test('get() with undefined ID returns undefined', () => {
   const proj = new Project();
   const device = SupportedDeviceConfig.fromDriver(0, APC_DRIVER!);
   proj.addDevice(device);
   const result = proj.getDevice(undefined);
-  expect(result).toBe(null);
+  expect(result).toBe(undefined);
 });
 
 test('get() with null ID returns null', () => {
@@ -62,7 +62,7 @@ test('get() with null ID returns null', () => {
   const device = SupportedDeviceConfig.fromDriver(0, APC_DRIVER!);
   proj.addDevice(device);
   const result = proj.getDevice(null);
-  expect(result).toBe(null);
+  expect(result).toBe(undefined);
 });
 
 test('toJSON() returns valid JSON', () => {

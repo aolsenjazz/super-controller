@@ -73,6 +73,7 @@ export default function Keyboard(props: PropTypes) {
           ))}
         </div>
       ))}
+      <div className="key-white key" key={0} />
     </div>
   );
 }
