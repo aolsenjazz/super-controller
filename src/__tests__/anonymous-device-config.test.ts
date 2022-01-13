@@ -76,7 +76,7 @@ test('handleMessage returns null message to prop to device', () => {
 
 test('handleMessage applies override', () => {
   const msg = [128, 127, 127];
-  const msgId = 'noteon/noteoff.0.127';
+  const msgId = JSON.stringify(msg);
   const override = [129, 127, 127];
 
   const name = 'littlename';

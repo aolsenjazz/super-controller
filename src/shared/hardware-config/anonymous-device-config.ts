@@ -1,5 +1,4 @@
 import { DeviceConfig } from './device-config';
-import { inputIdFor } from '../util';
 
 export class AnonymousDeviceConfig extends DeviceConfig {
   readonly overrides: Map<string, number[]>;
@@ -37,7 +36,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
    * @returns [messageToDevice | null, messageToPropagate]
    */
   handleMessage(msg: number[]) {
-    const id = inputIdFor(msg);
+    const id = JSON.stringify(msg);
     const override = this.overrides.get(id);
 
     return [null, override || msg];

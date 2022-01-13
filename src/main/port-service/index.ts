@@ -57,9 +57,11 @@ export class PortService {
     const config = this.#project.getDevice(deviceId);
 
     // if hardware is connected and configured in project, run initialization
-    if (pp instanceof DrivenPortPair && config) {
-      pp.runControlSequence(); // take control of midi device
-      pp.resetLights(); // init default lights
+    if (pp && config) {
+      if (pp instanceof DrivenPortPair) {
+        pp.runControlSequence(); // take control of midi device
+        pp.resetLights(); // init default lights
+      }
 
       pp.onMessage((_delta: number, msg: number[]) => {
         // we'll occasionally receive message of length 1. ignore these.

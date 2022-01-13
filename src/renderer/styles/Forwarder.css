@@ -8,6 +8,7 @@
   border: 1px solid #e5e5e5;
   height: 160px;
   width: calc(100% - 2px);
+  overflow-y: scroll;
 }
 
 .forward-list-container .row.header {
@@ -41,6 +42,7 @@
 
 .forward-list-container .row.recent {
   font-style: italic;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 #forwarder-pad-wrapper .settings-line {
