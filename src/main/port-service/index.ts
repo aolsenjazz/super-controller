@@ -155,19 +155,22 @@ export class PortService {
 
   /**
    * Send sustain events from all devices shareWith on the same channel as their
-   * respective keyboards
+   * respective keyboards if exist, otherwise default channel
    *
    * @param msg The event from the device
    * @param The list of ids with which sustain events are being shared
    */
   #handleSustain = (msg: number[], shareWith: string[]) => {
+    let m = msg;
+
     shareWith.forEach((devId) => {
       const device = this.#project.getDevice(devId);
 
       if (device?.keyboardDriver !== undefined) {
-        const updated = setChannel(msg, device.keyboardDriver.channel);
-        this.#virtService.send(updated, devId);
+        m = setChannel(msg, device.keyboardDriver.channel);
       }
+
+      this.#virtService.send(m, devId);
     });
   };
 
@@ -187,7 +190,8 @@ export class PortService {
       const [toDevice, toPropagate] = device.handleMessage(msg);
 
       // send sustain events thru all virtual ports in config
-      if (isSustain(msg)) this.#handleSustain(msg, device.shareSustain);
+      if (toPropagate && isSustain(toPropagate))
+        this.#handleSustain(toPropagate, device.shareSustain);
 
       // propagate the msg thru virtual port to clients
       if (toPropagate) this.#virtService.send(toPropagate, device.id);

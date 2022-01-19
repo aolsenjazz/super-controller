@@ -7,6 +7,18 @@ import ShareSustainLine from './ShareSustainLine';
 
 const { ipcRenderer } = window;
 
+function disambiguatedNickname(
+  nickname: string,
+  name: string,
+  siblingIndex: number
+) {
+  if (nickname === name) {
+    return siblingIndex === 0 ? name : `${name} (${siblingIndex})`;
+  }
+
+  return nickname;
+}
+
 /**
  * List of all devices eligible to share sustain events
  *
@@ -18,13 +30,12 @@ const { ipcRenderer } = window;
 function ShareSustain(props: PropTypes) {
   const { config, project, setProject } = props;
 
-  // get all devices which are eligible for sharing sustain
+  // get all devices which aren't this device
   const shareableDevices = project.devices.filter(
-    (dev) => dev.id !== config.id && dev.keyboardDriver !== undefined
+    (dev) => dev.id !== config.id
   );
 
-  if (config.keyboardDriver === undefined || shareableDevices.length === 0)
-    return null;
+  if (shareableDevices.length === 0) return null;
 
   return (
     <>
@@ -32,7 +43,11 @@ function ShareSustain(props: PropTypes) {
       {shareableDevices.map((dev) => {
         return (
           <ShareSustainLine
-            name={dev.nickname}
+            name={disambiguatedNickname(
+              dev.nickname,
+              dev.name,
+              dev.siblingIndex
+            )}
             key={dev.id}
             value={config.sharingWith(dev.id)}
             onChange={(checked) => {
