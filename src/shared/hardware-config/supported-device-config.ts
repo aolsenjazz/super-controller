@@ -90,11 +90,18 @@ export class SupportedDeviceConfig extends DeviceConfig {
     number: number,
     channel: Channel
   ) {
-    return (
-      this.inputs.filter(
-        (input) => input.id === inputIdFor(eventType, channel, number)
-      ).length === 0
-    );
+    let available = true;
+
+    this.inputs.forEach((input) => {
+      if (
+        input.eventType === eventType &&
+        input.number === number &&
+        input.channel === channel
+      ) {
+        available = false;
+      }
+    });
+    return available;
   }
 
   /**

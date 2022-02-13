@@ -145,11 +145,8 @@ test('handleMessage() passes to correct input for processing', () => {
 test('bindingAvailable returns false if binding is taken', () => {
   const device = BasicSupportedDevice();
   const input = device.inputs[0];
-  const result = device.bindingAvailable(
-    input.eventType,
-    input.number,
-    input.channel
-  );
+  input.number = 43;
+  const result = device.bindingAvailable(input.eventType, 43, input.channel);
   expect(result).toBe(false);
 });
 
