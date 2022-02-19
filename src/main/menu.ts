@@ -6,7 +6,8 @@ import {
   shell,
 } from 'electron';
 
-import { BUG_REPORT, FEATURE_REQUEST } from './email-templates';
+import { BUG_REPORT, FEATURE_REQUEST } from '@shared/email-templates';
+
 import { Background } from './background';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {

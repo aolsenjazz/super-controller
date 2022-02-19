@@ -38,6 +38,9 @@ contextBridge.exposeInMainWorld('driverService', {
     }
     return drivers;
   },
+  request: (deviceName) => {
+    ipcRenderer.send('request', deviceName);
+  },
 });
 
 contextBridge.exposeInMainWorld('ipcRenderer', {

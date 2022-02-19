@@ -39,7 +39,7 @@ export function controllerRequest(controllerName: string) {
     to: encodeURI('supercontrollerhelp@gmail.com'),
     subject: encodeURI('Controller Request'),
     body: encodeURI(`### PLEASE DO NOT EDIT THE SUBJECT OR BODY; JUST SEND THIS EMAIL ###
-    ${controllerName}`),
+${controllerName}`),
   };
   return template;
 }

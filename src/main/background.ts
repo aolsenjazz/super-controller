@@ -1,4 +1,4 @@
-import { ipcMain, Event, dialog, app } from 'electron';
+import { ipcMain, Event, dialog, app, shell } from 'electron';
 import path from 'path';
 
 import {
@@ -8,6 +8,7 @@ import {
   UPDATE_INPUT,
   PORTS,
   DRIVERS as DRIVERS_CHANNEL,
+  REQUEST,
 } from '@shared/ipc-channels';
 import {
   SupportedDeviceConfig,
@@ -15,6 +16,7 @@ import {
   AnonymousDeviceConfig,
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
+import { controllerRequest } from '@shared/email-templates';
 
 import { windowService } from './window-service';
 import { DRIVERS } from './drivers';
@@ -115,6 +117,13 @@ export class Background {
         this.portService.syncDeviceLights(configId);
       }
     );
+
+    ipcMain.on(REQUEST, (_e: Event, deviceName: string) => {
+      const template = controllerRequest(deviceName);
+      shell.openExternal(
+        `mailto:${template.to}?subject=${template.subject}&body=${template.body}`
+      );
+    });
   }
 
   /**

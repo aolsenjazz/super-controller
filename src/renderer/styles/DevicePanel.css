@@ -32,3 +32,16 @@
 #unsupported-device .help-tip {
   margin-left: 5px;
 }
+
+#unsupported-device .driver-request {
+  color: white;
+  background-color: #0d6efd;
+  height: 30px;
+  font-size: 1em;
+  font-weight: lighter;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding-left: 12px;
+  padding-right: 12px;
+}

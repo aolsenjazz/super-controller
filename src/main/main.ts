@@ -10,16 +10,18 @@
  */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import os from 'os';
 import path from 'path';
 import { app, BrowserWindow, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import store from 'electron-store';
+
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util-main';
-
 import { Background } from './background';
 
-const os = require('os');
+store.initRenderer();
 
 export default class AppUpdater {
   constructor() {

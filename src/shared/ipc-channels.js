@@ -1,3 +1,4 @@
+// TODO: these need docs
 module.exports = {
   PROJECT: 'project',
   DRIVERS: 'drivers',
@@ -9,4 +10,6 @@ module.exports = {
   REMOVE_DEVICE: 'remove-device',
   UPDATE_DEVICE: 'update-device',
   UPDATE_INPUT: 'update-input',
+
+  REQUEST: 'request',
 };

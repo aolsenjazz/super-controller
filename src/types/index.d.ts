@@ -3,6 +3,7 @@ import { DeviceDriver } from '@shared/driver-types';
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 export interface DriverServiceAPI {
   getDrivers: () => Map<string, DeviceDriver>;
+  request: (deviceName: string) => void;
 }
 
 export interface PortServiceAPI {
