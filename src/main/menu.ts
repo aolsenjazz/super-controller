@@ -1,5 +1,12 @@
-import { app, Menu, BrowserWindow, MenuItemConstructorOptions } from 'electron';
+import {
+  app,
+  Menu,
+  BrowserWindow,
+  MenuItemConstructorOptions,
+  shell,
+} from 'electron';
 
+import { BUG_REPORT, FEATURE_REQUEST } from './email-templates';
 import { Background } from './background';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
@@ -199,6 +206,28 @@ export default class MenuBuilder {
         { label: 'Bring All to Front', selector: 'arrangeInFront:' },
       ],
     };
+
+    const subMenuContact: DarwinMenuItemConstructorOptions = {
+      label: 'Contact',
+      submenu: [
+        {
+          label: 'Report a Bug',
+          click() {
+            shell.openExternal(
+              `mailto:${BUG_REPORT.to}?subject=${BUG_REPORT.subject}&body=${BUG_REPORT.body}`
+            );
+          },
+        },
+        {
+          label: 'Feature Request',
+          click() {
+            shell.openExternal(
+              `mailto:${FEATURE_REQUEST.to}?subject=${FEATURE_REQUEST.subject}&body=${FEATURE_REQUEST.body}`
+            );
+          },
+        },
+      ],
+    };
     // const subMenuHelp: MenuItemConstructorOptions = {
     //   label: 'Help',
     //   submenu: [
@@ -237,7 +266,14 @@ export default class MenuBuilder {
         ? subMenuViewDev
         : subMenuViewProd;
 
-    return [subMenuAbout, subMenuFile, subMenuEdit, subMenuView, subMenuWindow];
+    return [
+      subMenuAbout,
+      subMenuFile,
+      subMenuEdit,
+      subMenuView,
+      subMenuWindow,
+      subMenuContact,
+    ];
   }
 
   buildDefaultTemplate() {
