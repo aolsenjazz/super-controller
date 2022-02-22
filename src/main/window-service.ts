@@ -46,11 +46,12 @@ class WindowService {
    * @param edited Is the document edited?
    */
   setEdited(edited: boolean) {
-    const windowOrNull = BrowserWindow.getFocusedWindow();
+    const windows = BrowserWindow.getAllWindows();
+    const window = windows.length ? windows[0] : null;
     this.edited = edited;
 
-    if (windowOrNull !== null) {
-      windowOrNull.documentEdited = edited;
+    if (window !== null) {
+      window.documentEdited = edited;
     }
   }
 

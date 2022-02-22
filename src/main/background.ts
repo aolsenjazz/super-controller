@@ -115,6 +115,7 @@ export class Background {
 
         config.inputs.splice(inputConfigIdx, 1, inputConfig);
         this.portService.syncDeviceLights(configId);
+        windowService.setEdited(true);
       }
     );
 
