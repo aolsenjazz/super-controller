@@ -39,9 +39,9 @@ export default function Translator(props: PropTypes) {
   );
 
   return (
-    <div id="forwarder-pad-wrapper">
+    <div id="translator-pad-wrapper">
       <h3>MIDI Translator</h3>
-      <div className="forward-list-container">
+      <div className="translator-list-container">
         <div className="column header row">
           <p className="column event">Event</p>
           <p className="column number">Number</p>
