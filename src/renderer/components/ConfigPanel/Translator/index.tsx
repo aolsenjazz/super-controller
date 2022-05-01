@@ -16,7 +16,7 @@ type PropTypes = {
   setProject: (p: Project) => void;
 };
 
-export default function Forwarder(props: PropTypes) {
+export default function Translator(props: PropTypes) {
   const { config, project, setProject } = props;
 
   const [currentAction, setCurrentAction] = useState<number[] | null>(null);
@@ -40,7 +40,7 @@ export default function Forwarder(props: PropTypes) {
 
   return (
     <div id="forwarder-pad-wrapper">
-      <h3>Message Forwarding</h3>
+      <h3>MIDI Translator</h3>
       <div className="forward-list-container">
         <div className="column header row">
           <p className="column event">Event</p>

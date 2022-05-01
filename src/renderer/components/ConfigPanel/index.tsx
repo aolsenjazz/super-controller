@@ -8,7 +8,7 @@ import {
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 
-import Forwarder from './Forwarder';
+import Translator from './Translator';
 import BasicMessage from './BasicMessage';
 import NotConfigured from './NotConfigured';
 import DeviceConfigPanel from './DeviceConfigPanel';
@@ -118,7 +118,7 @@ export default function ConfigPanel(props: PropTypes) {
           config={asSupported}
           setProject={setProject}
         />
-        <Forwarder
+        <Translator
           config={config as AnonymousDeviceConfig}
           project={project}
           setProject={setProject}

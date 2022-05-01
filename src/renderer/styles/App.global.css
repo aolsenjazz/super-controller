@@ -8,7 +8,7 @@
 @import './DeviceLayout.css';
 @import './DeviceIcon.css';
 @import './HelpTip.css';
-@import './Forwarder.css';
+@import './Translator.css';
 
 * {
   margin: 0;
