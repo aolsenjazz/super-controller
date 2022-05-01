@@ -12,12 +12,7 @@ type ControlsContainerPropTypes = {
   config: AnonymousDeviceConfig;
   currentAction: number[] | null;
   remove: () => void;
-  onChange: (
-    eventType: StatusString,
-    number: number,
-    channel: Channel,
-    value: number
-  ) => void;
+  onChange: (eventType: StatusString, number: number, channel: Channel) => void;
 };
 
 export default function ControlsContainer(props: ControlsContainerPropTypes) {
@@ -26,9 +21,7 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
   // if there is no selected source message, hide yaself
   if (currentAction === null) return null;
 
-  const overrideOrUndefined = config.overrides.get(
-    JSON.stringify(currentAction)
-  );
+  const overrideOrUndefined = config.getOverride(currentAction);
   const msg = overrideOrUndefined || currentAction;
   const status = getStatus(msg).string;
   const channel = getChannel(msg);
@@ -45,9 +38,6 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
   const eligibleNumbers = [...Array(128).keys()] as number[];
   const numberLabels = eligibleNumbers.map((n) => n.toString());
 
-  const eligibleValues = [...Array(128).keys()] as number[];
-  const valueLabels = eligibleNumbers.map((n) => n.toString());
-
   const eligibleChannels = [...Array(16).keys()] as Channel[];
   const channelLabels = eligibleChannels.map((c) => c.toString());
 
@@ -60,12 +50,7 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
         valueList={eligibleEventTypes}
         labelList={eventTypeLabels}
         onChange={(e) => {
-          onChange(
-            e as StatusString,
-            msg[1],
-            getChannel(msg),
-            e === 'noteon' ? 127 : 0
-          );
+          onChange(e as StatusString, msg[1], getChannel(msg));
         }}
       />
       {status === 'pitchbend' ? null : (
@@ -75,23 +60,7 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
           valueList={eligibleNumbers}
           labelList={numberLabels}
           onChange={(n) => {
-            onChange(
-              getStatus(msg).string,
-              n as number,
-              getChannel(msg),
-              msg[2]
-            );
-          }}
-        />
-      )}
-      {['noteoff', 'programchange'].includes(status) ? null : (
-        <SettingsLineItem
-          label="Value:"
-          value={msg[2]}
-          valueList={eligibleValues}
-          labelList={valueLabels}
-          onChange={(v) => {
-            onChange(status, msg[1], channel, v as number);
+            onChange(getStatus(msg).string, n as number, getChannel(msg));
           }}
         />
       )}
@@ -101,7 +70,7 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
         labelList={channelLabels}
         valueList={eligibleChannels}
         onChange={(c) => {
-          onChange(status, msg[1], c as Channel, msg[2]);
+          onChange(status, msg[1], c as Channel);
         }}
       />
       {overrideOrUndefined ? (

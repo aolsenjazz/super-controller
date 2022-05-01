@@ -1,6 +1,7 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import { test, expect } from '@jest/globals';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
+import { getStatus, getChannel } from '@shared/midi-util';
 
 test('new UnsupportedDevice() correctly assigns values', () => {
   const name = 'littlename';
@@ -76,15 +77,18 @@ test('handleMessage returns null message to prop to device', () => {
 
 test('handleMessage applies override', () => {
   const msg = [128, 127, 127];
-  const msgId = JSON.stringify(msg);
-  const override = [129, 127, 127];
+
+  const override = [144, 100, 100];
+  const status = getStatus(override);
+  const channel = getChannel(override);
 
   const name = 'littlename';
   const nickname = 'nick';
   const overrides = new Map<string, number[]>();
-  overrides.set(msgId, override);
   const device = new AnonymousDeviceConfig(name, 7, overrides, [], nickname);
+  device.overrideInput(msg, status.string, channel, override[2]);
   /* eslint-disable-next-line */
   const [_toDevice, toPropagate] = device.handleMessage(msg);
-  expect(toPropagate).toEqual(override);
+  expect(toPropagate![0]).toEqual(override[0]);
+  expect(toPropagate![1]).toEqual(override[1]);
 });

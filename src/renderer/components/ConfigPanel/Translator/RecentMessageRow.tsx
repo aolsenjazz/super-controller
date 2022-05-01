@@ -40,11 +40,7 @@ export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
     return () => unsubscribe();
   }, [config, setCurrentAction, recentMessage]);
 
-  if (
-    recentMessage === null ||
-    config.overrides.get(JSON.stringify(recentMessage))
-  )
-    return null;
+  if (recentMessage === null || config.getOverride(recentMessage)) return null;
 
   return (
     <div

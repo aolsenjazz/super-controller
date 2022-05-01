@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-import { Channel, StatusString, setStatus } from '@shared/midi-util';
+import { Channel, StatusString } from '@shared/midi-util';
 import { Project } from '@shared/project';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
@@ -22,18 +22,12 @@ export default function Translator(props: PropTypes) {
   const [currentAction, setCurrentAction] = useState<number[] | null>(null);
 
   const onChange = useCallback(
-    (
-      eventType: StatusString,
-      number: number,
-      channel: Channel,
-      value: number
-    ) => {
-      const msg = setStatus([channel, number, value], eventType);
-
-      config.overrides.set(JSON.stringify(currentAction), msg);
-
-      setProject(new Project(project.devices));
-      scIpc.updateDevice(config.toJSON());
+    (eventType: StatusString, number: number, channel: Channel) => {
+      if (currentAction !== null) {
+        config.overrideInput(currentAction, eventType, channel, number);
+        setProject(new Project(project.devices));
+        scIpc.updateDevice(config.toJSON());
+      }
     },
     [project, config, setProject, currentAction]
   );
