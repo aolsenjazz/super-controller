@@ -31,5 +31,4 @@ jobs:
           npm run package
           npm run lint
           npm exec tsc
-          npm run rebuild:test
           npm test
