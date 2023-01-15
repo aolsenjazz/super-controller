@@ -5,8 +5,8 @@
  * is currently no usage of remote services, code, etc.
  */
 
-const { contextBridge, ipcRenderer } = require('electron');
-const os = require('os');
+import { DeviceDriver } from '@shared/driver-types/device-driver';
+import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
 const {
   ADD_DEVICE,
@@ -16,21 +16,21 @@ const {
   PORTS,
 } = require('../shared/ipc-channels');
 
-let drivers;
+let drivers: Map<string, DeviceDriver>;
 
-contextBridge.exposeInMainWorld('hostService', {
+const hostService = {
   getHost: () => {
-    return os.platform();
+    return ipcRenderer.sendSync('os');
   },
-});
+};
 
-contextBridge.exposeInMainWorld('portService', {
+const portService = {
   requestPorts: () => {
     ipcRenderer.send(PORTS);
   },
-});
+};
 
-contextBridge.exposeInMainWorld('driverService', {
+const driverService = {
   getDrivers: () => {
     if (!drivers) {
       const response = ipcRenderer.sendSync('drivers');
@@ -38,25 +38,27 @@ contextBridge.exposeInMainWorld('driverService', {
     }
     return drivers;
   },
-  request: (deviceName) => {
+  request: (deviceName: string) => {
     ipcRenderer.send('request', deviceName);
   },
-});
+};
 
-contextBridge.exposeInMainWorld('ipcRenderer', {
-  send(channel, ...args) {
+// TODO: this is very lazy. each of these functions belong in a specific and narrow service class
+const IpcRenderer = {
+  send(channel: string, ...args: any[]) {
     ipcRenderer.send(channel, args);
   },
 
-  on(channel, func) {
-    const subscription = (event, ...args) => func(event, ...args);
+  on(channel: string, func: (event: IpcRendererEvent, args: any[]) => void) {
+    const subscription = (event: IpcRendererEvent, args: any[]) =>
+      func(event, args);
     ipcRenderer.on(channel, subscription);
     return () => {
       ipcRenderer.removeListener(channel, subscription);
     };
   },
 
-  once(channel, func) {
+  once(channel: string, func: () => void) {
     ipcRenderer.once(channel, func);
   },
 
@@ -65,7 +67,7 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
    *
    * @param configJSON JSON representation of the device config
    */
-  addDevice(configJSON) {
+  addDevice(configJSON: string) {
     ipcRenderer.send(ADD_DEVICE, configJSON);
   },
 
@@ -74,7 +76,7 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
    *
    * @param id The id of the device being removed
    */
-  removeDevice(id) {
+  removeDevice(id: string) {
     ipcRenderer.send(REMOVE_DEVICE, id);
   },
 
@@ -83,7 +85,7 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
    *
    * @param deviceString Serialized version of the device
    */
-  updateDevice(deviceString) {
+  updateDevice(deviceString: string) {
     ipcRenderer.send(UPDATE_DEVICE, deviceString);
   },
 
@@ -93,7 +95,17 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
    * @param deviceId The ID of the parent device
    * @param inputString The serialized `InputConfig`
    */
-  updateInput(deviceId, inputString) {
+  updateInput(deviceId: string, inputString: string) {
     ipcRenderer.send(UPDATE_INPUT, deviceId, inputString);
   },
-});
+};
+
+contextBridge.exposeInMainWorld('portService', portService);
+contextBridge.exposeInMainWorld('hostService', hostService);
+contextBridge.exposeInMainWorld('driverService', driverService);
+contextBridge.exposeInMainWorld('ipcRenderer', IpcRenderer);
+
+export type PortService = typeof portService;
+export type HostService = typeof hostService;
+export type DriverService = typeof driverService;
+export type IPCRenderer = typeof IpcRenderer;

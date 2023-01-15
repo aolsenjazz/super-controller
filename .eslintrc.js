@@ -3,12 +3,11 @@ module.exports = {
   rules: {
     // A temporary hack related to IDE not resolving correct package.json
     'import/no-extraneous-dependencies': 'off',
-    // Since React 17 and typescript 4.1 you can safely disable the rule
-    'react/react-in-jsx-scope': 'off',
-    'import/prefer-default-export': 'off',
     'import/no-unresolved': 'error',
+    'react/react-in-jsx-scope': 'off',
     'no-plusplus': 'off',
     'class-methods-use-this': 'off',
+    'import/prefer-default-export': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,
