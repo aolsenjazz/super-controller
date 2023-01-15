@@ -45,11 +45,14 @@ const driverService = {
 
 // TODO: this is very lazy. each of these functions belong in a specific and narrow service class
 const IpcRenderer = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   send(channel: string, ...args: any[]) {
     ipcRenderer.send(channel, args);
   },
 
-  on(channel: string, func: (event: IpcRendererEvent, args: any[]) => void) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  on(channel: string, func: (event: IpcRendererEvent, ...args: any[]) => void) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const subscription = (event: IpcRendererEvent, args: any[]) =>
       func(event, args);
     ipcRenderer.on(channel, subscription);
