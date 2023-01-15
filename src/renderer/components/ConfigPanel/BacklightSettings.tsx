@@ -72,7 +72,7 @@ export default function BacklightSettings(props: PropTypes) {
   const isLightable = eligibleColors.length > 0;
 
   const onChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>, state: string) => {
+    (e: ChangeEvent<HTMLSelectElement>, state: string) => {
       // Update all InputConfigs in the InputGroup
       const color = JSON.parse(e.target.value);
       group.inputs.forEach((input) => {
