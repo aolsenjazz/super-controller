@@ -1,5 +1,6 @@
 import { ipcMain, Event, dialog, app, shell } from 'electron';
 import path from 'path';
+import os from 'os';
 
 import {
   ADD_DEVICE,
@@ -7,6 +8,7 @@ import {
   UPDATE_DEVICE,
   UPDATE_INPUT,
   PORTS,
+  OS,
   DRIVERS as DRIVERS_CHANNEL,
   REQUEST,
 } from '@shared/ipc-channels';
@@ -55,6 +57,11 @@ export class Background {
     // When the frontend requests the drivers, send them
     ipcMain.on(DRIVERS_CHANNEL, (e: Event) => {
       e.returnValue = Array.from(DRIVERS.entries());
+    });
+
+    // When the frontend as for OS details, send them
+    ipcMain.on(OS, (e: Event) => {
+      e.returnValue = os.platform();
     });
 
     // When a device is added to project in the frontend, add to our `Project`

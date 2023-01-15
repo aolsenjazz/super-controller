@@ -5,6 +5,7 @@ module.exports = {
   PORTS: 'ports',
   TITLE: 'title',
   MSG: 'msg',
+  OS: 'os',
 
   ADD_DEVICE: 'add-device',
   REMOVE_DEVICE: 'remove-device',
