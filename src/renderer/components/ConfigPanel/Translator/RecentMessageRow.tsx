@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import { getChannel, getStatus } from '@shared/midi-util';
-import { MSG } from '@shared/ipc-channels';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
-const { ipcRenderer } = window;
+const { hostService } = window;
 
 type RecentMessageRowPropTypes = {
   config: AnonymousDeviceConfig;
@@ -21,12 +20,7 @@ export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
     JSON.stringify(currentAction) === JSON.stringify(recentMessage);
 
   useEffect(() => {
-    const cb = (
-      _e: Event,
-      _inputId: string,
-      deviceId: string,
-      msg: number[]
-    ) => {
+    const cb = (_inputId: string, deviceId: string, msg: number[]) => {
       if (config.id !== deviceId) return;
 
       setRecentMessage(msg);
@@ -35,7 +29,7 @@ export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
         setCurrentAction(msg);
     };
 
-    const unsubscribe = ipcRenderer.on(MSG, cb);
+    const unsubscribe = hostService.onMessage(cb);
 
     return () => unsubscribe();
   }, [config, setCurrentAction, recentMessage]);

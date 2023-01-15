@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const { ipcRenderer } = window;
+const { projectService } = window;
 
 /**
  * On mac, stoplight controls are overlaid over this draggable title bar
@@ -10,8 +10,8 @@ export default function TitleBar() {
 
   /* Listen to changes to available MIDI ports */
   useEffect(() => {
-    const cb = (_e: Event, tit: string) => setTitle(tit);
-    const unsubscribe = ipcRenderer.on('title', cb);
+    const cb = (tit: string) => setTitle(tit);
+    const unsubscribe = projectService.onTitleChange(cb);
     return () => unsubscribe();
   });
 

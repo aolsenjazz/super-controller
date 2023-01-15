@@ -2,9 +2,8 @@ import { useEffect } from 'react';
 
 import { getStatus } from '@shared/midi-util';
 import { Project } from '@shared/project';
-import { MSG, PROJECT } from '@shared/ipc-channels';
 
-const { ipcRenderer } = window;
+const { hostService, projectService } = window;
 
 /**
  * Convenience function to wrap another function in a throttle. Useful to prevent
@@ -41,12 +40,11 @@ export default function ProjectChangeListener(props: PropTypes) {
 
   /* When a new project is loaded in backend, update in frontend */
   useEffect(() => {
-    const cb = (_e: Event, projString: string) => {
+    const cb = (projString: string) => {
       const proj = Project.fromJSON(projString);
       setProject(proj);
     };
-
-    const unsubscribe = ipcRenderer.on(PROJECT, cb);
+    const unsubscribe = projectService.onProjectChange(cb);
     return () => unsubscribe();
   });
 
@@ -55,12 +53,7 @@ export default function ProjectChangeListener(props: PropTypes) {
   useEffect(() => {
     const throttledSetProject = throttle((p) => setProject(p), 100);
 
-    const cb = (
-      _e: Event,
-      _inputId: string,
-      deviceId: string,
-      msg: number[]
-    ) => {
+    const cb = (_inputId: string, deviceId: string, msg: number[]) => {
       const device = project.getDevice(deviceId);
       if (device) device.handleMessage(msg);
 
@@ -73,7 +66,7 @@ export default function ProjectChangeListener(props: PropTypes) {
       else setProject(newProj);
     };
 
-    const unsubscribe = ipcRenderer.on(MSG, cb);
+    const unsubscribe = hostService.onMessage(cb);
     return () => unsubscribe();
   });
 

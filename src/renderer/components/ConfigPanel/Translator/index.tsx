@@ -8,7 +8,7 @@ import RecentMessageRow from './RecentMessageRow';
 import ControlsContainer from './ControlsContainer';
 import OverrideRow from './OverrideRow';
 
-const scIpc = window.ipcRenderer;
+const { projectService } = window;
 
 type PropTypes = {
   config: AnonymousDeviceConfig;
@@ -26,7 +26,7 @@ export default function Translator(props: PropTypes) {
       if (currentAction !== null) {
         config.overrideInput(currentAction, eventType, channel, number);
         setProject(new Project(project.devices));
-        scIpc.updateDevice(config.toJSON());
+        projectService.updateDevice(config.toJSON());
       }
     },
     [project, config, setProject, currentAction]
@@ -62,7 +62,7 @@ export default function Translator(props: PropTypes) {
         remove={() => {
           config.overrides.delete(JSON.stringify(currentAction));
           setProject(new Project(project.devices));
-          scIpc.updateDevice(config.toJSON());
+          projectService.updateDevice(config.toJSON());
         }}
       />
     </div>

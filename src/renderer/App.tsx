@@ -16,7 +16,7 @@ import ProjectChangeListener from './components/ProjectChangeListener';
 
 import './styles/App.global.css';
 
-const { ipcRenderer, driverService, portService } = window;
+const { driverService, hostService } = window;
 const drivers = driverService.getDrivers();
 
 document.body.ondragover = (event) => {
@@ -52,15 +52,14 @@ export default function App() {
 
   // Listen to changes to available MIDI ports
   useEffect(() => {
-    const cb = (_e: Event, pairs: PortInfo[]) => {
-      setPorts(
-        pairs.map(
-          (port) => new PortInfo(port.name, port.siblingIndex, port.connected)
-        )
+    const cb = (pairs: PortInfo[]) => {
+      const pp = pairs.map(
+        (p) => new PortInfo(p.name, p.siblingIndex, p.connected)
       );
+      setPorts(pp);
     };
-    const unsubscribe = ipcRenderer.on('ports', cb);
-    portService.requestPorts();
+    const unsubscribe = hostService.onPortsChange(cb);
+    hostService.requestPorts();
 
     return () => unsubscribe();
   }, [project]);

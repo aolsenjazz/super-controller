@@ -3,16 +3,6 @@ import path from 'path';
 import os from 'os';
 
 import {
-  ADD_DEVICE,
-  REMOVE_DEVICE,
-  UPDATE_DEVICE,
-  UPDATE_INPUT,
-  PORTS,
-  OS,
-  DRIVERS as DRIVERS_CHANNEL,
-  REQUEST,
-} from '@shared/ipc-channels';
-import {
   SupportedDeviceConfig,
   InputConfig,
   AnonymousDeviceConfig,
@@ -25,6 +15,17 @@ import { DRIVERS } from './drivers';
 import { projectFromFile } from './util-main';
 import { SaveOpenService } from './save-open-service';
 import { PortService } from './port-service';
+
+import {
+  ADD_DEVICE,
+  REMOVE_DEVICE,
+  UPDATE_DEVICE,
+  UPDATE_INPUT,
+  PORTS,
+  OS,
+  DRIVERS as DRIVERS_CHANNEL,
+  REQUEST,
+} from './ipc-channels';
 
 /**
  * Manages communications to/from controllers, and informs the front end.

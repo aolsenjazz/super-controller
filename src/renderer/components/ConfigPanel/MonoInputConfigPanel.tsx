@@ -9,7 +9,7 @@ import BacklightSettings from './BacklightSettings';
 
 import { InputGroup } from '../../input-group';
 
-const { ipcRenderer } = window;
+const { projectService } = window;
 
 type PropTypes = {
   group: InputGroup;
@@ -71,7 +71,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
     (setter: (c: InputConfig) => void) => {
       group.inputs.forEach((i) => {
         setter(i);
-        ipcRenderer.updateInput(config.id, i.toJSON(true));
+        projectService.updateInput(config.id, i.toJSON(true));
       });
 
       setProject(new Project(project.devices));
@@ -82,7 +82,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   const restoreDefaults = useCallback(() => {
     group.inputs.forEach((i) => {
       i.restoreDefaults();
-      ipcRenderer.updateInput(config.id, i.toJSON(true));
+      projectService.updateInput(config.id, i.toJSON(true));
     });
 
     setProject(new Project(project.devices));

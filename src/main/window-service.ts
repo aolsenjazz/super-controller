@@ -3,7 +3,7 @@ import { BrowserWindow } from 'electron';
 import { Project } from '@shared/project';
 import { PortInfo } from '@shared/port-info';
 
-import { MSG, TITLE, PROJECT, PORTS } from '@shared/ipc-channels';
+import { MSG, TITLE, PROJECT, PORTS } from './ipc-channels';
 
 /**
  * Convenience class for accessing the main window. Used for:

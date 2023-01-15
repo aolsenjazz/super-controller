@@ -7,7 +7,7 @@ import SelectTab from '../../assets/select-tab.svg';
 import SettingsLineItem from './SettingsLineItem';
 import { InputGroup } from '../../input-group';
 
-const { ipcRenderer } = window;
+const { projectService } = window;
 
 type LightResponsePropTypes = {
   group: InputGroup;
@@ -33,7 +33,7 @@ function LightResponse(props: LightResponsePropTypes) {
   const onChange = (val: string | number) => {
     group.inputs.forEach((config) => {
       config.lightResponse = val as 'gate' | 'toggle';
-      ipcRenderer.updateInput(configId, config.toJSON(true));
+      projectService.updateInput(configId, config.toJSON(true));
     });
 
     setProject(new Project(project.devices));
@@ -77,7 +77,7 @@ export default function BacklightSettings(props: PropTypes) {
       const color = JSON.parse(e.target.value);
       group.inputs.forEach((input) => {
         input.setColorForState(state, color);
-        ipcRenderer.updateInput(configId, input.toJSON(true));
+        projectService.updateInput(configId, input.toJSON(true));
       });
 
       setProject(new Project(project.devices));

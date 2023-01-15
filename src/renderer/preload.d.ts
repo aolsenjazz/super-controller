@@ -1,16 +1,10 @@
-import {
-  HostService,
-  PortService,
-  DriverService,
-  IPCRenderer,
-} from '../main/preload';
+import { HostService, ProjectService, DriverService } from '../main/preload';
 
 declare global {
   interface Window {
     hostService: HostService;
-    portService: PortService;
+    projectService: ProjectService;
     driverService: DriverService;
-    ipcRenderer: IPCRenderer;
   }
 }
 

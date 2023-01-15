@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 
-const { ipcRenderer } = window;
+const { projectService } = window;
 
 /**
  * Inform the current user that the device isn't configured, and allow them to configure
@@ -21,7 +21,7 @@ export default function NotConfigured(props: {
   const onClick = useCallback(() => {
     project.addDevice(config);
     setProject(new Project(project.devices));
-    ipcRenderer.addDevice(config.toJSON(false));
+    projectService.addDevice(config.toJSON(false));
   }, [config, project, setProject]);
 
   return (

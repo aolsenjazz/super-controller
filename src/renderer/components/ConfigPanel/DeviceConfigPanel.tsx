@@ -5,7 +5,7 @@ import { Project } from '@shared/project';
 
 import ShareSustainLine from './ShareSustainLine';
 
-const { ipcRenderer } = window;
+const { projectService } = window;
 
 function disambiguatedNickname(
   nickname: string,
@@ -54,7 +54,7 @@ function ShareSustain(props: PropTypes) {
               if (checked) config.shareWith(dev.id);
               else config.stopSharing(dev.id);
 
-              ipcRenderer.updateDevice(config.toJSON(true)); // send update to the backend
+              projectService.updateDevice(config.toJSON(true)); // send update to the backend
               setProject(new Project(project.devices)); // update in frontend
             }}
           />
@@ -85,7 +85,7 @@ export default function DeviceConfigPanel(props: PropTypes) {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       config.nickname = e.target.value;
 
-      ipcRenderer.updateDevice(config.toJSON(true)); // send update to the backend
+      projectService.updateDevice(config.toJSON(true)); // send update to the backend
       setProject(new Project(project.devices)); // update in frontend
     },
     [config, project.devices, setProject]
@@ -110,7 +110,7 @@ export default function DeviceConfigPanel(props: PropTypes) {
   const onDelete = useCallback(() => {
     project.removeDevice(config);
     setProject(new Project(project.devices));
-    ipcRenderer.removeDevice(config.id);
+    projectService.removeDevice(config.id);
   }, [config, project, setProject]);
 
   return (
