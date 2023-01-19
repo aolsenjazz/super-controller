@@ -1,10 +1,9 @@
 import { KeyboardDriver } from '../driver-types';
-import { PortIdentifier } from '../port-info';
 
 /**
  * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.
  */
-export class DeviceConfig implements PortIdentifier {
+export class DeviceConfig {
   /* True if a driver exists for the given name */
   readonly supported: boolean;
 

@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 
-import {
-  SupportedDeviceConfig,
-  AnonymousDeviceConfig,
-} from '@shared/hardware-config';
-import { PortInfo, PortIdentifier } from '@shared/port-info';
+import { DeviceConfig } from '@shared/hardware-config';
+import { PortInfo } from '@shared/port-info';
 import { Project } from '@shared/project';
 
 import { anonymousDriver } from '../anonymous-device';
@@ -22,13 +19,9 @@ const drivers = driverService.getDrivers();
  * @param deviceConfigs The device configurations in the current project
  * @returns A sorted list of all connected, available, and disconnected ports/devices.
  */
-function sortPorts(
-  portInfos: PortInfo[],
-  deviceConfigs: (SupportedDeviceConfig | AnonymousDeviceConfig)[]
-) {
+function sortPorts(portInfos: PortInfo[], deviceConfigs: DeviceConfig[]) {
   // sort by ID descending
-  const sortAlg = (a: PortIdentifier, b: PortIdentifier) =>
-    a.id > b.id ? 1 : -1;
+  const sortAlg = (a: PortInfo, b: PortInfo) => (a.id > b.id ? 1 : -1);
 
   // sort connected devices
   const connectedConfigured = deviceConfigs
