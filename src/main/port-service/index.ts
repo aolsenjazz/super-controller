@@ -71,17 +71,29 @@ export class PortService {
 
       // // if device is configured, apply default light config
       if (config instanceof SupportedDeviceConfig) {
-        this.#syncDeviceLights(pp, config);
+        this.syncDeviceLights(config.id);
       }
     }
   }
 
+  /**
+   * Synchronize device hardware lights with software state
+   *
+   * @param deviceId The id of the device
+   */
   syncDeviceLights = (deviceId: string) => {
     const pp = this.portPairs.get(deviceId);
     const config = this.#project.getDevice(deviceId);
 
-    if (pp && config instanceof SupportedDeviceConfig)
-      this.#syncDeviceLights(pp, config);
+    if (pp && config instanceof SupportedDeviceConfig) {
+      type Tuple = [InputConfig, Color | undefined];
+
+      config.inputs
+        .map((i) => [i, i.currentColor] as Tuple) // get current color
+        .filter(([_i, c]) => c !== undefined) // eslint-disable-line
+        .map(([i, c]) => msgForColor(i.default.number, i.default.channel, c!)) // get message for color
+        .forEach((conf) => pp.send(conf!)); // send color message
+    }
   };
 
   /**
@@ -136,22 +148,6 @@ export class PortService {
 
     this.updatePorts();
   }
-
-  /**
-   * Synchronize device hardware lights with software state
-   *
-   * @param pp The PortPair for device
-   * @param config The SupportedDeviceConfig for device
-   */
-  #syncDeviceLights = (pp: PortPair, config: SupportedDeviceConfig) => {
-    type Tuple = [InputConfig, Color | undefined];
-
-    config.inputs
-      .map((i) => [i, i.currentColor] as Tuple) // get current color
-      .filter(([_i, c]) => c !== undefined) // eslint-disable-line
-      .map(([i, c]) => msgForColor(i.default.number, i.default.channel, c!)) // get message for color
-      .forEach((conf) => pp.send(conf!)); // send color message
-  };
 
   /**
    * Send sustain events from all devices shareWith on the same channel as their
