@@ -2,9 +2,12 @@
 
 import { test, expect } from '@jest/globals';
 
-import { getAvailableDrivers, DRIVERS } from '../main/drivers';
+import { TESTABLES, DRIVERS } from '../main/drivers';
 
 const fNameRegex = new RegExp(/^.+\.json$/);
+const getAvailableDrivers: () => string[] = TESTABLES.get(
+  'getAvailableDrivers'
+)!;
 
 test('DRIVERS.get gets the correct file', () => {
   const name = 'APC Key 25';
