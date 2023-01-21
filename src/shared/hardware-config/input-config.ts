@@ -199,7 +199,7 @@ export class InputConfig {
    * @param msg The midi value array
    * @returns [message_to_device | undefined, message_to_clients | undefined]
    */
-  handleMessage(msg: number[]): (number[] | undefined)[] {
+  handleMessage(msg: number[]): (number[] | null)[] {
     const toPropagate = this.outputPropagator.handleMessage(msg);
     const toDevice = this.devicePropagator.handleMessage(msg);
 

@@ -9,6 +9,7 @@ test('new UnsupportedDevice() correctly assigns values', () => {
   const nickname = 'nick';
   const overrides = new Map<string, number[]>();
   overrides.set('someKey', [144, 0, 0]);
+
   const device = new AnonymousDeviceConfig(
     name,
     siblingIndex,
@@ -32,6 +33,7 @@ test('toJSON and fromJSON correctly serializes and deserializes', () => {
   const nickname = 'nick';
   const overrides = new Map<string, number[]>();
   const shareWith = ['otherDevice'];
+
   overrides.set('someKey', [144, 0, 0]);
   const device = new AnonymousDeviceConfig(
     name,
@@ -58,6 +60,7 @@ test('toJSON and fromJSON correctly serializes and deserializes', () => {
 test('handleMessage propagates message when not-overridden', () => {
   const name = 'littlename';
   const nickname = 'nick';
+
   const device = new AnonymousDeviceConfig(name, 7, new Map(), [], nickname);
   const msg = [144, 0, 0];
   /* eslint-disable-next-line */
@@ -68,6 +71,7 @@ test('handleMessage propagates message when not-overridden', () => {
 test('handleMessage returns null message to prop to device', () => {
   const name = 'littlename';
   const nickname = 'nick';
+
   const device = new AnonymousDeviceConfig(name, 7, new Map(), [], nickname);
   const msg = [144, 0, 0];
   /* eslint-disable-next-line */

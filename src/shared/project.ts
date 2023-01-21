@@ -1,13 +1,14 @@
 import {
   SupportedDeviceConfig,
   AnonymousDeviceConfig,
+  DeviceConfig,
 } from './hardware-config';
 
 export class Project {
   /* Configured devices. See `SupportedDeviceConfig` for more. */
-  devices: (SupportedDeviceConfig | AnonymousDeviceConfig)[];
+  devices: DeviceConfig[];
 
-  constructor(devices?: (SupportedDeviceConfig | AnonymousDeviceConfig)[]) {
+  constructor(devices?: DeviceConfig[]) {
     this.devices = devices || [];
   }
 
@@ -38,7 +39,7 @@ export class Project {
    *
    * @param config The config to add
    */
-  addDevice(config: SupportedDeviceConfig | AnonymousDeviceConfig) {
+  addDevice(config: DeviceConfig) {
     this.devices.push(config);
   }
 
@@ -47,7 +48,7 @@ export class Project {
    *
    * @param config The config to remove
    */
-  removeDevice(config: SupportedDeviceConfig | AnonymousDeviceConfig) {
+  removeDevice(config: DeviceConfig) {
     let idx = -1;
     this.devices.forEach((d, index) => {
       if (d.id === config.id) {

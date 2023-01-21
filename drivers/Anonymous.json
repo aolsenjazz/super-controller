@@ -2,6 +2,7 @@
   "width": 12,
   "height": 6,
   "name": "Anonymous",
+  "anonymous": true,
   "style": {
     "borderBottomLeftRadius": "1em",
     "borderTopLeftRadius": "1em",

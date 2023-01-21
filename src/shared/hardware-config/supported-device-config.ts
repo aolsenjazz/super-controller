@@ -128,11 +128,10 @@ export class SupportedDeviceConfig extends DeviceConfig {
    */
   toJSON(includeState: boolean) {
     const obj = {
-      id: this.id,
       name: this.name,
       siblingIndex: this.siblingIndex,
       nickname: this.nickname,
-      supported: this.supported,
+      supported: true,
       shareSustain: this.shareSustain,
       keyboardDriver: this.keyboardDriver,
       inputs: this.inputs.map((input) => input.toJSON(includeState)),
@@ -148,10 +147,10 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * @param message The MidiValue[] from device
    * @returns [messageToDevice | null, messageToPropagate]
    */
-  handleMessage(msg: number[]): (number[] | undefined)[] {
+  handleMessage(msg: number[]): (number[] | null)[] {
     const id = inputIdFor(msg);
     const input = this.getInput(id);
 
-    return input !== undefined ? input.handleMessage(msg) : [undefined, msg];
+    return input !== undefined ? input.handleMessage(msg) : [null, msg];
   }
 }

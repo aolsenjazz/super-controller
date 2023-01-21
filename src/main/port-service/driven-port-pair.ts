@@ -13,7 +13,7 @@ export class DrivenPortPair extends PortPair {
   #pair: PortPair;
 
   /* The related driver, if any */
-  #driver: DeviceDriver;
+  driver: DeviceDriver;
 
   /* eslint-disable-next-line */
   testables = new Map<string, any>();
@@ -22,14 +22,14 @@ export class DrivenPortPair extends PortPair {
     super(pair.iPort, pair.oPort);
 
     this.#pair = pair;
-    this.#driver = driver;
+    this.driver = driver;
 
     this.testables.set('pair', this.#pair);
   }
 
   /* Reset all of the lights on the device to their initial state. */
   resetLights() {
-    this.#driver.inputGrids
+    this.driver.inputGrids
       .map((ig) => ig.inputs)
       .flat()
       .forEach((input) => {
@@ -52,7 +52,7 @@ export class DrivenPortPair extends PortPair {
    * sequence in order to relinquish control of lights.
    */
   runControlSequence() {
-    this.#driver.controlSequence?.forEach((msgArray) => {
+    this.driver.controlSequence?.forEach((msgArray) => {
       const msg = setStatus(
         [msgArray[3], msgArray[1], msgArray[2]],
         msgArray[0]

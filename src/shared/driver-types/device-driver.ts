@@ -42,6 +42,12 @@ export type DeviceDriver = {
   /* See `InputGridDriver` */
   inputGrids: InputGridDriver[];
 
+  /**
+   * There only exists 1 anonmyous driver, however when the Anonymous driver is loaded,
+   * its name is overwritten, so this is to clarify
+   */
+  anonymous?: false;
+
   /* See `KeyboardDriver` */
   keyboard?: KeyboardDriver;
 

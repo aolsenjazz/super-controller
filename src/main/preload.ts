@@ -7,7 +7,7 @@
 
 import { DeviceDriver } from '@shared/driver-types/device-driver';
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
-import { PortInfo } from '@shared/port-info';
+import { DrivenPortInfo } from '@shared/driven-port-info';
 
 import {
   ADD_DEVICE,
@@ -79,7 +79,7 @@ const hostService = {
    *
    * @param func The callback to be invoked
    */
-  onPortsChange: (func: (ports: PortInfo[]) => void) => {
+  onPortsChange: (func: (ports: DrivenPortInfo[]) => void) => {
     return addOnChangeListener(PORTS, func);
   },
 };
@@ -97,6 +97,49 @@ const driverService = {
       drivers = new Map(response);
     }
     return drivers;
+  },
+
+  getDriver: (name: string | undefined) => {
+    if (!drivers) {
+      const response = ipcRenderer.sendSync('drivers');
+      drivers = new Map(response);
+    }
+
+    if (name === undefined) return undefined;
+
+    return drivers.get(name);
+  },
+
+  getDriverById: (id: string | undefined) => {
+    if (!drivers) {
+      const response = ipcRenderer.sendSync('drivers');
+      drivers = new Map(response);
+    }
+
+    if (id === undefined) return undefined;
+
+    const name = id.substr(0, id.lastIndexOf(' '));
+
+    return drivers.get(name);
+  },
+
+  isSupported(name: string) {
+    if (!drivers) {
+      const response = ipcRenderer.sendSync('drivers');
+      drivers = new Map(response);
+    }
+
+    return drivers.get(name) !== undefined;
+  },
+
+  isSupportedById(id: string) {
+    if (!drivers) {
+      const response = ipcRenderer.sendSync('drivers');
+      drivers = new Map(response);
+    }
+
+    const name = id.substr(0, id.lastIndexOf(' '));
+    return drivers.get(name) !== undefined;
   },
 
   /**

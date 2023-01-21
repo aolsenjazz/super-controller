@@ -63,3 +63,14 @@ export const DRIVERS: Map<string, DeviceDriver> = (() => {
   });
   return deviceMap;
 })();
+
+export function getDriver(portName: string) {
+  let driverOrUndefined = DRIVERS.get(portName);
+
+  if (driverOrUndefined === undefined) {
+    driverOrUndefined = DRIVERS.get('Anonymous')!;
+    driverOrUndefined.name = portName;
+  }
+
+  return driverOrUndefined;
+}

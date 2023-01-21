@@ -92,59 +92,61 @@ type PropTypes = {
  */
 export default function ConfigPanel(props: PropTypes) {
   const { selectedInputs, config, project, setProject } = props;
-  /* eslint-disable-next-line */
-  const isConfigured = project.getDevice(config?.id) ? true : false;
-  const asSupported = config as SupportedDeviceConfig;
 
   let Element: JSX.Element;
 
-  // show a diff view depending on if device is supported, configured, etc
-  if (config === undefined)
+  if (config === undefined) {
     Element = <BasicMessage msg="No connected devices." />;
-  else if (!isConfigured)
-    Element = (
-      <NotConfigured
-        config={asSupported}
-        setProject={setProject}
-        project={project}
-      />
-    );
-  else if (!config?.supported) {
-    // device is not supported, handle as anonymous device
-    Element = (
-      <>
-        <DeviceConfigPanel
-          project={project}
-          config={asSupported}
-          setProject={setProject}
-        />
-        <Translator
-          config={config as AnonymousDeviceConfig}
-          project={project}
-          setProject={setProject}
-        />
-      </>
-    );
-  } else if (selectedInputs.length === 0) {
-    Element = (
-      <>
-        <DeviceConfigPanel
-          project={project}
-          config={asSupported}
-          setProject={setProject}
-        />
-        <BasicMessage msg="No inputs selected." />
-      </>
-    );
   } else {
-    Element = (
-      <InputConfiguration
-        selectedInputs={selectedInputs}
-        project={project}
-        config={asSupported}
-        setProject={setProject}
-      />
-    );
+    const isConfigured = project.getDevice(config.id) !== undefined;
+    const asSupported = config as SupportedDeviceConfig;
+
+    // show a diff view depending on if device is supported, configured, etc
+    if (!isConfigured)
+      Element = (
+        <NotConfigured
+          config={asSupported}
+          setProject={setProject}
+          project={project}
+        />
+      );
+    else if (!config?.supported) {
+      // device is not supported, handle as anonymous device
+      Element = (
+        <>
+          <DeviceConfigPanel
+            project={project}
+            config={asSupported}
+            setProject={setProject}
+          />
+          <Translator
+            config={config as AnonymousDeviceConfig}
+            project={project}
+            setProject={setProject}
+          />
+        </>
+      );
+    } else if (selectedInputs.length === 0) {
+      Element = (
+        <>
+          <DeviceConfigPanel
+            project={project}
+            config={asSupported}
+            setProject={setProject}
+          />
+          <BasicMessage msg="No inputs selected." />
+        </>
+      );
+    } else {
+      Element = (
+        <InputConfiguration
+          selectedInputs={selectedInputs}
+          project={project}
+          config={asSupported}
+          setProject={setProject}
+        />
+      );
+    }
   }
 
   return (

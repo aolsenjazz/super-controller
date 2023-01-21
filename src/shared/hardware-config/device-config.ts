@@ -3,7 +3,7 @@ import { KeyboardDriver } from '../driver-types';
 /**
  * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.
  */
-export class DeviceConfig {
+export abstract class DeviceConfig {
   /* True if a driver exists for the given name */
   readonly supported: boolean;
 
@@ -81,4 +81,12 @@ export class DeviceConfig {
     const idx = this.shareSustain.indexOf(id);
     this.shareSustain.splice(idx, 1);
   }
+
+  /**
+   * @param message The MidiValue[] from device
+   * @returns [messageToDevice | null, messageToPropagate]
+   */
+  abstract handleMessage(msg: number[]): (number[] | null)[];
+
+  abstract toJSON(includeState: boolean): string;
 }

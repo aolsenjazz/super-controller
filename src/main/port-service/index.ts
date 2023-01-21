@@ -3,7 +3,7 @@ import { Project } from '@shared/project';
 import { isSustain, inputIdFor, msgForColor, getDiff } from '@shared/util';
 import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
 import { Color } from '@shared/driver-types';
-import { PortInfo } from '@shared/port-info';
+import { DrivenPortInfo } from '@shared/driven-port-info';
 import { setChannel } from '@shared/midi-util';
 
 import { PortPair } from './port-pair';
@@ -21,7 +21,7 @@ export class PortService {
   #project: Project;
 
   /* List of available port pairs */
-  portPairs: Map<string, PortPair> = new Map();
+  portPairs: Map<string, DrivenPortPair> = new Map();
 
   /* See `VirtualPortService` */
   #virtService: VirtualPortService;
@@ -36,9 +36,9 @@ export class PortService {
   /* Pass current list of `PortPair`s to the front end */
   sendToFrontend() {
     // pass port info to frontend
-    const info = Array.from(this.portPairs.values()).map(
-      (p) => new PortInfo(p.name, p.siblingIndex, true)
-    );
+    const info = Array.from(this.portPairs.values()).map((p) => {
+      return new DrivenPortInfo(p.name, p.siblingIndex, true, p.driver);
+    });
 
     windowService.sendPortInfos(info);
   }
@@ -267,7 +267,7 @@ export class PortService {
    *
    * @param freshPorts The currently-available MIDI ports
    */
-  #updateDisconnectedPorts = (freshPorts: Map<string, PortPair>) => {
+  #updateDisconnectedPorts = (freshPorts: Map<string, DrivenPortPair>) => {
     const toUpdate = Array.from(this.portPairs.values())
       .filter((pp) => !this.#virtService.isOpen(pp.id))
       .map((pp) => pp.id);
@@ -284,7 +284,7 @@ export class PortService {
    * @param toAdd List of corresponding port IDs to add
    * @param freshPorts The currently-available MIDI ports
    */
-  #addAll = (toAdd: string[], freshPorts: Map<string, PortPair>) => {
+  #addAll = (toAdd: string[], freshPorts: Map<string, DrivenPortPair>) => {
     // add new ports
     toAdd
       .map((id) => freshPorts.get(id))

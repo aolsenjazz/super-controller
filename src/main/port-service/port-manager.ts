@@ -4,7 +4,7 @@ import { Port } from './port';
 import { PortPair } from './port-pair';
 import { DrivenPortPair } from './driven-port-pair';
 
-import { DRIVERS } from '../drivers';
+import { getDriver } from '../drivers';
 
 const INPUT = new midi.Input();
 const OUTPUT = new midi.Output();
@@ -25,6 +25,7 @@ function getSister(port: Port, sisterList: Port[]): Port | null {
   });
   return sister;
 }
+
 /**
  * Pairs each `Port` in `portList` with its sister port in `sisterList` and adds
  * the pair to portMap
@@ -32,19 +33,18 @@ function getSister(port: Port, sisterList: Port[]): Port | null {
 function createPairsAndAddToDevices(
   portList: Port[],
   sisterList: Port[],
-  portMap: Map<string, PortPair>
+  portMap: Map<string, DrivenPortPair>
 ) {
   portList.forEach((port: Port) => {
     const sister = getSister(port, sisterList);
     const first = port.type === 'input' ? port : sister;
     const second = port.type === 'input' ? sister : port;
 
-    let pair = new PortPair(first, second);
-    const driver = DRIVERS.get(pair.name);
+    const pair = new PortPair(first, second);
+    const driver = getDriver(pair.name);
+    const driven = new DrivenPortPair(pair, driver);
 
-    if (driver) pair = new DrivenPortPair(pair, driver);
-
-    portMap.set(pair.id, pair);
+    portMap.set(pair.id, driven);
   });
 }
 
@@ -70,7 +70,7 @@ function parsePorts(
 export function all(omitSCPorts = true) {
   const iPorts = parsePorts(INPUT, 'input');
   const oPorts = parsePorts(OUTPUT, 'output');
-  const portMap = new Map<string, PortPair>();
+  const portMap = new Map<string, DrivenPortPair>();
   createPairsAndAddToDevices(iPorts, oPorts, portMap);
   createPairsAndAddToDevices(oPorts, iPorts, portMap);
 

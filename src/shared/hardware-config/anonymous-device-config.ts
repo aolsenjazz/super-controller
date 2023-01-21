@@ -1,4 +1,5 @@
 import { Channel, StatusString, setStatus } from '@shared/midi-util';
+
 import { DeviceConfig } from './device-config';
 
 export class AnonymousDeviceConfig extends DeviceConfig {
@@ -90,7 +91,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     return JSON.stringify({
       name: this.name,
       siblingIndex: this.siblingIndex,
-      supported: this.supported,
+      supported: false,
       nickname: this.nickname,
       shareSustain: this.shareSustain,
       overrides: Array.from(this.overrides.entries()),

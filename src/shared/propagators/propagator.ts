@@ -76,7 +76,7 @@ export abstract class Propagator {
     }
 
     if (toPropagate !== undefined) this.lastPropagated = toPropagate;
-    return toPropagate;
+    return toPropagate === undefined ? null : toPropagate;
   }
 
   /**

@@ -71,6 +71,7 @@ export class Background {
 
       // deserialize device
       const deviceObj = JSON.parse(deviceJSON);
+
       const config = deviceObj.supported
         ? SupportedDeviceConfig.fromParsedJSON(deviceObj)
         : AnonymousDeviceConfig.fromParsedJSON(deviceObj);

@@ -6,8 +6,7 @@ import NoDevicesView from './NoDevicesView';
 
 import { VirtualDevice } from '../../virtual-devices';
 
-const { driverService } = window;
-const drivers = driverService.getDrivers();
+const { getDriver } = window.driverService;
 
 type PropTypes = {
   config: DeviceConfig | undefined;
@@ -42,13 +41,8 @@ export default function DevicePanel(props: PropTypes) {
     Element = <UnsupportedView deviceName={config.name} />;
   } else {
     const nonUndefinedConfig = config as SupportedDeviceConfig;
-
-    const driver = drivers.get(nonUndefinedConfig.name);
-
-    if (driver === undefined)
-      throw new Error(`unable to locate driver for ${nonUndefinedConfig.name}`);
-
-    const vDevice = new VirtualDevice(nonUndefinedConfig.id, driver);
+    const driver = getDriver(config.name);
+    const vDevice = new VirtualDevice(nonUndefinedConfig.id, driver!);
 
     Element = (
       <DeviceView
