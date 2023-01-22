@@ -43,3 +43,15 @@ ${controllerName}`),
   };
   return template;
 }
+
+export function fivePinRequest() {
+  const template: Template = {
+    to: encodeURI('supercontrollerhelp@gmail.com'),
+    subject: encodeURI('Controller Request'),
+    body: encodeURI(`### PLEASE ENTER INFO FOR THE CONTROLLER YOU WANT TO SEE SUPPORTED BELOW ###
+Device Name:
+Version (mk2, etc if applicable):
+Amazon/Sweetwater link: `),
+  };
+  return template;
+}

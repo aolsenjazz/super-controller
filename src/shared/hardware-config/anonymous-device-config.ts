@@ -6,6 +6,8 @@ export class AnonymousDeviceConfig extends DeviceConfig {
   // TODO: This likely should be made private - accessing this from outside of this class is smelly
   readonly overrides: Map<string, number[]>;
 
+  isAdapter = false;
+
   /* eslint-disable-next-line */
   static fromParsedJSON(obj: any) {
     const overrides = new Map<string, number[]>(obj.overrides);

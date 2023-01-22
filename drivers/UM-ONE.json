@@ -1,0 +1,13 @@
+{
+  "width": 0,
+  "height": 0,
+  "name": "UM-ONE",
+  "type": "adapter",
+  "style": {
+    "borderBottomLeftRadius": "1em",
+    "borderTopLeftRadius": "1em",
+    "borderTopRightRadius": "1em",
+    "borderBottomRightRadius": "1em"
+  },
+  "inputGrids": []
+}

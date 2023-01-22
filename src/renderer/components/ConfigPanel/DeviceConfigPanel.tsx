@@ -116,7 +116,7 @@ export default function DeviceConfigPanel(props: PropTypes) {
   return (
     <div id="device-config">
       <h3>Device Settings</h3>
-      <p>Nickname:</p>
+      <p className="label">Nickname:</p>
       <input id="nickname" value={config.nickname} onChange={onNameChange} />
       <ShareSustain config={config} project={project} setProject={setProject} />
       <h4>Delete Configuration:</h4>

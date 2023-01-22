@@ -1,6 +1,7 @@
 {
   "width": 9.25,
   "height": 7.75,
+  "type": "normal",
   "name": "APC MINI",
   "style": {
     "borderTopLeftRadius": "0.5em",

@@ -1,0 +1,13 @@
+.driver-request {
+  color: white;
+  background-color: #0d6efd;
+  height: 30px;
+  font-size: 16px;
+  font-weight: lighter;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border: none;
+}

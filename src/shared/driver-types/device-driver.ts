@@ -30,6 +30,12 @@ export type DeviceDriver = {
   /* Device-reported name */
   name: string;
 
+  /**
+   * Is the device a 5-pin device (requires an adapter), an adapter (for 5-pin devices),
+   * or a normal device?
+   */
+  type: 'normal' | 'adapter' | '5pin';
+
   /* Width of device in inches */
   width: number;
 
@@ -46,7 +52,7 @@ export type DeviceDriver = {
    * There only exists 1 anonmyous driver, however when the Anonymous driver is loaded,
    * its name is overwritten, so this is to clarify
    */
-  anonymous?: false;
+  anonymous?: boolean;
 
   /* See `KeyboardDriver` */
   keyboard?: KeyboardDriver;

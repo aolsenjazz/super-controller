@@ -9,6 +9,8 @@
 @import './DeviceIcon.css';
 @import './HelpTip.css';
 @import './Translator.css';
+@import './AdapterView.css';
+@import './DriverRequestButton.css';
 
 * {
   margin: 0;

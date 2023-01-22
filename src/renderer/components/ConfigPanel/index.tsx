@@ -4,6 +4,7 @@ import {
   DeviceConfig,
   SupportedDeviceConfig,
   AnonymousDeviceConfig,
+  AdapterDeviceConfig,
   InputConfig,
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
@@ -13,6 +14,7 @@ import BasicMessage from './BasicMessage';
 import NotConfigured from './NotConfigured';
 import DeviceConfigPanel from './DeviceConfigPanel';
 import MonoInputConfigPanel from './MonoInputConfigPanel';
+import AdapterView from './AdapterView';
 import XYConfigPanel from './XYConfigPanel';
 
 import { InputGroup } from '../../input-group';
@@ -97,6 +99,8 @@ export default function ConfigPanel(props: PropTypes) {
 
   if (config === undefined) {
     Element = <BasicMessage msg="No connected devices." />;
+  } else if (config.isAdapter && !(config as AdapterDeviceConfig).isSet) {
+    Element = <AdapterView config={config as AdapterDeviceConfig} />;
   } else {
     const isConfigured = project.getDevice(config.id) !== undefined;
     const asSupported = config as SupportedDeviceConfig;

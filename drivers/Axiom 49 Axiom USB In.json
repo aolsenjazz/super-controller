@@ -1,6 +1,7 @@
 {
   "width": 31.5,
   "height": 11.75,
+  "type": "normal",
   "name": "Axiom 49 Axiom USB In",
   "style": {
     "borderTopLeftRadius": "0.1em",

@@ -2,6 +2,7 @@
   "width": 12.5,
   "height": 6.875,
   "name": "MPK mini 3",
+  "type": "normal",
   "style": {
     "borderTopLeftRadius": "0.5em",
     "borderTopRightRadius": "0.5em",

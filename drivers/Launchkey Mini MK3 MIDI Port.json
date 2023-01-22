@@ -2,6 +2,7 @@
   "width": 13,
   "height": 6.75,
   "name": "Launchkey Mini MK3 DAW Port",
+  "type": "normal",
   "style": {
     "borderTopLeftRadius": "0.5em",
     "borderTopRightRadius": "0.5em",

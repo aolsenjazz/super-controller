@@ -2,6 +2,7 @@
   "width": 12.375,
   "height": 6.75,
   "name": "MPKmini2",
+  "type": "normal",
   "style": {
     "borderTopLeftRadius": "0.5em",
     "borderTopRightRadius": "0.5em",

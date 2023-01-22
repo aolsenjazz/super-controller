@@ -3,12 +3,12 @@ import path from 'path';
 import os from 'os';
 
 import {
-  SupportedDeviceConfig,
+  configFromJSON,
   InputConfig,
-  AnonymousDeviceConfig,
+  SupportedDeviceConfig,
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
-import { controllerRequest } from '@shared/email-templates';
+import { controllerRequest, fivePinRequest } from '@shared/email-templates';
 
 import { windowService } from './window-service';
 import { DRIVERS } from './drivers';
@@ -69,13 +69,7 @@ export class Background {
     ipcMain.on(ADD_DEVICE, (_e: Event, deviceJSON: string) => {
       windowService.setEdited(true);
 
-      // deserialize device
-      const deviceObj = JSON.parse(deviceJSON);
-
-      const config = deviceObj.supported
-        ? SupportedDeviceConfig.fromParsedJSON(deviceObj)
-        : AnonymousDeviceConfig.fromParsedJSON(deviceObj);
-
+      const config = configFromJSON(deviceJSON);
       this.project.addDevice(config);
 
       // init light defaults, run device control sequence
@@ -97,12 +91,7 @@ export class Background {
     ipcMain.on(UPDATE_DEVICE, (_e: Event, deviceJSON: string) => {
       windowService.setEdited(true);
 
-      // deserialize device
-      const deviceObj = JSON.parse(deviceJSON);
-      const config = deviceObj.supported
-        ? SupportedDeviceConfig.fromParsedJSON(deviceObj)
-        : AnonymousDeviceConfig.fromParsedJSON(deviceObj);
-
+      const config = configFromJSON(deviceJSON);
       this.project.removeDevice(config);
       this.project.addDevice(config);
     });
@@ -129,7 +118,9 @@ export class Background {
     );
 
     ipcMain.on(REQUEST, (_e: Event, deviceName: string) => {
-      const template = controllerRequest(deviceName);
+      const template = deviceName
+        ? controllerRequest(deviceName)
+        : fivePinRequest();
       shell.openExternal(
         `mailto:${template.to}?subject=${template.subject}&body=${template.body}`
       );

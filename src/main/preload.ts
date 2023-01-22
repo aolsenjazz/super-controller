@@ -99,6 +99,22 @@ const driverService = {
     return drivers;
   },
 
+  getFivePinDrivers: () => {
+    if (!drivers) {
+      const response = ipcRenderer.sendSync('drivers');
+      drivers = new Map(response);
+    }
+
+    const fivePinDrivers = new Map<string, DeviceDriver>();
+    drivers.forEach((v, k) => {
+      if (v.type === '5pin') {
+        fivePinDrivers.set(k, v);
+      }
+    });
+
+    return fivePinDrivers;
+  },
+
   getDriver: (name: string | undefined) => {
     if (!drivers) {
       const response = ipcRenderer.sendSync('drivers');
@@ -147,7 +163,7 @@ const driverService = {
    *
    * @param deviceName The device name
    */
-  request: (deviceName: string) => {
+  request: (deviceName?: string) => {
     ipcRenderer.send('request', deviceName);
   },
 };

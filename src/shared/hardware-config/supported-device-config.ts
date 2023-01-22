@@ -13,6 +13,8 @@ export class SupportedDeviceConfig extends DeviceConfig {
   /* See `KeyboardDriver` */
   keyboardDriver?: KeyboardDriver;
 
+  isAdapter = false;
+
   /**
    * Constructs a new instance of SupportedDeviceConfig from DeviceDriver.
    *

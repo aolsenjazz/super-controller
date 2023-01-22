@@ -1,6 +1,7 @@
 {
   "width": 10.75,
   "height": 3.5,
+  "type": "normal",
   "name": "iRig BlueBoard",
   "style": {
     "borderTopLeftRadius": "0.5em",

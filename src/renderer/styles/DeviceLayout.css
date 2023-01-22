@@ -182,3 +182,13 @@
   position: absolute;
   background-color: #e6e2e3;
 }
+
+.device-layout .svg-wrapper {
+  text-align: center;
+}
+
+.device-layout svg {
+  max-width: 50%;
+  padding: 40px;
+  max-height: 90%;
+}

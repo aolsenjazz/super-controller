@@ -6,6 +6,7 @@
   z-index: 999;
   box-shadow: -1px 0 1px #dbd7d8;
   max-height: calc(100vh - 30px);
+  overflow-y: visible;
 }
 
 #config-panel h3 {
@@ -19,12 +20,14 @@
 }
 
 #config-panel p {
-  color: #272727;
-  font-size: 0.8em;
-  display: inline-block;
+  font-size: 13px;
   font-family: Arial;
+}
+
+#config-panel .label {
   width: 38%;
   vertical-align: top;
+  display: inline-block;
 }
 
 #config-panel .settings-line {

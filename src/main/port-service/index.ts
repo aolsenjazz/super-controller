@@ -70,7 +70,7 @@ export class PortService {
       });
 
       // // if device is configured, apply default light config
-      if (config instanceof SupportedDeviceConfig) {
+      if (config.supported === true) {
         this.syncDeviceLights(config.id);
       }
     }

@@ -1,6 +1,7 @@
 {
   "width": 12,
   "height": 6,
+  "type": "normal",
   "name": "Anonymous",
   "anonymous": true,
   "style": {

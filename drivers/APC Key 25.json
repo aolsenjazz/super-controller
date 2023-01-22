@@ -1,6 +1,7 @@
 {
   "height": 7.5,
   "width": 12.125,
+  "type": "normal",
   "name": "APC Key 25",
   "style": {
     "borderTopLeftRadius": "2em",

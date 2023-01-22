@@ -2,6 +2,7 @@
   "width": 39,
   "height": 7,
   "name": "Keystation 61 MK3 (USB MIDI)",
+  "type": "normal",
   "style": {
     "borderTopLeftRadius": "0.1em",
     "borderTopRightRadius": "0.1em",

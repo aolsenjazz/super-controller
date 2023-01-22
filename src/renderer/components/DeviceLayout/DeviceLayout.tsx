@@ -1,10 +1,15 @@
-import { SupportedDeviceConfig } from '@shared/hardware-config';
+import {
+  SupportedDeviceConfig,
+  AdapterDeviceConfig,
+} from '@shared/hardware-config';
 
 import Keyboard from './KeyboardLayout';
 import InputGridLayout from './InputGridLayout';
 import XYGridLayout from './XYGridLayout';
 
 import { VirtualDevice } from '../../virtual-devices';
+
+import { UsbIcon } from '../UsbIcon';
 
 type PropTypes = {
   device: VirtualDevice;
@@ -34,14 +39,12 @@ type PropTypes = {
 export default function DeviceLayout(props: PropTypes) {
   const { device, onClick, selectedInputs, configured, deviceConfig } = props;
 
-  return (
-    <div
-      style={{
-        aspectRatio: `${device.width}/${device.height}`,
-        ...device.style,
-      }}
-      className={`device-layout ${configured ? 'configured' : ''}`}
-    >
+  let Element: JSX.Element;
+
+  if (deviceConfig.isAdapter && !(deviceConfig as AdapterDeviceConfig).isSet) {
+    Element = <UsbIcon active={false} />;
+  } else {
+    Element = (
       <div id={device.name}>
         {device.keyboard ? (
           <Keyboard
@@ -80,6 +83,18 @@ export default function DeviceLayout(props: PropTypes) {
           );
         })}
       </div>
+    );
+  }
+
+  return (
+    <div
+      style={{
+        aspectRatio: `${device.width}/${device.height}`,
+        ...device.style,
+      }}
+      className={`device-layout ${configured ? 'configured' : ''}`}
+    >
+      {Element}
     </div>
   );
 }

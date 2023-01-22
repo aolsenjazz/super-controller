@@ -2,6 +2,7 @@
   "width": 13.25,
   "height": 3.75,
   "name": "LPK25",
+  "type": "normal",
   "style": {
     "borderTopLeftRadius": "0.5em",
     "borderTopRightRadius": "0.5em",

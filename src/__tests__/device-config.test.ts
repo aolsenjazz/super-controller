@@ -1,6 +1,8 @@
 import { DeviceConfig } from '@shared/hardware-config/device-config';
 
 class DeviceConfigWrapper extends DeviceConfig {
+  isAdapter = false;
+
   handleMessage(msg: number[]) {
     return [null, msg];
   }

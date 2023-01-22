@@ -13,6 +13,8 @@ export abstract class DeviceConfig {
   /* nth-occurence of this device. applicable if > 1 device of same model is connected/configured */
   readonly siblingIndex: number;
 
+  abstract readonly isAdapter: boolean;
+
   /**
    * List of devices with which sustain events are shared.
    *

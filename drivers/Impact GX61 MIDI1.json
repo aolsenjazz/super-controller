@@ -1,6 +1,7 @@
 {
   "width": 38,
   "height": 7.75,
+  "type": "normal",
   "name": "Impact GX61 MIDI1",
   "style": {
     "borderTopLeftRadius": "0.1em",
