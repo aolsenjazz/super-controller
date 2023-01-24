@@ -9,9 +9,11 @@
   margin-left: 50%;
   position: relative;
   top: 50%;
-  width: 80%;
+  aspect-ratio: var(--r);
   transform: translate(-50%, -50%);
+  width: min(90%, min(calc(100vh - 32px), calc(100vh - 32px) * (var(--r))));
   border: solid 1px #bcbec0;
+  max-height: 90%;
 }
 
 .device-layout.configured,
@@ -35,6 +37,10 @@
 .device-layout .keyboard-container.disabled .key,
 .device-layout .keyboard-container.disabled .key:last-of-type {
   border-color: #bcbec0;
+}
+
+.device-layout .device-root {
+  height: 100%;
 }
 
 .device-layout .input-grid {
@@ -98,6 +104,10 @@
   position: absolute;
   width: 100%;
   aspect-ratio: 1;
+}
+
+.device-layout.configured .input-container .knob .outer.disabled {
+  border-color: #bcbec0;
 }
 
 .device-layout .knob .inner .grip {

@@ -3,7 +3,7 @@ import { Channel, StatusString, setStatus, getStatus } from '@shared/midi-util';
 import { inputIdFor, msgForColor } from '../util';
 import { Propagator } from '../propagators/propagator';
 import { OutputPropagator } from '../propagators/output-propagator';
-import { UndefinedPropagator } from '../propagators/undefined-propagator';
+import { NullPropagator } from '../propagators/null-propagator';
 import { BinaryPropagator } from '../propagators/binary-propagator';
 import {
   InputDefault,
@@ -186,7 +186,7 @@ export class InputConfig {
         lastResponse
       );
     } else {
-      this.devicePropagator = new UndefinedPropagator(
+      this.devicePropagator = new NullPropagator(
         this.default.response,
         this.override.response || this.default.response
       );

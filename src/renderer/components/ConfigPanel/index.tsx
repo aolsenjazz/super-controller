@@ -100,7 +100,13 @@ export default function ConfigPanel(props: PropTypes) {
   if (config === undefined) {
     Element = <BasicMessage msg="No connected devices." />;
   } else if (config.isAdapter && !(config as AdapterDeviceConfig).isSet) {
-    Element = <AdapterView config={config as AdapterDeviceConfig} />;
+    Element = (
+      <AdapterView
+        config={config as AdapterDeviceConfig}
+        setProject={setProject}
+        project={project}
+      />
+    );
   } else {
     const isConfigured = project.getDevice(config.id) !== undefined;
     const asSupported = config as SupportedDeviceConfig;

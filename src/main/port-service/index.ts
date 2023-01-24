@@ -1,7 +1,11 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import { Project } from '@shared/project';
 import { isSustain, inputIdFor, msgForColor, getDiff } from '@shared/util';
-import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
+import {
+  InputConfig,
+  SupportedDeviceConfig,
+  AdapterDeviceConfig,
+} from '@shared/hardware-config';
 import { Color } from '@shared/driver-types';
 import { DrivenPortInfo } from '@shared/driven-port-info';
 import { setChannel } from '@shared/midi-util';
@@ -11,6 +15,7 @@ import { all } from './port-manager';
 import { DrivenPortPair } from './driven-port-pair';
 import { windowService } from '../window-service';
 import { VirtualPortService } from './virtual-port-service';
+import { getDriver } from '../drivers';
 
 /**
  * Manages sending/receiving of messages to and from device, as well as syncing
@@ -83,16 +88,31 @@ export class PortService {
    */
   syncDeviceLights = (deviceId: string) => {
     const pp = this.portPairs.get(deviceId);
-    const config = this.#project.getDevice(deviceId);
+    let config = this.#project.getDevice(deviceId);
+    const asAdapter = config as AdapterDeviceConfig;
 
-    if (pp && config instanceof SupportedDeviceConfig) {
+    if (pp && config?.supported === true) {
+      config = config.isAdapter && asAdapter.isSet ? asAdapter.child! : config;
+
       type Tuple = [InputConfig, Color | undefined];
-
-      config.inputs
+      (config as SupportedDeviceConfig).inputs
         .map((i) => [i, i.currentColor] as Tuple) // get current color
         .filter(([_i, c]) => c !== undefined) // eslint-disable-line
         .map(([i, c]) => msgForColor(i.default.number, i.default.channel, c!)) // get message for color
         .forEach((conf) => pp.send(conf!)); // send color message
+    }
+  };
+
+  syncInputLight = (deviceId: string, config: InputConfig) => {
+    const pp = this.portPairs.get(deviceId);
+
+    if (pp) {
+      const color = msgForColor(
+        config.default.number,
+        config.default.channel,
+        config.currentColor!
+      );
+      pp.send(color);
     }
   };
 
@@ -133,6 +153,12 @@ export class PortService {
 
     // tell the frontend what happened
     this.sendToFrontend();
+  }
+
+  applyThrottle(id: string, throttleMs: number | undefined) {
+    this.portPairs.forEach((v, k) => {
+      if (id === k) v.applyThrottle(throttleMs);
+    });
   }
 
   /* On project update, reset all devices, init defaults in fresh copy of `Project` */
@@ -232,11 +258,18 @@ export class PortService {
     // for every device added to project, open port and init
     this.#project.devices
       .filter((dev) => !this.#virtService.isOpen(dev.id)) // get devices which aren't connected
-      .map((dev) => this.portPairs.get(dev.id))
-      .forEach((pp) => {
+      .forEach((dev) => {
+        const pp = this.portPairs.get(dev.id);
+
         if (pp) {
           pp.open(); // open connection to device
           this.#virtService.open(pp.name, pp.siblingIndex); // open virt port
+
+          if (dev instanceof AdapterDeviceConfig) {
+            const driver = getDriver(dev.child!.name);
+            pp.applyThrottle(driver.throttle);
+          }
+
           this.initDevice(pp.id);
         }
       });

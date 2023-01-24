@@ -1,28 +1,46 @@
-import { AdapterDeviceConfig } from '@shared/hardware-config';
+import {
+  AdapterDeviceConfig,
+  configFromDriver,
+  SupportedDeviceConfig,
+} from '@shared/hardware-config';
+import { Project } from '@shared/project';
 
 import HelpTip from '../HelpTip';
 import DriverRequestButton from '../DriverRequestButton';
 import BasicSelect from './BasicSelect';
 
-const { driverService } = window;
+const { driverService, projectService } = window;
 
-type PropTypes = { config: AdapterDeviceConfig };
+type PropTypes = {
+  config: AdapterDeviceConfig;
+  project: Project;
+  setProject: (p: Project) => void;
+};
 
 const tipBody = `When using a 5-pin adapter, only the adapter is visible to SuperController. Select your connected 5-pin device from the dropdown below.
 
    Don't see your device? Request it using the button below.`;
 
 export default function AdapterView(props: PropTypes) {
-  const { config } = props;
+  const { config, project, setProject } = props;
 
   const drivers = driverService.getFivePinDrivers();
 
   const valueList = Array.from(drivers.keys());
   const labelList = Array.from(drivers.keys());
-  const value = 'Option 1';
+  const value = '';
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onChange = (_v: string | number) => {};
+  const onChange = (v: string | number) => {
+    const childDriver = driverService.getDriver(v as string);
+    const childConfig = configFromDriver(
+      config.siblingIndex,
+      childDriver!
+    ) as SupportedDeviceConfig;
+    config.setChild(childConfig);
+    project.addDevice(config);
+    setProject(new Project(project.devices)); // update in frontend
+    projectService.addDevice(config.toJSON(false)); // update in backend
+  };
 
   return (
     <div id="adapter-view-container">
@@ -38,6 +56,7 @@ export default function AdapterView(props: PropTypes) {
           labelList={labelList}
           value={value}
           onChange={onChange}
+          usePlaceholder
         />
       </div>
       <DriverRequestButton />

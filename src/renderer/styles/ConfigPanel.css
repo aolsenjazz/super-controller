@@ -1,12 +1,11 @@
 #config-panel {
   width: 280px;
   background-color: #f2eeef;
-  overflow-y: scroll;
+  overflow-y: overlay;
   position: relative;
   z-index: 999;
   box-shadow: -1px 0 1px #dbd7d8;
   max-height: calc(100vh - 30px);
-  overflow-y: visible;
 }
 
 #config-panel h3 {
@@ -42,6 +41,10 @@
 
 #config-panel #controls-container button {
   margin: 0 auto;
+}
+
+#config-panel #controls-container p {
+  display: inline-block;
 }
 
 #config-panel select {
@@ -84,6 +87,7 @@
   margin-left: 12px;
   width: 36%;
   line-height: 20px;
+  display: inline-block;
 }
 
 #device-config input {

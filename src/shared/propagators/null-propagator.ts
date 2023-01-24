@@ -4,7 +4,7 @@ import { Propagator } from './propagator';
 /**
  * Propagator that only propagates null
  */
-export class UndefinedPropagator extends Propagator {
+export class NullPropagator extends Propagator {
   #eligibleStates = [];
 
   #defaultState = 'off';

@@ -45,7 +45,7 @@ export default function DeviceLayout(props: PropTypes) {
     Element = <UsbIcon active={false} />;
   } else {
     Element = (
-      <div id={device.name}>
+      <div id={device.name} className="device-root">
         {device.keyboard ? (
           <Keyboard
             nOctaves={device.keyboard.nOctaves}
@@ -89,7 +89,7 @@ export default function DeviceLayout(props: PropTypes) {
   return (
     <div
       style={{
-        aspectRatio: `${device.width}/${device.height}`,
+        '--r': `${device.width}/${device.height}`,
         ...device.style,
       }}
       className={`device-layout ${configured ? 'configured' : ''}`}

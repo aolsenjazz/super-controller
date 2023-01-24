@@ -31,6 +31,8 @@ export class VirtualDevice {
   /* See `DeviceStyle` */
   readonly style: DeviceStyle;
 
+  readonly throttle?: number;
+
   /* See `KeyboardDriver` */
   readonly keyboard?: KeyboardDriver;
 
@@ -45,6 +47,7 @@ export class VirtualDevice {
     this.style = driver.style;
     this.keyboard = driver.keyboard;
     this.type = driver.type;
+    this.throttle = driver.throttle;
 
     this.inputGrids = driver.inputGrids.map(
       (gridDriver: InputGridDriver) => new VirtualInputGrid(gridDriver)

@@ -6,6 +6,7 @@ import {
   configFromJSON,
   InputConfig,
   SupportedDeviceConfig,
+  AdapterDeviceConfig,
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 import { controllerRequest, fivePinRequest } from '@shared/email-templates';
@@ -91,7 +92,8 @@ export class Background {
     ipcMain.on(UPDATE_DEVICE, (_e: Event, deviceJSON: string) => {
       windowService.setEdited(true);
 
-      const config = configFromJSON(deviceJSON);
+      const config = configFromJSON(deviceJSON) as AdapterDeviceConfig;
+
       this.project.removeDevice(config);
       this.project.addDevice(config);
     });
@@ -112,7 +114,7 @@ export class Background {
           .map(([_conf, i]) => i)[0];
 
         config.inputs.splice(inputConfigIdx, 1, inputConfig);
-        this.portService.syncDeviceLights(configId);
+        this.portService.syncInputLight(configId, inputConfig);
         windowService.setEdited(true);
       }
     );

@@ -1,4 +1,8 @@
-import { DeviceConfig, SupportedDeviceConfig } from '@shared/hardware-config';
+import {
+  DeviceConfig,
+  SupportedDeviceConfig,
+  AdapterDeviceConfig,
+} from '@shared/hardware-config';
 
 import DeviceView from './DeviceLayoutWrapper';
 import UnsupportedView from './UnsupportedView';
@@ -40,14 +44,19 @@ export default function DevicePanel(props: PropTypes) {
   } else if (config.supported === false) {
     Element = <UnsupportedView deviceName={config.name} />;
   } else {
-    const nonUndefinedConfig = config as SupportedDeviceConfig;
-    const driver = getDriver(config.name);
-    const vDevice = new VirtualDevice(nonUndefinedConfig.id, driver!);
+    const asAdapter = config as AdapterDeviceConfig;
+    const targetConfig =
+      asAdapter.isAdapter && asAdapter.isSet
+        ? asAdapter.child!
+        : (config as SupportedDeviceConfig);
+
+    const driver = getDriver(targetConfig.name);
+    const vDevice = new VirtualDevice(targetConfig.id, driver!);
 
     Element = (
       <DeviceView
         device={vDevice}
-        config={nonUndefinedConfig}
+        config={targetConfig}
         configured={configured}
         selectedInputs={selectedInputs}
         setSelectedInputs={setSelectedInputs}

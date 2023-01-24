@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/no-explicit-any: 0 */
+
 import {
   Channel,
   StatusString,
@@ -11,6 +13,44 @@ export function getDiff(l1: string[], l2: string[]) {
   const ex1 = l1.filter((str) => !l2.includes(str));
   const ex2 = l2.filter((str) => !l1.includes(str));
   return [ex1, ex2];
+}
+
+/**
+ * Convenience function to wrap another function in a throttle. Destroys throttled function calls
+ */
+export function applyDestructiveThrottle(
+  func: (...args: any[]) => void,
+  delay: number
+) {
+  let timeout: NodeJS.Timeout | null = null;
+  return (...args: any[]) => {
+    if (!timeout) {
+      timeout = setTimeout(() => {
+        func(...args);
+        timeout = null;
+      }, delay);
+    }
+  };
+}
+
+/**
+ * Convenience function to wrap another function in a throttle. Queues throttled function to
+ * be executed at a later time
+ */
+export function applyNondestructiveThrottle(
+  func: (...args: any[]) => void,
+  executionIncrementMs: number
+) {
+  let checkpoint = Date.now();
+
+  return (...args: any[]) => {
+    const delay = Math.max(checkpoint - Date.now(), 0);
+    checkpoint = Date.now() + executionIncrementMs + delay;
+
+    setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
 }
 
 /**
@@ -82,7 +122,7 @@ export function isOnMessage(msg: number[], def: boolean) {
 
   switch (status) {
     case 'noteon':
-      return true;
+      return msg[2] > 0;
     case 'noteoff':
       return false;
     case 'controlchange':

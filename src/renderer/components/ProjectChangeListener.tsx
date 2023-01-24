@@ -1,29 +1,10 @@
 import { useEffect } from 'react';
 
 import { getStatus } from '@shared/midi-util';
+import { applyDestructiveThrottle } from '@shared/util';
 import { Project } from '@shared/project';
 
 const { hostService, projectService } = window;
-
-/**
- * Convenience function to wrap another function in a throttle. Useful to prevent
- * continuous CC inputs from sending hundreds of messages per second, forcing a ridiculous
- * number of state updates.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function throttle(func: (...args: any[]) => void, delay: number) {
-  let timeout: NodeJS.Timeout | null = null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (...args: any[]) => {
-    if (!timeout) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, func-names
-      timeout = setTimeout(function (this: any) {
-        func.call(this, ...args);
-        timeout = null;
-      }, delay);
-    }
-  };
-}
 
 function shouldThrottle(msg: number[]) {
   const status = getStatus(msg).string;
@@ -51,7 +32,10 @@ export default function ProjectChangeListener(props: PropTypes) {
   // When a new input signal is received from backend, process in our copy of
   // `Project` and update
   useEffect(() => {
-    const throttledSetProject = throttle((p) => setProject(p), 100);
+    const throttledSetProject = applyDestructiveThrottle(
+      (p) => setProject(p),
+      100
+    );
 
     const cb = (_inputId: string, deviceId: string, msg: number[]) => {
       const device = project.getDevice(deviceId);

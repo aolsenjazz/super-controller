@@ -1,0 +1,921 @@
+{
+  "width": 12.5,
+  "height": 15.5,
+  "type": "5pin",
+  "name": "DDM4000",
+  "throttle": 300,
+  "anonymous": false,
+  "style": {
+    "borderBottomLeftRadius": "0.5em",
+    "borderTopLeftRadius": "0.5em",
+    "borderTopRightRadius": "0.5em",
+    "borderBottomRightRadius": "0.5em"
+  },
+  "inputGrids": [
+    {
+      "id": "MIC Knobs",
+      "nRows": 4,
+      "nCols": 1,
+      "width": 0.5,
+      "height": 4.5,
+      "bottom": 9.875,
+      "left": 0.65,
+      "enabled": true,
+      "inputs": [
+        {
+          "default": {
+            "number": -1,
+            "channel": -1,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": false,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 0,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 1,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 2,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "CH-1 Knobs",
+      "nRows": 4,
+      "nCols": 1,
+      "width": 0.5,
+      "height": 4.5,
+      "bottom": 9.875,
+      "left": 2.55,
+      "enabled": true,
+      "inputs": [
+        {
+          "default": {
+            "number": -6,
+            "channel": -1,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": false,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 4,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 5,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 6,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "CH-2 Knobs",
+      "nRows": 4,
+      "nCols": 1,
+      "width": 0.5,
+      "height": 4.5,
+      "bottom": 9.875,
+      "left": 4.45,
+      "enabled": true,
+      "inputs": [
+        {
+          "default": {
+            "number": -7,
+            "channel": -1,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": false,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 8,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 9,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 10,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "CH-3 Knobs",
+      "nRows": 4,
+      "nCols": 1,
+      "width": 0.5,
+      "height": 4.5,
+      "bottom": 9.875,
+      "left": 6.35,
+      "enabled": true,
+      "inputs": [
+        {
+          "default": {
+            "number": -8,
+            "channel": -1,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": false,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 12,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 13,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 14,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "CH-4 Knobs",
+      "nRows": 4,
+      "nCols": 1,
+      "width": 0.5,
+      "height": 4.5,
+      "bottom": 9.875,
+      "left": 8.25,
+      "enabled": true,
+      "inputs": [
+        {
+          "default": {
+            "number": -9,
+            "channel": -1,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": false,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 16,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 17,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 18,
+            "channel": 0,
+            "eventType": "controlchange",
+            "response": "continuous"
+          },
+          "width": 0.5,
+          "height": 0.5,
+          "shape": "circle",
+          "type": "knob",
+          "overrideable": true,
+          "availableColors": []
+        }
+      ]
+    },
+    {
+      "id": "MIC Buttons",
+      "nRows": 4,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 2.375,
+      "bottom": 10.3,
+      "left": 1.7,
+      "enabled": true,
+      "inputs": [
+        {
+          "default": {
+            "number": -1,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": false,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 50,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "default": {
+            "number": 51,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "default": {
+            "number": 52,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CH-1 Buttons",
+      "nRows": 4,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 2.375,
+      "bottom": 10.3,
+      "left": 3.6,
+      "enabled": true,
+      "inputs": [
+        {
+          "default": {
+            "number": 3,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 0,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "default": {
+            "number": 1,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "default": {
+            "number": 2,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CH-2 Buttons",
+      "nRows": 4,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 2.375,
+      "bottom": 10.3,
+      "left": 5.5,
+      "enabled": true,
+      "inputs": [
+        {
+          "default": {
+            "number": 7,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 4,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "default": {
+            "number": 5,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "default": {
+            "number": 6,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CH-3 Buttons",
+      "nRows": 4,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 2.375,
+      "bottom": 10.3,
+      "left": 7.4,
+      "enabled": true,
+      "inputs": [
+        {
+          "default": {
+            "number": 11,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 8,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "default": {
+            "number": 9,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "default": {
+            "number": 10,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CH-4 Buttons",
+      "nRows": 4,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 2.375,
+      "bottom": 10.3,
+      "left": 9.3,
+      "enabled": true,
+      "inputs": [
+        {
+          "default": {
+            "number": 15,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "number": 12,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "default": {
+            "number": 13,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "default": {
+            "number": 14,
+            "channel": 0,
+            "eventType": "noteon/noteoff",
+            "response": "gate"
+          },
+          "width": 0.3,
+          "height": 0.3,
+          "shape": "rect",
+          "type": "pad",
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Clear",
+              "default": true,
+              "eventType": "controlchange",
+              "value": 0,
+              "string": "transparent"
+            },
+            {
+              "name": "Orange",
+              "default": false,
+              "string": "#e28743",
+              "eventType": "controlchange",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

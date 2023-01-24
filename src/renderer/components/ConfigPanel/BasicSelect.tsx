@@ -4,6 +4,7 @@ type PropTypes = {
   valueList: (string | number)[];
   labelList: string[];
   value: string | number | null;
+  usePlaceholder: boolean;
   onChange: (value: string | number) => void;
 };
 
@@ -22,7 +23,7 @@ type PropTypes = {
  * @param onChange Value change callback
  */
 export default function BasicSelect(props: PropTypes) {
-  const { valueList, value, onChange, labelList } = props;
+  const { valueList, value, onChange, labelList, usePlaceholder } = props;
   const isMultiple = value === '<multiple values>';
 
   return (
@@ -40,6 +41,11 @@ export default function BasicSelect(props: PropTypes) {
           onChange(v);
         }}
       >
+        {usePlaceholder === true ? (
+          <option value="" disabled>
+            Choose your device
+          </option>
+        ) : null}
         {isMultiple ? (
           <option value="<multiple values>" disabled>
             &#60;Multiple Values&#62;

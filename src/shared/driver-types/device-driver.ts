@@ -13,6 +13,8 @@ import { KeyboardDriver } from './keyboard-driver';
 type ControlSequenceMessage = [StatusString, number, number, Channel];
 
 export type DeviceStyle = {
+  '--r'?: number /* used to calculate aspect-ratio */;
+
   /* Radius in `em` or `px` */
   borderTopLeftRadius?: string;
 
@@ -41,6 +43,12 @@ export type DeviceDriver = {
 
   /* Height of device in inches */
   height: number;
+
+  /**
+   * Older devices can only process messages so fast. If necessary, specify the delay in ms
+   * in between messages sent to the device
+   */
+  throttle?: number;
 
   /* See `DeviceStyle` */
   style: DeviceStyle;

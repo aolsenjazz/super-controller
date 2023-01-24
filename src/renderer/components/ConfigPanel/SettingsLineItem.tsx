@@ -33,6 +33,7 @@ export default function SettingsLineItem(props: SettingsLineItemPropTypes) {
         valueList={valueList}
         labelList={labelList}
         onChange={onChange}
+        usePlaceholder={false}
       />
     </div>
   );
