@@ -17,7 +17,6 @@
 - 💡 **Custom Lights** Control color and behaviour of backlights
 - ⏩ **Low Latency**: < 1 ms latency
 
-<<<<<<< HEAD
 SuperController is an [electron](https://www.electronjs.org/) application boostrapped with [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). Designed with music preformance in mind, SuperController can be used to interact with MIDI clients in ways new and creative ways. Simply plug in devices, add the device to the current project, and take greater control over your devices than ever before.
 
 Basic usage guides can be found at the [SuperController knowledgebase](https://help.supercontroller.net/books/setup).
@@ -37,27 +36,11 @@ npm start
 
 ## Tests
 
-=======
-Clone the repo and install dependencies:
-
-```bash
-git clone --depth 1 --branch main https://github.com/electron-react-boilerplate/electron-react-boilerplate.git your-project-name
-cd your-project-name
-npm install
-```
-
-**Having issues installing? See our [debugging guide](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/400)**
-
-## Starting Development
-
-> > > > > > > 8531b035222ab5b3c0521733ee6b764b5910b82c
-
-The midi module needs to be rebuilt before running tests, as the test environment uses a different version of node.
+After install and running post-clone:
 
 ```shell
-npm rebuild:test
+npm run build
 npm test
-
 ```
 
 ## Contributing
