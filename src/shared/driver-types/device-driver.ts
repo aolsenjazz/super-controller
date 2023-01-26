@@ -1,5 +1,3 @@
-import { Channel, StatusString } from '../midi-util';
-
 import { InputGridDriver } from './input-grid-driver';
 import { KeyboardDriver } from './keyboard-driver';
 

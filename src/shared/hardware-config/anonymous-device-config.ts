@@ -1,4 +1,4 @@
-import { Channel, StatusString, setStatus } from '@shared/midi-util';
+import { setStatus } from '@shared/midi-util';
 
 import { DeviceConfig } from './device-config';
 

@@ -1,4 +1,3 @@
-import { StatusString, Channel } from '../midi-util';
 import { Color } from './color';
 
 /**

@@ -10,34 +10,6 @@ const PITCH_BEND = 0xe0;
 const STATUS_BYTE = 0xf0;
 const CHANNEL_BYTE = 0x0f;
 
-export type StatusString =
-  | 'noteon'
-  | 'noteoff'
-  | 'keypressure'
-  | 'controlchange'
-  | 'programchange'
-  | 'channelpressure'
-  | 'pitchbend'
-  | 'unknown';
-
-export type Channel =
-  | 0
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 7
-  | 8
-  | 9
-  | 10
-  | 11
-  | 12
-  | 13
-  | 14
-  | 15;
-
 class Status {
   number: number;
 

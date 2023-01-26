@@ -1,4 +1,3 @@
-import { StatusString, Channel } from '@shared/midi-util';
 import { Color, InputDefault } from '@shared/driver-types';
 import { InputConfig } from '@shared/hardware-config';
 import { CC_BINDINGS, stringVal } from '@shared/util';

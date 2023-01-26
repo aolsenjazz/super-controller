@@ -2,7 +2,7 @@
 
 import { test, expect, jest } from '@jest/globals';
 
-import { Channel, setStatus, StatusString } from '@shared/midi-util';
+import { setStatus } from '@shared/midi-util';
 import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
 import { Color } from '@shared/driver-types';
 

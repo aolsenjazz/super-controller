@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { Channel, StatusString } from '@shared/midi-util';
 
 import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';

@@ -1,4 +1,4 @@
-import { Channel, setStatus } from '@shared/midi-util';
+import { setStatus } from '@shared/midi-util';
 import { BinaryPropagator } from '@shared/propagators/binary-propagator';
 
 function createPropagator(

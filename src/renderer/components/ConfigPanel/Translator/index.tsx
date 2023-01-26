@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 
-import { Channel, StatusString } from '@shared/midi-util';
 import { Project } from '@shared/project';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 

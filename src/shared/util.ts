@@ -1,12 +1,6 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 
-import {
-  Channel,
-  StatusString,
-  getStatus,
-  getChannel,
-  setStatus,
-} from './midi-util';
+import { getStatus, getChannel, setStatus } from './midi-util';
 import { Color } from './driver-types';
 
 export function getDiff(l1: string[], l2: string[]) {

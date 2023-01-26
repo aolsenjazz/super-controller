@@ -1,5 +1,3 @@
-import { StatusString, Channel } from '@shared/midi-util';
-
 import { SupportedDeviceConfig } from './supported-device-config';
 
 export class AdapterDeviceConfig implements SupportedDeviceConfig {

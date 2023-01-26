@@ -1,6 +1,6 @@
 /* eslint @typescript-eslint/prefer-as-const: 0 */
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
-import { Channel, setStatus } from '@shared/midi-util';
+import { setStatus } from '@shared/midi-util';
 import { InputConfig } from '@shared/hardware-config';
 import { Color } from '@shared/driver-types';
 

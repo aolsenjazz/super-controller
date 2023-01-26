@@ -1,4 +1,4 @@
-import { Channel, StatusString, setStatus, getStatus } from '@shared/midi-util';
+import { setStatus, getStatus } from '@shared/midi-util';
 
 import { inputIdFor, msgForColor } from '../util';
 import { Propagator } from '../propagators/propagator';

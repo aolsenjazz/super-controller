@@ -1,9 +1,4 @@
-import {
-  StatusString,
-  Channel,
-  getStatus,
-  getChannel,
-} from '@shared/midi-util';
+import { getStatus, getChannel } from '@shared/midi-util';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
 import SettingsLineItem from '../SettingsLineItem';

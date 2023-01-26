@@ -1,4 +1,4 @@
-import { StatusString, Channel, setStatus } from '@shared/midi-util';
+import { setStatus } from '@shared/midi-util';
 import { OutputPropagator } from '@shared/propagators/output-propagator';
 import { InputResponse } from '@shared/driver-types';
 

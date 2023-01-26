@@ -1,5 +1,3 @@
-import { Channel } from '../midi-util';
-
 export type KeyboardDriver = {
   /* The octaves which the lowest C on the keyboard belongs too, will be -2 < defaultOctave < 8 */
   defaultOctave: number;

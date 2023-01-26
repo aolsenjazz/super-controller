@@ -1,5 +1,3 @@
-import { StatusString } from '../midi-util';
-
 // eslint-disable-next-line @typescript-eslint/naming-convention
 type fx = {
   /* Short string describing the state of the color (Solid, Blink,  etc) */

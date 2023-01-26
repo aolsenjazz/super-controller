@@ -1,4 +1,3 @@
-import { StatusString, Channel } from '@shared/midi-util';
 import { inputIdFor } from '../util';
 import { DeviceDriver, KeyboardDriver } from '../driver-types';
 

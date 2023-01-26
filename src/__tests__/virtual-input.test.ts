@@ -1,7 +1,6 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 
 import { test, expect } from '@jest/globals';
-import { Channel, StatusString } from '@shared/midi-util';
 
 import { VirtualInput } from '../renderer/virtual-devices';
 

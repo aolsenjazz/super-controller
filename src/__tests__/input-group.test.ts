@@ -1,5 +1,3 @@
-import { Channel, StatusString } from '@shared/midi-util';
-
 import {
   InputConfig,
   InputOverride,
