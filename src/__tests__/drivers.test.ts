@@ -3,6 +3,7 @@
 import { test, expect } from '@jest/globals';
 
 import { TESTABLES, DRIVERS } from '../main/drivers';
+import { validateDeviceDriver } from './driver-validator';
 
 const fNameRegex = new RegExp(/^.+\.json$/);
 const getAvailableDrivers: () => string[] = TESTABLES.get(
@@ -38,4 +39,10 @@ test('getAvailableDrivers returns only json files', () => {
   });
 
   expect(allMatch).toBe(true);
+});
+
+test('validate drivers', () => {
+  DRIVERS.forEach((v) => {
+    expect(validateDeviceDriver(v)).not.toThrow();
+  });
 });
