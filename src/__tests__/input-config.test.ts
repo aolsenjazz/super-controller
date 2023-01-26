@@ -12,6 +12,7 @@ const RED: Color = {
   value: 6,
   default: false,
   string: 'red',
+  fx: [],
 };
 
 const GREEN: Color = {
@@ -20,6 +21,7 @@ const GREEN: Color = {
   value: 8,
   default: true,
   string: 'green',
+  fx: [],
 };
 
 function BasicMidiMsg() {

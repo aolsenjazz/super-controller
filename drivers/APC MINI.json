@@ -192,52 +192,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -259,52 +260,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -326,52 +328,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -393,52 +396,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -460,52 +464,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -527,52 +532,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -594,52 +600,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -661,52 +668,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -727,22 +735,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -764,52 +774,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -831,52 +842,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -898,52 +910,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -965,52 +978,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1032,52 +1046,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1099,52 +1114,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1166,52 +1182,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1233,52 +1250,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1299,22 +1317,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1336,52 +1356,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1403,52 +1424,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1470,52 +1492,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1537,52 +1560,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1604,52 +1628,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1671,52 +1696,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1738,52 +1764,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1805,52 +1832,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1871,22 +1899,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1908,52 +1938,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -1975,52 +2006,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2042,52 +2074,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2109,52 +2142,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2176,52 +2210,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2243,52 +2278,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2310,52 +2346,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2377,52 +2414,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2443,22 +2481,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2480,52 +2520,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2547,52 +2588,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2614,52 +2656,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2681,52 +2724,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2748,52 +2792,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2815,52 +2860,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2882,52 +2928,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -2949,52 +2996,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3015,22 +3063,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3052,52 +3102,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3119,52 +3170,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3186,52 +3238,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3253,52 +3306,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3320,52 +3374,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3387,52 +3442,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3454,52 +3510,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3521,52 +3578,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3587,22 +3645,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3624,52 +3684,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3691,52 +3752,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3758,52 +3820,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3825,52 +3888,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3892,52 +3956,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -3959,52 +4024,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4026,52 +4092,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4093,52 +4160,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4159,22 +4227,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4196,52 +4266,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4263,52 +4334,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4330,52 +4402,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4397,52 +4470,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4464,52 +4538,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4531,52 +4606,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4598,52 +4674,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4665,52 +4742,53 @@
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 3
+              "value": 3,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 4,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
-              "value": 5
+              "value": 5,
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "string": "#FFC107",
               "eventType": "noteon",
               "value": 6,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4731,22 +4809,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4767,22 +4847,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4803,22 +4885,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4839,22 +4923,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4875,22 +4961,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4911,22 +4999,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4947,22 +5037,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -4983,22 +5075,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },
@@ -5019,22 +5113,24 @@
               "name": "Clear",
               "default": true,
               "eventType": "noteon",
-              "value": 0
+              "value": 0,
+              "fx": [],
+              "string": "transparent"
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1
+              "value": 1,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },

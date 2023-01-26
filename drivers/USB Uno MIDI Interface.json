@@ -1,0 +1,193 @@
+{
+  "width": 17,
+  "height": 5,
+  "name": "USB Uno MIDI Interface",
+  "type": "normal",
+  "style": {
+    "borderTopLeftRadius": "0.1em",
+    "borderTopRightRadius": "0.1em",
+    "borderBottomLeftRadius": "0.1em",
+    "borderBottomRightRadius": "0.1em"
+  },
+  "inputGrids": [
+    {
+      "id": "XY",
+      "height": 4,
+      "width": 18,
+      "left": -0.5,
+      "bottom": 0,
+      "nRows": 2,
+      "nCols": 6,
+      "inputs": [
+        {
+          "default": {
+            "channel": 0,
+            "number": -1,
+            "eventType": "programchange",
+            "response": "constant"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "square",
+          "width": 1.4,
+          "height": 1.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 0,
+            "eventType": "programchange",
+            "response": "constant"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "square",
+          "width": 1.4,
+          "height": 1.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 1,
+            "eventType": "programchange",
+            "response": "constant"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "square",
+          "width": 1.4,
+          "height": 1.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 2,
+            "eventType": "programchange",
+            "response": "constant"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "square",
+          "width": 1.4,
+          "height": 1.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 3,
+            "eventType": "programchange",
+            "response": "constant"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "square",
+          "width": 1.4,
+          "height": 1.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 4,
+            "eventType": "programchange",
+            "response": "constant"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "square",
+          "width": 1.4,
+          "height": 1.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": -2,
+            "eventType": "programchange",
+            "response": "constant"
+          },
+          "overrideable": false,
+          "type": "pad",
+          "shape": "square",
+          "width": 1.4,
+          "height": 1.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 5,
+            "eventType": "programchange",
+            "response": "constant"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "square",
+          "width": 1.4,
+          "height": 1.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 6,
+            "eventType": "programchange",
+            "response": "constant"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "square",
+          "width": 1.4,
+          "height": 1.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 7,
+            "eventType": "programchange",
+            "response": "constant"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "square",
+          "width": 1.4,
+          "height": 1.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 8,
+            "eventType": "programchange",
+            "response": "constant"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "square",
+          "width": 1.4,
+          "height": 1.4,
+          "availableColors": []
+        },
+        {
+          "default": {
+            "channel": 0,
+            "number": 9,
+            "eventType": "programchange",
+            "response": "constant"
+          },
+          "overrideable": true,
+          "type": "pad",
+          "shape": "square",
+          "width": 1.4,
+          "height": 1.4,
+          "availableColors": []
+        }
+      ]
+    }
+  ]
+}

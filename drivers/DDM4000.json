@@ -394,14 +394,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         },
@@ -423,14 +424,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         },
@@ -452,14 +454,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         }
@@ -507,14 +510,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         },
@@ -536,14 +540,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         },
@@ -565,14 +570,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         }
@@ -620,14 +626,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         },
@@ -649,14 +656,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         },
@@ -678,14 +686,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         }
@@ -733,14 +742,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         },
@@ -762,14 +772,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         },
@@ -791,14 +802,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         }
@@ -846,14 +858,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         },
@@ -875,14 +888,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         },
@@ -904,14 +918,15 @@
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Orange",
-              "default": false,
               "string": "#e28743",
               "eventType": "controlchange",
-              "value": 1
+              "value": 1,
+              "fx": []
             }
           ]
         }

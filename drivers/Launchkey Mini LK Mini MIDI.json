@@ -136,90 +136,90 @@
           "availableColors": [
             {
               "name": "Clear",
-              "default": false,
               "eventType": "noteon",
               "value": 4,
-              "string": "transparent"
+              "string": "transparent",
+              "fx": []
             },
             {
               "name": "Red (dim)",
-              "default": false,
               "eventType": "noteon",
               "value": 5,
-              "string": "#F58A70"
+              "string": "#F58A70",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "eventType": "noteon",
               "value": 6,
-              "string": "#F36E56"
+              "string": "#F36E56",
+              "fx": []
             },
             {
               "name": "Red (Bright)",
-              "default": false,
               "eventType": "noteon",
               "value": 7,
-              "string": "#F44336"
+              "string": "#F44336",
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "eventType": "noteon",
               "value": 1,
               "string": "#F44336",
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Yellow (dim)",
-              "default": false,
               "eventType": "noteon",
               "value": 21,
-              "string": "#FFD77D"
+              "string": "#FFD77D",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "eventType": "noteon",
               "value": 22,
-              "string": "#FFCB4F"
+              "string": "#FFCB4F",
+              "fx": []
             },
             {
               "name": "Yellow (bright)",
-              "default": false,
               "eventType": "noteon",
               "value": 23,
-              "string": "#FFC107"
+              "string": "#FFC107",
+              "fx": []
             },
             {
               "name": "Yellow",
-              "default": false,
               "eventType": "noteon",
               "value": 19,
               "string": "#FFC107",
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             },
             {
               "name": "Green (dim)",
-              "default": false,
               "eventType": "noteon",
               "value": 53,
-              "string": "#75BB6D"
+              "string": "#75BB6D",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "eventType": "noteon",
               "value": 20,
-              "string": "#4CAF50"
+              "string": "#4CAF50",
+              "fx": []
             },
             {
               "name": "Green",
-              "default": false,
               "eventType": "noteon",
               "value": 24,
               "string": "#4CAF50",
-              "modifier": "blink"
+              "modifier": "blink",
+              "fx": []
             }
           ]
         },

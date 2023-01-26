@@ -187,15 +187,16 @@
               "eventType": "noteon",
               "value": 0,
               "string": "transparent",
-              "number": 9
+              "number": 9,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 127,
-              "number": 9
+              "number": 9,
+              "fx": []
             }
           ]
         },
@@ -218,15 +219,16 @@
               "eventType": "noteon",
               "value": 0,
               "string": "transparent",
-              "number": 10
+              "number": 10,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 127,
-              "number": 10
+              "number": 10,
+              "fx": []
             }
           ]
         },
@@ -249,15 +251,16 @@
               "eventType": "noteon",
               "value": 0,
               "string": "transparent",
-              "number": 11
+              "number": 11,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 127,
-              "number": 11
+              "number": 11,
+              "fx": []
             }
           ]
         },
@@ -280,15 +283,16 @@
               "eventType": "noteon",
               "value": 0,
               "string": "transparent",
-              "number": 12
+              "number": 12,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 127,
-              "number": 12
+              "number": 12,
+              "fx": []
             }
           ]
         },
@@ -311,15 +315,16 @@
               "eventType": "noteon",
               "value": 0,
               "string": "transparent",
-              "number": 13
+              "number": 13,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 127,
-              "number": 13
+              "number": 13,
+              "fx": []
             }
           ]
         },
@@ -342,15 +347,16 @@
               "eventType": "noteon",
               "value": 0,
               "string": "transparent",
-              "number": 14
+              "number": 14,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 127,
-              "number": 14
+              "number": 14,
+              "fx": []
             }
           ]
         },
@@ -373,15 +379,16 @@
               "eventType": "noteon",
               "value": 0,
               "string": "transparent",
-              "number": 15
+              "number": 15,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 127,
-              "number": 15
+              "number": 15,
+              "fx": []
             }
           ]
         },
@@ -404,15 +411,16 @@
               "eventType": "noteon",
               "value": 0,
               "string": "transparent",
-              "number": 16
+              "number": 16,
+              "fx": []
             },
             {
               "name": "Red",
-              "default": false,
               "string": "#F44336",
               "eventType": "noteon",
               "value": 127,
-              "number": 16
+              "number": 16,
+              "fx": []
             }
           ]
         }

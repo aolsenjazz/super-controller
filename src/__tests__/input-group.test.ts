@@ -19,6 +19,7 @@ const GREEN = {
   value: 3,
   string: 'green',
   default: true,
+  fx: [],
 };
 
 const RED = {
@@ -27,6 +28,7 @@ const RED = {
   value: 5,
   string: 'red',
   default: false,
+  fx: [],
 };
 
 function createInput(
