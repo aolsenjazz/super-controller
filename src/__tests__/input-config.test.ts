@@ -77,7 +77,7 @@ function createConfig({
 
 describe('colorForState', () => {
   test('returns null when constructed without colorConfig', () => {
-    const config = createConfig({});
+    const config = createConfig({ availableColors: [] });
 
     expect(config.colorForState(0)).toEqual(undefined);
   });

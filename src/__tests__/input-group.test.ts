@@ -160,7 +160,10 @@ test('colorForState return null for unset availableColors', () => {
 test('colorForState returns default for unset light config', () => {
   const pad1 = createGatePadInput(0, true);
   const group = new InputGroup([pad1]);
-  expect(group.colorForState(1)).toBe(GREEN);
+
+  const correct = new ColorImpl(GREEN, pad1.number, pad1.channel);
+
+  expect(group.colorForState(1)).toEqual(correct);
 });
 
 test('colorForState returns the correct color', () => {

@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { URL } from 'url';
 
-import { Project } from '@shared/project';
+import { upgradeProject } from '../helper/project-upgrader';
 
 export let resolveHtmlPath: (htmlFileName: string) => string;
 
@@ -31,12 +31,12 @@ export function loadJSON(filePath: string) {
 }
 
 /**
- * Loads the file at given path. *DO NOT* invoke from frontend
+ * Loads the file at given path.
  *
  * @param filePath The path to the file
  * @returns the project
  */
 export function projectFromFile(filePath: string) {
   const jsonString = fs.readFileSync(filePath, 'utf8');
-  return Project.fromJSON(jsonString);
+  return upgradeProject(jsonString);
 }
