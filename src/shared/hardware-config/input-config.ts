@@ -1,52 +1,29 @@
-import { setStatus, getStatus } from '@shared/midi-util';
-
-import { inputIdFor, msgForColor } from '../util';
-import { Propagator } from '../propagators/propagator';
-import { OutputPropagator } from '../propagators/output-propagator';
-import { NullPropagator } from '../propagators/null-propagator';
-import { BinaryPropagator } from '../propagators/binary-propagator';
+import { inputIdFor } from '../util';
+import {
+  OutputPropagator,
+  NStepPropagator,
+  propagatorFromJSON,
+} from '../propagators';
 import {
   InputDefault,
-  Color,
   InputDriver,
   InputResponse,
   InputType,
+  Color,
 } from '../driver-types';
-
-/**
- * Overrides the values which are propagated from devices. Default values remain
- * accessible via `InputConfig.default`.
- */
-export type InputOverride = {
-  /* User-defined nickname */
-  nickname?: string;
-
-  /* Note number, CC number, program number, etc */
-  number?: number;
-
-  /* MIDI channel */
-  channel?: Channel;
-
-  /* MIDI event type */
-  eventType?: StatusString | 'noteon/noteoff';
-
-  /* See InputResponse */
-  response?: InputResponse;
-
-  /**
-   * Maintains hardware color per state. For more, see `DevicePropagator`
-   *
-   * TODO: this is smelly. might make more sense to make this a member of
-   * `DevicePropagator`.
-   */
-  lightConfig: Map<string, Color>;
-};
+import { ColorImpl } from './color-impl';
 
 /**
  * Contains configuration details and maintains state for individual hardware
  * inputs. Layout information is delegated to the `VirtualInput` class.
  */
 export class InputConfig {
+  /**
+   * Object containing default values for input number, EventType, etc. Generic
+   * value represents the type of input - Knob, Pad, etc.
+   */
+  default: InputDefault;
+
   /**
    * Manages event propagation to clients and maintains state related to event
    * propagation to clients.
@@ -57,10 +34,12 @@ export class InputConfig {
    * Manages event propagation to device and maintains state related to event
    * propagation to device.
    */
-  devicePropagator: Propagator;
+  devicePropagator: NStepPropagator;
+
+  #nickname?: string;
 
   /* Array of `Color`s the hardware input can be. */
-  readonly availableColors: Color[];
+  readonly availableColors: ColorImpl[];
 
   /* Can this control be overridden? `false` if events aren't transmitted from device */
   readonly overrideable: boolean;
@@ -72,19 +51,6 @@ export class InputConfig {
   readonly type: InputType;
 
   /**
-   * Object containing overridden values. E.g. a given Pad which typically send
-   * noteon/noteoff events on channel 1 can send controlchange on channel 4.
-   * Generic value represents the type of input - Knob, Pad, etc.
-   */
-  override: InputOverride;
-
-  /**
-   * Object containing default values for input number, EventType, etc. Generic
-   * value represents the type of input - Knob, Pad, etc.
-   */
-  default: InputDefault;
-
-  /**
    * Convert from JSON string into an InputConfig object. Reconstructs
    * state if state was saved to JSON string.
    *
@@ -93,23 +59,19 @@ export class InputConfig {
    */
   static fromJSON(json: string) {
     const other = JSON.parse(json);
-
-    const inputOverride = other.override;
-    inputOverride.lightConfig = new Map<string, Color>(
-      other.override.lightConfig
+    const availableColors = other.availableColors.map(
+      (c: Color) => new ColorImpl(c, c.number!, c.channel as Channel)
     );
 
     const instance = new InputConfig(
       other.default,
-      inputOverride,
-      other.availableColors,
+      availableColors,
       other.overrideable,
       other.type,
       other.value,
-      other.lastPropagated,
-      other.lastResponse
+      propagatorFromJSON(other.outputPropagator) as OutputPropagator,
+      propagatorFromJSON(other.devicePropagator) as NStepPropagator
     );
-    instance.devicePropagator.outputResponse = other.lightResponse;
 
     return instance;
   }
@@ -121,14 +83,14 @@ export class InputConfig {
    * @returnsnew instance of InputConfig
    */
   static fromDriver(other: InputDriver) {
-    const inputOverride = {
-      lightConfig: new Map<string, Color>(),
-    };
+    const { number, channel } = other.default;
+    const colors = other.availableColors.map(
+      (c) => new ColorImpl(c, number, channel)
+    );
 
     const instance = new InputConfig(
       other.default,
-      inputOverride,
-      other.availableColors,
+      colors,
       other.overrideable,
       other.type,
       other.value
@@ -139,56 +101,48 @@ export class InputConfig {
 
   constructor(
     defaultVals: InputDefault,
-    override: InputOverride,
-    availableColors: Color[],
+    availableColors: ColorImpl[],
     overrideable: boolean,
     type: InputType,
     value?: number,
-    lastPropagated?: number[],
-    lastResponse?: number[]
+    outputPropagator?: OutputPropagator,
+    devicePropagator?: NStepPropagator,
+    nickname?: string
   ) {
     this.default = defaultVals;
-    this.override = override;
     this.availableColors = availableColors;
     this.overrideable = overrideable;
     this.type = type;
+    this.#nickname = nickname;
 
-    const isPitchbend = defaultVals.eventType === 'pitchbend';
+    const r = this.default.response;
 
-    this.outputPropagator = new OutputPropagator(
-      this.default.response,
-      this.override.response || this.default.response,
-      this.override.eventType || this.default.eventType,
-      this.override.number || this.default.number,
-      this.override.channel || this.default.channel,
-      isPitchbend ? 64 : value,
-      lastPropagated
-    );
-
-    // create the devicePropagator
-    if (['gate', 'toggle'].includes(this.default.response)) {
-      const offColor = override.lightConfig.get('off') || this.defaultColor;
-      const offColorMsg = offColor
-        ? msgForColor(defaultVals.number, defaultVals.channel, offColor)
-        : undefined;
-
-      const onColor = override.lightConfig.get('on') || this.defaultColor;
-      const onColorMsg = onColor
-        ? msgForColor(defaultVals.number, defaultVals.channel, onColor)
-        : undefined;
-
-      type Type = 'gate' | 'toggle';
-      this.devicePropagator = new BinaryPropagator(
-        this.default.response as Type | 'constant',
-        (this.override.response || this.default.response) as Type,
-        onColorMsg,
-        offColorMsg,
-        lastResponse
-      );
+    if (devicePropagator) {
+      this.devicePropagator = devicePropagator;
     } else {
-      this.devicePropagator = new NullPropagator(
-        this.default.response,
-        this.override.response || this.default.response
+      const defaultMsg = this.defaultColor
+        ? this.defaultColor.toMidiArray()
+        : null;
+
+      const defaultColorConfig = new Map([
+        [0, defaultMsg],
+        [1, defaultMsg],
+      ]);
+      this.devicePropagator = new NStepPropagator(r, r, defaultColorConfig);
+    }
+
+    if (outputPropagator) {
+      this.outputPropagator = outputPropagator;
+    } else {
+      const isPitchbend = defaultVals.eventType === 'pitchbend';
+
+      this.outputPropagator = new OutputPropagator(
+        r,
+        r,
+        this.default.eventType,
+        this.default.number,
+        this.default.channel,
+        isPitchbend ? 64 : value // TODO: unclear what this is doing
       );
     }
   }
@@ -212,8 +166,17 @@ export class InputConfig {
    * @param state The state
    * @returns The associated color or undefined if not set
    */
-  colorForState(state: string) {
-    return this.#lightConfig().get(state);
+  colorForState(state: number) {
+    const colorArray = this.devicePropagator.responseForStep(state);
+
+    let c = this.defaultColor;
+    this.availableColors.forEach((color) => {
+      if (JSON.stringify(colorArray) === JSON.stringify(color.toMidiArray())) {
+        c = color;
+      }
+    });
+
+    return c;
   }
 
   /**
@@ -222,19 +185,14 @@ export class InputConfig {
    * @param state The state value
    * @param color The color
    */
-  setColorForState(state: string, color: Color) {
-    // this is terrible, but I don't know how to handle RBG, n-step, etc
-    this.override.lightConfig.set(state, color);
-
-    if (this.devicePropagator instanceof BinaryPropagator) {
-      const msg = setStatus(
-        [this.channel, this.number, color.value],
-        color.eventType
+  setColorForState(state: number, color: ColorImpl) {
+    if (state >= this.devicePropagator.nSteps) {
+      throw new Error(
+        `tried to set step[${state}] when nSteps is ${this.devicePropagator.nSteps}`
       );
-
-      if (state === 'on') this.devicePropagator.onMessage = msg;
-      else this.devicePropagator.offMessage = msg;
     }
+
+    this.devicePropagator.setStep(state, color.toMidiArray());
   }
 
   /* Restores all default, numeric values (nothing color-related) */
@@ -254,74 +212,28 @@ export class InputConfig {
   toJSON(includeState: boolean) {
     return JSON.stringify({
       default: this.default,
-      override: {
-        nickname: this.nickname,
-        lightConfig: Array.from(this.override.lightConfig.entries()),
-        number: this.number,
-        eventType: this.eventType,
-        channel: this.channel,
-        response: this.response,
-      },
-      type: this.type,
-      overrideable: this.overrideable,
-      response: this.response,
+      outputPropagator: this.outputPropagator.toJSON(includeState),
+      devicePropagator: this.devicePropagator.toJSON(includeState),
+      nickname: this.nickname,
       availableColors: this.availableColors,
-      lightResponse: this.lightResponse,
-      value: this.outputPropagator.value,
-      lastPropagated: includeState
-        ? this.outputPropagator.lastPropagated
-        : undefined,
-      lastResponse: includeState
-        ? this.devicePropagator.lastPropagated
-        : undefined,
+      overrideable: this.overrideable,
+      type: this.type,
     });
   }
 
-  /**
-   * Constructs a map of `Color`-per-state configurations.
-   *
-   * TODO: This is just disgusting. Gotta figure out how to handle RGB before this
-   * is worth fixing.
-   *
-   * @returns Color-per-state map
-   */
-  #lightConfig = () => {
-    const config = new Map<string, Color>();
-
-    if (this.devicePropagator instanceof BinaryPropagator) {
-      const on = this.devicePropagator.onMessage;
-      const off = this.devicePropagator.offMessage;
-
-      if (on) {
-        const color = this.availableColors.filter(
-          (c) => c.value === on[2] && c.eventType === getStatus(on).string
-        )[0];
-        config.set('on', color);
-      }
-
-      if (off) {
-        const color = this.availableColors.filter(
-          (c) => c.value === off[2] && c.eventType === getStatus(off).string
-        )[0];
-        config.set('off', color);
-      }
-    }
-
-    return config;
-  };
-
   get eligibleResponses() {
-    if (this.default.response === 'gate') return ['gate', 'toggle', 'constant'];
-
-    if (this.default.response === 'toggle') return ['toggle', 'constant'];
-
-    if (this.default.response === 'constant') {
-      return ['noteon/noteoff', 'controlchange'].includes(this.eventType)
-        ? ['toggle', 'constant']
-        : ['constant'];
+    switch (this.default.response) {
+      case 'gate':
+        return ['gate', 'toggle', 'constant'];
+      case 'toggle':
+        return ['toggle', 'constant'];
+      case 'constant':
+        return ['noteon/noteoff', 'controlchange'].includes(this.eventType)
+          ? ['toggle', 'constant']
+          : ['constant'];
+      default:
+        return ['continuous'];
     }
-
-    return ['continuous'];
   }
 
   get eligibleEventTypes() {
@@ -346,10 +258,13 @@ export class InputConfig {
     return ['noteon/noteoff', 'controlchange', 'programchange'];
   }
 
-  get defaultColor(): Color | undefined {
-    return this.availableColors.length > 0
-      ? this.availableColors.filter((c) => c.default === true)[0]
-      : undefined;
+  get defaultColor(): ColorImpl | undefined {
+    let c;
+    this.availableColors.forEach((color) => {
+      if (color.default) c = color;
+    });
+
+    return c;
   }
 
   get value(): number {
@@ -360,29 +275,34 @@ export class InputConfig {
     this.outputPropagator.value = value;
   }
 
-  get currentColor(): Color | undefined {
-    const config = this.#lightConfig();
-    return config.get(this.devicePropagator.state);
+  get currentColor(): ColorImpl | undefined {
+    const colorArray = this.devicePropagator.responseForCurrentStep();
+
+    let c;
+    this.availableColors.forEach((color) => {
+      if (JSON.stringify(colorArray) === JSON.stringify(color.toMidiArray())) {
+        c = color;
+      }
+    });
+
+    return c;
   }
 
   get eligibleLightResponses() {
-    if (this.default.response === 'constant') {
-      return ['gate', 'toggle'];
+    switch (this.default.response) {
+      case 'constant':
+      case 'gate':
+        return ['gate', 'toggle'];
+      case 'toggle':
+        return ['toggle'];
+      default:
+        return [];
     }
-
-    if (this.default.response === 'gate') {
-      return ['gate', 'toggle'];
-    }
-
-    if (this.default.response === 'toggle') {
-      return ['toggle'];
-    }
-
-    return [];
   }
 
+  // TODO: yeah, only 2-state lights are supported right now. that's ok.
   get eligibleLightStates() {
-    return this.devicePropagator.eligibleStates;
+    return [0, 1];
   }
 
   get channel() {
@@ -418,8 +338,11 @@ export class InputConfig {
   }
 
   get nickname() {
-    const overridden = this.override.nickname;
-    return overridden === undefined ? `Input ${this.number}` : overridden;
+    return this.#nickname || `Input ${this.number}`;
+  }
+
+  set nickname(nickname: string) {
+    this.#nickname = nickname;
   }
 
   get response(): InputResponse {
@@ -442,8 +365,8 @@ export class InputConfig {
 
     this.outputPropagator.outputResponse = response;
 
-    this.outputPropagator.lastPropagated = undefined; // reset propagator state
-    this.devicePropagator.lastPropagated = undefined; // reset propagator state
+    this.outputPropagator.lastPropagated = null; // reset propagator state
+    this.devicePropagator.currentStep = 0; // reset propagator state
   }
 
   get lightResponse() {
@@ -451,20 +374,9 @@ export class InputConfig {
   }
 
   set lightResponse(response: 'gate' | 'toggle') {
-    if (this.default.response === 'toggle' && response === 'gate') {
-      throw new Error(
-        `light response cannot be 'gate' for 'toggle' hardware response`
-      );
-    }
-
-    if (this.default.response === 'continuous') {
-      throw new Error(
-        'continuous hardware response doesnt support lights right now'
-      );
-    }
-
     this.devicePropagator.outputResponse = response;
-    this.devicePropagator.lastPropagated = undefined; // reset propagator state
-    this.outputPropagator.lastPropagated = undefined; // reset propagator state
+
+    this.devicePropagator.lastPropagated = null; // reset propagator state
+    this.devicePropagator.currentStep = 0; // reset propagator state
   }
 }

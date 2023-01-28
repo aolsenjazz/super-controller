@@ -16,7 +16,8 @@
     "width": 26.5,
     "height": 5.5,
     "left": 3.875,
-    "bottom": 0.5
+    "bottom": 0.5,
+    "enabled": false
   },
   "inputGrids": [
     {

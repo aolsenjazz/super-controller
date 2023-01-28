@@ -1,12 +1,11 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import { Project } from '@shared/project';
-import { isSustain, inputIdFor, msgForColor, getDiff } from '@shared/util';
+import { isSustain, inputIdFor, getDiff } from '@shared/util';
 import {
   InputConfig,
   SupportedDeviceConfig,
   AdapterDeviceConfig,
 } from '@shared/hardware-config';
-import { Color } from '@shared/driver-types';
 import { DrivenPortInfo } from '@shared/driven-port-info';
 import { setChannel } from '@shared/midi-util';
 
@@ -88,31 +87,21 @@ export class PortService {
    */
   syncDeviceLights = (deviceId: string) => {
     const pp = this.portPairs.get(deviceId);
-    let config = this.#project.getDevice(deviceId);
-    const asAdapter = config as AdapterDeviceConfig;
+    const config = this.#project.getDevice(deviceId);
 
-    if (pp && config?.supported === true) {
-      config = config.isAdapter && asAdapter.isSet ? asAdapter.child! : config;
-
-      type Tuple = [InputConfig, Color | undefined];
-      (config as SupportedDeviceConfig).inputs
-        .map((i) => [i, i.currentColor] as Tuple) // get current color
-        .filter(([_i, c]) => c !== undefined) // eslint-disable-line
-        .map(([i, c]) => msgForColor(i.default.number, i.default.channel, c!)) // get message for color
-        .forEach((conf) => pp.send(conf!)); // send color message
+    if (pp && config instanceof SupportedDeviceConfig) {
+      config.inputs
+        .filter((i) => i.currentColor !== undefined)
+        .map((i) => i.currentColor!.toMidiArray()) // get message for color
+        .forEach((arr) => pp.send(arr)); // send color message
     }
   };
 
   syncInputLight = (deviceId: string, config: InputConfig) => {
     const pp = this.portPairs.get(deviceId);
 
-    if (pp) {
-      const color = msgForColor(
-        config.default.number,
-        config.default.channel,
-        config.currentColor!
-      );
-      pp.send(color);
+    if (pp && config.currentColor) {
+      pp.send(config.currentColor.toMidiArray());
     }
   };
 
@@ -219,7 +208,13 @@ export class PortService {
       if (toPropagate) this.#virtService.send(toPropagate, device.id);
 
       // send response to hardware device
-      if (toDevice) pair.send(toDevice);
+      if (toDevice) {
+        // const asSupported = device as SupportedDeviceConfig;
+        // asSupported.inputs.forEach((i) => {
+        //   if (i.number === 32) {}
+        // });
+        pair.send(toDevice);
+      }
 
       // send new state to frontend
       const id = inputIdFor(msg);

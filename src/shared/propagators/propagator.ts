@@ -1,7 +1,7 @@
 import { InputResponse } from '../driver-types';
 import { isOnMessage } from '../util';
 
-const illogicalPairs = [
+const illogicalPairs: [InputResponse, InputResponse][] = [
   ['continuous', 'gate'],
   ['continuous', 'toggle'],
   ['gate', 'continuous'],
@@ -9,6 +9,15 @@ const illogicalPairs = [
   ['toggle', 'gate'],
   ['constant', 'continuous'],
 ];
+
+function checkResponsePair(r1: InputResponse, r2: InputResponse) {
+  illogicalPairs.forEach((pair) => {
+    if (JSON.stringify(pair) === JSON.stringify([r1, r2]))
+      throw new Error(
+        `InputResponse[${r1}] and OutputResponse[${r2}] is illogical`
+      );
+  });
+}
 
 /**
  * Manages propagation of messages to devices and clients. Can be set to propagate
@@ -23,29 +32,21 @@ export abstract class Propagator {
   /**
    * See InputResponse
    */
-  outputResponse: InputResponse;
+  #outputResponse: InputResponse;
 
   /* The last-propagated message */
-  public lastPropagated?: number[];
+  public lastPropagated: number[] | null;
 
   constructor(
     hardwareResponse: InputResponse,
     outputResponse: InputResponse,
     lastPropagated?: number[]
   ) {
-    illogicalPairs.forEach((pair) => {
-      if (
-        JSON.stringify(pair) ===
-        JSON.stringify([hardwareResponse, outputResponse])
-      )
-        throw new Error(
-          `InputResponse[${hardwareResponse}] and OutputResponse[${outputResponse}] is illogical`
-        );
-    });
+    checkResponsePair(hardwareResponse, outputResponse);
 
     this.hardwareResponse = hardwareResponse;
-    this.outputResponse = outputResponse;
-    this.lastPropagated = lastPropagated;
+    this.#outputResponse = outputResponse;
+    this.lastPropagated = lastPropagated || null;
   }
 
   /**
@@ -56,7 +57,7 @@ export abstract class Propagator {
    * @returns The message to propagate
    */
   handleMessage(msg: number[]) {
-    let toPropagate: number[] | undefined;
+    let toPropagate: number[] | null;
 
     switch (this.hardwareResponse) {
       case 'gate':
@@ -75,8 +76,18 @@ export abstract class Propagator {
         throw new Error(`unknown hardwareResponse ${this.hardwareResponse}`);
     }
 
-    if (toPropagate !== undefined) this.lastPropagated = toPropagate;
-    return toPropagate === undefined ? null : toPropagate;
+    if (toPropagate !== null) this.lastPropagated = toPropagate;
+    return toPropagate;
+  }
+
+  get outputResponse() {
+    return this.#outputResponse;
+  }
+
+  set outputResponse(r: InputResponse) {
+    checkResponsePair(this.hardwareResponse, r);
+
+    this.#outputResponse = r;
   }
 
   /**
@@ -88,7 +99,7 @@ export abstract class Propagator {
   #handleInputAsGate = (msg: number[]) => {
     // if outputResponse === 'toggle' | 'constant', only respond to 'noteon' messages
     if (this.outputResponse !== 'gate' && !isOnMessage(msg, true)) {
-      return undefined;
+      return null;
     }
     return this.getResponse(msg);
   };
@@ -123,11 +134,11 @@ export abstract class Propagator {
     return this.getResponse(msg);
   };
 
-  protected abstract getResponse(msg: number[]): number[] | undefined;
+  protected abstract getResponse(msg: number[]): number[] | null;
 
-  abstract get eligibleStates(): string[];
-
-  abstract get defaultState(): string;
-
-  abstract get state(): string;
+  abstract toJSON(includeState: boolean): string;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const TESTABLES = new Map<string, any>();
+TESTABLES.set('illogicalPairs', illogicalPairs);

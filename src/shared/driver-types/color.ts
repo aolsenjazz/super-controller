@@ -67,4 +67,4 @@ type Color = {
   modifier?: 'blink' | 'pulse';
 };
 
-export type { Color };
+export type { Color, fx };

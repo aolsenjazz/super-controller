@@ -1,10 +1,6 @@
-/* eslint @typescript-eslint/prefer-as-const: 0 */
-/* eslint @typescript-eslint/no-non-null-assertion: 0 */
-import { setStatus } from '@shared/midi-util';
-import { InputConfig } from '@shared/hardware-config';
+import { InputConfig, ColorImpl } from '@shared/hardware-config';
+import { NStepPropagator } from '@shared/propagators';
 import { Color } from '@shared/driver-types';
-
-import { DRIVERS } from '../main/drivers';
 
 const RED: Color = {
   name: 'Red',
@@ -24,436 +20,188 @@ const GREEN: Color = {
   fx: [],
 };
 
-function BasicMidiMsg() {
-  return setStatus([0, 60, 127], 'noteon');
+interface Params {
+  defaultVals?: InputConfig['default'];
+  availableColors?: Color[];
+  overrideable?: boolean;
+  type?: InputConfig['type'];
+  value?: number;
+  colorConfig?: Map<number, Color>;
+}
+function createConfig({
+  defaultVals = {
+    number: 69,
+    eventType: 'controlchange',
+    channel: 0,
+    response: 'gate',
+  },
+  availableColors = [RED, GREEN],
+  overrideable = true,
+  type = 'pad',
+  value = undefined,
+  colorConfig = undefined,
+}: Params) {
+  const colors = availableColors.map(
+    (c) => new ColorImpl(c, defaultVals.number, defaultVals.channel)
+  );
+  const config = new Map<number, number[]>();
+  if (colorConfig) {
+    colorConfig.forEach((v, k) => {
+      config.set(
+        k,
+        new ColorImpl(v, defaultVals.number, defaultVals.channel).toMidiArray()
+      );
+    });
+  }
+
+  const outputPropagator = undefined;
+  let devicePropagator;
+  if (colorConfig) {
+    devicePropagator = new NStepPropagator(
+      defaultVals.response,
+      defaultVals.response,
+      config
+    );
+  }
+
+  return new InputConfig(
+    defaultVals,
+    colors,
+    overrideable,
+    type,
+    value,
+    outputPropagator,
+    devicePropagator
+  );
 }
 
-function BasicGateInputConfig() {
-  const overrideable = true;
-  const type = 'slider';
-  const lightConfig = new Map<string, Color>();
-  const availColors = [GREEN, RED];
-  lightConfig.set('on', GREEN);
+describe('colorForState', () => {
+  test('returns null when constructed without colorConfig', () => {
+    const config = createConfig({});
 
-  const inputDefault = {
-    channel: 0 as Channel,
-    eventType: 'noteon/noteoff' as const,
-    number: 0,
-    response: 'gate' as 'gate',
-  };
+    expect(config.colorForState(0)).toEqual(undefined);
+  });
 
-  const override = {
-    lightConfig,
-    channel: 1 as Channel,
-    eventType: 'controlchange' as const,
-    number: 1,
-    nickname: 'AYOO',
-    response: 'toggle' as const,
-  };
+  test('state[0] RED when constructed with config', () => {
+    const colorConfig = new Map();
+    colorConfig.set(0, RED);
+    const config = createConfig({ colorConfig });
 
-  const msg = BasicMidiMsg();
-  const config = new InputConfig(
-    inputDefault,
-    override,
-    availColors,
-    overrideable,
-    type
-  );
+    expect(config.colorForState(0)!.name).toEqual(RED.name);
+  });
 
-  config.handleMessage(msg);
+  test('state[1] RED when constructed with config', () => {
+    const colorConfig = new Map();
+    colorConfig.set(1, RED);
+    const config = createConfig({ colorConfig });
 
-  return config;
-}
+    expect(config.colorForState(1)!.name).toEqual(RED.name);
+  });
 
-function BasicToggleInputConfig() {
-  const overrideable = true;
-  const type = 'slider';
-  const lightConfig = new Map<string, Color>();
-  const availColors = [GREEN, RED];
-  lightConfig.set('on', GREEN);
+  test('state[0] RED state[1] GREEN when constructed with config', () => {
+    const colorConfig = new Map();
+    colorConfig.set(1, GREEN);
+    colorConfig.set(0, RED);
+    const config = createConfig({ colorConfig });
 
-  const inputDefault = {
-    channel: 0 as Channel,
-    eventType: 'noteon/noteoff' as const,
-    number: 0,
-    response: 'toggle' as const,
-  };
-
-  const override = {
-    lightConfig,
-    channel: 1 as Channel,
-    eventType: 'controlchange' as const,
-    number: 1,
-    nickname: 'AYOO',
-    response: 'constant' as const,
-  };
-
-  const msg = BasicMidiMsg();
-  const config = new InputConfig(
-    inputDefault,
-    override,
-    availColors,
-    overrideable,
-    type
-  );
-
-  config.handleMessage(msg);
-
-  return config;
-}
-
-function BasicConstantInputConfig() {
-  const overrideable = true;
-  const type = 'slider';
-  const lightConfig = new Map<string, Color>();
-  const availColors = [GREEN, RED];
-  lightConfig.set('on', GREEN);
-
-  const inputDefault = {
-    channel: 0 as Channel,
-    eventType: 'programchange' as const,
-    number: 0,
-    response: 'constant' as const,
-  };
-
-  const override = {
-    lightConfig,
-    channel: 1 as Channel,
-    eventType: 'controlchange' as const,
-    number: 1,
-    nickname: 'AYOO',
-    response: 'toggle' as const,
-  };
-
-  const msg = BasicMidiMsg();
-  const config = new InputConfig(
-    inputDefault,
-    override,
-    availColors,
-    overrideable,
-    type
-  );
-
-  config.handleMessage(msg);
-
-  return config;
-}
-
-function BasicContinuousInputConfig() {
-  const overrideable = true;
-  const type = 'slider';
-  const lightConfig = new Map<string, Color>();
-
-  const inputDefault = {
-    channel: 0 as Channel,
-    eventType: 'controlchange' as const,
-    number: 0,
-    response: 'continuous' as const,
-  };
-
-  const override = {
-    lightConfig,
-    channel: 1 as Channel,
-    eventType: 'programchange' as const,
-    number: 1,
-    nickname: 'AYOO',
-    response: 'constant' as const,
-  };
-
-  const msg = BasicMidiMsg();
-  const config = new InputConfig(
-    inputDefault,
-    override,
-    [],
-    overrideable,
-    type
-  );
-
-  config.handleMessage(msg);
-
-  return config;
-}
-
-function BasicPitchbendInputConfig() {
-  const overrideable = true;
-  const type = 'slider';
-  const lightConfig = new Map<string, Color>();
-
-  const inputDefault = {
-    channel: 0 as Channel,
-    eventType: 'pitchbend' as const,
-    number: 0,
-    response: 'continuous' as const,
-  };
-
-  const override = {
-    lightConfig,
-    channel: 1 as Channel,
-    eventType: 'programchange' as const,
-    number: 1,
-    nickname: 'AYOO',
-    response: 'constant' as const,
-  };
-
-  const msg = BasicMidiMsg();
-  const config = new InputConfig(
-    inputDefault,
-    override,
-    [],
-    overrideable,
-    type
-  );
-
-  config.handleMessage(msg);
-
-  return config;
-}
-
-test('fromJSON properly serializes inputConfig.type', () => {
-  const inputDefault = {
-    channel: 0 as Channel,
-    eventType: 'controlchange' as const,
-    number: 0,
-    response: 'continuous' as const,
-  };
-  const override = {
-    lightConfig: new Map<string, Color>(),
-  };
-  const overrideable = true;
-  const type = 'wheel';
-
-  const conf = new InputConfig(inputDefault, override, [], overrideable, type);
-  const json = conf.toJSON(false);
-  const result = InputConfig.fromJSON(json);
-
-  expect(result.type).toBe('wheel');
+    expect(config.colorForState(0)!.name).toEqual(RED.name);
+    expect(config.colorForState(1)!.name).toEqual(GREEN.name);
+  });
 });
 
-test('toJSON and fromJSON input restores defaults', () => {
-  const overrideable = true;
-  const type = 'slider';
-  const lightConfig = new Map<string, Color>();
-  const availColors = [GREEN, RED];
-  lightConfig.set('on', GREEN);
+describe('setColorForState', () => {
+  test('overwrites color', () => {
+    const colorConfig = new Map();
+    colorConfig.set(1, GREEN);
+    colorConfig.set(0, RED);
+    const config = createConfig({ colorConfig });
 
-  const inputDefault = {
-    channel: 0 as Channel,
-    eventType: 'controlchange' as const,
-    number: 0,
-    response: 'continuous' as const,
-  };
+    config.setColorForState(
+      0,
+      new ColorImpl(GREEN, config.number, config.channel)
+    );
 
-  const override = {
-    lightConfig,
-    channel: 1 as Channel,
-    eventType: 'noteon/noteoff' as const,
-    number: 1,
-    nickname: 'AYOO',
-    response: 'continuous' as const,
-  };
+    expect(config.colorForState(0)!.name).toEqual(GREEN.name);
+  });
 
-  const conf = new InputConfig(
-    inputDefault,
-    override,
-    availColors,
-    overrideable,
-    type
-  );
+  test('set color when was previously unset', () => {
+    const config = createConfig({});
 
-  const json = conf.toJSON(true);
-  const result = InputConfig.fromJSON(json);
+    config.setColorForState(
+      0,
+      new ColorImpl(GREEN, config.number, config.channel)
+    );
 
-  expect(result.default).toStrictEqual(inputDefault);
-  expect(result.override).toStrictEqual(override);
-  expect(result.availableColors).toStrictEqual(availColors);
-  expect(result.overrideable).toBe(overrideable);
-  expect(result.type).toBe(type);
+    expect(config.colorForState(0)!.name).toEqual(GREEN.name);
+  });
+
+  test('set color throws when  state out of bounds', () => {
+    const config = createConfig({});
+
+    expect(() => {
+      config.setColorForState(
+        2,
+        new ColorImpl(GREEN, config.number, config.channel)
+      );
+    }).toThrow();
+  });
 });
 
-test('fromDriver returns a valid InputConfig', () => {
-  const driver = DRIVERS.get('APC Key 25');
-  const result = InputConfig.fromDriver(driver!.inputGrids[0].inputs[0]);
+describe('restoreDefault', () => {
+  test('restores defaults', () => {
+    const d: InputConfig['default'] = {
+      number: 2,
+      channel: 2,
+      eventType: 'noteon/noteoff',
+      response: 'gate',
+    };
+    const config = createConfig({ defaultVals: d });
 
-  expect(result.number).toBe(32);
+    expect(config.number).toEqual(d.number);
+    expect(config.channel).toEqual(d.channel);
+    expect(config.eventType).toEqual(d.eventType);
+    expect(config.response).toEqual(d.response);
+
+    config.number = 3;
+    config.channel = 3;
+    config.eventType = 'controlchange';
+    config.response = 'toggle';
+
+    expect(config.number).toEqual(3);
+    expect(config.channel).toEqual(3);
+    expect(config.eventType).toEqual('controlchange');
+    expect(config.response).toEqual('toggle');
+
+    config.restoreDefaults();
+
+    expect(config.number).toEqual(d.number);
+    expect(config.channel).toEqual(d.channel);
+    expect(config.eventType).toEqual(d.eventType);
+    expect(config.response).toEqual(d.response);
+  });
 });
 
-test('toJSON + fromJSON correctly set outputProps lastPropagated', () => {
-  const config = BasicGateInputConfig();
-  const lastProp = config.outputPropagator.lastPropagated;
+describe('toJSON', () => {
+  test('serializes + deserializes correct', () => {
+    const d: InputConfig['default'] = {
+      number: 2,
+      channel: 2,
+      eventType: 'noteon/noteoff',
+      response: 'gate',
+    };
+    const config = createConfig({ defaultVals: d });
+    const json = config.toJSON(false);
+    const obj = JSON.parse(json);
+    const deserializedAvailable = obj.availableColors.map(
+      (c: Color) => new ColorImpl(c, c.number!, c.channel as Channel)
+    );
 
-  const json = config.toJSON(true);
-
-  const config2 = InputConfig.fromJSON(json);
-  const result = config2.outputPropagator.lastPropagated;
-
-  expect(result).toStrictEqual(lastProp);
-});
-
-test('setColorForState does nothing with continuous InputConfig', () => {
-  const config = BasicContinuousInputConfig();
-  config.setColorForState('on', RED);
-  expect(config.colorForState('on')).toBe(undefined);
-});
-
-test('setColorForState and colorForState set + get respectively', () => {
-  const config = BasicGateInputConfig();
-  config.setColorForState('off', GREEN);
-  expect(config.colorForState('off')).toStrictEqual(GREEN);
-});
-
-test('setColorForState correctly sets for `on` state', () => {
-  const config = BasicGateInputConfig();
-  config.setColorForState('on', RED);
-  expect(config.colorForState('on')).toStrictEqual(RED);
-});
-
-test('restoreDefaults restores number, eventType, channel, response', () => {
-  const config = BasicGateInputConfig();
-  config.restoreDefaults();
-  expect(config.response).toBe(config.default.response);
-  expect(config.channel).toBe(config.default.channel);
-  expect(config.eventType).toBe(config.default.eventType);
-  expect(config.number).toBe(config.default.number);
-});
-
-test('eligibleResponses are correct for gate InputConfig', () => {
-  const config = BasicGateInputConfig();
-  expect(config.eligibleResponses).toStrictEqual([
-    'gate',
-    'toggle',
-    'constant',
-  ]);
-});
-
-test('eligibleResponses are correct for toggle InputConfig', () => {
-  const config = BasicToggleInputConfig();
-  expect(config.eligibleResponses).toStrictEqual(['toggle', 'constant']);
-});
-
-test('eligibleResponses are correct for constant InputConfig and controlchange eventType', () => {
-  const config = BasicConstantInputConfig();
-  expect(config.eligibleResponses).toStrictEqual(['toggle', 'constant']);
-});
-
-test('eligibleResponses are correct for constant InputConfig and programchange eventType', () => {
-  const config = BasicConstantInputConfig();
-  config.eventType = 'programchange';
-  expect(config.eligibleResponses).toStrictEqual(['constant']);
-});
-
-test('eligibleResponses are correct for continuous InputConfig', () => {
-  const config = BasicContinuousInputConfig();
-  expect(config.eligibleResponses).toStrictEqual(['continuous']);
-});
-
-test('eligibleEventTypes are correct for constant InputConfig', () => {
-  const config = BasicConstantInputConfig();
-  config.response = 'constant';
-  expect(config.eligibleEventTypes).toStrictEqual([
-    'noteon',
-    'noteoff',
-    'controlchange',
-    'programchange',
-  ]);
-});
-
-test('eligibleEventTypes are correct for continuous InputConfig', () => {
-  const config = BasicContinuousInputConfig();
-  config.response = 'continuous';
-  expect(config.eligibleEventTypes).toStrictEqual([
-    'noteon',
-    'noteoff',
-    'controlchange',
-    'programchange',
-  ]);
-});
-
-test('eligibleEventTypes are correct for pitchbend', () => {
-  const config = BasicPitchbendInputConfig();
-  config.response = 'continuous';
-  expect(config.eligibleEventTypes).toStrictEqual([
-    'pitchbend',
-    'noteon',
-    'noteoff',
-    'controlchange',
-    'programchange',
-  ]);
-});
-
-test('eligibleEventTypes are correct for gate InputConfig', () => {
-  const config = BasicGateInputConfig();
-  config.response = 'gate';
-  expect(config.eligibleEventTypes).toStrictEqual([
-    'noteon/noteoff',
-    'controlchange',
-    'programchange',
-  ]);
-});
-
-test('defaultColor returns correct val', () => {
-  const config = BasicGateInputConfig();
-  expect(config.defaultColor).toStrictEqual(GREEN);
-});
-
-test('defaultColor returns undefined for empty availableColors list', () => {
-  const config = BasicContinuousInputConfig();
-  expect(config.defaultColor).toStrictEqual(undefined);
-});
-
-test('setLightResponse(`gate`) for toggle InputConfig throws', () => {
-  const config = BasicToggleInputConfig();
-  expect(() => {
-    config.lightResponse = 'gate';
-  }).toThrow();
-});
-
-test('setLightConfig() for continuous InputConfig throws', () => {
-  const config = BasicContinuousInputConfig();
-  expect(() => {
-    config.lightResponse = 'toggle';
-  }).toThrow();
-});
-
-test('setLightConfig(`toggle`) for gate InputConfig works', () => {
-  const config = BasicGateInputConfig();
-  config.lightResponse = 'toggle';
-  expect(config.lightResponse).toBe('toggle');
-});
-
-test('setValue/getValue work', () => {
-  const config = BasicConstantInputConfig();
-  config.value = 42;
-  expect(config.value).toBe(42);
-});
-
-test('currentColor returns undefined for continuous InputConfig', () => {
-  const config = BasicContinuousInputConfig();
-  expect(config.currentColor).toBe(undefined);
-});
-
-test('setting response to constant while in noteon/noteoff mode sets eventType to `noteon`', () => {
-  const config = BasicConstantInputConfig();
-  config.eventType = 'noteon/noteoff';
-  config.response = 'constant';
-  expect(config.eventType).toBe('noteon');
-});
-
-test('eligibleLightResponses are correct for constant input', () => {
-  const config = BasicConstantInputConfig();
-  expect(config.eligibleLightResponses).toStrictEqual(['gate', 'toggle']);
-});
-
-test('eligibleLightResponses are correct for gate InputConfig', () => {
-  const config = BasicGateInputConfig();
-  expect(config.eligibleLightResponses).toStrictEqual(['gate', 'toggle']);
-});
-
-test('eligibleLightResponses are correct for toggle InputConfig', () => {
-  const config = BasicToggleInputConfig();
-  expect(config.eligibleLightResponses).toStrictEqual(['toggle']);
-});
-
-test('eligibleLightResponses are empty for continuous InputConfig', () => {
-  const config = BasicContinuousInputConfig();
-  expect(config.eligibleLightResponses).toStrictEqual([]);
+    expect(obj.default).toEqual(d);
+    expect(obj.nickname).toEqual(config.nickname);
+    expect(obj.overrideable).toEqual(config.overrideable);
+    expect(obj.type).toEqual(config.type);
+    expect(deserializedAvailable).toEqual(config.availableColors);
+    expect(obj.outputPropagator).toBeDefined();
+    expect(obj.devicePropagator).toBeDefined();
+  });
 });

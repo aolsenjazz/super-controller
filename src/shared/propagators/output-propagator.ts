@@ -2,7 +2,6 @@ import { setStatus, getStatus } from '../midi-util';
 
 import { InputResponse } from '../driver-types';
 import { Propagator } from './propagator';
-import { isOnMessage } from '../util';
 
 /**
  * Propagates messages to clients. Responds differently depending on `outputResponse`,
@@ -34,6 +33,19 @@ export class OutputPropagator extends Propagator {
     this.number = number;
     this.channel = channel;
     this.value = value === undefined ? 127 : value;
+  }
+
+  toJSON(includeState: boolean) {
+    return JSON.stringify({
+      type: 'OutputPropagator',
+      hardwareResponse: this.hardwareResponse,
+      outputResponse: this.outputResponse,
+      eventType: this.eventType,
+      number: this.number,
+      channel: this.channel,
+      value: this.value,
+      lastPropagated: includeState ? this.lastPropagated : undefined,
+    });
   }
 
   /**
@@ -196,34 +208,4 @@ export class OutputPropagator extends Propagator {
         throw new Error(`unknown eventType ${this.eventType}`);
     }
   };
-
-  get eligibleStates() {
-    if (['gate', 'toggle'].includes(this.outputResponse)) {
-      return ['off', 'on'];
-    }
-
-    return [];
-  }
-
-  get defaultState() {
-    if (['gate', 'toggle'].includes(this.outputResponse)) {
-      return 'off';
-    }
-
-    return '0';
-  }
-
-  get state() {
-    if (this.hardwareResponse === 'constant') {
-      return this.constantState;
-    }
-
-    if (['gate', 'toggle'].includes(this.outputResponse)) {
-      if (this.lastPropagated === undefined) return 'off';
-
-      return isOnMessage(this.lastPropagated, true) ? 'on' : 'off';
-    }
-
-    return this.lastPropagated ? this.lastPropagated[2].toString() : '0';
-  }
 }

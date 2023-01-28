@@ -60,7 +60,7 @@ export class InputGroup {
     return this.#labelFor(response, (def) => def.response);
   }
 
-  colorForState(state: string) {
+  colorForState(state: number) {
     const color = this.#groupValue<Color | undefined>(
       (c) => c.colorForState(state),
       (a, b) => JSON.stringify(a) === JSON.stringify(b)
@@ -121,7 +121,7 @@ export class InputGroup {
 
   get eligibleLightStates() {
     const getter = (c: InputConfig) => c.eligibleLightStates;
-    const equality = (a: string[], b: string[]) =>
+    const equality = (a: number[], b: number[]) =>
       JSON.stringify(a) === JSON.stringify(b);
     return this.#getEligibleValues(getter, equality);
   }

@@ -16,7 +16,8 @@
     "width": 7.375,
     "height": 5.375,
     "bottom": 0,
-    "left": 4.25
+    "left": 4.25,
+    "enabled": false
   },
   "inputGrids": [
     {
@@ -73,7 +74,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "octdown",
             "response": "constant"
@@ -87,7 +88,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "octup",
             "response": "constant"
@@ -112,7 +113,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "unknown",
             "response": "gate"
@@ -199,7 +200,7 @@
           },
           "type": "pad",
           "overrideable": true,
-          "shape": "circ",
+          "shape": "circle",
           "width": 0.5,
           "height": 0.5,
           "availableColors": []

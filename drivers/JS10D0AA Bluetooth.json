@@ -544,7 +544,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "controlchange",
             "response": "gate"

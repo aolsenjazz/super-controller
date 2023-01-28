@@ -4,7 +4,6 @@ import { test, expect, jest } from '@jest/globals';
 
 import { setStatus } from '@shared/midi-util';
 import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
-import { Color } from '@shared/driver-types';
 
 function BasicInputConfig() {
   const inputDefault = {
@@ -13,14 +12,11 @@ function BasicInputConfig() {
     number: 0,
     response: 'continuous' as const,
   };
-  const override = {
-    lightConfig: new Map<string, Color>(),
-  };
 
   const overrideable = true;
   const type = 'pad';
 
-  return new InputConfig(inputDefault, override, [], overrideable, type);
+  return new InputConfig(inputDefault, [], overrideable, type);
 }
 
 function BasicSupportedDevice() {
@@ -47,9 +43,6 @@ test('getInput throws for bad id', () => {
     number: 0,
     response: 'continuous' as const,
   };
-  const override = {
-    lightConfig: new Map<string, Color>(),
-  };
 
   const name = 'SomeName';
   const shareSustain: string[] = [];
@@ -57,7 +50,7 @@ test('getInput throws for bad id', () => {
   const overrideable = true;
   const type = 'pad';
 
-  const input = new InputConfig(inputDefault, override, [], overrideable, type);
+  const input = new InputConfig(inputDefault, [], overrideable, type);
 
   const config = new SupportedDeviceConfig(
     name,
@@ -77,9 +70,6 @@ test('getInput returns correct input for id', () => {
     number: 0,
     response: 'continuous' as 'continuous' | 'toggle',
   };
-  const override = {
-    lightConfig: new Map<string, Color>(),
-  };
 
   const name = 'SomeName';
   const shareSustain: string[] = [];
@@ -88,7 +78,7 @@ test('getInput returns correct input for id', () => {
   const overrideable = true;
   const type = 'pad';
 
-  const input = new InputConfig(inputDefault, override, [], overrideable, type);
+  const input = new InputConfig(inputDefault, [], overrideable, type);
 
   inputConfigs.push(input);
 
@@ -111,9 +101,6 @@ test('handleMessage() passes to correct input for processing', () => {
     number: 0,
     response: 'continuous' as 'continuous' | 'toggle',
   };
-  const override = {
-    lightConfig: new Map<string, Color>(),
-  };
 
   const name = 'SomeName';
   const shareSustain: string[] = [];
@@ -122,7 +109,7 @@ test('handleMessage() passes to correct input for processing', () => {
   const overrideable = true;
   const type = 'pad';
 
-  const input = new InputConfig(inputDefault, override, [], overrideable, type);
+  const input = new InputConfig(inputDefault, [], overrideable, type);
   const spy = jest.spyOn(input, 'handleMessage');
   inputConfigs.push(input);
 

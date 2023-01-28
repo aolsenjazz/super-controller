@@ -16,7 +16,8 @@
     "width": 14.75,
     "height": 5.625,
     "left": 3.875,
-    "bottom": 0
+    "bottom": 0,
+    "enabled": false
   },
   "inputGrids": [
     {
@@ -73,7 +74,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "unknown",
             "response": "gate"
@@ -98,7 +99,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "unknown",
             "response": "gate"
@@ -112,7 +113,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -2,
             "eventType": "unknown",
             "response": "gate"
@@ -164,7 +165,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "controlchange",
             "response": "gate"
@@ -189,7 +190,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "controlchange",
             "response": "gate"
@@ -203,7 +204,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -2,
             "eventType": "controlchange",
             "response": "gate"
@@ -217,7 +218,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -3,
             "eventType": "controlchange",
             "response": "gate"
@@ -231,7 +232,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -4,
             "eventType": "controlchange",
             "response": "gate"
@@ -245,7 +246,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -5,
             "eventType": "controlchange",
             "response": "gate"
@@ -259,7 +260,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -6,
             "eventType": "controlchange",
             "response": "gate"
@@ -273,7 +274,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -7,
             "eventType": "controlchange",
             "response": "gate"
@@ -287,7 +288,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -8,
             "eventType": "controlchange",
             "response": "gate"
@@ -312,7 +313,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "controlchange",
             "response": "gate"
@@ -326,7 +327,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -2,
             "eventType": "controlchange",
             "response": "gate"
@@ -351,7 +352,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "controlchange",
             "response": "gate"
@@ -365,7 +366,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -2,
             "eventType": "controlchange",
             "response": "gate"
@@ -390,7 +391,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "controlchange",
             "response": "gate"
@@ -415,8 +416,8 @@
       "inputs": [
         {
           "default": {
-            "channel": 112,
-            "number": 0,
+            "channel": 0,
+            "number": 112,
             "eventType": "controlchange",
             "response": "gate"
           },
@@ -429,8 +430,8 @@
         },
         {
           "default": {
-            "channel": 113,
-            "number": 0,
+            "channel": 0,
+            "number": 113,
             "eventType": "controlchange",
             "response": "gate"
           },
@@ -443,8 +444,8 @@
         },
         {
           "default": {
-            "channel": 114,
-            "number": 0,
+            "channel": 0,
+            "number": 114,
             "eventType": "controlchange",
             "response": "gate"
           },
@@ -457,8 +458,8 @@
         },
         {
           "default": {
-            "channel": 115,
-            "number": 0,
+            "channel": 0,
+            "number": 115,
             "eventType": "controlchange",
             "response": "gate"
           },
@@ -471,8 +472,8 @@
         },
         {
           "default": {
-            "channel": 116,
-            "number": 0,
+            "channel": 0,
+            "number": 116,
             "eventType": "controlchange",
             "response": "gate"
           },
@@ -485,8 +486,8 @@
         },
         {
           "default": {
-            "channel": 117,
-            "number": 0,
+            "channel": 0,
+            "number": 117,
             "eventType": "controlchange",
             "response": "gate"
           },

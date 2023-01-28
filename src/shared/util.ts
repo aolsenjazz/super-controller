@@ -1,7 +1,6 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 
-import { getStatus, getChannel, setStatus } from './midi-util';
-import { Color } from './driver-types';
+import { getStatus, getChannel } from './midi-util';
 
 export function getDiff(l1: string[], l2: string[]) {
   const ex1 = l1.filter((str) => !l2.includes(str));
@@ -79,18 +78,6 @@ export function inputIdFor(
   return status === 'pitchbend'
     ? `${status}.${chan}`
     : `${status}.${chan}.${num}`;
-}
-
-/**
- * Returns the message to be send to devices in order to trigger the given color.
- *
- * @param number The MIDI number
- * @param channel The MIDI channel
- * @param c The color to set
- * @returns A `MidiMessage` which can be used to trigger the color
- */
-export function msgForColor(number: number, channel: Channel, c: Color) {
-  return setStatus([channel, number, c.value], c.eventType);
 }
 
 /**

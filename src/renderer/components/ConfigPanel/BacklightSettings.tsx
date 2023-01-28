@@ -2,6 +2,7 @@ import { useCallback, ChangeEvent } from 'react';
 
 import { Color } from '@shared/driver-types';
 import { Project } from '@shared/project';
+import { ColorImpl } from '@shared/hardware-config';
 
 import SelectTab from '../../assets/select-tab.svg';
 import SettingsLineItem from './SettingsLineItem';
@@ -72,9 +73,14 @@ export default function BacklightSettings(props: PropTypes) {
   const isLightable = eligibleColors.length > 0;
 
   const onChange = useCallback(
-    (e: ChangeEvent<HTMLSelectElement>, state: string) => {
+    (e: ChangeEvent<HTMLSelectElement>, state: number) => {
       // Update all InputConfigs in the InputGroup
-      const color = JSON.parse(e.target.value);
+      const colorObj = JSON.parse(e.target.value);
+      const color = new ColorImpl(
+        colorObj,
+        colorObj.number!,
+        colorObj.channel as Channel
+      );
       group.inputs.forEach((input) => {
         input.setColorForState(state, color);
         projectService.updateInput(configId, input.toJSON(true));
@@ -96,7 +102,7 @@ export default function BacklightSettings(props: PropTypes) {
             setProject={setProject}
             configId={configId}
           />
-          {eligibleLightStates.map((state: string) => {
+          {eligibleLightStates.map((state: number) => {
             const stateColor = group.colorForState(state);
             const isMultiple = stateColor === '<multiple values>';
 

@@ -1,7 +1,5 @@
-import {
-  InputConfig,
-  InputOverride,
-} from '@shared/hardware-config/input-config';
+import { InputConfig, ColorImpl } from '@shared/hardware-config';
+import { NStepPropagator } from '@shared/propagators';
 import {
   InputDefault,
   Color,
@@ -35,7 +33,7 @@ function createInput(
   response: InputResponse,
   inputType: InputType,
   availableColors: Color[] = [],
-  lightConfig: Map<string, Color> = new Map()
+  lightConfig: Map<number, Color> = new Map()
 ) {
   const def: InputDefault = {
     number: seedNumber,
@@ -43,10 +41,29 @@ function createInput(
     eventType,
     response,
   };
-  const inputOverride: InputOverride = {
-    lightConfig,
-  };
-  return new InputConfig(def, inputOverride, availableColors, true, inputType);
+  const avail = availableColors.map(
+    (c) => new ColorImpl(c, def.number, def.channel)
+  );
+  const config = new Map<number, number[]>();
+  lightConfig.forEach((v, k) => {
+    config.set(k, new ColorImpl(v, def.number, def.channel).toMidiArray());
+  });
+
+  const outputPropagator = undefined;
+  let devicePropagator;
+  if (lightConfig) {
+    devicePropagator = new NStepPropagator(def.response, def.response, config);
+  }
+
+  return new InputConfig(
+    def,
+    avail,
+    true,
+    inputType,
+    0,
+    outputPropagator,
+    devicePropagator
+  );
 }
 
 function createGatePadInput(
@@ -55,10 +72,10 @@ function createGatePadInput(
   includeLightConfig = false
 ) {
   const colors = includeAvailableColors ? [GREEN, RED] : [];
-  const lightConfig = new Map<string, Color>();
+  const lightConfig = new Map<number, Color>();
   if (includeLightConfig) {
-    lightConfig.set('on', GREEN);
-    lightConfig.set('off', RED);
+    lightConfig.set(1, GREEN);
+    lightConfig.set(0, RED);
   }
   return createInput(
     seedNumber,
@@ -137,19 +154,22 @@ test('labelForResponse returns correct response for group with similar inputs', 
 test('colorForState return null for unset availableColors', () => {
   const pad1 = createGatePadInput(0);
   const group = new InputGroup([pad1]);
-  expect(group.colorForState('off')).toBe(null);
+  expect(group.colorForState(0)).toBe(null);
 });
 
 test('colorForState returns default for unset light config', () => {
   const pad1 = createGatePadInput(0, true);
   const group = new InputGroup([pad1]);
-  expect(group.colorForState('on')).toBe(GREEN);
+  expect(group.colorForState(1)).toBe(GREEN);
 });
 
 test('colorForState returns the correct color', () => {
   const pad1 = createGatePadInput(0, true, true);
   const group = new InputGroup([pad1]);
-  expect(group.colorForState('off')).toBe(RED);
+
+  const correct = new ColorImpl(RED, pad1.number, pad1.channel);
+
+  expect(group.colorForState(0)).toEqual(correct);
 });
 
 test('isMultiInput returns true for xy', () => {

@@ -16,7 +16,8 @@
     "width": 11.5,
     "height": 3.125,
     "bottom": 0,
-    "left": 1.5
+    "left": 1.5,
+    "enabled": false
   },
   "inputGrids": [
     {
@@ -30,7 +31,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "controlchange",
             "response": "toggle"
@@ -44,7 +45,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -2,
             "eventType": "controlchange",
             "response": "toggle"
@@ -58,7 +59,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -3,
             "eventType": "controlchange",
             "response": "toggle"
@@ -72,7 +73,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -4,
             "eventType": "controlchange",
             "response": "toggle"
@@ -86,7 +87,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -5,
             "eventType": "controlchange",
             "response": "toggle"
@@ -100,7 +101,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -6,
             "eventType": "controlchange",
             "response": "toggle"

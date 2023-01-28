@@ -16,7 +16,8 @@
     "width": 11.5,
     "height": 3.2,
     "left": 0.4375,
-    "bottom": 0
+    "bottom": 0,
+    "enabled": false
   },
   "inputGrids": [
     {
@@ -75,7 +76,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "unknown",
             "response": "gate"
@@ -89,7 +90,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -2,
             "eventType": "unknown",
             "response": "gate"
@@ -103,7 +104,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -3,
             "eventType": "unknown",
             "response": "gate"
@@ -117,7 +118,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -4,
             "eventType": "unknown",
             "response": "gate"
@@ -131,7 +132,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -5,
             "eventType": "unknown",
             "response": "gate"
@@ -145,7 +146,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -6,
             "eventType": "unknown",
             "response": "gate"
@@ -560,7 +561,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "unknown",
             "response": "gate"
@@ -574,7 +575,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -2,
             "eventType": "unknown",
             "response": "gate"
@@ -588,7 +589,7 @@
         },
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -3,
             "eventType": "unknown",
             "response": "gate"
@@ -613,7 +614,7 @@
       "inputs": [
         {
           "default": {
-            "channel": -1,
+            "channel": 0,
             "number": -1,
             "eventType": "unknown",
             "response": "gate"

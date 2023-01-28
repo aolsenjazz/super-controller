@@ -1,4 +1,4 @@
-import { setStatus } from '@shared/midi-util';
+import { setStatus, getChannel, getStatus } from '@shared/midi-util';
 import { OutputPropagator } from '@shared/propagators/output-propagator';
 import { InputResponse } from '@shared/driver-types';
 
@@ -13,145 +13,337 @@ function createPropagator(
   return new OutputPropagator(ir, or, eventType, number, channel, value);
 }
 
-function createNoteOn(number = 0, channel: Channel = 0) {
-  return setStatus([channel, number, 127], 'noteon');
+const noteon = [144, 32, 127];
+const noteoff = [128, 32, 0];
+
+function getNumber(msg: number[]) {
+  return msg[0];
 }
 
-function createNoteOff(number = 0, channel: Channel = 0) {
-  return setStatus([channel, number, 127], 'noteoff');
+function getValue(msg: number[]) {
+  return msg[2];
 }
 
-function createCC(value = 0, number = 0, channel: Channel = 0) {
+interface NamedCreateCC {
+  value: number;
+  number: number;
+  channel: Channel;
+}
+function createCC({ value = 0, number = 0, channel = 0 }: NamedCreateCC) {
   return setStatus([channel, number, value], 'controlchange');
 }
 
-const NOTE_ON = createNoteOn();
-const NOTE_OFF = createNoteOff();
+describe('hr as gate', () => {
+  test('or=gate overrides values correctly', () => {
+    const msg = createCC({ value: 127, number: 90, channel: 7 });
+    const propagator = createPropagator(
+      'gate',
+      'gate',
+      'controlchange',
+      getNumber(msg),
+      getChannel(msg)
+    );
 
-test('input:gate output:gate flips state correctly', () => {
-  const prop = createPropagator('gate', 'gate');
+    const result = propagator.handleMessage(noteon)!;
 
-  prop.handleMessage(NOTE_ON);
-  expect(prop.state).toBe('on');
+    expect(getStatus(result)).toEqual(getStatus(msg));
+    expect(getNumber(result)).toEqual(getNumber(msg));
+    expect(getChannel(result)).toEqual(getChannel(msg));
+    expect(getValue(result)).toEqual(getValue(noteon));
+  });
 
-  prop.handleMessage(NOTE_OFF);
-  expect(prop.state).toBe('off');
+  test('or=gate responds to both noteon and noteoff', () => {
+    const msg = createCC({ value: 127, number: 90, channel: 7 });
+    const propagator = createPropagator(
+      'gate',
+      'gate',
+      'controlchange',
+      getNumber(msg),
+      getChannel(msg)
+    );
+
+    const result = propagator.handleMessage(noteon)!;
+
+    expect(getStatus(result)).toEqual(getStatus(msg));
+    expect(getNumber(result)).toEqual(getNumber(msg));
+    expect(getChannel(result)).toEqual(getChannel(msg));
+    expect(getValue(result)).toEqual(getValue(noteon));
+
+    const result2 = propagator.handleMessage(noteoff)!;
+
+    expect(getStatus(result2)).toEqual(getStatus(msg));
+    expect(getNumber(result2)).toEqual(getNumber(msg));
+    expect(getChannel(result2)).toEqual(getChannel(msg));
+    expect(getValue(result2)).toEqual(getValue(noteoff));
+  });
+
+  test('or=toggle overrides values correctly', () => {
+    const msg = createCC({ value: 127, number: 90, channel: 7 });
+    const propagator = createPropagator(
+      'gate',
+      'toggle',
+      'controlchange',
+      getNumber(msg),
+      getChannel(msg)
+    );
+
+    const result = propagator.handleMessage(noteon)!;
+
+    expect(getStatus(result)).toEqual(getStatus(msg));
+    expect(getNumber(result)).toEqual(getNumber(msg));
+    expect(getChannel(result)).toEqual(getChannel(msg));
+    expect(getValue(result)).toEqual(getValue(noteon));
+  });
+
+  test('or=toggle only responds to noteon', () => {
+    const msg = createCC({ value: 127, number: 90, channel: 7 });
+    const propagator = createPropagator(
+      'gate',
+      'toggle',
+      'controlchange',
+      getNumber(msg),
+      getChannel(msg)
+    );
+
+    const result = propagator.handleMessage(noteon)!;
+
+    expect(getStatus(result)).toEqual(getStatus(msg));
+    expect(getNumber(result)).toEqual(getNumber(msg));
+    expect(getChannel(result)).toEqual(getChannel(msg));
+    expect(getValue(result)).toEqual(getValue(noteon));
+
+    const result2 = propagator.handleMessage(noteoff);
+
+    expect(result2).toBeNull();
+  });
+
+  test('or=constant flow works correctly', () => {
+    const msg = createCC({ value: 69, number: 90, channel: 7 });
+    const propagator = createPropagator(
+      'gate',
+      'constant',
+      'controlchange',
+      getNumber(msg),
+      getChannel(msg),
+      69
+    );
+
+    const result = propagator.handleMessage(noteon)!;
+    expect(getValue(result)).toEqual(getValue(msg));
+
+    const result2 = propagator.handleMessage(noteoff);
+    expect(result2).toBeNull();
+
+    const result3 = propagator.handleMessage(noteon)!;
+    expect(getValue(result3)).toEqual(getValue(msg));
+  });
 });
 
-test('input:gate output:toggle flips state correctly', () => {
-  const prop = createPropagator('gate', 'toggle');
+describe('hr=toggle', () => {
+  test('or=toggle flow works correctly', () => {
+    const msg = createCC({ value: 127, number: 90, channel: 7 });
+    const propagator = createPropagator(
+      'toggle',
+      'toggle',
+      'controlchange',
+      getNumber(msg),
+      getChannel(msg)
+    );
 
-  prop.handleMessage(NOTE_ON);
-  prop.handleMessage(NOTE_OFF);
-  expect(prop.state).toBe('on');
+    const result = propagator.handleMessage(noteon)!;
 
-  prop.handleMessage(NOTE_ON);
-  prop.handleMessage(NOTE_OFF);
-  expect(prop.state).toBe('off');
+    expect(getStatus(result)).toEqual(getStatus(msg));
+    expect(getNumber(result)).toEqual(getNumber(msg));
+    expect(getChannel(result)).toEqual(getChannel(msg));
+    expect(getValue(result)).toEqual(getValue(noteon));
+
+    const result2 = propagator.handleMessage(noteoff)!;
+
+    expect(getStatus(result2)).toEqual(getStatus(msg));
+    expect(getNumber(result2)).toEqual(getNumber(msg));
+    expect(getChannel(result2)).toEqual(getChannel(msg));
+    expect(getValue(result2)).toEqual(getValue(noteoff));
+  });
+
+  test('or=constant flow works correctly', () => {
+    const msg = createCC({ value: 69, number: 90, channel: 7 });
+    const propagator = createPropagator(
+      'toggle',
+      'constant',
+      'controlchange',
+      getNumber(msg),
+      getChannel(msg),
+      69
+    );
+
+    const result = propagator.handleMessage(noteon)!;
+
+    expect(getStatus(result)).toEqual(getStatus(msg));
+    expect(getNumber(result)).toEqual(getNumber(msg));
+    expect(getChannel(result)).toEqual(getChannel(msg));
+    expect(getValue(result)).toEqual(getValue(msg));
+
+    const result2 = propagator.handleMessage(noteoff)!;
+
+    expect(getStatus(result2)).toEqual(getStatus(msg));
+    expect(getNumber(result2)).toEqual(getNumber(msg));
+    expect(getChannel(result2)).toEqual(getChannel(msg));
+    expect(getValue(result2)).toEqual(getValue(msg));
+  });
 });
 
-test('input:constant output:toggle flips state correctly', () => {
-  const prop = createPropagator('constant', 'toggle');
+describe('hr=constant', () => {
+  test('or=toggle flow works correctly', () => {
+    const msg = createCC({ value: 69, number: 90, channel: 7 });
+    const propagator = createPropagator(
+      'constant',
+      'toggle',
+      'controlchange',
+      getNumber(msg),
+      getChannel(msg),
+      69
+    );
 
-  prop.handleMessage(NOTE_ON);
-  expect(prop.state).toBe('on');
+    const result = propagator.handleMessage(noteon)!;
 
-  prop.handleMessage(NOTE_ON);
-  expect(prop.state).toBe('off');
+    expect(getStatus(result)).toEqual(getStatus(msg));
+    expect(getNumber(result)).toEqual(getNumber(msg));
+    expect(getChannel(result)).toEqual(getChannel(msg));
+    expect(getValue(result)).toEqual(127);
+
+    const result2 = propagator.handleMessage(noteoff)!;
+
+    expect(getStatus(result2)).toEqual(getStatus(msg));
+    expect(getNumber(result2)).toEqual(getNumber(msg));
+    expect(getChannel(result2)).toEqual(getChannel(msg));
+    expect(getValue(result2)).toEqual(0);
+  });
+
+  test('or=constant flow works correctly', () => {
+    const msg = createCC({ value: 69, number: 90, channel: 7 });
+    const propagator = createPropagator(
+      'constant',
+      'constant',
+      'controlchange',
+      getNumber(msg),
+      getChannel(msg),
+      69
+    );
+
+    const result = propagator.handleMessage(noteon)!;
+
+    expect(getStatus(result)).toEqual(getStatus(msg));
+    expect(getNumber(result)).toEqual(getNumber(msg));
+    expect(getChannel(result)).toEqual(getChannel(msg));
+    expect(getValue(result)).toEqual(69);
+
+    const result2 = propagator.handleMessage(noteoff)!;
+
+    expect(getStatus(result2)).toEqual(getStatus(msg));
+    expect(getNumber(result2)).toEqual(getNumber(msg));
+    expect(getChannel(result2)).toEqual(getChannel(msg));
+    expect(getValue(result2)).toEqual(69);
+  });
 });
 
-test('input:toggle output:toggle flips state correctly', () => {
-  const prop = createPropagator('toggle', 'toggle');
+describe('hr=continuous', () => {
+  test('or=continuous flow works correctly', () => {
+    const msg1 = createCC({ value: 60, number: 90, channel: 7 });
+    const msg2 = createCC({ value: 70, number: 90, channel: 7 });
+    const propagator = createPropagator(
+      'continuous',
+      'continuous',
+      'noteon',
+      getNumber(noteon),
+      getChannel(noteon),
+      69
+    );
 
-  prop.handleMessage(NOTE_ON);
-  expect(prop.state).toBe('on');
+    const result = propagator.handleMessage(msg1)!;
 
-  prop.handleMessage(NOTE_OFF);
-  expect(prop.state).toBe('off');
+    expect(getStatus(result)).toEqual(getStatus(noteon));
+    expect(getNumber(result)).toEqual(getNumber(noteon));
+    expect(getChannel(result)).toEqual(getChannel(noteon));
+    expect(getValue(result)).toEqual(60);
+
+    const result2 = propagator.handleMessage(msg2)!;
+
+    expect(getStatus(result2)).toEqual(getStatus(noteon));
+    expect(getNumber(result2)).toEqual(getNumber(noteon));
+    expect(getChannel(result2)).toEqual(getChannel(noteon));
+    expect(getValue(result2)).toEqual(70);
+  });
 });
 
-test('input:continuous output:continuous props correctly', () => {
-  const msg1 = createCC(0);
-  const msg2 = createCC(10);
+describe('toJSON', () => {
+  test('serializes + deserializes stock values correctly', () => {
+    const propagator = createPropagator(
+      'continuous',
+      'continuous',
+      'noteon',
+      getNumber(noteon),
+      getChannel(noteon),
+      69
+    );
 
-  const prop = createPropagator('continuous', 'continuous', 'controlchange');
+    const json = propagator.toJSON(false);
+    const obj = JSON.parse(json);
 
-  const result1 = prop.handleMessage(msg1);
-  expect(result1).toEqual(msg1);
+    expect(obj.hardwareResponse).toEqual(propagator.hardwareResponse);
+    expect(obj.outputResponse).toEqual(propagator.outputResponse);
+    expect(obj.eventType).toEqual(propagator.eventType);
+    expect(obj.number).toEqual(propagator.number);
+    expect(obj.channel).toEqual(propagator.channel);
+    expect(obj.value).toEqual(propagator.value);
+  });
 
-  const result2 = prop.handleMessage(msg2);
-  expect(result2).toEqual(msg2);
-});
+  test('toJSON stores state', () => {
+    const propagator = createPropagator(
+      'gate',
+      'gate',
+      'controlchange',
+      getNumber(noteon),
+      getChannel(noteon),
+      69
+    );
 
-test('pitchbend propagator props correctly', () => {
-  const prop = createPropagator('continuous', 'continuous', 'pitchbend');
+    const msg = propagator.handleMessage(noteon);
 
-  // 224 = pitchbend event on channel 0
-  const msg1 = [224, 60, 60];
+    const json = propagator.toJSON(true);
+    const obj = JSON.parse(json);
 
-  const result = prop.handleMessage(msg1);
-  expect(result).toEqual(msg1);
-});
+    expect(obj.lastPropagated).toEqual(msg);
+  });
 
-test('input:constant output:constant is always "off"', () => {
-  const prop = createPropagator('constant', 'constant');
+  test('toJSON stores non-stock variables correct', () => {
+    const newOutputResponse = 'toggle';
+    const newNumber = 70;
+    const newChannel = 7;
+    const newValue = 60;
+    const newStatus = 'controlchange';
 
-  expect(prop.state).toBe('off');
+    const propagator = createPropagator(
+      'gate',
+      'gate',
+      'noteon/noteoff',
+      getNumber(noteon),
+      getChannel(noteon),
+      69
+    );
 
-  prop.handleMessage(NOTE_ON);
-  expect(prop.state).toBe('off');
+    propagator.outputResponse = newOutputResponse;
+    propagator.number = newNumber;
+    propagator.channel = newChannel;
+    propagator.value = newValue;
+    propagator.eventType = newStatus;
 
-  prop.handleMessage(NOTE_OFF);
-  expect(prop.state).toBe('off');
-});
+    const json = propagator.toJSON(false);
+    const obj = JSON.parse(json);
 
-test('eligibleStates returns correct for output:gate', () => {
-  const prop = createPropagator('gate', 'gate');
-  expect(prop.eligibleStates).toEqual(['off', 'on']);
-});
-
-test('eligibleStates returns correct for output:toggle', () => {
-  const prop = createPropagator('gate', 'toggle');
-  expect(prop.eligibleStates).toEqual(['off', 'on']);
-});
-
-test('eligibleStates returns correct for output:continuous', () => {
-  const prop = createPropagator('continuous', 'continuous');
-  expect(prop.eligibleStates).toEqual([]);
-});
-
-test('creating input:continuous output:gate throws', () => {
-  expect(() => {
-    createPropagator('continuous', 'gate');
-  }).toThrow();
-});
-
-test('creating input:continuous output:toggle throws', () => {
-  expect(() => {
-    createPropagator('continuous', 'toggle');
-  }).toThrow();
-});
-
-test('creating input:gate output:continuous throws', () => {
-  expect(() => {
-    createPropagator('gate', 'continuous');
-  }).toThrow();
-});
-
-test('creating input:toggle output:continuous throws', () => {
-  expect(() => {
-    createPropagator('toggle', 'continuous');
-  }).toThrow();
-});
-
-test('creating input:constant output:continuous throws', () => {
-  expect(() => {
-    createPropagator('constant', 'continuous');
-  }).toThrow();
-});
-
-test('creating input:toggle, output:gate throws', () => {
-  expect(() => {
-    createPropagator('toggle', 'gate');
-  }).toThrow();
+    expect(obj.outputResponse).toEqual(newOutputResponse);
+    expect(obj.eventType).toEqual(newStatus);
+    expect(obj.number).toEqual(newNumber);
+    expect(obj.channel).toEqual(newChannel);
+    expect(obj.value).toEqual(newValue);
+  });
 });

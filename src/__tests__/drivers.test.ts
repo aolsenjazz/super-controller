@@ -3,7 +3,7 @@
 import { test, expect } from '@jest/globals';
 
 import { TESTABLES, DRIVERS } from '../main/drivers';
-import { validateDeviceDriver } from './driver-validator';
+import { validateDeviceDriver } from '../helper/driver-validator';
 
 const fNameRegex = new RegExp(/^.+\.json$/);
 const getAvailableDrivers: () => string[] = TESTABLES.get(
@@ -43,6 +43,18 @@ test('getAvailableDrivers returns only json files', () => {
 
 test('validate drivers', () => {
   DRIVERS.forEach((v) => {
-    expect(validateDeviceDriver(v)).not.toThrow();
+    expect(() => {
+      try {
+        validateDeviceDriver(v);
+      } catch (e: unknown) {
+        let msg;
+
+        if (typeof e === 'string') msg = e;
+        else if (e instanceof Error) msg = e.message;
+        else msg = 'unknown error';
+
+        throw new Error(`${v.name}: ${msg}`);
+      }
+    }).not.toThrow();
   });
 });

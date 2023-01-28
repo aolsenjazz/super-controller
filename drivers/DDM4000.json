@@ -25,7 +25,7 @@
         {
           "default": {
             "number": -1,
-            "channel": -1,
+            "channel": 0,
             "eventType": "controlchange",
             "response": "continuous"
           },
@@ -93,7 +93,7 @@
         {
           "default": {
             "number": -6,
-            "channel": -1,
+            "channel": 0,
             "eventType": "controlchange",
             "response": "continuous"
           },
@@ -161,7 +161,7 @@
         {
           "default": {
             "number": -7,
-            "channel": -1,
+            "channel": 0,
             "eventType": "controlchange",
             "response": "continuous"
           },
@@ -229,7 +229,7 @@
         {
           "default": {
             "number": -8,
-            "channel": -1,
+            "channel": 0,
             "eventType": "controlchange",
             "response": "continuous"
           },
@@ -297,7 +297,7 @@
         {
           "default": {
             "number": -9,
-            "channel": -1,
+            "channel": 0,
             "eventType": "controlchange",
             "response": "continuous"
           },
