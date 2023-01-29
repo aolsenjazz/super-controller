@@ -31,90 +31,35 @@
       "left": 0,
       "inputs": [
         {
-          "default": {
-            "number": 0,
-            "channel": 0,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "width": 1,
-          "height": 1,
-          "shape": "rect",
-          "type": "pad",
-          "overrideable": false,
-          "availableColors": []
+          "number": 0
         },
         {
-          "default": {
-            "number": 1,
-            "channel": 0,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "width": 1,
-          "height": 1,
-          "shape": "rect",
-          "overrideable": false,
-          "type": "pad",
-          "availableColors": []
+          "number": 1
         },
         {
-          "default": {
-            "number": 2,
-            "channel": 0,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "width": 1,
-          "height": 1,
-          "shape": "rect",
-          "overrideable": false,
-          "type": "pad",
-          "availableColors": []
+          "number": 2
         },
         {
-          "default": {
-            "number": 3,
-            "channel": 0,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "width": 1,
-          "height": 1,
-          "shape": "rect",
-          "overrideable": false,
-          "type": "pad",
-          "availableColors": []
+          "number": 3
         },
         {
-          "default": {
-            "number": 4,
-            "channel": 0,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "width": 1,
-          "height": 1,
-          "shape": "rect",
-          "type": "pad",
-          "overrideable": false,
-          "availableColors": []
+          "number": 4
         },
         {
-          "default": {
-            "number": 5,
-            "channel": 0,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "width": 1,
-          "height": 1,
-          "shape": "rect",
-          "overrideable": false,
-          "type": "pad",
-          "availableColors": []
+          "number": 5
         }
-      ]
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 1,
+        "height": 1,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
     }
   ]
 }

@@ -45,7 +45,9 @@ export class VirtualInputGrid {
     this.left = driver.left;
     this.bottom = driver.bottom;
 
-    this.inputs = driver.inputs.map((d) => new VirtualInput(d));
+    this.inputs = driver.inputs.map(
+      (d) => new VirtualInput(d, driver.inputDefaults)
+    );
   }
 
   /**

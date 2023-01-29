@@ -1,11 +1,6 @@
 import { InputConfig, ColorImpl } from '@shared/hardware-config';
 import { NStepPropagator } from '@shared/propagators';
-import {
-  InputDefault,
-  Color,
-  InputResponse,
-  InputType,
-} from '@shared/driver-types';
+import { Color, InputResponse, InputType } from '@shared/driver-types';
 
 import { InputGroup } from '../renderer/input-group';
 
@@ -35,7 +30,7 @@ function createInput(
   availableColors: Color[] = [],
   lightConfig: Map<number, Color> = new Map()
 ) {
-  const def: InputDefault = {
+  const def: InputConfig['default'] = {
     number: seedNumber,
     channel: seedNumber,
     eventType,

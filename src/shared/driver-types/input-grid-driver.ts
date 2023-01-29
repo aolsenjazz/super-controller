@@ -1,4 +1,36 @@
+import { Color } from './color';
 import { InputDriver } from './input-driver';
+
+type InputDefaults = {
+  /* MIDI channel */
+  readonly channel?: InputDriver['channel'];
+
+  /* MIDI event type */
+  readonly eventType?: InputDriver['eventType'];
+
+  /* See InputResponse */
+  readonly response?: InputDriver['response'];
+
+  /* Physical shape of the input. circle + square have 1:1 aspect ratio enforced */
+  shape?: 'circle' | 'rect' | 'square';
+
+  /* See InputType */
+  type?: InputDriver['type'];
+
+  /* Can the input be overridden? `false` if the input does not transmit data to clients */
+  overrideable?: boolean;
+
+  /* Height of the input in inches */
+  height?: number;
+
+  /* Width of the input in inches */
+  width?: number;
+
+  /**
+   * List of `Color`s the child Inputs all support
+   */
+  availableColors?: Color[];
+};
 
 export type InputGridDriver = {
   /** Simple identifier, e.g. Main Pads */
@@ -30,4 +62,6 @@ export type InputGridDriver = {
 
   /* See `InputDriver` */
   inputs: InputDriver[];
+
+  inputDefaults: InputDefaults;
 };

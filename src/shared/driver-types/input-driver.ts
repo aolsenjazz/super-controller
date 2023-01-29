@@ -15,52 +15,46 @@ export type InputResponse = 'gate' | 'toggle' | 'continuous' | 'constant';
 /* Input type */
 export type InputType = 'pad' | 'knob' | 'slider' | 'wheel' | 'xy';
 
-/* Default values for the input loaded in from a driver */
-export type InputDefault = {
+export type InputDriver = {
   /* Note number, CC number, program number, etc */
   readonly number: number;
 
   /* MIDI channel */
-  readonly channel: Channel;
+  readonly channel?: Channel;
 
   /* MIDI event type */
-  readonly eventType: StatusString | 'noteon/noteoff';
+  readonly eventType?: StatusString | 'noteon/noteoff';
 
   /* See InputResponse */
-  readonly response: InputResponse;
-};
-
-export type InputDriver = {
-  /* See `InputDefault` */
-  default: InputDefault;
+  readonly response?: InputResponse;
 
   /* Physical shape of the input. circle + square have 1:1 aspect ratio enforced */
-  shape: 'circle' | 'rect' | 'square';
+  readonly shape?: 'circle' | 'rect' | 'square';
 
   /* See InputType */
-  type: InputType;
-
-  /**
-   * List of `Color`s this input supports. For inputs whose colors are controlled by
-   * the device, this should be left empty.
-   */
-  availableColors: Color[];
+  readonly type?: InputType;
 
   /* Can the input be overridden? `false` if the input does not transmit data to clients */
-  overrideable: boolean;
+  readonly overrideable?: boolean;
 
   /* Height of the input in inches */
-  height: number;
+  readonly height?: number;
 
   /* Width of the input in inches */
-  width: number;
+  readonly width?: number;
 
   /* What is the default value of this control? */
-  value?: number;
+  readonly value?: number;
 
   /* If input has a handle (think wheel or XY pad), width in inches */
-  handleWidth?: number;
+  readonly handleWidth?: number;
 
   /* If input has a handle (think wheel, or XY pad), height in inches */
-  handleHeight?: number;
+  readonly handleHeight?: number;
+
+  /**
+   * List of `Color`s this input supports. This field will by default be inherited
+   * from the parent `InputGrid`, but that value may be overridden by setting it here.
+   */
+  readonly availableColors?: Color[];
 };

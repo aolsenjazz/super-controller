@@ -1,5 +1,6 @@
 import { setStatus } from '@shared/midi-util';
 import { DeviceDriver } from '@shared/driver-types';
+import { ColorImpl } from '@shared/hardware-config';
 
 import { PortPair } from './port-pair';
 
@@ -29,20 +30,20 @@ export class DrivenPortPair extends PortPair {
 
   /* Reset all of the lights on the device to their initial state. */
   resetLights() {
-    this.driver.inputGrids
-      .map((ig) => ig.inputs)
-      .flat()
-      .forEach((input) => {
-        const defaultColor = input.availableColors.filter((c) => c.default)[0];
+    this.driver.inputGrids.forEach((ig) => {
+      ig.inputs.forEach((i) => {
+        const defs = ig.inputDefaults;
+        const channel = (i.channel || defs.channel)!;
+        const availableColors = i.availableColors || defs.availableColors || [];
 
-        if (defaultColor) {
-          const mm = setStatus(
-            [input.default.channel, input.default.number, defaultColor.value],
-            defaultColor.eventType
-          );
-          this.#pair.send(mm);
-        }
+        if (availableColors.length === 0) return;
+
+        const defColor = availableColors.filter((c) => c.default)[0];
+        const defColorImpl = new ColorImpl(defColor, i.number, channel);
+
+        this.#pair.send(defColorImpl.toMidiArray());
       });
+    });
   }
 
   /**

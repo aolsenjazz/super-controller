@@ -548,38 +548,28 @@
       "bottom": 3.875,
       "inputs": [
         {
-          "default": {
-            "channel": 0,
-            "number": 0,
-            "eventType": "pitchbend",
-            "response": "continuous"
-          },
-          "overrideable": true,
-          "type": "wheel",
-          "shape": "rect",
-          "width": 0.5,
-          "height": 2.25,
           "handleWidth": 0.5,
           "handleHeight": 0.25,
-          "availableColors": []
+          "number": 0
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 1,
-            "eventType": "controlchange",
-            "response": "continuous"
-          },
-          "overrideable": true,
-          "type": "wheel",
-          "shape": "rect",
-          "width": 0.5,
-          "height": 2.25,
           "handleWidth": 0.5,
           "handleHeight": 0.25,
-          "availableColors": []
+          "number": 1,
+          "eventType": "controlchange"
         }
-      ]
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "wheel",
+        "width": 0.5,
+        "height": 2.25,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "continuous",
+        "eventType": "pitchbend",
+        "channel": 0
+      }
     },
     {
       "id": "Octaves",
@@ -591,34 +581,24 @@
       "bottom": 3.75,
       "inputs": [
         {
-          "default": {
-            "channel": 0,
-            "number": 0,
-            "eventType": "octup",
-            "response": "constant"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.25,
-          "availableColors": []
+          "number": 0
         },
         {
-          "default": {
-            "channel": 0,
-            "number": -1,
-            "eventType": "octdown",
-            "response": "constant"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.25,
-          "availableColors": []
+          "number": -1,
+          "eventType": "octdown"
         }
-      ]
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.5,
+        "height": 0.25,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "constant",
+        "eventType": "octup",
+        "channel": 0
+      }
     },
     {
       "id": "Transpose",
@@ -630,20 +610,20 @@
       "bottom": 5.125,
       "inputs": [
         {
-          "default": {
-            "channel": 0,
-            "number": 0,
-            "eventType": "octup",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.25,
-          "availableColors": []
+          "number": 0
         }
-      ]
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.5,
+        "height": 0.25,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "octup",
+        "channel": 0
+      }
     },
     {
       "id": "Shift",
@@ -655,20 +635,20 @@
       "bottom": 5.875,
       "inputs": [
         {
-          "default": {
-            "channel": 0,
-            "number": 0,
-            "eventType": "octup",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.25,
-          "availableColors": []
+          "number": 0
         }
-      ]
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.5,
+        "height": 0.25,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "octup",
+        "channel": 0
+      }
     },
     {
       "id": "Pads",
@@ -680,2321 +660,30 @@
       "bottom": 3.75,
       "inputs": [
         {
-          "default": {
-            "channel": 0,
-            "number": 96,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 96
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 97,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 97
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 98,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 98
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 99,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 99
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 100,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 100
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 101,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 101
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 102,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 102
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 103,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 103
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 104,
-            "eventType": "controlchange",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
           "availableColors": [
             {
               "name": "Clear",
@@ -3270,2324 +959,35 @@
               "string": "#ca2c92",
               "fx": []
             }
-          ]
+          ],
+          "number": 104,
+          "eventType": "controlchange"
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 112,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 112
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 113,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 113
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 114,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 114
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 115,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 115
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 116,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 116
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 117,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 117
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 118,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 118
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 119,
-            "eventType": "noteon/noteoff",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (dim)",
-              "eventType": "noteon",
-              "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue",
-              "eventType": "noteon",
-              "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
-            },
-            {
-              "name": "Baby Blue (bright)",
-              "eventType": "noteon",
-              "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
-            },
-            {
-              "name": "Pink",
-              "eventType": "noteon",
-              "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
-            },
-            {
-              "name": "Red (dim)",
-              "eventType": "noteon",
-              "value": 7,
-              "string": "#F58A70",
-              "fx": []
-            },
-            {
-              "name": "Red",
-              "eventType": "noteon",
-              "value": 6,
-              "string": "#F36E56",
-              "fx": []
-            },
-            {
-              "name": "Red (bright)",
-              "eventType": "noteon",
-              "value": 5,
-              "string": "#F44336",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "noteon",
-              "value": 8,
-              "string": "white",
-              "fx": []
-            },
-            {
-              "name": "Off-White",
-              "eventType": "noteon",
-              "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
-            },
-            {
-              "name": "Orange (dim)",
-              "eventType": "noteon",
-              "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
-            },
-            {
-              "name": "Orange",
-              "eventType": "noteon",
-              "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
-            },
-            {
-              "name": "Orange (bright)",
-              "eventType": "noteon",
-              "value": 9,
-              "string": "#FF9900",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (dim)",
-              "eventType": "noteon",
-              "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green",
-              "eventType": "noteon",
-              "value": 14,
-              "string": "#E6EA89",
-              "fx": []
-            },
-            {
-              "name": "Yellow-Green (Bright)",
-              "eventType": "noteon",
-              "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
-            },
-            {
-              "name": "SeaFoam-Green",
-              "eventType": "noteon",
-              "value": 16,
-              "string": "#93E9BE",
-              "fx": []
-            },
-            {
-              "name": "Light Green (dim)",
-              "eventType": "noteon",
-              "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
-            },
-            {
-              "name": "Light Green",
-              "eventType": "noteon",
-              "value": 18,
-              "string": "#b0d89e",
-              "fx": []
-            },
-            {
-              "name": "Light Green (bright)",
-              "eventType": "noteon",
-              "value": 17,
-              "string": "#90ee90",
-              "fx": []
-            },
-            {
-              "name": "Blue-Green",
-              "eventType": "noteon",
-              "value": 20,
-              "string": "#7fffec",
-              "fx": []
-            },
-            {
-              "name": "Green (dim)",
-              "eventType": "noteon",
-              "value": 23,
-              "string": "#91C587",
-              "fx": []
-            },
-            {
-              "name": "Green",
-              "eventType": "noteon",
-              "value": 22,
-              "string": "#75BB6D",
-              "fx": []
-            },
-            {
-              "name": "Green (bright)",
-              "eventType": "noteon",
-              "value": 21,
-              "string": "#4CAF50",
-              "fx": []
-            },
-            {
-              "name": "Cyan (dim)",
-              "eventType": "noteon",
-              "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
-            },
-            {
-              "name": "Cyan",
-              "eventType": "noteon",
-              "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
-            },
-            {
-              "name": "Cyan (bright)",
-              "eventType": "noteon",
-              "value": 29,
-              "string": "#00FFFF",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (dim)",
-              "eventType": "noteon",
-              "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
-            },
-            {
-              "name": "Light Blue",
-              "eventType": "noteon",
-              "value": 34,
-              "string": "#86D5F7",
-              "fx": []
-            },
-            {
-              "name": "Light Blue (bright)",
-              "eventType": "noteon",
-              "value": 33,
-              "string": "#55D3FF",
-              "fx": []
-            },
-            {
-              "name": "Blue (dim)",
-              "eventType": "noteon",
-              "value": 39,
-              "string": "#A4CDED",
-              "fx": []
-            },
-            {
-              "name": "Blue",
-              "eventType": "noteon",
-              "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
-            },
-            {
-              "name": "Blue (bright)",
-              "eventType": "noteon",
-              "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (dim)",
-              "eventType": "noteon",
-              "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue",
-              "eventType": "noteon",
-              "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
-            },
-            {
-              "name": "Deep Blue (bright)",
-              "eventType": "noteon",
-              "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (dim)",
-              "eventType": "noteon",
-              "value": 55,
-              "string": "#d880b4",
-              "fx": []
-            },
-            {
-              "name": "Fuschia",
-              "eventType": "noteon",
-              "value": 54,
-              "string": "#d161a5",
-              "fx": []
-            },
-            {
-              "name": "Fuschia (bright)",
-              "eventType": "noteon",
-              "value": 53,
-              "string": "#ca2c92",
-              "fx": []
-            }
-          ]
+          "number": 119
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 105,
-            "eventType": "controlchange",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.7,
-          "height": 0.7,
           "availableColors": [
             {
               "name": "Clear",
@@ -5863,9 +1263,296 @@
               "string": "#ca2c92",
               "fx": []
             }
-          ]
+          ],
+          "number": 105,
+          "eventType": "controlchange"
         }
-      ]
+      ],
+      "inputDefaults": {
+        "availableColors": [
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Clear",
+            "string": "transparent",
+            "value": 0
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Baby Blue (dim)",
+            "string": "#F3FAFE",
+            "value": 1
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Baby Blue",
+            "string": "#ECF7FD",
+            "value": 2
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Baby Blue (bright)",
+            "string": "#DFF9FF",
+            "value": 3
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Pink",
+            "string": "#FF9FDA",
+            "value": 4
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Red (dim)",
+            "string": "#F58A70",
+            "value": 7
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Red",
+            "string": "#F36E56",
+            "value": 6
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Red (bright)",
+            "string": "#F44336",
+            "value": 5
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "White",
+            "string": "white",
+            "value": 8
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Off-White",
+            "string": "#F8F0E3",
+            "value": 12
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Orange (dim)",
+            "string": "#FCBB6F",
+            "value": 11
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Orange",
+            "string": "#FAAB4B",
+            "value": 10
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Orange (bright)",
+            "string": "#FF9900",
+            "value": 9
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Yellow-Green (dim)",
+            "string": "#EBEEA0",
+            "value": 15
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Yellow-Green",
+            "string": "#E6EA89",
+            "value": 14
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Yellow-Green (Bright)",
+            "string": "#E3FF6A",
+            "value": 13
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "SeaFoam-Green",
+            "string": "#93E9BE",
+            "value": 16
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Light Green (dim)",
+            "string": "#bfdfb0",
+            "value": 19
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Light Green",
+            "string": "#b0d89e",
+            "value": 18
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Light Green (bright)",
+            "string": "#90ee90",
+            "value": 17
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Blue-Green",
+            "string": "#7fffec",
+            "value": 20
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Green (dim)",
+            "string": "#91C587",
+            "value": 23
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Green",
+            "string": "#75BB6D",
+            "value": 22
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Green (bright)",
+            "string": "#4CAF50",
+            "value": 21
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Cyan (dim)",
+            "string": "#A5DDE7",
+            "value": 31
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Cyan",
+            "string": "#8ED5E3",
+            "value": 30
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Cyan (bright)",
+            "string": "#00FFFF",
+            "value": 29
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Light Blue (dim)",
+            "string": "#A0DDF9",
+            "value": 35
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Light Blue",
+            "string": "#86D5F7",
+            "value": 34
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Light Blue (bright)",
+            "string": "#55D3FF",
+            "value": 33
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Blue (dim)",
+            "string": "#A4CDED",
+            "value": 39
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Blue",
+            "string": "#8DC3EA",
+            "value": 38
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Blue (bright)",
+            "string": "#5FBCFF",
+            "value": 37
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Deep Blue (dim)",
+            "string": "#A3B7DF",
+            "value": 43
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Deep Blue",
+            "string": "#8FA9D8",
+            "value": 44
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Deep Blue (bright)",
+            "string": "#6AA0FF",
+            "value": 45
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Fuschia (dim)",
+            "string": "#d880b4",
+            "value": 55
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Fuschia",
+            "string": "#d161a5",
+            "value": 54
+          },
+          {
+            "eventType": "noteon",
+            "fx": [],
+            "name": "Fuschia (bright)",
+            "string": "#ca2c92",
+            "value": 53
+          }
+        ],
+        "type": "pad",
+        "width": 0.7,
+        "height": 0.7,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
     },
     {
       "id": "Knobs",
@@ -5877,118 +1564,41 @@
       "bottom": 6,
       "inputs": [
         {
-          "default": {
-            "channel": 15,
-            "number": 21,
-            "eventType": "controlchange",
-            "response": "continuous"
-          },
-          "overrideable": false,
-          "type": "knob",
-          "shape": "circle",
-          "width": 0.375,
-          "height": 0.375,
-          "availableColors": []
+          "number": 21
         },
         {
-          "default": {
-            "channel": 15,
-            "number": 22,
-            "eventType": "controlchange",
-            "response": "continuous"
-          },
-          "overrideable": false,
-          "type": "knob",
-          "shape": "circle",
-          "width": 0.375,
-          "height": 0.375,
-          "availableColors": []
+          "number": 22
         },
         {
-          "default": {
-            "channel": 15,
-            "number": 23,
-            "eventType": "controlchange",
-            "response": "continuous"
-          },
-          "overrideable": false,
-          "type": "knob",
-          "shape": "circle",
-          "width": 0.375,
-          "height": 0.375,
-          "availableColors": []
+          "number": 23
         },
         {
-          "default": {
-            "channel": 15,
-            "number": 24,
-            "eventType": "controlchange",
-            "response": "continuous"
-          },
-          "overrideable": false,
-          "type": "knob",
-          "shape": "circle",
-          "width": 0.375,
-          "height": 0.375,
-          "availableColors": []
+          "number": 24
         },
         {
-          "default": {
-            "channel": 15,
-            "number": 25,
-            "eventType": "controlchange",
-            "response": "continuous"
-          },
-          "overrideable": false,
-          "type": "knob",
-          "shape": "circle",
-          "width": 0.375,
-          "height": 0.375,
-          "availableColors": []
+          "number": 25
         },
         {
-          "default": {
-            "channel": 15,
-            "number": 26,
-            "eventType": "controlchange",
-            "response": "continuous"
-          },
-          "overrideable": false,
-          "type": "knob",
-          "shape": "circle",
-          "width": 0.375,
-          "height": 0.375,
-          "availableColors": []
+          "number": 26
         },
         {
-          "default": {
-            "channel": 15,
-            "number": 27,
-            "eventType": "controlchange",
-            "response": "continuous"
-          },
-          "overrideable": false,
-          "type": "knob",
-          "shape": "circle",
-          "width": 0.375,
-          "height": 0.375,
-          "availableColors": []
+          "number": 27
         },
         {
-          "default": {
-            "channel": 15,
-            "number": 28,
-            "eventType": "controlchange",
-            "response": "continuous"
-          },
-          "overrideable": false,
-          "type": "knob",
-          "shape": "circle",
-          "width": 0.375,
-          "height": 0.375,
-          "availableColors": []
+          "number": 28
         }
-      ]
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "knob",
+        "width": 0.375,
+        "height": 0.375,
+        "shape": "circle",
+        "overrideable": false,
+        "response": "continuous",
+        "eventType": "controlchange",
+        "channel": 15
+      }
     },
     {
       "id": "Transport",
@@ -6000,78 +1610,45 @@
       "bottom": 3.75,
       "inputs": [
         {
-          "default": {
-            "channel": 15,
-            "number": 115,
-            "eventType": "controlchange",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "controlchange",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "White (dim)",
-              "eventType": "controlchange",
-              "value": 1,
-              "string": "rgba(255,255,255,0.5)",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "controlchange",
-              "value": 127,
-              "string": "white",
-              "fx": []
-            }
-          ]
+          "number": 115
         },
         {
-          "default": {
-            "channel": 15,
-            "number": 117,
-            "eventType": "controlchange",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.25,
-          "availableColors": [
-            {
-              "name": "Clear",
-              "eventType": "controlchange",
-              "value": 0,
-              "string": "transparent",
-              "fx": []
-            },
-            {
-              "name": "White (dim)",
-              "eventType": "controlchange",
-              "value": 1,
-              "string": "rgba(255,255,255,0.5)",
-              "fx": []
-            },
-            {
-              "name": "White",
-              "eventType": "controlchange",
-              "value": 127,
-              "string": "white",
-              "fx": []
-            }
-          ]
+          "number": 117
         }
-      ]
+      ],
+      "inputDefaults": {
+        "availableColors": [
+          {
+            "eventType": "controlchange",
+            "fx": [],
+            "name": "Clear",
+            "string": "transparent",
+            "value": 0
+          },
+          {
+            "eventType": "controlchange",
+            "fx": [],
+            "name": "White (dim)",
+            "string": "rgba(255,255,255,0.5)",
+            "value": 1
+          },
+          {
+            "eventType": "controlchange",
+            "fx": [],
+            "name": "White",
+            "string": "white",
+            "value": 127
+          }
+        ],
+        "type": "pad",
+        "width": 0.5,
+        "height": 0.25,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "controlchange",
+        "channel": 15
+      }
     },
     {
       "id": "Track",
@@ -6083,34 +1660,23 @@
       "bottom": 4.625,
       "inputs": [
         {
-          "default": {
-            "channel": 15,
-            "number": 115,
-            "eventType": "controlchange",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.25,
-          "availableColors": []
+          "number": 115
         },
         {
-          "default": {
-            "channel": 15,
-            "number": 117,
-            "eventType": "controlchange",
-            "response": "gate"
-          },
-          "overrideable": false,
-          "type": "pad",
-          "shape": "rect",
-          "width": 0.5,
-          "height": 0.25,
-          "availableColors": []
+          "number": 117
         }
-      ]
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.5,
+        "height": 0.25,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "controlchange",
+        "channel": 15
+      }
     }
   ]
 }

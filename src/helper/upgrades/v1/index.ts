@@ -89,6 +89,16 @@ function upgradeInput(i: v0InputConfig) {
   );
 }
 
+// function upgradeInputIds(config: v1SupportedDeviceConfig) {
+//   let id = -1;
+//   config.inputs.forEach((i) => {
+//     if (i.number < 0) {
+//       i.number = id;
+//       id -= 1;
+//     }
+//   });
+// }
+
 export function upgradeToV1(projectString: string) {
   const project = v0Project.fromJSON(projectString);
   const upgradedConfigs: (v1AnonymousDeviceConfig | v1SupportedDeviceConfig)[] =
@@ -98,7 +108,6 @@ export function upgradeToV1(projectString: string) {
   project.devices
     .filter((c) => c instanceof v0SupportedDeviceConfig)
     .forEach((config) => {
-      // update keyboard driver, I guess
       const casted = config as v0SupportedDeviceConfig;
 
       const upgradedInputs = casted.inputs.map((i) => upgradeInput(i));
@@ -111,6 +120,8 @@ export function upgradeToV1(projectString: string) {
         undefined,
         config.keyboardDriver
       );
+
+      // upgradeInputIds(upgradedConfig);
 
       upgradedConfigs.push(upgradedConfig);
     });

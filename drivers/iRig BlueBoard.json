@@ -20,62 +20,29 @@
       "bottom": 0.75,
       "inputs": [
         {
-          "default": {
-            "channel": 0,
-            "number": 0,
-            "eventType": "controlchange",
-            "response": "toggle"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "rect",
-          "width": 1,
-          "height": 1,
-          "availableColors": []
+          "number": 0
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 1,
-            "eventType": "controlchange",
-            "response": "toggle"
-          },
-          "type": "pad",
-          "overrideable": true,
-          "shape": "rect",
-          "width": 1,
-          "height": 1,
-          "availableColors": []
+          "number": 1
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 2,
-            "eventType": "controlchange",
-            "response": "toggle"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 1,
-          "height": 1,
-          "availableColors": []
+          "number": 2
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 3,
-            "eventType": "controlchange",
-            "response": "toggle"
-          },
-          "type": "pad",
-          "shape": "rect",
-          "overrideable": true,
-          "width": 1,
-          "height": 1,
-          "availableColors": []
+          "number": 3
         }
-      ]
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 1,
+        "height": 1,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "toggle",
+        "eventType": "controlchange",
+        "channel": 0
+      }
     }
   ]
 }

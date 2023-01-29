@@ -1,4 +1,4 @@
-import { InputDriver, InputType } from '@shared/driver-types';
+import { InputDriver, InputType, InputGridDriver } from '@shared/driver-types';
 import { inputIdFor } from '@shared/util';
 
 /**
@@ -37,17 +37,24 @@ export class VirtualInput {
   /* MIDI channel */
   #channel: Channel;
 
-  constructor(driver: InputDriver) {
-    this.width = driver.width;
-    this.height = driver.height;
-    this.shape = driver.shape;
-    this.type = driver.type;
-    this.#eventType = driver.default.eventType;
-    this.#channel = driver.default.channel;
-    this.#number = driver.default.number;
-    this.overrideable = driver.overrideable;
-    this.handleWidth = driver.handleWidth;
-    this.handleHeight = driver.handleHeight;
+  constructor(
+    overrides: InputDriver,
+    defaults: InputGridDriver['inputDefaults']
+  ) {
+    this.width = (overrides.width || defaults.width)!;
+    this.height = (overrides.height || defaults.height)!;
+    this.shape = (overrides.shape || defaults.shape)!;
+    this.type = (overrides.type || defaults.type)!;
+    this.#eventType = (overrides.eventType || defaults.eventType)!;
+    this.#channel =
+      overrides.channel !== undefined ? overrides.channel : defaults.channel!;
+    this.#number = overrides.number;
+    this.overrideable =
+      overrides.overrideable !== undefined
+        ? overrides.overrideable
+        : defaults.overrideable!;
+    this.handleWidth = overrides.handleWidth;
+    this.handleHeight = overrides.handleHeight;
   }
 
   get id() {

@@ -5,13 +5,28 @@ import {
   propagatorFromJSON,
 } from '../propagators';
 import {
-  InputDefault,
   InputDriver,
   InputResponse,
   InputType,
   Color,
+  InputGridDriver,
 } from '../driver-types';
 import { ColorImpl } from './color-impl';
+
+/* Default values for the input loaded in from a driver */
+export type InputDefault = {
+  /* Note number, CC number, program number, etc */
+  readonly number: number;
+
+  /* MIDI channel */
+  readonly channel: Channel;
+
+  /* MIDI event type */
+  readonly eventType: StatusString | 'noteon/noteoff';
+
+  /* See InputResponse */
+  readonly response: InputResponse;
+};
 
 /**
  * Contains configuration details and maintains state for individual hardware
@@ -77,24 +92,34 @@ export class InputConfig {
   }
 
   /**
-   * Constructs and initialize a new instance of `InputConfig` from driver
+   * Constructs and initialize a new instance of `InputConfig` from driver.
    *
    * @param other Input driver
    * @returnsnew instance of InputConfig
    */
-  static fromDriver(other: InputDriver) {
-    const { number, channel } = other.default;
-    const colors = other.availableColors.map(
+  static fromDriver(
+    overrides: InputDriver,
+    defaults: InputGridDriver['inputDefaults']
+  ) {
+    const { number, value } = overrides;
+    const channel =
+      overrides.channel !== undefined ? overrides.channel : defaults.channel!;
+    const response = (overrides.response || defaults.response)!;
+    const eventType = (overrides.eventType || defaults.eventType)!;
+    const type = (overrides.type || defaults.type)!;
+    const overrideable =
+      overrides.overrideable !== undefined
+        ? overrides.overrideable
+        : defaults.overrideable!;
+    const def = { number, channel, response, eventType };
+
+    const availableColors =
+      overrides.availableColors || defaults.availableColors || [];
+    const colors = availableColors.map(
       (c) => new ColorImpl(c, number, channel)
     );
 
-    const instance = new InputConfig(
-      other.default,
-      colors,
-      other.overrideable,
-      other.type,
-      other.value
-    );
+    const instance = new InputConfig(def, colors, overrideable, type, value);
 
     return instance;
   }

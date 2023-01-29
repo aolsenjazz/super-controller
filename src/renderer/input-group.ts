@@ -1,4 +1,4 @@
-import { Color, InputDefault } from '@shared/driver-types';
+import { Color } from '@shared/driver-types';
 import { InputConfig } from '@shared/hardware-config';
 import { CC_BINDINGS, stringVal } from '@shared/util';
 
@@ -41,23 +41,22 @@ export class InputGroup {
     return `${n}${labelTitle}${isDefault ? ' [default]' : ''}`;
   }
 
-  #labelFor = <T>(obj: T, defaultGetter: (inputDefault: InputDefault) => T) => {
+  #labelFor = <T>(obj: T, defaultGetter: (input: InputConfig) => T) => {
     const nInputs = this.inputs.length;
-    const isDefault =
-      nInputs === 1 && defaultGetter(this.inputs[0].default) === obj;
+    const isDefault = nInputs === 1 && defaultGetter(this.inputs[0]) === obj;
     return `${obj}${isDefault ? ' [default]' : ''}`;
   };
 
   labelForChannel(c: Channel) {
-    return this.#labelFor(c, (def) => def.channel);
+    return this.#labelFor(c, (input) => input.channel);
   }
 
   labelForEventType(et: string) {
-    return this.#labelFor(et, (def) => def.eventType);
+    return this.#labelFor(et, (input) => input.eventType);
   }
 
   labelForResponse(response: string) {
-    return this.#labelFor(response, (def) => def.response);
+    return this.#labelFor(response, (input) => input.response);
   }
 
   colorForState(state: number) {

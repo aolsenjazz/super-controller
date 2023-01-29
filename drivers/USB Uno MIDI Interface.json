@@ -20,174 +20,55 @@
       "nCols": 6,
       "inputs": [
         {
-          "default": {
-            "channel": 0,
-            "number": -1,
-            "eventType": "programchange",
-            "response": "constant"
-          },
           "overrideable": false,
-          "type": "pad",
-          "shape": "square",
-          "width": 1.4,
-          "height": 1.4,
-          "availableColors": []
+          "number": -1
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 0,
-            "eventType": "programchange",
-            "response": "constant"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "square",
-          "width": 1.4,
-          "height": 1.4,
-          "availableColors": []
+          "number": 0
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 1,
-            "eventType": "programchange",
-            "response": "constant"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "square",
-          "width": 1.4,
-          "height": 1.4,
-          "availableColors": []
+          "number": 1
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 2,
-            "eventType": "programchange",
-            "response": "constant"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "square",
-          "width": 1.4,
-          "height": 1.4,
-          "availableColors": []
+          "number": 2
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 3,
-            "eventType": "programchange",
-            "response": "constant"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "square",
-          "width": 1.4,
-          "height": 1.4,
-          "availableColors": []
+          "number": 3
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 4,
-            "eventType": "programchange",
-            "response": "constant"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "square",
-          "width": 1.4,
-          "height": 1.4,
-          "availableColors": []
+          "number": 4
         },
         {
-          "default": {
-            "channel": 0,
-            "number": -2,
-            "eventType": "programchange",
-            "response": "constant"
-          },
           "overrideable": false,
-          "type": "pad",
-          "shape": "square",
-          "width": 1.4,
-          "height": 1.4,
-          "availableColors": []
+          "number": -2
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 5,
-            "eventType": "programchange",
-            "response": "constant"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "square",
-          "width": 1.4,
-          "height": 1.4,
-          "availableColors": []
+          "number": 5
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 6,
-            "eventType": "programchange",
-            "response": "constant"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "square",
-          "width": 1.4,
-          "height": 1.4,
-          "availableColors": []
+          "number": 6
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 7,
-            "eventType": "programchange",
-            "response": "constant"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "square",
-          "width": 1.4,
-          "height": 1.4,
-          "availableColors": []
+          "number": 7
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 8,
-            "eventType": "programchange",
-            "response": "constant"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "square",
-          "width": 1.4,
-          "height": 1.4,
-          "availableColors": []
+          "number": 8
         },
         {
-          "default": {
-            "channel": 0,
-            "number": 9,
-            "eventType": "programchange",
-            "response": "constant"
-          },
-          "overrideable": true,
-          "type": "pad",
-          "shape": "square",
-          "width": 1.4,
-          "height": 1.4,
-          "availableColors": []
+          "number": 9
         }
-      ]
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 1.4,
+        "height": 1.4,
+        "shape": "square",
+        "overrideable": true,
+        "response": "constant",
+        "eventType": "programchange",
+        "channel": 0
+      }
     }
   ]
 }

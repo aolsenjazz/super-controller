@@ -22,11 +22,12 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * @returns a new instance of SupportedDeviceConfig
    */
   static fromDriver(siblingIndex: number, driver: DeviceDriver) {
-    const inputs = driver.inputGrids
-      .map((grid) => grid.inputs)
-      .flat()
-      .flat()
-      .map((d) => InputConfig.fromDriver(d));
+    const inputs: InputConfig[] = [];
+    driver.inputGrids.forEach((ig) => {
+      ig.inputs.forEach((d) => {
+        inputs.push(InputConfig.fromDriver(d, ig.inputDefaults));
+      });
+    });
 
     const newConfig = new SupportedDeviceConfig(
       driver.name,

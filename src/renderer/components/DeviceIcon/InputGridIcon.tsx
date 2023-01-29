@@ -27,10 +27,17 @@ const InputGridIcon = (props: PropTypes) => {
   return (
     <div className="input-grid" style={igStyle}>
       {inputGrid.inputs.map((input) => {
+        const channel = (input.channel || inputGrid.inputDefaults.channel)!;
+        const eventType = (input.eventType ||
+          inputGrid.inputDefaults.eventType)!;
+        const width = (input.width || inputGrid.inputDefaults.width)!;
+        const height = (input.height || inputGrid.inputDefaults.height)!;
+        const { number } = input;
+
         return (
           <div
             className="input-container"
-            key={`${input.default.channel}${input.default.number}${input.default.eventType}`}
+            key={`${channel}${number}${eventType}`}
             style={{
               width: `calc(100% / ${inputGrid.nCols})`,
               height: `calc(100% / ${inputGrid.nRows})`,
@@ -41,10 +48,10 @@ const InputGridIcon = (props: PropTypes) => {
               style={{
                 borderRadius: input.shape === 'circle' ? '100%' : '',
                 width: `${
-                  (input.width / (inputGrid.width / inputGrid.nCols)) * 100
+                  (width / (inputGrid.width / inputGrid.nCols)) * 100
                 }%`,
                 height: `${
-                  (input.height / (inputGrid.height / inputGrid.nRows)) * 100
+                  (height / (inputGrid.height / inputGrid.nRows)) * 100
                 }%`,
               }}
             />

@@ -30,90 +30,35 @@
       "nCols": 2,
       "inputs": [
         {
-          "default": {
-            "channel": 0,
-            "number": -1,
-            "eventType": "controlchange",
-            "response": "toggle"
-          },
-          "width": 0.3125,
-          "height": 0.3125,
-          "overrideable": false,
-          "type": "pad",
-          "shape": "square",
-          "availableColors": []
+          "number": -1
         },
         {
-          "default": {
-            "channel": 0,
-            "number": -2,
-            "eventType": "controlchange",
-            "response": "toggle"
-          },
-          "width": 0.3125,
-          "height": 0.3125,
-          "type": "pad",
-          "overrideable": false,
-          "shape": "square",
-          "availableColors": []
+          "number": -2
         },
         {
-          "default": {
-            "channel": 0,
-            "number": -3,
-            "eventType": "controlchange",
-            "response": "toggle"
-          },
-          "width": 0.3125,
-          "height": 0.3125,
-          "type": "pad",
-          "shape": "square",
-          "overrideable": false,
-          "availableColors": []
+          "number": -3
         },
         {
-          "default": {
-            "channel": 0,
-            "number": -4,
-            "eventType": "controlchange",
-            "response": "toggle"
-          },
-          "width": 0.3125,
-          "height": 0.3125,
-          "type": "pad",
-          "shape": "square",
-          "overrideable": false,
-          "availableColors": []
+          "number": -4
         },
         {
-          "default": {
-            "channel": 0,
-            "number": -5,
-            "eventType": "controlchange",
-            "response": "toggle"
-          },
-          "width": 0.3125,
-          "height": 0.3125,
-          "type": "pad",
-          "shape": "square",
-          "overrideable": false,
-          "availableColors": []
+          "number": -5
         },
         {
-          "default": {
-            "channel": 0,
-            "number": -6,
-            "eventType": "controlchange",
-            "response": "toggle"
-          },
-          "width": 0.3125,
-          "height": 0.3125,
-          "type": "pad",
-          "shape": "square",
-          "overrideable": false,
-          "availableColors": []
+          "number": -6
         }
-      ]
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.3125,
+        "height": 0.3125,
+        "shape": "square",
+        "overrideable": false,
+        "response": "toggle",
+        "eventType": "controlchange",
+        "channel": 0
+      }
     }
   ]
 }

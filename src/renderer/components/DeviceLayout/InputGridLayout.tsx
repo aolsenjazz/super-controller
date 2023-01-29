@@ -136,8 +136,10 @@ const InputGridLayout = (props: PropTypes) => {
       {inputGrid.inputs.map((input) => {
         const inputConfig = deviceConfig.getInput(input.id);
 
-        if (!inputConfig)
+        if (!inputConfig) {
+          console.log(deviceConfig);
           throw new Error(`No config exists for input ${input.id}`);
+        }
 
         return (
           <div
