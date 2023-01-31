@@ -56,7 +56,7 @@ export class VirtualInput implements Port {
    *
    * @param cb The callback
    */
-  onMessage(cb: (delta: number, message: number[]) => void) {
+  onMessage(cb: (delta: number, message: MidiTuple) => void) {
     this.port.on('message', cb);
   }
 

@@ -9,7 +9,7 @@ import { VirtualInput } from '../renderer/virtual-devices';
 function MakeInputGridDriver(): InputGridDriver['inputDefaults'] {
   return {
     channel: 7 as Channel,
-    eventType: 'noteon/noteoff' as StatusString | 'noteon/noteoff',
+    eventType: 'controlchange',
     response: 'toggle' as 'toggle' | 'gate',
     width: 1,
     height: 1,

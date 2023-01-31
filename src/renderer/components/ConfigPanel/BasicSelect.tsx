@@ -3,8 +3,8 @@ import SelectTab from '../../assets/select-tab.svg';
 type PropTypes = {
   valueList: (string | number)[];
   labelList: string[];
-  value: string | number | null;
-  usePlaceholder: boolean;
+  value: string | number | null | undefined;
+  placeholder?: string;
   onChange: (value: string | number) => void;
 };
 
@@ -23,7 +23,7 @@ type PropTypes = {
  * @param onChange Value change callback
  */
 export default function BasicSelect(props: PropTypes) {
-  const { valueList, value, onChange, labelList, usePlaceholder } = props;
+  const { valueList, value, onChange, labelList, placeholder } = props;
   const isMultiple = value === '<multiple values>';
 
   return (
@@ -41,9 +41,9 @@ export default function BasicSelect(props: PropTypes) {
           onChange(v);
         }}
       >
-        {usePlaceholder === true ? (
+        {placeholder !== undefined ? (
           <option value="" disabled>
-            Choose your device
+            {placeholder}
           </option>
         ) : null}
         {isMultiple ? (
@@ -60,3 +60,8 @@ export default function BasicSelect(props: PropTypes) {
     </div>
   );
 }
+
+const defaultProps = {
+  placeholder: undefined,
+};
+BasicSelect.defaultProps = defaultProps;

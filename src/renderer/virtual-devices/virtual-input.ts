@@ -32,7 +32,7 @@ export class VirtualInput {
   #eventType: StatusString | 'noteon/noteoff';
 
   /* Note number, CC number, program number, etc */
-  #number: number;
+  #number: MidiNumber;
 
   /* MIDI channel */
   #channel: Channel;

@@ -588,6 +588,18 @@
           "number": 64
         },
         {
+          "overrideable": false,
+          "number": -1,
+          "response": "constant",
+          "eventType": "octdown"
+        },
+        {
+          "overrideable": false,
+          "number": -2,
+          "response": "constant",
+          "eventType": "octup"
+        },
+        {
           "number": 91,
           "channel": 0
         },

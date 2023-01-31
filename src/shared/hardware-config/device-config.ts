@@ -1,3 +1,4 @@
+import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
 
 /**
@@ -88,7 +89,7 @@ export abstract class DeviceConfig {
    * @param message The MidiValue[] from device
    * @returns [messageToDevice | null, messageToPropagate]
    */
-  abstract handleMessage(msg: number[]): (number[] | null)[];
+  abstract handleMessage(msg: MidiArray): (MidiArray | null)[];
 
   abstract toJSON(includeState: boolean): string;
 }

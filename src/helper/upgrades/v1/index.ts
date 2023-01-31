@@ -1,6 +1,8 @@
 /* eslint-disable new-cap */
 // v1 imports
+import { MidiArray } from '@shared/midi-array';
 import { Project as v1Project } from '@shared/project';
+import { Color } from '@shared/driver-types';
 import {
   InputConfig as v1InputConfig,
   ColorImpl as v1ColorImpl,
@@ -25,26 +27,26 @@ function upgradeInput(i: v0InputConfig) {
     i.default.response,
     i.response,
     i.eventType,
-    i.number,
+    i.number as MidiNumber,
     i.channel,
-    i.value
+    i.value as MidiNumber
   );
 
   const onColor = i.colorForState('on') || i.defaultColor || null;
   const offColor = i.colorForState('off') || i.defaultColor || null;
-  const steps = new Map<number, number[]>();
+  const steps = new Map<number, MidiArray>();
 
   if (onColor) {
     const upgradedOnColor = {
       ...onColor,
       fx: [],
     };
-    const onImpl = new v1ColorImpl(
-      upgradedOnColor,
-      i.default.number,
+    const onImpl = v1ColorImpl.fromDrivers(
+      upgradedOnColor as Color,
+      i.default.number as MidiNumber,
       i.default.channel
     );
-    steps.set(1, onImpl.toMidiArray());
+    steps.set(1, onImpl);
   }
 
   if (offColor) {
@@ -52,12 +54,12 @@ function upgradeInput(i: v0InputConfig) {
       ...offColor,
       fx: [],
     };
-    const offImpl = new v1ColorImpl(
-      upgradedOffColor,
-      i.default.number,
+    const offImpl = v1ColorImpl.fromDrivers(
+      upgradedOffColor as Color,
+      i.default.number as MidiNumber,
       i.default.channel
     );
-    steps.set(0, offImpl.toMidiArray());
+    steps.set(0, offImpl);
   }
 
   const devicePropagator = new v1NStepPropagator(
@@ -72,17 +74,21 @@ function upgradeInput(i: v0InputConfig) {
       ...c,
       fx: [],
     };
-    const impl = new v1ColorImpl(upgraded, i.default.number, i.default.channel);
+    const impl = v1ColorImpl.fromDrivers(
+      upgraded as Color,
+      i.default.number as MidiNumber,
+      i.default.channel
+    );
 
     availableColors.push(impl);
   });
 
   return new v1InputConfig(
-    i.default,
+    i.default as v1InputConfig['default'],
     availableColors,
     i.overrideable,
     i.type,
-    i.value,
+    i.value as MidiNumber,
     outputPropagator,
     devicePropagator,
     i.nickname
@@ -132,10 +138,15 @@ export function upgradeToV1(projectString: string) {
     .forEach((c) => {
       const asAnon = c as v0AnonymousDeviceConfig;
 
+      const overrides = new Map<string, MidiArray>();
+      Array.from(overrides.keys()).forEach((k) => {
+        overrides.set(k, new MidiArray(asAnon.overrides.get(k)! as MidiTuple));
+      });
+
       const upgraded = new v1AnonymousDeviceConfig(
         asAnon.name,
         asAnon.siblingIndex,
-        asAnon.overrides,
+        overrides,
         asAnon.shareSustain,
         asAnon.nickname
       );

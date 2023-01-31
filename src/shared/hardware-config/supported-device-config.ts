@@ -1,3 +1,5 @@
+import { MidiArray } from '../midi-array';
+
 import { inputIdFor } from '../util';
 import { DeviceDriver, KeyboardDriver } from '../driver-types';
 
@@ -149,7 +151,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * @param message The MidiValue[] from device
    * @returns [messageToDevice | null, messageToPropagate]
    */
-  handleMessage(msg: number[]): (number[] | null)[] {
+  handleMessage(msg: MidiArray): (MidiArray | null)[] {
     const id = inputIdFor(msg);
     const input = this.getInput(id);
 

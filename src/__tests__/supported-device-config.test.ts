@@ -2,11 +2,11 @@
 
 import { test, expect, jest } from '@jest/globals';
 
-import { setStatus } from '@shared/midi-util';
+import { MidiArray } from '@shared/midi-array';
 import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
 
 function BasicInputConfig() {
-  const inputDefault = {
+  const inputDefault: InputConfig['default'] = {
     channel: 0 as Channel,
     eventType: 'controlchange' as const,
     number: 0,
@@ -37,7 +37,7 @@ function BasicSupportedDevice() {
 }
 
 test('getInput throws for bad id', () => {
-  const inputDefault = {
+  const inputDefault: InputConfig['default'] = {
     channel: 0 as Channel,
     eventType: 'controlchange' as const,
     number: 0,
@@ -64,7 +64,7 @@ test('getInput throws for bad id', () => {
 });
 
 test('getInput returns correct input for id', () => {
-  const inputDefault = {
+  const inputDefault: InputConfig['default'] = {
     channel: 0 as Channel,
     eventType: 'controlchange' as const,
     number: 0,
@@ -95,7 +95,7 @@ test('getInput returns correct input for id', () => {
 });
 
 test('handleMessage() passes to correct input for processing', () => {
-  const inputDefault = {
+  const inputDefault: InputConfig['default'] = {
     channel: 0 as Channel,
     eventType: 'controlchange' as const,
     number: 0,
@@ -121,9 +121,11 @@ test('handleMessage() passes to correct input for processing', () => {
     nickname
   );
 
-  const mm = setStatus(
-    [input.channel, input.number, 127],
-    input.eventType as StatusString
+  const mm = MidiArray.create(
+    input.eventType as StatusString,
+    input.channel,
+    input.number,
+    127
   );
   config.handleMessage(mm);
   expect(spy).toHaveBeenCalledTimes(1);
@@ -145,7 +147,7 @@ test('bindingAvailable return true if binding is not taken', () => {
 
 test('handleMessage just propagates msgs when no matching inputConfig found', () => {
   const device = BasicSupportedDevice();
-  const msg = setStatus([0, 42, 127], 'noteon');
+  const msg = MidiArray.create(144, 0, 42, 127);
   const result = device.handleMessage(msg);
   expect(result[1]).toStrictEqual(msg);
 });

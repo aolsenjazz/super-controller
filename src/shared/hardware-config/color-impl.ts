@@ -1,68 +1,125 @@
-// eslint-disable-next-line max-classes-per-file
-import { setStatus, setChannel } from '@shared/midi-util';
+/* eslint-disable no-bitwise */
+/* eslint-disable prefer-destructuring */
+import { MidiArray } from '../midi-array';
+import { byteToStatusString } from '../midi-util';
+import { DefaultPreservedMidiArray } from '../default-preserved-midi-array';
 
 import { Color, fx as FX } from '../driver-types/color';
 
-export class ColorImpl implements Color {
-  activeFx?: FX;
+type SerializedColorImpl = {
+  color: Color;
+  tuple: MidiTuple;
+  default: MidiTuple;
+};
 
-  fxVal?: number;
-
+export class ColorImpl extends DefaultPreservedMidiArray {
   readonly name: string;
 
   readonly string: string;
 
-  readonly eventType: StatusString;
-
-  readonly value: number;
-
-  readonly number: number;
-
-  readonly channel: number;
-
   readonly fx: FX[];
 
-  readonly default: boolean;
+  readonly isDefault: boolean;
 
   readonly modifier?: 'blink' | 'pulse';
 
-  constructor(c: Color, parentNumber: number, parentChannel: Channel) {
-    this.name = c.name;
-    this.string = c.string;
-    this.eventType = c.eventType;
-    this.value = c.value;
-    this.fx = c.fx;
-    this.default = c.default || false;
+  static fromDrivers(
+    c: Color,
+    parentNumber: MidiNumber | undefined,
+    parentChannel: Channel | undefined
+  ) {
+    const { eventType, value } = c;
+    const number = c.number || parentNumber;
+    let channel = c.channel || parentChannel;
+    c.fx.forEach((fx) => {
+      if (fx.default) channel = fx.defaultVal;
+    });
+    const arr = MidiArray.create(eventType, channel!, number!, value);
 
-    this.number = c.number || parentNumber;
-    this.channel = c.channel || parentChannel;
-    this.modifier = c.modifier;
+    return new ColorImpl(arr.array, c, arr.array);
   }
 
-  toMidiArray() {
-    const unmodified = setStatus(
-      [this.channel, this.number, this.value],
-      this.eventType
-    );
-
-    if (this.activeFx && this.fxVal) {
-      // apply fx
-      setChannel(unmodified, this.fxVal);
-    }
-
-    return unmodified;
+  static fromJSON(json: string | object) {
+    let obj = json;
+    if (typeof json === 'string') obj = JSON.parse(json);
+    const dSer = obj as SerializedColorImpl;
+    return new ColorImpl(dSer.tuple, dSer.color, dSer.default);
   }
 
-  toDefaultMidiArray() {
-    return setStatus([this.channel, this.number, this.value], this.eventType);
+  private constructor(arr: MidiTuple, color: Color, defaults: MidiTuple) {
+    super(defaults);
+
+    this.status = (arr[0] & 0xf0) as StatusByte;
+    this.channel = (arr[0] & 0x0f) as Channel;
+    this.number = arr[1];
+    this.value = arr[2];
+
+    this.name = color.name;
+    this.string = color.string;
+    this.fx = color.fx;
+    this.isDefault = color.default || false;
+    this.modifier = color.modifier;
   }
 
-  setFx(title: string) {
+  get id() {
+    return `${this.string}.${this.modifier}`;
+  }
+
+  get displayName() {
+    return `${this.name}${this.modifier ? ` (${this.modifier})` : ''}`;
+  }
+
+  get eventType() {
+    return byteToStatusString(this.status, true) as StatusString;
+  }
+
+  get activeFx() {
+    let title: undefined | string;
     this.fx.forEach((fx) => {
-      if (fx.title === title) {
-        this.activeFx = fx;
-        this.fxVal = fx.defaultVal;
+      if (fx.validVals.includes(this.activeFxVal)) {
+        title = fx.title;
       }
     });
+
+    return title;
+  }
+
+  get activeFxVal() {
+    return this.channel;
+  }
+
+  setFx(fxTitle: string, fxVal?: Channel) {
+    let isSet = false;
+
+    this.fx.forEach((fx) => {
+      if (fx.title === fxTitle) {
+        isSet = true;
+        const newFxVal = fxVal !== undefined ? fxVal : fx.defaultVal;
+        this.channel = newFxVal;
+      }
+    });
+
+    if (!isSet) {
+      throw new Error(`no FX exists for title[${fxTitle}]`);
+    }
+  }
+
+  setFxVal(fxVal: Channel) {
+    this.channel = fxVal;
+  }
+
+  toJSON() {
+    const col: Color = {
+      name: this.name,
+      string: this.string,
+      eventType: this.eventType,
+      value: this.value,
+      fx: this.fx,
+    };
+    return {
+      color: col,
+      tuple: [this[0], this[1], this[2]],
+      default: this.default,
+    };
   }
 }

@@ -3,10 +3,10 @@ import { InputDriver } from './input-driver';
 
 type InputDefaults = {
   /* MIDI channel */
-  readonly channel?: InputDriver['channel'];
+  readonly channel?: Channel;
 
   /* MIDI event type */
-  readonly eventType?: InputDriver['eventType'];
+  readonly eventType?: StatusString;
 
   /* See InputResponse */
   readonly response?: InputDriver['response'];

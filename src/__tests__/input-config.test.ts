@@ -1,6 +1,17 @@
+import { MidiArray } from '@shared/midi-array';
 import { InputConfig, ColorImpl } from '@shared/hardware-config';
 import { NStepPropagator } from '@shared/propagators';
 import { Color } from '@shared/driver-types';
+
+const FX: Color['fx'][number] = {
+  title: 'Blink',
+  effect: 'Speed',
+  default: true,
+  validVals: [1, 2, 3],
+  defaultVal: 1,
+  lowBoundLabel: 'Slow',
+  highBoundLabel: 'Fast',
+};
 
 const RED: Color = {
   name: 'Red',
@@ -8,7 +19,7 @@ const RED: Color = {
   value: 6,
   default: false,
   string: 'red',
-  fx: [],
+  fx: [FX],
 };
 
 const GREEN: Color = {
@@ -17,15 +28,16 @@ const GREEN: Color = {
   value: 8,
   default: true,
   string: 'green',
-  fx: [],
+  fx: [FX],
 };
+const GreenImpl = ColorImpl.fromDrivers(GREEN, 0, 0);
 
 interface Params {
   defaultVals?: InputConfig['default'];
   availableColors?: Color[];
   overrideable?: boolean;
   type?: InputConfig['type'];
-  value?: number;
+  value?: MidiNumber;
   colorConfig?: Map<number, Color>;
 }
 function createConfig({
@@ -41,15 +53,15 @@ function createConfig({
   value = undefined,
   colorConfig = undefined,
 }: Params) {
-  const colors = availableColors.map(
-    (c) => new ColorImpl(c, defaultVals.number, defaultVals.channel)
+  const colors = availableColors.map((c) =>
+    ColorImpl.fromDrivers(c, defaultVals.number, defaultVals.channel)
   );
-  const config = new Map<number, number[]>();
+  const config = new Map<number, MidiArray>();
   if (colorConfig) {
     colorConfig.forEach((v, k) => {
       config.set(
         k,
-        new ColorImpl(v, defaultVals.number, defaultVals.channel).toMidiArray()
+        ColorImpl.fromDrivers(v, defaultVals.number, defaultVals.channel)
       );
     });
   }
@@ -64,7 +76,7 @@ function createConfig({
     );
   }
 
-  return new InputConfig(
+  const newConfig = new InputConfig(
     defaultVals,
     colors,
     overrideable,
@@ -73,6 +85,8 @@ function createConfig({
     outputPropagator,
     devicePropagator
   );
+
+  return newConfig;
 }
 
 describe('colorForState', () => {
@@ -116,10 +130,7 @@ describe('setColorForState', () => {
     colorConfig.set(0, RED);
     const config = createConfig({ colorConfig });
 
-    config.setColorForState(
-      0,
-      new ColorImpl(GREEN, config.number, config.channel)
-    );
+    config.setColorForState(0, GreenImpl.id);
 
     expect(config.colorForState(0)!.name).toEqual(GREEN.name);
   });
@@ -127,10 +138,7 @@ describe('setColorForState', () => {
   test('set color when was previously unset', () => {
     const config = createConfig({});
 
-    config.setColorForState(
-      0,
-      new ColorImpl(GREEN, config.number, config.channel)
-    );
+    config.setColorForState(0, GreenImpl.id);
 
     expect(config.colorForState(0)!.name).toEqual(GREEN.name);
   });
@@ -139,10 +147,7 @@ describe('setColorForState', () => {
     const config = createConfig({});
 
     expect(() => {
-      config.setColorForState(
-        2,
-        new ColorImpl(GREEN, config.number, config.channel)
-      );
+      config.setColorForState(2, GreenImpl.id);
     }).toThrow();
   });
 });
@@ -190,18 +195,21 @@ describe('toJSON', () => {
       response: 'gate',
     };
     const config = createConfig({ defaultVals: d });
-    const json = config.toJSON(false);
-    const obj = JSON.parse(json);
-    const deserializedAvailable = obj.availableColors.map(
-      (c: Color) => new ColorImpl(c, c.number!, c.channel as Channel)
-    );
+    const json = config.toJSON(true);
+    const from = InputConfig.fromJSON(json);
 
-    expect(obj.default).toEqual(d);
-    expect(obj.nickname).toEqual(config.nickname);
-    expect(obj.overrideable).toEqual(config.overrideable);
-    expect(obj.type).toEqual(config.type);
-    expect(deserializedAvailable).toEqual(config.availableColors);
-    expect(obj.outputPropagator).toBeDefined();
-    expect(obj.devicePropagator).toBeDefined();
+    expect(from.default).toEqual(d);
+    expect(from.nickname).toEqual(config.nickname);
+    expect(from.overrideable).toEqual(config.overrideable);
+    expect(from.type).toEqual(config.type);
+    expect(JSON.stringify(from.availableColors)).toEqual(
+      JSON.stringify(config.availableColors)
+    );
+    expect(from.outputPropagator.toJSON(true)).toEqual(
+      config.outputPropagator.toJSON(true)
+    );
+    expect(from.devicePropagator.toJSON(true)).toEqual(
+      config.devicePropagator.toJSON(true)
+    );
   });
 });

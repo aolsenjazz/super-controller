@@ -3,9 +3,10 @@
  */
 
 import { NStepPropagator } from '@shared/propagators';
+import { MidiArray } from '@shared/midi-array';
 
-const noteon = [144, 32, 127];
-const noteoff = [128, 32, 0];
+const noteon = MidiArray.create(144, 0, 32, 127);
+const noteoff = MidiArray.create(128, 0, 32, 0);
 
 test('creating a valid NStepPropagator sets hardwareResponse correctly', () => {
   const steps = new Map();

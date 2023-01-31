@@ -1,6 +1,15 @@
 import { Color } from '@shared/driver-types';
-import { InputConfig } from '@shared/hardware-config';
+import { InputConfig, ColorImpl } from '@shared/hardware-config';
 import { CC_BINDINGS, stringVal } from '@shared/util';
+
+const mvc: Color = {
+  name: '<multiple values>',
+  string: 'transparent',
+  eventType: 'noteon',
+  value: 0,
+  fx: [],
+};
+const MULT_COLOR = ColorImpl.fromDrivers(mvc, 0, 0);
 
 /**
  * A pseudo-`InputConfig` used to show the values of multiple inputs in a group.
@@ -60,12 +69,17 @@ export class InputGroup {
   }
 
   colorForState(state: number) {
-    const color = this.#groupValue<Color | undefined>(
+    let color = this.#groupValue<ColorImpl | undefined>(
       (c) => c.colorForState(state),
-      (a, b) => JSON.stringify(a) === JSON.stringify(b)
+      (a, b) => {
+        if (!a && !b) return true;
+        return !a ? false : a.id === b?.id;
+      }
     );
 
-    return color === undefined ? null : color;
+    if (color === '<multiple values>') color = MULT_COLOR;
+
+    return color === undefined ? null : (color as ColorImpl);
   }
 
   /**
@@ -127,9 +141,25 @@ export class InputGroup {
 
   get eligibleColors() {
     const getter = (c: InputConfig) => c.availableColors;
-    const equality = (a: Color[], b: Color[]) =>
-      JSON.stringify(a) === JSON.stringify(b);
+    const equality = (a: ColorImpl[], b: ColorImpl[]) => {
+      const aIds = a.map((ac) => ac.id);
+      const bIds = b.map((bc) => bc.id);
+      return JSON.stringify(aIds) === JSON.stringify(bIds);
+    };
     return this.#getEligibleValues(getter, equality);
+  }
+
+  get activeFx() {
+    const getter = (c: InputConfig) => {
+      const current = c.currentColor;
+      return current?.activeFx;
+    };
+    const equality = (a: string | undefined, b: string | undefined) => {
+      return a === b;
+    };
+    const activeFx = this.#groupValue<string | undefined>(getter, equality);
+
+    return activeFx === undefined ? null : activeFx;
   }
 
   get isMultiInput() {

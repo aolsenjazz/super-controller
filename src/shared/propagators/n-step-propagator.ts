@@ -1,8 +1,10 @@
+import { MidiArray } from '../midi-array';
+
 import { Propagator } from './propagator';
 import { InputResponse } from '../driver-types';
 
 export class NStepPropagator extends Propagator {
-  #steps: Map<number, number[] | null>;
+  #steps: Map<number, MidiArray | null>;
 
   currentStep: number = 0;
 
@@ -12,7 +14,7 @@ export class NStepPropagator extends Propagator {
   constructor(
     hardwareResponse: InputResponse,
     outputResponse: InputResponse,
-    steps: Map<number, number[] | null>,
+    steps: Map<number, MidiArray | null>,
     currentStep?: number
   ) {
     super(hardwareResponse, outputResponse, undefined);
@@ -36,7 +38,7 @@ export class NStepPropagator extends Propagator {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected getResponse(_msg: number[]) {
+  protected getResponse(_msg: MidiArray) {
     if (this.nSteps === 0) return null;
 
     this.currentStep =
@@ -47,7 +49,7 @@ export class NStepPropagator extends Propagator {
     return s;
   }
 
-  setStep(number: number, step: number[] | null) {
+  setStep(number: number, step: MidiArray | null) {
     this.#steps.set(number, step);
   }
 

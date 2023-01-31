@@ -1,16 +1,15 @@
-import { setStatus } from '@shared/midi-util';
-
+import { MidiArray } from '../midi-array';
 import { DeviceConfig } from './device-config';
 
 export class AnonymousDeviceConfig extends DeviceConfig {
   // TODO: This likely should be made private - accessing this from outside of this class is smelly
-  readonly overrides: Map<string, number[]>;
+  readonly overrides: Map<string, MidiArray>;
 
   isAdapter = false;
 
   /* eslint-disable-next-line */
   static fromParsedJSON(obj: any) {
-    const overrides = new Map<string, number[]>(obj.overrides);
+    const overrides = new Map<string, MidiArray>(obj.overrides);
 
     return new AnonymousDeviceConfig(
       obj.name,
@@ -24,7 +23,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
   constructor(
     name: string,
     siblingIndex: number,
-    overrides: Map<string, number[]>,
+    overrides: Map<string, MidiArray>,
     shareSustain: string[],
     nickname?: string
   ) {
@@ -40,8 +39,9 @@ export class AnonymousDeviceConfig extends DeviceConfig {
    * @param message The MidiValue[] from device
    * @returns [messageToDevice | null, messageToPropagate]
    */
-  handleMessage(msg: number[]) {
-    const valueNegatedMsg = [...msg];
+  handleMessage(msg: MidiArray) {
+    const valueNegatedMsg = new MidiArray(msg.array);
+
     valueNegatedMsg[2] = 0;
     const id = JSON.stringify(valueNegatedMsg);
     const override = this.overrides.get(id);
@@ -64,13 +64,13 @@ export class AnonymousDeviceConfig extends DeviceConfig {
    */
   overrideInput(
     targetInput: number[],
-    newStatus: StatusString,
+    newStatus: StatusString | StatusByte,
     newChannel: Channel,
-    newNumber: number
+    newNumber: MidiNumber
   ) {
     const valueNegatedTarget = [...targetInput];
     valueNegatedTarget[2] = 0;
-    const override = setStatus([newChannel, newNumber, 0], newStatus);
+    const override = MidiArray.create(newStatus, newChannel, newNumber, 0);
     this.overrides.set(JSON.stringify(valueNegatedTarget), override);
   }
 

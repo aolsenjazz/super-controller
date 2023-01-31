@@ -26,6 +26,7 @@ export class Project {
   static fromJSON(json: string) {
     const obj = JSON.parse(json);
     const newProj = new Project();
+    newProj.version = obj.version;
 
     Object.assign(newProj, obj);
     newProj.devices = obj.devices.map((j: string) => {
@@ -87,6 +88,7 @@ export class Project {
   toJSON(includeState: boolean) {
     const project = {
       devices: this.devices.map((dev) => dev.toJSON(includeState)),
+      version: Project.CURRENT_VERSION,
     };
 
     return JSON.stringify(project);

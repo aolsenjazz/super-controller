@@ -1,3 +1,5 @@
+import { MidiArray } from '../midi-array';
+
 import { OutputPropagator } from './output-propagator';
 import { Propagator } from './propagator';
 import { NStepPropagator } from './n-step-propagator';
@@ -18,13 +20,23 @@ export function propagatorFromJSON(json: string) {
         obj.value,
         obj.lastPropagated
       );
-    case 'NStepPropagator':
+    case 'NStepPropagator': {
+      const steps = new Map<number, MidiArray | null>();
+      obj.steps.forEach((keyVals: [number, MidiArray | null]) => {
+        const k = keyVals[0];
+        const v = keyVals[1];
+        const val = v === null ? null : new MidiArray([v[0], v[1], v[2]]);
+        steps.set(k, val);
+      });
+
       return new NStepPropagator(
         obj.hardwareResponse,
         obj.outputResponse,
-        new Map<number, number[]>(obj.steps),
+        steps,
         obj.currentStep
       );
+    }
+
     default:
       throw new Error(`unknown propagator type ${obj.type}`);
   }

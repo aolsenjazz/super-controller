@@ -1,4 +1,4 @@
-import { setStatus, getStatus } from '../midi-util';
+import { MidiArray } from '../midi-array';
 
 import { InputResponse } from '../driver-types';
 import { Propagator } from './propagator';
@@ -12,20 +12,20 @@ export class OutputPropagator extends Propagator {
 
   eventType: StatusString | 'noteon/noteoff';
 
-  number: number;
+  number: MidiNumber;
 
   channel: Channel;
 
-  value: number;
+  value: MidiNumber;
 
   constructor(
     hardwareResponse: InputResponse,
     outputResponse: InputResponse,
     eventType: StatusString | 'noteon/noteoff',
-    number: number,
+    number: MidiNumber,
     channel: Channel,
-    value?: number,
-    lastPropagated?: number[]
+    value?: MidiNumber,
+    lastPropagated?: MidiArray
   ) {
     super(hardwareResponse, outputResponse, lastPropagated);
 
@@ -54,7 +54,7 @@ export class OutputPropagator extends Propagator {
    * @param msg The message to respond to
    * @returns The message to propagate
    */
-  protected getResponse(msg: number[]) {
+  protected getResponse(msg: MidiArray) {
     // manually flip constant state if output response !== constant
     if (
       this.hardwareResponse === 'constant' &&
@@ -63,7 +63,7 @@ export class OutputPropagator extends Propagator {
       this.constantState = this.constantState === 'on' ? 'off' : 'on';
     }
 
-    let response: number[];
+    let response: MidiArray;
     switch (this.outputResponse) {
       case 'gate':
         response = this.#handleAsGate(msg);
@@ -84,10 +84,8 @@ export class OutputPropagator extends Propagator {
         throw new Error(`unknown outputResponse ${this.outputResponse}`);
     }
 
-    if (getStatus(response).string === 'programchange') {
-      response = [response[0], response[1]];
-    } else {
-      /* eslint-disable-next-line */
+    if (response.isProgramChange) {
+      // eslint-disable-next-line prefer-destructuring
       this.value = response[2];
     }
 
@@ -99,11 +97,11 @@ export class OutputPropagator extends Propagator {
    *
    * @returns The message to propagate
    */
-  #handleAsGate = (msg: number[]) => {
+  #handleAsGate = (msg: MidiArray) => {
     const eventType = this.#nextEventType();
     const value = this.#nextValue(msg[2]);
 
-    return setStatus([this.channel, this.number, value], eventType);
+    return MidiArray.create(eventType, this.channel, this.number, value);
   };
 
   /**
@@ -111,7 +109,7 @@ export class OutputPropagator extends Propagator {
    *
    * @returns The message to propagate
    */
-  #handleAsToggle = (msg: number[]) => {
+  #handleAsToggle = (msg: MidiArray) => {
     const eventType = this.#nextEventType();
     let value = this.#nextValue(msg[2]);
 
@@ -125,7 +123,7 @@ export class OutputPropagator extends Propagator {
       value = this.#nextValue(defaultVal);
     }
 
-    return setStatus([this.channel, this.number, value], eventType);
+    return MidiArray.create(eventType, this.channel, this.number, value);
   };
 
   /**
@@ -134,10 +132,12 @@ export class OutputPropagator extends Propagator {
    * @param msg The message being responded to
    * @returns The message to propagate
    */
-  #handleAsContinuous = (msg: number[]) => {
-    return setStatus(
-      [this.channel, this.number, msg[2]],
-      this.#nextEventType()
+  #handleAsContinuous = (msg: MidiArray) => {
+    return MidiArray.create(
+      this.#nextEventType(),
+      this.channel,
+      this.number,
+      msg[2]
     );
   };
 
@@ -148,8 +148,13 @@ export class OutputPropagator extends Propagator {
    * @param msg The message from device being responded to
    * @returns The message to propagate
    */
-  #handleAsPitchbend = (msg: number[]) => {
-    return setStatus([this.channel, msg[1], msg[2]], this.#nextEventType());
+  #handleAsPitchbend = (msg: MidiArray) => {
+    return MidiArray.create(
+      this.#nextEventType(),
+      this.channel,
+      msg[1],
+      msg[2]
+    );
   };
 
   /**
@@ -161,9 +166,11 @@ export class OutputPropagator extends Propagator {
     if (this.value === undefined)
       throw new Error(`value must not be undefined`);
 
-    return setStatus(
-      [this.channel, this.number, this.#nextValue(this.value)],
-      this.#nextEventType()
+    return MidiArray.create(
+      this.#nextEventType(),
+      this.channel,
+      this.number,
+      this.#nextValue(this.value)
     );
   };
 
@@ -173,11 +180,10 @@ export class OutputPropagator extends Propagator {
   #nextEventType = () => {
     switch (this.eventType) {
       case 'noteon/noteoff':
+        // TODO: should just be able to remove this if block
         if (this.lastPropagated) {
-          const status = getStatus(this.lastPropagated).string;
-          return status === 'noteon' ? 'noteoff' : 'noteon';
+          return this.lastPropagated.isNoteOn ? 'noteoff' : 'noteon';
         }
-
         return 'noteon';
       case 'controlchange':
       case 'programchange':
@@ -195,7 +201,7 @@ export class OutputPropagator extends Propagator {
    *
    * @param defaultVal Value to return if a specific value isn't required
    */
-  #nextValue = (defaultVal: number) => {
+  #nextValue = (defaultVal: MidiNumber) => {
     switch (this.#nextEventType()) {
       case 'noteoff':
         return 0;

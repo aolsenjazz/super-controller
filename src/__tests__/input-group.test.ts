@@ -1,25 +1,36 @@
+import { MidiArray } from '@shared/midi-array';
 import { InputConfig, ColorImpl } from '@shared/hardware-config';
 import { NStepPropagator } from '@shared/propagators';
 import { Color, InputResponse, InputType } from '@shared/driver-types';
 
 import { InputGroup } from '../renderer/input-group';
 
-const GREEN = {
+const FX: Color['fx'][number] = {
+  title: 'Blink',
+  effect: 'Speed',
+  validVals: [1, 2, 3],
+  defaultVal: 1,
+  lowBoundLabel: 'Slow',
+  highBoundLabel: 'Fast',
+};
+
+const GREEN: Color = {
   name: 'green',
   eventType: 'noteon' as StatusString,
   value: 3,
+  modifier: 'blink',
   string: 'green',
   default: true,
-  fx: [],
+  fx: [FX],
 };
 
-const RED = {
+const RED: Color = {
   name: 'red',
   eventType: 'noteon' as StatusString,
   value: 5,
   string: 'red',
   default: false,
-  fx: [],
+  fx: [FX],
 };
 
 function createInput(
@@ -36,12 +47,12 @@ function createInput(
     eventType,
     response,
   };
-  const avail = availableColors.map(
-    (c) => new ColorImpl(c, def.number, def.channel)
+  const avail = availableColors.map((c) =>
+    ColorImpl.fromDrivers(c, def.number, def.channel)
   );
-  const config = new Map<number, number[]>();
+  const config = new Map<number, MidiArray>();
   lightConfig.forEach((v, k) => {
-    config.set(k, new ColorImpl(v, def.number, def.channel).toMidiArray());
+    config.set(k, ColorImpl.fromDrivers(v, def.number, def.channel));
   });
 
   const outputPropagator = undefined;
@@ -97,116 +108,158 @@ function createSliderInput(seedNumber: Channel = 0) {
   return createInput(seedNumber, 'controlchange', 'continuous', 'slider');
 }
 
-test('labelForNumber returns number for inputs w/diff eventTypes', () => {
-  const gate = createGatePadInput(0);
-  const slider = createSliderInput(1);
-  const group = new InputGroup([gate, slider]);
-  expect(group.labelForNumber(3)).toBe('3');
+describe('labels', () => {
+  test('labelForNumber returns number for inputs w/diff eventTypes', () => {
+    const gate = createGatePadInput(0);
+    const slider = createSliderInput(1);
+    const group = new InputGroup([gate, slider]);
+    expect(group.labelForNumber(3)).toBe('3');
+  });
+
+  test('labelForNumber returns number for empty inputs list', () => {
+    const group = new InputGroup([]);
+    expect(group.labelForNumber(3)).toBe('3');
+  });
+
+  test('labelForNumber includes default CC role', () => {
+    const slider = createSliderInput(10);
+    const group = new InputGroup([slider]);
+    expect(group.labelForNumber(10).includes('default')).toBe(true);
+  });
+
+  test('labelForNumber includes input default status', () => {
+    const slider = createSliderInput(10);
+    const group = new InputGroup([slider]);
+    expect(group.labelForNumber(9).includes('default')).toBe(false);
+  });
+
+  test('labelForChannel does not include default status', () => {
+    const slider = createSliderInput(10);
+    const group = new InputGroup([slider]);
+    expect(group.labelForChannel(9).includes('default')).toBe(false);
+  });
+
+  test('labelForChannel includes default status', () => {
+    const slider = createSliderInput(2);
+    const group = new InputGroup([slider]);
+    expect(group.labelForChannel(2).includes('default')).toBe(true);
+  });
+
+  test('labelForEventType returns correct eventType for multiple, similar inputs', () => {
+    const pad1 = createGatePadInput(1);
+    const pad2 = createGatePadInput(2);
+    const group = new InputGroup([pad1, pad2]);
+    expect(group.labelForEventType('noteon/noteoff')).toBe('noteon/noteoff');
+  });
+
+  test('labelForResponse returns correct response for group with similar inputs', () => {
+    const pad1 = createGatePadInput(1);
+    const group = new InputGroup([pad1]);
+    expect(group.labelForResponse('gate')).toBe('gate [default]');
+  });
 });
 
-test('labelForNumber returns number for empty inputs list', () => {
-  const group = new InputGroup([]);
-  expect(group.labelForNumber(3)).toBe('3');
+describe('colorForState', () => {
+  test('return null for unset availableColors', () => {
+    const pad1 = createGatePadInput(0);
+    const group = new InputGroup([pad1]);
+    expect(group.colorForState(0)).toBe(null);
+  });
+
+  test('returns default for unset light config', () => {
+    const pad1 = createGatePadInput(0, true);
+    const group = new InputGroup([pad1]);
+
+    expect(group.colorForState(1)!.name).toEqual('green');
+  });
+
+  test('returns the correct color', () => {
+    const pad1 = createGatePadInput(0, true, true);
+    const group = new InputGroup([pad1]);
+
+    expect(group.colorForState(0)!.name).toEqual('red');
+  });
+
+  test('returns correct color for matching input pads', () => {
+    const pad1 = createGatePadInput(0, true, true);
+    const pad2 = createGatePadInput(1, true, true);
+    const group = new InputGroup([pad1, pad2]);
+
+    const result = group.colorForState(0);
+
+    expect(result!.name).toEqual('red');
+  });
+
+  test('returns multiple values for mismatch pads', () => {
+    const pad1 = createGatePadInput(0, true, true);
+    const pad2 = createGatePadInput(1);
+    const group = new InputGroup([pad1, pad2]);
+    const result = group.colorForState(0);
+
+    expect(result!.name).toEqual('<multiple values>');
+  });
 });
 
-test('labelForNumber includes default CC role', () => {
-  const slider = createSliderInput(10);
-  const group = new InputGroup([slider]);
-  expect(group.labelForNumber(10).includes('default')).toBe(true);
+describe('isMultiInput', () => {
+  test('returns true for xy', () => {
+    const xy = createXYInput(0);
+    const xy2 = createXYInput(1);
+    const group = new InputGroup([xy, xy2]);
+    expect(group.isMultiInput).toBe(true);
+  });
 });
 
-test('labelForNumber includes input default status', () => {
-  const slider = createSliderInput(10);
-  const group = new InputGroup([slider]);
-  expect(group.labelForNumber(9).includes('default')).toBe(false);
+describe('number getter', () => {
+  test('returns correct value for group', () => {
+    const gate1 = createGatePadInput(1);
+    const gate2 = createGatePadInput(1);
+    const group = new InputGroup([gate1, gate2]);
+    expect(group.number).toBe(1);
+  });
+
+  test('returns <multiple values>', () => {
+    const gate1 = createGatePadInput(0);
+    const gate2 = createGatePadInput(1);
+    const group = new InputGroup([gate1, gate2]);
+    expect(group.number).toBe('<multiple values>');
+  });
 });
 
-test('labelForChannel does not include default status', () => {
-  const slider = createSliderInput(10);
-  const group = new InputGroup([slider]);
-  expect(group.labelForChannel(9).includes('default')).toBe(false);
+describe('eligibleEventTypes', () => {
+  test('returns correct eventTypes for similar inputs', () => {
+    const slider1 = createSliderInput(0);
+    const slider2 = createSliderInput(1);
+    const group = new InputGroup([slider1, slider2]);
+    const eligibleEventTypes = [
+      'noteon',
+      'noteoff',
+      'controlchange',
+      'programchange',
+    ];
+    expect(group.eligibleEventTypes).toEqual(eligibleEventTypes);
+  });
+
+  test('returns correct eventTypes for different inputs', () => {
+    const gate = createGatePadInput(0);
+    const slider = createSliderInput(1);
+    const group = new InputGroup([gate, slider]);
+    expect(group.eligibleEventTypes.length).toBe(0);
+  });
 });
 
-test('labelForChannel includes default status', () => {
-  const slider = createSliderInput(2);
-  const group = new InputGroup([slider]);
-  expect(group.labelForChannel(2).includes('default')).toBe(true);
-});
+describe('eligibleColors', () => {
+  test('returns the correct array value', () => {
+    const pad1 = createGatePadInput(0, true, true);
+    const pad2 = createGatePadInput(1, true, true);
+    const group = new InputGroup([pad1, pad2]);
+    const expected = pad1.availableColors.length;
+    expect(group.eligibleColors.length).toBe(expected);
+  });
 
-test('labelForEventType returns correct eventType for multiple, similar inputs', () => {
-  const pad1 = createGatePadInput(1);
-  const pad2 = createGatePadInput(2);
-  const group = new InputGroup([pad1, pad2]);
-  expect(group.labelForEventType('noteon/noteoff')).toBe('noteon/noteoff');
-});
-
-test('labelForResponse returns correct response for group with similar inputs', () => {
-  const pad1 = createGatePadInput(1);
-  const group = new InputGroup([pad1]);
-  expect(group.labelForResponse('gate')).toBe('gate [default]');
-});
-
-test('colorForState return null for unset availableColors', () => {
-  const pad1 = createGatePadInput(0);
-  const group = new InputGroup([pad1]);
-  expect(group.colorForState(0)).toBe(null);
-});
-
-test('colorForState returns default for unset light config', () => {
-  const pad1 = createGatePadInput(0, true);
-  const group = new InputGroup([pad1]);
-
-  const correct = new ColorImpl(GREEN, pad1.number, pad1.channel);
-
-  expect(group.colorForState(1)).toEqual(correct);
-});
-
-test('colorForState returns the correct color', () => {
-  const pad1 = createGatePadInput(0, true, true);
-  const group = new InputGroup([pad1]);
-
-  const correct = new ColorImpl(RED, pad1.number, pad1.channel);
-
-  expect(group.colorForState(0)).toEqual(correct);
-});
-
-test('isMultiInput returns true for xy', () => {
-  const xy = createXYInput(0);
-  const xy2 = createXYInput(1);
-  const group = new InputGroup([xy, xy2]);
-  expect(group.isMultiInput).toBe(true);
-});
-
-test('number getter returns correct value for group', () => {
-  const gate1 = createGatePadInput(1);
-  const gate2 = createGatePadInput(1);
-  const group = new InputGroup([gate1, gate2]);
-  expect(group.number).toBe(1);
-});
-
-test('number getter returns <multiple values>', () => {
-  const gate1 = createGatePadInput(0);
-  const gate2 = createGatePadInput(1);
-  const group = new InputGroup([gate1, gate2]);
-  expect(group.number).toBe('<multiple values>');
-});
-
-test('eligibleEventTypes returns correct eventTypes for similar inputs', () => {
-  const slider1 = createSliderInput(0);
-  const slider2 = createSliderInput(1);
-  const group = new InputGroup([slider1, slider2]);
-  const eligibleEventTypes = [
-    'noteon',
-    'noteoff',
-    'controlchange',
-    'programchange',
-  ];
-  expect(group.eligibleEventTypes).toEqual(eligibleEventTypes);
-});
-
-test('eligibleEventTypes returns correct eventTypes for different inputs', () => {
-  const gate = createGatePadInput(0);
-  const slider = createSliderInput(1);
-  const group = new InputGroup([gate, slider]);
-  expect(group.eligibleEventTypes.length).toBe(0);
+  test('returns an empty array', () => {
+    const pad1 = createGatePadInput(0, true, true);
+    const pad2 = createGatePadInput(1);
+    const group = new InputGroup([pad1, pad2]);
+    expect(group.eligibleColors.length).toBe(0);
+  });
 });

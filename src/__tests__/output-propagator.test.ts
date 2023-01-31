@@ -1,4 +1,4 @@
-import { setStatus, getChannel, getStatus } from '@shared/midi-util';
+import { MidiArray } from '@shared/midi-array';
 import { OutputPropagator } from '@shared/propagators/output-propagator';
 import { InputResponse } from '@shared/driver-types';
 
@@ -6,31 +6,23 @@ function createPropagator(
   ir: InputResponse,
   or: InputResponse,
   eventType: StatusString | 'noteon/noteoff' = 'noteon/noteoff',
-  number = 0,
+  number: MidiNumber = 0,
   channel: Channel = 0,
-  value?: number
+  value?: MidiNumber
 ) {
   return new OutputPropagator(ir, or, eventType, number, channel, value);
 }
 
-const noteon = [144, 32, 127];
-const noteoff = [128, 32, 0];
-
-function getNumber(msg: number[]) {
-  return msg[0];
-}
-
-function getValue(msg: number[]) {
-  return msg[2];
-}
+const noteon = MidiArray.create(144, 0, 32, 127);
+const noteoff = MidiArray.create(128, 0, 32, 0);
 
 interface NamedCreateCC {
-  value: number;
-  number: number;
+  value: MidiNumber;
+  number: MidiNumber;
   channel: Channel;
 }
 function createCC({ value = 0, number = 0, channel = 0 }: NamedCreateCC) {
-  return setStatus([channel, number, value], 'controlchange');
+  return MidiArray.create('controlchange', channel, number, value);
 }
 
 describe('hr as gate', () => {
@@ -40,16 +32,16 @@ describe('hr as gate', () => {
       'gate',
       'gate',
       'controlchange',
-      getNumber(msg),
-      getChannel(msg)
+      msg.number,
+      msg.channel
     );
 
     const result = propagator.handleMessage(noteon)!;
 
-    expect(getStatus(result)).toEqual(getStatus(msg));
-    expect(getNumber(result)).toEqual(getNumber(msg));
-    expect(getChannel(result)).toEqual(getChannel(msg));
-    expect(getValue(result)).toEqual(getValue(noteon));
+    expect(result.status).toEqual(msg.status);
+    expect(result.number).toEqual(msg.number);
+    expect(result.channel).toEqual(msg.channel);
+    expect(result.value).toEqual(noteon.value);
   });
 
   test('or=gate responds to both noteon and noteoff', () => {
@@ -58,23 +50,23 @@ describe('hr as gate', () => {
       'gate',
       'gate',
       'controlchange',
-      getNumber(msg),
-      getChannel(msg)
+      msg.number,
+      msg.channel
     );
 
     const result = propagator.handleMessage(noteon)!;
 
-    expect(getStatus(result)).toEqual(getStatus(msg));
-    expect(getNumber(result)).toEqual(getNumber(msg));
-    expect(getChannel(result)).toEqual(getChannel(msg));
-    expect(getValue(result)).toEqual(getValue(noteon));
+    expect(result.status).toEqual(msg.status);
+    expect(result.number).toEqual(msg.number);
+    expect(result.channel).toEqual(msg.channel);
+    expect(result.value).toEqual(noteon.value);
 
     const result2 = propagator.handleMessage(noteoff)!;
 
-    expect(getStatus(result2)).toEqual(getStatus(msg));
-    expect(getNumber(result2)).toEqual(getNumber(msg));
-    expect(getChannel(result2)).toEqual(getChannel(msg));
-    expect(getValue(result2)).toEqual(getValue(noteoff));
+    expect(result2.status).toEqual(msg.status);
+    expect(result2.number).toEqual(msg.number);
+    expect(result2.channel).toEqual(msg.channel);
+    expect(result2.value).toEqual(noteoff.value);
   });
 
   test('or=toggle overrides values correctly', () => {
@@ -83,16 +75,16 @@ describe('hr as gate', () => {
       'gate',
       'toggle',
       'controlchange',
-      getNumber(msg),
-      getChannel(msg)
+      msg.number,
+      msg.channel
     );
 
     const result = propagator.handleMessage(noteon)!;
 
-    expect(getStatus(result)).toEqual(getStatus(msg));
-    expect(getNumber(result)).toEqual(getNumber(msg));
-    expect(getChannel(result)).toEqual(getChannel(msg));
-    expect(getValue(result)).toEqual(getValue(noteon));
+    expect(result.status).toEqual(msg.status);
+    expect(result.number).toEqual(msg.number);
+    expect(result.channel).toEqual(msg.channel);
+    expect(result.value).toEqual(noteon.value);
   });
 
   test('or=toggle only responds to noteon', () => {
@@ -101,16 +93,16 @@ describe('hr as gate', () => {
       'gate',
       'toggle',
       'controlchange',
-      getNumber(msg),
-      getChannel(msg)
+      msg.number,
+      msg.channel
     );
 
     const result = propagator.handleMessage(noteon)!;
 
-    expect(getStatus(result)).toEqual(getStatus(msg));
-    expect(getNumber(result)).toEqual(getNumber(msg));
-    expect(getChannel(result)).toEqual(getChannel(msg));
-    expect(getValue(result)).toEqual(getValue(noteon));
+    expect(result.status).toEqual(msg.status);
+    expect(result.number).toEqual(msg.number);
+    expect(result.channel).toEqual(msg.channel);
+    expect(result.value).toEqual(noteon.value);
 
     const result2 = propagator.handleMessage(noteoff);
 
@@ -123,19 +115,19 @@ describe('hr as gate', () => {
       'gate',
       'constant',
       'controlchange',
-      getNumber(msg),
-      getChannel(msg),
+      msg.number,
+      msg.channel,
       69
     );
 
     const result = propagator.handleMessage(noteon)!;
-    expect(getValue(result)).toEqual(getValue(msg));
+    expect(result.value).toEqual(msg.value);
 
     const result2 = propagator.handleMessage(noteoff);
     expect(result2).toBeNull();
 
     const result3 = propagator.handleMessage(noteon)!;
-    expect(getValue(result3)).toEqual(getValue(msg));
+    expect(result3.value).toEqual(msg.value);
   });
 });
 
@@ -146,23 +138,23 @@ describe('hr=toggle', () => {
       'toggle',
       'toggle',
       'controlchange',
-      getNumber(msg),
-      getChannel(msg)
+      msg.number,
+      msg.channel
     );
 
     const result = propagator.handleMessage(noteon)!;
 
-    expect(getStatus(result)).toEqual(getStatus(msg));
-    expect(getNumber(result)).toEqual(getNumber(msg));
-    expect(getChannel(result)).toEqual(getChannel(msg));
-    expect(getValue(result)).toEqual(getValue(noteon));
+    expect(result.status).toEqual(msg.status);
+    expect(result.number).toEqual(msg.number);
+    expect(result.channel).toEqual(msg.channel);
+    expect(result.value).toEqual(noteon.value);
 
     const result2 = propagator.handleMessage(noteoff)!;
 
-    expect(getStatus(result2)).toEqual(getStatus(msg));
-    expect(getNumber(result2)).toEqual(getNumber(msg));
-    expect(getChannel(result2)).toEqual(getChannel(msg));
-    expect(getValue(result2)).toEqual(getValue(noteoff));
+    expect(result2.status).toEqual(msg.status);
+    expect(result2.number).toEqual(msg.number);
+    expect(result2.channel).toEqual(msg.channel);
+    expect(result2.value).toEqual(noteoff.value);
   });
 
   test('or=constant flow works correctly', () => {
@@ -171,24 +163,24 @@ describe('hr=toggle', () => {
       'toggle',
       'constant',
       'controlchange',
-      getNumber(msg),
-      getChannel(msg),
+      msg.number,
+      msg.channel,
       69
     );
 
     const result = propagator.handleMessage(noteon)!;
 
-    expect(getStatus(result)).toEqual(getStatus(msg));
-    expect(getNumber(result)).toEqual(getNumber(msg));
-    expect(getChannel(result)).toEqual(getChannel(msg));
-    expect(getValue(result)).toEqual(getValue(msg));
+    expect(result.status).toEqual(msg.status);
+    expect(result.number).toEqual(msg.number);
+    expect(result.channel).toEqual(msg.channel);
+    expect(result.value).toEqual(msg.value);
 
     const result2 = propagator.handleMessage(noteoff)!;
 
-    expect(getStatus(result2)).toEqual(getStatus(msg));
-    expect(getNumber(result2)).toEqual(getNumber(msg));
-    expect(getChannel(result2)).toEqual(getChannel(msg));
-    expect(getValue(result2)).toEqual(getValue(msg));
+    expect(result2.status).toEqual(msg.status);
+    expect(result2.number).toEqual(msg.number);
+    expect(result2.channel).toEqual(msg.channel);
+    expect(result2.value).toEqual(msg.value);
   });
 });
 
@@ -199,24 +191,24 @@ describe('hr=constant', () => {
       'constant',
       'toggle',
       'controlchange',
-      getNumber(msg),
-      getChannel(msg),
+      msg.number,
+      msg.channel,
       69
     );
 
     const result = propagator.handleMessage(noteon)!;
 
-    expect(getStatus(result)).toEqual(getStatus(msg));
-    expect(getNumber(result)).toEqual(getNumber(msg));
-    expect(getChannel(result)).toEqual(getChannel(msg));
-    expect(getValue(result)).toEqual(127);
+    expect(result.status).toEqual(msg.status);
+    expect(result.number).toEqual(msg.number);
+    expect(result.channel).toEqual(msg.channel);
+    expect(result.value).toEqual(127);
 
     const result2 = propagator.handleMessage(noteoff)!;
 
-    expect(getStatus(result2)).toEqual(getStatus(msg));
-    expect(getNumber(result2)).toEqual(getNumber(msg));
-    expect(getChannel(result2)).toEqual(getChannel(msg));
-    expect(getValue(result2)).toEqual(0);
+    expect(result2.status).toEqual(msg.status);
+    expect(result2.number).toEqual(msg.number);
+    expect(result2.channel).toEqual(msg.channel);
+    expect(result2.value).toEqual(0);
   });
 
   test('or=constant flow works correctly', () => {
@@ -225,24 +217,24 @@ describe('hr=constant', () => {
       'constant',
       'constant',
       'controlchange',
-      getNumber(msg),
-      getChannel(msg),
+      msg.number,
+      msg.channel,
       69
     );
 
     const result = propagator.handleMessage(noteon)!;
 
-    expect(getStatus(result)).toEqual(getStatus(msg));
-    expect(getNumber(result)).toEqual(getNumber(msg));
-    expect(getChannel(result)).toEqual(getChannel(msg));
-    expect(getValue(result)).toEqual(69);
+    expect(result.status).toEqual(msg.status);
+    expect(result.number).toEqual(msg.number);
+    expect(result.channel).toEqual(msg.channel);
+    expect(result.value).toEqual(69);
 
     const result2 = propagator.handleMessage(noteoff)!;
 
-    expect(getStatus(result2)).toEqual(getStatus(msg));
-    expect(getNumber(result2)).toEqual(getNumber(msg));
-    expect(getChannel(result2)).toEqual(getChannel(msg));
-    expect(getValue(result2)).toEqual(69);
+    expect(result2.status).toEqual(msg.status);
+    expect(result2.number).toEqual(msg.number);
+    expect(result2.channel).toEqual(msg.channel);
+    expect(result2.value).toEqual(69);
   });
 });
 
@@ -254,24 +246,24 @@ describe('hr=continuous', () => {
       'continuous',
       'continuous',
       'noteon',
-      getNumber(noteon),
-      getChannel(noteon),
+      noteon.number,
+      noteon.channel,
       69
     );
 
     const result = propagator.handleMessage(msg1)!;
 
-    expect(getStatus(result)).toEqual(getStatus(noteon));
-    expect(getNumber(result)).toEqual(getNumber(noteon));
-    expect(getChannel(result)).toEqual(getChannel(noteon));
-    expect(getValue(result)).toEqual(60);
+    expect(result.status).toEqual(noteon.status);
+    expect(result.number).toEqual(noteon.number);
+    expect(result.channel).toEqual(noteon.channel);
+    expect(result.value).toEqual(60);
 
     const result2 = propagator.handleMessage(msg2)!;
 
-    expect(getStatus(result2)).toEqual(getStatus(noteon));
-    expect(getNumber(result2)).toEqual(getNumber(noteon));
-    expect(getChannel(result2)).toEqual(getChannel(noteon));
-    expect(getValue(result2)).toEqual(70);
+    expect(result2.status).toEqual(noteon.status);
+    expect(result2.number).toEqual(noteon.number);
+    expect(result2.channel).toEqual(noteon.channel);
+    expect(result2.value).toEqual(70);
   });
 });
 
@@ -281,8 +273,8 @@ describe('toJSON', () => {
       'continuous',
       'continuous',
       'noteon',
-      getNumber(noteon),
-      getChannel(noteon),
+      noteon.number,
+      noteon.channel,
       69
     );
 
@@ -302,8 +294,8 @@ describe('toJSON', () => {
       'gate',
       'gate',
       'controlchange',
-      getNumber(noteon),
-      getChannel(noteon),
+      noteon.number,
+      noteon.channel,
       69
     );
 
@@ -326,8 +318,8 @@ describe('toJSON', () => {
       'gate',
       'gate',
       'noteon/noteoff',
-      getNumber(noteon),
-      getChannel(noteon),
+      noteon.number,
+      noteon.channel,
       69
     );
 

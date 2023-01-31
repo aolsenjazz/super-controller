@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 
-import { getStatus } from '@shared/midi-util';
+import { MidiArray } from '@shared/midi-array';
 import { applyDestructiveThrottle } from '@shared/util';
 import { Project } from '@shared/project';
 
 const { hostService, projectService } = window;
 
-function shouldThrottle(msg: number[]) {
-  const status = getStatus(msg).string;
-  return status === 'controlchange' || status === 'pitchbend';
+function shouldThrottle(msg: MidiArray) {
+  return msg.isCC || msg.isPitchBend;
 }
 
 type PropTypes = {
@@ -37,7 +36,8 @@ export default function ProjectChangeListener(props: PropTypes) {
       100
     );
 
-    const cb = (_inputId: string, deviceId: string, msg: number[]) => {
+    const cb = (_inputId: string, deviceId: string, tuple: MidiTuple) => {
+      const msg = new MidiArray(tuple);
       const device = project.getDevice(deviceId);
       if (device) device.handleMessage(msg);
 

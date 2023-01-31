@@ -38,7 +38,7 @@ export class Port {
     }
   }
 
-  onMessage(cb: (deltaTime: number, msg: number[]) => void) {
+  onMessage(cb: (deltaTime: number, msg: MidiTuple) => void) {
     if (this.port instanceof midi.Input) {
       this.port.on('message', cb);
     }

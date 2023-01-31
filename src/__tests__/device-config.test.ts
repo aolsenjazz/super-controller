@@ -1,9 +1,10 @@
+import { MidiArray } from '@shared/midi-array';
 import { DeviceConfig } from '@shared/hardware-config/device-config';
 
 class DeviceConfigWrapper extends DeviceConfig {
   isAdapter = false;
 
-  handleMessage(msg: number[]) {
+  handleMessage(msg: MidiArray) {
     return [null, msg];
   }
 

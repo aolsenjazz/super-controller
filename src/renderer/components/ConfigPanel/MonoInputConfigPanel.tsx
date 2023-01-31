@@ -121,7 +121,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             labelList={eligibleValues.map((v) => v.toString())}
             onChange={(v) => {
               onChange((c) => {
-                c.value = v as number;
+                c.value = v as MidiNumber;
               });
             }}
           />
@@ -134,7 +134,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             labelList={numberLabels}
             onChange={(v) => {
               onChange((c) => {
-                c.number = v as number;
+                c.number = v as MidiNumber;
               });
             }}
           />

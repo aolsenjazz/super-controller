@@ -62,7 +62,7 @@ const hostService = {
    * @param func The callbacack function to be invoked
    */
   onMessage: (
-    func: (inputId: string, deviceId: string, msg: number[]) => void
+    func: (inputId: string, deviceId: string, msg: MidiTuple) => void
   ) => {
     return addOnChangeListener(MSG, func);
   },

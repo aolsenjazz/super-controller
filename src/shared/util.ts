@@ -1,6 +1,6 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
-
-import { getStatus, getChannel } from './midi-util';
+import { MidiArray } from './midi-array';
+import { byteToStatusString } from './midi-util';
 
 export function getDiff(l1: string[], l2: string[]) {
   const ex1 = l1.filter((str) => !l2.includes(str));
@@ -54,63 +54,30 @@ export function applyNondestructiveThrottle(
  * @returns The ID of the input
  */
 export function inputIdFor(
-  msg: number[] | (StatusString | 'noteon/noteoff'),
+  msg: MidiArray | (StatusString | 'noteon/noteoff'),
   channel?: Channel,
-  number?: number
+  number?: MidiNumber
 ) {
-  let status;
+  let status = msg;
   let num = number;
   let chan = channel;
 
   if (Array.isArray(msg)) {
-    status = getStatus(msg).string;
-    num = msg[1]; // eslint-disable-line
-    chan = getChannel(msg);
+    status = byteToStatusString(msg.status, false);
+    num = msg.number; // eslint-disable-line
+    chan = msg.channel;
   } else {
     if (num === undefined && msg !== 'pitchbend')
       throw new Error('number must not be undefined');
     if (channel === undefined) throw new Error('channel must not be undefined');
-    status = msg;
   }
 
-  status = ['noteon', 'noteoff'].includes(status) ? 'noteon/noteoff' : status;
+  if (['noteon', 'noteoff'].includes(status as StatusString))
+    status = 'noteon/noteoff';
 
   return status === 'pitchbend'
     ? `${status}.${chan}`
     : `${status}.${chan}.${num}`;
-}
-
-/**
- * Is this a sustain message?
- *
- * @param msg Maybe a sustain message
- * @returns true if msg is a sustain message
- */
-export function isSustain(msg: number[]) {
-  return getStatus(msg).string === 'controlchange' && msg[1] === 64;
-}
-
-/**
- * Generally speaking, is this message and 'on' message? If message doesn't have
- * a clear notion of on-ness (programchange), return `default`
- *
- * @param msg The message
- * @param def The value to return if message type has no notion of on-ness
- * @returns `true` if message is on-ish
- */
-export function isOnMessage(msg: number[], def: boolean) {
-  const status = getStatus(msg).string;
-
-  switch (status) {
-    case 'noteon':
-      return msg[2] > 0;
-    case 'noteoff':
-      return false;
-    case 'controlchange':
-      return msg[2] > 0;
-    default:
-      return def;
-  }
 }
 
 /* Mappings from CC number to a human-readable string */

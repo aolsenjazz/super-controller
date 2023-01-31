@@ -56,7 +56,7 @@ export default function AdapterView(props: PropTypes) {
           labelList={labelList}
           value={value}
           onChange={onChange}
-          usePlaceholder
+          placeholder="Choose your device"
         />
       </div>
       <DriverRequestButton />

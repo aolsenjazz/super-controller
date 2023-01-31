@@ -1,10 +1,10 @@
-import { Color } from '@shared/driver-types';
+import { ColorImpl } from '@shared/hardware-config';
 
 type PropTypes = {
   onClick: (event: React.MouseEvent, id: string) => void;
   id: string;
   shape: string;
-  color: Color | undefined;
+  color: ColorImpl | undefined;
   width: string;
   height: string;
   enabled: boolean;

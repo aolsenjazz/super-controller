@@ -1,5 +1,6 @@
+import { MidiArray } from '../midi-array';
+
 import { InputResponse } from '../driver-types';
-import { isOnMessage } from '../util';
 
 const illogicalPairs: [InputResponse, InputResponse][] = [
   ['continuous', 'gate'],
@@ -35,12 +36,12 @@ export abstract class Propagator {
   #outputResponse: InputResponse;
 
   /* The last-propagated message */
-  public lastPropagated: number[] | null;
+  public lastPropagated: MidiArray | null;
 
   constructor(
     hardwareResponse: InputResponse,
     outputResponse: InputResponse,
-    lastPropagated?: number[]
+    lastPropagated?: MidiArray
   ) {
     checkResponsePair(hardwareResponse, outputResponse);
 
@@ -56,8 +57,8 @@ export abstract class Propagator {
    * @param msg Message from device to respond to
    * @returns The message to propagate
    */
-  handleMessage(msg: number[]) {
-    let toPropagate: number[] | null;
+  handleMessage(msg: MidiArray) {
+    let toPropagate: MidiArray | null;
 
     switch (this.hardwareResponse) {
       case 'gate':
@@ -96,9 +97,9 @@ export abstract class Propagator {
    * @param msg The message from device
    * @returns the message to propagate
    */
-  #handleInputAsGate = (msg: number[]) => {
+  #handleInputAsGate = (msg: MidiArray) => {
     // if outputResponse === 'toggle' | 'constant', only respond to 'noteon' messages
-    if (this.outputResponse !== 'gate' && !isOnMessage(msg, true)) {
+    if (this.outputResponse !== 'gate' && !msg.isOnIsh(true)) {
       return null;
     }
     return this.getResponse(msg);
@@ -110,7 +111,7 @@ export abstract class Propagator {
    * @param msg The message from device
    * @returns the message to propagate
    */
-  #handleInputAsToggle = (msg: number[]) => {
+  #handleInputAsToggle = (msg: MidiArray) => {
     return this.getResponse(msg);
   };
 
@@ -120,7 +121,7 @@ export abstract class Propagator {
    * @param msg The message from device
    * @returns the message to propagate
    */
-  #handleInputAsContinuous = (msg: number[]) => {
+  #handleInputAsContinuous = (msg: MidiArray) => {
     return this.getResponse(msg);
   };
 
@@ -130,11 +131,11 @@ export abstract class Propagator {
    * @param msg The message from device
    * @returns the message to propagate
    */
-  #handleInputAsConstant = (msg: number[]) => {
+  #handleInputAsConstant = (msg: MidiArray) => {
     return this.getResponse(msg);
   };
 
-  protected abstract getResponse(msg: number[]): number[] | null;
+  protected abstract getResponse(msg: MidiArray): MidiArray | null;
 
   abstract toJSON(includeState: boolean): string;
 }

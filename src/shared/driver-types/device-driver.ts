@@ -6,9 +6,11 @@ import { KeyboardDriver } from './keyboard-driver';
  * intialization. Running a control sequence relinquishes control of device
  * lights, though not all device require control sequences to achieve this.
  *
+ *
+ * TODO: this is an illogical order. why wouldn't I just use midi arrays?
  * [status, number, value, channel]
  */
-type ControlSequenceMessage = [StatusString, number, number, Channel];
+type ControlSequenceMessage = [StatusString, MidiNumber, MidiNumber, Channel];
 
 export type DeviceStyle = {
   '--r'?: number /* used to calculate aspect-ratio */;

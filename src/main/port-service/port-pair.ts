@@ -47,7 +47,7 @@ export class PortPair {
   /**
    * Set a callback to be invoked when the input port receives a message. If input port is null, does nothing.
    */
-  onMessage(cb: (deltaTime: number, msg: number[]) => void) {
+  onMessage(cb: (deltaTime: number, msg: MidiTuple) => void) {
     if (this.iPort !== null) {
       this.iPort.onMessage(cb);
     }

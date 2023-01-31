@@ -1,13 +1,13 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import { Project } from '@shared/project';
-import { isSustain, inputIdFor, getDiff } from '@shared/util';
+import { MidiArray } from '@shared/midi-array';
+import { inputIdFor, getDiff } from '@shared/util';
 import {
   InputConfig,
   SupportedDeviceConfig,
   AdapterDeviceConfig,
 } from '@shared/hardware-config';
 import { DrivenPortInfo } from '@shared/driven-port-info';
-import { setChannel } from '@shared/midi-util';
 
 import { PortPair } from './port-pair';
 import { all } from './port-manager';
@@ -67,7 +67,8 @@ export class PortService {
         pp.resetLights(); // init default lights
       }
 
-      pp.onMessage((_delta: number, msg: number[]) => {
+      pp.onMessage((_delta: number, tuple: MidiTuple) => {
+        const msg = new MidiArray(tuple);
         // we'll occasionally receive message of length 1. ignore these.
         // reason is unclear, message of lenght 1 don't match midi spec
         if (msg.length >= 2) this.#onMessage(pp, msg);
@@ -92,7 +93,7 @@ export class PortService {
     if (pp && config instanceof SupportedDeviceConfig) {
       config.inputs
         .filter((i) => i.currentColor !== undefined)
-        .map((i) => i.currentColor!.toMidiArray()) // get message for color
+        .map((i) => i.currentColor!) // get message for color
         .forEach((arr) => pp.send(arr)); // send color message
     }
   };
@@ -101,7 +102,7 @@ export class PortService {
     const pp = this.portPairs.get(deviceId);
 
     if (pp && config.currentColor) {
-      pp.send(config.currentColor.toMidiArray());
+      pp.send(config.currentColor);
     }
   };
 
@@ -171,17 +172,16 @@ export class PortService {
    * @param msg The event from the device
    * @param The list of ids with which sustain events are being shared
    */
-  #handleSustain = (msg: number[], shareWith: string[]) => {
-    let m = msg;
-
+  #handleSustain = (msg: MidiArray, shareWith: string[]) => {
     shareWith.forEach((devId) => {
+      const newMsg = new MidiArray(msg.array);
       const device = this.#project.getDevice(devId);
 
       if (device?.keyboardDriver !== undefined) {
-        m = setChannel(msg, device.keyboardDriver.channel);
+        newMsg.channel = device.keyboardDriver.channel;
       }
 
-      this.#virtService.send(m, devId);
+      this.#virtService.send(newMsg, devId);
     });
   };
 
@@ -193,7 +193,7 @@ export class PortService {
    * @param pair The input+output ports for device
    * @param msg The message from the device
    */
-  #onMessage = (pair: PortPair, msg: number[]) => {
+  #onMessage = (pair: PortPair, msg: MidiArray) => {
     const device = this.#project.getDevice(pair.id);
 
     if (device !== undefined) {
@@ -201,7 +201,7 @@ export class PortService {
       const [toDevice, toPropagate] = device.handleMessage(msg);
 
       // send sustain events thru all virtual ports in config
-      if (toPropagate && isSustain(toPropagate))
+      if (toPropagate && toPropagate.isSustain)
         this.#handleSustain(toPropagate, device.shareSustain);
 
       // propagate the msg thru virtual port to clients

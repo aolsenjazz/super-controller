@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 
+import { MidiArray } from '@shared/midi-array';
 import { Project } from '@shared/project';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
@@ -18,10 +19,10 @@ type PropTypes = {
 export default function Translator(props: PropTypes) {
   const { config, project, setProject } = props;
 
-  const [currentAction, setCurrentAction] = useState<number[] | null>(null);
+  const [currentAction, setCurrentAction] = useState<MidiArray | null>(null);
 
   const onChange = useCallback(
-    (eventType: StatusString, number: number, channel: Channel) => {
+    (eventType: StatusString, number: MidiNumber, channel: Channel) => {
       if (currentAction !== null) {
         config.overrideInput(currentAction, eventType, channel, number);
         setProject(new Project(project.devices));

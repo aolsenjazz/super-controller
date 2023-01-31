@@ -1,4 +1,5 @@
 import { Propagator, TESTABLES } from '@shared/propagators/propagator';
+import { MidiArray } from '@shared/midi-array';
 import {
   propagatorFromJSON,
   OutputPropagator,
@@ -10,7 +11,7 @@ const illogicalPairs: [InputResponse, InputResponse][] =
   TESTABLES.get('illogicalPairs')!;
 
 class PropagatorWrapper extends Propagator {
-  protected getResponse(msg: number[]): number[] | null {
+  protected getResponse(msg: MidiArray): MidiArray | null {
     return msg;
   }
 
@@ -78,7 +79,7 @@ describe('setResponse', () => {
 describe('handleMessage', () => {
   test('handleMessage returns expected output for hardwareResponse "gate" and outputResponse "gate"', () => {
     const wrapper = new PropagatorWrapper('gate', 'gate');
-    const noteOnMessage = [144, 60, 100];
+    const noteOnMessage = MidiArray.create(144, 0, 60, 100);
     const expectedOutput = noteOnMessage;
 
     expect(wrapper.handleMessage(noteOnMessage)).toEqual(expectedOutput);
@@ -86,8 +87,8 @@ describe('handleMessage', () => {
 
   test('handleMessage returns expected output for hardwareResponse "gate" and outputResponse "toggle"', () => {
     const wrapper = new PropagatorWrapper('gate', 'toggle');
-    const noteOnMessage = [144, 60, 100];
-    const noteOffMessage = [128, 60, 100];
+    const noteOnMessage = MidiArray.create(144, 0, 60, 100);
+    const noteOffMessage = MidiArray.create(128, 0, 60, 100);
     const expectedOutput = noteOnMessage;
 
     expect(wrapper.handleMessage(noteOnMessage)).toEqual(expectedOutput);
@@ -96,8 +97,8 @@ describe('handleMessage', () => {
 
   test('handleMessage returns expected output for hardwareResponse "gate" and outputResponse "constant"', () => {
     const wrapper = new PropagatorWrapper('gate', 'constant');
-    const noteOnMessage = [144, 60, 100];
-    const noteOffMessage = [128, 60, 100];
+    const noteOnMessage = MidiArray.create(144, 0, 60, 100);
+    const noteOffMessage = MidiArray.create(128, 0, 60, 100);
     const expectedOutput = noteOnMessage;
 
     expect(wrapper.handleMessage(noteOnMessage)).toEqual(expectedOutput);
@@ -106,8 +107,8 @@ describe('handleMessage', () => {
 
   test('handleMessage returns expected output for hardwareResponse "toggle" and outputResponse "toggle"', () => {
     const wrapper = new PropagatorWrapper('toggle', 'toggle');
-    const noteOnMessage = [144, 60, 100];
-    const noteOffMessage = [128, 60, 100];
+    const noteOnMessage = MidiArray.create(144, 0, 60, 100);
+    const noteOffMessage = MidiArray.create(128, 0, 60, 100);
     const expectedOutput = noteOnMessage;
 
     expect(wrapper.handleMessage(noteOnMessage)).toEqual(expectedOutput);
@@ -116,14 +117,14 @@ describe('handleMessage', () => {
 
   test('handleMessage with hardwareResponse "gate" and outputResponse "toggle" does not return a response for noteoff messages', () => {
     const wrapper = new PropagatorWrapper('gate', 'toggle');
-    const noteOffMessage = [128, 60, 100];
+    const noteOffMessage = MidiArray.create(128, 0, 60, 100);
     const response = wrapper.handleMessage(noteOffMessage);
     expect(response).toBeNull();
   });
 
   test('handleMessage with hardwareResponse "toggle" returns the correct response for noteoff messages', () => {
     const wrapper = new PropagatorWrapper('toggle', 'toggle');
-    const noteOffMessage = [128, 60, 100];
+    const noteOffMessage = MidiArray.create(128, 0, 60, 100);
     const expectedResponse = noteOffMessage;
     const response = wrapper.handleMessage(noteOffMessage);
     expect(response).toEqual(expectedResponse);
@@ -131,59 +132,68 @@ describe('handleMessage', () => {
 
   test('handleMessage() returns correct output for gate hardwareResponse', () => {
     const wrapper = new PropagatorWrapper('gate', 'gate');
-    let response = wrapper.handleMessage([144, 64, 100]);
-    expect(response).toEqual([144, 64, 100]);
-    response = wrapper.handleMessage([128, 64, 100]);
-    expect(response).toEqual([128, 64, 100]);
+    const noteOnMessage = MidiArray.create(144, 0, 60, 100);
+    const noteOffMessage = MidiArray.create(128, 0, 60, 100);
+
+    let response = wrapper.handleMessage(noteOnMessage);
+    expect(response).toEqual(noteOnMessage);
+    response = wrapper.handleMessage(noteOffMessage);
+    expect(response).toEqual(noteOffMessage);
 
     wrapper.outputResponse = 'toggle';
-    response = wrapper.handleMessage([144, 64, 100]);
-    expect(response).toEqual([144, 64, 100]);
-    response = wrapper.handleMessage([128, 64, 100]);
+    response = wrapper.handleMessage(noteOnMessage);
+    expect(response).toEqual(noteOnMessage);
+    response = wrapper.handleMessage(noteOffMessage);
     expect(response).toBeNull();
 
     wrapper.outputResponse = 'constant';
-    response = wrapper.handleMessage([144, 64, 100]);
-    expect(response).toEqual([144, 64, 100]);
-    response = wrapper.handleMessage([128, 64, 100]);
+    response = wrapper.handleMessage(noteOnMessage);
+    expect(response).toEqual(noteOnMessage);
+    response = wrapper.handleMessage(noteOffMessage);
     expect(response).toBeNull();
   });
 
   test('handleMessage() returns correct output for constant hardwareResponse', () => {
     const wrapper = new PropagatorWrapper('constant', 'constant');
-    let response = wrapper.handleMessage([144, 64, 100]);
-    expect(response).toEqual([144, 64, 100]);
-    response = wrapper.handleMessage([144, 64, 100]);
-    expect(response).toEqual([144, 64, 100]);
+    const noteOnMessage = MidiArray.create(144, 0, 60, 100);
+    const noteOffMessage = MidiArray.create(128, 0, 60, 100);
+
+    let response = wrapper.handleMessage(noteOnMessage);
+    expect(response).toEqual(noteOnMessage);
+    response = wrapper.handleMessage(noteOnMessage);
+    expect(response).toEqual(noteOnMessage);
 
     wrapper.outputResponse = 'gate';
-    response = wrapper.handleMessage([144, 64, 100]);
-    expect(response).toEqual([144, 64, 100]);
-    response = wrapper.handleMessage([128, 64, 100]);
-    expect(response).toEqual([128, 64, 100]);
+    response = wrapper.handleMessage(noteOnMessage);
+    expect(response).toEqual(noteOnMessage);
+    response = wrapper.handleMessage(noteOffMessage);
+    expect(response).toEqual(noteOffMessage);
 
     wrapper.outputResponse = 'toggle';
-    response = wrapper.handleMessage([144, 64, 100]);
-    expect(response).toEqual([144, 64, 100]);
-    response = wrapper.handleMessage([144, 64, 100]);
-    expect(response).toEqual([144, 64, 100]);
+    response = wrapper.handleMessage(noteOnMessage);
+    expect(response).toEqual(noteOnMessage);
+    response = wrapper.handleMessage(noteOnMessage);
+    expect(response).toEqual(noteOnMessage);
   });
 
   test('handleMessage() returns null when input message noteOn/Off velocity is 0', () => {
     const wrapper = new PropagatorWrapper('constant', 'constant');
-    const response = wrapper.handleMessage([144, 64, 0]);
+    const noteOnMessage = MidiArray.create(144, 0, 60, 0);
+    const response = wrapper.handleMessage(noteOnMessage);
     expect(response).toEqual(response);
   });
 
   test('handleMessage() returns expected output for "gate" hardwareResponse and "gate" outputResponse with noteOn message', () => {
     const wrapper = new PropagatorWrapper('gate', 'gate');
-    const response = wrapper.handleMessage([144, 60, 100]);
+    const noteOnMessage = MidiArray.create(144, 0, 60, 100);
+    const response = wrapper.handleMessage(noteOnMessage);
     expect(response).toEqual([144, 60, 100]);
   });
 
   test('handleMessage() returns expected output for "gate" hardwareResponse and "toggle" outputResponse with noteOn message', () => {
     const wrapper = new PropagatorWrapper('gate', 'toggle');
-    const response = wrapper.handleMessage([144, 60, 100]);
+    const noteOnMessage = MidiArray.create(144, 0, 60, 100);
+    const response = wrapper.handleMessage(noteOnMessage);
     expect(response).toEqual([144, 60, 100]);
   });
 });
@@ -196,7 +206,7 @@ describe('propagatorFromJSON', () => {
     const number = 50;
     const channel = 9;
     const value = 3;
-    const lastPropagated = [144, 100, 100];
+    const lastPropagated = MidiArray.create(144, 0, 100, 100);
     const prop = new OutputPropagator(
       hr,
       or,
@@ -223,9 +233,10 @@ describe('propagatorFromJSON', () => {
     const or = 'gate';
     const currentStep = 2;
     const steps = new Map();
-    steps.set(1, [144, 100, 100]);
-    steps.set(2, [144, 100, 101]);
-    steps.set(3, [144, 100, 101]);
+
+    steps.set(1, MidiArray.create(144, 0, 100, 100));
+    steps.set(2, MidiArray.create(144, 0, 100, 101));
+    steps.set(3, MidiArray.create(144, 0, 100, 102));
 
     const prop = new NStepPropagator(hr, or, steps, currentStep);
     const json = prop.toJSON(true);

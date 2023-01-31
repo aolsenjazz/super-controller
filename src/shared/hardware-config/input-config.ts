@@ -1,3 +1,4 @@
+import { MidiArray } from '../midi-array';
 import { inputIdFor } from '../util';
 import {
   OutputPropagator,
@@ -8,7 +9,6 @@ import {
   InputDriver,
   InputResponse,
   InputType,
-  Color,
   InputGridDriver,
 } from '../driver-types';
 import { ColorImpl } from './color-impl';
@@ -16,7 +16,7 @@ import { ColorImpl } from './color-impl';
 /* Default values for the input loaded in from a driver */
 export type InputDefault = {
   /* Note number, CC number, program number, etc */
-  readonly number: number;
+  readonly number: MidiNumber;
 
   /* MIDI channel */
   readonly channel: Channel;
@@ -31,6 +31,8 @@ export type InputDefault = {
 /**
  * Contains configuration details and maintains state for individual hardware
  * inputs. Layout information is delegated to the `VirtualInput` class.
+ *
+ * TODO: maybe worth extending DefaultPreservedMidiMessage ?
  */
 export class InputConfig {
   /**
@@ -74,8 +76,23 @@ export class InputConfig {
    */
   static fromJSON(json: string) {
     const other = JSON.parse(json);
-    const availableColors = other.availableColors.map(
-      (c: Color) => new ColorImpl(c, c.number!, c.channel as Channel)
+    const availableColors = other.availableColors.map((j: string) =>
+      ColorImpl.fromJSON(j)
+    );
+
+    const propObj = JSON.parse(other.devicePropagator);
+    const steps = new Map<number, MidiArray | null>();
+    propObj.steps.forEach((keyVals: [number, MidiArray | null]) => {
+      const k = keyVals[0];
+      let v = keyVals[1];
+      v = v === null ? null : ColorImpl.fromJSON(v);
+      steps.set(k, v);
+    });
+    const prop = new NStepPropagator(
+      propObj.hardwareResponse,
+      propObj.outputResponse,
+      steps,
+      propObj.currentStep
     );
 
     const instance = new InputConfig(
@@ -85,7 +102,7 @@ export class InputConfig {
       other.type,
       other.value,
       propagatorFromJSON(other.outputPropagator) as OutputPropagator,
-      propagatorFromJSON(other.devicePropagator) as NStepPropagator
+      prop
     );
 
     return instance;
@@ -115,8 +132,8 @@ export class InputConfig {
 
     const availableColors =
       overrides.availableColors || defaults.availableColors || [];
-    const colors = availableColors.map(
-      (c) => new ColorImpl(c, number, channel)
+    const colors = availableColors.map((c) =>
+      ColorImpl.fromDrivers(c, number, channel)
     );
 
     const instance = new InputConfig(def, colors, overrideable, type, value);
@@ -129,7 +146,7 @@ export class InputConfig {
     availableColors: ColorImpl[],
     overrideable: boolean,
     type: InputType,
-    value?: number,
+    value?: MidiNumber,
     outputPropagator?: OutputPropagator,
     devicePropagator?: NStepPropagator,
     nickname?: string
@@ -145,9 +162,7 @@ export class InputConfig {
     if (devicePropagator) {
       this.devicePropagator = devicePropagator;
     } else {
-      const defaultMsg = this.defaultColor
-        ? this.defaultColor.toMidiArray()
-        : null;
+      const defaultMsg = this.defaultColor || null;
 
       const defaultColorConfig = new Map([
         [0, defaultMsg],
@@ -178,7 +193,7 @@ export class InputConfig {
    * @param msg The midi value array
    * @returns [message_to_device | undefined, message_to_clients | undefined]
    */
-  handleMessage(msg: number[]): (number[] | null)[] {
+  handleMessage(msg: MidiArray): (MidiArray | null)[] {
     const toPropagate = this.outputPropagator.handleMessage(msg);
     const toDevice = this.devicePropagator.handleMessage(msg);
 
@@ -196,7 +211,7 @@ export class InputConfig {
 
     let c = this.defaultColor;
     this.availableColors.forEach((color) => {
-      if (JSON.stringify(colorArray) === JSON.stringify(color.toMidiArray())) {
+      if (JSON.stringify(colorArray) === JSON.stringify(color)) {
         c = color;
       }
     });
@@ -210,14 +225,19 @@ export class InputConfig {
    * @param state The state value
    * @param color The color
    */
-  setColorForState(state: number, color: ColorImpl) {
+  setColorForState(state: number, id: string) {
     if (state >= this.devicePropagator.nSteps) {
       throw new Error(
         `tried to set step[${state}] when nSteps is ${this.devicePropagator.nSteps}`
       );
     }
+    const colors = this.availableColors.filter((c) => c.id === id);
 
-    this.devicePropagator.setStep(state, color.toMidiArray());
+    if (colors.length === 0) {
+      throw new Error(`color with id[${id}] is not in availableColors`);
+    }
+
+    this.devicePropagator.setStep(state, colors[0]);
   }
 
   /* Restores all default, numeric values (nothing color-related) */
@@ -286,17 +306,17 @@ export class InputConfig {
   get defaultColor(): ColorImpl | undefined {
     let c;
     this.availableColors.forEach((color) => {
-      if (color.default) c = color;
+      if (color.isDefault) c = color;
     });
 
     return c;
   }
 
-  get value(): number {
+  get value(): MidiNumber {
     return this.outputPropagator.value;
   }
 
-  set value(value: number) {
+  set value(value: MidiNumber) {
     this.outputPropagator.value = value;
   }
 
@@ -305,7 +325,7 @@ export class InputConfig {
 
     let c;
     this.availableColors.forEach((color) => {
-      if (JSON.stringify(colorArray) === JSON.stringify(color.toMidiArray())) {
+      if (JSON.stringify(colorArray) === JSON.stringify(color)) {
         c = color;
       }
     });
@@ -342,7 +362,7 @@ export class InputConfig {
     return this.outputPropagator.number;
   }
 
-  set number(number: number) {
+  set number(number: MidiNumber) {
     this.outputPropagator.number = number;
   }
 

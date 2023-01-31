@@ -1,12 +1,12 @@
-import { useCallback, ChangeEvent } from 'react';
+import { useCallback } from 'react';
 
-import { Color } from '@shared/driver-types';
 import { Project } from '@shared/project';
-import { ColorImpl } from '@shared/hardware-config';
 
-import SelectTab from '../../assets/select-tab.svg';
-import SettingsLineItem from './SettingsLineItem';
 import { InputGroup } from '../../input-group';
+
+import SettingsLineItem from './SettingsLineItem';
+import BasicSelect from './BasicSelect';
+import FXConfig from './FXConfig';
 
 const { projectService } = window;
 
@@ -72,17 +72,37 @@ export default function BacklightSettings(props: PropTypes) {
   const { eligibleLightStates, eligibleColors } = group;
   const isLightable = eligibleColors.length > 0;
 
-  const onChange = useCallback(
-    (e: ChangeEvent<HTMLSelectElement>, state: number) => {
+  const onColorChange = useCallback(
+    (colorId: string, state: number) => {
       // Update all InputConfigs in the InputGroup
-      const colorObj = JSON.parse(e.target.value);
-      const color = new ColorImpl(
-        colorObj,
-        colorObj.number!,
-        colorObj.channel as Channel
-      );
       group.inputs.forEach((input) => {
-        input.setColorForState(state, color);
+        input.setColorForState(state, colorId);
+        projectService.updateInput(configId, input.toJSON(true));
+      });
+
+      setProject(new Project(project.devices));
+    },
+    [group, project, setProject, configId]
+  );
+
+  const onFxChange = useCallback(
+    (fxId: string, state: number) => {
+      // Update all InputConfigs in the InputGroup
+      group.inputs.forEach((input) => {
+        input.colorForState(state)!.setFx(fxId);
+        projectService.updateInput(configId, input.toJSON(true));
+      });
+
+      setProject(new Project(project.devices));
+    },
+    [group, project, setProject, configId]
+  );
+
+  const onFxValChange = useCallback(
+    (fxVal: Channel, state: number) => {
+      // Update all InputConfigs in the InputGroup
+      group.inputs.forEach((input) => {
+        input.colorForState(state)!.setFxVal(fxVal);
         projectService.updateInput(configId, input.toJSON(true));
       });
 
@@ -103,53 +123,53 @@ export default function BacklightSettings(props: PropTypes) {
             configId={configId}
           />
           {eligibleLightStates.map((state: number) => {
-            const stateColor = group.colorForState(state);
-            const isMultiple = stateColor === '<multiple values>';
+            const color = group.colorForState(state);
+            const stateStr = state === 0 ? 'off' : 'on';
 
-            let colorString =
-              isMultiple || stateColor === null
-                ? undefined
-                : (stateColor as Color).string;
-            colorString =
-              colorString === undefined ? 'transparent' : colorString;
+            // [value, label]
+            const valueList = eligibleColors.map((c) => c.id);
+            const labelList = eligibleColors.map((c) => c.displayName);
+
+            const innerColorChange = (value: string | number) => {
+              onColorChange(value as string, state);
+            };
+
+            const innerFxChange = (value: string) => {
+              onFxChange(value, state);
+            };
+
+            const innerFxValChange = (value: Channel) => {
+              onFxValChange(value, state);
+            };
 
             return (
-              <div className="settings-line color-setting" key={state}>
-                <p>State: {state}</p>
-                <div
-                  className="color-sample"
-                  style={{ backgroundColor: `${colorString}` }}
-                />
-                <div className="ios-select">
-                  <div className="ios-select-tab">
-                    <img src={SelectTab} alt="" />
-                    <img src={SelectTab} alt="" />
-                  </div>
-                  <select
-                    value={JSON.stringify(stateColor)}
-                    onChange={(e) => onChange(e, state)}
-                  >
-                    {isMultiple ? (
-                      <option
-                        value={JSON.stringify('<multiple values>')}
-                        disabled
-                      >
-                        &#60;Multiple Values&#62;
-                      </option>
-                    ) : null}
-                    {eligibleColors.map((c) => {
-                      return (
-                        <option
-                          value={JSON.stringify(c)}
-                          key={JSON.stringify(c)}
-                        >
-                          {c.name}
-                          {c.modifier ? ` (${c.modifier})` : ''}
-                        </option>
-                      );
-                    })}
-                  </select>
+              <div key={state}>
+                <div className="settings-line color-setting">
+                  <h5>State: {stateStr}</h5>
                 </div>
+                <div className="settings-line color-setting">
+                  <p>Color:</p>
+                  <div
+                    className="color-sample"
+                    style={{ backgroundColor: `${color?.string}` }}
+                  />
+                  <BasicSelect
+                    value={color?.id}
+                    valueList={valueList}
+                    labelList={labelList}
+                    onChange={innerColorChange}
+                  />
+                </div>
+                {color && color.fx.length > 0 ? (
+                  <FXConfig
+                    eligibleFx={color.fx}
+                    activeFx={group.activeFx}
+                    onFxChange={innerFxChange}
+                    onFxValChange={innerFxValChange}
+                  />
+                ) : null}
+
+                <div className="separator" />
               </div>
             );
           })}

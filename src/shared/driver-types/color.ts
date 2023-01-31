@@ -1,5 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/naming-convention
 type fx = {
+  /* Is the effect active immediately? A good example is when there is a solid->brightness effect */
+  default?: boolean;
+
   /* Short string describing the state of the color (Solid, Blink,  etc) */
   title: string;
 
@@ -7,10 +10,10 @@ type fx = {
   effect: string;
 
   /* Acceptable values used to configure this FX */
-  validVals: number[];
+  validVals: Channel[];
 
   /* Default value on device startup */
-  defaultVal: number;
+  defaultVal: Channel;
 
   /**
    * Assuming most configurable FX are linear, this is the label at the
@@ -45,7 +48,7 @@ type Color = {
   eventType: StatusString;
 
   /* The value (velocity) which triggers the color */
-  value: number;
+  value: MidiNumber;
 
   fx: fx[];
 
@@ -53,13 +56,13 @@ type Color = {
    * The number used to identify this light. If unset, inherited from the parent
    * `InputConfig`.
    */
-  number?: number;
+  number?: MidiNumber;
 
   /**
    * The channel used to identify this light, or an FX selector. see FX for more.
    * If this value isn't set it is inherited from the parent `InputGroup`
    */
-  channel?: number;
+  channel?: Channel;
 
   /* is this the active color when the device is connected? */
   default?: boolean;

@@ -17,13 +17,16 @@ export type InputType = 'pad' | 'knob' | 'slider' | 'wheel' | 'xy';
 
 export type InputDriver = {
   /* Note number, CC number, program number, etc */
-  readonly number: number;
+  readonly number: MidiNumber;
 
   /* MIDI channel */
   readonly channel?: Channel;
 
   /* MIDI event type */
   readonly eventType?: StatusString | 'noteon/noteoff';
+
+  /* What is the default value of this control? */
+  readonly value?: MidiNumber;
 
   /* See InputResponse */
   readonly response?: InputResponse;
@@ -42,9 +45,6 @@ export type InputDriver = {
 
   /* Width of the input in inches */
   readonly width?: number;
-
-  /* What is the default value of this control? */
-  readonly value?: number;
 
   /* If input has a handle (think wheel or XY pad), width in inches */
   readonly handleWidth?: number;

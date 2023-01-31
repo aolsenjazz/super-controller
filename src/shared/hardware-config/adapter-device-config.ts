@@ -1,3 +1,4 @@
+import { MidiArray } from '../midi-array';
 import { SupportedDeviceConfig } from './supported-device-config';
 
 export class AdapterDeviceConfig implements SupportedDeviceConfig {
@@ -37,7 +38,7 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
     return this.child!.bindingAvailable(eventType, number, channel);
   }
 
-  handleMessage(msg: number[]): (number[] | null)[] {
+  handleMessage(msg: MidiArray): (MidiArray | null)[] {
     return this.child!.handleMessage(msg);
   }
 

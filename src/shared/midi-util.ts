@@ -1,49 +1,13 @@
 /* eslint-disable no-bitwise */
-const NOTE_OFF = 0x80;
-const NOTE_ON = 0x90;
-const KEY_PRESSURE = 0xa0;
-const CONTROL_CHANGE = 0xb0;
-const PROGRAM_CHANGE = 0xc0;
-const CHANNEL_PRESSURE = 0xd0;
-const PITCH_BEND = 0xe0;
+const NOTE_OFF = 0x80; // 128
+const NOTE_ON = 0x90; // 144
+const KEY_PRESSURE = 0xa0; // 160
+const CONTROL_CHANGE = 0xb0; // 176
+const PROGRAM_CHANGE = 0xc0; // 192
+const CHANNEL_PRESSURE = 0xd0; // 208
+const PITCH_BEND = 0xe0; // 224
 
-const STATUS_BYTE = 0xf0;
-const CHANNEL_BYTE = 0x0f;
-
-class Status {
-  number: number;
-
-  constructor(number: number) {
-    this.number = number;
-  }
-
-  get string() {
-    switch (this.byte) {
-      case NOTE_OFF:
-        return 'noteoff';
-      case NOTE_ON:
-        return 'noteon';
-      case KEY_PRESSURE:
-        return 'keypressure';
-      case CONTROL_CHANGE:
-        return 'controlchange';
-      case PROGRAM_CHANGE:
-        return 'programchange';
-      case CHANNEL_PRESSURE:
-        return 'channelpressure';
-      case PITCH_BEND:
-        return 'pitchbend';
-      default:
-        return 'unknown';
-    }
-  }
-
-  get byte() {
-    return this.number & STATUS_BYTE;
-  }
-}
-
-function statusStringToByte(string: StatusString) {
+export function statusStringToByte(string: StatusString) {
   switch (string) {
     case 'noteon':
       return NOTE_ON;
@@ -62,26 +26,25 @@ function statusStringToByte(string: StatusString) {
   }
 }
 
-export function getChannel(msg: number[]) {
-  return (msg[0] & CHANNEL_BYTE) as Channel;
-}
-
-export function getStatus(msg: number[]) {
-  return new Status(msg[0]);
-}
-
-export function setChannel(msg: number[], channel: number) {
-  const newMsg = [...msg];
-  const status = getStatus(msg).byte;
-  const int = status | channel;
-  newMsg[0] = int;
-  return newMsg;
-}
-
-export function setStatus(msg: number[], status: StatusString) {
-  const newMsg = [...msg];
-  const byte = statusStringToByte(status);
-  const channel = getChannel(msg);
-  newMsg[0] = byte | channel;
-  return newMsg;
+export function byteToStatusString(byte: StatusByte, individualOnOff = false) {
+  switch (byte) {
+    case NOTE_OFF:
+      if (individualOnOff) return 'noteoff';
+      return 'noteon/noteoff';
+    case NOTE_ON:
+      if (individualOnOff) return 'noteon';
+      return 'noteon/noteoff';
+    case KEY_PRESSURE:
+      return 'keypressure';
+    case CONTROL_CHANGE:
+      return 'controlchange';
+    case PROGRAM_CHANGE:
+      return 'programchange';
+    case CHANNEL_PRESSURE:
+      return 'channelpressure';
+    case PITCH_BEND:
+      return 'pitchbend';
+    default:
+      return 'unknown';
+  }
 }
