@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { ColorImpl } from '@shared/hardware-config';
 
 import BasicSelect from './BasicSelect';
+import IosSlider from '../IosSlider';
 
 type Props = {
   eligibleFx: ColorImpl['fx'];
@@ -36,11 +37,16 @@ export default function FXConfig(props: Props) {
     <div className="settings-line fx-setting">
       <p>FX:</p>
       <BasicSelect
-        placeholder="--"
         value={value}
         valueList={valueList}
         labelList={valueList}
         onChange={innerFxChange}
+      />
+      <IosSlider
+        lowBoundLabel="dim"
+        highBoundLabel="bright"
+        domain={[0, 4]}
+        defaultVal={2}
       />
     </div>
   );

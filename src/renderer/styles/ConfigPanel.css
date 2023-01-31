@@ -44,6 +44,10 @@
   margin: 0 auto;
 }
 
+#config-panel #controls-container .settings-line {
+  margin-top: 5px;
+}
+
 #config-panel #controls-container p {
   display: inline-block;
   vertical-align: top;
@@ -58,6 +62,10 @@
 
 #config-panel .settings-line.fx-setting select {
   width: 60px;
+}
+
+#config-panel .settings-line * {
+  vertical-align: top;
 }
 
 #config-panel .message {
@@ -90,6 +98,23 @@
   position: relative;
   height: auto;
   margin-top: 4px;
+}
+
+#config-panel #backlight-config {
+  text-align: left;
+}
+
+#config-panel .fx-setting .slider {
+  display: inline-block;
+  width: 55%;
+  margin-top: 6px;
+  margin-left: 15px;
+  height: 20px;
+}
+
+#config-panel .fx-setting .slider p {
+  font-size: 9px;
+  opacity: 0.7;
 }
 
 #device-config {

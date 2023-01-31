@@ -47,18 +47,6 @@ function createColor(c: Color, fx?: Color['fx']) {
   return ColorImpl.fromDrivers(effectedColor, NUM, CHAN);
 }
 
-describe('get id', () => {
-  test('returns correct id for not modifier', () => {
-    const c = createColor(GREEN, [FX]);
-    expect(c.id).toEqual(`${GREEN_BLINK.string}.${undefined}`);
-  });
-
-  test('returns correct id for modifier', () => {
-    const c = createColor(GREEN_BLINK, [FX]);
-    expect(c.id).toEqual(`${GREEN_BLINK.string}.${GREEN_BLINK.modifier}`);
-  });
-});
-
 describe('getDisplayName', () => {
   test('returns correct value for not modifier', () => {
     const c = createColor(GREEN, [FX]);
@@ -91,7 +79,7 @@ describe('get activeFx', () => {
 
 describe('toJSON', () => {
   test('serializes and deserializes correctly', () => {
-    const c = createColor(GREEN, [DEF_FX]);
+    const c = createColor(GREEN_BLINK, [DEF_FX]);
     const json = JSON.stringify(c);
     const from = ColorImpl.fromJSON(json);
 

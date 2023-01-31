@@ -225,16 +225,20 @@ export class InputConfig {
    * @param state The state value
    * @param color The color
    */
-  setColorForState(state: number, id: string) {
+  setColorForState(state: number, displayName: string) {
     if (state >= this.devicePropagator.nSteps) {
       throw new Error(
         `tried to set step[${state}] when nSteps is ${this.devicePropagator.nSteps}`
       );
     }
-    const colors = this.availableColors.filter((c) => c.id === id);
+    const colors = this.availableColors.filter(
+      (c) => c.displayName === displayName
+    );
 
     if (colors.length === 0) {
-      throw new Error(`color with id[${id}] is not in availableColors`);
+      throw new Error(
+        `color with displayName[${displayName}] is not in availableColors`
+      );
     }
 
     this.devicePropagator.setStep(state, colors[0]);

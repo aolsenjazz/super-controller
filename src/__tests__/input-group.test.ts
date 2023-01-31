@@ -263,3 +263,29 @@ describe('eligibleColors', () => {
     expect(group.eligibleColors.length).toBe(0);
   });
 });
+
+describe('eligibleFx', () => {
+  test('returns the correct array value', () => {
+    const pad1 = createGatePadInput(0, true, true);
+    const pad2 = createGatePadInput(1, true, true);
+    const group = new InputGroup([pad1, pad2]);
+
+    expect(JSON.stringify(group.eligibleFx)).toEqual(
+      JSON.stringify(pad1.availableColors[0].fx)
+    );
+  });
+
+  test('returns empty array for no color.fx', () => {
+    const pad1 = createGatePadInput(0, true, true);
+    const pad2 = createGatePadInput(1, true, false);
+    const group = new InputGroup([pad1, pad2]);
+    expect(group.eligibleFx).toEqual([]);
+  });
+
+  test('returns [] for no currentColor', () => {
+    const pad1 = createGatePadInput(0, false, false);
+    const pad2 = createGatePadInput(1, false, false);
+    const group = new InputGroup([pad1, pad2]);
+    expect(group.eligibleFx).toEqual([]);
+  });
+});

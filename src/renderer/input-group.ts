@@ -9,6 +9,7 @@ const mvc: Color = {
   value: 0,
   fx: [],
 };
+
 const MULT_COLOR = ColorImpl.fromDrivers(mvc, 0, 0);
 
 /**
@@ -73,7 +74,7 @@ export class InputGroup {
       (c) => c.colorForState(state),
       (a, b) => {
         if (!a && !b) return true;
-        return !a ? false : a.id === b?.id;
+        return !a ? false : a.displayName === b?.displayName;
       }
     );
 
@@ -142,10 +143,17 @@ export class InputGroup {
   get eligibleColors() {
     const getter = (c: InputConfig) => c.availableColors;
     const equality = (a: ColorImpl[], b: ColorImpl[]) => {
-      const aIds = a.map((ac) => ac.id);
-      const bIds = b.map((bc) => bc.id);
+      const aIds = a.map((ac) => ac.displayName);
+      const bIds = b.map((bc) => bc.displayName);
       return JSON.stringify(aIds) === JSON.stringify(bIds);
     };
+    return this.#getEligibleValues(getter, equality);
+  }
+
+  eligibleFx(state: number) {
+    const getter = (c: InputConfig) => c.colorForState(state)?.fx || [];
+    const equality = (fx1: Color['fx'], fx2: Color['fx']) =>
+      JSON.stringify(fx1) === JSON.stringify(fx2);
     return this.#getEligibleValues(getter, equality);
   }
 

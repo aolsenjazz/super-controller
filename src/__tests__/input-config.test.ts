@@ -130,7 +130,7 @@ describe('setColorForState', () => {
     colorConfig.set(0, RED);
     const config = createConfig({ colorConfig });
 
-    config.setColorForState(0, GreenImpl.id);
+    config.setColorForState(0, GreenImpl.displayName);
 
     expect(config.colorForState(0)!.name).toEqual(GREEN.name);
   });
@@ -138,7 +138,7 @@ describe('setColorForState', () => {
   test('set color when was previously unset', () => {
     const config = createConfig({});
 
-    config.setColorForState(0, GreenImpl.id);
+    config.setColorForState(0, GreenImpl.displayName);
 
     expect(config.colorForState(0)!.name).toEqual(GREEN.name);
   });
@@ -147,7 +147,7 @@ describe('setColorForState', () => {
     const config = createConfig({});
 
     expect(() => {
-      config.setColorForState(2, GreenImpl.id);
+      config.setColorForState(2, GreenImpl.displayName);
     }).toThrow();
   });
 });

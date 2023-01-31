@@ -8,7 +8,7 @@ import { VirtualInput, VirtualInputGrid } from '../../virtual-devices';
 
 type ElementPropTypes = {
   input: VirtualInput;
-  config: InputConfig;
+  config: InputConfig | undefined; // TODO this isn't good
   width: string;
   height: string;
   focus: boolean;
@@ -48,20 +48,21 @@ function Element(props: ElementPropTypes) {
         width={width}
         height={height}
         onClick={(e) => onClick(e, input.id)}
-        color={config.currentColor}
+        color={config?.currentColor}
         enabled={overrideable}
         focus={focus}
         overrideable={overrideable}
       />
     );
   } else if (input.type === 'knob') {
+    const val = config?.value || 0;
     elem = (
       <Knob
         size={width}
         min={0}
         max={127}
         degrees={270}
-        value={config.value}
+        value={val}
         onClick={(e) => onClick(e, input.id)}
         enabled={overrideable}
         focus={focus}
@@ -70,10 +71,11 @@ function Element(props: ElementPropTypes) {
       />
     );
   } else {
+    const val = config?.value || 0;
     elem = (
       <WheelLayout
         max={127}
-        value={config.value}
+        value={val}
         width={width}
         handleWidth={`${(handleWidth / input.width) * 100}%`}
         handleHeight={`${(handleWidth / input.height) * 100}%`}
@@ -135,10 +137,6 @@ const InputGridLayout = (props: PropTypes) => {
     <div className="input-grid" style={style}>
       {inputGrid.inputs.map((input) => {
         const inputConfig = deviceConfig.getInput(input.id);
-
-        if (!inputConfig) {
-          throw new Error(`No config exists for input ${input.id}`);
-        }
 
         return (
           <div

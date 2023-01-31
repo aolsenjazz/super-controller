@@ -72,6 +72,9 @@ export default function BacklightSettings(props: PropTypes) {
   const { eligibleLightStates, eligibleColors } = group;
   const isLightable = eligibleColors.length > 0;
 
+  const valueList = eligibleColors.map((c) => c.displayName);
+  const labelList = valueList;
+
   const onColorChange = useCallback(
     (colorId: string, state: number) => {
       // Update all InputConfigs in the InputGroup
@@ -126,10 +129,6 @@ export default function BacklightSettings(props: PropTypes) {
             const color = group.colorForState(state);
             const stateStr = state === 0 ? 'off' : 'on';
 
-            // [value, label]
-            const valueList = eligibleColors.map((c) => c.id);
-            const labelList = eligibleColors.map((c) => c.displayName);
-
             const innerColorChange = (value: string | number) => {
               onColorChange(value as string, state);
             };
@@ -143,7 +142,7 @@ export default function BacklightSettings(props: PropTypes) {
             };
 
             return (
-              <div key={state}>
+              <div key={state} id="backlight-config">
                 <div className="settings-line color-setting">
                   <h5>State: {stateStr}</h5>
                 </div>
@@ -154,15 +153,15 @@ export default function BacklightSettings(props: PropTypes) {
                     style={{ backgroundColor: `${color?.string}` }}
                   />
                   <BasicSelect
-                    value={color?.id}
+                    value={color?.displayName}
                     valueList={valueList}
                     labelList={labelList}
                     onChange={innerColorChange}
                   />
                 </div>
-                {color && color.fx.length > 0 ? (
+                {group.eligibleFx(state).length > 0 ? (
                   <FXConfig
-                    eligibleFx={color.fx}
+                    eligibleFx={group.eligibleFx(state)}
                     activeFx={group.activeFx}
                     onFxChange={innerFxChange}
                     onFxValChange={innerFxValChange}

@@ -61,10 +61,6 @@ export class ColorImpl extends DefaultPreservedMidiArray {
     this.modifier = color.modifier;
   }
 
-  get id() {
-    return `${this.string}.${this.modifier}`;
-  }
-
   get displayName() {
     return `${this.name}${this.modifier ? ` (${this.modifier})` : ''}`;
   }
@@ -115,6 +111,7 @@ export class ColorImpl extends DefaultPreservedMidiArray {
       eventType: this.eventType,
       value: this.value,
       fx: this.fx,
+      modifier: this.modifier,
     };
     return {
       color: col,

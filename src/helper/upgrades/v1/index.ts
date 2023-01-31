@@ -95,15 +95,15 @@ function upgradeInput(i: v0InputConfig) {
   );
 }
 
-// function upgradeInputIds(config: v1SupportedDeviceConfig) {
-//   let id = -1;
-//   config.inputs.forEach((i) => {
-//     if (i.number < 0) {
-//       i.number = id;
-//       id -= 1;
-//     }
-//   });
-// }
+function upgradeInputIds(config: v1SupportedDeviceConfig) {
+  let id = -1;
+  config.inputs.forEach((i) => {
+    if (i.number < 0) {
+      i.number = id as MidiNumber;
+      id -= 1;
+    }
+  });
+}
 
 export function upgradeToV1(projectString: string) {
   const project = v0Project.fromJSON(projectString);
@@ -127,7 +127,7 @@ export function upgradeToV1(projectString: string) {
         config.keyboardDriver
       );
 
-      // upgradeInputIds(upgradedConfig);
+      upgradeInputIds(upgradedConfig);
 
       upgradedConfigs.push(upgradedConfig);
     });
