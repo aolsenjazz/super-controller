@@ -686,278 +686,239 @@
         {
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent",
-              "fx": []
+              "string": "transparent"
             },
             {
               "name": "Baby Blue (dim)",
               "eventType": "controlchange",
               "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
+              "string": "#F3FAFE"
             },
             {
               "name": "Baby Blue",
               "eventType": "controlchange",
               "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
+              "string": "#ECF7FD"
             },
             {
               "name": "Baby Blue (bright)",
               "eventType": "controlchange",
               "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
+              "string": "#DFF9FF"
             },
             {
               "name": "Pink",
               "eventType": "controlchange",
               "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
+              "string": "#FF9FDA"
             },
             {
               "name": "Red (dim)",
               "eventType": "controlchange",
               "value": 7,
-              "string": "#F58A70",
-              "fx": []
+              "string": "#F58A70"
             },
             {
               "name": "Red",
               "eventType": "controlchange",
               "value": 6,
-              "string": "#F36E56",
-              "fx": []
+              "string": "#F36E56"
             },
             {
               "name": "Red (bright)",
               "eventType": "controlchange",
               "value": 5,
-              "string": "#F44336",
-              "fx": []
+              "string": "#F44336"
             },
             {
               "name": "White",
               "eventType": "controlchange",
               "value": 8,
-              "string": "white",
-              "fx": []
+              "string": "white"
             },
             {
               "name": "Off-White",
               "eventType": "controlchange",
               "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
+              "string": "#F8F0E3"
             },
             {
               "name": "Orange (dim)",
               "eventType": "controlchange",
               "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
+              "string": "#FCBB6F"
             },
             {
               "name": "Orange",
               "eventType": "controlchange",
               "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
+              "string": "#FAAB4B"
             },
             {
               "name": "Orange (bright)",
               "eventType": "controlchange",
               "value": 9,
-              "string": "#FF9900",
-              "fx": []
+              "string": "#FF9900"
             },
             {
               "name": "Yellow-Green (dim)",
               "eventType": "controlchange",
               "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
+              "string": "#EBEEA0"
             },
             {
               "name": "Yellow-Green",
               "eventType": "controlchange",
               "value": 14,
-              "string": "#E6EA89",
-              "fx": []
+              "string": "#E6EA89"
             },
             {
               "name": "Yellow-Green (Bright)",
               "eventType": "controlchange",
               "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
+              "string": "#E3FF6A"
             },
             {
               "name": "SeaFoam-Green",
               "eventType": "controlchange",
               "value": 16,
-              "string": "#93E9BE",
-              "fx": []
+              "string": "#93E9BE"
             },
             {
               "name": "Light Green (dim)",
               "eventType": "controlchange",
               "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
+              "string": "#bfdfb0"
             },
             {
               "name": "Light Green",
               "eventType": "controlchange",
               "value": 18,
-              "string": "#b0d89e",
-              "fx": []
+              "string": "#b0d89e"
             },
             {
               "name": "Light Green (bright)",
               "eventType": "controlchange",
               "value": 17,
-              "string": "#90ee90",
-              "fx": []
+              "string": "#90ee90"
             },
             {
               "name": "Blue-Green",
               "eventType": "controlchange",
               "value": 20,
-              "string": "#7fffec",
-              "fx": []
+              "string": "#7fffec"
             },
             {
               "name": "Green (dim)",
               "eventType": "controlchange",
               "value": 23,
-              "string": "#91C587",
-              "fx": []
+              "string": "#91C587"
             },
             {
               "name": "Green",
               "eventType": "controlchange",
               "value": 22,
-              "string": "#75BB6D",
-              "fx": []
+              "string": "#75BB6D"
             },
             {
               "name": "Green (bright)",
               "eventType": "controlchange",
               "value": 21,
-              "string": "#4CAF50",
-              "fx": []
+              "string": "#4CAF50"
             },
             {
               "name": "Cyan (dim)",
               "eventType": "controlchange",
               "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
+              "string": "#A5DDE7"
             },
             {
               "name": "Cyan",
               "eventType": "controlchange",
               "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
+              "string": "#8ED5E3"
             },
             {
               "name": "Cyan (bright)",
               "eventType": "controlchange",
               "value": 29,
-              "string": "#00FFFF",
-              "fx": []
+              "string": "#00FFFF"
             },
             {
               "name": "Light Blue (dim)",
               "eventType": "controlchange",
               "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
+              "string": "#A0DDF9"
             },
             {
               "name": "Light Blue",
               "eventType": "controlchange",
               "value": 34,
-              "string": "#86D5F7",
-              "fx": []
+              "string": "#86D5F7"
             },
             {
               "name": "Light Blue (bright)",
               "eventType": "controlchange",
               "value": 33,
-              "string": "#55D3FF",
-              "fx": []
+              "string": "#55D3FF"
             },
             {
               "name": "Blue (dim)",
               "eventType": "controlchange",
               "value": 39,
-              "string": "#A4CDED",
-              "fx": []
+              "string": "#A4CDED"
             },
             {
               "name": "Blue",
               "eventType": "controlchange",
               "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
+              "string": "#8DC3EA"
             },
             {
               "name": "Blue (bright)",
               "eventType": "controlchange",
               "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
+              "string": "#5FBCFF"
             },
             {
               "name": "Deep Blue (dim)",
               "eventType": "controlchange",
               "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
+              "string": "#A3B7DF"
             },
             {
               "name": "Deep Blue",
               "eventType": "controlchange",
               "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
+              "string": "#8FA9D8"
             },
             {
               "name": "Deep Blue (bright)",
               "eventType": "controlchange",
               "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
+              "string": "#6AA0FF"
             },
             {
               "name": "Fuschia (dim)",
               "eventType": "controlchange",
               "value": 55,
-              "string": "#d880b4",
-              "fx": []
+              "string": "#d880b4"
             },
             {
               "name": "Fuschia",
               "eventType": "controlchange",
               "value": 54,
-              "string": "#d161a5",
-              "fx": []
+              "string": "#d161a5"
             },
             {
               "name": "Fuschia (bright)",
               "eventType": "controlchange",
               "value": 53,
-              "string": "#ca2c92",
-              "fx": []
+              "string": "#ca2c92"
             }
           ],
           "number": 104,
@@ -990,278 +951,239 @@
         {
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "controlchange",
               "value": 0,
-              "string": "transparent",
-              "fx": []
+              "string": "transparent"
             },
             {
               "name": "Baby Blue (dim)",
               "eventType": "controlchange",
               "value": 1,
-              "string": "#F3FAFE",
-              "fx": []
+              "string": "#F3FAFE"
             },
             {
               "name": "Baby Blue",
               "eventType": "controlchange",
               "value": 2,
-              "string": "#ECF7FD",
-              "fx": []
+              "string": "#ECF7FD"
             },
             {
               "name": "Baby Blue (bright)",
               "eventType": "controlchange",
               "value": 3,
-              "string": "#DFF9FF",
-              "fx": []
+              "string": "#DFF9FF"
             },
             {
               "name": "Pink",
               "eventType": "controlchange",
               "value": 4,
-              "string": "#FF9FDA",
-              "fx": []
+              "string": "#FF9FDA"
             },
             {
               "name": "Red (dim)",
               "eventType": "controlchange",
               "value": 7,
-              "string": "#F58A70",
-              "fx": []
+              "string": "#F58A70"
             },
             {
               "name": "Red",
               "eventType": "controlchange",
               "value": 6,
-              "string": "#F36E56",
-              "fx": []
+              "string": "#F36E56"
             },
             {
               "name": "Red (bright)",
               "eventType": "controlchange",
               "value": 5,
-              "string": "#F44336",
-              "fx": []
+              "string": "#F44336"
             },
             {
               "name": "White",
               "eventType": "controlchange",
               "value": 8,
-              "string": "white",
-              "fx": []
+              "string": "white"
             },
             {
               "name": "Off-White",
               "eventType": "controlchange",
               "value": 12,
-              "string": "#F8F0E3",
-              "fx": []
+              "string": "#F8F0E3"
             },
             {
               "name": "Orange (dim)",
               "eventType": "controlchange",
               "value": 11,
-              "string": "#FCBB6F",
-              "fx": []
+              "string": "#FCBB6F"
             },
             {
               "name": "Orange",
               "eventType": "controlchange",
               "value": 10,
-              "string": "#FAAB4B",
-              "fx": []
+              "string": "#FAAB4B"
             },
             {
               "name": "Orange (bright)",
               "eventType": "controlchange",
               "value": 9,
-              "string": "#FF9900",
-              "fx": []
+              "string": "#FF9900"
             },
             {
               "name": "Yellow-Green (dim)",
               "eventType": "controlchange",
               "value": 15,
-              "string": "#EBEEA0",
-              "fx": []
+              "string": "#EBEEA0"
             },
             {
               "name": "Yellow-Green",
               "eventType": "controlchange",
               "value": 14,
-              "string": "#E6EA89",
-              "fx": []
+              "string": "#E6EA89"
             },
             {
               "name": "Yellow-Green (Bright)",
               "eventType": "controlchange",
               "value": 13,
-              "string": "#E3FF6A",
-              "fx": []
+              "string": "#E3FF6A"
             },
             {
               "name": "SeaFoam-Green",
               "eventType": "controlchange",
               "value": 16,
-              "string": "#93E9BE",
-              "fx": []
+              "string": "#93E9BE"
             },
             {
               "name": "Light Green (dim)",
               "eventType": "controlchange",
               "value": 19,
-              "string": "#bfdfb0",
-              "fx": []
+              "string": "#bfdfb0"
             },
             {
               "name": "Light Green",
               "eventType": "controlchange",
               "value": 18,
-              "string": "#b0d89e",
-              "fx": []
+              "string": "#b0d89e"
             },
             {
               "name": "Light Green (bright)",
               "eventType": "controlchange",
               "value": 17,
-              "string": "#90ee90",
-              "fx": []
+              "string": "#90ee90"
             },
             {
               "name": "Blue-Green",
               "eventType": "controlchange",
               "value": 20,
-              "string": "#7fffec",
-              "fx": []
+              "string": "#7fffec"
             },
             {
               "name": "Green (dim)",
               "eventType": "controlchange",
               "value": 23,
-              "string": "#91C587",
-              "fx": []
+              "string": "#91C587"
             },
             {
               "name": "Green",
               "eventType": "controlchange",
               "value": 22,
-              "string": "#75BB6D",
-              "fx": []
+              "string": "#75BB6D"
             },
             {
               "name": "Green (bright)",
               "eventType": "controlchange",
               "value": 21,
-              "string": "#4CAF50",
-              "fx": []
+              "string": "#4CAF50"
             },
             {
               "name": "Cyan (dim)",
               "eventType": "controlchange",
               "value": 31,
-              "string": "#A5DDE7",
-              "fx": []
+              "string": "#A5DDE7"
             },
             {
               "name": "Cyan",
               "eventType": "controlchange",
               "value": 30,
-              "string": "#8ED5E3",
-              "fx": []
+              "string": "#8ED5E3"
             },
             {
               "name": "Cyan (bright)",
               "eventType": "controlchange",
               "value": 29,
-              "string": "#00FFFF",
-              "fx": []
+              "string": "#00FFFF"
             },
             {
               "name": "Light Blue (dim)",
               "eventType": "controlchange",
               "value": 35,
-              "string": "#A0DDF9",
-              "fx": []
+              "string": "#A0DDF9"
             },
             {
               "name": "Light Blue",
               "eventType": "controlchange",
               "value": 34,
-              "string": "#86D5F7",
-              "fx": []
+              "string": "#86D5F7"
             },
             {
               "name": "Light Blue (bright)",
               "eventType": "controlchange",
               "value": 33,
-              "string": "#55D3FF",
-              "fx": []
+              "string": "#55D3FF"
             },
             {
               "name": "Blue (dim)",
               "eventType": "controlchange",
               "value": 39,
-              "string": "#A4CDED",
-              "fx": []
+              "string": "#A4CDED"
             },
             {
               "name": "Blue",
               "eventType": "controlchange",
               "value": 38,
-              "string": "#8DC3EA",
-              "fx": []
+              "string": "#8DC3EA"
             },
             {
               "name": "Blue (bright)",
               "eventType": "controlchange",
               "value": 37,
-              "string": "#5FBCFF",
-              "fx": []
+              "string": "#5FBCFF"
             },
             {
               "name": "Deep Blue (dim)",
               "eventType": "controlchange",
               "value": 43,
-              "string": "#A3B7DF",
-              "fx": []
+              "string": "#A3B7DF"
             },
             {
               "name": "Deep Blue",
               "eventType": "controlchange",
               "value": 44,
-              "string": "#8FA9D8",
-              "fx": []
+              "string": "#8FA9D8"
             },
             {
               "name": "Deep Blue (bright)",
               "eventType": "controlchange",
               "value": 45,
-              "string": "#6AA0FF",
-              "fx": []
+              "string": "#6AA0FF"
             },
             {
               "name": "Fuschia (dim)",
               "eventType": "controlchange",
               "value": 55,
-              "string": "#d880b4",
-              "fx": []
+              "string": "#d880b4"
             },
             {
               "name": "Fuschia",
               "eventType": "controlchange",
               "value": 54,
-              "string": "#d161a5",
-              "fx": []
+              "string": "#d161a5"
             },
             {
               "name": "Fuschia (bright)",
               "eventType": "controlchange",
               "value": 53,
-              "string": "#ca2c92",
-              "fx": []
+              "string": "#ca2c92"
             }
           ],
           "number": 105,
@@ -1272,273 +1194,234 @@
         "availableColors": [
           {
             "eventType": "noteon",
-            "fx": [],
-            "name": "Clear",
+            "name": "Off",
             "string": "transparent",
             "value": 0
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Baby Blue (dim)",
             "string": "#F3FAFE",
             "value": 1
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Baby Blue",
             "string": "#ECF7FD",
             "value": 2
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Baby Blue (bright)",
             "string": "#DFF9FF",
             "value": 3
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Pink",
             "string": "#FF9FDA",
             "value": 4
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Red (dim)",
             "string": "#F58A70",
             "value": 7
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Red",
             "string": "#F36E56",
             "value": 6
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Red (bright)",
             "string": "#F44336",
             "value": 5
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "White",
             "string": "white",
             "value": 8
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Off-White",
             "string": "#F8F0E3",
             "value": 12
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Orange (dim)",
             "string": "#FCBB6F",
             "value": 11
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Orange",
             "string": "#FAAB4B",
             "value": 10
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Orange (bright)",
             "string": "#FF9900",
             "value": 9
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Yellow-Green (dim)",
             "string": "#EBEEA0",
             "value": 15
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Yellow-Green",
             "string": "#E6EA89",
             "value": 14
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Yellow-Green (Bright)",
             "string": "#E3FF6A",
             "value": 13
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "SeaFoam-Green",
             "string": "#93E9BE",
             "value": 16
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Light Green (dim)",
             "string": "#bfdfb0",
             "value": 19
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Light Green",
             "string": "#b0d89e",
             "value": 18
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Light Green (bright)",
             "string": "#90ee90",
             "value": 17
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Blue-Green",
             "string": "#7fffec",
             "value": 20
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Green (dim)",
             "string": "#91C587",
             "value": 23
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Green",
             "string": "#75BB6D",
             "value": 22
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Green (bright)",
             "string": "#4CAF50",
             "value": 21
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Cyan (dim)",
             "string": "#A5DDE7",
             "value": 31
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Cyan",
             "string": "#8ED5E3",
             "value": 30
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Cyan (bright)",
             "string": "#00FFFF",
             "value": 29
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Light Blue (dim)",
             "string": "#A0DDF9",
             "value": 35
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Light Blue",
             "string": "#86D5F7",
             "value": 34
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Light Blue (bright)",
             "string": "#55D3FF",
             "value": 33
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Blue (dim)",
             "string": "#A4CDED",
             "value": 39
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Blue",
             "string": "#8DC3EA",
             "value": 38
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Blue (bright)",
             "string": "#5FBCFF",
             "value": 37
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Deep Blue (dim)",
             "string": "#A3B7DF",
             "value": 43
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Deep Blue",
             "string": "#8FA9D8",
             "value": 44
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Deep Blue (bright)",
             "string": "#6AA0FF",
             "value": 45
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Fuschia (dim)",
             "string": "#d880b4",
             "value": 55
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Fuschia",
             "string": "#d161a5",
             "value": 54
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Fuschia (bright)",
             "string": "#ca2c92",
             "value": 53
@@ -1620,21 +1503,18 @@
         "availableColors": [
           {
             "eventType": "controlchange",
-            "fx": [],
-            "name": "Clear",
+            "name": "Off",
             "string": "transparent",
             "value": 0
           },
           {
             "eventType": "controlchange",
-            "fx": [],
             "name": "White (dim)",
             "string": "rgba(255,255,255,0.5)",
             "value": 1
           },
           {
             "eventType": "controlchange",
-            "fx": [],
             "name": "White",
             "string": "white",
             "value": 127

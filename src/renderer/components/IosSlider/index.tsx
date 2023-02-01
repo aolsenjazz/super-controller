@@ -22,17 +22,18 @@ type PropTypes = {
   highBoundLabel: string;
   domain: [Channel, Channel];
   defaultVal: Channel;
+  onChange: (val: number) => void;
 };
 
 export default function IosSlider(props: PropTypes) {
-  const { lowBoundLabel, highBoundLabel, domain, defaultVal } = props;
+  const { lowBoundLabel, highBoundLabel, domain, defaultVal, onChange } = props;
 
   const labels = Array(domain[1] - domain[0] + 1).fill('');
   labels[0] = lowBoundLabel;
   labels[labels.length - 1] = highBoundLabel;
 
-  const onChange = (v: readonly number[]) => {
-    console.log(v);
+  const innerOnChange = (v: readonly number[]) => {
+    onChange(v[0]);
   };
 
   return (
@@ -41,7 +42,7 @@ export default function IosSlider(props: PropTypes) {
       step={1}
       domain={domain}
       rootStyle={sliderStyle}
-      onChange={onChange}
+      onChange={innerOnChange}
       className="slider"
       values={[defaultVal]}
     >
@@ -55,14 +56,14 @@ export default function IosSlider(props: PropTypes) {
               <Handle
                 key={handle.id}
                 handle={handle}
-                domain={[0, 5]}
+                domain={domain}
                 getHandleProps={getHandleProps}
               />
             ))}
           </div>
         )}
       </Handles>
-      <Ticks count={5}>
+      <Ticks count={labels.length}>
         {({ ticks }) => (
           <div className="slider-ticks">
             {ticks.map((tick, i) => (

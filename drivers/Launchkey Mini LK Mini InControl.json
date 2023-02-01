@@ -784,35 +784,30 @@
           {
             "default": true,
             "eventType": "noteon",
-            "fx": [],
-            "name": "Clear",
+            "name": "Off",
             "string": "transparent",
             "value": 4
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Red (dim)",
             "string": "#F58A70",
             "value": 5
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Red",
             "string": "#F36E56",
             "value": 6
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Red (Bright)",
             "string": "#F44336",
             "value": 7
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "modifier": "blink",
             "name": "Red",
             "string": "#F44336",
@@ -820,28 +815,24 @@
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Yellow (dim)",
             "string": "#FFD77D",
             "value": 21
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Yellow",
             "string": "#FFCB4F",
             "value": 22
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Yellow (bright)",
             "string": "#FFC107",
             "value": 23
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "modifier": "blink",
             "name": "Yellow",
             "string": "#FFC107",
@@ -849,21 +840,18 @@
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Green (dim)",
             "string": "#75BB6D",
             "value": 53
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Green",
             "string": "#4CAF50",
             "value": 20
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "modifier": "blink",
             "name": "Green",
             "string": "#4CAF50",
@@ -947,35 +935,30 @@
           {
             "default": true,
             "eventType": "noteon",
-            "fx": [],
-            "name": "Clear",
+            "name": "Off",
             "string": "transparent",
             "value": 4
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Red (dim)",
             "string": "#F58A70",
             "value": 5
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Red",
             "string": "#F36E56",
             "value": 6
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Red (Bright)",
             "string": "#F44336",
             "value": 7
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "modifier": "blink",
             "name": "Red",
             "string": "#F44336",
@@ -983,42 +966,36 @@
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Yellow (dim)",
             "string": "#FFD77D",
             "value": 21
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Yellow",
             "string": "#FFCB4F",
             "value": 22
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Yellow (bright)",
             "string": "#FFC107",
             "value": 23
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Green (dim)",
             "string": "#75BB6D",
             "value": 53
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Green",
             "string": "#4CAF50",
             "value": 20
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "modifier": "blink",
             "name": "Green",
             "string": "#4CAF50",

@@ -115,27 +115,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 82
@@ -169,27 +166,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 83
@@ -223,27 +217,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 84
@@ -277,27 +268,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 85
@@ -331,27 +319,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 86
@@ -385,27 +370,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 87
@@ -439,27 +421,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 88
@@ -493,27 +472,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Green",
               "string": "#4CAF50",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 89
@@ -523,27 +499,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 64
@@ -553,27 +526,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 65
@@ -583,27 +553,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 66
@@ -613,27 +580,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 67
@@ -643,27 +607,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 68
@@ -673,27 +634,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 69
@@ -703,27 +661,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 70
@@ -733,27 +688,24 @@
           "width": 0.3,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 71
@@ -769,21 +721,18 @@
           {
             "default": true,
             "eventType": "noteon",
-            "fx": [],
-            "name": "Clear",
+            "name": "Off",
             "string": "transparent",
             "value": 0
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Green",
             "string": "#4CAF50",
             "value": 1
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "modifier": "blink",
             "name": "Green",
             "string": "#4CAF50",
@@ -791,14 +740,12 @@
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Red",
             "string": "#F44336",
             "value": 3
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "modifier": "blink",
             "name": "Red",
             "string": "#F44336",
@@ -806,14 +753,12 @@
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Yellow",
             "string": "#FFC107",
             "value": 5
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "modifier": "blink",
             "name": "Yellow",
             "string": "#FFC107",

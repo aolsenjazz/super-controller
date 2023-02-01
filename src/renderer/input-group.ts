@@ -1,4 +1,4 @@
-import { Color } from '@shared/driver-types';
+import { Color, FxDriver } from '@shared/driver-types';
 import { InputConfig, ColorImpl } from '@shared/hardware-config';
 import { CC_BINDINGS, stringVal } from '@shared/util';
 
@@ -7,10 +7,16 @@ const mvc: Color = {
   string: 'transparent',
   eventType: 'noteon',
   value: 0,
-  fx: [],
 };
 
 const MULT_COLOR = ColorImpl.fromDrivers(mvc, 0, 0);
+
+const mvf: FxDriver = {
+  title: '<multiple values>',
+  effect: '',
+  validVals: [0],
+  defaultVal: 0,
+};
 
 /**
  * A pseudo-`InputConfig` used to show the values of multiple inputs in a group.
@@ -97,7 +103,7 @@ export class InputGroup {
     getterFn: (config: InputConfig) => T,
     equalityFn: (a: T, b: T) => boolean
   ) => {
-    if (this.inputs.length === 0) return null;
+    if (this.inputs.length === 0) return undefined;
 
     const vals = this.inputs.map(getterFn);
     const allMatch = vals.filter((v) => !equalityFn(v, vals[0])).length === 0;
@@ -150,24 +156,21 @@ export class InputGroup {
     return this.#getEligibleValues(getter, equality);
   }
 
-  eligibleFx(state: number) {
-    const getter = (c: InputConfig) => c.colorForState(state)?.fx || [];
-    const equality = (fx1: Color['fx'], fx2: Color['fx']) =>
+  get eligibleFx() {
+    const getter = (c: InputConfig) => c.availableFx;
+    const equality = (fx1: FxDriver[], fx2: FxDriver[]) =>
       JSON.stringify(fx1) === JSON.stringify(fx2);
     return this.#getEligibleValues(getter, equality);
   }
 
-  get activeFx() {
-    const getter = (c: InputConfig) => {
-      const current = c.currentColor;
-      return current?.activeFx;
-    };
-    const equality = (a: string | undefined, b: string | undefined) => {
+  getActiveFx(state: number) {
+    const getter = (c: InputConfig) => c.getActiveFx(state);
+    const equality = (a: FxDriver | undefined, b: FxDriver | undefined) => {
       return a === b;
     };
-    const activeFx = this.#groupValue<string | undefined>(getter, equality);
+    const activeFx = this.#groupValue<FxDriver | undefined>(getter, equality);
 
-    return activeFx === undefined ? null : activeFx;
+    return activeFx === '<multiple values>' ? mvf : activeFx;
   }
 
   get isMultiInput() {

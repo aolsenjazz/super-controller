@@ -92,6 +92,7 @@
   width: 100%;
   height: 1px;
   background-color: #e6e6e6;
+  margin-top: 12px;
 }
 
 #config-panel .settings-line.color-setting {

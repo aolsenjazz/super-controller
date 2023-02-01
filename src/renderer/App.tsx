@@ -50,10 +50,14 @@ export default function App() {
   useEffect(() => {
     const cb = (p: DrivenPortInfo[]) =>
       setPorts(
-        p.map(
-          (i) =>
-            new DrivenPortInfo(i.name, i.siblingIndex, i.connected, i.driver)
-        )
+        p.map((i) => {
+          return new DrivenPortInfo(
+            i.name,
+            i.siblingIndex,
+            i.connected,
+            i.driver
+          );
+        })
       );
     const unsubscribe = hostService.onPortsChange(cb);
     hostService.requestPorts();

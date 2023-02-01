@@ -92,7 +92,7 @@ export default function BacklightSettings(props: PropTypes) {
     (fxId: string, state: number) => {
       // Update all InputConfigs in the InputGroup
       group.inputs.forEach((input) => {
-        input.colorForState(state)!.setFx(fxId);
+        input.setFx(state, fxId);
         projectService.updateInput(configId, input.toJSON(true));
       });
 
@@ -105,7 +105,7 @@ export default function BacklightSettings(props: PropTypes) {
     (fxVal: Channel, state: number) => {
       // Update all InputConfigs in the InputGroup
       group.inputs.forEach((input) => {
-        input.colorForState(state)!.setFxVal(fxVal);
+        input.setFxVal(state, fxVal);
         projectService.updateInput(configId, input.toJSON(true));
       });
 
@@ -128,6 +128,9 @@ export default function BacklightSettings(props: PropTypes) {
           {eligibleLightStates.map((state: number) => {
             const color = group.colorForState(state);
             const stateStr = state === 0 ? 'off' : 'on';
+            const containsOff =
+              group.inputs.filter((i) => i.colorForState(state)?.name === 'Off')
+                .length > 0;
 
             const innerColorChange = (value: string | number) => {
               onColorChange(value as string, state);
@@ -159,10 +162,10 @@ export default function BacklightSettings(props: PropTypes) {
                     onChange={innerColorChange}
                   />
                 </div>
-                {group.eligibleFx(state).length > 0 ? (
+                {group.eligibleFx.length > 0 && !containsOff ? (
                   <FXConfig
-                    eligibleFx={group.eligibleFx(state)}
-                    activeFx={group.activeFx}
+                    eligibleFx={group.eligibleFx}
+                    activeFx={group.getActiveFx(state)}
                     onFxChange={innerFxChange}
                     onFxValChange={innerFxValChange}
                   />

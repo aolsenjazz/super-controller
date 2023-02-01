@@ -93,91 +93,79 @@
         {
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "eventType": "noteon",
               "value": 4,
-              "string": "transparent",
-              "fx": []
+              "string": "transparent"
             },
             {
               "name": "Red (dim)",
               "eventType": "noteon",
               "value": 5,
-              "string": "#F58A70",
-              "fx": []
+              "string": "#F58A70"
             },
             {
               "name": "Red",
               "eventType": "noteon",
               "value": 6,
-              "string": "#F36E56",
-              "fx": []
+              "string": "#F36E56"
             },
             {
               "name": "Red (Bright)",
               "eventType": "noteon",
               "value": 7,
-              "string": "#F44336",
-              "fx": []
+              "string": "#F44336"
             },
             {
               "name": "Red",
               "eventType": "noteon",
               "value": 1,
               "string": "#F44336",
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             },
             {
               "name": "Yellow (dim)",
               "eventType": "noteon",
               "value": 21,
-              "string": "#FFD77D",
-              "fx": []
+              "string": "#FFD77D"
             },
             {
               "name": "Yellow",
               "eventType": "noteon",
               "value": 22,
-              "string": "#FFCB4F",
-              "fx": []
+              "string": "#FFCB4F"
             },
             {
               "name": "Yellow (bright)",
               "eventType": "noteon",
               "value": 23,
-              "string": "#FFC107",
-              "fx": []
+              "string": "#FFC107"
             },
             {
               "name": "Yellow",
               "eventType": "noteon",
               "value": 19,
               "string": "#FFC107",
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             },
             {
               "name": "Green (dim)",
               "eventType": "noteon",
               "value": 53,
-              "string": "#75BB6D",
-              "fx": []
+              "string": "#75BB6D"
             },
             {
               "name": "Green",
               "eventType": "noteon",
               "value": 20,
-              "string": "#4CAF50",
-              "fx": []
+              "string": "#4CAF50"
             },
             {
               "name": "Green",
               "eventType": "noteon",
               "value": 24,
               "string": "#4CAF50",
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 96

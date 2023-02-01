@@ -1,43 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/naming-convention
-type fx = {
-  /* Is the effect active immediately? A good example is when there is a solid->brightness effect */
-  default?: boolean;
-
-  /* Short string describing the state of the color (Solid, Blink,  etc) */
-  title: string;
-
-  /* Label for the configurable effect (Brightness, Speed, etc) */
-  effect: string;
-
-  /* Acceptable values used to configure this FX */
-  validVals: Channel[];
-
-  /* Default value on device startup */
-  defaultVal: Channel;
-
-  /**
-   * Assuming most configurable FX are linear, this is the label at the
-   * left-hand size of a linear selector (low, slow, etc).
-   *
-   * If there is only one acceptable value, this FX is effectively binary,
-   * and this field can be omitted
-   */
-  lowBoundLabel?: string;
-
-  /**
-   * Assuming most configurable FX are linear, this is the label at the
-   * left-hand size of a linear selector (low, slow, etc).
-   *
-   * If there is only one acceptable value, this FX is effectively binary,
-   * and this field can be omitted
-   */
-  highBoundLabel?: string;
-};
-
 /**
  * Represents a color which a hardware input can be set to.
  */
-type Color = {
+export type Color = {
   /* Descriptive name for a color, e.g. Red or Amber */
   name: string;
 
@@ -49,8 +14,6 @@ type Color = {
 
   /* The value (velocity) which triggers the color */
   value: MidiNumber;
-
-  fx: fx[];
 
   /**
    * The number used to identify this light. If unset, inherited from the parent
@@ -69,5 +32,3 @@ type Color = {
 
   modifier?: 'blink' | 'pulse';
 };
-
-export type { Color, fx };

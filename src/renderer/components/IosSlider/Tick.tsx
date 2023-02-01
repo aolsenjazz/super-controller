@@ -27,7 +27,7 @@ export default function Tick(props: TickPropTypes) {
       <div
         style={{
           position: 'absolute',
-          marginTop: 6,
+          marginTop: 10,
           fontSize: 10,
           textAlign: 'center',
           marginLeft: `${-(100 / count) / 2}%`,

@@ -222,14 +222,12 @@
           {
             "default": true,
             "eventType": "controlchange",
-            "fx": [],
-            "name": "Clear",
+            "name": "Off",
             "string": "transparent",
             "value": 0
           },
           {
             "eventType": "controlchange",
-            "fx": [],
             "name": "Orange",
             "string": "#e28743",
             "value": 1
@@ -274,14 +272,12 @@
           {
             "default": true,
             "eventType": "controlchange",
-            "fx": [],
-            "name": "Clear",
+            "name": "Off",
             "string": "transparent",
             "value": 0
           },
           {
             "eventType": "controlchange",
-            "fx": [],
             "name": "Orange",
             "string": "#e28743",
             "value": 1
@@ -326,14 +322,12 @@
           {
             "default": true,
             "eventType": "controlchange",
-            "fx": [],
-            "name": "Clear",
+            "name": "Off",
             "string": "transparent",
             "value": 0
           },
           {
             "eventType": "controlchange",
-            "fx": [],
             "name": "Orange",
             "string": "#e28743",
             "value": 1
@@ -378,14 +372,12 @@
           {
             "default": true,
             "eventType": "controlchange",
-            "fx": [],
-            "name": "Clear",
+            "name": "Off",
             "string": "transparent",
             "value": 0
           },
           {
             "eventType": "controlchange",
-            "fx": [],
             "name": "Orange",
             "string": "#e28743",
             "value": 1
@@ -430,14 +422,12 @@
           {
             "default": true,
             "eventType": "controlchange",
-            "fx": [],
-            "name": "Clear",
+            "name": "Off",
             "string": "transparent",
             "value": 0
           },
           {
             "eventType": "controlchange",
-            "fx": [],
             "name": "Orange",
             "string": "#e28743",
             "value": 1

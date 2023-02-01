@@ -6,6 +6,7 @@ import {
   KeyboardDriver,
   InputGridDriver,
   DeviceDriver,
+  FxDriver,
 } from '@shared/driver-types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,41 +47,7 @@ export function validateColor(color: any): asserts color is Color {
       'Color object is missing a value property or it is not a number'
     );
   }
-  if (!Array.isArray(color.fx)) {
-    throw new Error(
-      'Color object is missing a fx property or it is not an array'
-    );
-  }
-  if (color.fx.length > 0) {
-    color.fx.forEach((fx: Color['fx'][number]) => {
-      if (!fx.title || typeof fx.title !== 'string') {
-        throw new Error(
-          'fx object is missing a title property or it is not a string'
-        );
-      }
-      if (!fx.effect || typeof fx.effect !== 'string') {
-        throw new Error(
-          'fx object is missing an effect property or it is not a string'
-        );
-      }
-      if (!Array.isArray(fx.validVals) || fx.validVals.length === 0) {
-        throw new Error(
-          'fx object is missing a validVals property or it is not an array of numbers'
-        );
-      }
-      if (typeof fx.defaultVal !== 'number') {
-        throw new Error(
-          'fx object is missing a defaultVal property or it is not a number'
-        );
-      }
-      if (fx.lowBoundLabel && typeof fx.lowBoundLabel !== 'string') {
-        throw new Error('fx object lowBoundLabel property is not a string');
-      }
-      if (fx.highBoundLabel && typeof fx.highBoundLabel !== 'string') {
-        throw new Error('fx object highBoundLabel property is not a string');
-      }
-    });
-  }
+
   if (color.number !== undefined && typeof color.number !== 'number') {
     throw new Error('Color object number property is not a number');
   }
@@ -270,6 +237,46 @@ export function validateInputDriver(
       validateColor(color);
     });
   }
+
+  if (input.availableFx && !Array.isArray(input.availableFx)) {
+    throw new Error(
+      'InputConfig object is missing a availableFx property or it is not an array'
+    );
+  }
+  if (input.availableFx && input.availableFx.length > 0) {
+    input.availableFx.forEach((fx: FxDriver) => {
+      if (!fx.title || typeof fx.title !== 'string') {
+        throw new Error(
+          'availableFx object is missing a title property or it is not a string'
+        );
+      }
+      if (!fx.effect || typeof fx.effect !== 'string') {
+        throw new Error(
+          'availableFx object is missing an effect property or it is not a string'
+        );
+      }
+      if (!Array.isArray(fx.validVals) || fx.validVals.length === 0) {
+        throw new Error(
+          'availableFx object is missing a validVals property or it is not an array of numbers'
+        );
+      }
+      if (typeof fx.defaultVal !== 'number') {
+        throw new Error(
+          'availableFx object is missing a defaultVal property or it is not a number'
+        );
+      }
+      if (fx.lowBoundLabel && typeof fx.lowBoundLabel !== 'string') {
+        throw new Error(
+          'availableFx object lowBoundLabel property is not a string'
+        );
+      }
+      if (fx.highBoundLabel && typeof fx.highBoundLabel !== 'string') {
+        throw new Error(
+          'availableFx object highBoundLabel property is not a string'
+        );
+      }
+    });
+  }
 }
 
 function validateInputDefaults(
@@ -430,7 +437,7 @@ function validateInputGridDriver(input: any): asserts input is InputGridDriver {
     try {
       validateInputDriver(inputDriver, input);
     } catch (e: any) {
-      throw new Error(`Input Id[${inputDriver.default.number}]: ${e.message}`);
+      throw new Error(`Input Id[${inputDriver.number}]: ${e.message}`);
     }
   });
 }

@@ -86,6 +86,7 @@ function upgradeInput(i: v0InputConfig) {
   return new v1InputConfig(
     i.default as v1InputConfig['default'],
     availableColors,
+    [],
     i.overrideable,
     i.type,
     i.value as MidiNumber,

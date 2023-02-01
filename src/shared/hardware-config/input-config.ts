@@ -10,6 +10,7 @@ import {
   InputResponse,
   InputType,
   InputGridDriver,
+  FxDriver,
 } from '../driver-types';
 import { ColorImpl } from './color-impl';
 
@@ -58,6 +59,8 @@ export class InputConfig {
   /* Array of `Color`s the hardware input can be. */
   readonly availableColors: ColorImpl[];
 
+  readonly availableFx: FxDriver[];
+
   /* Can this control be overridden? `false` if events aren't transmitted from device */
   readonly overrideable: boolean;
 
@@ -98,6 +101,7 @@ export class InputConfig {
     const instance = new InputConfig(
       other.default,
       availableColors,
+      other.availableFx,
       other.overrideable,
       other.type,
       other.value,
@@ -135,8 +139,16 @@ export class InputConfig {
     const colors = availableColors.map((c) =>
       ColorImpl.fromDrivers(c, number, channel)
     );
+    const availableFx = overrides.availableFx || defaults.availableFx || [];
 
-    const instance = new InputConfig(def, colors, overrideable, type, value);
+    const instance = new InputConfig(
+      def,
+      colors,
+      availableFx,
+      overrideable,
+      type,
+      value
+    );
 
     return instance;
   }
@@ -144,6 +156,7 @@ export class InputConfig {
   constructor(
     defaultVals: InputDefault,
     availableColors: ColorImpl[],
+    availableFx: FxDriver[],
     overrideable: boolean,
     type: InputType,
     value?: MidiNumber,
@@ -153,6 +166,7 @@ export class InputConfig {
   ) {
     this.default = defaultVals;
     this.availableColors = availableColors;
+    this.availableFx = availableFx;
     this.overrideable = overrideable;
     this.type = type;
     this.#nickname = nickname;
@@ -217,6 +231,45 @@ export class InputConfig {
     });
 
     return c;
+  }
+
+  getActiveFx(state: number) {
+    const msg = this.devicePropagator.responseForStep(state);
+
+    let fx: undefined | FxDriver;
+    this.availableFx.forEach((f) => {
+      if (msg && f.validVals.includes(msg.channel)) fx = f;
+    });
+
+    return fx;
+  }
+
+  getFxVal(state: number) {
+    return this.devicePropagator.responseForStep(state)?.channel;
+  }
+
+  setFx(state: number, fxTitle: string) {
+    let isSet = false;
+
+    this.availableFx.forEach((fx) => {
+      if (fx.title === fxTitle) {
+        isSet = true;
+        this.setFxVal(state, fx.defaultVal);
+      }
+    });
+
+    if (!isSet) {
+      throw new Error(`no FX exists for title[${fxTitle}]`);
+    }
+  }
+
+  setFxVal(state: number, fxVal: Channel) {
+    const currentMsg = this.devicePropagator.responseForStep(state);
+    if (currentMsg) {
+      currentMsg.channel = fxVal;
+    } else {
+      throw new Error(`there is no current response for state[${state}]`);
+    }
   }
 
   /**

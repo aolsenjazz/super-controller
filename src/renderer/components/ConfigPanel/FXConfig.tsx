@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 
-import { ColorImpl } from '@shared/hardware-config';
+import { FxDriver } from '@shared/driver-types';
 
 import BasicSelect from './BasicSelect';
 import IosSlider from '../IosSlider';
 
 type Props = {
-  eligibleFx: ColorImpl['fx'];
-  activeFx: string | null;
+  eligibleFx: FxDriver[];
+  activeFx: FxDriver | undefined;
   onFxChange: (title: string) => void;
   onFxValChange: (val: Channel) => void;
 };
@@ -15,7 +15,6 @@ type Props = {
 export default function FXConfig(props: Props) {
   const { eligibleFx, activeFx, onFxChange, onFxValChange } = props;
 
-  const value = activeFx;
   const innerFxChange = useCallback(
     (v: string | number) => {
       onFxChange(v as string);
@@ -29,7 +28,6 @@ export default function FXConfig(props: Props) {
     },
     [onFxValChange]
   );
-  console.log(innerFxValChange);
 
   const valueList = eligibleFx.map((fx) => fx.title);
 
@@ -37,17 +35,23 @@ export default function FXConfig(props: Props) {
     <div className="settings-line fx-setting">
       <p>FX:</p>
       <BasicSelect
-        value={value}
+        value={activeFx?.title}
         valueList={valueList}
         labelList={valueList}
         onChange={innerFxChange}
       />
-      <IosSlider
-        lowBoundLabel="dim"
-        highBoundLabel="bright"
-        domain={[0, 4]}
-        defaultVal={2}
-      />
+      {activeFx ? (
+        <IosSlider
+          lowBoundLabel={activeFx.lowBoundLabel!}
+          highBoundLabel={activeFx.highBoundLabel!}
+          domain={[
+            Math.min(...activeFx.validVals) as Channel,
+            Math.max(...activeFx.validVals) as Channel,
+          ]}
+          defaultVal={activeFx.defaultVal}
+          onChange={innerFxValChange}
+        />
+      ) : null}
     </div>
   );
 }

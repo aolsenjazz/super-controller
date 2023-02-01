@@ -1,4 +1,5 @@
 import { Color } from './color';
+import { FxDriver } from './fx-driver';
 
 /**
  * Describes how event are propagated to clients. Not all inputs are eligible for
@@ -57,4 +58,6 @@ export type InputDriver = {
    * from the parent `InputGrid`, but that value may be overridden by setting it here.
    */
   readonly availableColors?: Color[];
+
+  readonly availableFx?: FxDriver[];
 };

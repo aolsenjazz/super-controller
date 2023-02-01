@@ -1,9 +1,9 @@
 import { MidiArray } from '@shared/midi-array';
 import { InputConfig, ColorImpl } from '@shared/hardware-config';
 import { NStepPropagator } from '@shared/propagators';
-import { Color } from '@shared/driver-types';
+import { Color, FxDriver } from '@shared/driver-types';
 
-const FX: Color['fx'][number] = {
+const FX: FxDriver = {
   title: 'Blink',
   effect: 'Speed',
   default: true,
@@ -17,9 +17,8 @@ const RED: Color = {
   name: 'Red',
   eventType: 'noteon',
   value: 6,
-  default: false,
   string: 'red',
-  fx: [FX],
+  channel: 1,
 };
 
 const GREEN: Color = {
@@ -28,17 +27,19 @@ const GREEN: Color = {
   value: 8,
   default: true,
   string: 'green',
-  fx: [FX],
+  channel: 2,
 };
 const GreenImpl = ColorImpl.fromDrivers(GREEN, 0, 0);
 
 interface Params {
   defaultVals?: InputConfig['default'];
   availableColors?: Color[];
+  availableFx?: FxDriver[];
   overrideable?: boolean;
   type?: InputConfig['type'];
   value?: MidiNumber;
   colorConfig?: Map<number, Color>;
+  activeFx?: [number, string][];
 }
 function createConfig({
   defaultVals = {
@@ -48,10 +49,12 @@ function createConfig({
     response: 'gate',
   },
   availableColors = [RED, GREEN],
+  availableFx = [FX],
   overrideable = true,
   type = 'pad',
   value = undefined,
   colorConfig = undefined,
+  activeFx = undefined,
 }: Params) {
   const colors = availableColors.map((c) =>
     ColorImpl.fromDrivers(c, defaultVals.number, defaultVals.channel)
@@ -79,12 +82,19 @@ function createConfig({
   const newConfig = new InputConfig(
     defaultVals,
     colors,
+    availableFx,
     overrideable,
     type,
     value,
     outputPropagator,
     devicePropagator
   );
+
+  if (activeFx) {
+    activeFx.forEach(([state, fx]) => {
+      newConfig.setFx(state, fx);
+    });
+  }
 
   return newConfig;
 }
@@ -211,5 +221,28 @@ describe('toJSON', () => {
     expect(from.devicePropagator.toJSON(true)).toEqual(
       config.devicePropagator.toJSON(true)
     );
+  });
+});
+
+describe('get activeFx', () => {
+  test('returns undefined for no fx', () => {
+    const config = createConfig({ availableColors: [RED] });
+
+    expect(config.getActiveFx(0)).toBe(undefined);
+  });
+
+  test('returns title for color with default fx', () => {
+    const config = createConfig({ availableColors: [GREEN] });
+
+    expect(config.getActiveFx(0)).toBe(FX);
+  });
+
+  test('returns title for color with applied fx', () => {
+    const config = createConfig({ availableColors: [GREEN, RED] });
+    const colorConfig = new Map();
+    colorConfig.set(0, GREEN);
+    colorConfig.set(1, RED);
+    config.setFx(1, FX.title);
+    expect(config.getActiveFx(1)).toBe(FX);
   });
 });

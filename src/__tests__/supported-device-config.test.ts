@@ -16,7 +16,7 @@ function BasicInputConfig() {
   const overrideable = true;
   const type = 'pad';
 
-  return new InputConfig(inputDefault, [], overrideable, type);
+  return new InputConfig(inputDefault, [], [], overrideable, type);
 }
 
 function BasicSupportedDevice() {
@@ -50,7 +50,7 @@ test('getInput throws for bad id', () => {
   const overrideable = true;
   const type = 'pad';
 
-  const input = new InputConfig(inputDefault, [], overrideable, type);
+  const input = new InputConfig(inputDefault, [], [], overrideable, type);
 
   const config = new SupportedDeviceConfig(
     name,
@@ -78,7 +78,7 @@ test('getInput returns correct input for id', () => {
   const overrideable = true;
   const type = 'pad';
 
-  const input = new InputConfig(inputDefault, [], overrideable, type);
+  const input = new InputConfig(inputDefault, [], [], overrideable, type);
 
   inputConfigs.push(input);
 
@@ -109,7 +109,7 @@ test('handleMessage() passes to correct input for processing', () => {
   const overrideable = true;
   const type = 'pad';
 
-  const input = new InputConfig(inputDefault, [], overrideable, type);
+  const input = new InputConfig(inputDefault, [], [], overrideable, type);
   const spy = jest.spyOn(input, 'handleMessage');
   inputConfigs.push(input);
 

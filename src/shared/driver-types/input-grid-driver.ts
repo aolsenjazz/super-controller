@@ -1,5 +1,6 @@
 import { Color } from './color';
 import { InputDriver } from './input-driver';
+import { FxDriver } from './fx-driver';
 
 type InputDefaults = {
   /* MIDI channel */
@@ -30,6 +31,8 @@ type InputDefaults = {
    * List of `Color`s the child Inputs all support
    */
   availableColors?: Color[];
+
+  availableFx?: FxDriver[];
 };
 
 export type InputGridDriver = {

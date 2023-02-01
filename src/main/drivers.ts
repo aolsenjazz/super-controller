@@ -69,6 +69,7 @@ export function getDriver(portName: string) {
 
   if (driverOrUndefined === undefined) {
     driverOrUndefined = DRIVERS.get('Anonymous')!;
+    driverOrUndefined = { ...driverOrUndefined };
     driverOrUndefined.name = portName;
   }
 

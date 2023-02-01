@@ -150,27 +150,24 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 64
@@ -181,27 +178,24 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 65
@@ -212,27 +206,24 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 66
@@ -243,27 +234,24 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 67
@@ -274,27 +262,24 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 68
@@ -305,27 +290,24 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 69
@@ -336,27 +318,24 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 70
@@ -367,27 +346,24 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Clear",
+              "name": "Off",
               "default": true,
               "eventType": "noteon",
               "value": 0,
-              "fx": [],
               "string": "transparent"
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
-              "value": 1,
-              "fx": []
+              "value": 1
             },
             {
               "name": "Red",
               "string": "#F44336",
               "eventType": "noteon",
               "value": 2,
-              "modifier": "blink",
-              "fx": []
+              "modifier": "blink"
             }
           ],
           "number": 71
@@ -398,41 +374,13 @@
           {
             "default": true,
             "eventType": "noteon",
-            "fx": [],
-            "name": "Clear",
+            "name": "Off",
             "string": "transparent",
             "value": 0,
             "channel": 0
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Red",
             "string": "#F44336",
             "value": 5,
@@ -440,33 +388,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Orange",
             "string": "#F57C00",
             "value": 60,
@@ -474,33 +395,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Yellow",
             "string": "#FFEB3B",
             "value": 9,
@@ -508,33 +402,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Seafoam Green",
             "string": "#E0F7FA",
             "value": 8,
@@ -542,33 +409,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Soft Green",
             "string": "#C8E6C9",
             "value": 12,
@@ -576,33 +416,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Pea Green",
             "string": "#9CCC65",
             "value": 13,
@@ -610,33 +423,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Green",
             "string": "#4CAF50",
             "value": 21,
@@ -644,33 +430,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Teal-ish",
             "string": "#4DB6AC",
             "value": 20,
@@ -678,33 +437,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Light Blue",
             "string": "#64B5F6",
             "value": 32,
@@ -712,33 +444,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Blue",
             "string": "#2196F3",
             "value": 41,
@@ -746,33 +451,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Royal Blue",
             "string": "#163bc4",
             "value": 45,
@@ -780,33 +458,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Fuchsia",
             "string": "#BA68C8",
             "value": 53,
@@ -814,33 +465,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Pink",
             "string": "#F06292",
             "value": 57,
@@ -848,33 +472,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Translucent Purple",
             "string": "#E1BEE7",
             "value": 56,
@@ -882,33 +479,6 @@
           },
           {
             "eventType": "noteon",
-            "fx": [
-              {
-                "default": true,
-                "title": "Solid",
-                "effect": "Brightness",
-                "validVals": [1, 2, 3, 4, 5, 6],
-                "defaultVal": 6,
-                "lowBoundLabel": "Dim",
-                "highBoundLabel": "Bright"
-              },
-              {
-                "title": "Pulse",
-                "effect": "Speed",
-                "validVals": [7, 8, 9, 10],
-                "defaultVal": 7,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              },
-              {
-                "title": "Blink",
-                "effect": "Speed",
-                "validVals": [11, 12, 13, 14, 15],
-                "defaultVal": 11,
-                "lowBoundLabel": "Fast",
-                "highBoundLabel": "Slow"
-              }
-            ],
             "name": "Pepper White",
             "string": "#E8EAF6",
             "value": 107,
@@ -922,7 +492,51 @@
         "overrideable": true,
         "response": "gate",
         "eventType": "noteon/noteoff",
-        "channel": 0
+        "channel": 0,
+        "availableFx": [
+          {
+            "title": "Solid",
+            "effect": "Brightness",
+            "validVals": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "defaultVal": 6,
+            "lowBoundLabel": "Dim",
+            "highBoundLabel": "Bright"
+          },
+          {
+            "title": "Pulse",
+            "effect": "Speed",
+            "validVals": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "defaultVal": 7,
+            "lowBoundLabel": "Fast",
+            "highBoundLabel": "Slow"
+          },
+          {
+            "title": "Blink",
+            "effect": "Speed",
+            "validVals": [
+              11,
+              12,
+              13,
+              14,
+              15
+            ],
+            "defaultVal": 11,
+            "lowBoundLabel": "Fast",
+            "highBoundLabel": "Slow"
+          }
+        ]
       }
     },
     {
@@ -958,21 +572,18 @@
           {
             "default": true,
             "eventType": "noteon",
-            "fx": [],
-            "name": "Clear",
+            "name": "Off",
             "string": "transparent",
             "value": 0
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "name": "Green",
             "string": "#4CAF50",
             "value": 1
           },
           {
             "eventType": "noteon",
-            "fx": [],
             "modifier": "blink",
             "name": "Green",
             "string": "#4CAF50",

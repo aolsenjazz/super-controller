@@ -1,11 +1,16 @@
 import { MidiArray } from '@shared/midi-array';
 import { InputConfig, ColorImpl } from '@shared/hardware-config';
 import { NStepPropagator } from '@shared/propagators';
-import { Color, InputResponse, InputType } from '@shared/driver-types';
+import {
+  Color,
+  InputResponse,
+  InputType,
+  FxDriver,
+} from '@shared/driver-types';
 
 import { InputGroup } from '../renderer/input-group';
 
-const FX: Color['fx'][number] = {
+const FX: FxDriver = {
   title: 'Blink',
   effect: 'Speed',
   validVals: [1, 2, 3],
@@ -21,7 +26,6 @@ const GREEN: Color = {
   modifier: 'blink',
   string: 'green',
   default: true,
-  fx: [FX],
 };
 
 const RED: Color = {
@@ -30,7 +34,6 @@ const RED: Color = {
   value: 5,
   string: 'red',
   default: false,
-  fx: [FX],
 };
 
 function createInput(
@@ -39,7 +42,9 @@ function createInput(
   response: InputResponse,
   inputType: InputType,
   availableColors: Color[] = [],
-  lightConfig: Map<number, Color> = new Map()
+  availableFx: FxDriver[] = [],
+  lightConfig: Map<number, Color> = new Map(),
+  activeFx?: [number, string][]
 ) {
   const def: InputConfig['default'] = {
     number: seedNumber,
@@ -61,21 +66,32 @@ function createInput(
     devicePropagator = new NStepPropagator(def.response, def.response, config);
   }
 
-  return new InputConfig(
+  const ic = new InputConfig(
     def,
     avail,
+    availableFx,
     true,
     inputType,
     0,
     outputPropagator,
     devicePropagator
   );
+
+  if (activeFx) {
+    activeFx.forEach(([state, fx]) => {
+      ic.setFx(state, fx);
+    });
+  }
+
+  return ic;
 }
 
 function createGatePadInput(
   seedNumber: Channel = 0,
   includeAvailableColors = false,
-  includeLightConfig = false
+  includeLightConfig = false,
+  includeAvailableFx = false,
+  includeActiveFx = false
 ) {
   const colors = includeAvailableColors ? [GREEN, RED] : [];
   const lightConfig = new Map<number, Color>();
@@ -83,14 +99,25 @@ function createGatePadInput(
     lightConfig.set(1, GREEN);
     lightConfig.set(0, RED);
   }
-  return createInput(
+
+  const availableFx = includeAvailableFx && includeAvailableColors ? [FX] : [];
+
+  const ic = createInput(
     seedNumber,
     'noteon/noteoff',
     'gate',
     'pad',
     colors,
+    availableFx,
     lightConfig
   );
+
+  if (includeActiveFx) {
+    ic.setFx(0, FX.title);
+    ic.setFx(1, FX.title);
+  }
+
+  return ic;
 }
 
 function createXYInput(seedNumber: Channel = 0) {
@@ -99,6 +126,7 @@ function createXYInput(seedNumber: Channel = 0) {
     'pitchbend',
     'continuous',
     'xy',
+    [],
     [],
     new Map()
   );
@@ -266,13 +294,11 @@ describe('eligibleColors', () => {
 
 describe('eligibleFx', () => {
   test('returns the correct array value', () => {
-    const pad1 = createGatePadInput(0, true, true);
-    const pad2 = createGatePadInput(1, true, true);
+    const pad1 = createGatePadInput(0, true, true, true);
+    const pad2 = createGatePadInput(1, true, true, true);
     const group = new InputGroup([pad1, pad2]);
 
-    expect(JSON.stringify(group.eligibleFx)).toEqual(
-      JSON.stringify(pad1.availableColors[0].fx)
-    );
+    expect(JSON.stringify(group.eligibleFx)).toEqual(JSON.stringify([FX]));
   });
 
   test('returns empty array for no color.fx', () => {
