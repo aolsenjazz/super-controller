@@ -180,10 +180,7 @@ export class OutputPropagator extends Propagator {
   #nextEventType = () => {
     switch (this.eventType) {
       case 'noteon/noteoff':
-        // TODO: should just be able to remove this if block
-        if (this.lastPropagated) {
-          return this.lastPropagated.isNoteOn ? 'noteoff' : 'noteon';
-        }
+        return this.lastPropagated?.isNoteOn ? 'noteoff' : 'noteon';
         return 'noteon';
       case 'controlchange':
       case 'programchange':

@@ -44,8 +44,6 @@ export type InputDriver = {
   /**
    * List of `Color`s this input supports. For inputs whose colors are controlled by
    * the device, this should be left empty.
-   *
-   * TODO: how do we represent RGB capabilities?
    */
   availableColors: Color[];
 

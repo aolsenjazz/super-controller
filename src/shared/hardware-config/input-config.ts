@@ -196,7 +196,7 @@ export class InputConfig {
         this.default.eventType,
         this.default.number,
         this.default.channel,
-        isPitchbend ? 64 : value // TODO: unclear what this is doing
+        isPitchbend ? 64 : value
       );
     }
   }

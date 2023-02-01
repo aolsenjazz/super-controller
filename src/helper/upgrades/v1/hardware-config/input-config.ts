@@ -35,9 +35,6 @@ export type InputOverride = {
 
   /**
    * Maintains hardware color per state. For more, see `DevicePropagator`
-   *
-   * TODO: this is smelly. might make more sense to make this a member of
-   * `DevicePropagator`.
    */
   lightConfig: Map<string, Color>;
 };
@@ -279,10 +276,6 @@ export class InputConfig {
 
   /**
    * Constructs a map of `Color`-per-state configurations.
-   *
-   * TODO: This is just disgusting. Gotta figure out how to handle RGB before this
-   * is worth fixing.
-   *
    * @returns Color-per-state map
    */
   #lightConfig = () => {
