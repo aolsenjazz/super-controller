@@ -47,6 +47,7 @@ function Element(props: ElementPropTypes) {
         shape={input.shape}
         width={width}
         height={height}
+        fx={config?.currentFx}
         onClick={(e) => onClick(e, input.id)}
         color={config?.currentColor}
         enabled={overrideable}

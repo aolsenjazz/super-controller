@@ -4,6 +4,18 @@
   }
 }
 
+@keyframes Blink {
+  50.0% {
+    background-color: transparent;
+  }
+}
+
+@keyframes Pulse {
+  50.0% {
+    background-color: transparent;
+  }
+}
+
 /* positional stuff for the device layout really belongs in a parent file */
 .device-layout {
   margin-left: 50%;

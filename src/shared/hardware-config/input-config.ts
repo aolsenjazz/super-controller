@@ -391,6 +391,22 @@ export class InputConfig {
     return c;
   }
 
+  get currentFx(): FxDriver | undefined {
+    const colorArray = this.devicePropagator.responseForCurrentStep();
+
+    let fx;
+    if (colorArray) {
+      const { channel } = colorArray;
+      this.availableFx.forEach((f) => {
+        if (f.validVals.includes(channel)) {
+          fx = f;
+        }
+      });
+    }
+
+    return fx;
+  }
+
   get eligibleLightResponses() {
     switch (this.default.response) {
       case 'constant':
