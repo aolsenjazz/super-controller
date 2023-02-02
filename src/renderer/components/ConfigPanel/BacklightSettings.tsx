@@ -162,7 +162,7 @@ export default function BacklightSettings(props: PropTypes) {
                     onChange={innerColorChange}
                   />
                 </div>
-                {group.eligibleFx.length > 0 && !containsOff ? (
+                {group.eligibleFx?.length > 0 && !containsOff ? (
                   <FXConfig
                     eligibleFx={group.eligibleFx}
                     activeFx={group.getActiveFx(state)}

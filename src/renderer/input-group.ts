@@ -64,15 +64,15 @@ export class InputGroup {
   };
 
   labelForChannel(c: Channel) {
-    return this.#labelFor(c, (input) => input.channel);
+    return this.#labelFor(c, (input) => input.default.channel);
   }
 
   labelForEventType(et: string) {
-    return this.#labelFor(et, (input) => input.eventType);
+    return this.#labelFor(et, (input) => input.default.eventType);
   }
 
   labelForResponse(response: string) {
-    return this.#labelFor(response, (input) => input.response);
+    return this.#labelFor(response, (input) => input.default.response);
   }
 
   colorForState(state: number) {
