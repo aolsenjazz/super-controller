@@ -36,7 +36,7 @@ export class MidiArray extends Array<number> {
   }
 
   get statusString() {
-    return byteToStatusString(this.status);
+    return byteToStatusString(this.status, true);
   }
 
   get status() {

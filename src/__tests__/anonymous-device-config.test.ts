@@ -97,3 +97,19 @@ test('handleMessage applies override', () => {
   expect(toPropagate![0]).toEqual(override[0]);
   expect(toPropagate![1]).toEqual(override[1]);
 });
+
+test('serializes + deserializes correctly', () => {
+  const msg = MidiArray.create(128, 0, 127, 127);
+
+  const override = MidiArray.create(144, 0, 100, 100);
+  const { status, channel } = override;
+  const name = 'littlename';
+  const nickname = 'nick';
+  const overrides = new Map<string, MidiArray>();
+  const device = new AnonymousDeviceConfig(name, 7, overrides, [], nickname);
+  device.overrideInput(msg, status, channel, override[2]);
+  const json = device.toJSON();
+  const from = AnonymousDeviceConfig.fromParsedJSON(JSON.parse(json));
+
+  expect(JSON.stringify(from)).toEqual(JSON.stringify(device));
+});

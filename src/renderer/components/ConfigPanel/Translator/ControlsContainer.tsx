@@ -22,6 +22,7 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
 
   const overrideOrUndefined = config.getOverride(currentAction);
   const msg = overrideOrUndefined || currentAction;
+
   const status = msg.statusString;
   const { channel } = msg;
 

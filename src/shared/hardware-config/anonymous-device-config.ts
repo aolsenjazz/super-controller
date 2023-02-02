@@ -9,12 +9,17 @@ export class AnonymousDeviceConfig extends DeviceConfig {
 
   /* eslint-disable-next-line */
   static fromParsedJSON(obj: any) {
-    const overrides = new Map<string, MidiArray>(obj.overrides);
+    const tupleOverrides = new Map<string, MidiTuple>(obj.overrides);
+    const msgOverrides = new Map<string, MidiArray>();
+    Array.from(tupleOverrides.keys()).forEach((k) => {
+      const msg = new MidiArray(tupleOverrides.get(k)!);
+      msgOverrides.set(k, msg);
+    });
 
     return new AnonymousDeviceConfig(
       obj.name,
       obj.siblingIndex,
-      overrides,
+      msgOverrides,
       obj.shareSustain,
       obj.nickname
     );
@@ -63,7 +68,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
    * Value-independent; values are propagated normally and cannot be overriden
    */
   overrideInput(
-    targetInput: number[],
+    targetInput: MidiArray,
     newStatus: StatusString | StatusByte,
     newChannel: Channel,
     newNumber: MidiNumber
@@ -83,7 +88,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
    * *NOTE* that the value in the returned MIDI tuplet will be 0 because overrides are set
    * independently of value
    */
-  getOverride(input: number[]) {
+  getOverride(input: MidiArray) {
     const valueNegatedMsg = [...input];
     valueNegatedMsg[2] = 0;
     return this.overrides.get(JSON.stringify(valueNegatedMsg));

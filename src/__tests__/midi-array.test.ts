@@ -75,3 +75,21 @@ test('isOnIsh returns false for cc value === 0', () => {
   const mm = MidiArray.create(eventType, channel, number, value);
   expect(mm.isOnIsh(true)).toBe(false);
 });
+
+test('get statusString returns noteon', () => {
+  const number = 127;
+  const value = 127;
+  const channel = 0;
+  const eventType = 144;
+  const mm = MidiArray.create(eventType, channel, number, value);
+  expect(mm.statusString).toEqual('noteon');
+});
+
+test('get statusString returns noteoff', () => {
+  const number = 127;
+  const value = 127;
+  const channel = 0;
+  const eventType = 128;
+  const mm = MidiArray.create(eventType, channel, number, value);
+  expect(mm.statusString).toEqual('noteoff');
+});
