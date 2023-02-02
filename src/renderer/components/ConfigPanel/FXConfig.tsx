@@ -8,12 +8,13 @@ import IosSlider from '../IosSlider';
 type Props = {
   eligibleFx: FxDriver[];
   activeFx: FxDriver | undefined;
+  fxVal: Channel | undefined | '<multiple values>';
   onFxChange: (title: string) => void;
   onFxValChange: (val: Channel) => void;
 };
 
 export default function FXConfig(props: Props) {
-  const { eligibleFx, activeFx, onFxChange, onFxValChange } = props;
+  const { eligibleFx, activeFx, onFxChange, onFxValChange, fxVal } = props;
 
   const innerFxChange = useCallback(
     (v: string | number) => {
@@ -40,7 +41,10 @@ export default function FXConfig(props: Props) {
         labelList={valueList}
         onChange={innerFxChange}
       />
-      {activeFx ? (
+      {activeFx &&
+      activeFx.title !== '<multiple values>' &&
+      fxVal &&
+      fxVal !== '<multiple values>' ? (
         <IosSlider
           lowBoundLabel={activeFx.lowBoundLabel!}
           highBoundLabel={activeFx.highBoundLabel!}
@@ -48,7 +52,7 @@ export default function FXConfig(props: Props) {
             Math.min(...activeFx.validVals) as Channel,
             Math.max(...activeFx.validVals) as Channel,
           ]}
-          defaultVal={activeFx.defaultVal}
+          defaultVal={fxVal}
           onChange={innerFxValChange}
         />
       ) : null}

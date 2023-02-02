@@ -166,11 +166,19 @@ export class InputGroup {
   getActiveFx(state: number) {
     const getter = (c: InputConfig) => c.getActiveFx(state);
     const equality = (a: FxDriver | undefined, b: FxDriver | undefined) => {
-      return a === b;
+      return a?.title === b?.title;
     };
     const activeFx = this.#groupValue<FxDriver | undefined>(getter, equality);
 
     return activeFx === '<multiple values>' ? mvf : activeFx;
+  }
+
+  getFxVal(state: number) {
+    const getter = (c: InputConfig) => c.getFxVal(state);
+    const equality = (a: Channel | undefined, b: Channel | undefined) => {
+      return a === b;
+    };
+    return this.#groupValue<Channel | undefined>(getter, equality);
   }
 
   get isMultiInput() {

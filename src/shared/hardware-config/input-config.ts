@@ -318,6 +318,7 @@ export class InputConfig {
       devicePropagator: this.devicePropagator.toJSON(includeState),
       nickname: this.nickname,
       availableColors: this.availableColors,
+      availableFx: this.availableFx,
       overrideable: this.overrideable,
       type: this.type,
     });

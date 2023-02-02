@@ -166,6 +166,7 @@ export default function BacklightSettings(props: PropTypes) {
                   <FXConfig
                     eligibleFx={group.eligibleFx}
                     activeFx={group.getActiveFx(state)}
+                    fxVal={group.getFxVal(state)}
                     onFxChange={innerFxChange}
                     onFxValChange={innerFxValChange}
                   />
