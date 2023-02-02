@@ -96,6 +96,7 @@ type PropTypes = {
   inputGrid: VirtualInputGrid;
   deviceWidth: number;
   deviceHeight: number;
+  configured: boolean;
   deviceConfig: SupportedDeviceConfig;
   onClick: (event: React.MouseEvent, ids: string[]) => void;
   selectedInputs: string[];
@@ -123,6 +124,7 @@ const InputGridLayout = (props: PropTypes) => {
     deviceWidth,
     onClick,
     selectedInputs,
+    configured,
     deviceConfig,
     deviceHeight,
   } = props;
@@ -157,9 +159,9 @@ const InputGridLayout = (props: PropTypes) => {
               }%`}
               input={input}
               config={inputConfig}
-              overrideable={input.overrideable}
+              overrideable={input.overrideable && configured}
               onClick={(_e, id: string) => {
-                if (input.overrideable) onClick(_e, [id]);
+                if (input.overrideable && configured) onClick(_e, [id]);
               }}
               focus={selectedInputs.includes(input.id)}
             />

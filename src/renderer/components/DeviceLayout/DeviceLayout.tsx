@@ -78,6 +78,7 @@ export default function DeviceLayout(props: PropTypes) {
               deviceHeight={device.height}
               onClick={onClick}
               selectedInputs={selectedInputs}
+              configured={configured}
               deviceConfig={deviceConfig}
             />
           );
@@ -92,7 +93,9 @@ export default function DeviceLayout(props: PropTypes) {
         '--r': `${device.width}/${device.height}`,
         ...device.style,
       }}
-      className={`device-layout ${configured ? 'configured' : ''}`}
+      className={`device-layout ${
+        configured ? 'configured' : 'not-configured'
+      }`}
     >
       {Element}
     </div>
