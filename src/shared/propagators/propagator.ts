@@ -1,94 +1,73 @@
 import { MidiArray } from '../midi-array';
-
 import { InputResponse } from '../driver-types';
 
-const illogicalPairs: [InputResponse, InputResponse][] = [
-  ['continuous', 'gate'],
-  ['continuous', 'toggle'],
-  ['gate', 'continuous'],
-  ['toggle', 'continuous'],
-  ['toggle', 'gate'],
-  ['constant', 'continuous'],
-];
+export type ResponseMap = {
+  continuous: 'continuous' | 'constant';
+  toggle: 'toggle' | 'constant';
+  gate: 'gate' | 'constant' | 'toggle';
+  constant: 'toggle' | 'constant';
+};
 
-function checkResponsePair(r1: InputResponse, r2: InputResponse) {
-  illogicalPairs.forEach((pair) => {
-    if (JSON.stringify(pair) === JSON.stringify([r1, r2]))
-      throw new Error(
-        `InputResponse[${r1}] and OutputResponse[${r2}] is illogical`
-      );
-  });
-}
+export type HardwareResponse<K extends keyof ResponseMap = keyof ResponseMap> =
+  {
+    [P in K]: ResponseMap[P];
+  }[K];
+
+export type CorrelatedResponse<T extends InputResponse> = HardwareResponse<T>;
 
 /**
  * Manages propagation of messages to devices and clients. Can be set to propagate
  * message different by setting `outputResponse`
  */
-export abstract class Propagator {
+export abstract class Propagator<
+  T extends keyof ResponseMap,
+  U extends HardwareResponse<T>
+> {
   /**
    * See InputResponse
    */
-  readonly hardwareResponse: InputResponse;
+  readonly hardwareResponse: T;
 
   /**
-   * See InputResponse
+   * See InputResponse. Initially set to `constant` to satisfy the compiler
+   *
+   * @ts-ignore
    */
-  #outputResponse: InputResponse;
+  outputResponse: HardwareResponse<T>;
 
-  /* The last-propagated message */
-  public lastPropagated: MidiArray | null;
-
-  constructor(
-    hardwareResponse: InputResponse,
-    outputResponse: InputResponse,
-    lastPropagated?: MidiArray
-  ) {
-    checkResponsePair(hardwareResponse, outputResponse);
-
+  constructor(hardwareResponse: T, outputResponse: U) {
     this.hardwareResponse = hardwareResponse;
-    this.#outputResponse = outputResponse;
-    this.lastPropagated = lastPropagated || null;
+    this.outputResponse = outputResponse;
   }
 
   /**
-   * Returns different messages to propgate depending on `this.outputResponse`
-   * and `this.lastPropagated`.
+   * Processes `msg`, applying overrides or returning custom messages
    *
    * @param msg Message from device to respond to
    * @returns The message to propagate
    */
   handleMessage(msg: MidiArray) {
-    let toPropagate: MidiArray | null;
-
-    switch (this.hardwareResponse) {
-      case 'gate':
-        toPropagate = this.#handleInputAsGate(msg);
-        break;
-      case 'toggle':
-        toPropagate = this.#handleInputAsToggle(msg);
-        break;
-      case 'continuous':
-        toPropagate = this.#handleInputAsContinuous(msg);
-        break;
-      case 'constant':
-        toPropagate = this.#handleInputAsConstant(msg);
-        break;
-      default:
-        throw new Error(`unknown hardwareResponse ${this.hardwareResponse}`);
-    }
-
-    if (toPropagate !== null) this.lastPropagated = toPropagate;
-    return toPropagate;
+    return this.hardwareResponse === 'gate'
+      ? this.#handleInputAsGate(msg)
+      : this.getResponse(msg);
   }
 
-  get outputResponse() {
-    return this.#outputResponse;
-  }
+  /**
+   * Returns the next message to propagate. This function is only invoked when a
+   * message is *supposed* to be responded-to. In other words, it filters out extra
+   * noteoff mesages from gate inputs.
+   *
+   * @param msg Them message to respond to
+   * @return The  message to propagate
+   */
+  protected abstract getResponse(msg: MidiArray): MidiArray | undefined;
 
-  set outputResponse(r: InputResponse) {
-    checkResponsePair(this.hardwareResponse, r);
-
-    this.#outputResponse = r;
+  toJSON() {
+    return {
+      type: this.constructor.name,
+      hardwareResponse: this.hardwareResponse,
+      outputResponse: this.outputResponse,
+    };
   }
 
   /**
@@ -100,46 +79,8 @@ export abstract class Propagator {
   #handleInputAsGate = (msg: MidiArray) => {
     // if outputResponse === 'toggle' | 'constant', only respond to 'noteon' messages
     if (this.outputResponse !== 'gate' && !msg.isOnIsh(true)) {
-      return null;
+      return undefined;
     }
     return this.getResponse(msg);
   };
-
-  /**
-   * Returns the message to propagate if hardwareResponse is toggle
-   *
-   * @param msg The message from device
-   * @returns the message to propagate
-   */
-  #handleInputAsToggle = (msg: MidiArray) => {
-    return this.getResponse(msg);
-  };
-
-  /**
-   * Returns the message to propagate if hardwareResponse is continuous
-   *
-   * @param msg The message from device
-   * @returns the message to propagate
-   */
-  #handleInputAsContinuous = (msg: MidiArray) => {
-    return this.getResponse(msg);
-  };
-
-  /**
-   * Returns the message to propagate if hardwareResponse is constant
-   *
-   * @param msg The message from device
-   * @returns the message to propagate
-   */
-  #handleInputAsConstant = (msg: MidiArray) => {
-    return this.getResponse(msg);
-  };
-
-  protected abstract getResponse(msg: MidiArray): MidiArray | null;
-
-  abstract toJSON(includeState: boolean): string;
 }
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const TESTABLES = new Map<string, any>();
-TESTABLES.set('illogicalPairs', illogicalPairs);

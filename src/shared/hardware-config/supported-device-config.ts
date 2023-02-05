@@ -130,7 +130,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * @param includeState Should we include state information?
    * @returns JSON string
    */
-  toJSON(includeState: boolean) {
+  toJSON() {
     const obj = {
       name: this.name,
       siblingIndex: this.siblingIndex,
@@ -138,7 +138,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
       supported: true,
       shareSustain: this.shareSustain,
       keyboardDriver: this.keyboardDriver,
-      inputs: this.inputs.map((input) => input.toJSON(includeState)),
+      inputs: this.inputs.map((input) => input.toJSON()),
     };
 
     return JSON.stringify(obj);
@@ -151,10 +151,10 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * @param message The MidiValue[] from device
    * @returns [messageToDevice | null, messageToPropagate]
    */
-  handleMessage(msg: MidiArray): (MidiArray | null)[] {
+  handleMessage(msg: MidiArray): (MidiArray | undefined)[] {
     const id = inputIdFor(msg);
     const input = this.getInput(id);
 
-    return input !== undefined ? input.handleMessage(msg) : [null, msg];
+    return input !== undefined ? input.handleMessage(msg) : [undefined, msg];
   }
 }

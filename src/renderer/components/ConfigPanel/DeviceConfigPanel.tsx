@@ -54,7 +54,7 @@ function ShareSustain(props: PropTypes) {
               if (checked) config.shareWith(dev.id);
               else config.stopSharing(dev.id);
 
-              projectService.updateDevice(config.toJSON(true)); // send update to the backend
+              projectService.updateDevice(JSON.stringify(config)); // send update to the backend
               setProject(new Project(project.devices)); // update in frontend
             }}
           />
@@ -85,7 +85,7 @@ export default function DeviceConfigPanel(props: PropTypes) {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       config.nickname = e.target.value;
 
-      projectService.updateDevice(config.toJSON(true)); // send update to the backend
+      projectService.updateDevice(JSON.stringify(config)); // send update to the backend
       setProject(new Project(project.devices)); // update in frontend
     },
     [config, project.devices, setProject]

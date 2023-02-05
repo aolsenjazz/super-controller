@@ -1,7 +1,7 @@
 import { MidiArray } from '@shared/midi-array';
 
 type PropTypes = {
-  currentAction: number[] | null;
+  currentAction: MidiArray | undefined;
   setCurrentAction: (action: MidiArray) => void;
   overrideKey: string;
 };

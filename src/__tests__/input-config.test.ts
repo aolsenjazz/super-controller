@@ -205,8 +205,9 @@ describe('toJSON', () => {
       response: 'gate',
     };
     const config = createConfig({ defaultVals: d });
-    const json = config.toJSON(true);
-    const from = InputConfig.fromJSON(json);
+    const json = JSON.stringify(config);
+    const parsed = JSON.parse(json);
+    const from = InputConfig.fromJSON(parsed);
 
     expect(from.default).toEqual(d);
     expect(from.nickname).toEqual(config.nickname);
@@ -215,11 +216,11 @@ describe('toJSON', () => {
     expect(JSON.stringify(from.availableColors)).toEqual(
       JSON.stringify(config.availableColors)
     );
-    expect(from.outputPropagator.toJSON(true)).toEqual(
-      config.outputPropagator.toJSON(true)
+    expect(JSON.stringify(from.outputPropagator)).toEqual(
+      JSON.stringify(config.outputPropagator)
     );
-    expect(from.devicePropagator.toJSON(true)).toEqual(
-      config.devicePropagator.toJSON(true)
+    expect(JSON.stringify(from.devicePropagator)).toEqual(
+      JSON.stringify(config.devicePropagator)
     );
   });
 });

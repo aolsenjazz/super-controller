@@ -54,10 +54,10 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     if (override) {
       // eslint-disable-next-line
       override[2] = msg[2];
-      return [null, override];
+      return [undefined, override];
     }
 
-    return [null, msg];
+    return [undefined, msg];
   }
 
   /**

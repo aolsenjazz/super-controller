@@ -5,7 +5,7 @@ class DeviceConfigWrapper extends DeviceConfig {
   isAdapter = false;
 
   handleMessage(msg: MidiArray) {
-    return [null, msg];
+    return [undefined, msg];
   }
 
   toJSON(includeState: boolean) {

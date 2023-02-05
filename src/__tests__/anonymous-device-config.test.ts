@@ -70,7 +70,7 @@ test('handleMessage propagates message when not-overridden', () => {
   expect(toPropagate).toEqual(msg);
 });
 
-test('handleMessage returns null message to prop to device', () => {
+test('handleMessage returns undefined message to prop to device', () => {
   const name = 'littlename';
   const nickname = 'nick';
 
@@ -78,7 +78,7 @@ test('handleMessage returns null message to prop to device', () => {
   const msg = MidiArray.create(144, 0, 0, 0);
   /* eslint-disable-next-line */
   const [toDevice, _toPropagate] = device.handleMessage(msg);
-  expect(toDevice).toBe(null);
+  expect(toDevice).toBe(undefined);
 });
 
 test('handleMessage applies override', () => {

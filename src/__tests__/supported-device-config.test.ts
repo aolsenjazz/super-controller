@@ -154,7 +154,7 @@ test('handleMessage just propagates msgs when no matching inputConfig found', ()
 
 test('toJSON and fromParsedJSON correctly serializes + deserializes', () => {
   const conf = BasicSupportedDevice();
-  const json = conf.toJSON(true);
+  const json = conf.toJSON();
   const obj = JSON.parse(json);
   const other = SupportedDeviceConfig.fromParsedJSON(obj);
 

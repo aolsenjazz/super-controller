@@ -21,7 +21,7 @@ export default function NotConfigured(props: {
   const onClick = useCallback(() => {
     project.addDevice(config);
     setProject(new Project(project.devices));
-    projectService.addDevice(config.toJSON(false));
+    projectService.addDevice(JSON.stringify(config));
   }, [config, project, setProject]);
 
   return (

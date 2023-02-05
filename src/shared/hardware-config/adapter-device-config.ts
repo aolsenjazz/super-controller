@@ -38,7 +38,7 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
     return this.child!.bindingAvailable(eventType, number, channel);
   }
 
-  handleMessage(msg: MidiArray): (MidiArray | null)[] {
+  handleMessage(msg: MidiArray): (MidiArray | undefined)[] {
     return this.child!.handleMessage(msg);
   }
 
@@ -84,13 +84,12 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
     return this.child!.getInput(id);
   }
 
-  toJSON(saveState: boolean) {
+  toJSON() {
     return JSON.stringify({
       isAdapter: true,
       name: this.name,
       siblingIndex: this.siblingIndex,
-      child:
-        this.child !== undefined ? this.child.toJSON(saveState) : undefined,
+      child: this.child !== undefined ? this.child.toJSON() : undefined,
     });
   }
 

@@ -10,7 +10,7 @@ import {
   AnonymousDeviceConfig as v1AnonymousDeviceConfig,
 } from '@shared/hardware-config';
 import {
-  OutputPropagator as v1OutputPropagator,
+  propagatorFromJSON,
   NStepPropagator as v1NStepPropagator,
 } from '@shared/propagators';
 
@@ -23,14 +23,7 @@ import {
 } from './hardware-config';
 
 function upgradeInput(i: v0InputConfig) {
-  const outputPropagator = new v1OutputPropagator(
-    i.default.response,
-    i.response,
-    i.eventType,
-    i.number as MidiNumber,
-    i.channel,
-    i.value as MidiNumber
-  );
+  const outputPropagator = propagatorFromJSON(i.outputPropagator);
 
   const onColor = i.colorForState('on') || i.defaultColor || null;
   const offColor = i.colorForState('off') || i.defaultColor || null;

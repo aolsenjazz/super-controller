@@ -8,13 +8,15 @@ const { hostService } = window;
 type RecentMessageRowPropTypes = {
   config: AnonymousDeviceConfig;
   setCurrentAction: (msg: MidiArray) => void;
-  currentAction: MidiArray | null;
+  currentAction: MidiArray | undefined;
 };
 
 export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
   const { config, setCurrentAction, currentAction } = props;
 
-  const [recentMessage, setRecentMessage] = useState<MidiArray | null>(null);
+  const [recentMessage, setRecentMessage] = useState<MidiArray | undefined>(
+    undefined
+  );
   const selected =
     recentMessage &&
     JSON.stringify(currentAction) === JSON.stringify(recentMessage);
@@ -35,7 +37,8 @@ export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
     return () => unsubscribe();
   }, [config, setCurrentAction, recentMessage]);
 
-  if (recentMessage === null || config.getOverride(recentMessage)) return null;
+  if (recentMessage === undefined || config.getOverride(recentMessage))
+    return null;
 
   return (
     <div

@@ -70,7 +70,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
     (setter: (c: InputConfig) => void) => {
       group.inputs.forEach((i) => {
         setter(i);
-        projectService.updateInput(config.id, i.toJSON(true));
+        projectService.updateInput(config.id, JSON.stringify(i));
       });
 
       setProject(new Project(project.devices));
@@ -81,7 +81,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   const restoreDefaults = useCallback(() => {
     group.inputs.forEach((i) => {
       i.restoreDefaults();
-      projectService.updateInput(config.id, i.toJSON(true));
+      projectService.updateInput(config.id, JSON.stringify(i));
     });
 
     setProject(new Project(project.devices));

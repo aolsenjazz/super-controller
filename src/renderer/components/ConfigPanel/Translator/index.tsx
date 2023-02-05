@@ -19,11 +19,11 @@ type PropTypes = {
 export default function Translator(props: PropTypes) {
   const { config, project, setProject } = props;
 
-  const [currentAction, setCurrentAction] = useState<MidiArray | null>(null);
+  const [currentAction, setCurrentAction] = useState<MidiArray | undefined>();
 
   const onChange = useCallback(
     (eventType: StatusString, number: MidiNumber, channel: Channel) => {
-      if (currentAction !== null) {
+      if (currentAction !== undefined) {
         config.overrideInput(currentAction, eventType, channel, number);
         setProject(new Project(project.devices));
         projectService.updateDevice(config.toJSON());

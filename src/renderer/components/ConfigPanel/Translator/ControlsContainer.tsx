@@ -5,7 +5,7 @@ import SettingsLineItem from '../SettingsLineItem';
 
 type ControlsContainerPropTypes = {
   config: AnonymousDeviceConfig;
-  currentAction: MidiArray | null;
+  currentAction: MidiArray | undefined;
   remove: () => void;
   onChange: (
     eventType: StatusString,
@@ -18,7 +18,7 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
   const { currentAction, onChange, config, remove } = props;
 
   // if there is no selected source message, hide yaself
-  if (currentAction === null) return null;
+  if (currentAction === undefined) return null;
 
   const overrideOrUndefined = config.getOverride(currentAction);
   const msg = overrideOrUndefined || currentAction;

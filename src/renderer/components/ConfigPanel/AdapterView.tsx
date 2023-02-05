@@ -39,7 +39,7 @@ export default function AdapterView(props: PropTypes) {
     config.setChild(childConfig);
     project.addDevice(config);
     setProject(new Project(project.devices)); // update in frontend
-    projectService.addDevice(config.toJSON(false)); // update in backend
+    projectService.addDevice(JSON.stringify(config)); // update in backend
   };
 
   return (

@@ -1,69 +1,57 @@
 import { MidiArray } from '../midi-array';
-
-import { Propagator } from './propagator';
 import { InputResponse } from '../driver-types';
+import { Propagator, CorrelatedResponse } from './propagator';
 
-export class NStepPropagator extends Propagator {
-  #steps: Map<number, MidiArray | null>;
+export class NStepPropagator extends Propagator<
+  InputResponse,
+  CorrelatedResponse<InputResponse>
+> {
+  protected steps: Map<number, MidiArray | undefined>;
 
   currentStep: number = 0;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TESTABLES = new Map<string, any>();
-
   constructor(
     hardwareResponse: InputResponse,
-    outputResponse: InputResponse,
-    steps: Map<number, MidiArray | null>,
+    outputResponse: CorrelatedResponse<InputResponse>,
+    steps: Map<number, MidiArray | undefined>,
     currentStep?: number
   ) {
-    super(hardwareResponse, outputResponse, undefined);
+    super(hardwareResponse, outputResponse);
 
-    this.#steps = steps;
+    this.steps = steps;
     this.currentStep = currentStep || 0;
-
-    this.TESTABLES.set('steps', this.#steps);
-    this.TESTABLES.set('getResponse', this.getResponse.bind(this));
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  toJSON(includeState: boolean) {
-    return JSON.stringify({
-      type: 'NStepPropagator',
-      hardwareResponse: this.hardwareResponse,
-      outputResponse: this.outputResponse,
-      steps: Array.from(this.#steps.entries()),
-      currentStep: includeState ? this.currentStep : undefined,
-    });
+  toJSON() {
+    return {
+      ...super.toJSON(),
+      steps: Array.from(this.steps.entries()),
+      currentStep: this.currentStep,
+    };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected getResponse(_msg: MidiArray) {
-    if (this.nSteps === 0) return null;
+  protected getResponse() {
+    if (this.nSteps === 0) return undefined;
 
     this.currentStep =
       this.currentStep === this.nSteps - 1 ? 0 : this.currentStep + 1;
 
-    const s = this.#steps.get(this.currentStep) || null;
-
-    return s;
+    return this.steps.get(this.currentStep);
   }
 
-  setStep(number: number, step: MidiArray | null) {
-    this.#steps.set(number, step);
+  setStep(number: number, step: MidiArray) {
+    this.steps.set(number, step);
   }
 
   responseForStep(step: number) {
-    return this.#steps.get(step) || null;
+    return this.steps.get(step);
   }
 
   responseForCurrentStep() {
-    return this.#steps.get(this.currentStep) || null;
+    return this.steps.get(this.currentStep);
   }
 
   get nSteps() {
-    return this.#steps.size
-      ? Math.max(...Array.from(this.#steps.keys())) + 1
-      : 0;
+    return this.steps.size ? Math.max(...Array.from(this.steps.keys())) + 1 : 0;
   }
 }

@@ -1,8 +1,9 @@
 import { MidiArray } from '../midi-array';
 import { inputIdFor } from '../util';
 import {
-  OutputPropagator,
+  OverrideablePropagator,
   NStepPropagator,
+  createPropagator,
   propagatorFromJSON,
 } from '../propagators';
 import {
@@ -46,7 +47,7 @@ export class InputConfig {
    * Manages event propagation to clients and maintains state related to event
    * propagation to clients.
    */
-  outputPropagator: OutputPropagator;
+  outputPropagator: OverrideablePropagator<InputResponse, InputResponse>;
 
   /**
    * Manages event propagation to device and maintains state related to event
@@ -77,18 +78,19 @@ export class InputConfig {
    * @param json JSON string
    * @returns new instance of InputConfig
    */
-  static fromJSON(json: string) {
-    const other = JSON.parse(json);
-    const availableColors = other.availableColors.map((j: string) =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static fromJSON(other: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const availableColors = other.availableColors.map((j: any) =>
       ColorImpl.fromJSON(j)
     );
 
-    const propObj = JSON.parse(other.devicePropagator);
-    const steps = new Map<number, MidiArray | null>();
-    propObj.steps.forEach((keyVals: [number, MidiArray | null]) => {
+    const propObj = other.devicePropagator;
+    const steps = new Map<number, MidiArray | undefined>();
+    propObj.steps.forEach((keyVals: [number, MidiArray | undefined]) => {
       const k = keyVals[0];
       let v = keyVals[1];
-      v = v === null ? null : ColorImpl.fromJSON(v);
+      v = v === null || v === undefined ? undefined : ColorImpl.fromJSON(v);
       steps.set(k, v);
     });
     const prop = new NStepPropagator(
@@ -105,7 +107,10 @@ export class InputConfig {
       other.overrideable,
       other.type,
       other.value,
-      propagatorFromJSON(other.outputPropagator) as OutputPropagator,
+      propagatorFromJSON(other.outputPropagator) as OverrideablePropagator<
+        InputResponse,
+        InputResponse
+      >,
       prop
     );
 
@@ -160,7 +165,7 @@ export class InputConfig {
     overrideable: boolean,
     type: InputType,
     value?: MidiNumber,
-    outputPropagator?: OutputPropagator,
+    outputPropagator?: OverrideablePropagator<InputResponse, InputResponse>,
     devicePropagator?: NStepPropagator,
     nickname?: string
   ) {
@@ -176,7 +181,7 @@ export class InputConfig {
     if (devicePropagator) {
       this.devicePropagator = devicePropagator;
     } else {
-      const defaultMsg = this.defaultColor || null;
+      const defaultMsg = this.defaultColor || undefined;
 
       const defaultColorConfig = new Map([
         [0, defaultMsg],
@@ -185,20 +190,16 @@ export class InputConfig {
       this.devicePropagator = new NStepPropagator(r, r, defaultColorConfig);
     }
 
-    if (outputPropagator) {
-      this.outputPropagator = outputPropagator;
-    } else {
-      const isPitchbend = defaultVals.eventType === 'pitchbend';
-
-      this.outputPropagator = new OutputPropagator(
+    this.outputPropagator =
+      outputPropagator ||
+      createPropagator(
         r,
         r,
         this.default.eventType,
         this.default.number,
         this.default.channel,
-        isPitchbend ? 64 : value
+        value
       );
-    }
   }
 
   /**
@@ -207,7 +208,7 @@ export class InputConfig {
    * @param msg The midi value array
    * @returns [message_to_device | undefined, message_to_clients | undefined]
    */
-  handleMessage(msg: MidiArray): (MidiArray | null)[] {
+  handleMessage(msg: MidiArray): (MidiArray | undefined)[] {
     const toPropagate = this.outputPropagator.handleMessage(msg);
     const toDevice = this.devicePropagator.handleMessage(msg);
 
@@ -311,17 +312,17 @@ export class InputConfig {
    *
    * @param includeState Should we include state?
    */
-  toJSON(includeState: boolean) {
-    return JSON.stringify({
+  toJSON() {
+    return {
       default: this.default,
-      outputPropagator: this.outputPropagator.toJSON(includeState),
-      devicePropagator: this.devicePropagator.toJSON(includeState),
+      outputPropagator: this.outputPropagator,
+      devicePropagator: this.devicePropagator,
       nickname: this.nickname,
       availableColors: this.availableColors,
       availableFx: this.availableFx,
       overrideable: this.overrideable,
       type: this.type,
-    });
+    };
   }
 
   get eligibleResponses() {
@@ -483,8 +484,6 @@ export class InputConfig {
     }
 
     this.outputPropagator.outputResponse = response;
-
-    this.outputPropagator.lastPropagated = null; // reset propagator state
     this.devicePropagator.currentStep = 0; // reset propagator state
   }
 
@@ -495,7 +494,6 @@ export class InputConfig {
   set lightResponse(response: 'gate' | 'toggle') {
     this.devicePropagator.outputResponse = response;
 
-    this.devicePropagator.lastPropagated = null; // reset propagator state
     this.devicePropagator.currentStep = 0; // reset propagator state
   }
 }
