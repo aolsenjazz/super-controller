@@ -139,6 +139,22 @@ export class InputGroup {
       : getterFn(this.inputs[0]);
   };
 
+  get isEndlessCapable() {
+    const getter = (c: InputConfig) => c.knobType === 'endless';
+    const equality = (a: boolean, b: boolean) => {
+      return a === true && b === true;
+    };
+    return this.#groupValue(getter, equality);
+  }
+
+  get isEndlessMode() {
+    const getter = (c: InputConfig) => c.valueType === 'endless';
+    const equality = (a: boolean, b: boolean) => {
+      return a === b;
+    };
+    return this.#groupValue(getter, equality);
+  }
+
   get eligibleLightStates() {
     const getter = (c: InputConfig) => c.eligibleLightStates;
     const equality = (a: number[], b: number[]) =>

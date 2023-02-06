@@ -24,13 +24,6 @@ export abstract class StatefulPropagator<
     this.state = s || this.state;
   }
 
-  toJSON() {
-    return {
-      ...super.toJSON(),
-      state: this.state,
-    };
-  }
-
   protected nextEventType() {
     if (this.eventType === 'noteon/noteoff') {
       return this.state === 'on' ? 'noteoff' : 'noteon';

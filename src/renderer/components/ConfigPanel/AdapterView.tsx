@@ -3,6 +3,7 @@ import {
   configFromDriver,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
+import { stringify } from '@shared/util';
 import { Project } from '@shared/project';
 
 import HelpTip from '../HelpTip';
@@ -39,7 +40,7 @@ export default function AdapterView(props: PropTypes) {
     config.setChild(childConfig);
     project.addDevice(config);
     setProject(new Project(project.devices)); // update in frontend
-    projectService.addDevice(JSON.stringify(config)); // update in backend
+    projectService.addDevice(stringify(config)); // update in backend
   };
 
   return (

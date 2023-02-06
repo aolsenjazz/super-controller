@@ -282,7 +282,8 @@
         "overrideable": false,
         "response": "gate",
         "eventType": "controlchange",
-        "channel": 0
+        "channel": 0,
+        "knobType": "absolute"
       }
     },
     {
@@ -368,7 +369,8 @@
         "overrideable": true,
         "response": "gate",
         "eventType": "controlchange",
-        "channel": 0
+        "channel": 0,
+        "knobType": "absolute"
       }
     },
     {

@@ -1,3 +1,4 @@
+import { parse, stringify } from '@shared/util';
 import { MidiArray } from '@shared/midi-array';
 import { InputConfig, ColorImpl } from '@shared/hardware-config';
 import { NStepPropagator } from '@shared/propagators';
@@ -87,7 +88,8 @@ function createConfig({
     type,
     value,
     outputPropagator,
-    devicePropagator
+    devicePropagator,
+    'endless'
   );
 
   if (activeFx) {
@@ -205,9 +207,8 @@ describe('toJSON', () => {
       response: 'gate',
     };
     const config = createConfig({ defaultVals: d });
-    const json = JSON.stringify(config);
-    const parsed = JSON.parse(json);
-    const from = InputConfig.fromJSON(parsed);
+    const json = stringify(config);
+    const from = parse<InputConfig>(json);
 
     expect(from.default).toEqual(d);
     expect(from.nickname).toEqual(config.nickname);
@@ -222,6 +223,7 @@ describe('toJSON', () => {
     expect(JSON.stringify(from.devicePropagator)).toEqual(
       JSON.stringify(config.devicePropagator)
     );
+    expect(from.knobType).toBe(config.knobType);
   });
 });
 

@@ -68,6 +68,7 @@ function Element(props: ElementPropTypes) {
         enabled={overrideable}
         focus={focus}
         shape={input.shape}
+        endless={config?.valueType === 'endless'}
         overrideable={overrideable}
       />
     );

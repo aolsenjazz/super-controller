@@ -1,19 +1,34 @@
+import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { CorrelatedResponse } from './propagator';
 import { OverrideablePropagator } from './overrideable-propagator';
 
-export class PitchbendPropagator<
-  T extends 'continuous',
-  U extends CorrelatedResponse<T>
-> extends OverrideablePropagator<T, U> {
+@Revivable.register
+export class PitchbendPropagator extends OverrideablePropagator<
+  'continuous',
+  CorrelatedResponse<'continuous'>
+> {
   constructor(
-    outputResponse: U,
+    outputResponse: CorrelatedResponse<'continuous'>,
     eventType: StatusString | 'noteon/noteoff',
     number: MidiNumber,
     channel: Channel,
     value?: MidiNumber
   ) {
-    super('continuous' as T, outputResponse, eventType, number, channel, value);
+    super('continuous', outputResponse, eventType, number, channel, value);
+  }
+
+  toJSON() {
+    return {
+      name: this.constructor.name,
+      args: [
+        this.outputResponse,
+        this.eventType,
+        this.number,
+        this.channel,
+        this.value,
+      ],
+    };
   }
 
   protected nextEventType() {

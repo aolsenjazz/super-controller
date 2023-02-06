@@ -1,3 +1,4 @@
+import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 
 import { inputIdFor } from '../util';
@@ -7,6 +8,7 @@ import { DeviceConfig } from './device-config';
 import { InputConfig } from './input-config';
 
 /* Contains device-specific configurations and managed `InputConfig`s */
+@Revivable.register
 export class SupportedDeviceConfig extends DeviceConfig {
   /* See `InputConfig` */
   inputs: InputConfig[];
@@ -43,30 +45,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
     return newConfig;
   }
 
-  /**
-   * Constructs a new instance of SupportedDeviceConfig from a json string.
-   *
-   * @param parsed JSON.parse()'d string
-   * @returns A new instance of SupportedDeviceConfig
-   */
-  /* eslint-disable-next-line */
-  static fromParsedJSON(parsed: any) {
-    const inputs = parsed.inputs.map((inputJSON: string) =>
-      InputConfig.fromJSON(inputJSON)
-    );
-
-    const newDevice = new SupportedDeviceConfig(
-      parsed.name,
-      parsed.siblingIndex,
-      parsed.shareSustain,
-      inputs,
-      parsed.nickname,
-      parsed.keyboardDriver
-    );
-
-    return newDevice;
-  }
-
   constructor(
     name: string,
     siblingIndex: number,
@@ -78,6 +56,21 @@ export class SupportedDeviceConfig extends DeviceConfig {
     super(name, siblingIndex, true, shareSustain, nickname);
     this.inputs = inputs;
     this.keyboardDriver = keyboardDriver;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  toJSON(): { name: string; args: any[] } {
+    return {
+      name: this.constructor.name,
+      args: [
+        this.name,
+        this.siblingIndex,
+        this.shareSustain,
+        this.inputs,
+        this.nickname,
+        this.keyboardDriver,
+      ],
+    };
   }
 
   /**
@@ -121,27 +114,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
     }
 
     return undefined;
-  }
-
-  /**
-   * Serializes this device config and all child configs. Useful in tandem
-   * with SupportedDeviceConfig.fromParsedJSON()
-   *
-   * @param includeState Should we include state information?
-   * @returns JSON string
-   */
-  toJSON() {
-    const obj = {
-      name: this.name,
-      siblingIndex: this.siblingIndex,
-      nickname: this.nickname,
-      supported: true,
-      shareSustain: this.shareSustain,
-      keyboardDriver: this.keyboardDriver,
-      inputs: this.inputs.map((input) => input.toJSON()),
-    };
-
-    return JSON.stringify(obj);
   }
 
   /**

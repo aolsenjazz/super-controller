@@ -1,7 +1,7 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
-
 import { test, expect, jest } from '@jest/globals';
 
+import { parse, stringify } from '@shared/util';
 import { MidiArray } from '@shared/midi-array';
 import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
 
@@ -154,9 +154,8 @@ test('handleMessage just propagates msgs when no matching inputConfig found', ()
 
 test('toJSON and fromParsedJSON correctly serializes + deserializes', () => {
   const conf = BasicSupportedDevice();
-  const json = conf.toJSON();
-  const obj = JSON.parse(json);
-  const other = SupportedDeviceConfig.fromParsedJSON(obj);
+  const json = stringify(conf);
+  const other = parse<SupportedDeviceConfig>(json);
 
   expect(conf.id).toBe(other.id);
   expect(conf.name).toBe(other.name);

@@ -1,7 +1,8 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
-import { MidiArray } from '@shared/midi-array';
-
 import { test, expect } from '@jest/globals';
+
+import { MidiArray } from '@shared/midi-array';
+import { parse, stringify } from '@shared/util';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
 test('new UnsupportedDevice() correctly assigns values', () => {
@@ -43,9 +44,8 @@ test('toJSON and fromJSON correctly serializes and deserializes', () => {
     shareWith,
     nickname
   );
-  const json = device.toJSON();
-  const obj = JSON.parse(json);
-  const other = AnonymousDeviceConfig.fromParsedJSON(obj);
+  const json = stringify(device);
+  const other = parse<AnonymousDeviceConfig>(json);
 
   expect(device.id).toBe(other.id);
   expect(device.name).toBe(other.name);
@@ -108,8 +108,9 @@ test('serializes + deserializes correctly', () => {
   const overrides = new Map<string, MidiArray>();
   const device = new AnonymousDeviceConfig(name, 7, overrides, [], nickname);
   device.overrideInput(msg, status, channel, override[2]);
-  const json = device.toJSON();
-  const from = AnonymousDeviceConfig.fromParsedJSON(JSON.parse(json));
 
-  expect(JSON.stringify(from)).toEqual(JSON.stringify(device));
+  const json = stringify(device);
+  const from = parse<AnonymousDeviceConfig>(json);
+
+  expect(stringify(from)).toEqual(stringify(device));
 });

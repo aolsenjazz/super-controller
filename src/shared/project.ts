@@ -1,9 +1,7 @@
-import {
-  SupportedDeviceConfig,
-  AnonymousDeviceConfig,
-  DeviceConfig,
-} from './hardware-config';
+import * as Revivable from './revivable';
+import { DeviceConfig } from './hardware-config';
 
+@Revivable.register
 export class Project {
   static CURRENT_VERSION = 1;
 
@@ -12,31 +10,9 @@ export class Project {
   /* Configured devices. See `SupportedDeviceConfig` for more. */
   devices: DeviceConfig[];
 
-  constructor(devices?: DeviceConfig[]) {
+  constructor(devices?: DeviceConfig[], version?: number) {
     this.devices = devices || [];
-  }
-
-  /**
-   * Loads a project from JSON string, used either in IPC or when loading
-   * saved file. Should be used in combination with `project.toJSON()`
-   *
-   * @param json Serialized representation of the project
-   * @returns The deserialized project
-   */
-  static fromJSON(json: string) {
-    const obj = JSON.parse(json);
-    const newProj = new Project();
-    newProj.version = obj.version;
-
-    Object.assign(newProj, obj);
-    newProj.devices = obj.devices.map((j: string) => {
-      const o = JSON.parse(j);
-      return o.supported
-        ? SupportedDeviceConfig.fromParsedJSON(o)
-        : AnonymousDeviceConfig.fromParsedJSON(o);
-    });
-
-    return newProj;
+    this.version = version;
   }
 
   /**
@@ -79,18 +55,10 @@ export class Project {
     return undefined;
   }
 
-  /**
-   * Serialize the project and all child configs
-   *
-   * @param includeState Should `InputConfig` state be added?
-   * @returns Serialized JSON string
-   */
-  toJSON(includeState: boolean) {
-    const project = {
-      devices: this.devices.map((dev) => dev.toJSON(includeState)),
-      version: Project.CURRENT_VERSION,
+  toJSON() {
+    return {
+      name: this.constructor.name,
+      args: [this.devices, Project.CURRENT_VERSION],
     };
-
-    return JSON.stringify(project);
   }
 }

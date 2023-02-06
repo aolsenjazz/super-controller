@@ -1,27 +1,9 @@
 import { ColorImpl } from '@shared/hardware-config';
 import { Color } from '@shared/driver-types';
+import { parse, stringify } from '@shared/util';
 
 const NUM = 10;
 const CHAN = 11;
-
-// const FX: Color['fx'][number] = {
-//   title: 'Blink',
-//   effect: 'Speed',
-//   validVals: [1, 2, 3],
-//   defaultVal: 1,
-//   lowBoundLabel: 'Slow',
-//   highBoundLabel: 'Fast',
-// };
-
-// const DEF_FX: Color['fx'][number] = {
-//   title: 'Solid',
-//   effect: 'Speed',
-//   validVals: [1, 2, 3],
-//   defaultVal: 1,
-//   default: true,
-//   lowBoundLabel: 'Slow',
-//   highBoundLabel: 'Fast',
-// };
 
 const GREEN: Color = {
   name: 'Green',
@@ -61,8 +43,8 @@ describe('toJSON', () => {
   test('serializes and deserializes correctly', () => {
     const c = createColor(GREEN_BLINK);
     const json = JSON.stringify(c);
-    const from = ColorImpl.fromJSON(json);
+    const from = parse<ColorImpl>(json);
 
-    expect(c.toJSON()).toEqual(from.toJSON());
+    expect(stringify(c)).toEqual(stringify(from));
   });
 });

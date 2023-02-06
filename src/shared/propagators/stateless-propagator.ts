@@ -2,7 +2,7 @@ import { MidiArray } from '../midi-array';
 import { OverrideablePropagator } from './overrideable-propagator';
 import { CorrelatedResponse } from './propagator';
 
-export class StatelessPropagator extends OverrideablePropagator<
+export abstract class StatelessPropagator extends OverrideablePropagator<
   'continuous' | 'toggle',
   CorrelatedResponse<'continuous' | 'toggle'>
 > {

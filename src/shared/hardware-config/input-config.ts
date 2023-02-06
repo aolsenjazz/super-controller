@@ -1,10 +1,11 @@
+import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { inputIdFor } from '../util';
 import {
   OverrideablePropagator,
   NStepPropagator,
   createPropagator,
-  propagatorFromJSON,
+  ContinuousPropagator,
 } from '../propagators';
 import {
   InputDriver,
@@ -36,6 +37,7 @@ export type InputDefault = {
  *
  * TODO: maybe worth extending DefaultPreservedMidiMessage ?
  */
+@Revivable.register
 export class InputConfig {
   /**
    * Object containing default values for input number, EventType, etc. Generic
@@ -71,51 +73,7 @@ export class InputConfig {
    */
   readonly type: InputType;
 
-  /**
-   * Convert from JSON string into an InputConfig object. Reconstructs
-   * state if state was saved to JSON string.
-   *
-   * @param json JSON string
-   * @returns new instance of InputConfig
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static fromJSON(other: any) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const availableColors = other.availableColors.map((j: any) =>
-      ColorImpl.fromJSON(j)
-    );
-
-    const propObj = other.devicePropagator;
-    const steps = new Map<number, MidiArray | undefined>();
-    propObj.steps.forEach((keyVals: [number, MidiArray | undefined]) => {
-      const k = keyVals[0];
-      let v = keyVals[1];
-      v = v === null || v === undefined ? undefined : ColorImpl.fromJSON(v);
-      steps.set(k, v);
-    });
-    const prop = new NStepPropagator(
-      propObj.hardwareResponse,
-      propObj.outputResponse,
-      steps,
-      propObj.currentStep
-    );
-
-    const instance = new InputConfig(
-      other.default,
-      availableColors,
-      other.availableFx,
-      other.overrideable,
-      other.type,
-      other.value,
-      propagatorFromJSON(other.outputPropagator) as OverrideablePropagator<
-        InputResponse,
-        InputResponse
-      >,
-      prop
-    );
-
-    return instance;
-  }
+  readonly knobType?: 'endless' | 'absolute';
 
   /**
    * Constructs and initialize a new instance of `InputConfig` from driver.
@@ -138,6 +96,7 @@ export class InputConfig {
         ? overrides.overrideable
         : defaults.overrideable!;
     const def = { number, channel, response, eventType };
+    const knobType = overrides.knobType || defaults.knobType;
 
     const availableColors =
       overrides.availableColors || defaults.availableColors || [];
@@ -152,7 +111,10 @@ export class InputConfig {
       availableFx,
       overrideable,
       type,
-      value
+      value,
+      undefined,
+      undefined,
+      knobType
     );
 
     return instance;
@@ -167,6 +129,8 @@ export class InputConfig {
     value?: MidiNumber,
     outputPropagator?: OverrideablePropagator<InputResponse, InputResponse>,
     devicePropagator?: NStepPropagator,
+    knobType?: 'endless' | 'absolute',
+    valueType?: 'endless' | 'absolute',
     nickname?: string
   ) {
     this.default = defaultVals;
@@ -174,6 +138,7 @@ export class InputConfig {
     this.availableFx = availableFx;
     this.overrideable = overrideable;
     this.type = type;
+    this.knobType = knobType;
     this.#nickname = nickname;
 
     const r = this.default.response;
@@ -198,8 +163,28 @@ export class InputConfig {
         this.default.eventType,
         this.default.number,
         this.default.channel,
-        value
+        value,
+        valueType
       );
+  }
+
+  toJSON() {
+    return {
+      name: this.constructor.name,
+      args: [
+        this.default,
+        this.availableColors,
+        this.availableFx,
+        this.overrideable,
+        this.type,
+        this.value,
+        this.outputPropagator,
+        this.devicePropagator,
+        this.knobType,
+        this.valueType,
+        this.nickname,
+      ],
+    };
   }
 
   /**
@@ -306,25 +291,6 @@ export class InputConfig {
     this.response = this.default.response;
   }
 
-  /**
-   * Serialize a similar representation of the object. Can't use JSON.stringify
-   * because we neeed to serialize a map.
-   *
-   * @param includeState Should we include state?
-   */
-  toJSON() {
-    return {
-      default: this.default,
-      outputPropagator: this.outputPropagator,
-      devicePropagator: this.devicePropagator,
-      nickname: this.nickname,
-      availableColors: this.availableColors,
-      availableFx: this.availableFx,
-      overrideable: this.overrideable,
-      type: this.type,
-    };
-  }
-
   get eligibleResponses() {
     switch (this.default.response) {
       case 'gate':
@@ -337,6 +303,20 @@ export class InputConfig {
           : ['constant'];
       default:
         return ['continuous'];
+    }
+  }
+
+  get valueType() {
+    if (this.outputPropagator instanceof ContinuousPropagator) {
+      return this.outputPropagator.valueType;
+    }
+
+    return 'absolute';
+  }
+
+  set valueType(type: 'endless' | 'absolute') {
+    if (this.outputPropagator instanceof ContinuousPropagator) {
+      this.outputPropagator.valueType = type;
     }
   }
 

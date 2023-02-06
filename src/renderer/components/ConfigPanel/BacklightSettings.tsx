@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import { Project } from '@shared/project';
+import { stringify } from '@shared/util';
 
 import { InputGroup } from '../../input-group';
 
@@ -34,7 +35,7 @@ function LightResponse(props: LightResponsePropTypes) {
   const onChange = (val: string | number) => {
     group.inputs.forEach((config) => {
       config.lightResponse = val as 'gate' | 'toggle';
-      projectService.updateInput(configId, JSON.stringify(config));
+      projectService.updateInput(configId, stringify(config));
     });
 
     setProject(new Project(project.devices));
@@ -80,7 +81,7 @@ export default function BacklightSettings(props: PropTypes) {
       // Update all InputConfigs in the InputGroup
       group.inputs.forEach((input) => {
         input.setColorForState(state, colorId);
-        projectService.updateInput(configId, JSON.stringify(input));
+        projectService.updateInput(configId, stringify(input));
       });
 
       setProject(new Project(project.devices));
@@ -93,7 +94,7 @@ export default function BacklightSettings(props: PropTypes) {
       // Update all InputConfigs in the InputGroup
       group.inputs.forEach((input) => {
         input.setFx(state, fxId);
-        projectService.updateInput(configId, JSON.stringify(input));
+        projectService.updateInput(configId, stringify(input));
       });
 
       setProject(new Project(project.devices));
@@ -106,7 +107,7 @@ export default function BacklightSettings(props: PropTypes) {
       // Update all InputConfigs in the InputGroup
       group.inputs.forEach((input) => {
         input.setFxVal(state, fxVal);
-        projectService.updateInput(configId, JSON.stringify(input));
+        projectService.updateInput(configId, stringify(input));
       });
 
       setProject(new Project(project.devices));

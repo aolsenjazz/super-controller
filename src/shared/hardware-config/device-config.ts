@@ -90,6 +90,4 @@ export abstract class DeviceConfig {
    * @returns [messageToDevice | null, messageToPropagate]
    */
   abstract handleMessage(msg: MidiArray): (MidiArray | undefined)[];
-
-  abstract toJSON(includeState: boolean): string;
 }

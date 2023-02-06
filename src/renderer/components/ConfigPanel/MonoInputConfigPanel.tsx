@@ -2,13 +2,17 @@ import { useCallback } from 'react';
 
 import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';
+import { stringify } from '@shared/util';
 
+import HelpTip from '../HelpTip';
 import SettingsLineItem from './SettingsLineItem';
 import BacklightSettings from './BacklightSettings';
 
 import { InputGroup } from '../../input-group';
 
 const { projectService } = window;
+
+const absoluteHelpTip = `When true, the values of endless knobs will be transformed to numbers between 0 and 127.`;
 
 type PropTypes = {
   group: InputGroup;
@@ -65,12 +69,13 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   const responseLabels = eligibleResponses.map((v) =>
     group.labelForResponse(v)
   );
+  const endlessModeLabels = ['true', 'false'];
 
   const onChange = useCallback(
     (setter: (c: InputConfig) => void) => {
       group.inputs.forEach((i) => {
         setter(i);
-        projectService.updateInput(config.id, JSON.stringify(i));
+        projectService.updateInput(config.id, stringify(i));
       });
 
       setProject(new Project(project.devices));
@@ -81,14 +86,14 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   const restoreDefaults = useCallback(() => {
     group.inputs.forEach((i) => {
       i.restoreDefaults();
-      projectService.updateInput(config.id, JSON.stringify(i));
+      projectService.updateInput(config.id, stringify(i));
     });
 
     setProject(new Project(project.devices));
   }, [group, project, setProject, config]);
 
   return (
-    <>
+    <div>
       <h3>{title}</h3>
       <div id="controls-container">
         <SettingsLineItem
@@ -113,19 +118,17 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             });
           }}
         />
-        {eventType !== 'programchange' && response === 'constant' ? (
-          <SettingsLineItem
-            label="Value:"
-            value={value}
-            valueList={eligibleValues}
-            labelList={eligibleValues.map((v) => v.toString())}
-            onChange={(v) => {
-              onChange((c) => {
-                c.value = v as MidiNumber;
-              });
-            }}
-          />
-        ) : null}
+        <SettingsLineItem
+          label="Channel:"
+          value={channel}
+          labelList={channelLabels}
+          valueList={eligibleChannels}
+          onChange={(v) => {
+            onChange((c) => {
+              c.channel = v as Channel;
+            });
+          }}
+        />
         {eventType === 'pitchbend' ? null : (
           <SettingsLineItem
             label="Number:"
@@ -139,17 +142,38 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             }}
           />
         )}
-        <SettingsLineItem
-          label="Channel:"
-          value={channel}
-          labelList={channelLabels}
-          valueList={eligibleChannels}
-          onChange={(v) => {
-            onChange((c) => {
-              c.channel = v as Channel;
-            });
-          }}
-        />
+        {group.isEndlessCapable ? (
+          <div id="absolute-values">
+            <SettingsLineItem
+              label="Use absolute values:"
+              value={JSON.stringify(!group.isEndlessMode)}
+              valueList={endlessModeLabels}
+              labelList={endlessModeLabels}
+              onChange={(v) => {
+                onChange((c) => {
+                  c.valueType = v === 'true' ? 'absolute' : 'endless';
+                  c.value = v as MidiNumber;
+                });
+              }}
+            />
+            <div>
+              <HelpTip body={absoluteHelpTip} />
+            </div>
+          </div>
+        ) : null}
+        {eventType !== 'programchange' && response === 'constant' ? (
+          <SettingsLineItem
+            label="Value:"
+            value={value}
+            valueList={eligibleValues}
+            labelList={eligibleValues.map((v) => v.toString())}
+            onChange={(v) => {
+              onChange((c) => {
+                c.value = v as MidiNumber;
+              });
+            }}
+          />
+        ) : null}
         <button type="button" onClick={restoreDefaults}>
           Restore Defaults
         </button>
@@ -160,6 +184,6 @@ export default function MonoInputConfigPanel(props: PropTypes) {
           configId={config.id}
         />
       </div>
-    </>
+    </div>
   );
 }

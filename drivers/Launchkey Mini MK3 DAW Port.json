@@ -1481,7 +1481,8 @@
         "overrideable": true,
         "response": "continuous",
         "eventType": "controlchange",
-        "channel": 15
+        "channel": 15,
+        "knobType": "absolute"
       }
     },
     {

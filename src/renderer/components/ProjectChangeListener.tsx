@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { MidiArray } from '@shared/midi-array';
-import { applyDestructiveThrottle } from '@shared/util';
+import { applyDestructiveThrottle, parse } from '@shared/util';
 import { Project } from '@shared/project';
 
 const { hostService, projectService } = window;
@@ -21,7 +21,7 @@ export default function ProjectChangeListener(props: PropTypes) {
   /* When a new project is loaded in backend, update in frontend */
   useEffect(() => {
     const cb = (projString: string) => {
-      const proj = Project.fromJSON(projString);
+      const proj = parse<Project>(projString);
       setProject(proj);
     };
     const unsubscribe = projectService.onProjectChange(cb);

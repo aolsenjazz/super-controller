@@ -1,3 +1,4 @@
+import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { CorrelatedResponse } from './propagator';
 import { StatefulPropagator } from './stateful-propagator';
@@ -6,6 +7,7 @@ import { StatefulPropagator } from './stateful-propagator';
  * Propagates messages to clients. Responds differently depending on `outputResponse`,
  * and can be set to change response behaviour
  */
+@Revivable.register
 export class GatePropagator extends StatefulPropagator<
   'gate',
   CorrelatedResponse<'gate'>
@@ -19,6 +21,20 @@ export class GatePropagator extends StatefulPropagator<
     s?: StatefulPropagator<'gate', 'gate'>['state']
   ) {
     super('gate', or, et, n, c, v, s);
+  }
+
+  toJSON() {
+    return {
+      name: this.constructor.name,
+      args: [
+        this.outputResponse,
+        this.eventType,
+        this.number,
+        this.channel,
+        this.value,
+        this.state,
+      ],
+    };
   }
 
   /**

@@ -48,7 +48,23 @@
   margin-top: 5px;
 }
 
-#config-panel #controls-container p {
+#config-panel #controls-container #absolute-values {
+  text-align: left;
+}
+
+#config-panel #controls-container #absolute-values .help-tip {
+  margin-left: 5px;
+}
+
+#config-panel #controls-container #absolute-values .help-tip:hover p {
+  width: 150px;
+}
+
+#config-panel #controls-container #absolute-values > div {
+  display: inline-block;
+}
+
+#config-panel #controls-container .settings-line > p {
   display: inline-block;
   vertical-align: top;
   line-height: 18px;

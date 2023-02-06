@@ -2,6 +2,7 @@
 
 // v1 imports
 import { Project } from '@shared/project';
+import { parse } from '@shared/util';
 import { upgradeToV1 } from './upgrades/v1';
 
 const upgradeFns = new Map<number, (projectString: string) => string>();
@@ -9,7 +10,7 @@ const upgradeFns = new Map<number, (projectString: string) => string>();
 export function upgradeProject(projectString: string) {
   const asObj = JSON.parse(projectString);
   if (asObj.version === Project.CURRENT_VERSION) {
-    return Project.fromJSON(projectString);
+    return parse<Project>(projectString);
   }
 
   // saves files originally didn't store any version number
@@ -23,7 +24,7 @@ export function upgradeProject(projectString: string) {
     upgradedProject = upgradeFns.get(i)!(projectString);
   }
 
-  return Project.fromJSON(upgradedProject);
+  return parse<Project>(upgradedProject);
 }
 
 upgradeFns.set(0, upgradeToV1);

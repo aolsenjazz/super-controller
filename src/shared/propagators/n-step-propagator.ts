@@ -1,7 +1,9 @@
+import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { InputResponse } from '../driver-types';
 import { Propagator, CorrelatedResponse } from './propagator';
 
+@Revivable.register
 export class NStepPropagator extends Propagator<
   InputResponse,
   CorrelatedResponse<InputResponse>
@@ -24,9 +26,13 @@ export class NStepPropagator extends Propagator<
 
   toJSON() {
     return {
-      ...super.toJSON(),
-      steps: Array.from(this.steps.entries()),
-      currentStep: this.currentStep,
+      name: this.constructor.name,
+      args: [
+        this.hardwareResponse,
+        this.outputResponse,
+        this.steps,
+        this.currentStep,
+      ],
     };
   }
 

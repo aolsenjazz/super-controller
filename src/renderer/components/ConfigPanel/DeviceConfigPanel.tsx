@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';
+import { stringify } from '@shared/util';
 
 import ShareSustainLine from './ShareSustainLine';
 
@@ -54,7 +55,7 @@ function ShareSustain(props: PropTypes) {
               if (checked) config.shareWith(dev.id);
               else config.stopSharing(dev.id);
 
-              projectService.updateDevice(JSON.stringify(config)); // send update to the backend
+              projectService.updateDevice(stringify(config)); // send update to the backend
               setProject(new Project(project.devices)); // update in frontend
             }}
           />
@@ -85,7 +86,7 @@ export default function DeviceConfigPanel(props: PropTypes) {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       config.nickname = e.target.value;
 
-      projectService.updateDevice(JSON.stringify(config)); // send update to the backend
+      projectService.updateDevice(stringify(config)); // send update to the backend
       setProject(new Project(project.devices)); // update in frontend
     },
     [config, project.devices, setProject]

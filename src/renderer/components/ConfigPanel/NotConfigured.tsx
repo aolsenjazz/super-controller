@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 
 import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';
+import { stringify } from '@shared/util';
 
 const { projectService } = window;
 
@@ -21,7 +22,7 @@ export default function NotConfigured(props: {
   const onClick = useCallback(() => {
     project.addDevice(config);
     setProject(new Project(project.devices));
-    projectService.addDevice(JSON.stringify(config));
+    projectService.addDevice(stringify(config));
   }, [config, project, setProject]);
 
   return (

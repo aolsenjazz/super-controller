@@ -1,17 +1,16 @@
 import { MidiArray } from '../midi-array';
 import { InputResponse } from '../driver-types';
 
-export type ResponseMap = {
+type ResponseMap = {
   continuous: 'continuous' | 'constant';
   toggle: 'toggle' | 'constant';
   gate: 'gate' | 'constant' | 'toggle';
   constant: 'toggle' | 'constant';
 };
 
-export type HardwareResponse<K extends keyof ResponseMap = keyof ResponseMap> =
-  {
-    [P in K]: ResponseMap[P];
-  }[K];
+type HardwareResponse<K extends keyof ResponseMap = keyof ResponseMap> = {
+  [P in K]: ResponseMap[P];
+}[K];
 
 export type CorrelatedResponse<T extends InputResponse> = HardwareResponse<T>;
 
@@ -61,14 +60,6 @@ export abstract class Propagator<
    * @return The  message to propagate
    */
   protected abstract getResponse(msg: MidiArray): MidiArray | undefined;
-
-  toJSON() {
-    return {
-      type: this.constructor.name,
-      hardwareResponse: this.hardwareResponse,
-      outputResponse: this.outputResponse,
-    };
-  }
 
   /**
    * Returns the message to propagate if hardwareResponse is gate

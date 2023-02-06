@@ -1,17 +1,13 @@
-/* eslint-disable no-bitwise */
 /* eslint-disable prefer-destructuring */
+/* eslint-disable no-bitwise */
+import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { byteToStatusString } from '../midi-util';
 import { DefaultPreservedMidiArray } from '../default-preserved-midi-array';
 
 import { Color } from '../driver-types/color';
 
-type SerializedColorImpl = {
-  color: Color;
-  tuple: MidiTuple;
-  default: MidiTuple;
-};
-
+@Revivable.register
 export class ColorImpl extends DefaultPreservedMidiArray {
   readonly name: string;
 
@@ -32,17 +28,24 @@ export class ColorImpl extends DefaultPreservedMidiArray {
 
     const arr = MidiArray.create(eventType, channel!, number!, value);
 
-    return new ColorImpl(arr.array, c, arr.array);
+    return new ColorImpl(
+      arr.array,
+      arr.array,
+      c.name,
+      c.string,
+      c.default,
+      c.modifier
+    );
   }
 
-  static fromJSON(json: string | object) {
-    let obj = json;
-    if (typeof json === 'string') obj = JSON.parse(json);
-    const dSer = obj as SerializedColorImpl;
-    return new ColorImpl(dSer.tuple, dSer.color, dSer.default);
-  }
-
-  private constructor(arr: MidiTuple, color: Color, defaults: MidiTuple) {
+  constructor(
+    defaults: MidiTuple,
+    arr: MidiTuple,
+    name: string,
+    string: string,
+    isDefault = false,
+    modifier?: 'blink' | 'pulse'
+  ) {
     super(defaults);
 
     this.status = (arr[0] & 0xf0) as StatusByte;
@@ -50,10 +53,24 @@ export class ColorImpl extends DefaultPreservedMidiArray {
     this.number = arr[1];
     this.value = arr[2];
 
-    this.name = color.name;
-    this.string = color.string;
-    this.isDefault = color.default || false;
-    this.modifier = color.modifier;
+    this.name = name;
+    this.string = string;
+    this.isDefault = isDefault;
+    this.modifier = modifier;
+  }
+
+  toJSON() {
+    return {
+      name: this.constructor.name,
+      args: [
+        this.default,
+        this.array,
+        this.name,
+        this.string,
+        this.isDefault,
+        this.modifier,
+      ],
+    };
   }
 
   get displayName() {
@@ -62,20 +79,5 @@ export class ColorImpl extends DefaultPreservedMidiArray {
 
   get eventType() {
     return byteToStatusString(this.status, true) as StatusString;
-  }
-
-  toJSON() {
-    const col: Color = {
-      name: this.name,
-      string: this.string,
-      eventType: this.eventType,
-      value: this.value,
-      modifier: this.modifier,
-    };
-    return {
-      color: col,
-      tuple: [this[0], this[1], this[2]],
-      default: this.default,
-    };
   }
 }

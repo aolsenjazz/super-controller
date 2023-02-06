@@ -22,16 +22,3 @@ export function configFromDriver(siblingIndex: number, driver: DeviceDriver) {
 
   return SupportedDeviceConfig.fromDriver(siblingIndex, driver);
 }
-
-export function configFromJSON(json: string): DeviceConfig {
-  // deserialize device
-  const deviceObj = JSON.parse(json);
-
-  if (deviceObj.isAdapter === true) {
-    return AdapterDeviceConfig.fromParsedJSON(deviceObj);
-  }
-
-  return deviceObj.supported
-    ? SupportedDeviceConfig.fromParsedJSON(deviceObj)
-    : AnonymousDeviceConfig.fromParsedJSON(deviceObj);
-}

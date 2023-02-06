@@ -10,7 +10,7 @@
   cursor: default;
   font-weight: normal;
   font-family: Arial;
-  z-index: 1000;
+  z-index: 10000 !important;
 }
 
 .help-tip:before {

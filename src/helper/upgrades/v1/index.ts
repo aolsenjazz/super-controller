@@ -2,6 +2,7 @@
 // v1 imports
 import { MidiArray } from '@shared/midi-array';
 import { Project as v1Project } from '@shared/project';
+import { stringify } from '@shared/util';
 import { Color } from '@shared/driver-types';
 import {
   InputConfig as v1InputConfig,
@@ -76,6 +77,8 @@ function upgradeInput(i: v0InputConfig) {
     availableColors.push(impl);
   });
 
+  const knobType = i.type === 'knob' ? 'absolute' : undefined;
+
   return new v1InputConfig(
     i.default as v1InputConfig['default'],
     availableColors,
@@ -85,6 +88,8 @@ function upgradeInput(i: v0InputConfig) {
     i.value as MidiNumber,
     outputPropagator,
     devicePropagator,
+    knobType,
+    undefined,
     i.nickname
   );
 }
@@ -151,5 +156,5 @@ export function upgradeToV1(projectString: string) {
   const upgradedProject = new v1Project(upgradedConfigs);
   upgradedProject.version = 1;
 
-  return upgradedProject.toJSON(false);
+  return stringify(upgradedProject);
 }

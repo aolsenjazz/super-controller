@@ -1,29 +1,13 @@
+import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { DeviceConfig } from './device-config';
 
+@Revivable.register
 export class AnonymousDeviceConfig extends DeviceConfig {
   // TODO: This likely should be made private - accessing this from outside of this class is smelly
   readonly overrides: Map<string, MidiArray>;
 
   isAdapter = false;
-
-  /* eslint-disable-next-line */
-  static fromParsedJSON(obj: any) {
-    const tupleOverrides = new Map<string, MidiTuple>(obj.overrides);
-    const msgOverrides = new Map<string, MidiArray>();
-    Array.from(tupleOverrides.keys()).forEach((k) => {
-      const msg = new MidiArray(tupleOverrides.get(k)!);
-      msgOverrides.set(k, msg);
-    });
-
-    return new AnonymousDeviceConfig(
-      obj.name,
-      obj.siblingIndex,
-      msgOverrides,
-      obj.shareSustain,
-      obj.nickname
-    );
-  }
 
   constructor(
     name: string,
@@ -35,6 +19,19 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     super(name, siblingIndex, false, shareSustain, nickname);
 
     this.overrides = overrides;
+  }
+
+  toJSON() {
+    return {
+      name: this.constructor.name,
+      args: [
+        this.name,
+        this.siblingIndex,
+        this.overrides,
+        this.shareSustain,
+        this.nickname,
+      ],
+    };
   }
 
   /**
@@ -92,16 +89,5 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     const valueNegatedMsg = [...input];
     valueNegatedMsg[2] = 0;
     return this.overrides.get(JSON.stringify(valueNegatedMsg));
-  }
-
-  toJSON() {
-    return JSON.stringify({
-      name: this.name,
-      siblingIndex: this.siblingIndex,
-      supported: false,
-      nickname: this.nickname,
-      shareSustain: this.shareSustain,
-      overrides: Array.from(this.overrides.entries()),
-    });
   }
 }

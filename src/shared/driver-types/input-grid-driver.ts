@@ -27,6 +27,8 @@ type InputDefaults = {
   /* Width of the input in inches */
   width?: number;
 
+  readonly knobType?: 'endless' | 'absolute';
+
   /**
    * List of `Color`s the child Inputs all support
    */

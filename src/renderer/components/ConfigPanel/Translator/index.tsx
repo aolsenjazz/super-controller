@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 
 import { MidiArray } from '@shared/midi-array';
 import { Project } from '@shared/project';
+import { stringify } from '@shared/util';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
 import RecentMessageRow from './RecentMessageRow';
@@ -26,7 +27,7 @@ export default function Translator(props: PropTypes) {
       if (currentAction !== undefined) {
         config.overrideInput(currentAction, eventType, channel, number);
         setProject(new Project(project.devices));
-        projectService.updateDevice(config.toJSON());
+        projectService.updateDevice(stringify(config));
       }
     },
     [project, config, setProject, currentAction]
@@ -62,7 +63,7 @@ export default function Translator(props: PropTypes) {
         remove={() => {
           config.overrides.delete(JSON.stringify(currentAction));
           setProject(new Project(project.devices));
-          projectService.updateDevice(config.toJSON());
+          projectService.updateDevice(stringify(config));
         }}
       />
     </div>

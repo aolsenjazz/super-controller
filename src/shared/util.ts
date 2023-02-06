@@ -1,6 +1,55 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
+import * as Revivable from './revivable';
 import { MidiArray } from './midi-array';
 import { byteToStatusString } from './midi-util';
+
+function replacer(_key: any, value: any) {
+  if (value instanceof Map) {
+    return {
+      dataType: 'Map',
+      value: Array.from(value.entries()), // TODO: might have to call .toJSON
+    };
+  }
+
+  return value;
+}
+
+function reviver(_key: any, value: any) {
+  let obj;
+  if (typeof value === 'object' && value !== null) {
+    if (value.dataType === 'Map') {
+      return new Map(value.value);
+    }
+
+    Revivable.GetImplementations().forEach(
+      (Clazz: new (...args: any[]) => any) => {
+        if (Clazz.name === value.name) {
+          const parsed = value.args.map((a: any) =>
+            a === null ? undefined : a
+          );
+          obj = new Clazz(...parsed);
+        }
+      }
+    );
+  }
+
+  return obj || value;
+}
+
+/**
+ * Wrapper around JSON.parse to ensure that reviver is used and
+ * type is automatically set
+ */
+export function parse<T>(json: string): T {
+  return JSON.parse(json, reviver) as T;
+}
+
+/**
+ * Wrapper around JSON.stringify used to ensure replacer is used
+ */
+export function stringify<T>(obj: T) {
+  return JSON.stringify(obj, replacer);
+}
 
 export function getDiff(l1: string[], l2: string[]) {
   const ex1 = l1.filter((str) => !l2.includes(str));

@@ -53,6 +53,8 @@ export type InputDriver = {
   /* If input has a handle (think wheel, or XY pad), height in inches */
   readonly handleHeight?: number;
 
+  readonly knobType?: 'endless' | 'absolute';
+
   /**
    * List of `Color`s this input supports. This field will by default be inherited
    * from the parent `InputGrid`, but that value may be overridden by setting it here.

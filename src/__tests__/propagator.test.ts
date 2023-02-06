@@ -51,19 +51,3 @@ describe('handleMessage', () => {
     expect(r2).toBe(noteoff);
   });
 });
-
-describe('toJSON', () => {
-  test('serializes and deserializes corretly', () => {
-    const pw = new PropagatorWrapper('toggle', 'constant');
-    const json = JSON.stringify(pw);
-    const from = JSON.parse(json);
-    const pw2 = new PropagatorWrapper(
-      from.hardwareResponse,
-      from.outputResponse
-    );
-
-    expect(pw2.hardwareResponse).toBe(pw.hardwareResponse);
-    expect(pw2.outputResponse).toBe(pw.outputResponse);
-    expect(from.type).toBe(pw.constructor.name);
-  });
-});

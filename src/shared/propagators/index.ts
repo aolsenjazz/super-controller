@@ -9,6 +9,7 @@ import { ConstantPropagator } from './constant-propagator';
 import { PitchbendPropagator } from './pitchbend-propagator';
 import { StatelessPropagator } from './stateless-propagator';
 import { ContinuousPropagator } from './continuous-propagator';
+import { TogglePropagator } from './toggle-propagator';
 
 export {
   Propagator,
@@ -31,14 +32,14 @@ export function createPropagator(
   et: StatusString | 'noteon/noteoff',
   n: MidiNumber,
   c: Channel,
-  v?: MidiNumber
+  v?: MidiNumber,
+  valueType?: 'endless' | 'absolute'
 ) {
   switch (hr) {
     case 'gate':
       return new GatePropagator(or as CorrelatedResponse<typeof hr>, et, n, c);
     case 'toggle':
-      return new StatelessPropagator(
-        hr,
+      return new TogglePropagator(
         or as CorrelatedResponse<typeof hr>,
         et,
         n,
@@ -51,7 +52,9 @@ export function createPropagator(
             or as CorrelatedResponse<typeof hr>,
             et,
             n,
-            c
+            c,
+            v,
+            valueType
           );
     case 'constant':
       return new ConstantPropagator(
@@ -74,6 +77,7 @@ export function propagatorFromJSON(obj: any) {
     obj.eventType,
     obj.number,
     obj.channel,
-    obj.value
+    obj.value,
+    obj.valueType
   );
 }

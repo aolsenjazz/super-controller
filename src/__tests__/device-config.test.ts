@@ -7,10 +7,6 @@ class DeviceConfigWrapper extends DeviceConfig {
   handleMessage(msg: MidiArray) {
     return [undefined, msg];
   }
-
-  toJSON(includeState: boolean) {
-    return `${includeState}`;
-  }
 }
 
 test('constructor sets values correctly', () => {

@@ -20,24 +20,6 @@ class Wrapper<
   }
 }
 
-describe('toJSON', () => {
-  test('serializes+deserializes state correctly', () => {
-    const hr = 'gate';
-    const or = 'toggle';
-    const et = 'controlchange';
-    const number = 32;
-    const channel = 2;
-    const value = 100;
-    const w = new Wrapper(hr, or, et, number, channel, value, 'on');
-
-    const json = JSON.stringify(w);
-    const from = JSON.parse(json);
-
-    expect(from.state).toBe(w.state);
-    expect(from.outputResponse).toBe(w.outputResponse);
-  });
-});
-
 describe('nextEventType', () => {
   test('returns noteoff for `on` state', () => {
     const hr = 'gate';

@@ -1,6 +1,7 @@
 import { dialog, app } from 'electron';
 
 import { Project } from '@shared/project';
+import { stringify } from '@shared/util';
 
 const fs = require('fs');
 const path = require('path');
@@ -46,7 +47,7 @@ export class SaveOpenService {
    */
   saveSync(project: Project): string {
     if (this.currentPath) {
-      fs.writeFileSync(this.currentPath, project.toJSON(false), {});
+      fs.writeFileSync(this.currentPath, stringify(project), {});
       app.addRecentDocument(this.currentPath);
       return this.currentPath;
     }

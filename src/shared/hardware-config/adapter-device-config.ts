@@ -1,6 +1,8 @@
+import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { SupportedDeviceConfig } from './supported-device-config';
 
+@Revivable.register
 export class AdapterDeviceConfig implements SupportedDeviceConfig {
   isAdapter = true;
 
@@ -20,6 +22,13 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
     this.name = name;
     this.siblingIndex = siblingIndex;
     this.child = child;
+  }
+
+  toJSON() {
+    return {
+      name: this.constructor.name,
+      args: [this.name, this.siblingIndex, this.child],
+    };
   }
 
   setChild(config: SupportedDeviceConfig) {
@@ -82,26 +91,5 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
    */
   getInput(id: string) {
     return this.child!.getInput(id);
-  }
-
-  toJSON() {
-    return JSON.stringify({
-      isAdapter: true,
-      name: this.name,
-      siblingIndex: this.siblingIndex,
-      child: this.child !== undefined ? this.child.toJSON() : undefined,
-    });
-  }
-
-  /* eslint-disable-next-line */
-  static fromParsedJSON(obj: any) {
-    let child;
-
-    if (obj.child) {
-      child = JSON.parse(obj.child);
-      child = SupportedDeviceConfig.fromParsedJSON(child);
-    }
-
-    return new AdapterDeviceConfig(obj.name, obj.siblingIndex, child);
   }
 }

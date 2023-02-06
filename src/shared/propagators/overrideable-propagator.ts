@@ -34,16 +34,6 @@ export abstract class OverrideablePropagator<
     this.value = value || this.value;
   }
 
-  toJSON() {
-    return {
-      ...super.toJSON(),
-      eventType: this.eventType,
-      number: this.number,
-      channel: this.channel,
-      value: this.value,
-    };
-  }
-
   /**
    * Returns the next message that should be propagated while in 'constant' mode
    *

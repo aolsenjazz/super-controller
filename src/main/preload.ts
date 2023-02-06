@@ -4,9 +4,8 @@
  * All of these functions occur in the main process, and so (unfortunately), there
  * is no point in reconstructing proper Objects (PortPair, etc) until the JSX objects
  */
-
-import { DeviceDriver } from '@shared/driver-types/device-driver';
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import { DeviceDriver } from '@shared/driver-types/device-driver';
 import { DrivenPortInfo } from '@shared/driven-port-info';
 
 import {
@@ -196,8 +195,8 @@ const projectService = {
    *
    * @param configJSON JSON representation of the device config
    */
-  addDevice(configJSON: string) {
-    ipcRenderer.send(ADD_DEVICE, configJSON);
+  addDevice(configString: string) {
+    ipcRenderer.send(ADD_DEVICE, configString);
   },
 
   /**
@@ -214,8 +213,8 @@ const projectService = {
    *
    * @param deviceString Serialized version of the device
    */
-  updateDevice(deviceString: string) {
-    ipcRenderer.send(UPDATE_DEVICE, deviceString);
+  updateDevice(d: string) {
+    ipcRenderer.send(UPDATE_DEVICE, d);
   },
 
   /**
@@ -224,8 +223,9 @@ const projectService = {
    * @param deviceId The ID of the parent device
    * @param inputString The serialized `InputConfig`
    */
-  updateInput(deviceId: string, inputString: string) {
-    ipcRenderer.send(UPDATE_INPUT, deviceId, inputString);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  updateInput(deviceId: string, i: string) {
+    ipcRenderer.send(UPDATE_INPUT, deviceId, i);
   },
 };
 

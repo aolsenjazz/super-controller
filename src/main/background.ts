@@ -3,11 +3,11 @@ import path from 'path';
 import os from 'os';
 
 import {
-  configFromJSON,
   InputConfig,
   SupportedDeviceConfig,
-  AdapterDeviceConfig,
+  DeviceConfig,
 } from '@shared/hardware-config';
+import { parse } from '@shared/util';
 import { Project } from '@shared/project';
 import { controllerRequest, fivePinRequest } from '@shared/email-templates';
 
@@ -67,10 +67,10 @@ export class Background {
     });
 
     // When a device is added to project in the frontend, add to our `Project`
-    ipcMain.on(ADD_DEVICE, (_e: Event, deviceJSON: string) => {
+    ipcMain.on(ADD_DEVICE, (_e: Event, c: string) => {
       windowService.setEdited(true);
 
-      const config = configFromJSON(deviceJSON);
+      const config = parse<DeviceConfig>(c);
       this.project.addDevice(config);
 
       // init light defaults, run device control sequence
@@ -92,7 +92,7 @@ export class Background {
     ipcMain.on(UPDATE_DEVICE, (_e: Event, deviceJSON: string) => {
       windowService.setEdited(true);
 
-      const config = configFromJSON(deviceJSON) as AdapterDeviceConfig;
+      const config = parse<DeviceConfig>(deviceJSON);
 
       this.project.removeDevice(config);
       this.project.addDevice(config);
@@ -100,11 +100,11 @@ export class Background {
 
     ipcMain.on(
       UPDATE_INPUT,
-      (_e: Event, configId: string, inputJSON: string) => {
+      (_e: Event, configId: string, inputString: string) => {
         const config = this.project.getDevice(
           configId
         ) as SupportedDeviceConfig;
-        const inputConfig = InputConfig.fromJSON(inputJSON);
+        const inputConfig = parse<InputConfig>(inputString);
 
         const inputConfigIdx = config.inputs
           .map((conf, i) => [conf, i] as [InputConfig, number])

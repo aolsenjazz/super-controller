@@ -2,6 +2,8 @@ import { MidiArray } from '@shared/midi-array';
 import { StatelessPropagator } from '@shared/propagators/stateless-propagator';
 import { CorrelatedResponse } from '@shared/propagators/propagator';
 
+class Wrapper extends StatelessPropagator {}
+
 function createPropagator(
   ir: 'continuous' | 'toggle',
   or: CorrelatedResponse<typeof ir>,
@@ -10,7 +12,7 @@ function createPropagator(
   channel: Channel = 0,
   value?: MidiNumber
 ) {
-  return new StatelessPropagator(ir, or, eventType, number, channel, value);
+  return new Wrapper(ir, or, eventType, number, channel, value);
 }
 
 interface NamedCreateCC {
