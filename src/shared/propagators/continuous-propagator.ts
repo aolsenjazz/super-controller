@@ -7,17 +7,21 @@ import { CorrelatedResponse } from './propagator';
 export class ContinuousPropagator extends StatelessPropagator {
   valueType: 'endless' | 'absolute' = 'absolute';
 
+  knobType: 'endless' | 'absolute' = 'absolute';
+
   constructor(
     or: CorrelatedResponse<'continuous'>,
     et: StatusString | 'noteon/noteoff',
     n: MidiNumber,
     c: Channel,
     v?: MidiNumber,
+    knobType?: 'endless' | 'absolute',
     valueType?: 'endless' | 'absolute'
   ) {
     super('continuous', or, et, n, c, v);
 
     this.valueType = valueType || this.valueType;
+    this.knobType = knobType || this.knobType;
   }
 
   toJSON() {
@@ -29,6 +33,7 @@ export class ContinuousPropagator extends StatelessPropagator {
         this.number,
         this.channel,
         this.value,
+        this.knobType,
         this.valueType,
       ],
     };
@@ -58,8 +63,7 @@ export class ContinuousPropagator extends StatelessPropagator {
 
   #nextValue = (msg: MidiArray) => {
     let val = msg[2];
-    if (this.valueType === 'endless') {
-      // TODO: should sort of need the other knobType param? maybe?
+    if (this.knobType === 'endless' && this.valueType === 'absolute') {
       this.value =
         msg[2] < 64
           ? (Math.min(127, msg[2] + this.value) as MidiNumber)

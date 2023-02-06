@@ -164,6 +164,7 @@ export class InputConfig {
         this.default.number,
         this.default.channel,
         value,
+        knobType,
         valueType
       );
   }
@@ -302,7 +303,7 @@ export class InputConfig {
           ? ['toggle', 'constant']
           : ['constant'];
       default:
-        return ['continuous'];
+        return ['continuous', 'constant'];
     }
   }
 

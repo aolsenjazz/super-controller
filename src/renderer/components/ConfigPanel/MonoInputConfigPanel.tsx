@@ -108,7 +108,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
           }
         />
         <SettingsLineItem
-          label="Input Response:"
+          label="Output Response:"
           value={response}
           valueList={eligibleResponses}
           labelList={responseLabels}
@@ -142,16 +142,16 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             }}
           />
         )}
-        {group.isEndlessCapable ? (
+        {group.isEndlessCapable === true && group.response === 'continuous' ? (
           <div id="absolute-values">
             <SettingsLineItem
-              label="Use absolute values:"
-              value={JSON.stringify(!group.isEndlessMode)}
+              label="Endless mode:"
+              value={group.isEndlessMode.toString()}
               valueList={endlessModeLabels}
               labelList={endlessModeLabels}
               onChange={(v) => {
                 onChange((c) => {
-                  c.valueType = v === 'true' ? 'absolute' : 'endless';
+                  c.valueType = v === 'false' ? 'absolute' : 'endless';
                   c.value = v as MidiNumber;
                 });
               }}

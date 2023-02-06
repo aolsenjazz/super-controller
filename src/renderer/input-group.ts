@@ -152,7 +152,7 @@ export class InputGroup {
     const equality = (a: boolean, b: boolean) => {
       return a === b;
     };
-    return this.#groupValue(getter, equality);
+    return this.#groupValue(getter, equality)!;
   }
 
   get eligibleLightStates() {

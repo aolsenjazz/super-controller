@@ -33,6 +33,7 @@ export function createPropagator(
   n: MidiNumber,
   c: Channel,
   v?: MidiNumber,
+  knobType?: 'endless' | 'absolute',
   valueType?: 'endless' | 'absolute'
 ) {
   switch (hr) {
@@ -54,6 +55,7 @@ export function createPropagator(
             n,
             c,
             v,
+            knobType,
             valueType
           );
     case 'constant':
@@ -78,6 +80,7 @@ export function propagatorFromJSON(obj: any) {
     obj.number,
     obj.channel,
     obj.value,
+    obj.knobType,
     obj.valueType
   );
 }
