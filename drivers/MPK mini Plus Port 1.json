@@ -1,0 +1,358 @@
+{
+  "height": 7,
+  "width": 17.75,
+  "type": "normal",
+  "name": "MPK mini Plus Port 1",
+  "style": {},
+  "keyboard": {
+    "defaultOctave": 2,
+    "nOctaves": 3,
+    "channel": 0,
+    "width": 17,
+    "height": 3.25,
+    "left": 0.325,
+    "bottom": 0,
+    "enabled": false
+  },
+  "inputGrids": [
+    {
+      "id": "Wheels",
+      "height": 1.625,
+      "width": 3.25,
+      "left": 0,
+      "bottom": 4.125,
+      "nRows": 1,
+      "nCols": 2,
+      "inputDefaults": {
+        "availableColors": [],
+        "availableFx": [],
+        "type": "wheel",
+        "width": 0.5,
+        "height": 1.625,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "continuous",
+        "channel": 0
+      },
+      "inputs": [
+        {
+          "number": 1,
+          "eventType": "pitchbend",
+          "handleWidth": 0.5,
+          "handleHeight": 0.5,
+          "value": 0
+        },
+        {
+          "number": 1,
+          "eventType": "controlchange",
+          "handleWidth": 0.5,
+          "handleHeight": 0.5,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "XY",
+      "height": 0.9,
+      "width": 0.9,
+      "left": 3.125,
+      "bottom": 5.75,
+      "nRows": 1,
+      "nCols": 1,
+      "inputs": [
+        {
+          "handleWidth": 0.5,
+          "handleHeight": 0.5,
+          "number": 12,
+          "value": 0
+        },
+        {
+          "handleWidth": 0.5,
+          "handleHeight": 0.5,
+          "number": 2,
+          "value": 0
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "xy",
+        "width": 0.9,
+        "height": 0.9,
+        "shape": "circle",
+        "overrideable": true,
+        "response": "continuous",
+        "eventType": "controlchange",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Arpeggiator",
+      "height": 1.25,
+      "width": 1.25,
+      "left": 3,
+      "bottom": 4,
+      "nRows": 3,
+      "nCols": 2,
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.45,
+        "height": 0.25,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "unknown",
+        "channel": 0
+      },
+      "inputs": [
+        {
+          "number": -1
+        },
+        {
+          "number": -2
+        },
+        {
+          "number": -3
+        },
+        {
+          "number": -4
+        },
+        {
+          "number": -5
+        },
+        {
+          "number": -6
+        }
+      ]
+    },
+    {
+      "id": "Pads",
+      "height": 2.5,
+      "width": 5.125,
+      "bottom": 4,
+      "left": 4.5,
+      "nRows": 2,
+      "nCols": 4,
+      "inputs": [
+        {
+          "number": 40
+        },
+        {
+          "number": 41
+        },
+        {
+          "number": 42
+        },
+        {
+          "number": 43
+        },
+        {
+          "number": 36
+        },
+        {
+          "number": 37
+        },
+        {
+          "number": 38
+        },
+        {
+          "number": 39
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 1,
+        "height": 1,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "unknown",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Knobs",
+      "height": 2.125,
+      "width": 4.25,
+      "bottom": 4.625,
+      "left": 13.125,
+      "nRows": 2,
+      "nCols": 4,
+      "inputs": [
+        {
+          "number": 70
+        },
+        {
+          "number": 71
+        },
+        {
+          "number": 72
+        },
+        {
+          "number": 73
+        },
+        {
+          "number": 74
+        },
+        {
+          "number": 75
+        },
+        {
+          "number": 76
+        },
+        {
+          "number": 77
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "knob",
+        "width": 0.5,
+        "height": 0.5,
+        "shape": "circle",
+        "overrideable": true,
+        "response": "continuous",
+        "eventType": "controlchange",
+        "channel": 0,
+        "knobType": "absolute"
+      }
+    },
+    {
+      "id": "Transport",
+      "height": 0.375,
+      "width": 4,
+      "left": 13.4,
+      "bottom": 4,
+      "nRows": 1,
+      "nCols": 6,
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.4,
+        "height": 0.25,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "constant",
+        "eventType": "controlchange",
+        "channel": 0
+      },
+      "inputs": [
+        {
+          "number": 115,
+          "value": 127
+        },
+        {
+          "number": 116,
+          "value": 127
+        },
+        {
+          "number": 117,
+          "value": 127
+        },
+        {
+          "number": 118,
+          "value": 127
+        },
+        {
+          "number": 119,
+          "value": 127
+        },
+        {
+          "number": 120,
+          "overrideable": false
+        }
+      ]
+    },
+    {
+      "id": "Screen",
+      "height": 0.625,
+      "width": 1.375,
+      "left": 10.25,
+      "bottom": 5.75,
+      "nRows": 1,
+      "nCols": 1,
+      "inputs": [
+        {
+          "number": -11
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 1.375,
+        "height": 0.625,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "unknown",
+        "channel": 0
+      }
+    },
+    {
+      "id": "ControlKnob",
+      "height": 0.6,
+      "width": 0.6,
+      "left": 12.125,
+      "bottom": 5.85,
+      "nRows": 1,
+      "nCols": 1,
+      "inputs": [
+        {
+          "number": -12
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "knob",
+        "width": 0.6,
+        "height": 0.6,
+        "shape": "circle",
+        "overrideable": false,
+        "response": "continuous",
+        "eventType": "unknown",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Misc Buttons",
+      "height": 1.25,
+      "width": 2.5,
+      "left": 10.2,
+      "bottom": 4,
+      "nRows": 2,
+      "nCols": 3,
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.45,
+        "height": 0.25,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "unknown",
+        "channel": 0
+      },
+      "inputs": [
+        {
+          "number": -21
+        },
+        {
+          "number": -22
+        },
+        {
+          "number": -23
+        },
+        {
+          "number": -24
+        },
+        {
+          "number": -25
+        },
+        {
+          "number": -26
+        }
+      ]
+    }
+  ]
+}

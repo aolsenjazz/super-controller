@@ -74,6 +74,7 @@ export default function App() {
         device = configFromDriver(portInfo.siblingIndex, portInfo.driver);
       }
     }
+
     setActiveDevice(device);
   }, [ports, project, selectedId]);
 

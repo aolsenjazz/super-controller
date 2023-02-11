@@ -103,6 +103,7 @@ export class InputConfig {
     const colors = availableColors.map((c) =>
       ColorImpl.fromDrivers(c, number, channel)
     );
+
     const availableFx = overrides.availableFx || defaults.availableFx || [];
 
     const instance = new InputConfig(

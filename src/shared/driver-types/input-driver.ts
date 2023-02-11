@@ -47,6 +47,8 @@ export type InputDriver = {
   /* Width of the input in inches */
   readonly width?: number;
 
+  readonly horizontal?: boolean;
+
   /* If input has a handle (think wheel or XY pad), width in inches */
   readonly handleWidth?: number;
 

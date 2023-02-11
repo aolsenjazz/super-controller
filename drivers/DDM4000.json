@@ -208,36 +208,87 @@
       "enabled": true,
       "inputs": [
         {
-          "overrideable": false,
-          "availableColors": [],
-          "number": -6
+          "number": 49,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 49,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 49,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         },
         {
-          "number": 50
+          "number": 50,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 50,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 50,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         },
         {
-          "number": 51
+          "number": 51,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 51,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 51,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         },
         {
-          "number": 52
+          "number": 52,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 52,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 52,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "default": true,
-            "eventType": "controlchange",
-            "name": "Off",
-            "string": "transparent",
-            "value": 0
-          },
-          {
-            "eventType": "controlchange",
-            "name": "Orange",
-            "string": "#e28743",
-            "value": 1
-          }
-        ],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -263,31 +314,68 @@
           "number": 3
         },
         {
-          "number": 0
+          "number": 0,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 57,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 57,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         },
         {
-          "number": 1
+          "number": 1,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 59,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 59,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         },
         {
-          "number": 2
+          "number": 2,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 61,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 61,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "default": true,
-            "eventType": "controlchange",
-            "name": "Off",
-            "string": "transparent",
-            "value": 0
-          },
-          {
-            "eventType": "controlchange",
-            "name": "Orange",
-            "string": "#e28743",
-            "value": 1
-          }
-        ],
+        "availableColors": [],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -313,31 +401,68 @@
           "number": 7
         },
         {
-          "number": 4
+          "number": 4,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 67,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 67,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         },
         {
-          "number": 5
+          "number": 5,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 69,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 69,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         },
         {
-          "number": 6
+          "number": 6,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 71,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 71,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "default": true,
-            "eventType": "controlchange",
-            "name": "Off",
-            "string": "transparent",
-            "value": 0
-          },
-          {
-            "eventType": "controlchange",
-            "name": "Orange",
-            "string": "#e28743",
-            "value": 1
-          }
-        ],
+        "availableColors": [],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -363,31 +488,68 @@
           "number": 11
         },
         {
-          "number": 8
+          "number": 8,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 77,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 77,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         },
         {
-          "number": 9
+          "number": 9,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 79,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 79,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         },
         {
-          "number": 10
+          "number": 10,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 81,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 81,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "default": true,
-            "eventType": "controlchange",
-            "name": "Off",
-            "string": "transparent",
-            "value": 0
-          },
-          {
-            "eventType": "controlchange",
-            "name": "Orange",
-            "string": "#e28743",
-            "value": 1
-          }
-        ],
+        "availableColors": [],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -413,29 +575,384 @@
           "number": 15
         },
         {
-          "number": 12
+          "number": 12,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 87,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 87,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         },
         {
-          "number": 13
+          "number": 13,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 89,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 89,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
         },
         {
-          "number": 14
+          "number": 14,
+          "availableColors": [
+            {
+              "name": "Off",
+              "number": 91,
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "number": 91,
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.3,
+        "height": 0.3,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Output Knobs",
+      "nRows": 3,
+      "nCols": 1,
+      "width": 0.5,
+      "height": 3.25,
+      "bottom": 10.875,
+      "left": 11.25,
+      "enabled": true,
+      "inputs": [
+        {
+          "number": -10
+        },
+        {
+          "number": -11
+        },
+        {
+          "number": -12
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "knob",
+        "width": 0.5,
+        "height": 0.5,
+        "shape": "circle",
+        "overrideable": false,
+        "response": "continuous",
+        "eventType": "controlchange",
+        "channel": 0,
+        "knobType": "absolute"
+      }
+    },
+    {
+      "id": "Phones Knobs",
+      "nRows": 2,
+      "nCols": 1,
+      "width": 0.5,
+      "height": 1.75,
+      "bottom": 6.5,
+      "left": 11.25,
+      "enabled": true,
+      "inputs": [
+        {
+          "number": -10
+        },
+        {
+          "number": -11
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "knob",
+        "width": 0.5,
+        "height": 0.5,
+        "shape": "circle",
+        "overrideable": false,
+        "response": "continuous",
+        "eventType": "controlchange",
+        "channel": 0,
+        "knobType": "absolute"
+      }
+    },
+    {
+      "id": "Output Buttons",
+      "nRows": 1,
+      "nCols": 2,
+      "width": 2,
+      "height": 0.6,
+      "bottom": 9.875,
+      "left": 10.125,
+      "enabled": false,
+      "inputs": [
+        {
+          "number": -15
+        },
+        {
+          "number": -16
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.6,
+        "height": 0.4,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Crossfader Buttons",
+      "nRows": 1,
+      "nCols": 2,
+      "width": 2,
+      "height": 0.6,
+      "bottom": 3,
+      "left": 10.125,
+      "inputs": [
+        {
+          "number": 40
+        },
+        {
+          "number": 41
         }
       ],
       "inputDefaults": {
         "availableColors": [
           {
-            "default": true,
-            "eventType": "controlchange",
             "name": "Off",
+
+            "value": 0,
+            "default": true,
             "string": "transparent",
-            "value": 0
+            "eventType": "controlchange"
           },
           {
-            "eventType": "controlchange",
             "name": "Orange",
-            "string": "#e28743",
-            "value": 1
+            "value": 1,
+            "string": "#F57C00",
+            "eventType": "controlchange"
+          }
+        ],
+        "type": "pad",
+        "width": 0.6,
+        "height": 0.4,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Midi Bounce Click Button",
+      "nRows": 1,
+      "nCols": 1,
+      "width": 2,
+      "height": 0.6,
+      "bottom": 3.7,
+      "left": 10.125,
+      "inputs": [
+        {
+          "number": 42
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [
+          {
+            "name": "Off",
+
+            "value": 0,
+            "default": true,
+            "string": "transparent",
+            "eventType": "controlchange"
+          },
+          {
+            "name": "Orange",
+            "value": 1,
+            "string": "#F57C00",
+            "eventType": "controlchange"
+          }
+        ],
+        "type": "pad",
+        "width": 0.6,
+        "height": 0.4,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Phones buttons",
+      "nRows": 3,
+      "nCols": 1,
+      "width": 0.6,
+      "height": 2.1,
+      "bottom": 6.125,
+      "left": 10.125,
+      "enabled": false,
+      "inputs": [
+        {
+          "number": -22
+        },
+        {
+          "number": -23
+        },
+        {
+          "number": -24
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.6,
+        "height": 0.4,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Screen",
+      "nRows": 1,
+      "nCols": 1,
+      "width": 5.75,
+      "height": 0.875,
+      "bottom": 8.5,
+      "left": 3.25,
+      "enabled": false,
+      "inputs": [
+        {
+          "number": -25
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 5.75,
+        "height": 0.875,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Mic On/Off",
+      "nRows": 1,
+      "nCols": 1,
+      "width": 0.6,
+      "height": 0.4,
+      "bottom": 8.875,
+      "left": 1.125,
+      "inputs": [
+        {
+          "number": 53
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [
+          {
+            "name": "Off",
+
+            "value": 0,
+            "default": true,
+            "string": "transparent",
+            "eventType": "controlchange"
+          },
+          {
+            "name": "Orange",
+            "value": 1,
+            "string": "#F57C00",
+            "eventType": "controlchange"
+          }
+        ],
+        "type": "pad",
+        "width": 0.6,
+        "height": 0.4,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "A low-mid-high",
+      "nRows": 3,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 2.15,
+      "bottom": 0.625,
+      "left": 2.5,
+      "inputs": [
+        {
+          "number": 24
+        },
+        {
+          "number": 25
+        },
+        {
+          "number": 26
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [
+          {
+            "name": "Off",
+            "value": 0,
+            "default": true,
+            "string": "transparent",
+            "eventType": "controlchange"
+          },
+          {
+            "name": "Orange",
+            "value": 1,
+            "string": "#F57C00",
+            "eventType": "controlchange"
           }
         ],
         "type": "pad",
@@ -443,6 +960,710 @@
         "height": 0.3,
         "shape": "rect",
         "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "B low-mid-high",
+      "nRows": 3,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 2.15,
+      "bottom": 0.625,
+      "left": 9.25,
+      "inputs": [
+        {
+          "number": 28
+        },
+        {
+          "number": 29
+        },
+        {
+          "number": 30
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [
+          {
+            "name": "Off",
+            "value": 0,
+            "default": true,
+            "string": "transparent",
+            "eventType": "controlchange"
+          },
+          {
+            "name": "Orange",
+            "value": 1,
+            "string": "#F57C00",
+            "eventType": "controlchange"
+          }
+        ],
+        "type": "pad",
+        "width": 0.3,
+        "height": 0.3,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Full freq A",
+      "nRows": 1,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 0.3,
+      "bottom": 2.25,
+      "left": 3.25,
+      "inputs": [
+        {
+          "number": 23,
+          "availableColors": [
+            {
+              "name": "Off",
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Orange",
+              "value": 1,
+              "string": "#F57C00",
+              "eventType": "controlchange"
+            }
+          ]
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.3,
+        "height": 0.3,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Full freq B",
+      "nRows": 1,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 0.3,
+      "bottom": 2.25,
+      "left": 8.5,
+      "inputs": [
+        {
+          "number": 27
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [
+          {
+            "name": "Off",
+            "value": 0,
+            "default": true,
+            "string": "transparent",
+            "eventType": "controlchange"
+          },
+          {
+            "name": "Orange",
+            "value": 1,
+            "string": "#F57C00",
+            "eventType": "controlchange"
+          }
+        ],
+        "type": "pad",
+        "width": 0.3,
+        "height": 0.3,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Volume Mix Knob",
+      "nRows": 1,
+      "nCols": 1,
+      "width": 0.5,
+      "height": 0.5,
+      "bottom": 7.375,
+      "left": 0.75,
+      "inputs": [
+        {
+          "number": 3
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "knob",
+        "width": 0.5,
+        "height": 0.5,
+        "shape": "circle",
+        "overrideable": true,
+        "response": "continuous",
+        "eventType": "controlchange",
+        "channel": 0,
+        "knobType": "absolute"
+      }
+    },
+    {
+      "id": "Insert button",
+      "nRows": 1,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 0.3,
+      "bottom": 7.4,
+      "left": 1.75,
+      "inputs": [
+        {
+          "number": 95
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [
+          {
+            "name": "Off",
+            "value": 0,
+            "default": true,
+            "string": "transparent",
+            "eventType": "controlchange"
+          },
+          {
+            "name": "Orange",
+            "value": 1,
+            "string": "#F57C00",
+            "eventType": "controlchange"
+          }
+        ],
+        "type": "pad",
+        "width": 0.3,
+        "height": 0.3,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "CF ON",
+      "nRows": 1,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 0.3,
+      "bottom": 2.25,
+      "left": 5.9,
+      "inputs": [
+        {
+          "number": 31
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [
+          {
+            "name": "Off",
+            "value": 0,
+            "default": true,
+            "string": "transparent",
+            "eventType": "controlchange"
+          },
+          {
+            "name": "Blue",
+            "value": 1,
+            "string": "#2196F3",
+            "eventType": "controlchange"
+          }
+        ],
+        "type": "pad",
+        "width": 0.3,
+        "height": 0.3,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Mic small buttons",
+      "nRows": 2,
+      "nCols": 2,
+      "width": 1.6,
+      "height": 3.25,
+      "bottom": 4,
+      "left": 0.5,
+      "inputs": [
+        {
+          "number": 97
+        },
+        {
+          "number": 96
+        },
+        {
+          "number": 104
+        },
+        {
+          "number": 103
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.2,
+        "height": 0.2,
+        "shape": "circle",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Main faders",
+      "nRows": 1,
+      "nCols": 4,
+      "width": 7.4,
+      "height": 2.1,
+      "bottom": 3,
+      "left": 2,
+      "inputs": [
+        {
+          "number": 7,
+          "handleWidth": 0.75,
+          "handleHeight": 0.25
+        },
+        {
+          "number": 11,
+          "handleWidth": 0.75,
+          "handleHeight": 0.25
+        },
+        {
+          "number": 15,
+          "handleWidth": 0.75,
+          "handleHeight": 0.25
+        },
+        {
+          "number": 19,
+          "handleWidth": 0.75,
+          "handleHeight": 0.25
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "slider",
+        "width": 0.75,
+        "height": 2.1,
+        "shape": "circle",
+        "overrideable": true,
+        "response": "continuous",
+        "eventType": "controlchange",
+        "channel": 0,
+        "knobType": "absolute"
+      }
+    },
+    {
+      "id": "Transport small buttons",
+      "nRows": 5,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 3.625,
+      "bottom": 0.625,
+      "left": 1.875,
+      "inputs": [
+        {
+          "number": 108,
+          "availableColors": []
+        },
+        {
+          "number": 113
+        },
+        {
+          "number": 118
+        },
+        {
+          "number": 121
+        },
+        {
+          "number": 124
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [
+          {
+            "name": "Off",
+
+            "value": 0,
+            "default": true,
+            "string": "transparent",
+            "eventType": "controlchange"
+          },
+          {
+            "name": "Orange",
+            "value": 1,
+            "string": "#F57C00",
+            "eventType": "controlchange"
+          }
+        ],
+        "type": "pad",
+        "width": 0.3,
+        "height": 0.3,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "CF Assign Buttons",
+      "nRows": 1,
+      "nCols": 4,
+      "width": 7.5,
+      "height": 0.2,
+      "bottom": 3,
+      "left": 2.85,
+      "inputs": [
+        {
+          "number": 32
+        },
+        {
+          "number": 34
+        },
+        {
+          "number": 36
+        },
+        {
+          "number": 38
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.2,
+        "height": 0.2,
+        "shape": "circle",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Beat Buttons",
+      "nRows": 1,
+      "nCols": 2,
+      "width": 1.5,
+      "height": 0.2,
+      "bottom": 4.5,
+      "left": 10.375,
+      "inputs": [
+        {
+          "number": 43
+        },
+        {
+          "number": 44
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.2,
+        "height": 0.2,
+        "shape": "circle",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Curve Knob",
+      "nRows": 1,
+      "nCols": 1,
+      "width": 0.3,
+      "height": 0.3,
+      "bottom": 2.35,
+      "left": 10.925,
+      "inputs": [
+        {
+          "number": 20
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "knob",
+        "width": 0.3,
+        "height": 0.3,
+        "shape": "circle",
+        "overrideable": true,
+        "response": "continuous",
+        "eventType": "controlchange",
+        "channel": 0,
+        "knobType": "absolute"
+      }
+    },
+    {
+      "id": "PFL buttons",
+      "nRows": 1,
+      "nCols": 5,
+      "width": 9.25,
+      "height": 0.4,
+      "bottom": 5.5,
+      "left": 0.125,
+      "inputs": [
+        {
+          "number": 102,
+          "overrideable": true,
+          "availableColors": [
+            {
+              "name": "Off",
+
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Blue",
+              "value": 1,
+              "string": "#2196F3",
+              "eventType": "controlchange"
+            }
+          ]
+        },
+        {
+          "number": -26
+        },
+        {
+          "number": -27
+        },
+        {
+          "number": -28
+        },
+        {
+          "number": -29
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.6,
+        "height": 0.4,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Transport big buttons",
+      "nRows": 5,
+      "nCols": 1,
+      "width": 0.6,
+      "height": 3.625,
+      "bottom": 0.625,
+      "left": 0.75,
+      "inputs": [
+        {
+          "number": 109,
+          "availableColors": [
+            {
+              "name": "Off",
+
+              "value": 0,
+              "default": true,
+              "string": "transparent",
+              "eventType": "controlchange"
+            },
+            {
+              "name": "Blue",
+              "value": 1,
+              "string": "#2196F3",
+              "eventType": "controlchange"
+            }
+          ]
+        },
+        {
+          "number": 110
+        },
+        {
+          "number": 115
+        },
+        {
+          "number": 120
+        },
+        {
+          "number": 122,
+          "shape": "circle",
+          "height": 0.2,
+          "width": 0.2,
+          "availableColors": []
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [
+          {
+            "name": "Off",
+
+            "value": 0,
+            "default": true,
+            "string": "transparent",
+            "eventType": "controlchange"
+          },
+          {
+            "name": "Orange",
+            "value": 1,
+            "string": "#F57C00",
+            "eventType": "controlchange"
+          }
+        ],
+        "type": "pad",
+        "width": 0.6,
+        "height": 0.4,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Crossfader",
+      "nRows": 1,
+      "nCols": 1,
+      "width": 0.75,
+      "height": 2.25,
+      "bottom": 0,
+      "left": 5.625,
+      "inputs": [
+        {
+          "number": 21,
+          "handleWidth": 0.75,
+          "handleHeight": 0.25,
+          "horizontal": true
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "slider",
+        "width": 0.75,
+        "height": 2.25,
+        "shape": "circle",
+        "overrideable": true,
+        "response": "continuous",
+        "eventType": "controlchange",
+        "channel": 0,
+        "knobType": "absolute"
+      }
+    },
+    {
+      "id": "Misc 1",
+      "nRows": 1,
+      "nCols": 5,
+      "width": 6,
+      "height": 0.4,
+      "bottom": 6.7,
+      "left": 3.15,
+      "inputs": [
+        {
+          "number": -30
+        },
+        {
+          "number": -34,
+          "width": 0.3,
+          "height": 0.3
+        },
+        {
+          "number": -36
+        },
+        {
+          "number": -38,
+          "width": 0.3,
+          "height": 0.3
+        },
+        {
+          "number": -39
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.6,
+        "height": 0.4,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Misc 2",
+      "nRows": 1,
+      "nCols": 3,
+      "width": 1.375,
+      "height": 0.3,
+      "bottom": 7.625,
+      "left": 3.75,
+      "inputs": [
+        {
+          "number": -40
+        },
+        {
+          "number": -44
+        },
+        {
+          "number": -46
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.3,
+        "height": 0.3,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Misc 3",
+      "nRows": 1,
+      "nCols": 3,
+      "width": 1.375,
+      "height": 0.3,
+      "bottom": 7.625,
+      "left": 6.875,
+      "inputs": [
+        {
+          "number": -50
+        },
+        {
+          "number": -54
+        },
+        {
+          "number": -56
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.3,
+        "height": 0.3,
+        "shape": "rect",
+        "overrideable": false,
         "response": "gate",
         "eventType": "noteon/noteoff",
         "channel": 0

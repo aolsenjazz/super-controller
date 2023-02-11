@@ -112,10 +112,27 @@ export class PortService {
    * connections, runs device initialization, lets the frontend know.
    */
   updatePorts() {
+    // If multiple devices of the same name are plugged in, close all with said name.
+    // This must be done until connection can be tracked via USB connection id; the following
+    // situation illustrates why:
+    //
+    // APC[0] is plugged in, at USB index[1]. User plugs in APC[1] at index [0].
+    // Internally, APC[1] becomes APC[0], but SC isn't aware of the change because we're
+    // currently not monitoring USB indexes.
+    // TODO: track USB connection IDs
+    let freshPorts = all();
+    const entries = Array.from(freshPorts.values());
+    const nonUniquePorts: string[] = [];
+    freshPorts.forEach((v, k) => {
+      const nOccur = entries.filter((e) => e.name === v.name).length;
+      if (nOccur > 1) nonUniquePorts.push(k);
+    });
+    this.#closeSiblings(nonUniquePorts);
+
     // midi clients which are present in the most recent scan but not in `this.portPairs`
     // should be added to current list. midi clients which are preset in `this.portPairs`
     // but not the most recent scan are broken and should be removed
-    let freshPorts = all();
+    freshPorts = all();
     let [toAdd, broken] = getDiff(
       Array.from(freshPorts.keys()),
       Array.from(this.portPairs.keys())

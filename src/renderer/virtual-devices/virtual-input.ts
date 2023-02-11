@@ -22,6 +22,8 @@ export class VirtualInput {
   /* Width of the input in inches */
   readonly width: number;
 
+  readonly horizontal: boolean;
+
   /* If input has a handle (think wheel or XY pad), width in inches */
   readonly handleWidth?: number;
 
@@ -55,6 +57,7 @@ export class VirtualInput {
         : defaults.overrideable!;
     this.handleWidth = overrides.handleWidth;
     this.handleHeight = overrides.handleHeight;
+    this.horizontal = overrides.horizontal || false;
   }
 
   get id() {

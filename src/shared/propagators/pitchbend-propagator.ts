@@ -12,22 +12,15 @@ export class PitchbendPropagator extends OverrideablePropagator<
     outputResponse: CorrelatedResponse<'continuous'>,
     eventType: StatusString | 'noteon/noteoff',
     number: MidiNumber,
-    channel: Channel,
-    value?: MidiNumber
+    channel: Channel
   ) {
-    super('continuous', outputResponse, eventType, number, channel, value);
+    super('continuous', outputResponse, eventType, number, channel, 64);
   }
 
   toJSON() {
     return {
       name: this.constructor.name,
-      args: [
-        this.outputResponse,
-        this.eventType,
-        this.number,
-        this.channel,
-        this.value,
-      ],
+      args: [this.outputResponse, this.eventType, this.number, this.channel],
     };
   }
 
@@ -48,6 +41,9 @@ export class PitchbendPropagator extends OverrideablePropagator<
       msg[1],
       msg[2]
     );
+
+    // eslint-disable-next-line prefer-destructuring
+    this.value = msg[2];
 
     return response;
   }

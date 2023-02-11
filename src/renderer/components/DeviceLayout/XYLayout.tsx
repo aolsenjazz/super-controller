@@ -1,4 +1,6 @@
 type PropTypes = {
+  isXPitchbend: boolean;
+  isYPitchbend: boolean;
   xMax: number;
   yMax: number;
   xValue: number;
@@ -40,6 +42,8 @@ type PropTypes = {
 export default function XYLayout(props: PropTypes) {
   const {
     width,
+    isXPitchbend,
+    isYPitchbend,
     xMax,
     yMax,
     height,
@@ -64,6 +68,14 @@ export default function XYLayout(props: PropTypes) {
     marginTop: -1,
   };
 
+  const xStyle = isXPitchbend
+    ? `calc(${xShift} * 50%)`
+    : `calc(25% + 25% * ${xShift})`;
+
+  const yStyle = isYPitchbend
+    ? `calc(50% + 25% * ${yShift})`
+    : `calc(50% + 25% * ${yShift})`;
+
   return (
     <div
       className={`xy ${enabled ? 'hoverable' : ''} ${focus ? 'focus' : ''}${
@@ -81,8 +93,8 @@ export default function XYLayout(props: PropTypes) {
     >
       <div
         style={{
-          top: `calc(50% + 25% * ${yShift})`,
-          left: `calc(${xShift} * 50%)`,
+          top: yStyle,
+          left: xStyle,
           position: 'absolute',
           width: handleWidth,
           height: handleHeight,

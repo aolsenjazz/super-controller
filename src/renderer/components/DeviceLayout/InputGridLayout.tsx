@@ -83,6 +83,7 @@ function Element(props: ElementPropTypes) {
         handleHeight={`${(handleWidth / input.height) * 100}%`}
         height={height}
         enabled={overrideable}
+        horizontal={input.horizontal}
         focus={focus}
         overrideable={overrideable}
         onClick={(e) => onClick(e, input.id)}

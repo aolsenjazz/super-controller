@@ -5,10 +5,9 @@ function createPropagator(
   or: 'continuous' | 'constant',
   eventType: StatusString = 'pitchbend',
   number: MidiNumber = 0,
-  channel: Channel = 0,
-  value?: MidiNumber
+  channel: Channel = 0
 ) {
-  return new PitchbendPropagator(or, eventType, number, channel, value);
+  return new PitchbendPropagator(or, eventType, number, channel);
 }
 
 interface NamedCreateCC {
@@ -25,13 +24,7 @@ test('propagates values correctly', () => {
   const channel = 2;
   const status = 'pitchbend';
 
-  const propagator = createPropagator(
-    'continuous',
-    status,
-    number,
-    channel,
-    69
-  );
+  const propagator = createPropagator('continuous', status, number, channel);
 
   const msg1 = create({ value: 60, number: 0, channel: 7 });
   const msg2 = create({ value: 127, number: 127, channel: 7 });

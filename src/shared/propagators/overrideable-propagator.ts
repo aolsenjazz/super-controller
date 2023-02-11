@@ -31,7 +31,7 @@ export abstract class OverrideablePropagator<
     this.eventType = eventType;
     this.number = number;
     this.channel = channel;
-    this.value = value || this.value;
+    this.value = value === undefined ? this.value : value;
   }
 
   /**
