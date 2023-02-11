@@ -12,7 +12,7 @@ export class Project {
 
   constructor(devices?: DeviceConfig[], version?: number) {
     this.devices = devices || [];
-    this.version = version;
+    this.version = version || Project.CURRENT_VERSION;
   }
 
   /**
@@ -58,6 +58,7 @@ export class Project {
   toJSON() {
     return {
       name: this.constructor.name,
+      version: this.version,
       args: [this.devices, Project.CURRENT_VERSION],
     };
   }
