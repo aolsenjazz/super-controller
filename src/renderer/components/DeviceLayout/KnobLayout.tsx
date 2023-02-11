@@ -27,6 +27,7 @@ type PropTypes = {
   focus: boolean;
   shape: string;
   overrideable: boolean;
+  endless: boolean;
   onClick: (event: React.MouseEvent) => void;
 };
 
@@ -62,6 +63,7 @@ export function Knob(props: PropTypes) {
     shape,
     onClick,
     overrideable,
+    endless,
   } = props;
 
   const startAngle = (360 - degrees) / 2;
@@ -98,7 +100,7 @@ export function Knob(props: PropTypes) {
           className={`inner ${enabled ? 'hoverable' : ''}`}
           style={{ transform: `rotate(${curDeg}deg)` }}
         >
-          <div className="grip" />
+          {endless ? null : <div className="grip" />}
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 #config-panel {
   width: 280px;
   background-color: #f2eeef;
-  overflow-y: scroll;
+  overflow-y: overlay;
   position: relative;
   z-index: 999;
   box-shadow: -1px 0 1px #dbd7d8;
@@ -19,18 +19,21 @@
 }
 
 #config-panel p {
-  color: #272727;
-  font-size: 0.8em;
-  display: inline-block;
+  font-size: 13px;
   font-family: Arial;
+}
+
+#config-panel .label {
   width: 38%;
   vertical-align: top;
+  display: inline-block;
 }
 
 #config-panel .settings-line {
   height: 30px;
   margin-left: 12px;
   text-align: left;
+  padding-top: 6px;
 }
 
 #config-panel #controls-container {
@@ -41,14 +44,44 @@
   margin: 0 auto;
 }
 
+#config-panel #controls-container .settings-line {
+  margin-top: 5px;
+}
+
+#config-panel #controls-container #absolute-values {
+  text-align: left;
+}
+
+#config-panel #controls-container #absolute-values .help-tip {
+  margin-left: 5px;
+}
+
+#config-panel #controls-container #absolute-values .help-tip:hover p {
+  width: 150px;
+}
+
+#config-panel #controls-container #absolute-values > div {
+  display: inline-block;
+}
+
+#config-panel #controls-container .settings-line > p {
+  display: inline-block;
+  vertical-align: top;
+  line-height: 18px;
+}
+
 #config-panel select {
   vertical-align: top;
   max-width: 140px;
   margin-left: 5px;
 }
 
-#config-panel .settings-line.color-setting p {
-  width: calc(38% - 21px);
+#config-panel .settings-line.fx-setting select {
+  width: 60px;
+}
+
+#config-panel .settings-line * {
+  vertical-align: top;
 }
 
 #config-panel .message {
@@ -69,6 +102,36 @@
   border-radius: 3px;
   margin-right: 3px;
   border: 1px solid #dbd7d8;
+  margin-left: 8px;
+}
+#config-panel .separator {
+  width: 100%;
+  height: 1px;
+  background-color: #e6e6e6;
+  margin-top: 12px;
+}
+
+#config-panel .settings-line.color-setting {
+  position: relative;
+  height: auto;
+  margin-top: 4px;
+}
+
+#config-panel #backlight-config {
+  text-align: left;
+}
+
+#config-panel .fx-setting .slider {
+  display: inline-block;
+  width: 55%;
+  margin-top: 6px;
+  margin-left: 15px;
+  height: 20px;
+}
+
+#config-panel .fx-setting .slider p {
+  font-size: 9px;
+  opacity: 0.7;
 }
 
 #device-config {
@@ -81,6 +144,7 @@
   margin-left: 12px;
   width: 36%;
   line-height: 20px;
+  display: inline-block;
 }
 
 #device-config input {

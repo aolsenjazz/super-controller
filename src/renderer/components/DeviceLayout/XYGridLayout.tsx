@@ -75,6 +75,8 @@ export default function XYGridLayout(props: PropTypes) {
           height={`${(xInput.height / inputGrid.height) * 100}%`}
           handleWidth={`${(handleWidth / xInput.width) * 100}%`}
           handleHeight={`${(handleWidth / xInput.height) * 100}%`}
+          isXPitchbend={xInput.isPitchbend}
+          isYPitchbend={yInput.isPitchbend}
           xMax={127}
           yMax={127}
           xValue={xConfig.value}

@@ -1,4 +1,3 @@
-// TODO: these need docs
 module.exports = {
   PROJECT: 'project',
   DRIVERS: 'drivers',

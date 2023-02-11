@@ -20,6 +20,8 @@ export class VirtualDevice {
   /* Device-reported name */
   readonly name: string;
 
+  readonly type: 'normal' | 'adapter' | '5pin';
+
   /* Width (in inches) of device */
   readonly width: number;
 
@@ -28,6 +30,8 @@ export class VirtualDevice {
 
   /* See `DeviceStyle` */
   readonly style: DeviceStyle;
+
+  readonly throttle?: number;
 
   /* See `KeyboardDriver` */
   readonly keyboard?: KeyboardDriver;
@@ -42,6 +46,8 @@ export class VirtualDevice {
     this.height = driver.height;
     this.style = driver.style;
     this.keyboard = driver.keyboard;
+    this.type = driver.type;
+    this.throttle = driver.throttle;
 
     this.inputGrids = driver.inputGrids.map(
       (gridDriver: InputGridDriver) => new VirtualInputGrid(gridDriver)

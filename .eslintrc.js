@@ -8,6 +8,7 @@ module.exports = {
     'no-plusplus': 'off',
     'class-methods-use-this': 'off',
     'import/prefer-default-export': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

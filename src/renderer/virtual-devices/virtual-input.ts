@@ -1,6 +1,4 @@
-import { StatusString, Channel } from '@shared/midi-util';
-
-import { InputDriver, InputType } from '@shared/driver-types';
+import { InputDriver, InputType, InputGridDriver } from '@shared/driver-types';
 import { inputIdFor } from '@shared/util';
 
 /**
@@ -24,6 +22,8 @@ export class VirtualInput {
   /* Width of the input in inches */
   readonly width: number;
 
+  readonly horizontal: boolean;
+
   /* If input has a handle (think wheel or XY pad), width in inches */
   readonly handleWidth?: number;
 
@@ -34,22 +34,30 @@ export class VirtualInput {
   #eventType: StatusString | 'noteon/noteoff';
 
   /* Note number, CC number, program number, etc */
-  #number: number;
+  #number: MidiNumber;
 
   /* MIDI channel */
   #channel: Channel;
 
-  constructor(driver: InputDriver) {
-    this.width = driver.width;
-    this.height = driver.height;
-    this.shape = driver.shape;
-    this.type = driver.type;
-    this.#eventType = driver.default.eventType;
-    this.#channel = driver.default.channel;
-    this.#number = driver.default.number;
-    this.overrideable = driver.overrideable;
-    this.handleWidth = driver.handleWidth;
-    this.handleHeight = driver.handleHeight;
+  constructor(
+    overrides: InputDriver,
+    defaults: InputGridDriver['inputDefaults']
+  ) {
+    this.width = (overrides.width || defaults.width)!;
+    this.height = (overrides.height || defaults.height)!;
+    this.shape = (overrides.shape || defaults.shape)!;
+    this.type = (overrides.type || defaults.type)!;
+    this.#eventType = (overrides.eventType || defaults.eventType)!;
+    this.#channel =
+      overrides.channel !== undefined ? overrides.channel : defaults.channel!;
+    this.#number = overrides.number;
+    this.overrideable =
+      overrides.overrideable !== undefined
+        ? overrides.overrideable
+        : defaults.overrideable!;
+    this.handleWidth = overrides.handleWidth;
+    this.handleHeight = overrides.handleHeight;
+    this.horizontal = overrides.horizontal || false;
   }
 
   get id() {

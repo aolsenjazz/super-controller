@@ -10,6 +10,7 @@
   cursor: default;
   font-weight: normal;
   font-family: Arial;
+  z-index: 10000 !important;
 }
 
 .help-tip:before {
@@ -34,6 +35,7 @@
   background-color: #1e2021;
   padding: 20px;
   width: 300px;
+  white-space: pre-line;
   position: absolute;
   border-radius: 3px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);

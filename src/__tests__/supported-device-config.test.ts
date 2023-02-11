@@ -1,26 +1,22 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
-
 import { test, expect, jest } from '@jest/globals';
 
-import { Channel, setStatus, StatusString } from '@shared/midi-util';
+import { parse, stringify } from '@shared/util';
+import { MidiArray } from '@shared/midi-array';
 import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
-import { Color } from '@shared/driver-types';
 
 function BasicInputConfig() {
-  const inputDefault = {
+  const inputDefault: InputConfig['default'] = {
     channel: 0 as Channel,
     eventType: 'controlchange' as const,
     number: 0,
     response: 'continuous' as const,
   };
-  const override = {
-    lightConfig: new Map<string, Color>(),
-  };
 
   const overrideable = true;
   const type = 'pad';
 
-  return new InputConfig(inputDefault, override, [], overrideable, type);
+  return new InputConfig(inputDefault, [], [], overrideable, type);
 }
 
 function BasicSupportedDevice() {
@@ -41,14 +37,11 @@ function BasicSupportedDevice() {
 }
 
 test('getInput throws for bad id', () => {
-  const inputDefault = {
+  const inputDefault: InputConfig['default'] = {
     channel: 0 as Channel,
     eventType: 'controlchange' as const,
     number: 0,
     response: 'continuous' as const,
-  };
-  const override = {
-    lightConfig: new Map<string, Color>(),
   };
 
   const name = 'SomeName';
@@ -57,7 +50,7 @@ test('getInput throws for bad id', () => {
   const overrideable = true;
   const type = 'pad';
 
-  const input = new InputConfig(inputDefault, override, [], overrideable, type);
+  const input = new InputConfig(inputDefault, [], [], overrideable, type);
 
   const config = new SupportedDeviceConfig(
     name,
@@ -71,14 +64,11 @@ test('getInput throws for bad id', () => {
 });
 
 test('getInput returns correct input for id', () => {
-  const inputDefault = {
+  const inputDefault: InputConfig['default'] = {
     channel: 0 as Channel,
     eventType: 'controlchange' as const,
     number: 0,
     response: 'continuous' as 'continuous' | 'toggle',
-  };
-  const override = {
-    lightConfig: new Map<string, Color>(),
   };
 
   const name = 'SomeName';
@@ -88,7 +78,7 @@ test('getInput returns correct input for id', () => {
   const overrideable = true;
   const type = 'pad';
 
-  const input = new InputConfig(inputDefault, override, [], overrideable, type);
+  const input = new InputConfig(inputDefault, [], [], overrideable, type);
 
   inputConfigs.push(input);
 
@@ -105,14 +95,11 @@ test('getInput returns correct input for id', () => {
 });
 
 test('handleMessage() passes to correct input for processing', () => {
-  const inputDefault = {
+  const inputDefault: InputConfig['default'] = {
     channel: 0 as Channel,
     eventType: 'controlchange' as const,
     number: 0,
     response: 'continuous' as 'continuous' | 'toggle',
-  };
-  const override = {
-    lightConfig: new Map<string, Color>(),
   };
 
   const name = 'SomeName';
@@ -122,7 +109,7 @@ test('handleMessage() passes to correct input for processing', () => {
   const overrideable = true;
   const type = 'pad';
 
-  const input = new InputConfig(inputDefault, override, [], overrideable, type);
+  const input = new InputConfig(inputDefault, [], [], overrideable, type);
   const spy = jest.spyOn(input, 'handleMessage');
   inputConfigs.push(input);
 
@@ -134,9 +121,11 @@ test('handleMessage() passes to correct input for processing', () => {
     nickname
   );
 
-  const mm = setStatus(
-    [input.channel, input.number, 127],
-    input.eventType as StatusString
+  const mm = MidiArray.create(
+    input.eventType as StatusString,
+    input.channel,
+    input.number,
+    127
   );
   config.handleMessage(mm);
   expect(spy).toHaveBeenCalledTimes(1);
@@ -158,16 +147,15 @@ test('bindingAvailable return true if binding is not taken', () => {
 
 test('handleMessage just propagates msgs when no matching inputConfig found', () => {
   const device = BasicSupportedDevice();
-  const msg = setStatus([0, 42, 127], 'noteon');
+  const msg = MidiArray.create(144, 0, 42, 127);
   const result = device.handleMessage(msg);
   expect(result[1]).toStrictEqual(msg);
 });
 
 test('toJSON and fromParsedJSON correctly serializes + deserializes', () => {
   const conf = BasicSupportedDevice();
-  const json = conf.toJSON(true);
-  const obj = JSON.parse(json);
-  const other = SupportedDeviceConfig.fromParsedJSON(obj);
+  const json = stringify(conf);
+  const other = parse<SupportedDeviceConfig>(json);
 
   expect(conf.id).toBe(other.id);
   expect(conf.name).toBe(other.name);

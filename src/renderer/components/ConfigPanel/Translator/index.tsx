@@ -1,14 +1,15 @@
 import { useState, useCallback } from 'react';
 
-import { Channel, StatusString } from '@shared/midi-util';
+import { MidiArray } from '@shared/midi-array';
 import { Project } from '@shared/project';
+import { stringify } from '@shared/util';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
 import RecentMessageRow from './RecentMessageRow';
 import ControlsContainer from './ControlsContainer';
 import OverrideRow from './OverrideRow';
 
-const scIpc = window.ipcRenderer;
+const { projectService } = window;
 
 type PropTypes = {
   config: AnonymousDeviceConfig;
@@ -19,14 +20,14 @@ type PropTypes = {
 export default function Translator(props: PropTypes) {
   const { config, project, setProject } = props;
 
-  const [currentAction, setCurrentAction] = useState<number[] | null>(null);
+  const [currentAction, setCurrentAction] = useState<MidiArray | undefined>();
 
   const onChange = useCallback(
-    (eventType: StatusString, number: number, channel: Channel) => {
-      if (currentAction !== null) {
+    (eventType: StatusString, number: MidiNumber, channel: Channel) => {
+      if (currentAction !== undefined) {
         config.overrideInput(currentAction, eventType, channel, number);
         setProject(new Project(project.devices));
-        scIpc.updateDevice(config.toJSON());
+        projectService.updateDevice(stringify(config));
       }
     },
     [project, config, setProject, currentAction]
@@ -62,7 +63,7 @@ export default function Translator(props: PropTypes) {
         remove={() => {
           config.overrides.delete(JSON.stringify(currentAction));
           setProject(new Project(project.devices));
-          scIpc.updateDevice(config.toJSON());
+          projectService.updateDevice(stringify(config));
         }}
       />
     </div>

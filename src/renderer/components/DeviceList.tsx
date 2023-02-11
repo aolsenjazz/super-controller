@@ -1,18 +1,12 @@
 import { useEffect } from 'react';
 
-import {
-  SupportedDeviceConfig,
-  AnonymousDeviceConfig,
-} from '@shared/hardware-config';
-import { PortInfo, PortIdentifier } from '@shared/port-info';
+import { DeviceConfig } from '@shared/hardware-config';
+import { DrivenPortInfo } from '@shared/driven-port-info';
 import { Project } from '@shared/project';
-
-import { anonymousDriver } from '../anonymous-device';
 
 import DeviceListItem from './DeviceListItem';
 
-const { driverService } = window;
-const drivers = driverService.getDrivers();
+const drivers = window.driverService.getDrivers();
 
 /**
  * Merge available hardware portInfos with device configurations to make
@@ -22,34 +16,32 @@ const drivers = driverService.getDrivers();
  * @param deviceConfigs The device configurations in the current project
  * @returns A sorted list of all connected, available, and disconnected ports/devices.
  */
-function sortPorts(
-  portInfos: PortInfo[],
-  deviceConfigs: (SupportedDeviceConfig | AnonymousDeviceConfig)[]
-) {
+function sortPorts(portInfos: DrivenPortInfo[], deviceConfigs: DeviceConfig[]) {
   // sort by ID descending
-  const sortAlg = (a: PortIdentifier, b: PortIdentifier) =>
+  const sortAlg = (a: DrivenPortInfo, b: DrivenPortInfo) =>
     a.id > b.id ? 1 : -1;
 
-  // sort connected devices
-  const connectedConfigured = deviceConfigs
-    .filter((config) => {
-      return portInfos.filter((info) => info.id === config.id).length > 0;
-    })
-    .map((config) => new PortInfo(config.name, config.siblingIndex, true));
+  const connectedConfigured = portInfos.filter((info) => {
+    return deviceConfigs.filter((config) => config.id === info.id).length > 0;
+  });
   connectedConfigured.sort(sortAlg);
 
   // find and sort connected, but unconfigured, devices
   const connectedUnconfigured = portInfos.filter((info) => {
-    return deviceConfigs.filter((dev) => dev.id === info.id).length === 0;
+    return deviceConfigs.filter((config) => config.id === info.id).length === 0;
   });
   connectedUnconfigured.sort(sortAlg);
 
-  // sort configured, but disconnected, devices
   const unconnectedConfigured = deviceConfigs
     .filter((config) => {
-      return portInfos.filter((info) => info.id === config.id).length === 0;
+      return portInfos.filter((info) => config.id === info.id).length === 0;
     })
-    .map((config) => new PortInfo(config.name, config.siblingIndex, false));
+    .map((config) => {
+      let d = drivers.get(config.name);
+
+      d = d === undefined ? drivers.get('Anonymous')! : d;
+      return new DrivenPortInfo(config.name, config.siblingIndex, false, d);
+    });
   unconnectedConfigured.sort(sortAlg);
 
   return connectedConfigured
@@ -63,7 +55,7 @@ function sortPorts(
  */
 
 type PropTypes = {
-  ports: PortInfo[];
+  ports: DrivenPortInfo[];
   project: Project;
   setSelectedId: (selectedId: string | undefined) => void;
   selectedId: string | undefined;
@@ -106,14 +98,12 @@ export default function DeviceList(props: PropTypes) {
   // Assemble the JSX for device list
   const elements = sorted.map((info) => {
     const config = project.getDevice(info.id);
-    let driver = drivers.get(info.name);
-    if (!driver) driver = anonymousDriver;
 
     return (
       <DeviceListItem
         key={info.id}
         id={info.id}
-        driver={driver}
+        driver={info.driver}
         onClick={() => setSelectedId(info.id)}
         active={selectedId === info.id}
         connected={info.connected}

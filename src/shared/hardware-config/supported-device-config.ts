@@ -1,4 +1,6 @@
-import { StatusString, Channel } from '@shared/midi-util';
+import * as Revivable from '../revivable';
+import { MidiArray } from '../midi-array';
+
 import { inputIdFor } from '../util';
 import { DeviceDriver, KeyboardDriver } from '../driver-types';
 
@@ -6,12 +8,15 @@ import { DeviceConfig } from './device-config';
 import { InputConfig } from './input-config';
 
 /* Contains device-specific configurations and managed `InputConfig`s */
+@Revivable.register
 export class SupportedDeviceConfig extends DeviceConfig {
   /* See `InputConfig` */
   inputs: InputConfig[];
 
   /* See `KeyboardDriver` */
   keyboardDriver?: KeyboardDriver;
+
+  isAdapter = false;
 
   /**
    * Constructs a new instance of SupportedDeviceConfig from DeviceDriver.
@@ -21,11 +26,12 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * @returns a new instance of SupportedDeviceConfig
    */
   static fromDriver(siblingIndex: number, driver: DeviceDriver) {
-    const inputs = driver.inputGrids
-      .map((grid) => grid.inputs)
-      .flat()
-      .flat()
-      .map((d) => InputConfig.fromDriver(d));
+    const inputs: InputConfig[] = [];
+    driver.inputGrids.forEach((ig) => {
+      ig.inputs.forEach((d) => {
+        inputs.push(InputConfig.fromDriver(d, ig.inputDefaults));
+      });
+    });
 
     const newConfig = new SupportedDeviceConfig(
       driver.name,
@@ -39,30 +45,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
     return newConfig;
   }
 
-  /**
-   * Constructs a new instance of SupportedDeviceConfig from a json string.
-   *
-   * @param parsed JSON.parse()'d string
-   * @returns A new instance of SupportedDeviceConfig
-   */
-  /* eslint-disable-next-line */
-  static fromParsedJSON(parsed: any) {
-    const inputs = parsed.inputs.map((inputJSON: string) =>
-      InputConfig.fromJSON(inputJSON)
-    );
-
-    const newDevice = new SupportedDeviceConfig(
-      parsed.name,
-      parsed.siblingIndex,
-      parsed.shareSustain,
-      inputs,
-      parsed.nickname,
-      parsed.keyboardDriver
-    );
-
-    return newDevice;
-  }
-
   constructor(
     name: string,
     siblingIndex: number,
@@ -74,6 +56,21 @@ export class SupportedDeviceConfig extends DeviceConfig {
     super(name, siblingIndex, true, shareSustain, nickname);
     this.inputs = inputs;
     this.keyboardDriver = keyboardDriver;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  toJSON(): { name: string; args: any[] } {
+    return {
+      name: this.constructor.name,
+      args: [
+        this.name,
+        this.siblingIndex,
+        this.shareSustain,
+        this.inputs,
+        this.nickname,
+        this.keyboardDriver,
+      ],
+    };
   }
 
   /**
@@ -120,35 +117,13 @@ export class SupportedDeviceConfig extends DeviceConfig {
   }
 
   /**
-   * Serializes this device config and all child configs. Useful in tandem
-   * with SupportedDeviceConfig.fromParsedJSON()
-   *
-   * @param includeState Should we include state information?
-   * @returns JSON string
-   */
-  toJSON(includeState: boolean) {
-    const obj = {
-      id: this.id,
-      name: this.name,
-      siblingIndex: this.siblingIndex,
-      nickname: this.nickname,
-      supported: this.supported,
-      shareSustain: this.shareSustain,
-      keyboardDriver: this.keyboardDriver,
-      inputs: this.inputs.map((input) => input.toJSON(includeState)),
-    };
-
-    return JSON.stringify(obj);
-  }
-
-  /**
    * Tries to pass the message to an `InputConfig`. If no matching `InputConfig`s,
    * send a propagates the message and sends nothing to device.
    *
    * @param message The MidiValue[] from device
    * @returns [messageToDevice | null, messageToPropagate]
    */
-  handleMessage(msg: number[]): (number[] | undefined)[] {
+  handleMessage(msg: MidiArray): (MidiArray | undefined)[] {
     const id = inputIdFor(msg);
     const input = this.getInput(id);
 

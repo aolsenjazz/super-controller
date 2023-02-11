@@ -1,4 +1,4 @@
-import { Output } from 'midi';
+import { Output, MidiMessage } from '@julusian/midi';
 import { Port } from './port';
 
 /**
@@ -46,7 +46,7 @@ export class VirtualOutput implements Port {
    * @param msg The midi message
    */
   send(msg: number[]) {
-    this.port.sendMessage(msg);
+    this.port.sendMessage(msg as MidiMessage);
   }
 
   /* Carryover from `Port`. Throws if called */

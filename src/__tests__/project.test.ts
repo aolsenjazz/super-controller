@@ -2,6 +2,7 @@
 
 import { test, expect } from '@jest/globals';
 
+import { stringify, parse } from '@shared/util';
 import { Project } from '@shared/project';
 import { SupportedDeviceConfig } from '@shared/hardware-config';
 
@@ -62,7 +63,7 @@ test('toJSON() returns valid JSON', () => {
   const device = SupportedDeviceConfig.fromDriver(0, APC_DRIVER!);
   proj.addDevice(device);
 
-  const json = proj.toJSON(true);
+  const json = JSON.stringify(proj);
   expect(() => JSON.parse(json)).not.toThrow();
 });
 
@@ -71,8 +72,8 @@ test('to and from JSON correct transfers device config', () => {
   const device = SupportedDeviceConfig.fromDriver(0, APC_DRIVER!);
   proj.addDevice(device);
 
-  const json = proj.toJSON(true);
-  const result = Project.fromJSON(json);
+  const json = stringify(proj);
+  const result = parse<Project>(json);
 
   expect(result.devices[0].id).toBe('APC Key 25 0');
 });
@@ -84,8 +85,8 @@ test('to and from JSON correctly transfers input configs', () => {
   input.number = 7;
   proj.addDevice(device);
 
-  const json = proj.toJSON(true);
-  const result = Project.fromJSON(json);
+  const json = stringify(proj);
+  const result = parse<Project>(json);
 
   const d = result.devices[0] as SupportedDeviceConfig;
   expect(d.inputs[0].number).toBe(input.number);

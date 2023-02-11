@@ -2,7 +2,7 @@ import BasicSelect from './BasicSelect';
 
 type SettingsLineItemPropTypes = {
   label: string;
-  value: string | number | null;
+  value: string | number | undefined;
   valueList: string[] | number[];
   labelList: string[];
   onChange: (val: string | number) => void;

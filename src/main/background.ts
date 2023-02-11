@@ -3,6 +3,21 @@ import path from 'path';
 import os from 'os';
 
 import {
+  InputConfig,
+  SupportedDeviceConfig,
+  DeviceConfig,
+} from '@shared/hardware-config';
+import { parse } from '@shared/util';
+import { Project } from '@shared/project';
+import { controllerRequest, fivePinRequest } from '@shared/email-templates';
+
+import { windowService } from './window-service';
+import { DRIVERS } from './drivers';
+import { projectFromFile } from './util-main';
+import { SaveOpenService } from './save-open-service';
+import { PortService } from './port-service';
+
+import {
   ADD_DEVICE,
   REMOVE_DEVICE,
   UPDATE_DEVICE,
@@ -11,20 +26,7 @@ import {
   OS,
   DRIVERS as DRIVERS_CHANNEL,
   REQUEST,
-} from '@shared/ipc-channels';
-import {
-  SupportedDeviceConfig,
-  InputConfig,
-  AnonymousDeviceConfig,
-} from '@shared/hardware-config';
-import { Project } from '@shared/project';
-import { controllerRequest } from '@shared/email-templates';
-
-import { windowService } from './window-service';
-import { DRIVERS } from './drivers';
-import { projectFromFile } from './util-main';
-import { SaveOpenService } from './save-open-service';
-import { PortService } from './port-service';
+} from './ipc-channels';
 
 /**
  * Manages communications to/from controllers, and informs the front end.
@@ -65,15 +67,10 @@ export class Background {
     });
 
     // When a device is added to project in the frontend, add to our `Project`
-    ipcMain.on(ADD_DEVICE, (_e: Event, deviceJSON: string) => {
+    ipcMain.on(ADD_DEVICE, (_e: Event, c: string) => {
       windowService.setEdited(true);
 
-      // deserialize device
-      const deviceObj = JSON.parse(deviceJSON);
-      const config = deviceObj.supported
-        ? SupportedDeviceConfig.fromParsedJSON(deviceObj)
-        : AnonymousDeviceConfig.fromParsedJSON(deviceObj);
-
+      const config = parse<DeviceConfig>(c);
       this.project.addDevice(config);
 
       // init light defaults, run device control sequence
@@ -95,11 +92,7 @@ export class Background {
     ipcMain.on(UPDATE_DEVICE, (_e: Event, deviceJSON: string) => {
       windowService.setEdited(true);
 
-      // deserialize device
-      const deviceObj = JSON.parse(deviceJSON);
-      const config = deviceObj.supported
-        ? SupportedDeviceConfig.fromParsedJSON(deviceObj)
-        : AnonymousDeviceConfig.fromParsedJSON(deviceObj);
+      const config = parse<DeviceConfig>(deviceJSON);
 
       this.project.removeDevice(config);
       this.project.addDevice(config);
@@ -107,11 +100,11 @@ export class Background {
 
     ipcMain.on(
       UPDATE_INPUT,
-      (_e: Event, configId: string, inputJSON: string) => {
+      (_e: Event, configId: string, inputString: string) => {
         const config = this.project.getDevice(
           configId
         ) as SupportedDeviceConfig;
-        const inputConfig = InputConfig.fromJSON(inputJSON);
+        const inputConfig = parse<InputConfig>(inputString);
 
         const inputConfigIdx = config.inputs
           .map((conf, i) => [conf, i] as [InputConfig, number])
@@ -121,13 +114,15 @@ export class Background {
           .map(([_conf, i]) => i)[0];
 
         config.inputs.splice(inputConfigIdx, 1, inputConfig);
-        this.portService.syncDeviceLights(configId);
+        this.portService.syncInputLight(configId, inputConfig);
         windowService.setEdited(true);
       }
     );
 
     ipcMain.on(REQUEST, (_e: Event, deviceName: string) => {
-      const template = controllerRequest(deviceName);
+      const template = deviceName
+        ? controllerRequest(deviceName)
+        : fivePinRequest();
       shell.openExternal(
         `mailto:${template.to}?subject=${template.subject}&body=${template.body}`
       );

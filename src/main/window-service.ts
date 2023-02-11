@@ -2,8 +2,9 @@ import { BrowserWindow } from 'electron';
 
 import { Project } from '@shared/project';
 import { PortInfo } from '@shared/port-info';
+import { stringify } from '@shared/util';
 
-import { MSG, TITLE, PROJECT, PORTS } from '@shared/ipc-channels';
+import { MSG, TITLE, PROJECT, PORTS } from './ipc-channels';
 
 /**
  * Convenience class for accessing the main window. Used for:
@@ -21,7 +22,7 @@ class WindowService {
    * @param project The project
    */
   sendProject(project: Project) {
-    this.#send(PROJECT, project.toJSON(true));
+    this.#send(PROJECT, stringify(project));
   }
 
   /**

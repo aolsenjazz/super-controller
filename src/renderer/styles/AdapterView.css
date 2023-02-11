@@ -1,0 +1,44 @@
+#adapter-view-container {
+  padding: 12px;
+  padding-top: 25px;
+  height: calc(100% - 39px);
+  position: relative;
+}
+
+#adapter-view-container h2 {
+  text-align: center;
+}
+
+#adapter-view-container .subtitle-container {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+
+#adapter-view-container .help-tip {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+#adapter-view-container h3 {
+  line-height: 20px;
+  opacity: 50%;
+  width: inherit;
+  display: inline-block;
+}
+
+#adapter-view-container .driver-request {
+  bottom: 20px;
+  vertical-align: bottom;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#adapter-view-container .ios-select {
+  width: 57%;
+}
+
+#adapter-view-container .ios-select select {
+  width: 100%;
+}

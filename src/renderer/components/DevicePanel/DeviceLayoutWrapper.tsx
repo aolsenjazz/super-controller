@@ -3,8 +3,12 @@ import { useCallback } from 'react';
 import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 import DeviceLayout from '../DeviceLayout/DeviceLayout';
+import WarningIcon from '../WarningIcon';
 
 import { VirtualDevice } from '../../virtual-devices';
+
+const throttleWarning =
+  "Because this is an older device, it can't process MIDI data as fast. Messages received by this device from SuperController may have a noticeable delay.";
 
 type PropTypes = {
   device: VirtualDevice;
@@ -60,12 +64,17 @@ export default function DeviceLayoutWrapper(
   );
 
   return (
-    <DeviceLayout
-      device={device}
-      onClick={onInputSelect}
-      selectedInputs={selectedInputs}
-      configured={configured}
-      deviceConfig={config}
-    />
+    <>
+      <DeviceLayout
+        device={device}
+        onClick={onInputSelect}
+        selectedInputs={selectedInputs}
+        configured={configured}
+        deviceConfig={config}
+      />
+      <div className="warning-container">
+        {device.throttle ? <WarningIcon warningBody={throttleWarning} /> : null}
+      </div>
+    </>
   );
 }

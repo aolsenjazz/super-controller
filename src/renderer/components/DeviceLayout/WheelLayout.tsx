@@ -7,6 +7,7 @@ type PropTypes = {
   height: string;
   handleWidth: string;
   handleHeight: string;
+  horizontal: boolean;
   overrideable: boolean;
   onClick: (event: React.MouseEvent) => void;
 };
@@ -41,6 +42,7 @@ export function WheelLayout(props: PropTypes) {
     focus,
     onClick,
     handleWidth,
+    horizontal,
     handleHeight,
     overrideable,
   } = props;
@@ -58,12 +60,14 @@ export function WheelLayout(props: PropTypes) {
     height: `calc(${handleHeight} + ${handleHeight} / 2 - 2px)`,
   };
 
+  const transform = horizontal ? 'rotate(90deg)' : '';
+
   return (
     <div
       className={`wheel ${enabled ? 'hoverable' : ''} ${focus ? 'focus' : ''}${
         overrideable ? '' : 'disabled'
       }`}
-      style={{ height, width }}
+      style={{ height, width, transform }}
       onClick={(e) => onClick(e)}
       tabIndex={0}
       onKeyDown={() => {}}

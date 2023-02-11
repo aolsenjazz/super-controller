@@ -19,7 +19,7 @@ const resourcePath =
  *
  * @returns List of names of driver files e.g. 'APC Key 25.json'
  */
-export function getAvailableDrivers(): string[] {
+function getAvailableDrivers(): string[] {
   const driversPath = path.join(resourcePath, 'drivers');
   const allFiles: string[] = fs.readdirSync(driversPath);
   const filtered = allFiles.filter((fName) => fNameRegex.test(fName));
@@ -50,6 +50,10 @@ function loadAll(): DeviceDriver[] {
   return allNames.map((name) => loadDriver(name));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const TESTABLES: Map<string, (...args: any[]) => any> = new Map();
+TESTABLES.set('getAvailableDrivers', getAvailableDrivers);
+
 /* No need to load all of the drivers multiple times; load them once here and make accessible: */
 export const DRIVERS: Map<string, DeviceDriver> = (() => {
   const deviceMap = new Map();
@@ -59,3 +63,15 @@ export const DRIVERS: Map<string, DeviceDriver> = (() => {
   });
   return deviceMap;
 })();
+
+export function getDriver(portName: string) {
+  let driverOrUndefined = DRIVERS.get(portName);
+
+  if (driverOrUndefined === undefined) {
+    driverOrUndefined = DRIVERS.get('Anonymous')!;
+    driverOrUndefined = { ...driverOrUndefined };
+    driverOrUndefined.name = portName;
+  }
+
+  return driverOrUndefined;
+}

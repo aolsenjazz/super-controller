@@ -8,7 +8,7 @@ import { VirtualInput, VirtualInputGrid } from '../../virtual-devices';
 
 type ElementPropTypes = {
   input: VirtualInput;
-  config: InputConfig;
+  config: InputConfig | undefined; // TODO this isn't good
   width: string;
   height: string;
   focus: boolean;
@@ -47,38 +47,43 @@ function Element(props: ElementPropTypes) {
         shape={input.shape}
         width={width}
         height={height}
+        fx={config?.currentFx}
         onClick={(e) => onClick(e, input.id)}
-        color={config.currentColor}
+        color={config?.currentColor}
         enabled={overrideable}
         focus={focus}
         overrideable={overrideable}
       />
     );
   } else if (input.type === 'knob') {
+    const val = config?.value || 0;
     elem = (
       <Knob
         size={width}
         min={0}
         max={127}
         degrees={270}
-        value={config.value}
+        value={val}
         onClick={(e) => onClick(e, input.id)}
         enabled={overrideable}
         focus={focus}
         shape={input.shape}
+        endless={config?.valueType === 'endless'}
         overrideable={overrideable}
       />
     );
   } else {
+    const val = config?.value || 0;
     elem = (
       <WheelLayout
         max={127}
-        value={config.value}
+        value={val}
         width={width}
         handleWidth={`${(handleWidth / input.width) * 100}%`}
         handleHeight={`${(handleWidth / input.height) * 100}%`}
         height={height}
         enabled={overrideable}
+        horizontal={input.horizontal}
         focus={focus}
         overrideable={overrideable}
         onClick={(e) => onClick(e, input.id)}
@@ -93,6 +98,7 @@ type PropTypes = {
   inputGrid: VirtualInputGrid;
   deviceWidth: number;
   deviceHeight: number;
+  configured: boolean;
   deviceConfig: SupportedDeviceConfig;
   onClick: (event: React.MouseEvent, ids: string[]) => void;
   selectedInputs: string[];
@@ -120,6 +126,7 @@ const InputGridLayout = (props: PropTypes) => {
     deviceWidth,
     onClick,
     selectedInputs,
+    configured,
     deviceConfig,
     deviceHeight,
   } = props;
@@ -135,9 +142,6 @@ const InputGridLayout = (props: PropTypes) => {
     <div className="input-grid" style={style}>
       {inputGrid.inputs.map((input) => {
         const inputConfig = deviceConfig.getInput(input.id);
-
-        if (!inputConfig)
-          throw new Error(`No config exists for input ${input.id}`);
 
         return (
           <div
@@ -157,9 +161,9 @@ const InputGridLayout = (props: PropTypes) => {
               }%`}
               input={input}
               config={inputConfig}
-              overrideable={input.overrideable}
+              overrideable={input.overrideable && configured}
               onClick={(_e, id: string) => {
-                if (input.overrideable) onClick(_e, [id]);
+                if (input.overrideable && configured) onClick(_e, [id]);
               }}
               focus={selectedInputs.includes(input.id)}
             />

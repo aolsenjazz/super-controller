@@ -1,36 +1,95 @@
 /**
  * Exposes icpRenderer communication to the renderer process via `ContextBridge`.
- * Note that currently, none of this is being done in a 'safe' way; none of the
- * security precautions recommended by electron are implemented here because there
- * is currently no usage of remote services, code, etc.
+ *
+ * All of these functions occur in the main process, and so (unfortunately), there
+ * is no point in reconstructing proper Objects (PortPair, etc) until the JSX objects
  */
-
-import { DeviceDriver } from '@shared/driver-types/device-driver';
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import { DeviceDriver } from '@shared/driver-types/device-driver';
+import { DrivenPortInfo } from '@shared/driven-port-info';
 
-const {
+import {
   ADD_DEVICE,
   REMOVE_DEVICE,
   UPDATE_DEVICE,
   UPDATE_INPUT,
   PORTS,
-} = require('../shared/ipc-channels');
+  PROJECT,
+  MSG,
+  OS,
+  TITLE,
+} from './ipc-channels';
 
 let drivers: Map<string, DeviceDriver>;
 
-const hostService = {
-  getHost: () => {
-    return ipcRenderer.sendSync('os');
-  },
-};
+/**
+ * Generic wrapper around ipcRenderer.on() and ipcRenderer.removeListener()
+ *
+ * @param channel The channel data is being received on
+ * @param func The callback function to be invoked once data is received
+ */
+function addOnChangeListener(
+  channel: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  func: (...args: any[]) => void
+) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const subscription = (_event: IpcRendererEvent, ...args: any[]) => {
+    func(...args);
+  };
+  ipcRenderer.on(channel, subscription);
+  return () => {
+    ipcRenderer.removeListener(channel, subscription);
+  };
+}
 
-const portService = {
+/**
+ * Expose data re. the host (usually the OS + hardware) to the renderer process
+ */
+const hostService = {
+  /**
+   * Returns a string representation of the current operating system
+   */
+  getHost: () => {
+    return ipcRenderer.sendSync(OS);
+  },
+
+  /**
+   * Sets a callback function to be invoked when the host receives MIDI data from a
+   * MIDI port
+   *
+   * @param func The callbacack function to be invoked
+   */
+  onMessage: (
+    func: (inputId: string, deviceId: string, msg: MidiTuple) => void
+  ) => {
+    return addOnChangeListener(MSG, func);
+  },
+
+  /**
+   * Requests that the host send updated port information
+   */
   requestPorts: () => {
     ipcRenderer.send(PORTS);
   },
+
+  /**
+   * Registers a callback to be invoked whenever the available MIDI ports change
+   *
+   * @param func The callback to be invoked
+   */
+  onPortsChange: (func: (ports: DrivenPortInfo[]) => void) => {
+    return addOnChangeListener(PORTS, func);
+  },
 };
 
+/**
+ * Exposes data re. which drivers are available to the renderer process
+ */
 const driverService = {
+  /**
+   *  Returns a map containing the available drivers and their associated labels
+   */
   getDrivers: () => {
     if (!drivers) {
       const response = ipcRenderer.sendSync('drivers');
@@ -38,31 +97,97 @@ const driverService = {
     }
     return drivers;
   },
-  request: (deviceName: string) => {
+
+  getFivePinDrivers: () => {
+    if (!drivers) {
+      const response = ipcRenderer.sendSync('drivers');
+      drivers = new Map(response);
+    }
+
+    const fivePinDrivers = new Map<string, DeviceDriver>();
+    drivers.forEach((v, k) => {
+      if (v.type === '5pin') {
+        fivePinDrivers.set(k, v);
+      }
+    });
+
+    return fivePinDrivers;
+  },
+
+  getDriver: (name: string | undefined) => {
+    if (!drivers) {
+      const response = ipcRenderer.sendSync('drivers');
+      drivers = new Map(response);
+    }
+
+    if (name === undefined) return undefined;
+
+    return drivers.get(name);
+  },
+
+  getDriverById: (id: string | undefined) => {
+    if (!drivers) {
+      const response = ipcRenderer.sendSync('drivers');
+      drivers = new Map(response);
+    }
+
+    if (id === undefined) return undefined;
+
+    const name = id.substr(0, id.lastIndexOf(' '));
+
+    return drivers.get(name);
+  },
+
+  isSupported(name: string) {
+    if (!drivers) {
+      const response = ipcRenderer.sendSync('drivers');
+      drivers = new Map(response);
+    }
+
+    return drivers.get(name) !== undefined;
+  },
+
+  isSupportedById(id: string) {
+    if (!drivers) {
+      const response = ipcRenderer.sendSync('drivers');
+      drivers = new Map(response);
+    }
+
+    const name = id.substr(0, id.lastIndexOf(' '));
+    return drivers.get(name) !== undefined;
+  },
+
+  /**
+   * Tells the host that the client would like to request the creation of a new driver
+   *
+   * @param deviceName The device name
+   */
+  request: (deviceName?: string) => {
     ipcRenderer.send('request', deviceName);
   },
 };
 
-// TODO: this is very lazy. each of these functions belong in a specific and narrow service class
-const IpcRenderer = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  send(channel: string, ...args: any[]) {
-    ipcRenderer.send(channel, args);
+/**
+ * Provides data related to the current `Project` and exposes methods to modify
+ * the current `Project`
+ */
+const projectService = {
+  /**
+   * Invokes a callback when the current `Project` is modified
+   *
+   * @param func The callback
+   */
+  onProjectChange: (func: (projJSON: string) => void) => {
+    return addOnChangeListener(PROJECT, func);
   },
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  on(channel: string, func: (event: IpcRendererEvent, ...args: any[]) => void) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const subscription = (event: IpcRendererEvent, args: any[]) =>
-      func(event, args);
-    ipcRenderer.on(channel, subscription);
-    return () => {
-      ipcRenderer.removeListener(channel, subscription);
-    };
-  },
-
-  once(channel: string, func: () => void) {
-    ipcRenderer.once(channel, func);
+  /**
+   * Invokes a callback when the project title is changed
+   *
+   * @param func The callback
+   */
+  onTitleChange: (func: (title: string) => void) => {
+    return addOnChangeListener(TITLE, func);
   },
 
   /**
@@ -70,8 +195,8 @@ const IpcRenderer = {
    *
    * @param configJSON JSON representation of the device config
    */
-  addDevice(configJSON: string) {
-    ipcRenderer.send(ADD_DEVICE, configJSON);
+  addDevice(configString: string) {
+    ipcRenderer.send(ADD_DEVICE, configString);
   },
 
   /**
@@ -88,8 +213,8 @@ const IpcRenderer = {
    *
    * @param deviceString Serialized version of the device
    */
-  updateDevice(deviceString: string) {
-    ipcRenderer.send(UPDATE_DEVICE, deviceString);
+  updateDevice(d: string) {
+    ipcRenderer.send(UPDATE_DEVICE, d);
   },
 
   /**
@@ -98,17 +223,16 @@ const IpcRenderer = {
    * @param deviceId The ID of the parent device
    * @param inputString The serialized `InputConfig`
    */
-  updateInput(deviceId: string, inputString: string) {
-    ipcRenderer.send(UPDATE_INPUT, deviceId, inputString);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  updateInput(deviceId: string, i: string) {
+    ipcRenderer.send(UPDATE_INPUT, deviceId, i);
   },
 };
 
-contextBridge.exposeInMainWorld('portService', portService);
+contextBridge.exposeInMainWorld('projectService', projectService);
 contextBridge.exposeInMainWorld('hostService', hostService);
 contextBridge.exposeInMainWorld('driverService', driverService);
-contextBridge.exposeInMainWorld('ipcRenderer', IpcRenderer);
 
-export type PortService = typeof portService;
+export type ProjectService = typeof projectService;
 export type HostService = typeof hostService;
 export type DriverService = typeof driverService;
-export type IPCRenderer = typeof IpcRenderer;

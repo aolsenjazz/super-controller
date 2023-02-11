@@ -48,6 +48,7 @@ const configuration: webpack.Configuration = {
     modules: [webpackPaths.srcPath, 'node_modules'],
     alias: {
       '@shared': path.resolve(__dirname, '..', '..', 'src/shared/'),
+      '@assets': path.resolve(__dirname, '..', '..', 'src/renderer/assets/'),
     },
   },
 

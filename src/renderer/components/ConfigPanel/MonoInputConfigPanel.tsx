@@ -1,15 +1,18 @@
 import { useCallback } from 'react';
-import { Channel, StatusString } from '@shared/midi-util';
 
 import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';
+import { stringify } from '@shared/util';
 
+import HelpTip from '../HelpTip';
 import SettingsLineItem from './SettingsLineItem';
 import BacklightSettings from './BacklightSettings';
 
 import { InputGroup } from '../../input-group';
 
-const { ipcRenderer } = window;
+const { projectService } = window;
+
+const absoluteHelpTip = `When true, the values of endless knobs will be transformed to numbers between 0 and 127.`;
 
 type PropTypes = {
   group: InputGroup;
@@ -66,12 +69,13 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   const responseLabels = eligibleResponses.map((v) =>
     group.labelForResponse(v)
   );
+  const endlessModeLabels = ['true', 'false'];
 
   const onChange = useCallback(
     (setter: (c: InputConfig) => void) => {
       group.inputs.forEach((i) => {
         setter(i);
-        ipcRenderer.updateInput(config.id, i.toJSON(true));
+        projectService.updateInput(config.id, stringify(i));
       });
 
       setProject(new Project(project.devices));
@@ -82,14 +86,14 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   const restoreDefaults = useCallback(() => {
     group.inputs.forEach((i) => {
       i.restoreDefaults();
-      ipcRenderer.updateInput(config.id, i.toJSON(true));
+      projectService.updateInput(config.id, stringify(i));
     });
 
     setProject(new Project(project.devices));
   }, [group, project, setProject, config]);
 
   return (
-    <>
+    <div>
       <h3>{title}</h3>
       <div id="controls-container">
         <SettingsLineItem
@@ -104,7 +108,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
           }
         />
         <SettingsLineItem
-          label="Input Response:"
+          label="Output Response:"
           value={response}
           valueList={eligibleResponses}
           labelList={responseLabels}
@@ -114,32 +118,6 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             });
           }}
         />
-        {eventType !== 'programchange' && response === 'constant' ? (
-          <SettingsLineItem
-            label="Value:"
-            value={value}
-            valueList={eligibleValues}
-            labelList={eligibleValues.map((v) => v.toString())}
-            onChange={(v) => {
-              onChange((c) => {
-                c.value = v as number;
-              });
-            }}
-          />
-        ) : null}
-        {eventType === 'pitchbend' ? null : (
-          <SettingsLineItem
-            label="Number:"
-            value={number}
-            valueList={eligibleNumbers}
-            labelList={numberLabels}
-            onChange={(v) => {
-              onChange((c) => {
-                c.number = v as number;
-              });
-            }}
-          />
-        )}
         <SettingsLineItem
           label="Channel:"
           value={channel}
@@ -151,6 +129,51 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             });
           }}
         />
+        {eventType === 'pitchbend' ? null : (
+          <SettingsLineItem
+            label="Number:"
+            value={number}
+            valueList={eligibleNumbers}
+            labelList={numberLabels}
+            onChange={(v) => {
+              onChange((c) => {
+                c.number = v as MidiNumber;
+              });
+            }}
+          />
+        )}
+        {group.isEndlessCapable === true && group.response === 'continuous' ? (
+          <div id="absolute-values">
+            <SettingsLineItem
+              label="Endless mode:"
+              value={group.isEndlessMode.toString()}
+              valueList={endlessModeLabels}
+              labelList={endlessModeLabels}
+              onChange={(v) => {
+                onChange((c) => {
+                  c.valueType = v === 'false' ? 'absolute' : 'endless';
+                  c.value = v as MidiNumber;
+                });
+              }}
+            />
+            <div>
+              <HelpTip body={absoluteHelpTip} />
+            </div>
+          </div>
+        ) : null}
+        {eventType !== 'programchange' && response === 'constant' ? (
+          <SettingsLineItem
+            label="Value:"
+            value={value}
+            valueList={eligibleValues}
+            labelList={eligibleValues.map((v) => v.toString())}
+            onChange={(v) => {
+              onChange((c) => {
+                c.value = v as MidiNumber;
+              });
+            }}
+          />
+        ) : null}
         <button type="button" onClick={restoreDefaults}>
           Restore Defaults
         </button>
@@ -161,6 +184,6 @@ export default function MonoInputConfigPanel(props: PropTypes) {
           configId={config.id}
         />
       </div>
-    </>
+    </div>
   );
 }

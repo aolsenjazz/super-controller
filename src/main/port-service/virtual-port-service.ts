@@ -1,3 +1,4 @@
+import { MidiArray } from '@shared/midi-array';
 import { PortPair } from './port-pair';
 import { VirtualInput } from './virtual-input';
 import { VirtualOutput } from './virtual-output';
@@ -56,7 +57,16 @@ export class VirtualPortService {
    * @param msg The message to send
    * @param id The virtual port ID
    */
-  send(msg: number[], id: string) {
-    this.ports.get(id)?.send(msg);
+  send(msg: MidiArray, id: string) {
+    // TODO: this is an ugly fix
+    let m;
+
+    if ([192, 208].includes(msg.status)) {
+      m = [msg[0], msg[1]];
+    } else {
+      m = msg;
+    }
+
+    this.ports.get(id)?.send(m);
   }
 }

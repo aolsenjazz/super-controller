@@ -14,13 +14,23 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
     "noUnusedParameters": true,
+    "useUnknownInCatchVariables": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@shared/*": ["shared/*"]
+      "@shared/*": ["shared/*"],
+      "@assets/*": ["renderer/assets/*"]
     },
     "outDir": ".erb/dll"
   },
-  "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
+  "exclude": [
+    "test",
+    "release/build",
+    "release/app/dist",
+    ".erb/dll",
+    "src/helpers"
+  ]
 }

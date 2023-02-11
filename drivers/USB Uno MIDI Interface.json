@@ -1,0 +1,74 @@
+{
+  "width": 17,
+  "height": 5,
+  "name": "USB Uno MIDI Interface",
+  "type": "normal",
+  "style": {
+    "borderTopLeftRadius": "0.1em",
+    "borderTopRightRadius": "0.1em",
+    "borderBottomLeftRadius": "0.1em",
+    "borderBottomRightRadius": "0.1em"
+  },
+  "inputGrids": [
+    {
+      "id": "XY",
+      "height": 4,
+      "width": 18,
+      "left": -0.5,
+      "bottom": 0,
+      "nRows": 2,
+      "nCols": 6,
+      "inputs": [
+        {
+          "overrideable": false,
+          "number": -1
+        },
+        {
+          "number": 0
+        },
+        {
+          "number": 1
+        },
+        {
+          "number": 2
+        },
+        {
+          "number": 3
+        },
+        {
+          "number": 4
+        },
+        {
+          "overrideable": false,
+          "number": -2
+        },
+        {
+          "number": 5
+        },
+        {
+          "number": 6
+        },
+        {
+          "number": 7
+        },
+        {
+          "number": 8
+        },
+        {
+          "number": 9
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 1.4,
+        "height": 1.4,
+        "shape": "square",
+        "overrideable": true,
+        "response": "constant",
+        "eventType": "programchange",
+        "channel": 0
+      }
+    }
+  ]
+}

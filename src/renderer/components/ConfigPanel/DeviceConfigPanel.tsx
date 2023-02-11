@@ -2,10 +2,11 @@ import React, { useCallback, useState } from 'react';
 
 import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';
+import { stringify } from '@shared/util';
 
 import ShareSustainLine from './ShareSustainLine';
 
-const { ipcRenderer } = window;
+const { projectService } = window;
 
 function disambiguatedNickname(
   nickname: string,
@@ -54,7 +55,7 @@ function ShareSustain(props: PropTypes) {
               if (checked) config.shareWith(dev.id);
               else config.stopSharing(dev.id);
 
-              ipcRenderer.updateDevice(config.toJSON(true)); // send update to the backend
+              projectService.updateDevice(stringify(config)); // send update to the backend
               setProject(new Project(project.devices)); // update in frontend
             }}
           />
@@ -85,7 +86,7 @@ export default function DeviceConfigPanel(props: PropTypes) {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       config.nickname = e.target.value;
 
-      ipcRenderer.updateDevice(config.toJSON(true)); // send update to the backend
+      projectService.updateDevice(stringify(config)); // send update to the backend
       setProject(new Project(project.devices)); // update in frontend
     },
     [config, project.devices, setProject]
@@ -110,13 +111,13 @@ export default function DeviceConfigPanel(props: PropTypes) {
   const onDelete = useCallback(() => {
     project.removeDevice(config);
     setProject(new Project(project.devices));
-    ipcRenderer.removeDevice(config.id);
+    projectService.removeDevice(config.id);
   }, [config, project, setProject]);
 
   return (
     <div id="device-config">
       <h3>Device Settings</h3>
-      <p>Nickname:</p>
+      <p className="label">Nickname:</p>
       <input id="nickname" value={config.nickname} onChange={onNameChange} />
       <ShareSustain config={config} project={project} setProject={setProject} />
       <h4>Delete Configuration:</h4>

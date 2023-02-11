@@ -1,5 +1,5 @@
-import { StatusString, Channel } from '../midi-util';
 import { Color } from './color';
+import { FxDriver } from './fx-driver';
 
 /**
  * Describes how event are propagated to clients. Not all inputs are eligible for
@@ -16,54 +16,52 @@ export type InputResponse = 'gate' | 'toggle' | 'continuous' | 'constant';
 /* Input type */
 export type InputType = 'pad' | 'knob' | 'slider' | 'wheel' | 'xy';
 
-/* Default values for the input loaded in from a driver */
-export type InputDefault = {
+export type InputDriver = {
   /* Note number, CC number, program number, etc */
-  readonly number: number;
+  readonly number: MidiNumber;
 
   /* MIDI channel */
-  readonly channel: Channel;
+  readonly channel?: Channel;
 
   /* MIDI event type */
-  readonly eventType: StatusString | 'noteon/noteoff';
-
-  /* See InputResponse */
-  readonly response: InputResponse;
-};
-
-export type InputDriver = {
-  /* See `InputDefault` */
-  default: InputDefault;
-
-  /* Physical shape of the input. circle + square have 1:1 aspect ratio enforced */
-  shape: 'circle' | 'rect' | 'square';
-
-  /* See InputType */
-  type: InputType;
-
-  /**
-   * List of `Color`s this input supports. For inputs whose colors are controlled by
-   * the device, this should be left empty.
-   *
-   * TODO: how do we represent RGB capabilities?
-   */
-  availableColors: Color[];
-
-  /* Can the input be overridden? `false` if the input does not transmit data to clients */
-  overrideable: boolean;
-
-  /* Height of the input in inches */
-  height: number;
-
-  /* Width of the input in inches */
-  width: number;
+  readonly eventType?: StatusString | 'noteon/noteoff';
 
   /* What is the default value of this control? */
-  value?: number;
+  readonly value?: MidiNumber;
+
+  /* See InputResponse */
+  readonly response?: InputResponse;
+
+  /* Physical shape of the input. circle + square have 1:1 aspect ratio enforced */
+  readonly shape?: 'circle' | 'rect' | 'square';
+
+  /* See InputType */
+  readonly type?: InputType;
+
+  /* Can the input be overridden? `false` if the input does not transmit data to clients */
+  readonly overrideable?: boolean;
+
+  /* Height of the input in inches */
+  readonly height?: number;
+
+  /* Width of the input in inches */
+  readonly width?: number;
+
+  readonly horizontal?: boolean;
 
   /* If input has a handle (think wheel or XY pad), width in inches */
-  handleWidth?: number;
+  readonly handleWidth?: number;
 
   /* If input has a handle (think wheel, or XY pad), height in inches */
-  handleHeight?: number;
+  readonly handleHeight?: number;
+
+  readonly knobType?: 'endless' | 'absolute';
+
+  /**
+   * List of `Color`s this input supports. This field will by default be inherited
+   * from the parent `InputGrid`, but that value may be overridden by setting it here.
+   */
+  readonly availableColors?: Color[];
+
+  readonly availableFx?: FxDriver[];
 };

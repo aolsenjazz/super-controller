@@ -1,5 +1,5 @@
-import { setStatus } from '@shared/midi-util';
-import { inputIdFor, isSustain, isOnMessage, getDiff } from '@shared/util';
+import { MidiArray } from '@shared/midi-array';
+import { inputIdFor, getDiff } from '@shared/util';
 
 test('getDiff returns no PortPairs if same list', () => {
   const ids = ['1', '2', '3'];
@@ -86,7 +86,7 @@ test('inputIdFor returns correct for mm pitchbend event', () => {
   const channel = 5;
   const eventType = 'pitchbend';
 
-  const mm = setStatus([channel, number, value], eventType);
+  const mm = MidiArray.create(eventType, channel, number, value);
   const correct = 'pitchbend.5';
 
   expect(inputIdFor(mm)).toBe(correct);
@@ -98,87 +98,22 @@ test('inputIdFor returns correct for mm non-pitchbend event', () => {
   const channel = 5;
   const eventType = 'noteon';
 
-  const mm = setStatus([channel, number, value], eventType);
+  const mm = MidiArray.create(eventType, channel, number, value);
   const correct = 'noteon/noteoff.5.127';
 
   expect(inputIdFor(mm)).toBe(correct);
 });
 
 test('inputIdFor returns correct for pitchbend array', () => {
-  const mm = [234, 0, 60];
-
+  const mm = MidiArray.create(224, 10, 0, 60);
   const correct = 'pitchbend.10';
 
-  expect(inputIdFor(mm)).toBe(correct);
+  expect(inputIdFor(mm as MidiArray)).toBe(correct);
 });
 
 test('inputIdFor returns correct for non-pitchbend array', () => {
-  const mm = [186, 1, 60];
+  const mm = MidiArray.create(176, 10, 1, 60);
   const correct = 'controlchange.10.1';
 
   expect(inputIdFor(mm)).toBe(correct);
-});
-
-test('isSustain returns true for sustain', () => {
-  const mm = setStatus([0, 64, 0], 'controlchange');
-  expect(isSustain(mm)).toBe(true);
-});
-
-test('isSustain returns false for non-cc', () => {
-  const mm = setStatus([0, 64, 0], 'noteon');
-  expect(isSustain(mm)).toBe(false);
-});
-
-test('isOnMessage returns default true for programchange', () => {
-  const number = 127;
-  const value = 127;
-  const channel = 0;
-  const eventType = 'programchange';
-  const mm = setStatus([channel, number, value], eventType);
-  expect(isOnMessage(mm, true)).toBe(true);
-});
-
-test('isOnMessage returns default false for programchange', () => {
-  const number = 127;
-  const value = 127;
-  const channel = 0;
-  const eventType = 'programchange';
-  const mm = setStatus([channel, number, value], eventType);
-  expect(isOnMessage(mm, false)).toBe(false);
-});
-
-test('isOnMessage returns false for noteoff', () => {
-  const number = 127;
-  const value = 127;
-  const channel = 0;
-  const eventType = 'noteoff';
-  const mm = setStatus([channel, number, value], eventType);
-  expect(isOnMessage(mm, true)).toBe(false);
-});
-
-test('isOnMessage returns true for noteon', () => {
-  const number = 127;
-  const value = 127;
-  const channel = 0;
-  const eventType = 'noteon';
-  const mm = setStatus([channel, number, value], eventType);
-  expect(isOnMessage(mm, false)).toBe(true);
-});
-
-test('isOnMessage returns true for cc value > 0', () => {
-  const number = 127;
-  const value = 1;
-  const channel = 0;
-  const eventType = 'controlchange';
-  const mm = setStatus([channel, number, value], eventType);
-  expect(isOnMessage(mm, false)).toBe(true);
-});
-
-test('isOnMessage returns false for cc value === 0', () => {
-  const number = 127;
-  const value = 0;
-  const channel = 0;
-  const eventType = 'controlchange';
-  const mm = setStatus([channel, number, value], eventType);
-  expect(isOnMessage(mm, true)).toBe(false);
 });

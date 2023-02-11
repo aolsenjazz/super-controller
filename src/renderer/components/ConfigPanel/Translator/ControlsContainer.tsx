@@ -1,30 +1,30 @@
-import {
-  StatusString,
-  Channel,
-  getStatus,
-  getChannel,
-} from '@shared/midi-util';
+import { MidiArray } from '@shared/midi-array';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
 import SettingsLineItem from '../SettingsLineItem';
 
 type ControlsContainerPropTypes = {
   config: AnonymousDeviceConfig;
-  currentAction: number[] | null;
+  currentAction: MidiArray | undefined;
   remove: () => void;
-  onChange: (eventType: StatusString, number: number, channel: Channel) => void;
+  onChange: (
+    eventType: StatusString,
+    number: MidiNumber,
+    channel: Channel
+  ) => void;
 };
 
 export default function ControlsContainer(props: ControlsContainerPropTypes) {
   const { currentAction, onChange, config, remove } = props;
 
   // if there is no selected source message, hide yaself
-  if (currentAction === null) return null;
+  if (currentAction === undefined) return null;
 
   const overrideOrUndefined = config.getOverride(currentAction);
   const msg = overrideOrUndefined || currentAction;
-  const status = getStatus(msg).string;
-  const channel = getChannel(msg);
+
+  const status = msg.statusString;
+  const { channel } = msg;
 
   // prepare labels, selectable values, etc
   const eligibleEventTypes = [
@@ -46,11 +46,11 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
       <h4>Apply the following overrides:</h4>
       <SettingsLineItem
         label="Event Type:"
-        value={getStatus(msg).string}
+        value={msg.statusString}
         valueList={eligibleEventTypes}
         labelList={eventTypeLabels}
         onChange={(e) => {
-          onChange(e as StatusString, msg[1], getChannel(msg));
+          onChange(e as StatusString, msg[1], msg.channel);
         }}
       />
       {status === 'pitchbend' ? null : (
@@ -60,7 +60,11 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
           valueList={eligibleNumbers}
           labelList={numberLabels}
           onChange={(n) => {
-            onChange(getStatus(msg).string, n as number, getChannel(msg));
+            onChange(
+              msg.statusString as StatusString,
+              n as MidiNumber,
+              msg.channel
+            );
           }}
         />
       )}
@@ -70,7 +74,7 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
         labelList={channelLabels}
         valueList={eligibleChannels}
         onChange={(c) => {
-          onChange(status, msg[1], c as Channel);
+          onChange(status as StatusString, msg[1], c as Channel);
         }}
       />
       {overrideOrUndefined ? (

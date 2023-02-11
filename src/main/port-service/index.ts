@@ -1,16 +1,20 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import { Project } from '@shared/project';
-import { isSustain, inputIdFor, msgForColor, getDiff } from '@shared/util';
-import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
-import { Color } from '@shared/driver-types';
-import { PortInfo } from '@shared/port-info';
-import { setChannel } from '@shared/midi-util';
+import { MidiArray } from '@shared/midi-array';
+import { inputIdFor, getDiff } from '@shared/util';
+import {
+  InputConfig,
+  SupportedDeviceConfig,
+  AdapterDeviceConfig,
+} from '@shared/hardware-config';
+import { DrivenPortInfo } from '@shared/driven-port-info';
 
 import { PortPair } from './port-pair';
 import { all } from './port-manager';
 import { DrivenPortPair } from './driven-port-pair';
 import { windowService } from '../window-service';
 import { VirtualPortService } from './virtual-port-service';
+import { getDriver } from '../drivers';
 
 /**
  * Manages sending/receiving of messages to and from device, as well as syncing
@@ -21,7 +25,7 @@ export class PortService {
   #project: Project;
 
   /* List of available port pairs */
-  portPairs: Map<string, PortPair> = new Map();
+  portPairs: Map<string, DrivenPortPair> = new Map();
 
   /* See `VirtualPortService` */
   #virtService: VirtualPortService;
@@ -36,9 +40,9 @@ export class PortService {
   /* Pass current list of `PortPair`s to the front end */
   sendToFrontend() {
     // pass port info to frontend
-    const info = Array.from(this.portPairs.values()).map(
-      (p) => new PortInfo(p.name, p.siblingIndex, true)
-    );
+    const info = Array.from(this.portPairs.values()).map((p) => {
+      return new DrivenPortInfo(p.name, p.siblingIndex, true, p.driver);
+    });
 
     windowService.sendPortInfos(info);
   }
@@ -63,25 +67,43 @@ export class PortService {
         pp.resetLights(); // init default lights
       }
 
-      pp.onMessage((_delta: number, msg: number[]) => {
+      pp.onMessage((_delta: number, tuple: MidiTuple) => {
+        const msg = new MidiArray(tuple);
         // we'll occasionally receive message of length 1. ignore these.
         // reason is unclear, message of lenght 1 don't match midi spec
         if (msg.length >= 2) this.#onMessage(pp, msg);
       });
 
       // // if device is configured, apply default light config
-      if (config instanceof SupportedDeviceConfig) {
-        this.#syncDeviceLights(pp, config);
+      if (config.supported === true) {
+        this.syncDeviceLights(config.id);
       }
     }
   }
 
+  /**
+   * Synchronize device hardware lights with software state
+   *
+   * @param deviceId The id of the device
+   */
   syncDeviceLights = (deviceId: string) => {
     const pp = this.portPairs.get(deviceId);
     const config = this.#project.getDevice(deviceId);
 
-    if (pp && config instanceof SupportedDeviceConfig)
-      this.#syncDeviceLights(pp, config);
+    if (pp && config instanceof SupportedDeviceConfig) {
+      config.inputs
+        .filter((i) => i.currentColor !== undefined)
+        .map((i) => i.currentColor!) // get message for color
+        .forEach((arr) => pp.send(arr)); // send color message
+    }
+  };
+
+  syncInputLight = (deviceId: string, config: InputConfig) => {
+    const pp = this.portPairs.get(deviceId);
+
+    if (pp && config.currentColor) {
+      pp.send(config.currentColor);
+    }
   };
 
   /**
@@ -90,10 +112,27 @@ export class PortService {
    * connections, runs device initialization, lets the frontend know.
    */
   updatePorts() {
+    // If multiple devices of the same name are plugged in, close all with said name.
+    // This must be done until connection can be tracked via USB connection id; the following
+    // situation illustrates why:
+    //
+    // APC[0] is plugged in, at USB index[1]. User plugs in APC[1] at index [0].
+    // Internally, APC[1] becomes APC[0], but SC isn't aware of the change because we're
+    // currently not monitoring USB indexes.
+    // TODO: track USB connection IDs
+    let freshPorts = all();
+    const entries = Array.from(freshPorts.values());
+    const nonUniquePorts: string[] = [];
+    freshPorts.forEach((v, k) => {
+      const nOccur = entries.filter((e) => e.name === v.name).length;
+      if (nOccur > 1) nonUniquePorts.push(k);
+    });
+    this.#closeSiblings(nonUniquePorts);
+
     // midi clients which are present in the most recent scan but not in `this.portPairs`
     // should be added to current list. midi clients which are preset in `this.portPairs`
     // but not the most recent scan are broken and should be removed
-    let freshPorts = all();
+    freshPorts = all();
     let [toAdd, broken] = getDiff(
       Array.from(freshPorts.keys()),
       Array.from(this.portPairs.keys())
@@ -123,6 +162,12 @@ export class PortService {
     this.sendToFrontend();
   }
 
+  applyThrottle(id: string, throttleMs: number | undefined) {
+    this.portPairs.forEach((v, k) => {
+      if (id === k) v.applyThrottle(throttleMs);
+    });
+  }
+
   /* On project update, reset all devices, init defaults in fresh copy of `Project` */
   set project(p: Project) {
     this.#project = p;
@@ -138,39 +183,22 @@ export class PortService {
   }
 
   /**
-   * Synchronize device hardware lights with software state
-   *
-   * @param pp The PortPair for device
-   * @param config The SupportedDeviceConfig for device
-   */
-  #syncDeviceLights = (pp: PortPair, config: SupportedDeviceConfig) => {
-    type Tuple = [InputConfig, Color | undefined];
-
-    config.inputs
-      .map((i) => [i, i.currentColor] as Tuple) // get current color
-      .filter(([_i, c]) => c !== undefined) // eslint-disable-line
-      .map(([i, c]) => msgForColor(i.default.number, i.default.channel, c!)) // get message for color
-      .forEach((conf) => pp.send(conf!)); // send color message
-  };
-
-  /**
    * Send sustain events from all devices shareWith on the same channel as their
    * respective keyboards if exist, otherwise default channel
    *
    * @param msg The event from the device
    * @param The list of ids with which sustain events are being shared
    */
-  #handleSustain = (msg: number[], shareWith: string[]) => {
-    let m = msg;
-
+  #handleSustain = (msg: MidiArray, shareWith: string[]) => {
     shareWith.forEach((devId) => {
+      const newMsg = new MidiArray(msg.array);
       const device = this.#project.getDevice(devId);
 
       if (device?.keyboardDriver !== undefined) {
-        m = setChannel(msg, device.keyboardDriver.channel);
+        newMsg.channel = device.keyboardDriver.channel;
       }
 
-      this.#virtService.send(m, devId);
+      this.#virtService.send(newMsg, devId);
     });
   };
 
@@ -182,7 +210,7 @@ export class PortService {
    * @param pair The input+output ports for device
    * @param msg The message from the device
    */
-  #onMessage = (pair: PortPair, msg: number[]) => {
+  #onMessage = (pair: PortPair, msg: MidiArray) => {
     const device = this.#project.getDevice(pair.id);
 
     if (device !== undefined) {
@@ -190,14 +218,20 @@ export class PortService {
       const [toDevice, toPropagate] = device.handleMessage(msg);
 
       // send sustain events thru all virtual ports in config
-      if (toPropagate && isSustain(toPropagate))
+      if (toPropagate && toPropagate.isSustain)
         this.#handleSustain(toPropagate, device.shareSustain);
 
       // propagate the msg thru virtual port to clients
       if (toPropagate) this.#virtService.send(toPropagate, device.id);
 
       // send response to hardware device
-      if (toDevice) pair.send(toDevice);
+      if (toDevice) {
+        // const asSupported = device as SupportedDeviceConfig;
+        // asSupported.inputs.forEach((i) => {
+        //   if (i.number === 32) {}
+        // });
+        pair.send(toDevice);
+      }
 
       // send new state to frontend
       const id = inputIdFor(msg);
@@ -236,11 +270,18 @@ export class PortService {
     // for every device added to project, open port and init
     this.#project.devices
       .filter((dev) => !this.#virtService.isOpen(dev.id)) // get devices which aren't connected
-      .map((dev) => this.portPairs.get(dev.id))
-      .forEach((pp) => {
+      .forEach((dev) => {
+        const pp = this.portPairs.get(dev.id);
+
         if (pp) {
           pp.open(); // open connection to device
           this.#virtService.open(pp.name, pp.siblingIndex); // open virt port
+
+          if (dev instanceof AdapterDeviceConfig) {
+            const driver = getDriver(dev.child!.name);
+            pp.applyThrottle(driver.throttle);
+          }
+
           this.initDevice(pp.id);
         }
       });
@@ -271,7 +312,7 @@ export class PortService {
    *
    * @param freshPorts The currently-available MIDI ports
    */
-  #updateDisconnectedPorts = (freshPorts: Map<string, PortPair>) => {
+  #updateDisconnectedPorts = (freshPorts: Map<string, DrivenPortPair>) => {
     const toUpdate = Array.from(this.portPairs.values())
       .filter((pp) => !this.#virtService.isOpen(pp.id))
       .map((pp) => pp.id);
@@ -288,7 +329,7 @@ export class PortService {
    * @param toAdd List of corresponding port IDs to add
    * @param freshPorts The currently-available MIDI ports
    */
-  #addAll = (toAdd: string[], freshPorts: Map<string, PortPair>) => {
+  #addAll = (toAdd: string[], freshPorts: Map<string, DrivenPortPair>) => {
     // add new ports
     toAdd
       .map((id) => freshPorts.get(id))

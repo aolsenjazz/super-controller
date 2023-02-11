@@ -1,14 +1,16 @@
-import { Color } from '@shared/driver-types';
+import { FxDriver } from '@shared/driver-types';
+import { ColorImpl } from '@shared/hardware-config';
 
 type PropTypes = {
   onClick: (event: React.MouseEvent, id: string) => void;
   id: string;
   shape: string;
-  color: Color | undefined;
+  color: ColorImpl | undefined;
   width: string;
   height: string;
   enabled: boolean;
   focus: boolean;
+  fx: FxDriver | undefined;
   overrideable: boolean;
 };
 
@@ -41,12 +43,15 @@ export default function Pad(props: PropTypes) {
     focus,
     color,
     id,
+    fx,
     overrideable,
   } = props;
 
   const layoutDimens = /(circle|square)/.test(shape)
     ? { width: `${width}`, aspectRatio: '1' }
     : { width: `${width}`, height: `${height}` };
+
+  const mod = color?.modifier || fx?.title;
 
   return (
     <div
@@ -58,8 +63,9 @@ export default function Pad(props: PropTypes) {
       }}
       style={{
         ...layoutDimens,
-        animationName: color?.modifier,
+        animationName: mod,
         backgroundColor: color?.string,
+        animationTimingFunction: mod === 'Pulse' ? 'ease-in-out' : undefined,
         borderRadius: shape === 'circle' ? '100%' : 0,
       }}
       role="button"

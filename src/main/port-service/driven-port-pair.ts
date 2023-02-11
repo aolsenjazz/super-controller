@@ -1,5 +1,6 @@
-import { setStatus } from '@shared/midi-util';
+import { MidiArray } from '@shared/midi-array';
 import { DeviceDriver } from '@shared/driver-types';
+import { ColorImpl } from '@shared/hardware-config';
 
 import { PortPair } from './port-pair';
 
@@ -13,7 +14,7 @@ export class DrivenPortPair extends PortPair {
   #pair: PortPair;
 
   /* The related driver, if any */
-  #driver: DeviceDriver;
+  driver: DeviceDriver;
 
   /* eslint-disable-next-line */
   testables = new Map<string, any>();
@@ -22,27 +23,27 @@ export class DrivenPortPair extends PortPair {
     super(pair.iPort, pair.oPort);
 
     this.#pair = pair;
-    this.#driver = driver;
+    this.driver = driver;
 
     this.testables.set('pair', this.#pair);
   }
 
   /* Reset all of the lights on the device to their initial state. */
   resetLights() {
-    this.#driver.inputGrids
-      .map((ig) => ig.inputs)
-      .flat()
-      .forEach((input) => {
-        const defaultColor = input.availableColors.filter((c) => c.default)[0];
+    this.driver.inputGrids.forEach((ig) => {
+      ig.inputs.forEach((i) => {
+        const defs = ig.inputDefaults;
+        const channel = (i.channel || defs.channel)!;
+        const availableColors = i.availableColors || defs.availableColors || [];
 
-        if (defaultColor) {
-          const mm = setStatus(
-            [input.default.channel, input.default.number, defaultColor.value],
-            defaultColor.eventType
-          );
-          this.#pair.send(mm);
-        }
+        if (availableColors.length === 0) return;
+
+        const defColor = availableColors.filter((c) => c.default)[0];
+        const defColorImpl = ColorImpl.fromDrivers(defColor, i.number, channel);
+
+        this.#pair.send(defColorImpl);
       });
+    });
   }
 
   /**
@@ -52,10 +53,12 @@ export class DrivenPortPair extends PortPair {
    * sequence in order to relinquish control of lights.
    */
   runControlSequence() {
-    this.#driver.controlSequence?.forEach((msgArray) => {
-      const msg = setStatus(
-        [msgArray[3], msgArray[1], msgArray[2]],
-        msgArray[0]
+    this.driver.controlSequence?.forEach((msgArray) => {
+      const msg = MidiArray.create(
+        msgArray[0],
+        msgArray[3],
+        msgArray[1],
+        msgArray[2]
       );
       this.#pair.send(msg);
     });

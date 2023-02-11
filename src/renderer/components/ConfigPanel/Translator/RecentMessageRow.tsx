@@ -1,46 +1,44 @@
 import { useEffect, useState } from 'react';
 
-import { getChannel, getStatus } from '@shared/midi-util';
-import { MSG } from '@shared/ipc-channels';
+import { MidiArray } from '@shared/midi-array';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
-const { ipcRenderer } = window;
+const { hostService } = window;
 
 type RecentMessageRowPropTypes = {
   config: AnonymousDeviceConfig;
-  setCurrentAction: (msg: number[]) => void;
-  currentAction: number[] | null;
+  setCurrentAction: (msg: MidiArray) => void;
+  currentAction: MidiArray | undefined;
 };
 
 export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
   const { config, setCurrentAction, currentAction } = props;
 
-  const [recentMessage, setRecentMessage] = useState<number[] | null>(null);
+  const [recentMessage, setRecentMessage] = useState<MidiArray | undefined>(
+    undefined
+  );
   const selected =
     recentMessage &&
     JSON.stringify(currentAction) === JSON.stringify(recentMessage);
 
   useEffect(() => {
-    const cb = (
-      _e: Event,
-      _inputId: string,
-      deviceId: string,
-      msg: number[]
-    ) => {
+    const cb = (_inputId: string, deviceId: string, tuple: MidiTuple) => {
       if (config.id !== deviceId) return;
 
+      const msg = new MidiArray(tuple);
       setRecentMessage(msg);
 
       if (JSON.stringify(msg) !== JSON.stringify(recentMessage))
         setCurrentAction(msg);
     };
 
-    const unsubscribe = ipcRenderer.on(MSG, cb);
+    const unsubscribe = hostService.onMessage(cb);
 
     return () => unsubscribe();
   }, [config, setCurrentAction, recentMessage]);
 
-  if (recentMessage === null || config.getOverride(recentMessage)) return null;
+  if (recentMessage === undefined || config.getOverride(recentMessage))
+    return null;
 
   return (
     <div
@@ -52,9 +50,9 @@ export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
     >
       {recentMessage ? (
         <>
-          <p className="column event">{getStatus(recentMessage).string}</p>
-          <p className="column number">{recentMessage[1]}</p>
-          <p className="column channel">{getChannel(recentMessage)}</p>
+          <p className="column event">{recentMessage.statusString}</p>
+          <p className="column number">{recentMessage.number}</p>
+          <p className="column channel">{recentMessage.channel}</p>
         </>
       ) : null}
     </div>

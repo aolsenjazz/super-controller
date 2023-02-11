@@ -1,7 +1,22 @@
-import { StatusString, Channel } from '@shared/midi-util';
-import { Color, InputDefault } from '@shared/driver-types';
-import { InputConfig } from '@shared/hardware-config';
+import { Color, FxDriver } from '@shared/driver-types';
+import { InputConfig, ColorImpl } from '@shared/hardware-config';
 import { CC_BINDINGS, stringVal } from '@shared/util';
+
+const mvc: Color = {
+  name: '<multiple values>',
+  string: 'transparent',
+  eventType: 'noteon',
+  value: 0,
+};
+
+const MULT_COLOR = ColorImpl.fromDrivers(mvc, 0, 0);
+
+const mvf: FxDriver = {
+  title: '<multiple values>',
+  effect: '',
+  validVals: [0],
+  defaultVal: 0,
+};
 
 /**
  * A pseudo-`InputConfig` used to show the values of multiple inputs in a group.
@@ -42,32 +57,36 @@ export class InputGroup {
     return `${n}${labelTitle}${isDefault ? ' [default]' : ''}`;
   }
 
-  #labelFor = <T>(obj: T, defaultGetter: (inputDefault: InputDefault) => T) => {
+  #labelFor = <T>(obj: T, defaultGetter: (input: InputConfig) => T) => {
     const nInputs = this.inputs.length;
-    const isDefault =
-      nInputs === 1 && defaultGetter(this.inputs[0].default) === obj;
+    const isDefault = nInputs === 1 && defaultGetter(this.inputs[0]) === obj;
     return `${obj}${isDefault ? ' [default]' : ''}`;
   };
 
   labelForChannel(c: Channel) {
-    return this.#labelFor(c, (def) => def.channel);
+    return this.#labelFor(c, (input) => input.default.channel);
   }
 
   labelForEventType(et: string) {
-    return this.#labelFor(et, (def) => def.eventType);
+    return this.#labelFor(et, (input) => input.default.eventType);
   }
 
   labelForResponse(response: string) {
-    return this.#labelFor(response, (def) => def.response);
+    return this.#labelFor(response, (input) => input.default.response);
   }
 
-  colorForState(state: string) {
-    const color = this.#groupValue<Color | undefined>(
+  colorForState(state: number) {
+    let color = this.#groupValue<ColorImpl | undefined>(
       (c) => c.colorForState(state),
-      (a, b) => JSON.stringify(a) === JSON.stringify(b)
+      (a, b) => {
+        if (!a && !b) return true;
+        return !a ? false : a.displayName === b?.displayName;
+      }
     );
 
-    return color === undefined ? null : color;
+    if (color === '<multiple values>') color = MULT_COLOR;
+
+    return color === undefined ? null : (color as ColorImpl);
   }
 
   /**
@@ -84,7 +103,7 @@ export class InputGroup {
     getterFn: (config: InputConfig) => T,
     equalityFn: (a: T, b: T) => boolean
   ) => {
-    if (this.inputs.length === 0) return null;
+    if (this.inputs.length === 0) return undefined;
 
     const vals = this.inputs.map(getterFn);
     const allMatch = vals.filter((v) => !equalityFn(v, vals[0])).length === 0;
@@ -120,18 +139,62 @@ export class InputGroup {
       : getterFn(this.inputs[0]);
   };
 
+  get isEndlessCapable() {
+    const getter = (c: InputConfig) => c.knobType === 'endless';
+    const equality = (a: boolean, b: boolean) => {
+      return a === true && b === true;
+    };
+    return this.#groupValue(getter, equality);
+  }
+
+  get isEndlessMode() {
+    const getter = (c: InputConfig) => c.valueType === 'endless';
+    const equality = (a: boolean, b: boolean) => {
+      return a === b;
+    };
+    return this.#groupValue(getter, equality)!;
+  }
+
   get eligibleLightStates() {
     const getter = (c: InputConfig) => c.eligibleLightStates;
-    const equality = (a: string[], b: string[]) =>
+    const equality = (a: number[], b: number[]) =>
       JSON.stringify(a) === JSON.stringify(b);
     return this.#getEligibleValues(getter, equality);
   }
 
   get eligibleColors() {
     const getter = (c: InputConfig) => c.availableColors;
-    const equality = (a: Color[], b: Color[]) =>
-      JSON.stringify(a) === JSON.stringify(b);
+    const equality = (a: ColorImpl[], b: ColorImpl[]) => {
+      const aIds = a.map((ac) => ac.displayName);
+      const bIds = b.map((bc) => bc.displayName);
+      return JSON.stringify(aIds) === JSON.stringify(bIds);
+    };
     return this.#getEligibleValues(getter, equality);
+  }
+
+  get eligibleFx() {
+    const getter = (c: InputConfig) => c.availableFx;
+    const equality = (fx1: FxDriver[], fx2: FxDriver[]) =>
+      JSON.stringify(fx1) === JSON.stringify(fx2);
+    return this.#getEligibleValues(getter, equality);
+  }
+
+  getActiveFx(state: number) {
+    const getter = (c: InputConfig) => c.getActiveFx(state);
+    const equality = (a: FxDriver | undefined, b: FxDriver | undefined) => {
+      return a?.title === b?.title;
+    };
+    const activeFx = this.#groupValue<FxDriver | undefined>(getter, equality);
+
+    return activeFx === '<multiple values>' ? mvf : activeFx;
+  }
+
+  getFxVal(state: number) {
+    const getter = (c: InputConfig) => c.getFxVal(state);
+    const equality = (a: Channel | undefined, b: Channel | undefined) => {
+      return a === b;
+    };
+    return this.#groupValue<Channel | undefined>(getter, equality);
   }
 
   get isMultiInput() {

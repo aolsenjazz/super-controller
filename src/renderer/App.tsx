@@ -1,12 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import { Project } from '@shared/project';
-import { PortInfo } from '@shared/port-info';
-import {
-  DeviceConfig,
-  AnonymousDeviceConfig,
-  SupportedDeviceConfig,
-} from '@shared/hardware-config';
+import { DrivenPortInfo } from '@shared/driven-port-info';
+import { DeviceConfig, configFromDriver } from '@shared/hardware-config';
 
 import TitleBar from './components/TitleBar';
 import DeviceList from './components/DeviceList';
@@ -16,8 +12,7 @@ import ProjectChangeListener from './components/ProjectChangeListener';
 
 import './styles/App.global.css';
 
-const { ipcRenderer, driverService, portService } = window;
-const drivers = driverService.getDrivers();
+const { hostService } = window;
 
 document.body.ondragover = (event) => {
   if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
@@ -39,9 +34,10 @@ export default function App() {
   const [project, setProject] = useState(new Project());
 
   // Currently-available hardware ports
-  const [ports, setPorts] = useState<PortInfo[]>([]);
+  const [ports, setPorts] = useState<DrivenPortInfo[]>([]);
 
   const [activeDevice, setActiveDevice] = useState<DeviceConfig | undefined>();
+
   const [selectedId, setSelectedId] = useState<string>();
   const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
 
@@ -52,47 +48,30 @@ export default function App() {
 
   // Listen to changes to available MIDI ports
   useEffect(() => {
-    const cb = (_e: Event, pairs: PortInfo[]) => {
+    const cb = (p: DrivenPortInfo[]) =>
       setPorts(
-        pairs.map(
-          (port) => new PortInfo(port.name, port.siblingIndex, port.connected)
-        )
+        p.map((i) => {
+          return new DrivenPortInfo(
+            i.name,
+            i.siblingIndex,
+            i.connected,
+            i.driver
+          );
+        })
       );
-    };
-    const unsubscribe = ipcRenderer.on('ports', cb);
-    portService.requestPorts();
-
+    const unsubscribe = hostService.onPortsChange(cb);
+    hostService.requestPorts();
     return () => unsubscribe();
   }, [project]);
 
   // Update the active device when selected index, project, or ports change
   useEffect(() => {
     let device = project.getDevice(selectedId);
-    if (!device && ports.length > 0 && selectedId) {
+
+    if (ports.length > 0) {
       const portInfo = ports.filter((info) => info.id === selectedId)[0];
-
-      if (Array.from(drivers.keys()).includes(portInfo?.name)) {
-        // This port exists in config or hardware
-        const driver = drivers.get(portInfo.name);
-
-        if (!driver)
-          throw new Error(`Unable to located driver for ${portInfo.name}`);
-
-        device = SupportedDeviceConfig.fromDriver(
-          portInfo.siblingIndex,
-          driver
-        );
-      } else {
-        // this port may or may not exist. if it exists, it must not be supported
-        device =
-          portInfo === undefined
-            ? undefined
-            : new AnonymousDeviceConfig(
-                portInfo.name,
-                portInfo.siblingIndex,
-                new Map(),
-                []
-              );
+      if (!device && selectedId && portInfo) {
+        device = configFromDriver(portInfo.siblingIndex, portInfo.driver);
       }
     }
 

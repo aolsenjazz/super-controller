@@ -1,5 +1,7 @@
 import randomstring from 'randomstring';
 
+import { applyNondestructiveThrottle } from '@shared/util';
+
 import { Port } from './port';
 
 /**
@@ -45,7 +47,7 @@ export class PortPair {
   /**
    * Set a callback to be invoked when the input port receives a message. If input port is null, does nothing.
    */
-  onMessage(cb: (deltaTime: number, msg: number[]) => void) {
+  onMessage(cb: (deltaTime: number, msg: MidiTuple) => void) {
     if (this.iPort !== null) {
       this.iPort.onMessage(cb);
     }
@@ -59,6 +61,12 @@ export class PortPair {
       throw new Error(`isPortOpen should not be undefined`);
 
     return open;
+  }
+
+  applyThrottle(throttleMs: number | undefined) {
+    if (!throttleMs || throttleMs === 0) return;
+
+    this.send = applyNondestructiveThrottle(this.send.bind(this), throttleMs);
   }
 
   /** getters */

@@ -1,10 +1,10 @@
-import midi from 'midi';
+import midi from '@julusian/midi';
 
 import { Port } from './port';
 import { PortPair } from './port-pair';
 import { DrivenPortPair } from './driven-port-pair';
 
-import { DRIVERS } from '../drivers';
+import { getDriver } from '../drivers';
 
 const INPUT = new midi.Input();
 const OUTPUT = new midi.Output();
@@ -25,6 +25,7 @@ function getSister(port: Port, sisterList: Port[]): Port | null {
   });
   return sister;
 }
+
 /**
  * Pairs each `Port` in `portList` with its sister port in `sisterList` and adds
  * the pair to portMap
@@ -32,19 +33,18 @@ function getSister(port: Port, sisterList: Port[]): Port | null {
 function createPairsAndAddToDevices(
   portList: Port[],
   sisterList: Port[],
-  portMap: Map<string, PortPair>
+  portMap: Map<string, DrivenPortPair>
 ) {
   portList.forEach((port: Port) => {
     const sister = getSister(port, sisterList);
     const first = port.type === 'input' ? port : sister;
     const second = port.type === 'input' ? sister : port;
 
-    let pair = new PortPair(first, second);
-    const driver = DRIVERS.get(pair.name);
+    const pair = new PortPair(first, second);
+    const driver = getDriver(pair.name);
+    const driven = new DrivenPortPair(pair, driver);
 
-    if (driver) pair = new DrivenPortPair(pair, driver);
-
-    portMap.set(pair.id, pair);
+    portMap.set(pair.id, driven);
   });
 }
 
@@ -59,10 +59,12 @@ function parsePorts(
     // Gross safeguard. When closing virtual ports, the port disappears tho getPortCount still reports 1.
     // getPortName returns ''. Just ignore it when in this state
     // eslint-disable-next-line no-continue
-    if (!name) continue;
-    const nameOccurences = addedNames.filter((val) => val === name).length;
-    ports.push(new Port(i, nameOccurences, type, name));
-    addedNames.push(name);
+    // TODO: should really narrow this `if` but will require testing
+    if (name) {
+      const nameOccurences = addedNames.filter((val) => val === name).length;
+      ports.push(new Port(i, nameOccurences, type, name));
+      addedNames.push(name);
+    }
   }
   return ports;
 }
@@ -70,7 +72,7 @@ function parsePorts(
 export function all(omitSCPorts = true) {
   const iPorts = parsePorts(INPUT, 'input');
   const oPorts = parsePorts(OUTPUT, 'output');
-  const portMap = new Map<string, PortPair>();
+  const portMap = new Map<string, DrivenPortPair>();
   createPairsAndAddToDevices(iPorts, oPorts, portMap);
   createPairsAndAddToDevices(oPorts, iPorts, portMap);
 

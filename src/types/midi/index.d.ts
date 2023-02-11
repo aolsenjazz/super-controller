@@ -8,7 +8,7 @@ declare module 'midi' {
     closePort: () => void;
     on: (
       event: string,
-      cb: (deltaTime: number, message: number[]) => void
+      cb: (deltaTime: number, message: MidiTuple) => void
     ) => void;
     openVirtualPort: (name: string) => void;
     isPortOpen: () => boolean;
