@@ -1,4 +1,4 @@
-import midi from 'midi';
+import midi from '@julusian/midi';
 
 export class Port {
   index: number;
@@ -34,13 +34,13 @@ export class Port {
 
   send(msg: number[]) {
     if (this.port instanceof midi.Output) {
-      this.port.sendMessage(msg);
+      this.port.sendMessage(msg as midi.MidiMessage);
     }
   }
 
   onMessage(cb: (deltaTime: number, msg: MidiTuple) => void) {
     if (this.port instanceof midi.Input) {
-      this.port.on('message', cb);
+      this.port.on('message', cb as (a: number, b: midi.MidiMessage) => void);
     }
   }
 

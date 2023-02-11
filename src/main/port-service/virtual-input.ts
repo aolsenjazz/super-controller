@@ -1,4 +1,4 @@
-import { Input } from 'midi';
+import { Input, MidiCallback } from '@julusian/midi';
 import { Port } from './port';
 
 /**
@@ -57,7 +57,7 @@ export class VirtualInput implements Port {
    * @param cb The callback
    */
   onMessage(cb: (delta: number, message: MidiTuple) => void) {
-    this.port.on('message', cb);
+    this.port.on('message', cb as MidiCallback);
   }
 
   isPortOpen() {

@@ -1,4 +1,4 @@
-import midi from 'midi';
+import midi from '@julusian/midi';
 
 import { Port } from './port';
 import { PortPair } from './port-pair';
