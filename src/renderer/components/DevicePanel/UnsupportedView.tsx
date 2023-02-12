@@ -5,8 +5,7 @@ type PropTypes = {
   deviceName: string;
 };
 
-const tipBody = `This device doesn't have a driver yet. You can still override
-          events manually and set its nickname in the configuration panel.`;
+const tipBody = `This device doesn't have a driver yet. You can still override events manually and set its nickname in the configuration panel.`;
 
 /**
  * Tell the user that this device isn't supported
