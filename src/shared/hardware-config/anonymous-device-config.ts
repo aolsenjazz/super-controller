@@ -45,7 +45,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     const valueNegatedMsg = new MidiArray(msg.array);
 
     valueNegatedMsg[2] = 0;
-    const id = JSON.stringify(valueNegatedMsg);
+    const id = JSON.stringify(valueNegatedMsg.array);
     const override = this.overrides.get(id);
 
     if (override) {

@@ -213,7 +213,7 @@ export class InputConfig {
   colorForState(state: number) {
     const arr = this.devicePropagator.responseForStep(state);
 
-    if (arr === undefined) return undefined;
+    if (arr === undefined) return this.defaultColor;
 
     let c = this.defaultColor;
     this.availableColors.forEach((color) => {
