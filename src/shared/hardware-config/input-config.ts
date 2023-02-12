@@ -215,15 +215,24 @@ export class InputConfig {
 
     if (arr === undefined) return this.defaultColor;
 
-    let c = this.defaultColor;
-    this.availableColors.forEach((color) => {
-      if (arr.statusString === color.eventType && arr.value === color.value) {
-        c = color;
-        c.channel = arr.channel;
+    let color = this.defaultColor;
+    this.availableColors.forEach((c) => {
+      if (arr.statusString === c.eventType && arr.value === c.value) {
+        const def = [c.default[0], c.default[1], c.default[2]] as MidiTuple;
+        const vals = [c[0], c[1], c[2]] as MidiTuple;
+        color = new ColorImpl(
+          def,
+          vals,
+          c.name,
+          c.string,
+          c.isDefault,
+          c.modifier
+        );
+        color.channel = arr.channel;
       }
     });
 
-    return c;
+    return color;
   }
 
   getActiveFx(state: number) {
@@ -373,15 +382,24 @@ export class InputConfig {
 
     if (arr === undefined) return undefined;
 
-    let c;
-    this.availableColors.forEach((color) => {
-      if (arr.statusString === color.eventType && arr.value === color.value) {
-        c = color.deepCopy();
-        c.channel = arr.channel;
+    let color;
+    this.availableColors.forEach((c) => {
+      if (arr.statusString === c.eventType && arr.value === c.value) {
+        const def = [c.default[0], c.default[1], c.default[2]] as MidiTuple;
+        const vals = [c[0], c[1], c[2]] as MidiTuple;
+        color = new ColorImpl(
+          def,
+          vals,
+          c.name,
+          c.string,
+          c.isDefault,
+          c.modifier
+        );
+        color.channel = arr.channel;
       }
     });
 
-    return c;
+    return color;
   }
 
   get currentFx(): FxDriver | undefined {
