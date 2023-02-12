@@ -126,7 +126,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
   handleMessage(msg: MidiArray): (MidiArray | undefined)[] {
     const id = inputIdFor(msg);
     const input = this.getInput(id);
-
     return input !== undefined ? input.handleMessage(msg) : [undefined, msg];
   }
 }

@@ -45,6 +45,8 @@
 .device-layout .input-container .xy,
 .device-layout .input-container .xy .inner,
 .device-layout .input-container .wheel,
+.device-layout .input-container .wheel.disabled,
+.device-layout .input-container .wheel.disabled .inner,
 .device-layout .input-container .wheel .inner,
 .device-layout .keyboard-container.disabled .key,
 .device-layout .keyboard-container.disabled .key:last-of-type {
