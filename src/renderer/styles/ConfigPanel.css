@@ -18,6 +18,10 @@
   font-size: 0.8em;
 }
 
+#config-panel:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+}
+
 #config-panel p {
   font-size: 13px;
   font-family: Arial;
