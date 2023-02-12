@@ -26,7 +26,7 @@ export default function NotConfigured(props: {
   }, [config, project, setProject]);
 
   return (
-    <div className="center-vert message">
+    <div className="message not-configured">
       <p>Device is not yet configured.</p>
       <button onClick={onClick} type="button">
         Add Device
