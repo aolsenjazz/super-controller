@@ -2,7 +2,8 @@
   padding: 12px;
   padding-top: 25px;
   height: calc(100% - 39px);
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 #adapter-view-container h2 {
@@ -28,11 +29,7 @@
 }
 
 #adapter-view-container .driver-request {
-  bottom: 20px;
-  vertical-align: bottom;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: auto;
 }
 
 #adapter-view-container .ios-select {

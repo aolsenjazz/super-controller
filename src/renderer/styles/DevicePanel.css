@@ -1,5 +1,5 @@
 #device-panel {
-  width: calc(100% - 230px - 280px);
+  flex: 1;
   background-color: #e6e2e3;
   opacity: 0.95;
 }

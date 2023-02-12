@@ -12,7 +12,7 @@ import { InputGroup } from '../../input-group';
 
 const { projectService } = window;
 
-const absoluteHelpTip = `When true, the values of endless knobs will be transformed to numbers between 0 and 127.`;
+const absoluteHelpTip = `When false, the values of endless knobs will be transformed to numbers between 0 and 127.`;
 
 type PropTypes = {
   group: InputGroup;
@@ -156,9 +156,10 @@ export default function MonoInputConfigPanel(props: PropTypes) {
                 });
               }}
             />
-            <div>
-              <HelpTip body={absoluteHelpTip} />
-            </div>
+            <HelpTip
+              body={absoluteHelpTip}
+              transform="translate(-50%, -130%)"
+            />
           </div>
         ) : null}
         {eventType !== 'programchange' && response === 'constant' ? (

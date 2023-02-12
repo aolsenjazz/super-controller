@@ -1,11 +1,10 @@
 #config-panel {
-  width: 280px;
+  flex: 0 0 280px;
   background-color: #f2eeef;
   overflow-y: overlay;
-  position: relative;
-  z-index: 999;
   box-shadow: -1px 0 1px #dbd7d8;
-  max-height: calc(100vh - 30px);
+  max-height: calc(100vh - 54px);
+  padding: 12px;
 }
 
 #config-panel h3 {
@@ -16,10 +15,6 @@
   text-align: center;
   line-height: 50px;
   font-size: 0.8em;
-}
-
-#config-panel:hover::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
 }
 
 #config-panel p {
@@ -34,8 +29,6 @@
 }
 
 #config-panel .settings-line {
-  height: 30px;
-  margin-left: 12px;
   text-align: left;
   padding-top: 6px;
 }
@@ -46,6 +39,7 @@
 
 #config-panel #controls-container button {
   margin: 0 auto;
+  margin-top: 12px;
 }
 
 #config-panel #controls-container .settings-line {
@@ -54,14 +48,16 @@
 
 #config-panel #controls-container #absolute-values {
   text-align: left;
+  position: relative;
 }
 
 #config-panel #controls-container #absolute-values .help-tip {
   margin-left: 5px;
+  margin-top: 10px;
 }
 
-#config-panel #controls-container #absolute-values .help-tip:hover p {
-  width: 150px;
+#config-panel #controls-container #absolute-values .help-tip p {
+  width: 200px;
 }
 
 #config-panel #controls-container #absolute-values > div {
@@ -145,7 +141,6 @@
 }
 
 #device-config p {
-  margin-left: 12px;
   width: 36%;
   line-height: 20px;
   display: inline-block;
@@ -165,14 +160,19 @@
 #device-config #nickname {
 }
 
+#device-config #remove-device button.disabled {
+  border-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.2);
+}
+
 #device-config .share-sustain {
   height: 28px;
 }
 
 #device-config .share-sustain input {
-  margin-left: 12px;
-  margin-top: 6px;
+  margin-top: 7px;
   cursor: pointer;
+  margin-right: 6px;
 }
 
 #device-config .share-sustain p {
@@ -182,7 +182,6 @@
 
 #device-config h4 {
   color: #272727;
-  margin-left: 12px;
   margin-top: 12px;
   margin-bottom: 4px;
   font-family: Arial;
@@ -191,7 +190,6 @@
 }
 
 #device-config #remove-device input {
-  margin-left: 12px;
   margin-top: 4px;
 }
 

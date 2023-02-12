@@ -133,10 +133,9 @@ export default function DeviceConfigPanel(props: PropTypes) {
         />
         <button
           type="button"
-          className={`${confirmEquals ? 'hoverable' : ''}`}
+          className={`${confirmEquals ? 'hoverable' : 'disabled'}`}
           disabled={confirm !== config.nickname}
           onClick={onDelete}
-          style={{ opacity: confirmEquals ? 1 : 0.5 }}
         >
           Delete
         </button>

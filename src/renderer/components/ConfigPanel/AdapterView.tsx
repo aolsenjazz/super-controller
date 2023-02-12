@@ -48,7 +48,7 @@ export default function AdapterView(props: PropTypes) {
       <h2>{config.name}</h2>
       <div className="subtitle-container">
         <h3>5-pin adapter</h3>
-        <HelpTip body={tipBody} />
+        <HelpTip body={tipBody} transform="translateX(-300px)" />
       </div>
       <div>
         <p className="label">Select Device: </p>

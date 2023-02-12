@@ -1,5 +1,5 @@
 .help-tip {
-  position: relative;
+  position: absolute;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 50%;
@@ -15,7 +15,6 @@
 
 .help-tip:before {
   content: '?';
-  margin-left: 1px;
   font-weight: bold;
   color: #fff;
 }
@@ -23,7 +22,6 @@
 .help-tip:hover p {
   display: block;
   transform-origin: 100% 0%;
-
   -webkit-animation: fadeIn 0.3s ease-in-out;
   animation: fadeIn 0.3s ease-in-out;
 }
@@ -36,10 +34,8 @@
   padding: 20px;
   width: 300px;
   white-space: pre-line;
-  position: absolute;
   border-radius: 3px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-  right: -7px;
   color: #fff;
   margin-top: 5px;
   font-size: 13px;
@@ -48,14 +44,12 @@
 
 .help-tip p:before {
   /* The pointer of the tooltip */
-  position: absolute;
   content: '';
+  display: none;
   width: 0;
   height: 0;
   border: 6px solid transparent;
   border-bottom-color: #1e2021;
-  right: 10px;
-  top: -12px;
 }
 
 .help-tip p:after {
@@ -63,9 +57,6 @@
   width: 100%;
   height: 40px;
   content: '';
-  position: absolute;
-  top: -40px;
-  left: 0;
 }
 
 /* CSS animation */

@@ -1,29 +1,11 @@
 #device-list {
-  width: 230px;
+  flex: 0 0 230px;
   background-color: #f4f0f1;
   float: left;
   text-align: right;
   box-shadow: 1px 0 1px #dbd7d8;
   overflow-y: overlay;
   max-height: calc(100vh - 30px);
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0);
-  border-radius: 1em;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0);
-}
-
-#device-list:hover::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
 }
 
 .device-list-item {

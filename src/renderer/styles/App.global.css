@@ -66,6 +66,7 @@ h1 {
 
 #main-content {
   flex: 1;
+  display: flex;
 }
 
 .top-level {

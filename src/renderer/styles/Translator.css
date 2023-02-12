@@ -1,9 +1,3 @@
-#translator-pad-wrapper {
-  margin-left: 10px;
-  width: calc(100% - 20px);
-  padding-bottom: 10px;
-}
-
 .translator-list-container {
   background-color: white;
   border: 1px solid #e5e5e5;

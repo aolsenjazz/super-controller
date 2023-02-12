@@ -9,6 +9,9 @@
   font-weight: normal;
   font-family: Arial;
   z-index: 1000;
+}
+
+.warning-container img {
   opacity: 0.8;
 }
 
