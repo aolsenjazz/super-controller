@@ -1,4 +1,5 @@
 /* eslint-disable no-bitwise */
+import * as Revivable from './revivable';
 import { statusStringToByte, byteToStatusString } from './midi-util';
 
 const NOTE_OFF = 0x80; // 128
@@ -9,6 +10,7 @@ const PROGRAM_CHANGE = 0xc0; // 192
 const CHANNEL_PRESSURE = 0xd0; // 208
 const PITCH_BEND = 0xe0; // 224
 
+@Revivable.register
 export class MidiArray extends Array<number> {
   length: number = 3;
 
@@ -33,6 +35,15 @@ export class MidiArray extends Array<number> {
 
   constructor(items: MidiTuple) {
     super(...items);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  toJSON(): { name: string; args: any[] } {
+    return { name: this.constructor.name, args: [[this[0], this[1], this[2]]] };
+  }
+
+  deepCopy() {
+    return new MidiArray([this[0], this[1], this[2]]);
   }
 
   get statusString() {

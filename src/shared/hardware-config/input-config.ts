@@ -147,7 +147,9 @@ export class InputConfig {
     if (devicePropagator) {
       this.devicePropagator = devicePropagator;
     } else {
-      const defaultMsg = this.defaultColor || undefined;
+      const defaultMsg = this.defaultColor
+        ? this.defaultColor.deepCopy()
+        : undefined;
 
       const defaultColorConfig = new Map([
         [0, defaultMsg],
@@ -209,11 +211,13 @@ export class InputConfig {
    * @returns The associated color or undefined if not set
    */
   colorForState(state: number) {
-    const colorArray = this.devicePropagator.responseForStep(state);
+    const arr = this.devicePropagator.responseForStep(state);
+
+    if (arr === undefined) return undefined;
 
     let c = this.defaultColor;
     this.availableColors.forEach((color) => {
-      if (JSON.stringify(colorArray) === JSON.stringify(color)) {
+      if (arr.statusString === color.eventType && arr.value === color.value) {
         c = color;
       }
     });
@@ -254,7 +258,9 @@ export class InputConfig {
   setFxVal(state: number, fxVal: Channel) {
     const currentMsg = this.devicePropagator.responseForStep(state);
     if (currentMsg) {
-      currentMsg.channel = fxVal;
+      const deepCopy = currentMsg.deepCopy();
+      deepCopy.channel = fxVal;
+      this.devicePropagator.setStep(state, deepCopy);
     } else {
       throw new Error(`there is no current response for state[${state}]`);
     }
@@ -282,7 +288,7 @@ export class InputConfig {
       );
     }
 
-    this.devicePropagator.setStep(state, colors[0]);
+    this.devicePropagator.setStep(state, colors[0].deepCopy());
   }
 
   /* Restores all default, numeric values (nothing color-related) */
@@ -362,11 +368,13 @@ export class InputConfig {
   }
 
   get currentColor(): ColorImpl | undefined {
-    const colorArray = this.devicePropagator.responseForCurrentStep();
+    const arr = this.devicePropagator.responseForCurrentStep();
+
+    if (arr === undefined) return undefined;
 
     let c;
     this.availableColors.forEach((color) => {
-      if (JSON.stringify(colorArray) === JSON.stringify(color)) {
+      if (arr.statusString === color.eventType && arr.value === color.value) {
         c = color;
       }
     });
