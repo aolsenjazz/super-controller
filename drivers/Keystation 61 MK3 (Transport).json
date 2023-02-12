@@ -12,7 +12,7 @@
   "keyboard": {
     "defaultOctave": 1,
     "nOctaves": 1,
-    "channel": 10,
+    "channel": 0,
     "width": 7.375,
     "height": 5.375,
     "bottom": 0,
@@ -32,12 +32,12 @@
         {
           "handleWidth": 0.625,
           "handleHeight": 0.625,
-          "number": 1
+          "number": -10
         },
         {
           "handleWidth": 0.625,
           "handleHeight": 0.625,
-          "number": 1,
+          "number": -11,
           "eventType": "controlchange"
         }
       ],
@@ -50,7 +50,7 @@
         "overrideable": false,
         "response": "continuous",
         "eventType": "pitchbend",
-        "channel": 10
+        "channel": 0
       }
     },
     {
@@ -131,7 +131,7 @@
         "overrideable": false,
         "response": "continuous",
         "eventType": "controlchange",
-        "channel": 10
+        "channel": 0
       }
     },
     {
