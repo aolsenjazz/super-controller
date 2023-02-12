@@ -219,6 +219,7 @@ export class InputConfig {
     this.availableColors.forEach((color) => {
       if (arr.statusString === color.eventType && arr.value === color.value) {
         c = color;
+        c.channel = arr.channel;
       }
     });
 
@@ -375,7 +376,8 @@ export class InputConfig {
     let c;
     this.availableColors.forEach((color) => {
       if (arr.statusString === color.eventType && arr.value === color.value) {
-        c = color;
+        c = color.deepCopy();
+        c.channel = arr.channel;
       }
     });
 
