@@ -170,6 +170,7 @@
               "modifier": "blink"
             }
           ],
+          "availableFx": [],
           "number": 64
         },
         {
@@ -198,6 +199,7 @@
               "modifier": "blink"
             }
           ],
+          "availableFx": [],
           "number": 65
         },
         {
@@ -226,6 +228,7 @@
               "modifier": "blink"
             }
           ],
+          "availableFx": [],
           "number": 66
         },
         {
@@ -254,6 +257,7 @@
               "modifier": "blink"
             }
           ],
+          "availableFx": [],
           "number": 67
         },
         {
@@ -282,6 +286,7 @@
               "modifier": "blink"
             }
           ],
+          "availableFx": [],
           "number": 68
         },
         {
@@ -310,6 +315,7 @@
               "modifier": "blink"
             }
           ],
+          "availableFx": [],
           "number": 69
         },
         {
@@ -338,6 +344,7 @@
               "modifier": "blink"
             }
           ],
+          "availableFx": [],
           "number": 70
         },
         {
@@ -366,6 +373,7 @@
               "modifier": "blink"
             }
           ],
+          "availableFx": [],
           "number": 71
         }
       ],
@@ -497,14 +505,7 @@
           {
             "title": "Solid",
             "effect": "Brightness",
-            "validVals": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
+            "validVals": [1, 2, 3, 4, 5, 6],
             "defaultVal": 6,
             "lowBoundLabel": "Dim",
             "highBoundLabel": "Bright"
@@ -512,12 +513,7 @@
           {
             "title": "Pulse",
             "effect": "Speed",
-            "validVals": [
-              7,
-              8,
-              9,
-              10
-            ],
+            "validVals": [7, 8, 9, 10],
             "defaultVal": 7,
             "lowBoundLabel": "Fast",
             "highBoundLabel": "Slow"
@@ -525,13 +521,7 @@
           {
             "title": "Blink",
             "effect": "Speed",
-            "validVals": [
-              11,
-              12,
-              13,
-              14,
-              15
-            ],
+            "validVals": [11, 12, 13, 14, 15],
             "defaultVal": 11,
             "lowBoundLabel": "Fast",
             "highBoundLabel": "Slow"

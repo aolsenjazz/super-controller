@@ -458,7 +458,8 @@
           "number": 86
         },
         {
-          "number": 81
+          "number": 81,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
