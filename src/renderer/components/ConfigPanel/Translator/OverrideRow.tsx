@@ -9,7 +9,8 @@ type PropTypes = {
 export default function OverrideRow(props: PropTypes) {
   const { currentAction, setCurrentAction, overrideKey } = props;
 
-  const selected = JSON.stringify(currentAction) === overrideKey;
+  const selectedId = currentAction ? JSON.stringify(currentAction.array) : '';
+  const selected = selectedId === overrideKey;
   const keyAsNumArray = overrideKey
     .replaceAll(/\[|\]/g, '')
     .split(',')
