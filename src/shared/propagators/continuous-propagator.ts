@@ -54,21 +54,18 @@ export class ContinuousPropagator extends StatelessPropagator {
         this.nextEventType(),
         this.channel,
         this.number,
-        this.#nextValue(msg)
+        this.nextValue(msg)
       );
     }
 
     return response;
   }
 
-  #nextValue = (msg: MidiArray) => {
+  protected nextValue = (msg: MidiArray) => {
     let val = msg[2];
     if (this.knobType === 'endless' && this.valueType === 'absolute') {
-      this.value =
-        msg[2] < 64
-          ? (Math.min(127, msg[2] + this.value) as MidiNumber)
-          : (Math.max(0, this.value - (128 - msg[2])) as MidiNumber);
-      val = this.value;
+      const shift = (val - 64 * Math.round(val / 64)) as MidiNumber;
+      val = Math.min(127, Math.max(this.value + shift, 0)) as MidiNumber;
     }
 
     this.value = val;

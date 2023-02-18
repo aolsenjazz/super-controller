@@ -8,6 +8,10 @@ class ContinuousPropagator extends WrapMe {
   getResponse(m: MidiArray) {
     return super.getResponse(m);
   }
+
+  nextV(m: MidiArray) {
+    return this.nextValue(m);
+  }
 }
 
 describe('getResponse', () => {
@@ -73,5 +77,103 @@ describe('toJSON', () => {
     const obj = parse<ContinuousPropagator>(json);
 
     expect(obj.valueType).toBe(c.valueType);
+  });
+});
+
+describe('nextValue in endless->absolute mode', () => {
+  test('handles APC-clockwise simulation', () => {
+    const or = 'continuous';
+    const eventType = 'controlchange';
+    const number = 32;
+    const channel = 3;
+    const value = 69;
+    const c = new ContinuousPropagator(
+      or,
+      eventType,
+      number,
+      channel,
+      value,
+      'endless'
+    );
+
+    const m1 = MidiArray.create(eventType, channel, number, 1);
+    const r1 = c.nextV(m1);
+    expect(r1).toBe(70);
+
+    const m2 = MidiArray.create(eventType, channel, number, 2);
+    const r2 = c.nextV(m2);
+    expect(r2).toBe(72);
+  });
+
+  test('handles APC-counter-clockwise simulation', () => {
+    const or = 'continuous';
+    const eventType = 'controlchange';
+    const number = 32;
+    const channel = 3;
+    const value = 69;
+    const c = new ContinuousPropagator(
+      or,
+      eventType,
+      number,
+      channel,
+      value,
+      'endless'
+    );
+
+    const m1 = MidiArray.create(eventType, channel, number, 127);
+    const r1 = c.nextV(m1);
+    expect(r1).toBe(68);
+
+    const m2 = MidiArray.create(eventType, channel, number, 126);
+    const r2 = c.nextV(m2);
+    expect(r2).toBe(66);
+  });
+
+  test('handles minilab-clockwise simulation', () => {
+    const or = 'continuous';
+    const eventType = 'controlchange';
+    const number = 32;
+    const channel = 3;
+    const value = 69;
+    const c = new ContinuousPropagator(
+      or,
+      eventType,
+      number,
+      channel,
+      value,
+      'endless'
+    );
+
+    const m1 = MidiArray.create(eventType, channel, number, 65);
+    const r1 = c.nextV(m1);
+    expect(r1).toBe(70);
+
+    const m2 = MidiArray.create(eventType, channel, number, 66);
+    const r2 = c.nextV(m2);
+    expect(r2).toBe(72);
+  });
+
+  test('handles minilab-counter-clockwise simulation', () => {
+    const or = 'continuous';
+    const eventType = 'controlchange';
+    const number = 32;
+    const channel = 3;
+    const value = 69;
+    const c = new ContinuousPropagator(
+      or,
+      eventType,
+      number,
+      channel,
+      value,
+      'endless'
+    );
+
+    const m1 = MidiArray.create(eventType, channel, number, 63);
+    const r1 = c.nextV(m1);
+    expect(r1).toBe(68);
+
+    const m2 = MidiArray.create(eventType, channel, number, 62);
+    const r2 = c.nextV(m2);
+    expect(r2).toBe(66);
   });
 });

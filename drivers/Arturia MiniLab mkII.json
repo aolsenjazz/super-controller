@@ -1,0 +1,206 @@
+{
+  "width": 13.875,
+  "height": 8.5,
+  "type": "normal",
+  "name": "Arturia MiniLab mkII",
+  "anonymous": false,
+  "style": {},
+  "keyboard": {
+    "defaultOctave": 2,
+    "nOctaves": 2,
+    "channel": 1,
+    "width": 12.3,
+    "height": 3.5,
+    "left": 0.75,
+    "bottom": 0.375,
+    "enabled": false
+  },
+  "inputGrids": [
+    {
+      "id": "Knobs",
+      "nRows": 2,
+      "nCols": 8,
+      "width": 10.25,
+      "height": 2.25,
+      "bottom": 5.9,
+      "left": 3.25,
+      "inputs": [
+        {
+          "number": 112,
+          "knobType": "endless"
+        },
+        {
+          "number": 74
+        },
+        {
+          "number": 71
+        },
+        {
+          "number": 76
+        },
+        {
+          "number": 77
+        },
+        {
+          "number": 93
+        },
+        {
+          "number": 73
+        },
+        {
+          "number": 75
+        },
+        {
+          "number": 114,
+          "knobType": "endless"
+        },
+        {
+          "number": 18
+        },
+        {
+          "number": 19
+        },
+        {
+          "number": 16
+        },
+        {
+          "number": 17
+        },
+        {
+          "number": 91
+        },
+        {
+          "number": 79
+        },
+        {
+          "number": 72
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "knob",
+        "width": 0.6,
+        "height": 0.6,
+        "knobType": "absolute",
+        "shape": "circle",
+        "overrideable": true,
+        "response": "continuous",
+        "eventType": "controlchange",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Pads",
+      "nRows": 1,
+      "nCols": 8,
+      "width": 10.25,
+      "height": 0.875,
+      "bottom": 4.75,
+      "left": 3.25,
+      "inputs": [
+        {
+          "number": 36
+        },
+        {
+          "number": 37
+        },
+        {
+          "number": 38
+        },
+        {
+          "number": 39
+        },
+        {
+          "number": 40
+        },
+        {
+          "number": 41
+        },
+        {
+          "number": 42
+        },
+        {
+          "number": 43
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.875,
+        "height": 0.875,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 9
+      }
+    },
+    {
+      "id": "Wheels",
+      "nRows": 1,
+      "nCols": 2,
+      "width": 2,
+      "height": 2.25,
+      "bottom": 4.375,
+      "left": 0.8,
+      "inputs": [
+        {
+          "number": 0,
+          "eventType": "pitchbend",
+          "handleWidth": 0.65,
+          "handleHeight": 0.65
+        },
+        {
+          "number": 1,
+          "handleWidth": 0.65,
+          "handleHeight": 0.65
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "wheel",
+        "width": 0.65,
+        "height": 2.25,
+        "shape": "rect",
+        "overrideable": true,
+        "response": "continuous",
+        "eventType": "controlchange",
+        "channel": 0
+      }
+    },
+    {
+      "id": "Meta Pads",
+      "nRows": 2,
+      "nCols": 2,
+      "width": 2,
+      "height": 1.2,
+      "bottom": 7,
+      "left": 0.8,
+      "inputs": [
+        {
+          "number": -1
+        },
+        {
+          "number": -2
+        },
+        {
+          "number": -3
+        },
+        {
+          "number": -4
+        }
+      ],
+      "inputDefaults": {
+        "availableColors": [],
+        "type": "pad",
+        "width": 0.65,
+        "height": 0.3,
+        "shape": "rect",
+        "overrideable": false,
+        "response": "gate",
+        "eventType": "noteon/noteoff",
+        "channel": 9
+      }
+    }
+  ]
+}
