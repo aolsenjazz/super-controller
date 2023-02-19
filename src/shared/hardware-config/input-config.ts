@@ -1,6 +1,6 @@
 /* eslint-disable no-bitwise */
 import * as Revivable from '../revivable';
-import { MidiArray } from '../midi-array';
+import { MidiArray, create } from '../midi-array';
 import {
   OverrideablePropagator,
   createPropagator,
@@ -185,7 +185,16 @@ export class InputConfig {
    */
   handleMessage(msg: MidiArray): (MidiArray | undefined)[] {
     const toPropagate = this.outputPropagator.handleMessage(msg);
-    const toDevice = this.devicePropagator.handleMessage(msg);
+    let toDevice = this.devicePropagator.handleMessage(msg);
+
+    // Here's a pretty whack little fix. Somme controllers will, by default, change colors
+    // based on config of their native customizing program. This can be patched by sending
+    // potentially-redundant messages to change the color back to SC-controlled state.
+    //
+    // TODO: this should probably take place in the ColorConfigPropagator
+    if (toDevice === undefined && this.currentColor !== undefined) {
+      toDevice = create(this.currentColor.array);
+    }
 
     return [toDevice, toPropagate];
   }
