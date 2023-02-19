@@ -7280,7 +7280,8 @@
             ],
             "defaultVal": 6,
             "lowBoundLabel": "Dim",
-            "highBoundLabel": "Bright"
+            "highBoundLabel": "Bright",
+            "target": "channel"
           },
           {
             "title": "Pulse",
@@ -7293,7 +7294,8 @@
             ],
             "defaultVal": 7,
             "lowBoundLabel": "Fast",
-            "highBoundLabel": "Slow"
+            "highBoundLabel": "Slow",
+            "target": "channel"
           },
           {
             "title": "Blink",
@@ -7307,7 +7309,8 @@
             ],
             "defaultVal": 11,
             "lowBoundLabel": "Fast",
-            "highBoundLabel": "Slow"
+            "highBoundLabel": "Slow",
+            "target": "channel"
           }
         ]
       }

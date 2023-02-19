@@ -8,6 +8,9 @@ export type FxDriver = {
   /* Label for the configurable effect (Brightness, Speed, etc) */
   effect: string;
 
+  /* The portion of the midi message to which this fx value must be applied */
+  target: 'number' | 'channel' | 'value';
+
   /* Acceptable values used to configure this FX */
   validVals: Channel[];
 

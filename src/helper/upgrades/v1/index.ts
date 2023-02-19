@@ -98,10 +98,17 @@ function convertV1SupportedToV2(d: v1SupportedDeviceConfig) {
       fxBindings
     );
 
+    const fx = v1.availableFx.map((f) => {
+      return {
+        ...f,
+        target: 'channel' as const,
+      };
+    });
+
     return new InputConfig(
       v1.default,
       availColors,
-      v1.availableFx,
+      fx,
       v1.overrideable,
       v1.type,
       v1.value,

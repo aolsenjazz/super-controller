@@ -6,6 +6,7 @@ import { Color, FxDriver } from '@shared/driver-types';
 const FX: FxDriver = {
   title: 'Blink',
   effect: 'Speed',
+  target: 'channel',
   default: true,
   validVals: [1, 2, 3],
   defaultVal: 1,

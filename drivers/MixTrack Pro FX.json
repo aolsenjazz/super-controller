@@ -1,0 +1,13 @@
+{
+  "height": 7.5,
+  "width": 12.125,
+  "type": "normal",
+  "name": "MixTrack Pro FX",
+  "style": {},
+  "controlSequence": [
+    [240, 0, 32, 127, 3, 1, 247],
+    [240, 126, 0, 6, 1, 247],
+    [240, 0, 32, 127, 19, 247]
+  ],
+  "inputGrids": []
+}

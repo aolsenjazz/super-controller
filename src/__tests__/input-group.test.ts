@@ -12,6 +12,7 @@ import { InputGroup } from '../renderer/input-group';
 const FX: FxDriver = {
   title: 'Blink',
   effect: 'Speed',
+  target: 'channel',
   validVals: [1, 2, 3],
   defaultVal: 1,
   lowBoundLabel: 'Slow',

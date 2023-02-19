@@ -233,6 +233,9 @@ export function validateInputDriver(
           'availableFx object is missing a title property or it is not a string'
         );
       }
+      if (!fx.target || !['number', 'value', 'channel'].includes(fx.target)) {
+        throw new Error(`${fx.target} is an invalid fx target`);
+      }
       if (!fx.effect || typeof fx.effect !== 'string') {
         throw new Error(
           'availableFx object is missing an effect property or it is not a string'
@@ -415,6 +418,48 @@ function validateInputGridDriver(input: any): asserts input is InputGridDriver {
   }
   if (!input.hasOwnProperty('inputDefaults')) {
     validateInputDefaults(input.inputDefaults);
+  }
+  if (input.availableFx && !Array.isArray(input.availableFx)) {
+    throw new Error(
+      'InputConfig object is missing a availableFx property or it is not an array'
+    );
+  }
+  if (input.availableFx && input.availableFx.length > 0) {
+    input.availableFx.forEach((fx: FxDriver) => {
+      if (!fx.title || typeof fx.title !== 'string') {
+        throw new Error(
+          'availableFx object is missing a title property or it is not a string'
+        );
+      }
+      if (!fx.target || !['number', 'value', 'channel'].includes(fx.target)) {
+        throw new Error(`${fx.target} is an invalid fx target`);
+      }
+      if (!fx.effect || typeof fx.effect !== 'string') {
+        throw new Error(
+          'availableFx object is missing an effect property or it is not a string'
+        );
+      }
+      if (!Array.isArray(fx.validVals) || fx.validVals.length === 0) {
+        throw new Error(
+          'availableFx object is missing a validVals property or it is not an array of numbers'
+        );
+      }
+      if (typeof fx.defaultVal !== 'number') {
+        throw new Error(
+          'availableFx object is missing a defaultVal property or it is not a number'
+        );
+      }
+      if (fx.lowBoundLabel && typeof fx.lowBoundLabel !== 'string') {
+        throw new Error(
+          'availableFx object lowBoundLabel property is not a string'
+        );
+      }
+      if (fx.highBoundLabel && typeof fx.highBoundLabel !== 'string') {
+        throw new Error(
+          'availableFx object highBoundLabel property is not a string'
+        );
+      }
+    });
   }
   input.inputs.forEach((inputDriver: any) => {
     try {

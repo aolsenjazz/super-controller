@@ -12,6 +12,7 @@ const MULT_COLOR = new ColorImpl(mvc);
 const mvf: FxDriver = {
   title: '<multiple values>',
   effect: '',
+  target: 'channel',
   validVals: [0],
   defaultVal: 0,
 };
