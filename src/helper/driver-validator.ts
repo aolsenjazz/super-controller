@@ -428,37 +428,14 @@ function validateInputGridDriver(input: any): asserts input is InputGridDriver {
 function validateControlSequenceMessage(
   message: any
 ): asserts message is DeviceDriver['controlSequence'] {
-  if (!Array.isArray(message) || message.length !== 4) {
-    throw new Error('ControlSequenceMessage should be an array of length 4');
+  if (!Array.isArray(message)) {
+    throw new Error('ControlSequenceMessage should be an array');
   }
-  if (
-    typeof message[0] !== 'string' ||
-    ![
-      'noteon',
-      'noteoff',
-      'keypressure',
-      'controlchange',
-      'programchange',
-      'channelpressure',
-      'noteon/noteoff',
-      'pitchbend',
-      'unknown',
-    ].includes(message[0])
-  ) {
-    throw new Error(
-      'ControlSequenceMessage first element should be a string of StatusString'
-    );
+  if (message[0] < 128 || message[0] > 255) {
+    throw new Error(`${message[0]} is an invalid value`);
   }
   if (typeof message[1] !== 'number') {
     throw new Error('ControlSequenceMessage second element should be a number');
-  }
-  if (typeof message[2] !== 'number') {
-    throw new Error('ControlSequenceMessage third element should be a number');
-  }
-  if (typeof message[3] !== 'number' || message[3] < 0 || message[3] > 15) {
-    throw new Error(
-      'ControlSequenceMessage fourth element should be a number of Channel'
-    );
   }
 }
 function validateDeviceStyle(

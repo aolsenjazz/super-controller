@@ -1,4 +1,3 @@
-import { create } from '@shared/midi-array';
 import { DeviceDriver } from '@shared/driver-types';
 import { ColorImpl } from '@shared/hardware-config';
 
@@ -53,8 +52,7 @@ export class DrivenPortPair extends PortPair {
    */
   runControlSequence() {
     this.driver.controlSequence?.forEach((msgArray) => {
-      const msg = create(msgArray[0], msgArray[3], msgArray[1], msgArray[2]);
-      this.#pair.send(msg);
+      this.#pair.send(msgArray);
     });
   }
 }

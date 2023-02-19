@@ -1,17 +1,6 @@
 import { InputGridDriver } from './input-grid-driver';
 import { KeyboardDriver } from './keyboard-driver';
 
-/**
- * Human-readable representation of a midi message to be sent devices upon
- * intialization. Running a control sequence relinquishes control of device
- * lights, though not all device require control sequences to achieve this.
- *
- *
- * TODO: this is an illogical order. why wouldn't I just use midi arrays?
- * [status, number, value, channel]
- */
-type ControlSequenceMessage = [StatusString, MidiNumber, MidiNumber, Channel];
-
 export type DeviceStyle = {
   '--r'?: number /* used to calculate aspect-ratio */;
 
@@ -66,5 +55,5 @@ export type DeviceDriver = {
   keyboard?: KeyboardDriver;
 
   /* See `ControlSequenceMessage` */
-  controlSequence?: ControlSequenceMessage[];
+  controlSequence?: NumberArrayWithStatus[];
 };
