@@ -1,5 +1,5 @@
 import * as Revivable from '../revivable';
-import { MidiArray } from '../midi-array';
+import { MidiArray, create } from '../midi-array';
 import { DeviceConfig } from './device-config';
 
 @Revivable.register
@@ -42,16 +42,15 @@ export class AnonymousDeviceConfig extends DeviceConfig {
    * @returns [messageToDevice | null, messageToPropagate]
    */
   handleMessage(msg: MidiArray) {
-    const valueNegatedMsg = new MidiArray(msg.array);
+    const valueNegatedMsg = create([msg[0], msg[1]]);
 
-    valueNegatedMsg[2] = 0;
     const id = JSON.stringify(valueNegatedMsg.array);
     const override = this.overrides.get(id);
 
     if (override) {
       // eslint-disable-next-line
-      override[2] = msg[2];
-      return [undefined, override];
+      const withValue = create([override[0], override[1], msg[2]]);
+      return [undefined, withValue];
     }
 
     return [undefined, msg];
@@ -72,7 +71,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
   ) {
     const valueNegatedTarget = [...targetInput];
     valueNegatedTarget[2] = 0;
-    const override = MidiArray.create(newStatus, newChannel, newNumber, 0);
+    const override = create(newStatus, newChannel, newNumber, 0);
     this.overrides.set(JSON.stringify(valueNegatedTarget), override);
   }
 

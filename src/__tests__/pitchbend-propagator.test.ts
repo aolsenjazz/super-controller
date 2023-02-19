@@ -1,4 +1,4 @@
-import { MidiArray } from '@shared/midi-array';
+import { ThreeByteMidiArray } from '@shared/midi-array';
 import { PitchbendPropagator } from '@shared/propagators/pitchbend-propagator';
 
 function createPropagator(
@@ -16,7 +16,7 @@ interface NamedCreateCC {
   channel: Channel;
 }
 function create({ value = 0, number = 0, channel = 0 }: NamedCreateCC) {
-  return MidiArray.create('pitchbend', channel, number, value);
+  return ThreeByteMidiArray.create('pitchbend', channel, number, value);
 }
 
 test('propagates values correctly', () => {
@@ -29,7 +29,7 @@ test('propagates values correctly', () => {
   const msg1 = create({ value: 60, number: 0, channel: 7 });
   const msg2 = create({ value: 127, number: 127, channel: 7 });
 
-  const result = propagator.handleMessage(msg1)!;
+  const result = propagator.handleMessage(msg1)! as ThreeByteMidiArray;
 
   expect(result.statusString).toEqual(status);
   expect(result.number).toEqual(0);
@@ -40,7 +40,7 @@ test('propagates values correctly', () => {
 
   propagator.channel = newChannel;
 
-  const result2 = propagator.handleMessage(msg2)!;
+  const result2 = propagator.handleMessage(msg2)! as ThreeByteMidiArray;
 
   expect(result2.channel).toEqual(newChannel);
   expect(result2.number).toEqual(msg2.number);

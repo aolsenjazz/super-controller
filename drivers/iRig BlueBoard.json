@@ -20,20 +20,23 @@
       "bottom": 0.75,
       "inputs": [
         {
-          "number": 0
+          "number": 0,
+          "availableColors": []
         },
         {
-          "number": 1
+          "number": 1,
+          "availableColors": []
         },
         {
-          "number": 2
+          "number": 2,
+          "availableColors": []
         },
         {
-          "number": 3
+          "number": 3,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 1,
         "height": 1,

@@ -1,36 +1,18 @@
-import {
-  SupportedDeviceConfig,
-  AnonymousDeviceConfig,
-} from './hardware-config';
+import * as Revivable from './revivable';
+import { DeviceConfig } from './hardware-config';
 
+@Revivable.register
 export class Project {
+  static CURRENT_VERSION = 1;
+
+  version?: number;
+
   /* Configured devices. See `SupportedDeviceConfig` for more. */
-  devices: (SupportedDeviceConfig | AnonymousDeviceConfig)[];
+  devices: DeviceConfig[];
 
-  constructor(devices?: (SupportedDeviceConfig | AnonymousDeviceConfig)[]) {
+  constructor(devices?: DeviceConfig[], version?: number) {
     this.devices = devices || [];
-  }
-
-  /**
-   * Loads a project from JSON string, used either in IPC or when loading
-   * saved file. Should be used in combination with `project.toJSON()`
-   *
-   * @param json Serialized representation of the project
-   * @returns The deserialized project
-   */
-  static fromJSON(json: string) {
-    const obj = JSON.parse(json);
-    const newProj = new Project();
-
-    Object.assign(newProj, obj);
-    newProj.devices = obj.devices.map((j: string) => {
-      const o = JSON.parse(j);
-      return o.supported
-        ? SupportedDeviceConfig.fromParsedJSON(o)
-        : AnonymousDeviceConfig.fromParsedJSON(o);
-    });
-
-    return newProj;
+    this.version = version || Project.CURRENT_VERSION;
   }
 
   /**
@@ -38,7 +20,7 @@ export class Project {
    *
    * @param config The config to add
    */
-  addDevice(config: SupportedDeviceConfig | AnonymousDeviceConfig) {
+  addDevice(config: DeviceConfig) {
     this.devices.push(config);
   }
 
@@ -47,7 +29,7 @@ export class Project {
    *
    * @param config The config to remove
    */
-  removeDevice(config: SupportedDeviceConfig | AnonymousDeviceConfig) {
+  removeDevice(config: DeviceConfig) {
     let idx = -1;
     this.devices.forEach((d, index) => {
       if (d.id === config.id) {
@@ -73,17 +55,11 @@ export class Project {
     return undefined;
   }
 
-  /**
-   * Serialize the project and all child configs
-   *
-   * @param includeState Should `InputConfig` state be added?
-   * @returns Serialized JSON string
-   */
-  toJSON(includeState: boolean) {
-    const project = {
-      devices: this.devices.map((dev) => dev.toJSON(includeState)),
+  toJSON() {
+    return {
+      name: this.constructor.name,
+      version: this.version,
+      args: [this.devices, Project.CURRENT_VERSION],
     };
-
-    return JSON.stringify(project);
   }
 }

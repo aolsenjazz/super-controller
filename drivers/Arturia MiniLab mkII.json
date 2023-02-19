@@ -27,57 +27,72 @@
       "inputs": [
         {
           "number": 112,
-          "knobType": "endless"
+          "knobType": "endless",
+          "availableColors": []
         },
         {
-          "number": 74
+          "number": 74,
+          "availableColors": []
         },
         {
-          "number": 71
+          "number": 71,
+          "availableColors": []
         },
         {
-          "number": 76
+          "number": 76,
+          "availableColors": []
         },
         {
-          "number": 77
+          "number": 77,
+          "availableColors": []
         },
         {
-          "number": 93
+          "number": 93,
+          "availableColors": []
         },
         {
-          "number": 73
+          "number": 73,
+          "availableColors": []
         },
         {
-          "number": 75
+          "number": 75,
+          "availableColors": []
         },
         {
           "number": 114,
-          "knobType": "endless"
+          "knobType": "endless",
+          "availableColors": []
         },
         {
-          "number": 18
+          "number": 18,
+          "availableColors": []
         },
         {
-          "number": 19
+          "number": 19,
+          "availableColors": []
         },
         {
-          "number": 16
+          "number": 16,
+          "availableColors": []
         },
         {
-          "number": 17
+          "number": 17,
+          "availableColors": []
         },
         {
-          "number": 91
+          "number": 91,
+          "availableColors": []
         },
         {
-          "number": 79
+          "number": 79,
+          "availableColors": []
         },
         {
-          "number": 72
+          "number": 72,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.6,
         "height": 0.6,
@@ -99,32 +114,375 @@
       "left": 3.25,
       "inputs": [
         {
-          "number": 36
+          "number": 36,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "default": true,
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 112, 0, 247]
+            },
+            {
+              "name": "Red",
+              "string": "red",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 112, 1, 247]
+            },
+            {
+              "name": "Green",
+              "string": "green",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 112, 4, 247]
+            },
+            {
+              "name": "Yellow",
+              "string": "yellow",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 112, 5, 247]
+            },
+            {
+              "name": "Blue",
+              "string": "blue",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 112, 16, 247]
+            },
+            {
+              "name": "Magenta",
+              "string": "magenta",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 112, 17, 247]
+            },
+            {
+              "name": "Cyan",
+              "string": "cyan",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 112, 20, 247]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 112, 127, 247]
+            }
+          ]
         },
         {
-          "number": 37
+          "number": 37,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "default": true,
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 113, 0, 247]
+            },
+            {
+              "name": "Red",
+              "string": "red",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 113, 1, 247]
+            },
+            {
+              "name": "Green",
+              "string": "green",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 113, 4, 247]
+            },
+            {
+              "name": "Yellow",
+              "string": "yellow",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 113, 5, 247]
+            },
+            {
+              "name": "Blue",
+              "string": "blue",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 113, 16, 247]
+            },
+            {
+              "name": "Magenta",
+              "string": "magenta",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 113, 17, 247]
+            },
+            {
+              "name": "Cyan",
+              "string": "cyan",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 113, 20, 247]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 113, 127, 247]
+            }
+          ]
         },
         {
-          "number": 38
+          "number": 38,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "default": true,
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 114, 0, 247]
+            },
+            {
+              "name": "Red",
+              "string": "red",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 114, 1, 247]
+            },
+            {
+              "name": "Green",
+              "string": "green",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 114, 4, 247]
+            },
+            {
+              "name": "Yellow",
+              "string": "yellow",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 114, 5, 247]
+            },
+            {
+              "name": "Blue",
+              "string": "blue",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 114, 16, 247]
+            },
+            {
+              "name": "Magenta",
+              "string": "magenta",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 114, 17, 247]
+            },
+            {
+              "name": "Cyan",
+              "string": "cyan",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 114, 20, 247]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 114, 127, 247]
+            }
+          ]
         },
         {
-          "number": 39
+          "number": 39,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "default": true,
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 115, 0, 247]
+            },
+            {
+              "name": "Red",
+              "string": "red",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 115, 1, 247]
+            },
+            {
+              "name": "Green",
+              "string": "green",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 115, 4, 247]
+            },
+            {
+              "name": "Yellow",
+              "string": "yellow",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 115, 5, 247]
+            },
+            {
+              "name": "Blue",
+              "string": "blue",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 115, 16, 247]
+            },
+            {
+              "name": "Magenta",
+              "string": "magenta",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 115, 17, 247]
+            },
+            {
+              "name": "Cyan",
+              "string": "cyan",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 115, 20, 247]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 115, 127, 247]
+            }
+          ]
         },
         {
-          "number": 40
+          "number": 40,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "default": true,
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 116, 0, 247]
+            },
+            {
+              "name": "Red",
+              "string": "red",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 116, 1, 247]
+            },
+            {
+              "name": "Green",
+              "string": "green",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 116, 4, 247]
+            },
+            {
+              "name": "Yellow",
+              "string": "yellow",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 116, 5, 247]
+            },
+            {
+              "name": "Blue",
+              "string": "blue",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 116, 16, 247]
+            },
+            {
+              "name": "Magenta",
+              "string": "magenta",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 116, 17, 247]
+            },
+            {
+              "name": "Cyan",
+              "string": "cyan",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 116, 20, 247]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 116, 127, 247]
+            }
+          ]
         },
         {
-          "number": 41
+          "number": 41,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "default": true,
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 117, 0, 247]
+            },
+            {
+              "name": "Red",
+              "string": "red",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 117, 1, 247]
+            },
+            {
+              "name": "Green",
+              "string": "green",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 117, 4, 247]
+            },
+            {
+              "name": "Yellow",
+              "string": "yellow",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 117, 5, 247]
+            },
+            {
+              "name": "Blue",
+              "string": "blue",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 117, 16, 247]
+            },
+            {
+              "name": "Magenta",
+              "string": "magenta",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 117, 17, 247]
+            },
+            {
+              "name": "Cyan",
+              "string": "cyan",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 117, 20, 247]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 117, 127, 247]
+            }
+          ]
         },
         {
-          "number": 42
+          "number": 42,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "default": true,
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 118, 0, 247]
+            },
+            {
+              "name": "Red",
+              "string": "red",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 118, 1, 247]
+            },
+            {
+              "name": "Green",
+              "string": "green",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 118, 4, 247]
+            },
+            {
+              "name": "Yellow",
+              "string": "yellow",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 118, 5, 247]
+            },
+            {
+              "name": "Blue",
+              "string": "blue",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 118, 16, 247]
+            },
+            {
+              "name": "Magenta",
+              "string": "magenta",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 118, 17, 247]
+            },
+            {
+              "name": "Cyan",
+              "string": "cyan",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 118, 20, 247]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 118, 127, 247]
+            }
+          ]
         },
         {
-          "number": 43
+          "number": 43,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "default": true,
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 119, 0, 247]
+            },
+            {
+              "name": "Red",
+              "string": "red",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 119, 1, 247]
+            },
+            {
+              "name": "Green",
+              "string": "green",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 119, 4, 247]
+            },
+            {
+              "name": "Yellow",
+              "string": "yellow",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 119, 5, 247]
+            },
+            {
+              "name": "Blue",
+              "string": "blue",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 119, 16, 247]
+            },
+            {
+              "name": "Magenta",
+              "string": "magenta",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 119, 17, 247]
+            },
+            {
+              "name": "Cyan",
+              "string": "cyan",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 119, 20, 247]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [240, 0, 32, 107, 127, 66, 2, 0, 16, 119, 127, 247]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.875,
         "height": 0.875,
@@ -148,16 +506,17 @@
           "number": 0,
           "eventType": "pitchbend",
           "handleWidth": 0.65,
-          "handleHeight": 0.65
+          "handleHeight": 0.65,
+          "availableColors": []
         },
         {
           "number": 1,
           "handleWidth": 0.65,
-          "handleHeight": 0.65
+          "handleHeight": 0.65,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "wheel",
         "width": 0.65,
         "height": 2.25,
@@ -178,20 +537,23 @@
       "left": 0.8,
       "inputs": [
         {
-          "number": -1
+          "number": -1,
+          "availableColors": []
         },
         {
-          "number": -2
+          "number": -2,
+          "availableColors": []
         },
         {
-          "number": -3
+          "number": -3,
+          "availableColors": []
         },
         {
-          "number": -4
+          "number": -4,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.65,
         "height": 0.3,

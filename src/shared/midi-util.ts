@@ -6,6 +6,7 @@ const CONTROL_CHANGE = 0xb0; // 176
 const PROGRAM_CHANGE = 0xc0; // 192
 const CHANNEL_PRESSURE = 0xd0; // 208
 const PITCH_BEND = 0xe0; // 224
+const SYSEX = 0xf0; // 224
 
 export function statusStringToByte(string: StatusString) {
   switch (string) {
@@ -21,8 +22,12 @@ export function statusStringToByte(string: StatusString) {
       return PROGRAM_CHANGE;
     case 'pitchbend':
       return PITCH_BEND;
+    case 'sysex':
+      return SYSEX;
+    case 'channelpressure':
+      return CHANNEL_PRESSURE;
     default:
-      return 0x00;
+      return SYSEX;
   }
 }
 
@@ -44,7 +49,9 @@ export function byteToStatusString(byte: StatusByte, individualOnOff = false) {
       return 'channelpressure';
     case PITCH_BEND:
       return 'pitchbend';
+    case SYSEX:
+      return 'sysex';
     default:
-      return 'unknown';
+      return 'sysex';
   }
 }

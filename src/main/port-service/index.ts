@@ -1,7 +1,7 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import { Project } from '@shared/project';
-import { MidiArray } from '@shared/midi-array';
-import { inputIdFor, getDiff } from '@shared/util';
+import { create, MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
+import { getDiff } from '@shared/util';
 import {
   InputConfig,
   SupportedDeviceConfig,
@@ -68,7 +68,7 @@ export class PortService {
       }
 
       pp.onMessage((_delta: number, tuple: MidiTuple) => {
-        const msg = new MidiArray(tuple);
+        const msg = create(tuple);
         // we'll occasionally receive message of length 1. ignore these.
         // reason is unclear, message of lenght 1 don't match midi spec
         if (msg.length >= 2) this.#onMessage(pp, msg);
@@ -94,14 +94,14 @@ export class PortService {
       config.inputs
         .filter((i) => i.currentColor !== undefined)
         .map((i) => i.currentColor!) // get message for color
-        .forEach((arr) => pp.send(arr)); // send color message
+        .forEach((c) => pp.send(c.array)); // send color message
     }
   };
 
   syncInputLight = (deviceId: string, config: InputConfig) => {
     const pp = this.portPairs.get(deviceId);
     if (pp && config.currentColor) {
-      pp.send(config.currentColor);
+      pp.send(config.currentColor.array);
     }
   };
 
@@ -190,11 +190,13 @@ export class PortService {
    */
   #handleSustain = (msg: MidiArray, shareWith: string[]) => {
     shareWith.forEach((devId) => {
-      const newMsg = new MidiArray(msg.array);
       const device = this.#project.getDevice(devId);
+      let newMsg = msg;
 
       if (device?.keyboardDriver !== undefined) {
-        newMsg.channel = device.keyboardDriver.channel;
+        const c = device.keyboardDriver.channel;
+        const asThree = msg as ThreeByteMidiArray;
+        newMsg = create('controlchange', c, asThree.number, asThree.value);
       }
 
       this.#virtService.send(newMsg, devId);
@@ -225,16 +227,11 @@ export class PortService {
 
       // send response to hardware device
       if (toDevice) {
-        // const asSupported = device as SupportedDeviceConfig;
-        // asSupported.inputs.forEach((i) => {
-        //   if (i.number === 32) {}
-        // });
         pair.send(toDevice);
       }
 
       // send new state to frontend
-      const id = inputIdFor(msg);
-      windowService.sendInputMsg(id, device.id, msg);
+      windowService.sendInputMsg(msg.id(true), device.id, msg);
     }
   };
 

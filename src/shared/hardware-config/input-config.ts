@@ -1,11 +1,11 @@
+/* eslint-disable no-bitwise */
 import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
-import { inputIdFor } from '../util';
 import {
   OverrideablePropagator,
-  NStepPropagator,
   createPropagator,
   ContinuousPropagator,
+  ColorConfigPropagator,
 } from '../propagators';
 import {
   InputDriver,
@@ -55,7 +55,7 @@ export class InputConfig {
    * Manages event propagation to device and maintains state related to event
    * propagation to device.
    */
-  devicePropagator: NStepPropagator;
+  devicePropagator: ColorConfigPropagator;
 
   #nickname?: string;
 
@@ -100,9 +100,7 @@ export class InputConfig {
 
     const availableColors =
       overrides.availableColors || defaults.availableColors || [];
-    const colors = availableColors.map((c) =>
-      ColorImpl.fromDrivers(c, number, channel)
-    );
+    const colors = availableColors.map((c) => new ColorImpl(c));
 
     const availableFx = overrides.availableFx || defaults.availableFx || [];
 
@@ -129,7 +127,7 @@ export class InputConfig {
     type: InputType,
     value?: MidiNumber,
     outputPropagator?: OverrideablePropagator<InputResponse, InputResponse>,
-    devicePropagator?: NStepPropagator,
+    devicePropagator?: ColorConfigPropagator,
     knobType?: 'endless' | 'absolute',
     valueType?: 'endless' | 'absolute',
     nickname?: string
@@ -144,19 +142,7 @@ export class InputConfig {
 
     const r = this.default.response;
 
-    if (devicePropagator) {
-      this.devicePropagator = devicePropagator;
-    } else {
-      const defaultMsg = this.defaultColor
-        ? this.defaultColor.deepCopy()
-        : undefined;
-
-      const defaultColorConfig = new Map([
-        [0, defaultMsg],
-        [1, defaultMsg],
-      ]);
-      this.devicePropagator = new NStepPropagator(r, r, defaultColorConfig);
-    }
+    this.devicePropagator = devicePropagator || new ColorConfigPropagator(r, r);
 
     this.outputPropagator =
       outputPropagator ||
@@ -211,52 +197,40 @@ export class InputConfig {
    * @returns The associated color or undefined if not set
    */
   colorForState(state: number) {
-    const arr = this.devicePropagator.responseForStep(state);
-
-    if (arr === undefined) return this.defaultColor;
-
-    let color = this.defaultColor;
-    this.availableColors.forEach((c) => {
-      if (arr.statusString === c.eventType && arr.value === c.value) {
-        const def = [c.default[0], c.default[1], c.default[2]] as MidiTuple;
-        const vals = [c[0], c[1], c[2]] as MidiTuple;
-        color = new ColorImpl(
-          def,
-          vals,
-          c.name,
-          c.string,
-          c.isDefault,
-          c.modifier
-        );
-        color.channel = arr.channel;
-      }
-    });
-
-    return color;
+    const color = this.devicePropagator.getColor(state);
+    return color || this.defaultColor;
   }
 
-  getActiveFx(state: number) {
-    const msg = this.devicePropagator.responseForStep(state);
+  getFx(state: number) {
+    let fxVal = this.devicePropagator.getFx(state);
+    let fx;
 
-    let fx: undefined | FxDriver;
+    if (fxVal === undefined) {
+      const c = this.defaultColor;
+      if (c) fxVal = (c.array[0] & 0x0f) as Channel;
+      else return undefined;
+    }
+
     this.availableFx.forEach((f) => {
-      if (msg && f.validVals.includes(msg.channel)) fx = f;
+      if (f.validVals.includes(fxVal as Channel)) fx = f;
     });
 
     return fx;
   }
 
+  // TODO: the naming of this vs getActiveFx is weird
   getFxVal(state: number) {
-    return this.devicePropagator.responseForStep(state)?.channel;
+    return this.devicePropagator.getFx(state);
   }
 
+  // TODO: this sort of feels like some BS
   setFx(state: number, fxTitle: string) {
     let isSet = false;
 
     this.availableFx.forEach((fx) => {
       if (fx.title === fxTitle) {
         isSet = true;
-        this.setFxVal(state, fx.defaultVal);
+        this.devicePropagator.setFx(state, fx.defaultVal);
       }
     });
 
@@ -266,28 +240,18 @@ export class InputConfig {
   }
 
   setFxVal(state: number, fxVal: Channel) {
-    const currentMsg = this.devicePropagator.responseForStep(state);
-    if (currentMsg) {
-      const deepCopy = currentMsg.deepCopy();
-      deepCopy.channel = fxVal;
-      this.devicePropagator.setStep(state, deepCopy);
-    } else {
-      throw new Error(`there is no current response for state[${state}]`);
-    }
+    this.devicePropagator.setFx(state, fxVal);
   }
 
   /**
    * Set a color for the given state.
    *
+   * TODO: this kind of feels like some BS
+   *
    * @param state The state value
    * @param color The color
    */
   setColorForState(state: number, displayName: string) {
-    if (state >= this.devicePropagator.nSteps) {
-      throw new Error(
-        `tried to set step[${state}] when nSteps is ${this.devicePropagator.nSteps}`
-      );
-    }
     const colors = this.availableColors.filter(
       (c) => c.displayName === displayName
     );
@@ -298,7 +262,7 @@ export class InputConfig {
       );
     }
 
-    this.devicePropagator.setStep(state, colors[0].deepCopy());
+    this.devicePropagator.setColor(state, colors[0]);
   }
 
   /* Restores all default, numeric values (nothing color-related) */
@@ -377,43 +341,20 @@ export class InputConfig {
     this.outputPropagator.value = value;
   }
 
+  // TODO: should probably have currentCOlorArray or something to distinguinsh
   get currentColor(): ColorImpl | undefined {
-    const arr = this.devicePropagator.responseForCurrentStep();
-
-    if (arr === undefined) return undefined;
-
-    let color;
-    this.availableColors.forEach((c) => {
-      if (arr.statusString === c.eventType && arr.value === c.value) {
-        const def = [c.default[0], c.default[1], c.default[2]] as MidiTuple;
-        const vals = [c[0], c[1], c[2]] as MidiTuple;
-        color = new ColorImpl(
-          def,
-          vals,
-          c.name,
-          c.string,
-          c.isDefault,
-          c.modifier
-        );
-        color.channel = arr.channel;
-      }
-    });
-
-    return color;
+    return this.devicePropagator.currentColor;
   }
 
   get currentFx(): FxDriver | undefined {
-    const colorArray = this.devicePropagator.responseForCurrentStep();
+    const fxVal = this.devicePropagator.currentFx;
+
+    if (fxVal === undefined) return undefined;
 
     let fx;
-    if (colorArray) {
-      const { channel } = colorArray;
-      this.availableFx.forEach((f) => {
-        if (f.validVals.includes(channel)) {
-          fx = f;
-        }
-      });
-    }
+    this.availableFx.forEach((f) => {
+      if (f.validVals.includes(fxVal)) fx = f;
+    });
 
     return fx;
   }
@@ -452,11 +393,11 @@ export class InputConfig {
   }
 
   get id() {
-    return inputIdFor(
-      this.default.eventType,
-      this.default.channel,
-      this.default.number
-    );
+    const et = this.default.eventType;
+    const c = this.default.channel;
+    const n = this.default.number;
+
+    return et === 'pitchbend' ? `${et}.${c}` : `${et}.${c}.${n}`;
   }
 
   get eventType(): StatusString | 'noteon/noteoff' {

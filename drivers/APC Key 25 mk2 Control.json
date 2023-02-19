@@ -25,124 +25,6004 @@
       "nCols": 8,
       "inputs": [
         {
-          "number": 32
+          "number": 32,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 33
+          "number": 33,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 34
+          "number": 34,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 35
+          "number": 35,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 36
+          "number": 36,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 37
+          "number": 37,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 38
+          "number": 38,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 39
+          "number": 39,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 24
+          "number": 24,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 25
+          "number": 25,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 26
+          "number": 26,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 27
+          "number": 27,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 28
+          "number": 28,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 29
+          "number": 29,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 30
+          "number": 30,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 31
+          "number": 31,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 16
+          "number": 16,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 17
+          "number": 17,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 18
+          "number": 18,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 19
+          "number": 19,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 20
+          "number": 20,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 21
+          "number": 21,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 22
+          "number": 22,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 23
+          "number": 23,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 8
+          "number": 8,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 9
+          "number": 9,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 10
+          "number": 10,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 11
+          "number": 11,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 12
+          "number": 12,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 13
+          "number": 13,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 14
+          "number": 14,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 15
+          "number": 15,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 0
+          "number": 0,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 1
+          "number": 1,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 2
+          "number": 2,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 3
+          "number": 3,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 4
+          "number": 4,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 5
+          "number": 5,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 6
+          "number": 6,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
-          "number": 7
+          "number": 7,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                150,
+                32,
+                5
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
+            }
+          ]
         },
         {
           "shape": "square",
@@ -150,24 +6030,149 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
+              "array": [
+                150,
+                32,
+                5
+              ]
             },
             {
-              "name": "Red",
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
             }
           ],
           "availableFx": [],
@@ -179,24 +6184,149 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
+              "array": [
+                150,
+                32,
+                5
+              ]
             },
             {
-              "name": "Red",
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
             }
           ],
           "availableFx": [],
@@ -208,24 +6338,149 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
+              "array": [
+                150,
+                32,
+                5
+              ]
             },
             {
-              "name": "Red",
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
             }
           ],
           "availableFx": [],
@@ -237,24 +6492,149 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
+              "array": [
+                150,
+                32,
+                5
+              ]
             },
             {
-              "name": "Red",
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
             }
           ],
           "availableFx": [],
@@ -266,24 +6646,149 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
+              "array": [
+                150,
+                32,
+                5
+              ]
             },
             {
-              "name": "Red",
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
             }
           ],
           "availableFx": [],
@@ -295,24 +6800,149 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
+              "array": [
+                150,
+                32,
+                5
+              ]
             },
             {
-              "name": "Red",
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
             }
           ],
           "availableFx": [],
@@ -324,24 +6954,149 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
+              "array": [
+                150,
+                32,
+                5
+              ]
             },
             {
-              "name": "Red",
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
             }
           ],
           "availableFx": [],
@@ -353,24 +7108,149 @@
           "height": 0.25,
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
-              "string": "transparent"
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                32,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 1
+              "array": [
+                150,
+                32,
+                5
+              ]
             },
             {
-              "name": "Red",
-              "string": "#F44336",
-              "eventType": "noteon",
-              "value": 2,
-              "modifier": "blink"
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                150,
+                32,
+                60
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFEB3B",
+              "array": [
+                150,
+                32,
+                9
+              ]
+            },
+            {
+              "name": "Seafoam Green",
+              "string": "#E0F7FA",
+              "array": [
+                150,
+                32,
+                8
+              ]
+            },
+            {
+              "name": "Soft Green",
+              "string": "#C8E6C9",
+              "array": [
+                150,
+                32,
+                12
+              ]
+            },
+            {
+              "name": "Pea Green",
+              "string": "#9CCC65",
+              "array": [
+                150,
+                32,
+                13
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                150,
+                32,
+                21
+              ]
+            },
+            {
+              "name": "Teal-ish",
+              "string": "#4DB6AC",
+              "array": [
+                150,
+                32,
+                20
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#64B5F6",
+              "array": [
+                150,
+                32,
+                32
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                150,
+                32,
+                41
+              ]
+            },
+            {
+              "name": "Royal Blue",
+              "string": "#163bc4",
+              "array": [
+                150,
+                32,
+                45
+              ]
+            },
+            {
+              "name": "Fuchsia",
+              "string": "#BA68C8",
+              "array": [
+                150,
+                32,
+                53
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#F06292",
+              "array": [
+                150,
+                32,
+                57
+              ]
+            },
+            {
+              "name": "Translucent Purple",
+              "string": "#E1BEE7",
+              "array": [
+                150,
+                32,
+                56
+              ]
+            },
+            {
+              "name": "Pepper White",
+              "string": "#E8EAF6",
+              "array": [
+                150,
+                32,
+                107
+              ]
             }
           ],
           "availableFx": [],
@@ -378,121 +7258,6 @@
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "default": true,
-            "eventType": "noteon",
-            "name": "Off",
-            "string": "transparent",
-            "value": 0,
-            "channel": 0
-          },
-          {
-            "eventType": "noteon",
-            "name": "Red",
-            "string": "#F44336",
-            "value": 5,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Orange",
-            "string": "#F57C00",
-            "value": 60,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Yellow",
-            "string": "#FFEB3B",
-            "value": 9,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Seafoam Green",
-            "string": "#E0F7FA",
-            "value": 8,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Soft Green",
-            "string": "#C8E6C9",
-            "value": 12,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Pea Green",
-            "string": "#9CCC65",
-            "value": 13,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Green",
-            "string": "#4CAF50",
-            "value": 21,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Teal-ish",
-            "string": "#4DB6AC",
-            "value": 20,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Light Blue",
-            "string": "#64B5F6",
-            "value": 32,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Blue",
-            "string": "#2196F3",
-            "value": 41,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Royal Blue",
-            "string": "#163bc4",
-            "value": 45,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Fuchsia",
-            "string": "#BA68C8",
-            "value": 53,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Pink",
-            "string": "#F06292",
-            "value": 57,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Translucent Purple",
-            "string": "#E1BEE7",
-            "value": 56,
-            "channel": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Pepper White",
-            "string": "#E8EAF6",
-            "value": 107,
-            "channel": 6
-          }
-        ],
         "type": "pad",
         "width": 0.5,
         "height": 0.3,
@@ -505,7 +7270,14 @@
           {
             "title": "Solid",
             "effect": "Brightness",
-            "validVals": [1, 2, 3, 4, 5, 6],
+            "validVals": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
             "defaultVal": 6,
             "lowBoundLabel": "Dim",
             "highBoundLabel": "Bright"
@@ -513,7 +7285,12 @@
           {
             "title": "Pulse",
             "effect": "Speed",
-            "validVals": [7, 8, 9, 10],
+            "validVals": [
+              7,
+              8,
+              9,
+              10
+            ],
             "defaultVal": 7,
             "lowBoundLabel": "Fast",
             "highBoundLabel": "Slow"
@@ -521,7 +7298,13 @@
           {
             "title": "Blink",
             "effect": "Speed",
-            "validVals": [11, 12, 13, 14, 15],
+            "validVals": [
+              11,
+              12,
+              13,
+              14,
+              15
+            ],
             "defaultVal": 11,
             "lowBoundLabel": "Fast",
             "highBoundLabel": "Slow"
@@ -539,47 +7322,211 @@
       "nCols": 1,
       "inputs": [
         {
-          "number": 82
+          "number": 82,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                82,
+                0
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                82,
+                1
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                82,
+                2
+              ]
+            }
+          ]
         },
         {
-          "number": 83
+          "number": 83,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                82,
+                0
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                82,
+                1
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                82,
+                2
+              ]
+            }
+          ]
         },
         {
-          "number": 84
+          "number": 84,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                82,
+                0
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                82,
+                1
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                82,
+                2
+              ]
+            }
+          ]
         },
         {
-          "number": 85
+          "number": 85,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                82,
+                0
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                82,
+                1
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                82,
+                2
+              ]
+            }
+          ]
         },
         {
-          "number": 86
+          "number": 86,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                82,
+                0
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                82,
+                1
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                82,
+                2
+              ]
+            }
+          ]
         },
         {
-          "number": 81
+          "number": 81,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                82,
+                0
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                82,
+                1
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                82,
+                2
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "default": true,
-            "eventType": "noteon",
-            "name": "Off",
-            "string": "transparent",
-            "value": 0
-          },
-          {
-            "eventType": "noteon",
-            "name": "Green",
-            "string": "#4CAF50",
-            "value": 1
-          },
-          {
-            "eventType": "noteon",
-            "modifier": "blink",
-            "name": "Green",
-            "string": "#4CAF50",
-            "value": 2
-          }
-        ],
         "type": "pad",
         "width": 0.25,
         "height": 0.25,
@@ -601,32 +7548,39 @@
       "type": "knob",
       "inputs": [
         {
-          "number": 48
+          "number": 48,
+          "availableColors": []
         },
         {
-          "number": 49
+          "number": 49,
+          "availableColors": []
         },
         {
-          "number": 50
+          "number": 50,
+          "availableColors": []
         },
         {
-          "number": 51
+          "number": 51,
+          "availableColors": []
         },
         {
-          "number": 52
+          "number": 52,
+          "availableColors": []
         },
         {
-          "number": 53
+          "number": 53,
+          "availableColors": []
         },
         {
-          "number": 54
+          "number": 54,
+          "availableColors": []
         },
         {
-          "number": 55
+          "number": 55,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.5,
         "height": 0.5,
@@ -649,33 +7603,38 @@
       "inputs": [
         {
           "number": 64,
-          "overrideable": false
+          "overrideable": false,
+          "availableColors": []
         },
         {
           "overrideable": false,
           "number": -1,
           "response": "constant",
-          "eventType": "octdown"
+          "eventType": "octdown",
+          "availableColors": []
         },
         {
           "overrideable": false,
           "number": -2,
           "response": "constant",
-          "eventType": "octup"
+          "eventType": "octup",
+          "availableColors": []
         },
         {
           "number": 91,
-          "eventType": "noteon/noteoff"
+          "eventType": "noteon/noteoff",
+          "availableColors": []
         },
         {
-          "number": 93
+          "number": 93,
+          "availableColors": []
         },
         {
-          "number": 98
+          "number": 98,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.5,
         "height": 0.25,

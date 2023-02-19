@@ -1,4 +1,4 @@
-import { MidiArray } from '@shared/midi-array';
+import { ThreeByteMidiArray } from '@shared/midi-array';
 import { StatelessPropagator } from '@shared/propagators/stateless-propagator';
 import { CorrelatedResponse } from '@shared/propagators/propagator';
 
@@ -21,7 +21,7 @@ interface NamedCreateCC {
   channel: Channel;
 }
 function createCC({ value = 0, number = 0, channel = 0 }: NamedCreateCC) {
-  return MidiArray.create('controlchange', channel, number, value);
+  return ThreeByteMidiArray.create('controlchange', channel, number, value);
 }
 
 test('or=continuous applied overrides correctly', () => {
@@ -40,7 +40,7 @@ test('or=continuous applied overrides correctly', () => {
     69
   );
 
-  const result = propagator.handleMessage(msg1)!;
+  const result = propagator.handleMessage(msg1)! as ThreeByteMidiArray;
 
   expect(result.statusString).toEqual(status);
   expect(result.number).toEqual(number);
@@ -55,7 +55,7 @@ test('or=continuous applied overrides correctly', () => {
   propagator.channel = newChannel;
   propagator.eventType = newStatus;
 
-  const result2 = propagator.handleMessage(msg2)!;
+  const result2 = propagator.handleMessage(msg2)! as ThreeByteMidiArray;
 
   expect(result2.statusString).toEqual(newStatus);
   expect(result2.number).toEqual(newNumber);

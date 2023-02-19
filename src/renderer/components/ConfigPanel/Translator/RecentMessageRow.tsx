@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { MidiArray } from '@shared/midi-array';
+import { MidiArray, create, ThreeByteMidiArray } from '@shared/midi-array';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
 const { hostService } = window;
@@ -22,10 +22,14 @@ export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
     JSON.stringify(currentAction) === JSON.stringify(recentMessage);
 
   useEffect(() => {
-    const cb = (_inputId: string, deviceId: string, tuple: MidiTuple) => {
+    const cb = (
+      _inputId: string,
+      deviceId: string,
+      arr: NumberArrayWithStatus
+    ) => {
       if (config.id !== deviceId) return;
 
-      const msg = new MidiArray(tuple);
+      const msg = create(arr);
       setRecentMessage(msg);
 
       if (JSON.stringify(msg) !== JSON.stringify(recentMessage))
@@ -51,8 +55,12 @@ export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
       {recentMessage ? (
         <>
           <p className="column event">{recentMessage.statusString}</p>
-          <p className="column number">{recentMessage.number}</p>
-          <p className="column channel">{recentMessage.channel}</p>
+          <p className="column number">
+            {(recentMessage as ThreeByteMidiArray).number}
+          </p>
+          <p className="column channel">
+            {(recentMessage as ThreeByteMidiArray).channel}
+          </p>
         </>
       ) : null}
     </div>

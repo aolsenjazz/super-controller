@@ -32,17 +32,18 @@
         {
           "handleHeight": 0.5,
           "handleWidth": 0.5,
-          "number": 0
+          "number": 0,
+          "availableColors": []
         },
         {
           "handleHeight": 0.5,
           "handleWidth": 0.5,
           "number": 1,
-          "eventType": "controlchange"
+          "eventType": "controlchange",
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "wheel",
         "width": 0.5,
         "height": 2.25,
@@ -63,15 +64,16 @@
       "bottom": 5.5,
       "inputs": [
         {
-          "number": 0
+          "number": 0,
+          "availableColors": []
         },
         {
           "number": 1,
-          "eventType": "controlchange"
+          "eventType": "controlchange",
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 1,
         "height": 1,
@@ -94,51 +96,59 @@
         {
           "handleHeight": 0.625,
           "handleWidth": 0.5,
-          "number": 74
+          "number": 74,
+          "availableColors": []
         },
         {
           "handleHeight": 0.625,
           "handleWidth": 0.5,
-          "number": 71
+          "number": 71,
+          "availableColors": []
         },
         {
           "handleHeight": 0.625,
           "handleWidth": 0.5,
-          "number": 91
+          "number": 91,
+          "availableColors": []
         },
         {
           "handleHeight": 0.625,
           "handleWidth": 0.5,
-          "number": 93
+          "number": 93,
+          "availableColors": []
         },
         {
           "handleHeight": 0.625,
           "handleWidth": 0.5,
-          "number": 73
+          "number": 73,
+          "availableColors": []
         },
         {
           "handleHeight": 0.625,
           "handleWidth": 0.5,
-          "number": 3
+          "number": 3,
+          "availableColors": []
         },
         {
           "handleHeight": 0.625,
           "handleWidth": 0.5,
-          "number": 5
+          "number": 5,
+          "availableColors": []
         },
         {
           "handleHeight": 0.625,
           "handleWidth": 0.5,
-          "number": 84
+          "number": 84,
+          "availableColors": []
         },
         {
           "handleHeight": 0.625,
           "handleWidth": 0.5,
-          "number": 7
+          "number": 7,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "slider",
         "width": 0.5,
         "height": 2,
@@ -159,35 +169,43 @@
       "bottom": 6.875,
       "inputs": [
         {
-          "number": 63
+          "number": 63,
+          "availableColors": []
         },
         {
-          "number": 85
+          "number": 85,
+          "availableColors": []
         },
         {
-          "number": 86
+          "number": 86,
+          "availableColors": []
         },
         {
-          "number": 87
+          "number": 87,
+          "availableColors": []
         },
         {
-          "number": 88
+          "number": 88,
+          "availableColors": []
         },
         {
-          "number": 89
+          "number": 89,
+          "availableColors": []
         },
         {
-          "number": 90
+          "number": 90,
+          "availableColors": []
         },
         {
-          "number": 102
+          "number": 102,
+          "availableColors": []
         },
         {
-          "number": 103
+          "number": 103,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.5,
         "height": 0.5,
@@ -209,44 +227,55 @@
       "inputs": [
         {
           "number": 0,
-          "eventType": "pitchbend"
+          "eventType": "pitchbend",
+          "availableColors": []
         },
         {
-          "number": 1
+          "number": 1,
+          "availableColors": []
         },
         {
-          "number": 2
+          "number": 2,
+          "availableColors": []
         },
         {
-          "number": 3
+          "number": 3,
+          "availableColors": []
         },
         {
-          "number": 4
+          "number": 4,
+          "availableColors": []
         },
         {
-          "number": 5
+          "number": 5,
+          "availableColors": []
         },
         {
-          "number": 6
+          "number": 6,
+          "availableColors": []
         },
         {
-          "number": 7
+          "number": 7,
+          "availableColors": []
         },
         {
-          "number": 8
+          "number": 8,
+          "availableColors": []
         },
         {
-          "number": 9
+          "number": 9,
+          "availableColors": []
         },
         {
-          "number": 10
+          "number": 10,
+          "availableColors": []
         },
         {
-          "number": 11
+          "number": 11,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.625,
         "height": 0.25,
@@ -267,11 +296,11 @@
       "bottom": 8.175,
       "inputs": [
         {
-          "number": 0
+          "number": 0,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 3.25,
         "height": 1.875,
@@ -292,27 +321,32 @@
       "bottom": 7,
       "inputs": [
         {
-          "number": 113
+          "number": 113,
+          "availableColors": []
         },
         {
-          "number": 114
+          "number": 114,
+          "availableColors": []
         },
         {
-          "number": 115
+          "number": 115,
+          "availableColors": []
         },
         {
-          "number": 116
+          "number": 116,
+          "availableColors": []
         },
         {
-          "number": 117
+          "number": 117,
+          "availableColors": []
         },
         {
           "shape": "circle",
-          "number": 118
+          "number": 118,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.5,
         "height": 0.5,
@@ -333,32 +367,39 @@
       "bottom": 7,
       "inputs": [
         {
-          "number": 84
+          "number": 84,
+          "availableColors": []
         },
         {
-          "number": 81
+          "number": 81,
+          "availableColors": []
         },
         {
-          "number": 79
+          "number": 79,
+          "availableColors": []
         },
         {
-          "number": 85
+          "number": 85,
+          "availableColors": []
         },
         {
-          "number": 72
+          "number": 72,
+          "availableColors": []
         },
         {
-          "number": 74
+          "number": 74,
+          "availableColors": []
         },
         {
-          "number": 78
+          "number": 78,
+          "availableColors": []
         },
         {
-          "number": 82
+          "number": 82,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 1.125,
         "height": 1.125,
@@ -379,20 +420,23 @@
       "bottom": 7.875,
       "inputs": [
         {
-          "number": 75
+          "number": 75,
+          "availableColors": []
         },
         {
-          "number": 76
+          "number": 76,
+          "availableColors": []
         },
         {
-          "number": 92
+          "number": 92,
+          "availableColors": []
         },
         {
-          "number": 95
+          "number": 95,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.75,
         "height": 0.75,
@@ -414,20 +458,23 @@
       "bottom": 8.75,
       "inputs": [
         {
-          "number": 10
+          "number": 10,
+          "availableColors": []
         },
         {
-          "number": 2
+          "number": 2,
+          "availableColors": []
         },
         {
-          "number": 18
+          "number": 18,
+          "availableColors": []
         },
         {
-          "number": 19
+          "number": 19,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.75,
         "height": 0.75,

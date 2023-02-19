@@ -21,47 +21,30 @@ export function validateColor(color: any): asserts color is Color {
       'Color object is missing a string property or it is not a string'
     );
   }
-  if (
-    !color.eventType ||
-    ![
-      'noteon',
-      'noteoff',
-      'keypressure',
-      'controlchange',
-      'programchange',
-      'channelpressure',
-      'pitchbend',
-    ].includes(color.eventType)
-  ) {
-    throw new Error(
-      'Color object is missing an eventType property or it is not a valid StatusString'
-    );
-  }
 
   if (color.modifier && !['blink', 'pulse'].includes(color.modifier)) {
     throw new Error('Color modifier exists and is note in [blink, pulse]');
   }
-
-  if (typeof color.value !== 'number') {
-    throw new Error(
-      'Color object is missing a value property or it is not a number'
-    );
-  }
-
-  if (color.number !== undefined && typeof color.number !== 'number') {
-    throw new Error('Color object number property is not a number');
-  }
-  if (
-    color.channel !== undefined &&
-    (typeof color.channel !== 'number' ||
-      color.channel < 0 ||
-      color.channel > 15)
-  ) {
-    throw new Error('Color object channel property is not a valid Channel');
-  }
   if (color.default !== undefined && typeof color.default !== 'boolean') {
     throw new Error('Color object default property is not a boolean');
   }
+  if (!color.array || !Array.isArray(color.array)) {
+    throw new Error('Color object is missing array');
+  }
+  if (color.array.length < 3) {
+    throw new Error('Color array must have at least 3 items');
+  }
+  const arr = color.array;
+  if (arr[0] < 128 || arr[0] > 255) {
+    throw new Error(`invalid array value ${arr[0]}`);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  arr.forEach((ev: any) => {
+    if (ev === null) {
+      throw new Error(`array member must not be null`);
+    }
+  });
 }
 
 function validateKeyboardDriver(obj: any): asserts obj is KeyboardDriver {

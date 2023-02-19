@@ -1,7 +1,6 @@
 import { parse, stringify } from '@shared/util';
-import { MidiArray } from '@shared/midi-array';
 import { InputConfig, ColorImpl } from '@shared/hardware-config';
-import { NStepPropagator } from '@shared/propagators';
+import { ColorConfigPropagator } from '@shared/propagators';
 import { Color, FxDriver } from '@shared/driver-types';
 
 const FX: FxDriver = {
@@ -16,21 +15,17 @@ const FX: FxDriver = {
 
 const RED: Color = {
   name: 'Red',
-  eventType: 'noteon',
-  value: 6,
+  array: [145, 69, 6],
   string: 'red',
-  channel: 1,
 };
 
 const GREEN: Color = {
   name: 'Green',
-  eventType: 'noteon',
-  value: 8,
+  array: [146, 69, 8],
   default: true,
   string: 'green',
-  channel: 2,
 };
-const GreenImpl = ColorImpl.fromDrivers(GREEN, 0, 0);
+const GreenImpl = new ColorImpl(GREEN);
 
 interface Params {
   defaultVals?: InputConfig['default'];
@@ -57,26 +52,22 @@ function createConfig({
   colorConfig = undefined,
   activeFx = undefined,
 }: Params) {
-  const colors = availableColors.map((c) =>
-    ColorImpl.fromDrivers(c, defaultVals.number, defaultVals.channel)
-  );
-  const config = new Map<number, MidiArray>();
+  const colors = availableColors.map((c) => new ColorImpl(c));
+  const config = new Map<number, ColorImpl>();
   if (colorConfig) {
     colorConfig.forEach((v, k) => {
-      config.set(
-        k,
-        ColorImpl.fromDrivers(v, defaultVals.number, defaultVals.channel)
-      );
+      config.set(k, new ColorImpl(v));
     });
   }
 
   const outputPropagator = undefined;
   let devicePropagator;
   if (colorConfig) {
-    devicePropagator = new NStepPropagator(
+    devicePropagator = new ColorConfigPropagator(
       defaultVals.response,
       defaultVals.response,
-      config
+      config,
+      new Map()
     );
   }
 
@@ -154,14 +145,6 @@ describe('setColorForState', () => {
 
     expect(config.colorForState(0)!.name).toEqual(GREEN.name);
   });
-
-  test('set color throws when  state out of bounds', () => {
-    const config = createConfig({});
-
-    expect(() => {
-      config.setColorForState(2, GreenImpl.displayName);
-    }).toThrow();
-  });
 });
 
 describe('restoreDefault', () => {
@@ -231,21 +214,12 @@ describe('get activeFx', () => {
   test('returns undefined for no fx', () => {
     const config = createConfig({ availableColors: [RED] });
 
-    expect(config.getActiveFx(0)).toBe(undefined);
+    expect(config.getFx(0)).toBe(undefined);
   });
 
   test('returns title for color with default fx', () => {
     const config = createConfig({ availableColors: [GREEN] });
 
-    expect(config.getActiveFx(0)).toBe(FX);
-  });
-
-  test('returns title for color with applied fx', () => {
-    const config = createConfig({ availableColors: [GREEN, RED] });
-    const colorConfig = new Map();
-    colorConfig.set(0, GREEN);
-    colorConfig.set(1, RED);
-    config.setFx(1, FX.title);
-    expect(config.getActiveFx(1)).toBe(FX);
+    expect(config.getFx(0)).toBe(FX);
   });
 });

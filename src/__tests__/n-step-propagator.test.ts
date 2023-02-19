@@ -4,7 +4,7 @@
 
 import { parse, stringify } from '@shared/util';
 import { NStepPropagator as WrapMe } from '@shared/propagators';
-import { MidiArray } from '@shared/midi-array';
+import { ThreeByteMidiArray, create } from '@shared/midi-array';
 
 class NStepPropagator extends WrapMe {
   getSteps() {
@@ -16,8 +16,8 @@ class NStepPropagator extends WrapMe {
   }
 }
 
-const noteon = MidiArray.create(144, 0, 32, 127);
-const noteoff = MidiArray.create(128, 0, 32, 0);
+const noteon = ThreeByteMidiArray.create(144, 0, 32, 127);
+const noteoff = ThreeByteMidiArray.create(128, 0, 32, 0);
 
 test('creating a valid NStepPropagator sets hardwareResponse correctly', () => {
   const steps = new Map();
@@ -73,6 +73,21 @@ test('getResponse returns undefined when called on a valid NStepPropagator with 
   expect(propagator.getResponse()).toBeUndefined();
 });
 
+describe('setStep', () => {
+  test('setting step with MidiArray works', () => {
+    const propagator = new NStepPropagator('gate', 'toggle', new Map());
+    const mm = create('noteon', 4, 4, 4);
+    propagator.setStep(2, mm);
+    expect(propagator.responseForStep(2)).toBe(mm);
+  });
+  test('setting step with non-interactive midi array works', () => {
+    const arr: NumberArrayWithStatus = [144, 5, 5];
+    const propagator = new NStepPropagator('gate', 'toggle', new Map());
+    propagator.setStep(2, arr);
+    expect(propagator.responseForStep(2)!.array).toEqual(arr);
+  });
+});
+
 describe('toJSON', () => {
   test('serializes + deserializes stock values correctly', () => {
     const steps = new Map();
@@ -81,11 +96,10 @@ describe('toJSON', () => {
     const propagator = new NStepPropagator('gate', 'gate', steps);
 
     const json = stringify(propagator);
-    const obj = parse<any>(json);
+    const obj = parse<NStepPropagator>(json);
 
-    expect(obj.hardwareResponse).toEqual(propagator.hardwareResponse);
-    expect(obj.outputResponse).toEqual(propagator.outputResponse);
-    expect(obj.steps).toEqual(propagator.getSteps());
+    expect(obj instanceof WrapMe).toBe(true);
+    expect(JSON.stringify(obj)).toEqual(JSON.stringify(propagator));
   });
 
   test('toJSON stores state', () => {
@@ -97,7 +111,7 @@ describe('toJSON', () => {
     propagator.getResponse();
 
     const json = stringify(propagator);
-    const obj = parse<any>(json);
+    const obj = parse<NStepPropagator>(json);
 
     expect(obj.currentStep).toEqual(1);
   });
@@ -115,9 +129,9 @@ describe('toJSON', () => {
     propagator.setStep(1, newStep2);
 
     const json = stringify(propagator);
-    const obj = parse<any>(json);
+    const obj = parse<NStepPropagator>(json);
 
-    expect(obj.outputResponse).toEqual(newOutputResponse);
-    expect(obj.steps).toEqual(steps);
+    expect(obj instanceof WrapMe).toBe(true);
+    expect(JSON.stringify(obj)).toEqual(JSON.stringify(propagator));
   });
 });

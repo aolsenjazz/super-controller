@@ -1,4 +1,4 @@
-import { MidiArray } from '@shared/midi-array';
+import { ThreeByteMidiArray } from '@shared/midi-array';
 import { InputResponse } from '@shared/driver-types';
 import { OverrideablePropagator } from '@shared/propagators';
 import { CorrelatedResponse } from '@shared/propagators/propagator';
@@ -7,7 +7,7 @@ class Wrapper<
   T extends InputResponse,
   U extends CorrelatedResponse<T>
 > extends OverrideablePropagator<T, U> {
-  getResponse(msg: MidiArray) {
+  getResponse(msg: ThreeByteMidiArray) {
     return msg;
   }
 
@@ -15,7 +15,7 @@ class Wrapper<
     return this.eventType === 'noteon/noteoff' ? 'noteon' : this.eventType;
   }
 
-  handleAsConstant(msg: MidiArray) {
+  handleAsConstant(msg: ThreeByteMidiArray) {
     return super.handleAsConstant(msg);
   }
 }
@@ -50,10 +50,10 @@ describe('handleAsConstant', () => {
   const channel = 2;
   const w = new Wrapper(hr, or, et, number, channel);
 
-  const msg = MidiArray.create(128, 5, 60, 126);
+  const msg = ThreeByteMidiArray.create(128, 5, 60, 126);
 
   test('propagates value=127 when value unset', () => {
-    const r = w.handleAsConstant(msg);
+    const r = w.handleAsConstant(msg) as ThreeByteMidiArray;
     expect(r.value).toBe(127);
   });
 
@@ -63,7 +63,7 @@ describe('handleAsConstant', () => {
     w.number = 70;
     w.channel = 9;
 
-    const r = w.handleAsConstant(msg);
+    const r = w.handleAsConstant(msg) as ThreeByteMidiArray;
 
     expect(r.statusString).toBe('noteon');
     expect(r.value).toBe(120);

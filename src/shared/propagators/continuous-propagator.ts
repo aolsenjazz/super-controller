@@ -1,5 +1,5 @@
 import * as Revivable from '../revivable';
-import { MidiArray } from '../midi-array';
+import { MidiArray, create } from '../midi-array';
 import { StatelessPropagator } from './stateless-propagator';
 import { CorrelatedResponse } from './propagator';
 
@@ -50,7 +50,7 @@ export class ContinuousPropagator extends StatelessPropagator {
     if (this.outputResponse === 'constant') {
       response = this.handleAsConstant(msg);
     } else {
-      response = MidiArray.create(
+      response = create(
         this.nextEventType(),
         this.channel,
         this.number,
@@ -62,7 +62,7 @@ export class ContinuousPropagator extends StatelessPropagator {
   }
 
   protected nextValue = (msg: MidiArray) => {
-    let val = msg[2];
+    let val = msg[2] as MidiNumber;
     if (this.knobType === 'endless' && this.valueType === 'absolute') {
       const shift = (val - 64 * Math.round(val / 64)) as MidiNumber;
       val = Math.min(127, Math.max(this.value + shift, 0)) as MidiNumber;

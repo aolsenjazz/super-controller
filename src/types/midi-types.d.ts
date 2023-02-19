@@ -6,9 +6,10 @@ declare type StatusString =
   | 'programchange'
   | 'channelpressure'
   | 'pitchbend'
+  | 'sysex'
   | 'unknown';
 
-declare type StatusByte = 0x80 | 0x90 | 0xa0 | 0xb0 | 0xc0 | 0xd0 | 0xe0;
+declare type StatusByte = 0x80 | 0x90 | 0xa0 | 0xb0 | 0xc0 | 0xd0 | 0xe0 | 0xf0;
 
 declare type Channel =
   | 0
@@ -287,5 +288,10 @@ declare type StatusNumber =
   | 253
   | 254
   | 255;
+
+declare interface NumberArrayWithStatus extends Array<number> {
+  [index: number]: number;
+  0: StatusNumber;
+}
 
 declare type MidiTuple = [StatusNumber, MidiNumber, MidiNumber];

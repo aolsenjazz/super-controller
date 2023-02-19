@@ -1,9 +1,9 @@
 import { Propagator, CorrelatedResponse } from '@shared/propagators/propagator';
-import { MidiArray } from '@shared/midi-array';
+import { ThreeByteMidiArray } from '@shared/midi-array';
 import { InputResponse } from '@shared/driver-types';
 
-const noteoff = MidiArray.create(128, 0, 0, 0);
-const noteon = MidiArray.create(144, 0, 0, 127);
+const noteoff = ThreeByteMidiArray.create(128, 0, 0, 0);
+const noteon = ThreeByteMidiArray.create(144, 0, 0, 127);
 
 class PropagatorWrapper<
   T extends InputResponse,
@@ -13,7 +13,7 @@ class PropagatorWrapper<
     return ['continuous'] as InputResponse[];
   }
 
-  protected getResponse(msg: MidiArray) {
+  protected getResponse(msg: ThreeByteMidiArray) {
     return msg;
   }
 }

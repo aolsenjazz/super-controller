@@ -1,4 +1,4 @@
-import { MidiArray } from '../midi-array';
+import { MidiArray, create } from '../midi-array';
 import { OverrideablePropagator } from './overrideable-propagator';
 import { CorrelatedResponse } from './propagator';
 
@@ -21,11 +21,11 @@ export abstract class StatelessPropagator extends OverrideablePropagator<
     if (this.outputResponse === 'constant') {
       response = this.handleAsConstant(msg);
     } else {
-      response = MidiArray.create(
+      response = create(
         this.nextEventType(),
         this.channel,
         this.number,
-        msg[2]
+        msg[2] as MidiNumber
       );
     }
 

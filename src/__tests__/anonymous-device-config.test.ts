@@ -1,7 +1,7 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import { test, expect } from '@jest/globals';
 
-import { MidiArray } from '@shared/midi-array';
+import { ThreeByteMidiArray } from '@shared/midi-array';
 import { parse, stringify } from '@shared/util';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
@@ -9,8 +9,8 @@ test('new UnsupportedDevice() correctly assigns values', () => {
   const name = 'littlename';
   const siblingIndex = 7;
   const nickname = 'nick';
-  const overrides = new Map<string, MidiArray>();
-  overrides.set('someKey', MidiArray.create(144, 0, 0, 0));
+  const overrides = new Map<string, ThreeByteMidiArray>();
+  overrides.set('someKey', ThreeByteMidiArray.create(144, 0, 0, 0));
 
   const device = new AnonymousDeviceConfig(
     name,
@@ -33,10 +33,10 @@ test('toJSON and fromJSON correctly serializes and deserializes', () => {
   const name = 'littlename';
   const siblingIndex = 7;
   const nickname = 'nick';
-  const overrides = new Map<string, MidiArray>();
+  const overrides = new Map<string, ThreeByteMidiArray>();
   const shareWith = ['otherDevice'];
 
-  overrides.set('someKey', MidiArray.create(144, 0, 0, 0));
+  overrides.set('someKey', ThreeByteMidiArray.create(144, 0, 0, 0));
   const device = new AnonymousDeviceConfig(
     name,
     siblingIndex,
@@ -63,7 +63,7 @@ test('handleMessage propagates message when not-overridden', () => {
   const nickname = 'nick';
 
   const device = new AnonymousDeviceConfig(name, 7, new Map(), [], nickname);
-  const msg = MidiArray.create(144, 0, 0, 0);
+  const msg = ThreeByteMidiArray.create(144, 0, 0, 0);
 
   /* eslint-disable-next-line */
   const [_toDevice, toPropagate] = device.handleMessage(msg);
@@ -75,21 +75,21 @@ test('handleMessage returns undefined message to prop to device', () => {
   const nickname = 'nick';
 
   const device = new AnonymousDeviceConfig(name, 7, new Map(), [], nickname);
-  const msg = MidiArray.create(144, 0, 0, 0);
+  const msg = ThreeByteMidiArray.create(144, 0, 0, 0);
   /* eslint-disable-next-line */
   const [toDevice, _toPropagate] = device.handleMessage(msg);
   expect(toDevice).toBe(undefined);
 });
 
 test('handleMessage applies override', () => {
-  const msg = MidiArray.create(128, 0, 127, 127);
+  const msg = ThreeByteMidiArray.create(128, 0, 127, 127);
 
-  const override = MidiArray.create(144, 0, 100, 100);
+  const override = ThreeByteMidiArray.create(144, 0, 100, 100);
   const { status, channel } = override;
 
   const name = 'littlename';
   const nickname = 'nick';
-  const overrides = new Map<string, MidiArray>();
+  const overrides = new Map<string, ThreeByteMidiArray>();
   const device = new AnonymousDeviceConfig(name, 7, overrides, [], nickname);
   device.overrideInput(msg, status, channel, override[2]);
   /* eslint-disable-next-line */
@@ -99,13 +99,13 @@ test('handleMessage applies override', () => {
 });
 
 test('serializes + deserializes correctly', () => {
-  const msg = MidiArray.create(128, 0, 127, 127);
+  const msg = ThreeByteMidiArray.create(128, 0, 127, 127);
 
-  const override = MidiArray.create(144, 0, 100, 100);
+  const override = ThreeByteMidiArray.create(144, 0, 100, 100);
   const { status, channel } = override;
   const name = 'littlename';
   const nickname = 'nick';
-  const overrides = new Map<string, MidiArray>();
+  const overrides = new Map<string, ThreeByteMidiArray>();
   const device = new AnonymousDeviceConfig(name, 7, overrides, [], nickname);
   device.overrideInput(msg, status, channel, override[2]);
 

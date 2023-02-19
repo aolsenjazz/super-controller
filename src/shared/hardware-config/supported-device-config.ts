@@ -1,7 +1,6 @@
 import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 
-import { inputIdFor } from '../util';
 import { DeviceDriver, KeyboardDriver } from '../driver-types';
 
 import { DeviceConfig } from './device-config';
@@ -124,8 +123,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * @returns [messageToDevice | null, messageToPropagate]
    */
   handleMessage(msg: MidiArray): (MidiArray | undefined)[] {
-    const id = inputIdFor(msg);
-    const input = this.getInput(id);
+    const input = this.getInput(msg.id(true));
     return input !== undefined ? input.handleMessage(msg) : [undefined, msg];
   }
 }

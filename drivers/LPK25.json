@@ -30,26 +30,31 @@
       "nCols": 2,
       "inputs": [
         {
-          "number": -1
+          "number": -1,
+          "availableColors": []
         },
         {
-          "number": -2
+          "number": -2,
+          "availableColors": []
         },
         {
-          "number": -3
+          "number": -3,
+          "availableColors": []
         },
         {
-          "number": -4
+          "number": -4,
+          "availableColors": []
         },
         {
-          "number": -5
+          "number": -5,
+          "availableColors": []
         },
         {
-          "number": -6
+          "number": -6,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.3125,
         "height": 0.3125,

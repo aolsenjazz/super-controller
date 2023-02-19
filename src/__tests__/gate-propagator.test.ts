@@ -1,13 +1,13 @@
 /* eslint-disable no-new */
 
-import { MidiArray } from '@shared/midi-array';
+import { ThreeByteMidiArray } from '@shared/midi-array';
 import { GatePropagator } from '@shared/propagators';
 
-const noteon = MidiArray.create('noteon', 0, 32, 127);
-const noteoff = MidiArray.create('noteoff', 0, 32, 0);
+const noteon = ThreeByteMidiArray.create('noteon', 0, 32, 127);
+const noteoff = ThreeByteMidiArray.create('noteoff', 0, 32, 0);
 
 class Wrapper extends GatePropagator {
-  getResponse(msg: MidiArray) {
+  getResponse(msg: ThreeByteMidiArray) {
     return super.getResponse(msg);
   }
 }
@@ -21,14 +21,14 @@ describe('getResponse', () => {
     const value = 100;
     const w = new Wrapper(or, et, number, channel, value);
 
-    const r1 = w.getResponse(noteon);
+    const r1 = w.getResponse(noteon) as ThreeByteMidiArray;
 
     expect(r1.number).toBe(number);
     expect(r1.channel).toBe(channel);
     expect(r1.value).toBe(127);
     expect(r1.statusString).toBe(et);
 
-    const r2 = w.getResponse(noteoff);
+    const r2 = w.getResponse(noteoff) as ThreeByteMidiArray;
 
     expect(r2.number).toBe(number);
     expect(r2.channel).toBe(channel);
@@ -44,14 +44,14 @@ describe('getResponse', () => {
     const value = 100;
     const w = new Wrapper(or, et, number, channel, value);
 
-    const r1 = w.getResponse(noteon);
+    const r1 = w.getResponse(noteon) as ThreeByteMidiArray;
 
     expect(r1.number).toBe(number);
     expect(r1.channel).toBe(channel);
     expect(r1.value).toBe(127);
     expect(r1.statusString).toBe(et);
 
-    const r2 = w.getResponse(noteoff);
+    const r2 = w.getResponse(noteoff) as ThreeByteMidiArray;
 
     expect(r2.number).toBe(number);
     expect(r2.channel).toBe(channel);
@@ -67,13 +67,14 @@ describe('getResponse', () => {
     const value = 100;
     const w = new Wrapper(or, et, number, channel, value);
 
-    const r1 = w.getResponse(noteon);
+    const r1 = w.getResponse(noteon) as ThreeByteMidiArray;
 
     expect(r1.number).toBe(number);
     expect(r1.channel).toBe(channel);
     expect(r1.value).toBe(100);
     expect(r1.statusString).toBe(et);
-    const r2 = w.getResponse(noteoff);
+
+    const r2 = w.getResponse(noteoff) as ThreeByteMidiArray;
 
     expect(r2.number).toBe(number);
     expect(r2.channel).toBe(channel);

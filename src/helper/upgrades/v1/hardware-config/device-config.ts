@@ -1,10 +1,10 @@
+import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
-import { PortIdentifier } from '../port-info';
 
 /**
  * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.
  */
-export class DeviceConfig implements PortIdentifier {
+export abstract class DeviceConfig {
   /* True if a driver exists for the given name */
   readonly supported: boolean;
 
@@ -13,6 +13,8 @@ export class DeviceConfig implements PortIdentifier {
 
   /* nth-occurence of this device. applicable if > 1 device of same model is connected/configured */
   readonly siblingIndex: number;
+
+  abstract readonly isAdapter: boolean;
 
   /**
    * List of devices with which sustain events are shared.
@@ -82,4 +84,10 @@ export class DeviceConfig implements PortIdentifier {
     const idx = this.shareSustain.indexOf(id);
     this.shareSustain.splice(idx, 1);
   }
+
+  /**
+   * @param message The MidiValue[] from device
+   * @returns [messageToDevice | null, messageToPropagate]
+   */
+  abstract handleMessage(msg: MidiArray): (MidiArray | undefined)[];
 }

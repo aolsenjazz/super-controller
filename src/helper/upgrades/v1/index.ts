@@ -1,160 +1,170 @@
-/* eslint-disable new-cap */
-// v1 imports
-import { MidiArray } from '@shared/midi-array';
-import { Project as v1Project } from '@shared/project';
-import { stringify } from '@shared/util';
-import { Color } from '@shared/driver-types';
 import {
-  InputConfig as v1InputConfig,
-  ColorImpl as v1ColorImpl,
-  SupportedDeviceConfig as v1SupportedDeviceConfig,
-  AnonymousDeviceConfig as v1AnonymousDeviceConfig,
+  SupportedDeviceConfig,
+  AnonymousDeviceConfig,
+  AdapterDeviceConfig,
+  InputConfig,
+  ColorImpl,
+  DeviceConfig,
 } from '@shared/hardware-config';
+
 import {
-  propagatorFromJSON,
-  NStepPropagator as v1NStepPropagator,
+  OverrideablePropagator,
+  ColorConfigPropagator,
 } from '@shared/propagators';
 
-// v0 imports
-import { Project as v0Project } from './project';
+import { MidiArray, create } from '@shared/midi-array';
+import { Project as V2Project } from '@shared/project';
+
+import { statusStringToByte } from '@shared/midi-util';
+import { stringify } from '@shared/util';
+
+import { parse as v1parse } from './util';
+import { Project } from './project';
 import {
-  SupportedDeviceConfig as v0SupportedDeviceConfig,
-  AnonymousDeviceConfig as v0AnonymousDeviceConfig,
-  InputConfig as v0InputConfig,
+  SupportedDeviceConfig as v1SupportedDeviceConfig,
+  AnonymousDeviceConfig as v1AnonymousDeviceConfig,
+  AdapterDeviceConfig as v1AdapterDeviceConfig,
+  InputConfig as v1InputConfig,
+  ColorImpl as v1ColorImpl,
 } from './hardware-config';
 
-function upgradeInput(i: v0InputConfig) {
-  const outputPropagator = propagatorFromJSON(i.outputPropagator);
-
-  const onColor = i.colorForState('on') || i.defaultColor || null;
-  const offColor = i.colorForState('off') || i.defaultColor || null;
-  const steps = new Map<number, MidiArray>();
-
-  if (onColor) {
-    const upgradedOnColor = {
-      ...onColor,
-      fx: [],
-    };
-    const onImpl = v1ColorImpl.fromDrivers(
-      upgradedOnColor as Color,
-      i.default.number as MidiNumber,
-      i.default.channel
-    );
-    steps.set(1, onImpl);
-  }
-
-  if (offColor) {
-    const upgradedOffColor = {
-      ...offColor,
-      fx: [],
-    };
-    const offImpl = v1ColorImpl.fromDrivers(
-      upgradedOffColor as Color,
-      i.default.number as MidiNumber,
-      i.default.channel
-    );
-    steps.set(0, offImpl);
-  }
-
-  const devicePropagator = new v1NStepPropagator(
-    i.default.response,
-    i.response,
-    steps
-  );
-
-  const availableColors: v1ColorImpl[] = [];
-  i.availableColors.forEach((c) => {
-    const upgraded = {
-      ...c,
-      fx: [],
-    };
-    const impl = v1ColorImpl.fromDrivers(
-      upgraded as Color,
-      i.default.number as MidiNumber,
-      i.default.channel
-    );
-
-    availableColors.push(impl);
-  });
-
-  const knobType = i.type === 'knob' ? 'absolute' : undefined;
-
-  return new v1InputConfig(
-    i.default as v1InputConfig['default'],
-    availableColors,
-    [],
-    i.overrideable,
-    i.type,
-    i.value as MidiNumber,
-    outputPropagator,
-    devicePropagator,
-    knobType,
-    undefined,
-    i.nickname
-  );
-}
-
-function upgradeInputIds(config: v1SupportedDeviceConfig) {
-  let id = -1;
-  config.inputs.forEach((i) => {
-    if (i.number < 0) {
-      i.number = id as MidiNumber;
-      id -= 1;
-    }
-  });
-}
-
-export function upgradeToV1(projectString: string) {
-  const project = v0Project.fromJSON(projectString);
-  const upgradedConfigs: (v1AnonymousDeviceConfig | v1SupportedDeviceConfig)[] =
-    [];
-
-  // upgrade supported devices
-  project.devices
-    .filter((c) => c instanceof v0SupportedDeviceConfig)
-    .forEach((config) => {
-      const casted = config as v0SupportedDeviceConfig;
-
-      const upgradedInputs = casted.inputs.map((i) => upgradeInput(i));
-
-      const upgradedConfig = new v1SupportedDeviceConfig(
-        config.name,
-        config.siblingIndex,
-        config.shareSustain,
-        upgradedInputs,
-        undefined,
-        config.keyboardDriver
-      );
-
-      upgradeInputIds(upgradedConfig);
-
-      upgradedConfigs.push(upgradedConfig);
+function upgradeColor(v1c: v1ColorImpl | undefined) {
+  if (v1c !== undefined) {
+    const newColor = new ColorImpl({
+      name: v1c.name,
+      string: v1c.string,
+      modifier: v1c.modifier,
+      default: v1c.isDefault,
+      array: v1c,
     });
 
-  // upgrade anonymous devices
-  project.devices
-    .filter((c) => c instanceof v0AnonymousDeviceConfig)
-    .forEach((c) => {
-      const asAnon = c as v0AnonymousDeviceConfig;
+    return newColor;
+  }
+  return undefined;
+}
 
-      const overrides = new Map<string, MidiArray>();
-      Array.from(overrides.keys()).forEach((k) => {
-        overrides.set(k, new MidiArray(asAnon.overrides.get(k)! as MidiTuple));
+function convertV1SupportedToV2(d: v1SupportedDeviceConfig) {
+  const inputs = d.inputs.map((v1: v1InputConfig) => {
+    const availColors = v1.availableColors.map((c: v1ColorImpl) => {
+      return new ColorImpl({
+        name: c.name,
+        string: c.string,
+        array: [
+          (statusStringToByte(c.eventType) + c.channel) as StatusByte,
+          c.number,
+          c.value,
+        ],
+        modifier: c.modifier,
+        default: c.isDefault || false,
+      });
+    });
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const prop: OverrideablePropagator = v1.outputPropagator;
+    const nstep = v1.devicePropagator;
+
+    const state0Color = v1.colorForState(0);
+    const state0Fx = v1.getFxVal(0);
+    const state1Color = v1.colorForState(1);
+    const state1Fx = v1.getFxVal(1);
+
+    const colorBindings = new Map<number, ColorImpl>();
+    const fxBindings = new Map<number, Channel>();
+
+    const upgradedState0Color = upgradeColor(state0Color);
+    const upgradedState1Color = upgradeColor(state1Color);
+
+    if (upgradedState0Color !== undefined) {
+      colorBindings.set(0, upgradedState0Color);
+    }
+
+    if (upgradedState1Color !== undefined) {
+      colorBindings.set(1, upgradedState1Color);
+    }
+
+    if (state0Fx !== undefined) {
+      fxBindings.set(0, state0Fx);
+    }
+
+    if (state1Fx !== undefined) {
+      fxBindings.set(1, state1Fx);
+    }
+
+    const dev = new ColorConfigPropagator(
+      nstep.hardwareResponse,
+      nstep.outputResponse,
+      colorBindings,
+      fxBindings
+    );
+
+    return new InputConfig(
+      v1.default,
+      availColors,
+      v1.availableFx,
+      v1.overrideable,
+      v1.type,
+      v1.value,
+      prop,
+      dev,
+      v1.knobType,
+      v1.valueType,
+      v1.nickname
+    );
+  });
+
+  return new SupportedDeviceConfig(
+    d.name,
+    d.siblingIndex,
+    d.shareSustain,
+    inputs,
+    d.nickname,
+    d.keyboardDriver
+  );
+}
+
+export function upgradeToV2(projectString: string) {
+  const project = v1parse<Project>(projectString);
+
+  const configs: DeviceConfig[] = [];
+  project.devices.forEach((d) => {
+    let newConfig;
+    if (d instanceof v1SupportedDeviceConfig) {
+      newConfig = convertV1SupportedToV2(d);
+    } else if (d instanceof v1AnonymousDeviceConfig) {
+      const oldOverrides = d.overrides;
+      const newOverrides = new Map<string, MidiArray>();
+
+      oldOverrides.forEach((v, k) => {
+        newOverrides.set(k, create(v));
       });
 
-      const upgraded = new v1AnonymousDeviceConfig(
-        asAnon.name,
-        asAnon.siblingIndex,
-        overrides,
-        asAnon.shareSustain,
-        asAnon.nickname
+      newConfig = new AnonymousDeviceConfig(
+        d.name,
+        d.siblingIndex,
+        newOverrides,
+        d.shareSustain,
+        d.nickname
       );
+    } else if (d instanceof v1AdapterDeviceConfig) {
+      // eslint-disable-next-line prefer-destructuring
+      let child: v1SupportedDeviceConfig | SupportedDeviceConfig | undefined =
+        d.child;
 
-      upgradedConfigs.push(upgraded);
-    });
+      if (child !== undefined) child = convertV1SupportedToV2(child);
 
-  const upgradedProject = new v1Project(upgradedConfigs);
-  upgradedProject.version = 1;
+      newConfig = new AdapterDeviceConfig(
+        d.name,
+        d.siblingIndex,
+        child as SupportedDeviceConfig | undefined
+      );
+    } else {
+      throw new Error('wat');
+    }
 
-  return stringify(upgradedProject);
+    configs.push(newConfig);
+  });
+
+  const newProject = new V2Project(configs, Project.CURRENT_VERSION);
+  return stringify(newProject);
 }

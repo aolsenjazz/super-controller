@@ -550,17 +550,18 @@
         {
           "handleWidth": 0.5,
           "handleHeight": 0.25,
-          "number": 0
+          "number": 0,
+          "availableColors": []
         },
         {
           "handleWidth": 0.5,
           "handleHeight": 0.25,
           "number": 1,
-          "eventType": "controlchange"
+          "eventType": "controlchange",
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "wheel",
         "width": 0.5,
         "height": 2.25,
@@ -581,15 +582,16 @@
       "bottom": 3.75,
       "inputs": [
         {
-          "number": 0
+          "number": 0,
+          "availableColors": []
         },
         {
           "number": -1,
-          "eventType": "octdown"
+          "eventType": "octdown",
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.5,
         "height": 0.25,
@@ -610,11 +612,11 @@
       "bottom": 5.125,
       "inputs": [
         {
-          "number": 0
+          "number": 0,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.5,
         "height": 0.25,
@@ -635,11 +637,11 @@
       "bottom": 5.875,
       "inputs": [
         {
-          "number": 0
+          "number": 0,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.5,
         "height": 0.25,
@@ -660,530 +662,6410 @@
       "bottom": 3.75,
       "inputs": [
         {
-          "number": 96
+          "number": 96,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 97
+          "number": 97,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 98
+          "number": 98,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 99
+          "number": 99,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 100
+          "number": 100,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 101
+          "number": 101,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 102
+          "number": 102,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 103
+          "number": 103,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
           "availableColors": [
             {
               "name": "Off",
-              "default": true,
-              "eventType": "controlchange",
-              "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
             },
             {
               "name": "Baby Blue (dim)",
-              "eventType": "controlchange",
-              "value": 1,
-              "string": "#F3FAFE"
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
             },
             {
               "name": "Baby Blue",
-              "eventType": "controlchange",
-              "value": 2,
-              "string": "#ECF7FD"
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
             },
             {
               "name": "Baby Blue (bright)",
-              "eventType": "controlchange",
-              "value": 3,
-              "string": "#DFF9FF"
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
             },
             {
               "name": "Pink",
-              "eventType": "controlchange",
-              "value": 4,
-              "string": "#FF9FDA"
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
             },
             {
               "name": "Red (dim)",
-              "eventType": "controlchange",
-              "value": 7,
-              "string": "#F58A70"
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
             },
             {
               "name": "Red",
-              "eventType": "controlchange",
-              "value": 6,
-              "string": "#F36E56"
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
             },
             {
               "name": "Red (bright)",
-              "eventType": "controlchange",
-              "value": 5,
-              "string": "#F44336"
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
             },
             {
               "name": "White",
-              "eventType": "controlchange",
-              "value": 8,
-              "string": "white"
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
             },
             {
               "name": "Off-White",
-              "eventType": "controlchange",
-              "value": 12,
-              "string": "#F8F0E3"
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
             },
             {
               "name": "Orange (dim)",
-              "eventType": "controlchange",
-              "value": 11,
-              "string": "#FCBB6F"
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
             },
             {
               "name": "Orange",
-              "eventType": "controlchange",
-              "value": 10,
-              "string": "#FAAB4B"
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
             },
             {
               "name": "Orange (bright)",
-              "eventType": "controlchange",
-              "value": 9,
-              "string": "#FF9900"
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
             },
             {
               "name": "Yellow-Green (dim)",
-              "eventType": "controlchange",
-              "value": 15,
-              "string": "#EBEEA0"
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
             },
             {
               "name": "Yellow-Green",
-              "eventType": "controlchange",
-              "value": 14,
-              "string": "#E6EA89"
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
             },
             {
               "name": "Yellow-Green (Bright)",
-              "eventType": "controlchange",
-              "value": 13,
-              "string": "#E3FF6A"
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
             },
             {
               "name": "SeaFoam-Green",
-              "eventType": "controlchange",
-              "value": 16,
-              "string": "#93E9BE"
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
             },
             {
               "name": "Light Green (dim)",
-              "eventType": "controlchange",
-              "value": 19,
-              "string": "#bfdfb0"
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
             },
             {
               "name": "Light Green",
-              "eventType": "controlchange",
-              "value": 18,
-              "string": "#b0d89e"
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
             },
             {
               "name": "Light Green (bright)",
-              "eventType": "controlchange",
-              "value": 17,
-              "string": "#90ee90"
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
             },
             {
               "name": "Blue-Green",
-              "eventType": "controlchange",
-              "value": 20,
-              "string": "#7fffec"
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
             },
             {
               "name": "Green (dim)",
-              "eventType": "controlchange",
-              "value": 23,
-              "string": "#91C587"
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
             },
             {
               "name": "Green",
-              "eventType": "controlchange",
-              "value": 22,
-              "string": "#75BB6D"
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
             },
             {
               "name": "Green (bright)",
-              "eventType": "controlchange",
-              "value": 21,
-              "string": "#4CAF50"
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
             },
             {
               "name": "Cyan (dim)",
-              "eventType": "controlchange",
-              "value": 31,
-              "string": "#A5DDE7"
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
             },
             {
               "name": "Cyan",
-              "eventType": "controlchange",
-              "value": 30,
-              "string": "#8ED5E3"
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
             },
             {
               "name": "Cyan (bright)",
-              "eventType": "controlchange",
-              "value": 29,
-              "string": "#00FFFF"
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
             },
             {
               "name": "Light Blue (dim)",
-              "eventType": "controlchange",
-              "value": 35,
-              "string": "#A0DDF9"
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
             },
             {
               "name": "Light Blue",
-              "eventType": "controlchange",
-              "value": 34,
-              "string": "#86D5F7"
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
             },
             {
               "name": "Light Blue (bright)",
-              "eventType": "controlchange",
-              "value": 33,
-              "string": "#55D3FF"
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
             },
             {
               "name": "Blue (dim)",
-              "eventType": "controlchange",
-              "value": 39,
-              "string": "#A4CDED"
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
             },
             {
               "name": "Blue",
-              "eventType": "controlchange",
-              "value": 38,
-              "string": "#8DC3EA"
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
             },
             {
               "name": "Blue (bright)",
-              "eventType": "controlchange",
-              "value": 37,
-              "string": "#5FBCFF"
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
             },
             {
               "name": "Deep Blue (dim)",
-              "eventType": "controlchange",
-              "value": 43,
-              "string": "#A3B7DF"
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
             },
             {
               "name": "Deep Blue",
-              "eventType": "controlchange",
-              "value": 44,
-              "string": "#8FA9D8"
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
             },
             {
               "name": "Deep Blue (bright)",
-              "eventType": "controlchange",
-              "value": 45,
-              "string": "#6AA0FF"
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
             },
             {
               "name": "Fuschia (dim)",
-              "eventType": "controlchange",
-              "value": 55,
-              "string": "#d880b4"
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
             },
             {
               "name": "Fuschia",
-              "eventType": "controlchange",
-              "value": 54,
-              "string": "#d161a5"
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
             },
             {
               "name": "Fuschia (bright)",
-              "eventType": "controlchange",
-              "value": 53,
-              "string": "#ca2c92"
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
             }
           ],
           "number": 104,
           "eventType": "controlchange"
         },
         {
-          "number": 112
+          "number": 112,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 113
+          "number": 113,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 114
+          "number": 114,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 115
+          "number": 115,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 116
+          "number": 116,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 117
+          "number": 117,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 118
+          "number": 118,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
-          "number": 119
+          "number": 119,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
+            },
+            {
+              "name": "Baby Blue (dim)",
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Baby Blue",
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
+            },
+            {
+              "name": "Baby Blue (bright)",
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
+            },
+            {
+              "name": "Pink",
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
+            },
+            {
+              "name": "Off-White",
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
+            },
+            {
+              "name": "Orange (dim)",
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
+            },
+            {
+              "name": "Orange (bright)",
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
+            },
+            {
+              "name": "Yellow-Green (dim)",
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
+            },
+            {
+              "name": "Yellow-Green",
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
+            },
+            {
+              "name": "Yellow-Green (Bright)",
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
+            },
+            {
+              "name": "SeaFoam-Green",
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
+            },
+            {
+              "name": "Light Green (dim)",
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Light Green",
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
+            },
+            {
+              "name": "Light Green (bright)",
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
+            },
+            {
+              "name": "Blue-Green",
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Green (bright)",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Cyan (dim)",
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
+            },
+            {
+              "name": "Cyan",
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
+            },
+            {
+              "name": "Cyan (bright)",
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
+            },
+            {
+              "name": "Light Blue (dim)",
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
+            },
+            {
+              "name": "Light Blue",
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
+            },
+            {
+              "name": "Light Blue (bright)",
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
+            },
+            {
+              "name": "Blue (dim)",
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
+            },
+            {
+              "name": "Blue (bright)",
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
+            },
+            {
+              "name": "Deep Blue (dim)",
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
+            },
+            {
+              "name": "Deep Blue",
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
+            },
+            {
+              "name": "Deep Blue (bright)",
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
+            },
+            {
+              "name": "Fuschia (dim)",
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
+            },
+            {
+              "name": "Fuschia",
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
+            },
+            {
+              "name": "Fuschia (bright)",
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            }
+          ]
         },
         {
           "availableColors": [
             {
               "name": "Off",
-              "default": true,
-              "eventType": "controlchange",
-              "value": 0,
-              "string": "transparent"
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                0
+              ]
             },
             {
               "name": "Baby Blue (dim)",
-              "eventType": "controlchange",
-              "value": 1,
-              "string": "#F3FAFE"
+              "string": "#F3FAFE",
+              "array": [
+                144,
+                96,
+                1
+              ]
             },
             {
               "name": "Baby Blue",
-              "eventType": "controlchange",
-              "value": 2,
-              "string": "#ECF7FD"
+              "string": "#ECF7FD",
+              "array": [
+                144,
+                96,
+                2
+              ]
             },
             {
               "name": "Baby Blue (bright)",
-              "eventType": "controlchange",
-              "value": 3,
-              "string": "#DFF9FF"
+              "string": "#DFF9FF",
+              "array": [
+                144,
+                96,
+                3
+              ]
             },
             {
               "name": "Pink",
-              "eventType": "controlchange",
-              "value": 4,
-              "string": "#FF9FDA"
+              "string": "#FF9FDA",
+              "array": [
+                144,
+                96,
+                4
+              ]
             },
             {
               "name": "Red (dim)",
-              "eventType": "controlchange",
-              "value": 7,
-              "string": "#F58A70"
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                7
+              ]
             },
             {
               "name": "Red",
-              "eventType": "controlchange",
-              "value": 6,
-              "string": "#F36E56"
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
             },
             {
               "name": "Red (bright)",
-              "eventType": "controlchange",
-              "value": 5,
-              "string": "#F44336"
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                5
+              ]
             },
             {
               "name": "White",
-              "eventType": "controlchange",
-              "value": 8,
-              "string": "white"
+              "string": "white",
+              "array": [
+                144,
+                96,
+                8
+              ]
             },
             {
               "name": "Off-White",
-              "eventType": "controlchange",
-              "value": 12,
-              "string": "#F8F0E3"
+              "string": "#F8F0E3",
+              "array": [
+                144,
+                96,
+                12
+              ]
             },
             {
               "name": "Orange (dim)",
-              "eventType": "controlchange",
-              "value": 11,
-              "string": "#FCBB6F"
+              "string": "#FCBB6F",
+              "array": [
+                144,
+                96,
+                11
+              ]
             },
             {
               "name": "Orange",
-              "eventType": "controlchange",
-              "value": 10,
-              "string": "#FAAB4B"
+              "string": "#FAAB4B",
+              "array": [
+                144,
+                96,
+                10
+              ]
             },
             {
               "name": "Orange (bright)",
-              "eventType": "controlchange",
-              "value": 9,
-              "string": "#FF9900"
+              "string": "#FF9900",
+              "array": [
+                144,
+                96,
+                9
+              ]
             },
             {
               "name": "Yellow-Green (dim)",
-              "eventType": "controlchange",
-              "value": 15,
-              "string": "#EBEEA0"
+              "string": "#EBEEA0",
+              "array": [
+                144,
+                96,
+                15
+              ]
             },
             {
               "name": "Yellow-Green",
-              "eventType": "controlchange",
-              "value": 14,
-              "string": "#E6EA89"
+              "string": "#E6EA89",
+              "array": [
+                144,
+                96,
+                14
+              ]
             },
             {
               "name": "Yellow-Green (Bright)",
-              "eventType": "controlchange",
-              "value": 13,
-              "string": "#E3FF6A"
+              "string": "#E3FF6A",
+              "array": [
+                144,
+                96,
+                13
+              ]
             },
             {
               "name": "SeaFoam-Green",
-              "eventType": "controlchange",
-              "value": 16,
-              "string": "#93E9BE"
+              "string": "#93E9BE",
+              "array": [
+                144,
+                96,
+                16
+              ]
             },
             {
               "name": "Light Green (dim)",
-              "eventType": "controlchange",
-              "value": 19,
-              "string": "#bfdfb0"
+              "string": "#bfdfb0",
+              "array": [
+                144,
+                96,
+                19
+              ]
             },
             {
               "name": "Light Green",
-              "eventType": "controlchange",
-              "value": 18,
-              "string": "#b0d89e"
+              "string": "#b0d89e",
+              "array": [
+                144,
+                96,
+                18
+              ]
             },
             {
               "name": "Light Green (bright)",
-              "eventType": "controlchange",
-              "value": 17,
-              "string": "#90ee90"
+              "string": "#90ee90",
+              "array": [
+                144,
+                96,
+                17
+              ]
             },
             {
               "name": "Blue-Green",
-              "eventType": "controlchange",
-              "value": 20,
-              "string": "#7fffec"
+              "string": "#7fffec",
+              "array": [
+                144,
+                96,
+                20
+              ]
             },
             {
               "name": "Green (dim)",
-              "eventType": "controlchange",
-              "value": 23,
-              "string": "#91C587"
+              "string": "#91C587",
+              "array": [
+                144,
+                96,
+                23
+              ]
             },
             {
               "name": "Green",
-              "eventType": "controlchange",
-              "value": 22,
-              "string": "#75BB6D"
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                22
+              ]
             },
             {
               "name": "Green (bright)",
-              "eventType": "controlchange",
-              "value": 21,
-              "string": "#4CAF50"
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                21
+              ]
             },
             {
               "name": "Cyan (dim)",
-              "eventType": "controlchange",
-              "value": 31,
-              "string": "#A5DDE7"
+              "string": "#A5DDE7",
+              "array": [
+                144,
+                96,
+                31
+              ]
             },
             {
               "name": "Cyan",
-              "eventType": "controlchange",
-              "value": 30,
-              "string": "#8ED5E3"
+              "string": "#8ED5E3",
+              "array": [
+                144,
+                96,
+                30
+              ]
             },
             {
               "name": "Cyan (bright)",
-              "eventType": "controlchange",
-              "value": 29,
-              "string": "#00FFFF"
+              "string": "#00FFFF",
+              "array": [
+                144,
+                96,
+                29
+              ]
             },
             {
               "name": "Light Blue (dim)",
-              "eventType": "controlchange",
-              "value": 35,
-              "string": "#A0DDF9"
+              "string": "#A0DDF9",
+              "array": [
+                144,
+                96,
+                35
+              ]
             },
             {
               "name": "Light Blue",
-              "eventType": "controlchange",
-              "value": 34,
-              "string": "#86D5F7"
+              "string": "#86D5F7",
+              "array": [
+                144,
+                96,
+                34
+              ]
             },
             {
               "name": "Light Blue (bright)",
-              "eventType": "controlchange",
-              "value": 33,
-              "string": "#55D3FF"
+              "string": "#55D3FF",
+              "array": [
+                144,
+                96,
+                33
+              ]
             },
             {
               "name": "Blue (dim)",
-              "eventType": "controlchange",
-              "value": 39,
-              "string": "#A4CDED"
+              "string": "#A4CDED",
+              "array": [
+                144,
+                96,
+                39
+              ]
             },
             {
               "name": "Blue",
-              "eventType": "controlchange",
-              "value": 38,
-              "string": "#8DC3EA"
+              "string": "#8DC3EA",
+              "array": [
+                144,
+                96,
+                38
+              ]
             },
             {
               "name": "Blue (bright)",
-              "eventType": "controlchange",
-              "value": 37,
-              "string": "#5FBCFF"
+              "string": "#5FBCFF",
+              "array": [
+                144,
+                96,
+                37
+              ]
             },
             {
               "name": "Deep Blue (dim)",
-              "eventType": "controlchange",
-              "value": 43,
-              "string": "#A3B7DF"
+              "string": "#A3B7DF",
+              "array": [
+                144,
+                96,
+                43
+              ]
             },
             {
               "name": "Deep Blue",
-              "eventType": "controlchange",
-              "value": 44,
-              "string": "#8FA9D8"
+              "string": "#8FA9D8",
+              "array": [
+                144,
+                96,
+                44
+              ]
             },
             {
               "name": "Deep Blue (bright)",
-              "eventType": "controlchange",
-              "value": 45,
-              "string": "#6AA0FF"
+              "string": "#6AA0FF",
+              "array": [
+                144,
+                96,
+                45
+              ]
             },
             {
               "name": "Fuschia (dim)",
-              "eventType": "controlchange",
-              "value": 55,
-              "string": "#d880b4"
+              "string": "#d880b4",
+              "array": [
+                144,
+                96,
+                55
+              ]
             },
             {
               "name": "Fuschia",
-              "eventType": "controlchange",
-              "value": 54,
-              "string": "#d161a5"
+              "string": "#d161a5",
+              "array": [
+                144,
+                96,
+                54
+              ]
             },
             {
               "name": "Fuschia (bright)",
-              "eventType": "controlchange",
-              "value": 53,
-              "string": "#ca2c92"
+              "string": "#ca2c92",
+              "array": [
+                144,
+                96,
+                53
+              ]
             }
           ],
           "number": 105,
@@ -1191,242 +7073,6 @@
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "eventType": "noteon",
-            "name": "Off",
-            "string": "transparent",
-            "value": 0
-          },
-          {
-            "eventType": "noteon",
-            "name": "Baby Blue (dim)",
-            "string": "#F3FAFE",
-            "value": 1
-          },
-          {
-            "eventType": "noteon",
-            "name": "Baby Blue",
-            "string": "#ECF7FD",
-            "value": 2
-          },
-          {
-            "eventType": "noteon",
-            "name": "Baby Blue (bright)",
-            "string": "#DFF9FF",
-            "value": 3
-          },
-          {
-            "eventType": "noteon",
-            "name": "Pink",
-            "string": "#FF9FDA",
-            "value": 4
-          },
-          {
-            "eventType": "noteon",
-            "name": "Red (dim)",
-            "string": "#F58A70",
-            "value": 7
-          },
-          {
-            "eventType": "noteon",
-            "name": "Red",
-            "string": "#F36E56",
-            "value": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Red (bright)",
-            "string": "#F44336",
-            "value": 5
-          },
-          {
-            "eventType": "noteon",
-            "name": "White",
-            "string": "white",
-            "value": 8
-          },
-          {
-            "eventType": "noteon",
-            "name": "Off-White",
-            "string": "#F8F0E3",
-            "value": 12
-          },
-          {
-            "eventType": "noteon",
-            "name": "Orange (dim)",
-            "string": "#FCBB6F",
-            "value": 11
-          },
-          {
-            "eventType": "noteon",
-            "name": "Orange",
-            "string": "#FAAB4B",
-            "value": 10
-          },
-          {
-            "eventType": "noteon",
-            "name": "Orange (bright)",
-            "string": "#FF9900",
-            "value": 9
-          },
-          {
-            "eventType": "noteon",
-            "name": "Yellow-Green (dim)",
-            "string": "#EBEEA0",
-            "value": 15
-          },
-          {
-            "eventType": "noteon",
-            "name": "Yellow-Green",
-            "string": "#E6EA89",
-            "value": 14
-          },
-          {
-            "eventType": "noteon",
-            "name": "Yellow-Green (Bright)",
-            "string": "#E3FF6A",
-            "value": 13
-          },
-          {
-            "eventType": "noteon",
-            "name": "SeaFoam-Green",
-            "string": "#93E9BE",
-            "value": 16
-          },
-          {
-            "eventType": "noteon",
-            "name": "Light Green (dim)",
-            "string": "#bfdfb0",
-            "value": 19
-          },
-          {
-            "eventType": "noteon",
-            "name": "Light Green",
-            "string": "#b0d89e",
-            "value": 18
-          },
-          {
-            "eventType": "noteon",
-            "name": "Light Green (bright)",
-            "string": "#90ee90",
-            "value": 17
-          },
-          {
-            "eventType": "noteon",
-            "name": "Blue-Green",
-            "string": "#7fffec",
-            "value": 20
-          },
-          {
-            "eventType": "noteon",
-            "name": "Green (dim)",
-            "string": "#91C587",
-            "value": 23
-          },
-          {
-            "eventType": "noteon",
-            "name": "Green",
-            "string": "#75BB6D",
-            "value": 22
-          },
-          {
-            "eventType": "noteon",
-            "name": "Green (bright)",
-            "string": "#4CAF50",
-            "value": 21
-          },
-          {
-            "eventType": "noteon",
-            "name": "Cyan (dim)",
-            "string": "#A5DDE7",
-            "value": 31
-          },
-          {
-            "eventType": "noteon",
-            "name": "Cyan",
-            "string": "#8ED5E3",
-            "value": 30
-          },
-          {
-            "eventType": "noteon",
-            "name": "Cyan (bright)",
-            "string": "#00FFFF",
-            "value": 29
-          },
-          {
-            "eventType": "noteon",
-            "name": "Light Blue (dim)",
-            "string": "#A0DDF9",
-            "value": 35
-          },
-          {
-            "eventType": "noteon",
-            "name": "Light Blue",
-            "string": "#86D5F7",
-            "value": 34
-          },
-          {
-            "eventType": "noteon",
-            "name": "Light Blue (bright)",
-            "string": "#55D3FF",
-            "value": 33
-          },
-          {
-            "eventType": "noteon",
-            "name": "Blue (dim)",
-            "string": "#A4CDED",
-            "value": 39
-          },
-          {
-            "eventType": "noteon",
-            "name": "Blue",
-            "string": "#8DC3EA",
-            "value": 38
-          },
-          {
-            "eventType": "noteon",
-            "name": "Blue (bright)",
-            "string": "#5FBCFF",
-            "value": 37
-          },
-          {
-            "eventType": "noteon",
-            "name": "Deep Blue (dim)",
-            "string": "#A3B7DF",
-            "value": 43
-          },
-          {
-            "eventType": "noteon",
-            "name": "Deep Blue",
-            "string": "#8FA9D8",
-            "value": 44
-          },
-          {
-            "eventType": "noteon",
-            "name": "Deep Blue (bright)",
-            "string": "#6AA0FF",
-            "value": 45
-          },
-          {
-            "eventType": "noteon",
-            "name": "Fuschia (dim)",
-            "string": "#d880b4",
-            "value": 55
-          },
-          {
-            "eventType": "noteon",
-            "name": "Fuschia",
-            "string": "#d161a5",
-            "value": 54
-          },
-          {
-            "eventType": "noteon",
-            "name": "Fuschia (bright)",
-            "string": "#ca2c92",
-            "value": 53
-          }
-        ],
         "type": "pad",
         "width": 0.7,
         "height": 0.7,
@@ -1447,32 +7093,39 @@
       "bottom": 6,
       "inputs": [
         {
-          "number": 21
+          "number": 21,
+          "availableColors": []
         },
         {
-          "number": 22
+          "number": 22,
+          "availableColors": []
         },
         {
-          "number": 23
+          "number": 23,
+          "availableColors": []
         },
         {
-          "number": 24
+          "number": 24,
+          "availableColors": []
         },
         {
-          "number": 25
+          "number": 25,
+          "availableColors": []
         },
         {
-          "number": 26
+          "number": 26,
+          "availableColors": []
         },
         {
-          "number": 27
+          "number": 27,
+          "availableColors": []
         },
         {
-          "number": 28
+          "number": 28,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.375,
         "height": 0.375,
@@ -1494,33 +7147,71 @@
       "bottom": 3.75,
       "inputs": [
         {
-          "number": 115
+          "number": 115,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                191,
+                115,
+                0
+              ]
+            },
+            {
+              "name": "White (dim)",
+              "string": "rgba(255,255,255,0.5)",
+              "array": [
+                191,
+                115,
+                1
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                191,
+                115,
+                127
+              ]
+            }
+          ]
         },
         {
-          "number": 117
+          "number": 117,
+          "availableColors": [
+            {
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                191,
+                115,
+                0
+              ]
+            },
+            {
+              "name": "White (dim)",
+              "string": "rgba(255,255,255,0.5)",
+              "array": [
+                191,
+                115,
+                1
+              ]
+            },
+            {
+              "name": "White",
+              "string": "white",
+              "array": [
+                191,
+                115,
+                127
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "eventType": "controlchange",
-            "name": "Off",
-            "string": "transparent",
-            "value": 0
-          },
-          {
-            "eventType": "controlchange",
-            "name": "White (dim)",
-            "string": "rgba(255,255,255,0.5)",
-            "value": 1
-          },
-          {
-            "eventType": "controlchange",
-            "name": "White",
-            "string": "white",
-            "value": 127
-          }
-        ],
         "type": "pad",
         "width": 0.5,
         "height": 0.25,
@@ -1541,14 +7232,15 @@
       "bottom": 4.625,
       "inputs": [
         {
-          "number": 115
+          "number": 115,
+          "availableColors": []
         },
         {
-          "number": 117
+          "number": 117,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.5,
         "height": 0.25,

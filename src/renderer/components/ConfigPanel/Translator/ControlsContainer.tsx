@@ -1,4 +1,4 @@
-import { MidiArray } from '@shared/midi-array';
+import { MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
 import { AnonymousDeviceConfig } from '@shared/hardware-config';
 
 import SettingsLineItem from '../SettingsLineItem';
@@ -24,7 +24,7 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
   const msg = overrideOrUndefined || currentAction;
 
   const status = msg.statusString;
-  const { channel } = msg;
+  const { channel } = msg as ThreeByteMidiArray;
 
   // prepare labels, selectable values, etc
   const eligibleEventTypes = [
@@ -50,7 +50,11 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
         valueList={eligibleEventTypes}
         labelList={eventTypeLabels}
         onChange={(e) => {
-          onChange(e as StatusString, msg[1], msg.channel);
+          onChange(
+            e as StatusString,
+            (msg as ThreeByteMidiArray)[1],
+            (msg as ThreeByteMidiArray).channel
+          );
         }}
       />
       {status === 'pitchbend' ? null : (
@@ -63,7 +67,7 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
             onChange(
               msg.statusString as StatusString,
               n as MidiNumber,
-              msg.channel
+              (msg as ThreeByteMidiArray).channel
             );
           }}
         />
@@ -74,7 +78,11 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
         labelList={channelLabels}
         valueList={eligibleChannels}
         onChange={(c) => {
-          onChange(status as StatusString, msg[1], c as Channel);
+          onChange(
+            status as StatusString,
+            (msg as ThreeByteMidiArray)[1],
+            c as Channel
+          );
         }}
       />
       {overrideOrUndefined ? (

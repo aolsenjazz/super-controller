@@ -10,6 +10,7 @@ import { PitchbendPropagator } from './pitchbend-propagator';
 import { StatelessPropagator } from './stateless-propagator';
 import { ContinuousPropagator } from './continuous-propagator';
 import { TogglePropagator } from './toggle-propagator';
+import { ColorConfigPropagator } from './color-config-propagator';
 
 export {
   Propagator,
@@ -20,6 +21,7 @@ export {
   StatelessPropagator,
   OverrideablePropagator,
   ContinuousPropagator,
+  ColorConfigPropagator,
 };
 
 /**

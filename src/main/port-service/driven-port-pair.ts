@@ -1,4 +1,4 @@
-import { MidiArray } from '@shared/midi-array';
+import { create } from '@shared/midi-array';
 import { DeviceDriver } from '@shared/driver-types';
 import { ColorImpl } from '@shared/hardware-config';
 
@@ -33,15 +33,14 @@ export class DrivenPortPair extends PortPair {
     this.driver.inputGrids.forEach((ig) => {
       ig.inputs.forEach((i) => {
         const defs = ig.inputDefaults;
-        const channel = (i.channel || defs.channel)!;
         const availableColors = i.availableColors || defs.availableColors || [];
 
         if (availableColors.length === 0) return;
 
         const defColor = availableColors.filter((c) => c.default)[0];
-        const defColorImpl = ColorImpl.fromDrivers(defColor, i.number, channel);
+        const defColorImpl = new ColorImpl(defColor);
 
-        this.#pair.send(defColorImpl);
+        this.#pair.send(defColorImpl.array);
       });
     });
   }
@@ -54,12 +53,7 @@ export class DrivenPortPair extends PortPair {
    */
   runControlSequence() {
     this.driver.controlSequence?.forEach((msgArray) => {
-      const msg = MidiArray.create(
-        msgArray[0],
-        msgArray[3],
-        msgArray[1],
-        msgArray[2]
-      );
+      const msg = create(msgArray[0], msgArray[3], msgArray[1], msgArray[2]);
       this.#pair.send(msg);
     });
   }

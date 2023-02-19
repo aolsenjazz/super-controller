@@ -1,4 +1,4 @@
-import { MidiArray } from '../midi-array';
+import { MidiArray, create } from '../midi-array';
 import { InputResponse } from '../driver-types';
 import { Propagator, CorrelatedResponse } from './propagator';
 
@@ -40,7 +40,7 @@ export abstract class OverrideablePropagator<
    * @returns The message to propagate
    */
   protected handleAsConstant(msg: MidiArray) {
-    return MidiArray.create(
+    return create(
       this.nextEventType(msg),
       this.channel,
       this.number,

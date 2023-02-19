@@ -1,10 +1,10 @@
-import { MidiArray } from '@shared/midi-array';
+import { ThreeByteMidiArray } from '@shared/midi-array';
 import { DeviceConfig } from '@shared/hardware-config/device-config';
 
 class DeviceConfigWrapper extends DeviceConfig {
   isAdapter = false;
 
-  handleMessage(msg: MidiArray) {
+  handleMessage(msg: ThreeByteMidiArray) {
     return [undefined, msg];
   }
 }

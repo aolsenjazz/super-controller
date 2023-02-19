@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { MidiArray } from '@shared/midi-array';
+import { create, MidiArray } from '@shared/midi-array';
 import { applyDestructiveThrottle, parse } from '@shared/util';
 import { Project } from '@shared/project';
 
@@ -36,8 +36,12 @@ export default function ProjectChangeListener(props: PropTypes) {
       100
     );
 
-    const cb = (_inputId: string, deviceId: string, tuple: MidiTuple) => {
-      const msg = new MidiArray(tuple);
+    const cb = (
+      _inputId: string,
+      deviceId: string,
+      arr: NumberArrayWithStatus
+    ) => {
+      const msg = create(arr);
       const device = project.getDevice(deviceId);
       if (device) device.handleMessage(msg);
 

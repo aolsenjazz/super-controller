@@ -1,5 +1,5 @@
 import * as Revivable from '../revivable';
-import { MidiArray } from '../midi-array';
+import { MidiArray, create } from '../midi-array';
 import { CorrelatedResponse } from './propagator';
 import { OverrideablePropagator } from './overrideable-propagator';
 
@@ -35,15 +35,15 @@ export class PitchbendPropagator extends OverrideablePropagator<
    * @returns The message to propagate
    */
   protected getResponse(msg: MidiArray) {
-    const response = MidiArray.create(
+    const response = create(
       this.nextEventType(),
       this.channel,
-      msg[1],
-      msg[2]
+      msg[1] as MidiNumber,
+      msg[2] as MidiNumber
     );
 
     // eslint-disable-next-line prefer-destructuring
-    this.value = msg[2];
+    this.value = msg[2] as MidiNumber;
 
     return response;
   }

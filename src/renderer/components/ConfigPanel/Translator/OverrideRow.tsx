@@ -1,4 +1,4 @@
-import { MidiArray } from '@shared/midi-array';
+import { MidiArray, create, ThreeByteMidiArray } from '@shared/midi-array';
 
 type PropTypes = {
   currentAction: MidiArray | undefined;
@@ -15,7 +15,7 @@ export default function OverrideRow(props: PropTypes) {
     .replaceAll(/\[|\]/g, '')
     .split(',')
     .map((stringVal) => parseInt(stringVal, 10)) as MidiTuple;
-  const asMsg = new MidiArray(keyAsNumArray);
+  const asMsg = create(keyAsNumArray);
 
   const onClick = () => {
     setCurrentAction(asMsg);
@@ -30,8 +30,8 @@ export default function OverrideRow(props: PropTypes) {
       onKeyDown={() => {}}
     >
       <p className="column event">{asMsg.statusString}</p>
-      <p className="column number">{asMsg.number}</p>
-      <p className="column channel">{asMsg.channel}</p>
+      <p className="column number">{(asMsg as ThreeByteMidiArray).number}</p>
+      <p className="column channel">{(asMsg as ThreeByteMidiArray).channel}</p>
     </div>
   );
 }

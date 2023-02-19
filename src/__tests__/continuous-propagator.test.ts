@@ -1,15 +1,15 @@
 import { stringify, parse } from '@shared/util';
-import { MidiArray } from '@shared/midi-array';
+import { ThreeByteMidiArray } from '@shared/midi-array';
 import { ContinuousPropagator as WrapMe } from '@shared/propagators';
 
-const msg = MidiArray.create(176, 2, 34, 125);
+const msg = ThreeByteMidiArray.create(176, 2, 34, 125);
 
 class ContinuousPropagator extends WrapMe {
-  getResponse(m: MidiArray) {
+  getResponse(m: ThreeByteMidiArray) {
     return super.getResponse(m);
   }
 
-  nextV(m: MidiArray) {
+  nextV(m: ThreeByteMidiArray) {
     return this.nextValue(m);
   }
 }
@@ -31,7 +31,7 @@ describe('getResponse', () => {
       'endless'
     );
 
-    const r = c.getResponse(msg);
+    const r = c.getResponse(msg) as ThreeByteMidiArray;
     expect(r.value).toBe(msg.value);
   });
 
@@ -51,7 +51,7 @@ describe('getResponse', () => {
       'absolute'
     );
 
-    const r = c.getResponse(msg);
+    const r = c.getResponse(msg) as ThreeByteMidiArray;
     expect(r.value).toBe(value - (128 - 125));
   });
 });
@@ -96,11 +96,11 @@ describe('nextValue in endless->absolute mode', () => {
       'endless'
     );
 
-    const m1 = MidiArray.create(eventType, channel, number, 1);
+    const m1 = ThreeByteMidiArray.create(eventType, channel, number, 1);
     const r1 = c.nextV(m1);
     expect(r1).toBe(70);
 
-    const m2 = MidiArray.create(eventType, channel, number, 2);
+    const m2 = ThreeByteMidiArray.create(eventType, channel, number, 2);
     const r2 = c.nextV(m2);
     expect(r2).toBe(72);
   });
@@ -120,11 +120,11 @@ describe('nextValue in endless->absolute mode', () => {
       'endless'
     );
 
-    const m1 = MidiArray.create(eventType, channel, number, 127);
+    const m1 = ThreeByteMidiArray.create(eventType, channel, number, 127);
     const r1 = c.nextV(m1);
     expect(r1).toBe(68);
 
-    const m2 = MidiArray.create(eventType, channel, number, 126);
+    const m2 = ThreeByteMidiArray.create(eventType, channel, number, 126);
     const r2 = c.nextV(m2);
     expect(r2).toBe(66);
   });
@@ -144,11 +144,11 @@ describe('nextValue in endless->absolute mode', () => {
       'endless'
     );
 
-    const m1 = MidiArray.create(eventType, channel, number, 65);
+    const m1 = ThreeByteMidiArray.create(eventType, channel, number, 65);
     const r1 = c.nextV(m1);
     expect(r1).toBe(70);
 
-    const m2 = MidiArray.create(eventType, channel, number, 66);
+    const m2 = ThreeByteMidiArray.create(eventType, channel, number, 66);
     const r2 = c.nextV(m2);
     expect(r2).toBe(72);
   });
@@ -168,11 +168,11 @@ describe('nextValue in endless->absolute mode', () => {
       'endless'
     );
 
-    const m1 = MidiArray.create(eventType, channel, number, 63);
+    const m1 = ThreeByteMidiArray.create(eventType, channel, number, 63);
     const r1 = c.nextV(m1);
     expect(r1).toBe(68);
 
-    const m2 = MidiArray.create(eventType, channel, number, 62);
+    const m2 = ThreeByteMidiArray.create(eventType, channel, number, 62);
     const r2 = c.nextV(m2);
     expect(r2).toBe(66);
   });

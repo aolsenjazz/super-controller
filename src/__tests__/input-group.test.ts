@@ -1,6 +1,5 @@
-import { MidiArray } from '@shared/midi-array';
 import { InputConfig, ColorImpl } from '@shared/hardware-config';
-import { NStepPropagator } from '@shared/propagators';
+import { ColorConfigPropagator } from '@shared/propagators';
 import {
   Color,
   InputResponse,
@@ -21,8 +20,7 @@ const FX: FxDriver = {
 
 const GREEN: Color = {
   name: 'green',
-  eventType: 'noteon' as StatusString,
-  value: 3,
+  array: [144, 69, 3],
   modifier: 'blink',
   string: 'green',
   default: true,
@@ -30,8 +28,7 @@ const GREEN: Color = {
 
 const RED: Color = {
   name: 'red',
-  eventType: 'noteon' as StatusString,
-  value: 5,
+  array: [144, 69, 5],
   string: 'red',
   default: false,
 };
@@ -52,18 +49,20 @@ function createInput(
     eventType,
     response,
   };
-  const avail = availableColors.map((c) =>
-    ColorImpl.fromDrivers(c, def.number, def.channel)
-  );
-  const config = new Map<number, MidiArray>();
+  const avail = availableColors.map((c) => new ColorImpl(c));
+  const config = new Map<number, ColorImpl>();
   lightConfig.forEach((v, k) => {
-    config.set(k, ColorImpl.fromDrivers(v, def.number, def.channel));
+    config.set(k, new ColorImpl(v));
   });
 
   const outputPropagator = undefined;
   let devicePropagator;
   if (lightConfig) {
-    devicePropagator = new NStepPropagator(def.response, def.response, config);
+    devicePropagator = new ColorConfigPropagator(
+      def.response,
+      def.response,
+      config
+    );
   }
 
   const ic = new InputConfig(

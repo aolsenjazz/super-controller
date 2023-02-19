@@ -1,5 +1,5 @@
 import * as Revivable from '../revivable';
-import { MidiArray } from '../midi-array';
+import { MidiArray, create } from '../midi-array';
 import { InputResponse } from '../driver-types';
 import { Propagator, CorrelatedResponse } from './propagator';
 
@@ -8,14 +8,14 @@ export class NStepPropagator extends Propagator<
   InputResponse,
   CorrelatedResponse<InputResponse>
 > {
-  protected steps: Map<number, MidiArray | undefined>;
+  protected steps: Map<number, MidiArray>;
 
   currentStep: number = 0;
 
   constructor(
     hardwareResponse: InputResponse,
     outputResponse: CorrelatedResponse<InputResponse>,
-    steps: Map<number, MidiArray | undefined>,
+    steps: Map<number, MidiArray>,
     currentStep?: number
   ) {
     super(hardwareResponse, outputResponse);
@@ -45,8 +45,12 @@ export class NStepPropagator extends Propagator<
     return this.steps.get(this.currentStep);
   }
 
-  setStep(number: number, step: MidiArray) {
-    this.steps.set(number, step);
+  setStep(number: number, step: MidiArray | NumberArrayWithStatus) {
+    let s = step;
+    if (step instanceof MidiArray === false) {
+      s = create(s);
+    }
+    this.steps.set(number, s as MidiArray);
   }
 
   responseForStep(step: number) {

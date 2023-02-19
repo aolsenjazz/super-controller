@@ -1,7 +1,5 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 import * as Revivable from './revivable';
-import { MidiArray } from './midi-array';
-import { byteToStatusString } from './midi-util';
 
 function replacer(_key: any, value: any) {
   if (value instanceof Map) {
@@ -93,40 +91,6 @@ export function applyNondestructiveThrottle(
       func(...args);
     }, delay);
   };
-}
-
-/**
- * Return the input id for the given details. Used by both `InputConfig` and `VirtualInput`s
- *
- * @param msg The message to encode or the msg status string
- * @param number The message number if argument[0] is status string
- * @returns The ID of the input
- */
-export function inputIdFor(
-  msg: MidiArray | (StatusString | 'noteon/noteoff'),
-  channel?: Channel,
-  number?: MidiNumber
-) {
-  let status = msg;
-  let num = number;
-  let chan = channel;
-
-  if (Array.isArray(msg)) {
-    status = byteToStatusString(msg.status, false);
-    num = msg.number; // eslint-disable-line
-    chan = msg.channel;
-  } else {
-    if (num === undefined && msg !== 'pitchbend')
-      throw new Error('number must not be undefined');
-    if (channel === undefined) throw new Error('channel must not be undefined');
-  }
-
-  if (['noteon', 'noteoff'].includes(status as StatusString))
-    status = 'noteon/noteoff';
-
-  return status === 'pitchbend'
-    ? `${status}.${chan}`
-    : `${status}.${chan}.${num}`;
 }
 
 /* Mappings from CC number to a human-readable string */

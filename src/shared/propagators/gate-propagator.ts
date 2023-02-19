@@ -1,5 +1,5 @@
 import * as Revivable from '../revivable';
-import { MidiArray } from '../midi-array';
+import { MidiArray, create } from '../midi-array';
 import { CorrelatedResponse } from './propagator';
 import { StatefulPropagator } from './stateful-propagator';
 
@@ -73,7 +73,7 @@ export class GatePropagator extends StatefulPropagator<
    */
   #handleAsGate = (msg: MidiArray) => {
     const eventType = this.nextEventType();
-    return MidiArray.create(eventType, this.channel, this.number, msg[2]);
+    return create(eventType, this.channel, this.number, msg[2] as MidiNumber);
   };
 
   /**
@@ -85,6 +85,6 @@ export class GatePropagator extends StatefulPropagator<
     const eventType = this.nextEventType();
     const value = this.state === 'on' ? 0 : 127;
 
-    return MidiArray.create(eventType, this.channel, this.number, value);
+    return create(eventType, this.channel, this.number, value);
   };
 }

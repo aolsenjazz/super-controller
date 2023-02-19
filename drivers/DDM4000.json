@@ -24,20 +24,23 @@
       "inputs": [
         {
           "overrideable": false,
-          "number": -1
+          "number": -1,
+          "availableColors": []
         },
         {
-          "number": 0
+          "number": 0,
+          "availableColors": []
         },
         {
-          "number": 1
+          "number": 1,
+          "availableColors": []
         },
         {
-          "number": 2
+          "number": 2,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.5,
         "height": 0.5,
@@ -61,20 +64,23 @@
       "inputs": [
         {
           "overrideable": false,
-          "number": -2
+          "number": -2,
+          "availableColors": []
         },
         {
-          "number": 4
+          "number": 4,
+          "availableColors": []
         },
         {
-          "number": 5
+          "number": 5,
+          "availableColors": []
         },
         {
-          "number": 6
+          "number": 6,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.5,
         "height": 0.5,
@@ -98,20 +104,23 @@
       "inputs": [
         {
           "overrideable": false,
-          "number": -3
+          "number": -3,
+          "availableColors": []
         },
         {
-          "number": 8
+          "number": 8,
+          "availableColors": []
         },
         {
-          "number": 9
+          "number": 9,
+          "availableColors": []
         },
         {
-          "number": 10
+          "number": 10,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.5,
         "height": 0.5,
@@ -135,20 +144,23 @@
       "inputs": [
         {
           "overrideable": false,
-          "number": -4
+          "number": -4,
+          "availableColors": []
         },
         {
-          "number": 12
+          "number": 12,
+          "availableColors": []
         },
         {
-          "number": 13
+          "number": 13,
+          "availableColors": []
         },
         {
-          "number": 14
+          "number": 14,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.5,
         "height": 0.5,
@@ -172,20 +184,23 @@
       "inputs": [
         {
           "overrideable": false,
-          "number": -5
+          "number": -5,
+          "availableColors": []
         },
         {
-          "number": 16
+          "number": 16,
+          "availableColors": []
         },
         {
-          "number": 17
+          "number": 17,
+          "availableColors": []
         },
         {
-          "number": 18
+          "number": 18,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.5,
         "height": 0.5,
@@ -212,18 +227,22 @@
           "availableColors": [
             {
               "name": "Off",
-              "number": 49,
-              "value": 0,
               "default": true,
               "string": "transparent",
-              "eventType": "controlchange"
+              "array": [
+                176,
+                49,
+                0
+              ]
             },
             {
               "name": "Orange",
-              "number": 49,
-              "value": 1,
               "string": "#F57C00",
-              "eventType": "controlchange"
+              "array": [
+                176,
+                49,
+                1
+              ]
             }
           ]
         },
@@ -232,18 +251,22 @@
           "availableColors": [
             {
               "name": "Off",
-              "number": 50,
-              "value": 0,
               "default": true,
               "string": "transparent",
-              "eventType": "controlchange"
+              "array": [
+                176,
+                50,
+                0
+              ]
             },
             {
               "name": "Orange",
-              "number": 50,
-              "value": 1,
               "string": "#F57C00",
-              "eventType": "controlchange"
+              "array": [
+                176,
+                50,
+                1
+              ]
             }
           ]
         },
@@ -252,18 +275,22 @@
           "availableColors": [
             {
               "name": "Off",
-              "number": 51,
-              "value": 0,
               "default": true,
               "string": "transparent",
-              "eventType": "controlchange"
+              "array": [
+                176,
+                51,
+                0
+              ]
             },
             {
               "name": "Orange",
-              "number": 51,
-              "value": 1,
               "string": "#F57C00",
-              "eventType": "controlchange"
+              "array": [
+                176,
+                51,
+                1
+              ]
             }
           ]
         },
@@ -272,18 +299,22 @@
           "availableColors": [
             {
               "name": "Off",
-              "number": 52,
-              "value": 0,
               "default": true,
               "string": "transparent",
-              "eventType": "controlchange"
+              "array": [
+                176,
+                52,
+                0
+              ]
             },
             {
               "name": "Orange",
-              "number": 52,
-              "value": 1,
               "string": "#F57C00",
-              "eventType": "controlchange"
+              "array": [
+                176,
+                52,
+                1
+              ]
             }
           ]
         }
@@ -315,67 +346,18 @@
         },
         {
           "number": 0,
-          "availableColors": [
-            {
-              "name": "Off",
-              "number": 57,
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "number": 57,
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         },
         {
           "number": 1,
-          "availableColors": [
-            {
-              "name": "Off",
-              "number": 59,
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "number": 59,
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         },
         {
           "number": 2,
-          "availableColors": [
-            {
-              "name": "Off",
-              "number": 61,
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "number": 61,
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -402,67 +384,18 @@
         },
         {
           "number": 4,
-          "availableColors": [
-            {
-              "name": "Off",
-              "number": 67,
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "number": 67,
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         },
         {
           "number": 5,
-          "availableColors": [
-            {
-              "name": "Off",
-              "number": 69,
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "number": 69,
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         },
         {
           "number": 6,
-          "availableColors": [
-            {
-              "name": "Off",
-              "number": 71,
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "number": 71,
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -489,67 +422,18 @@
         },
         {
           "number": 8,
-          "availableColors": [
-            {
-              "name": "Off",
-              "number": 77,
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "number": 77,
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         },
         {
           "number": 9,
-          "availableColors": [
-            {
-              "name": "Off",
-              "number": 79,
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "number": 79,
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         },
         {
           "number": 10,
-          "availableColors": [
-            {
-              "name": "Off",
-              "number": 81,
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "number": 81,
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -576,67 +460,18 @@
         },
         {
           "number": 12,
-          "availableColors": [
-            {
-              "name": "Off",
-              "number": 87,
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "number": 87,
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         },
         {
           "number": 13,
-          "availableColors": [
-            {
-              "name": "Off",
-              "number": 89,
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "number": 89,
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         },
         {
           "number": 14,
-          "availableColors": [
-            {
-              "name": "Off",
-              "number": 91,
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "number": 91,
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -658,17 +493,19 @@
       "enabled": true,
       "inputs": [
         {
-          "number": -10
+          "number": -10,
+          "availableColors": []
         },
         {
-          "number": -11
+          "number": -11,
+          "availableColors": []
         },
         {
-          "number": -12
+          "number": -12,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.5,
         "height": 0.5,
@@ -691,14 +528,15 @@
       "enabled": true,
       "inputs": [
         {
-          "number": -10
+          "number": -10,
+          "availableColors": []
         },
         {
-          "number": -11
+          "number": -11,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.5,
         "height": 0.5,
@@ -721,14 +559,15 @@
       "enabled": false,
       "inputs": [
         {
-          "number": -15
+          "number": -15,
+          "availableColors": []
         },
         {
-          "number": -16
+          "number": -16,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.6,
         "height": 0.4,
@@ -749,29 +588,55 @@
       "left": 10.125,
       "inputs": [
         {
-          "number": 40
+          "number": 40,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                40,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                40,
+                1
+              ]
+            }
+          ]
         },
         {
-          "number": 41
+          "number": 41,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                40,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                40,
+                1
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "name": "Off",
-
-            "value": 0,
-            "default": true,
-            "string": "transparent",
-            "eventType": "controlchange"
-          },
-          {
-            "name": "Orange",
-            "value": 1,
-            "string": "#F57C00",
-            "eventType": "controlchange"
-          }
-        ],
         "type": "pad",
         "width": 0.6,
         "height": 0.4,
@@ -792,26 +657,31 @@
       "left": 10.125,
       "inputs": [
         {
-          "number": 42
+          "number": 42,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                42,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                42,
+                1
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "name": "Off",
-
-            "value": 0,
-            "default": true,
-            "string": "transparent",
-            "eventType": "controlchange"
-          },
-          {
-            "name": "Orange",
-            "value": 1,
-            "string": "#F57C00",
-            "eventType": "controlchange"
-          }
-        ],
         "type": "pad",
         "width": 0.6,
         "height": 0.4,
@@ -833,17 +703,19 @@
       "enabled": false,
       "inputs": [
         {
-          "number": -22
+          "number": -22,
+          "availableColors": []
         },
         {
-          "number": -23
+          "number": -23,
+          "availableColors": []
         },
         {
-          "number": -24
+          "number": -24,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.6,
         "height": 0.4,
@@ -865,11 +737,11 @@
       "enabled": false,
       "inputs": [
         {
-          "number": -25
+          "number": -25,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 5.75,
         "height": 0.875,
@@ -890,26 +762,31 @@
       "left": 1.125,
       "inputs": [
         {
-          "number": 53
+          "number": 53,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                53,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                53,
+                1
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "name": "Off",
-
-            "value": 0,
-            "default": true,
-            "string": "transparent",
-            "eventType": "controlchange"
-          },
-          {
-            "name": "Orange",
-            "value": 1,
-            "string": "#F57C00",
-            "eventType": "controlchange"
-          }
-        ],
         "type": "pad",
         "width": 0.6,
         "height": 0.4,
@@ -930,31 +807,79 @@
       "left": 2.5,
       "inputs": [
         {
-          "number": 24
+          "number": 24,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                24,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                24,
+                1
+              ]
+            }
+          ]
         },
         {
-          "number": 25
+          "number": 25,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                24,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                24,
+                1
+              ]
+            }
+          ]
         },
         {
-          "number": 26
+          "number": 26,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                24,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                24,
+                1
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "name": "Off",
-            "value": 0,
-            "default": true,
-            "string": "transparent",
-            "eventType": "controlchange"
-          },
-          {
-            "name": "Orange",
-            "value": 1,
-            "string": "#F57C00",
-            "eventType": "controlchange"
-          }
-        ],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -975,31 +900,79 @@
       "left": 9.25,
       "inputs": [
         {
-          "number": 28
+          "number": 28,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                28,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                28,
+                1
+              ]
+            }
+          ]
         },
         {
-          "number": 29
+          "number": 29,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                28,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                28,
+                1
+              ]
+            }
+          ]
         },
         {
-          "number": 30
+          "number": 30,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                28,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                28,
+                1
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "name": "Off",
-            "value": 0,
-            "default": true,
-            "string": "transparent",
-            "eventType": "controlchange"
-          },
-          {
-            "name": "Orange",
-            "value": 1,
-            "string": "#F57C00",
-            "eventType": "controlchange"
-          }
-        ],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -1021,25 +994,10 @@
       "inputs": [
         {
           "number": 23,
-          "availableColors": [
-            {
-              "name": "Off",
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Orange",
-              "value": 1,
-              "string": "#F57C00",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -1060,25 +1018,31 @@
       "left": 8.5,
       "inputs": [
         {
-          "number": 27
+          "number": 27,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                27,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                27,
+                1
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "name": "Off",
-            "value": 0,
-            "default": true,
-            "string": "transparent",
-            "eventType": "controlchange"
-          },
-          {
-            "name": "Orange",
-            "value": 1,
-            "string": "#F57C00",
-            "eventType": "controlchange"
-          }
-        ],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -1099,11 +1063,11 @@
       "left": 0.75,
       "inputs": [
         {
-          "number": 3
+          "number": 3,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.5,
         "height": 0.5,
@@ -1125,25 +1089,31 @@
       "left": 1.75,
       "inputs": [
         {
-          "number": 95
+          "number": 95,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                95,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                95,
+                1
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "name": "Off",
-            "value": 0,
-            "default": true,
-            "string": "transparent",
-            "eventType": "controlchange"
-          },
-          {
-            "name": "Orange",
-            "value": 1,
-            "string": "#F57C00",
-            "eventType": "controlchange"
-          }
-        ],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -1164,25 +1134,31 @@
       "left": 5.9,
       "inputs": [
         {
-          "number": 31
+          "number": 31,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                31,
+                0
+              ]
+            },
+            {
+              "name": "Blue",
+              "string": "#2196F3",
+              "array": [
+                176,
+                31,
+                1
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "name": "Off",
-            "value": 0,
-            "default": true,
-            "string": "transparent",
-            "eventType": "controlchange"
-          },
-          {
-            "name": "Blue",
-            "value": 1,
-            "string": "#2196F3",
-            "eventType": "controlchange"
-          }
-        ],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -1203,20 +1179,23 @@
       "left": 0.5,
       "inputs": [
         {
-          "number": 97
+          "number": 97,
+          "availableColors": []
         },
         {
-          "number": 96
+          "number": 96,
+          "availableColors": []
         },
         {
-          "number": 104
+          "number": 104,
+          "availableColors": []
         },
         {
-          "number": 103
+          "number": 103,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.2,
         "height": 0.2,
@@ -1239,26 +1218,29 @@
         {
           "number": 7,
           "handleWidth": 0.75,
-          "handleHeight": 0.25
+          "handleHeight": 0.25,
+          "availableColors": []
         },
         {
           "number": 11,
           "handleWidth": 0.75,
-          "handleHeight": 0.25
+          "handleHeight": 0.25,
+          "availableColors": []
         },
         {
           "number": 15,
           "handleWidth": 0.75,
-          "handleHeight": 0.25
+          "handleHeight": 0.25,
+          "availableColors": []
         },
         {
           "number": 19,
           "handleWidth": 0.75,
-          "handleHeight": 0.25
+          "handleHeight": 0.25,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "slider",
         "width": 0.75,
         "height": 2.1,
@@ -1281,38 +1263,126 @@
       "inputs": [
         {
           "number": 108,
-          "availableColors": []
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                108,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                108,
+                1
+              ]
+            }
+          ]
         },
         {
-          "number": 113
+          "number": 113,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                108,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                108,
+                1
+              ]
+            }
+          ]
         },
         {
-          "number": 118
+          "number": 118,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                108,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                108,
+                1
+              ]
+            }
+          ]
         },
         {
-          "number": 121
+          "number": 121,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                108,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                108,
+                1
+              ]
+            }
+          ]
         },
         {
-          "number": 124
+          "number": 124,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                108,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                108,
+                1
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "name": "Off",
-
-            "value": 0,
-            "default": true,
-            "string": "transparent",
-            "eventType": "controlchange"
-          },
-          {
-            "name": "Orange",
-            "value": 1,
-            "string": "#F57C00",
-            "eventType": "controlchange"
-          }
-        ],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -1333,20 +1403,23 @@
       "left": 2.85,
       "inputs": [
         {
-          "number": 32
+          "number": 32,
+          "availableColors": []
         },
         {
-          "number": 34
+          "number": 34,
+          "availableColors": []
         },
         {
-          "number": 36
+          "number": 36,
+          "availableColors": []
         },
         {
-          "number": 38
+          "number": 38,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.2,
         "height": 0.2,
@@ -1367,14 +1440,15 @@
       "left": 10.375,
       "inputs": [
         {
-          "number": 43
+          "number": 43,
+          "availableColors": []
         },
         {
-          "number": 44
+          "number": 44,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.2,
         "height": 0.2,
@@ -1395,11 +1469,11 @@
       "left": 10.925,
       "inputs": [
         {
-          "number": 20
+          "number": 20,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.3,
         "height": 0.3,
@@ -1423,38 +1497,26 @@
         {
           "number": 102,
           "overrideable": true,
-          "availableColors": [
-            {
-              "name": "Off",
-
-              "value": 0,
-              "default": true,
-              "string": "transparent",
-              "eventType": "controlchange"
-            },
-            {
-              "name": "Blue",
-              "value": 1,
-              "string": "#2196F3",
-              "eventType": "controlchange"
-            }
-          ]
+          "availableColors": []
         },
         {
-          "number": -26
+          "number": -26,
+          "availableColors": []
         },
         {
-          "number": -27
+          "number": -27,
+          "availableColors": []
         },
         {
-          "number": -28
+          "number": -28,
+          "availableColors": []
         },
         {
-          "number": -29
+          "number": -29,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.6,
         "height": 0.4,
@@ -1479,54 +1541,126 @@
           "availableColors": [
             {
               "name": "Off",
-
-              "value": 0,
               "default": true,
               "string": "transparent",
-              "eventType": "controlchange"
+              "array": [
+                176,
+                109,
+                0
+              ]
             },
             {
-              "name": "Blue",
-              "value": 1,
-              "string": "#2196F3",
-              "eventType": "controlchange"
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                109,
+                1
+              ]
             }
           ]
         },
         {
-          "number": 110
+          "number": 110,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                109,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                109,
+                1
+              ]
+            }
+          ]
         },
         {
-          "number": 115
+          "number": 115,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                109,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                109,
+                1
+              ]
+            }
+          ]
         },
         {
-          "number": 120
+          "number": 120,
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                109,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                109,
+                1
+              ]
+            }
+          ]
         },
         {
           "number": 122,
           "shape": "circle",
           "height": 0.2,
           "width": 0.2,
-          "availableColors": []
+          "availableColors": [
+            {
+              "name": "Off",
+              "default": true,
+              "string": "transparent",
+              "array": [
+                176,
+                109,
+                0
+              ]
+            },
+            {
+              "name": "Orange",
+              "string": "#F57C00",
+              "array": [
+                176,
+                109,
+                1
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "name": "Off",
-
-            "value": 0,
-            "default": true,
-            "string": "transparent",
-            "eventType": "controlchange"
-          },
-          {
-            "name": "Orange",
-            "value": 1,
-            "string": "#F57C00",
-            "eventType": "controlchange"
-          }
-        ],
         "type": "pad",
         "width": 0.6,
         "height": 0.4,
@@ -1550,11 +1684,11 @@
           "number": 21,
           "handleWidth": 0.75,
           "handleHeight": 0.25,
-          "horizontal": true
+          "horizontal": true,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "slider",
         "width": 0.75,
         "height": 2.25,
@@ -1576,27 +1710,31 @@
       "left": 3.15,
       "inputs": [
         {
-          "number": -30
+          "number": -30,
+          "availableColors": []
         },
         {
           "number": -34,
           "width": 0.3,
-          "height": 0.3
+          "height": 0.3,
+          "availableColors": []
         },
         {
-          "number": -36
+          "number": -36,
+          "availableColors": []
         },
         {
           "number": -38,
           "width": 0.3,
-          "height": 0.3
+          "height": 0.3,
+          "availableColors": []
         },
         {
-          "number": -39
+          "number": -39,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.6,
         "height": 0.4,
@@ -1617,17 +1755,19 @@
       "left": 3.75,
       "inputs": [
         {
-          "number": -40
+          "number": -40,
+          "availableColors": []
         },
         {
-          "number": -44
+          "number": -44,
+          "availableColors": []
         },
         {
-          "number": -46
+          "number": -46,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,
@@ -1648,17 +1788,19 @@
       "left": 6.875,
       "inputs": [
         {
-          "number": -50
+          "number": -50,
+          "availableColors": []
         },
         {
-          "number": -54
+          "number": -54,
+          "availableColors": []
         },
         {
-          "number": -56
+          "number": -56,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.3,
         "height": 0.3,

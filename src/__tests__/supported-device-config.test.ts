@@ -2,7 +2,7 @@
 import { test, expect, jest } from '@jest/globals';
 
 import { parse, stringify } from '@shared/util';
-import { MidiArray } from '@shared/midi-array';
+import { ThreeByteMidiArray } from '@shared/midi-array';
 import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
 
 function BasicInputConfig() {
@@ -121,8 +121,8 @@ test('handleMessage() passes to correct input for processing', () => {
     nickname
   );
 
-  const mm = MidiArray.create(
-    input.eventType as StatusString,
+  const mm = ThreeByteMidiArray.create(
+    input.eventType as 'controlchange',
     input.channel,
     input.number,
     127
@@ -147,7 +147,7 @@ test('bindingAvailable return true if binding is not taken', () => {
 
 test('handleMessage just propagates msgs when no matching inputConfig found', () => {
   const device = BasicSupportedDevice();
-  const msg = MidiArray.create(144, 0, 42, 127);
+  const msg = ThreeByteMidiArray.create(144, 0, 42, 127);
   const result = device.handleMessage(msg);
   expect(result[1]).toStrictEqual(msg);
 });

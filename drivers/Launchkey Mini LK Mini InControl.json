@@ -668,24 +668,27 @@
       "bottom": 3.75,
       "inputs": [
         {
-          "number": 106
+          "number": 106,
+          "availableColors": []
         },
         {
-          "number": 107
+          "number": 107,
+          "availableColors": []
         },
         {
           "overrideable": false,
           "number": 0,
-          "response": "toggle"
+          "response": "toggle",
+          "availableColors": []
         },
         {
           "overrideable": false,
           "number": -1,
-          "response": "toggle"
+          "response": "toggle",
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.5,
         "height": 0.3,
@@ -706,11 +709,11 @@
       "bottom": 4.875,
       "inputs": [
         {
-          "number": 0
+          "number": 0,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.375,
         "height": 0.375,
@@ -731,133 +734,1879 @@
       "bottom": 3.875,
       "inputs": [
         {
-          "number": 96
+          "number": 96,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 97
+          "number": 97,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 98
+          "number": 98,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 99
+          "number": 99,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 100
+          "number": 100,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 101
+          "number": 101,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 102
+          "number": 102,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 103
+          "number": 103,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 112
+          "number": 112,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 113
+          "number": 113,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 114
+          "number": 114,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 115
+          "number": 115,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 116
+          "number": 116,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 117
+          "number": 117,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 118
+          "number": 118,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 119
+          "number": 119,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                96,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                96,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                96,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                96,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                96,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                96,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                23
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Yellow",
+              "string": "#FFC107",
+              "array": [
+                144,
+                96,
+                19
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                96,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                96,
+                24
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "default": true,
-            "eventType": "noteon",
-            "name": "Off",
-            "string": "transparent",
-            "value": 4
-          },
-          {
-            "eventType": "noteon",
-            "name": "Red (dim)",
-            "string": "#F58A70",
-            "value": 5
-          },
-          {
-            "eventType": "noteon",
-            "name": "Red",
-            "string": "#F36E56",
-            "value": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Red (Bright)",
-            "string": "#F44336",
-            "value": 7
-          },
-          {
-            "eventType": "noteon",
-            "modifier": "blink",
-            "name": "Red",
-            "string": "#F44336",
-            "value": 1
-          },
-          {
-            "eventType": "noteon",
-            "name": "Yellow (dim)",
-            "string": "#FFD77D",
-            "value": 21
-          },
-          {
-            "eventType": "noteon",
-            "name": "Yellow",
-            "string": "#FFCB4F",
-            "value": 22
-          },
-          {
-            "eventType": "noteon",
-            "name": "Yellow (bright)",
-            "string": "#FFC107",
-            "value": 23
-          },
-          {
-            "eventType": "noteon",
-            "modifier": "blink",
-            "name": "Yellow",
-            "string": "#FFC107",
-            "value": 19
-          },
-          {
-            "eventType": "noteon",
-            "name": "Green (dim)",
-            "string": "#75BB6D",
-            "value": 53
-          },
-          {
-            "eventType": "noteon",
-            "name": "Green",
-            "string": "#4CAF50",
-            "value": 20
-          },
-          {
-            "eventType": "noteon",
-            "modifier": "blink",
-            "name": "Green",
-            "string": "#4CAF50",
-            "value": 24
-          }
-        ],
         "type": "pad",
         "width": 0.75,
         "height": 0.75,
@@ -878,32 +2627,39 @@
       "bottom": 6,
       "inputs": [
         {
-          "number": 21
+          "number": 21,
+          "availableColors": []
         },
         {
-          "number": 22
+          "number": 22,
+          "availableColors": []
         },
         {
-          "number": 23
+          "number": 23,
+          "availableColors": []
         },
         {
-          "number": 24
+          "number": 24,
+          "availableColors": []
         },
         {
-          "number": 25
+          "number": 25,
+          "availableColors": []
         },
         {
-          "number": 26
+          "number": 26,
+          "availableColors": []
         },
         {
-          "number": 27
+          "number": 27,
+          "availableColors": []
         },
         {
-          "number": 28
+          "number": 28,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.5,
         "height": 0.5,
@@ -925,84 +2681,221 @@
       "bottom": 3.875,
       "inputs": [
         {
-          "number": 104
+          "number": 104,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                104,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                104,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                104,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                104,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                104,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                104,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                104,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                104,
+                23
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                104,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                104,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                104,
+                24
+              ]
+            }
+          ]
         },
         {
-          "number": 120
+          "number": 120,
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                104,
+                4
+              ]
+            },
+            {
+              "name": "Red (dim)",
+              "string": "#F58A70",
+              "array": [
+                144,
+                104,
+                5
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F36E56",
+              "array": [
+                144,
+                104,
+                6
+              ]
+            },
+            {
+              "name": "Red (Bright)",
+              "string": "#F44336",
+              "array": [
+                144,
+                104,
+                7
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                104,
+                1
+              ]
+            },
+            {
+              "name": "Yellow (dim)",
+              "string": "#FFD77D",
+              "array": [
+                144,
+                104,
+                21
+              ]
+            },
+            {
+              "name": "Yellow",
+              "string": "#FFCB4F",
+              "array": [
+                144,
+                104,
+                22
+              ]
+            },
+            {
+              "name": "Yellow (bright)",
+              "string": "#FFC107",
+              "array": [
+                144,
+                104,
+                23
+              ]
+            },
+            {
+              "name": "Green (dim)",
+              "string": "#75BB6D",
+              "array": [
+                144,
+                104,
+                53
+              ]
+            },
+            {
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                104,
+                20
+              ]
+            },
+            {
+              "modifier": "blink",
+              "name": "Green",
+              "string": "#4CAF50",
+              "array": [
+                144,
+                104,
+                24
+              ]
+            }
+          ]
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "default": true,
-            "eventType": "noteon",
-            "name": "Off",
-            "string": "transparent",
-            "value": 4
-          },
-          {
-            "eventType": "noteon",
-            "name": "Red (dim)",
-            "string": "#F58A70",
-            "value": 5
-          },
-          {
-            "eventType": "noteon",
-            "name": "Red",
-            "string": "#F36E56",
-            "value": 6
-          },
-          {
-            "eventType": "noteon",
-            "name": "Red (Bright)",
-            "string": "#F44336",
-            "value": 7
-          },
-          {
-            "eventType": "noteon",
-            "modifier": "blink",
-            "name": "Red",
-            "string": "#F44336",
-            "value": 1
-          },
-          {
-            "eventType": "noteon",
-            "name": "Yellow (dim)",
-            "string": "#FFD77D",
-            "value": 21
-          },
-          {
-            "eventType": "noteon",
-            "name": "Yellow",
-            "string": "#FFCB4F",
-            "value": 22
-          },
-          {
-            "eventType": "noteon",
-            "name": "Yellow (bright)",
-            "string": "#FFC107",
-            "value": 23
-          },
-          {
-            "eventType": "noteon",
-            "name": "Green (dim)",
-            "string": "#75BB6D",
-            "value": 53
-          },
-          {
-            "eventType": "noteon",
-            "name": "Green",
-            "string": "#4CAF50",
-            "value": 20
-          },
-          {
-            "eventType": "noteon",
-            "modifier": "blink",
-            "name": "Green",
-            "string": "#4CAF50",
-            "value": 24
-          }
-        ],
         "type": "pad",
         "width": 0.5,
         "height": 0.5,
@@ -1023,14 +2916,15 @@
       "bottom": 4.25,
       "inputs": [
         {
-          "number": 104
+          "number": 104,
+          "availableColors": []
         },
         {
-          "number": 105
+          "number": 105,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.5,
         "height": 0.3,

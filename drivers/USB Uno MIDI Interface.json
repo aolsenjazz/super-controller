@@ -21,45 +21,56 @@
       "inputs": [
         {
           "overrideable": false,
-          "number": -1
+          "number": -1,
+          "availableColors": []
         },
         {
-          "number": 0
+          "number": 0,
+          "availableColors": []
         },
         {
-          "number": 1
+          "number": 1,
+          "availableColors": []
         },
         {
-          "number": 2
+          "number": 2,
+          "availableColors": []
         },
         {
-          "number": 3
+          "number": 3,
+          "availableColors": []
         },
         {
-          "number": 4
+          "number": 4,
+          "availableColors": []
         },
         {
           "overrideable": false,
-          "number": -2
+          "number": -2,
+          "availableColors": []
         },
         {
-          "number": 5
+          "number": 5,
+          "availableColors": []
         },
         {
-          "number": 6
+          "number": 6,
+          "availableColors": []
         },
         {
-          "number": 7
+          "number": 7,
+          "availableColors": []
         },
         {
-          "number": 8
+          "number": 8,
+          "availableColors": []
         },
         {
-          "number": 9
+          "number": 9,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 1.4,
         "height": 1.4,

@@ -33,18 +33,19 @@
           "value": 0,
           "handleWidth": 0.5,
           "handleHeight": 0.5,
-          "number": 0
+          "number": 0,
+          "availableColors": []
         },
         {
           "value": 0,
           "handleWidth": 0.5,
           "handleHeight": 0.5,
           "number": 1,
-          "eventType": "controlchange"
+          "eventType": "controlchange",
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "xy",
         "width": 0.9,
         "height": 0.9,
@@ -65,26 +66,31 @@
       "nCols": 2,
       "inputs": [
         {
-          "number": -1
+          "number": -1,
+          "availableColors": []
         },
         {
-          "number": -2
+          "number": -2,
+          "availableColors": []
         },
         {
-          "number": -3
+          "number": -3,
+          "availableColors": []
         },
         {
-          "number": -4
+          "number": -4,
+          "availableColors": []
         },
         {
-          "number": -5
+          "number": -5,
+          "availableColors": []
         },
         {
-          "number": -6
+          "number": -6,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.5,
         "height": 0.25,
@@ -105,24 +111,49 @@
       "nCols": 4,
       "inputs": [
         {
-          "number": 36
-        },
-        {
+          "number": 36,
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
+              "name": "Off",
               "string": "transparent",
-              "number": 10
+              "array": [
+                144,
+                9,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 127,
-              "number": 10
+              "array": [
+                144,
+                9,
+                127
+              ]
+            }
+          ]
+        },
+        {
+          "availableColors": [
+            {
+              "default": true,
+              "name": "Off",
+              "string": "transparent",
+              "array": [
+                144,
+                9,
+                0
+              ]
+            },
+            {
+              "name": "Red",
+              "string": "#F44336",
+              "array": [
+                144,
+                9,
+                127
+              ]
             }
           ],
           "number": 37
@@ -130,19 +161,23 @@
         {
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
+              "name": "Off",
               "string": "transparent",
-              "number": 11
+              "array": [
+                144,
+                9,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 127,
-              "number": 11
+              "array": [
+                144,
+                9,
+                127
+              ]
             }
           ],
           "number": 38
@@ -150,19 +185,23 @@
         {
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
+              "name": "Off",
               "string": "transparent",
-              "number": 12
+              "array": [
+                144,
+                9,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 127,
-              "number": 12
+              "array": [
+                144,
+                9,
+                127
+              ]
             }
           ],
           "number": 39
@@ -170,19 +209,23 @@
         {
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
+              "name": "Off",
               "string": "transparent",
-              "number": 13
+              "array": [
+                144,
+                9,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 127,
-              "number": 13
+              "array": [
+                144,
+                9,
+                127
+              ]
             }
           ],
           "number": 32
@@ -190,19 +233,23 @@
         {
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
+              "name": "Off",
               "string": "transparent",
-              "number": 14
+              "array": [
+                144,
+                9,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 127,
-              "number": 14
+              "array": [
+                144,
+                9,
+                127
+              ]
             }
           ],
           "number": 33
@@ -210,19 +257,23 @@
         {
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
+              "name": "Off",
               "string": "transparent",
-              "number": 15
+              "array": [
+                144,
+                9,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 127,
-              "number": 15
+              "array": [
+                144,
+                9,
+                127
+              ]
             }
           ],
           "number": 34
@@ -230,42 +281,29 @@
         {
           "availableColors": [
             {
-              "name": "Off",
               "default": true,
-              "eventType": "noteon",
-              "value": 0,
+              "name": "Off",
               "string": "transparent",
-              "number": 16
+              "array": [
+                144,
+                9,
+                0
+              ]
             },
             {
               "name": "Red",
               "string": "#F44336",
-              "eventType": "noteon",
-              "value": 127,
-              "number": 16
+              "array": [
+                144,
+                9,
+                127
+              ]
             }
           ],
           "number": 35
         }
       ],
       "inputDefaults": {
-        "availableColors": [
-          {
-            "default": true,
-            "eventType": "noteon",
-            "name": "Off",
-            "number": 9,
-            "string": "transparent",
-            "value": 0
-          },
-          {
-            "eventType": "noteon",
-            "name": "Red",
-            "number": 9,
-            "string": "#F44336",
-            "value": 127
-          }
-        ],
         "type": "pad",
         "width": 1,
         "height": 1,
@@ -286,32 +324,39 @@
       "nCols": 4,
       "inputs": [
         {
-          "number": 1
+          "number": 1,
+          "availableColors": []
         },
         {
-          "number": 2
+          "number": 2,
+          "availableColors": []
         },
         {
-          "number": 3
+          "number": 3,
+          "availableColors": []
         },
         {
-          "number": 4
+          "number": 4,
+          "availableColors": []
         },
         {
-          "number": 5
+          "number": 5,
+          "availableColors": []
         },
         {
-          "number": 6
+          "number": 6,
+          "availableColors": []
         },
         {
-          "number": 7
+          "number": 7,
+          "availableColors": []
         },
         {
-          "number": 8
+          "number": 8,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "knob",
         "width": 0.5,
         "height": 0.5,
@@ -333,17 +378,19 @@
       "nCols": 3,
       "inputs": [
         {
-          "number": -7
+          "number": -7,
+          "availableColors": []
         },
         {
-          "number": -8
+          "number": -8,
+          "availableColors": []
         },
         {
-          "number": -9
+          "number": -9,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.5,
         "height": 0.25,
@@ -364,11 +411,11 @@
       "nCols": 1,
       "inputs": [
         {
-          "number": -10
+          "number": -10,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.5,
         "height": 0.25,

@@ -1,5 +1,4 @@
 import { InputDriver, InputType, InputGridDriver } from '@shared/driver-types';
-import { inputIdFor } from '@shared/util';
 
 /**
  * Contains layout information to create a virtual representation of an input.
@@ -61,7 +60,9 @@ export class VirtualInput {
   }
 
   get id() {
-    return inputIdFor(this.#eventType, this.#channel, this.#number);
+    return this.isPitchbend
+      ? `${this.#eventType}.${this.#channel}`
+      : `${this.#eventType}.${this.#channel}.${this.#number}`;
   }
 
   get isPitchbend() {

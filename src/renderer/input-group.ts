@@ -5,11 +5,9 @@ import { CC_BINDINGS, stringVal } from '@shared/util';
 const mvc: Color = {
   name: '<multiple values>',
   string: 'transparent',
-  eventType: 'noteon',
-  value: 0,
+  array: [144, 0, 0],
 };
-
-const MULT_COLOR = ColorImpl.fromDrivers(mvc, 0, 0);
+const MULT_COLOR = new ColorImpl(mvc);
 
 const mvf: FxDriver = {
   title: '<multiple values>',
@@ -180,7 +178,7 @@ export class InputGroup {
   }
 
   getActiveFx(state: number) {
-    const getter = (c: InputConfig) => c.getActiveFx(state);
+    const getter = (c: InputConfig) => c.getFx(state);
     const equality = (a: FxDriver | undefined, b: FxDriver | undefined) => {
       return a?.title === b?.title;
     };

@@ -20,11 +20,11 @@
       "bottom": 0.125,
       "inputs": [
         {
-          "number": 18
+          "number": 18,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 0.75,
         "height": 2,
@@ -45,23 +45,27 @@
       "nCols": 5,
       "inputs": [
         {
-          "number": 29
+          "number": 29,
+          "availableColors": []
         },
         {
-          "number": 30
+          "number": 30,
+          "availableColors": []
         },
         {
-          "number": 31
+          "number": 31,
+          "availableColors": []
         },
         {
-          "number": 32
+          "number": 32,
+          "availableColors": []
         },
         {
-          "number": 33
+          "number": 33,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 1.125,
         "height": 0.125,
@@ -88,23 +92,27 @@
       },
       "inputs": [
         {
-          "number": 34
+          "number": 34,
+          "availableColors": []
         },
         {
-          "number": 35
+          "number": 35,
+          "availableColors": []
         },
         {
-          "number": 36
+          "number": 36,
+          "availableColors": []
         },
         {
-          "number": 37
+          "number": 37,
+          "availableColors": []
         },
         {
-          "number": 38
+          "number": 38,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 1.125,
         "height": 0.125,
@@ -125,23 +133,27 @@
       "nCols": 5,
       "inputs": [
         {
-          "number": 39
+          "number": 39,
+          "availableColors": []
         },
         {
-          "number": 40
+          "number": 40,
+          "availableColors": []
         },
         {
-          "number": 41
+          "number": 41,
+          "availableColors": []
         },
         {
-          "number": 42
+          "number": 42,
+          "availableColors": []
         },
         {
-          "number": 43
+          "number": 43,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 1.125,
         "height": 0.125,
@@ -162,23 +174,27 @@
       "nCols": 5,
       "inputs": [
         {
-          "number": 44
+          "number": 44,
+          "availableColors": []
         },
         {
-          "number": 45
+          "number": 45,
+          "availableColors": []
         },
         {
-          "number": 46
+          "number": 46,
+          "availableColors": []
         },
         {
-          "number": 47
+          "number": 47,
+          "availableColors": []
         },
         {
-          "number": 48
+          "number": 48,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 1.125,
         "height": 0.125,
@@ -199,23 +215,27 @@
       "nCols": 5,
       "inputs": [
         {
-          "number": 48
+          "number": 48,
+          "availableColors": []
         },
         {
-          "number": 49
+          "number": 49,
+          "availableColors": []
         },
         {
-          "number": 50
+          "number": 50,
+          "availableColors": []
         },
         {
-          "number": 51
+          "number": 51,
+          "availableColors": []
         },
         {
-          "number": 52
+          "number": 52,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 1.125,
         "height": 0.125,
@@ -236,23 +256,27 @@
       "nCols": 5,
       "inputs": [
         {
-          "number": 53
+          "number": 53,
+          "availableColors": []
         },
         {
-          "number": 54
+          "number": 54,
+          "availableColors": []
         },
         {
-          "number": 55
+          "number": 55,
+          "availableColors": []
         },
         {
-          "number": 56
+          "number": 56,
+          "availableColors": []
         },
         {
-          "number": 57
+          "number": 57,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 1.125,
         "height": 0.125,
@@ -279,11 +303,11 @@
       },
       "inputs": [
         {
-          "number": -1
+          "number": -1,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 1,
         "height": 2.25,
@@ -304,26 +328,31 @@
       "nCols": 1,
       "inputs": [
         {
-          "number": 28
+          "number": 28,
+          "availableColors": []
         },
         {
-          "number": 33
+          "number": 33,
+          "availableColors": []
         },
         {
-          "number": 38
+          "number": 38,
+          "availableColors": []
         },
         {
-          "number": 43
+          "number": 43,
+          "availableColors": []
         },
         {
-          "number": 47
+          "number": 47,
+          "availableColors": []
         },
         {
-          "number": 52
+          "number": 52,
+          "availableColors": []
         }
       ],
       "inputDefaults": {
-        "availableColors": [],
         "type": "pad",
         "width": 4.5,
         "height": 0.125,

@@ -1,16 +1,98 @@
-import {
-  Channel,
-  StatusString,
-  getStatus,
-  getChannel,
-  setStatus,
-} from './midi-util';
-import { Color } from './driver-types';
+/* eslint @typescript-eslint/no-explicit-any: 0 */
+import * as Revivable from './revivable';
+import { MidiArray } from './midi-array';
+import { byteToStatusString } from './midi-util';
+
+function replacer(_key: any, value: any) {
+  if (value instanceof Map) {
+    return {
+      dataType: 'Map',
+      value: Array.from(value.entries()), // TODO: might have to call .toJSON
+    };
+  }
+
+  return value;
+}
+
+function reviver(_key: any, value: any) {
+  let obj;
+  if (typeof value === 'object' && value !== null) {
+    if (value.dataType === 'Map') {
+      return new Map(value.value);
+    }
+
+    Revivable.GetImplementations().forEach(
+      (Clazz: new (...args: any[]) => any) => {
+        if (Clazz.name === value.name) {
+          const parsed = value.args.map((a: any) =>
+            a === null ? undefined : a
+          );
+          obj = new Clazz(...parsed);
+        }
+      }
+    );
+  }
+
+  return obj || value;
+}
+
+/**
+ * Wrapper around JSON.parse to ensure that reviver is used and
+ * type is automatically set
+ */
+export function parse<T>(json: string): T {
+  return JSON.parse(json, reviver) as T;
+}
+
+/**
+ * Wrapper around JSON.stringify used to ensure replacer is used
+ */
+export function stringify<T>(obj: T) {
+  return JSON.stringify(obj, replacer);
+}
 
 export function getDiff(l1: string[], l2: string[]) {
   const ex1 = l1.filter((str) => !l2.includes(str));
   const ex2 = l2.filter((str) => !l1.includes(str));
   return [ex1, ex2];
+}
+
+/**
+ * Convenience function to wrap another function in a throttle. Destroys throttled function calls
+ */
+export function applyDestructiveThrottle(
+  func: (...args: any[]) => void,
+  delay: number
+) {
+  let timeout: NodeJS.Timeout | null = null;
+  return (...args: any[]) => {
+    if (!timeout) {
+      timeout = setTimeout(() => {
+        func(...args);
+        timeout = null;
+      }, delay);
+    }
+  };
+}
+
+/**
+ * Convenience function to wrap another function in a throttle. Queues throttled function to
+ * be executed at a later time
+ */
+export function applyNondestructiveThrottle(
+  func: (...args: any[]) => void,
+  executionIncrementMs: number
+) {
+  let checkpoint = Date.now();
+
+  return (...args: any[]) => {
+    const delay = Math.max(checkpoint - Date.now(), 0);
+    checkpoint = Date.now() + executionIncrementMs + delay;
+
+    setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
 }
 
 /**
@@ -21,75 +103,30 @@ export function getDiff(l1: string[], l2: string[]) {
  * @returns The ID of the input
  */
 export function inputIdFor(
-  msg: number[] | (StatusString | 'noteon/noteoff'),
+  msg: MidiArray | (StatusString | 'noteon/noteoff'),
   channel?: Channel,
-  number?: number
+  number?: MidiNumber
 ) {
-  let status;
+  let status = msg;
   let num = number;
   let chan = channel;
 
   if (Array.isArray(msg)) {
-    status = getStatus(msg).string;
-    num = msg[1]; // eslint-disable-line
-    chan = getChannel(msg);
+    status = byteToStatusString(msg.status, false);
+    num = msg.number; // eslint-disable-line
+    chan = msg.channel;
   } else {
     if (num === undefined && msg !== 'pitchbend')
       throw new Error('number must not be undefined');
     if (channel === undefined) throw new Error('channel must not be undefined');
-    status = msg;
   }
 
-  status = ['noteon', 'noteoff'].includes(status) ? 'noteon/noteoff' : status;
+  if (['noteon', 'noteoff'].includes(status as StatusString))
+    status = 'noteon/noteoff';
 
   return status === 'pitchbend'
     ? `${status}.${chan}`
     : `${status}.${chan}.${num}`;
-}
-
-/**
- * Returns the message to be send to devices in order to trigger the given color.
- *
- * @param number The MIDI number
- * @param channel The MIDI channel
- * @param c The color to set
- * @returns A `MidiMessage` which can be used to trigger the color
- */
-export function msgForColor(number: number, channel: Channel, c: Color) {
-  return setStatus([channel, number, c.value], c.eventType);
-}
-
-/**
- * Is this a sustain message?
- *
- * @param msg Maybe a sustain message
- * @returns true if msg is a sustain message
- */
-export function isSustain(msg: number[]) {
-  return getStatus(msg).string === 'controlchange' && msg[1] === 64;
-}
-
-/**
- * Generally speaking, is this message and 'on' message? If message doesn't have
- * a clear notion of on-ness (programchange), return `default`
- *
- * @param msg The message
- * @param def The value to return if message type has no notion of on-ness
- * @returns `true` if message is on-ish
- */
-export function isOnMessage(msg: number[], def: boolean) {
-  const status = getStatus(msg).string;
-
-  switch (status) {
-    case 'noteon':
-      return true;
-    case 'noteoff':
-      return false;
-    case 'controlchange':
-      return msg[2] > 0;
-    default:
-      return def;
-  }
 }
 
 /* Mappings from CC number to a human-readable string */
