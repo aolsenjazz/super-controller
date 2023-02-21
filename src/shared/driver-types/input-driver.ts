@@ -47,7 +47,9 @@ export type InputDriver = {
   /* Width of the input in inches */
   readonly width?: number;
 
-  readonly horizontal?: boolean;
+  readonly style?: {
+    transform: string;
+  };
 
   /* If input has a handle (think wheel or XY pad), width in inches */
   readonly handleWidth?: number;
@@ -56,6 +58,8 @@ export type InputDriver = {
   readonly handleHeight?: number;
 
   readonly knobType?: 'endless' | 'absolute';
+
+  readonly valueType?: 'endless' | 'absolute';
 
   /**
    * List of `Color`s this input supports. This field will by default be inherited

@@ -12,7 +12,7 @@ export class ColorConfigPropagator extends Propagator<
 > {
   protected colorBindings: Map<number, ColorImpl>;
 
-  protected fxBindings: Map<number, Channel>;
+  protected fxBindings: Map<number, MidiNumber[]>;
 
   currentStep: number = 0;
 
@@ -20,7 +20,7 @@ export class ColorConfigPropagator extends Propagator<
     hardwareResponse: InputResponse,
     outputResponse: CorrelatedResponse<InputResponse>,
     colorBindings?: Map<number, ColorImpl>,
-    fxBindings?: Map<number, Channel>,
+    fxBindings?: Map<number, MidiNumber[]>,
     currentStep?: number
   ) {
     super(hardwareResponse, outputResponse);
@@ -55,9 +55,9 @@ export class ColorConfigPropagator extends Propagator<
     if (c !== undefined) {
       let arr = c.array;
 
+      // apply fx
       if (fx !== undefined) {
-        const statusByte = ((arr[0] & 0xf0) | fx) as StatusByte;
-        arr = [statusByte, arr[1], arr[2]];
+        arr = arr.map((v, i) => v + fx[i]) as NumberArrayWithStatus;
       }
 
       return create(arr);
@@ -71,7 +71,7 @@ export class ColorConfigPropagator extends Propagator<
     this.fxBindings.delete(step);
   }
 
-  setFx(step: number, fxVal: Channel) {
+  setFx(step: number, fxVal: MidiNumber[]) {
     this.fxBindings.set(step, fxVal);
   }
 
@@ -80,15 +80,7 @@ export class ColorConfigPropagator extends Propagator<
   }
 
   getFx(step: number) {
-    const fx = this.fxBindings.get(step);
-    if (fx === undefined) {
-      const color = this.colorBindings.get(step);
-      if (color !== undefined) {
-        return (color.array[0] & 0x0f) as Channel;
-      }
-    }
-
-    return fx;
+    return this.fxBindings.get(step);
   }
 
   get currentFx() {

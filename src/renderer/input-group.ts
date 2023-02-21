@@ -12,9 +12,9 @@ const MULT_COLOR = new ColorImpl(mvc);
 const mvf: FxDriver = {
   title: '<multiple values>',
   effect: '',
-  target: 'channel',
-  validVals: [0],
-  defaultVal: 0,
+  isDefault: true,
+  validVals: [[0, 0, 0]],
+  defaultVal: [0, 0, 0],
 };
 
 /**
@@ -190,10 +190,13 @@ export class InputGroup {
 
   getFxVal(state: number) {
     const getter = (c: InputConfig) => c.getFxVal(state);
-    const equality = (a: Channel | undefined, b: Channel | undefined) => {
-      return a === b;
+    const equality = (
+      a: MidiNumber[] | undefined,
+      b: MidiNumber[] | undefined
+    ) => {
+      return JSON.stringify(a) === JSON.stringify(b);
     };
-    return this.#groupValue<Channel | undefined>(getter, equality);
+    return this.#groupValue<MidiNumber[] | undefined>(getter, equality);
   }
 
   get isMultiInput() {

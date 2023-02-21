@@ -1,21 +1,21 @@
 export type FxDriver = {
-  /* Is the effect active immediately? A good example is when there is a solid->brightness effect */
-  default?: boolean;
-
   /* Short string describing the state of the color (Solid, Blink,  etc) */
   title: string;
 
   /* Label for the configurable effect (Brightness, Speed, etc) */
   effect: string;
 
-  /* The portion of the midi message to which this fx value must be applied */
-  target: 'number' | 'channel' | 'value';
+  /**
+   * Is this effect considered applied when the color is in default state? For example,
+   * if brightness is supported, then the brightness fx is likely considered default
+   */
+  isDefault: boolean;
 
   /* Acceptable values used to configure this FX */
-  validVals: Channel[];
+  validVals: MidiNumber[][];
 
   /* Default value on device startup */
-  defaultVal: Channel;
+  defaultVal: MidiNumber[];
 
   /**
    * Assuming most configurable FX are linear, this is the label at the

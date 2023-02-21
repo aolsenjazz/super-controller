@@ -194,6 +194,7 @@ export class InputConfig {
     // TODO: this should probably take place in the ColorConfigPropagator
     if (toDevice === undefined && this.currentColor !== undefined) {
       toDevice = create(this.currentColor.array);
+      // TODO: I suspect that this also doesn't work w.r.t. applying fx
     }
 
     return [toDevice, toPropagate];
@@ -211,25 +212,32 @@ export class InputConfig {
   }
 
   getFx(state: number) {
-    let fxVal = this.devicePropagator.getFx(state);
-    let fx;
+    const fxVal = this.devicePropagator.getFx(state);
+    let fx = this.defaultFx;
 
-    if (fxVal === undefined) {
-      const c = this.defaultColor;
-      if (c) fxVal = (c.array[0] & 0x0f) as Channel;
-      else return undefined;
+    if (fxVal !== undefined) {
+      this.availableFx.forEach((f) => {
+        const contains =
+          f.validVals.filter((v) => JSON.stringify(v) === JSON.stringify(fxVal))
+            .length > 0;
+
+        if (contains) {
+          fx = f;
+        }
+      });
     }
-
-    this.availableFx.forEach((f) => {
-      if (f.validVals.includes(fxVal as Channel)) fx = f;
-    });
 
     return fx;
   }
 
-  // TODO: the naming of this vs getActiveFx is weird
   getFxVal(state: number) {
-    return this.devicePropagator.getFx(state);
+    let fxVal = this.devicePropagator.getFx(state);
+
+    if (fxVal === undefined && this.defaultFx !== undefined) {
+      fxVal = this.defaultFx.defaultVal;
+    }
+
+    return fxVal;
   }
 
   // TODO: this sort of feels like some BS
@@ -248,7 +256,7 @@ export class InputConfig {
     }
   }
 
-  setFxVal(state: number, fxVal: Channel) {
+  setFxVal(state: number, fxVal: MidiNumber[]) {
     this.devicePropagator.setFx(state, fxVal);
   }
 
@@ -272,6 +280,15 @@ export class InputConfig {
     }
 
     this.devicePropagator.setColor(state, colors[0]);
+
+    // if this input has a default fx, set it now
+    if (this.availableFx.length > 0) {
+      this.availableFx.forEach((fx) => {
+        if (fx.isDefault) {
+          this.setFxVal(state, fx.defaultVal);
+        }
+      });
+    }
   }
 
   /* Restores all default, numeric values (nothing color-related) */
@@ -342,6 +359,15 @@ export class InputConfig {
     return c;
   }
 
+  get defaultFx(): FxDriver | undefined {
+    let fx;
+    this.availableFx.forEach((f) => {
+      if (f.isDefault) fx = f;
+    });
+
+    return fx;
+  }
+
   get value(): MidiNumber {
     return this.outputPropagator.value;
   }
@@ -360,9 +386,13 @@ export class InputConfig {
 
     if (fxVal === undefined) return undefined;
 
-    let fx;
+    let fx = this.defaultFx;
     this.availableFx.forEach((f) => {
-      if (f.validVals.includes(fxVal)) fx = f;
+      const contains =
+        f.validVals.filter((v) => JSON.stringify(v) === JSON.stringify(fxVal))
+          .length > 0;
+
+      if (contains) fx = f;
     });
 
     return fx;

@@ -41,7 +41,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -50,7 +50,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -59,7 +59,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -68,7 +68,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -77,7 +77,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -86,7 +86,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -95,7 +95,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -104,7 +104,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -113,7 +113,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -122,7 +122,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -131,7 +131,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -140,7 +140,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -149,7 +149,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -158,7 +158,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -167,7 +167,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -191,7 +191,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -200,7 +200,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -209,7 +209,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -218,7 +218,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -227,7 +227,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -236,7 +236,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -245,7 +245,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -254,7 +254,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -263,7 +263,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -272,7 +272,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -281,7 +281,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -290,7 +290,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -299,7 +299,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -308,7 +308,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -317,7 +317,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -341,7 +341,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -350,7 +350,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -359,7 +359,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -368,7 +368,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -377,7 +377,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -386,7 +386,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -395,7 +395,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -404,7 +404,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -413,7 +413,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -422,7 +422,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -431,7 +431,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -440,7 +440,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -449,7 +449,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -458,7 +458,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -467,7 +467,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -491,7 +491,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -500,7 +500,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -509,7 +509,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -518,7 +518,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -527,7 +527,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -536,7 +536,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -545,7 +545,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -554,7 +554,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -563,7 +563,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -572,7 +572,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -581,7 +581,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -590,7 +590,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -599,7 +599,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -608,7 +608,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -617,7 +617,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -641,7 +641,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -650,7 +650,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -659,7 +659,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -668,7 +668,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -677,7 +677,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -686,7 +686,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -695,7 +695,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -704,7 +704,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -713,7 +713,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -722,7 +722,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -731,7 +731,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -740,7 +740,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -749,7 +749,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -758,7 +758,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -767,7 +767,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -791,7 +791,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -800,7 +800,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -809,7 +809,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -818,7 +818,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -827,7 +827,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -836,7 +836,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -845,7 +845,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -854,7 +854,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -863,7 +863,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -872,7 +872,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -881,7 +881,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -890,7 +890,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -899,7 +899,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -908,7 +908,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -917,7 +917,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -941,7 +941,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -950,7 +950,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -959,7 +959,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -968,7 +968,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -977,7 +977,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -986,7 +986,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -995,7 +995,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -1004,7 +1004,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -1013,7 +1013,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -1022,7 +1022,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -1031,7 +1031,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -1040,7 +1040,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -1049,7 +1049,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -1058,7 +1058,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -1067,7 +1067,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -1091,7 +1091,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -1100,7 +1100,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -1109,7 +1109,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -1118,7 +1118,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -1127,7 +1127,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -1136,7 +1136,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -1145,7 +1145,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -1154,7 +1154,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -1163,7 +1163,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -1172,7 +1172,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -1181,7 +1181,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -1190,7 +1190,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -1199,7 +1199,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -1208,7 +1208,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -1217,7 +1217,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -1241,7 +1241,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -1250,7 +1250,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -1259,7 +1259,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -1268,7 +1268,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -1277,7 +1277,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -1286,7 +1286,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -1295,7 +1295,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -1304,7 +1304,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -1313,7 +1313,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -1322,7 +1322,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -1331,7 +1331,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -1340,7 +1340,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -1349,7 +1349,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -1358,7 +1358,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -1367,7 +1367,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -1391,7 +1391,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -1400,7 +1400,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -1409,7 +1409,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -1418,7 +1418,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -1427,7 +1427,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -1436,7 +1436,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -1445,7 +1445,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -1454,7 +1454,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -1463,7 +1463,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -1472,7 +1472,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -1481,7 +1481,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -1490,7 +1490,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -1499,7 +1499,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -1508,7 +1508,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -1517,7 +1517,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -1541,7 +1541,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -1550,7 +1550,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -1559,7 +1559,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -1568,7 +1568,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -1577,7 +1577,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -1586,7 +1586,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -1595,7 +1595,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -1604,7 +1604,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -1613,7 +1613,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -1622,7 +1622,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -1631,7 +1631,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -1640,7 +1640,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -1649,7 +1649,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -1658,7 +1658,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -1667,7 +1667,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -1691,7 +1691,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -1700,7 +1700,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -1709,7 +1709,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -1718,7 +1718,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -1727,7 +1727,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -1736,7 +1736,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -1745,7 +1745,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -1754,7 +1754,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -1763,7 +1763,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -1772,7 +1772,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -1781,7 +1781,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -1790,7 +1790,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -1799,7 +1799,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -1808,7 +1808,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -1817,7 +1817,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -1841,7 +1841,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -1850,7 +1850,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -1859,7 +1859,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -1868,7 +1868,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -1877,7 +1877,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -1886,7 +1886,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -1895,7 +1895,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -1904,7 +1904,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -1913,7 +1913,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -1922,7 +1922,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -1931,7 +1931,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -1940,7 +1940,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -1949,7 +1949,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -1958,7 +1958,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -1967,7 +1967,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -1991,7 +1991,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -2000,7 +2000,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -2009,7 +2009,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -2018,7 +2018,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -2027,7 +2027,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -2036,7 +2036,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -2045,7 +2045,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -2054,7 +2054,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -2063,7 +2063,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -2072,7 +2072,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -2081,7 +2081,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -2090,7 +2090,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -2099,7 +2099,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -2108,7 +2108,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -2117,7 +2117,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -2141,7 +2141,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -2150,7 +2150,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -2159,7 +2159,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -2168,7 +2168,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -2177,7 +2177,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -2186,7 +2186,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -2195,7 +2195,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -2204,7 +2204,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -2213,7 +2213,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -2222,7 +2222,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -2231,7 +2231,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -2240,7 +2240,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -2249,7 +2249,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -2258,7 +2258,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -2267,7 +2267,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -2291,7 +2291,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -2300,7 +2300,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -2309,7 +2309,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -2318,7 +2318,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -2327,7 +2327,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -2336,7 +2336,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -2345,7 +2345,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -2354,7 +2354,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -2363,7 +2363,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -2372,7 +2372,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -2381,7 +2381,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -2390,7 +2390,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -2399,7 +2399,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -2408,7 +2408,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -2417,7 +2417,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -2441,7 +2441,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -2450,7 +2450,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -2459,7 +2459,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -2468,7 +2468,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -2477,7 +2477,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -2486,7 +2486,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -2495,7 +2495,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -2504,7 +2504,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -2513,7 +2513,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -2522,7 +2522,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -2531,7 +2531,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -2540,7 +2540,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -2549,7 +2549,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -2558,7 +2558,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -2567,7 +2567,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -2591,7 +2591,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -2600,7 +2600,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -2609,7 +2609,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -2618,7 +2618,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -2627,7 +2627,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -2636,7 +2636,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -2645,7 +2645,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -2654,7 +2654,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -2663,7 +2663,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -2672,7 +2672,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -2681,7 +2681,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -2690,7 +2690,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -2699,7 +2699,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -2708,7 +2708,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -2717,7 +2717,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -2741,7 +2741,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -2750,7 +2750,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -2759,7 +2759,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -2768,7 +2768,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -2777,7 +2777,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -2786,7 +2786,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -2795,7 +2795,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -2804,7 +2804,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -2813,7 +2813,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -2822,7 +2822,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -2831,7 +2831,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -2840,7 +2840,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -2849,7 +2849,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -2858,7 +2858,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -2867,7 +2867,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -2891,7 +2891,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -2900,7 +2900,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -2909,7 +2909,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -2918,7 +2918,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -2927,7 +2927,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -2936,7 +2936,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -2945,7 +2945,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -2954,7 +2954,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -2963,7 +2963,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -2972,7 +2972,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -2981,7 +2981,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -2990,7 +2990,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -2999,7 +2999,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -3008,7 +3008,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -3017,7 +3017,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -3041,7 +3041,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -3050,7 +3050,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -3059,7 +3059,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -3068,7 +3068,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -3077,7 +3077,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -3086,7 +3086,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -3095,7 +3095,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -3104,7 +3104,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -3113,7 +3113,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -3122,7 +3122,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -3131,7 +3131,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -3140,7 +3140,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -3149,7 +3149,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -3158,7 +3158,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -3167,7 +3167,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -3191,7 +3191,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -3200,7 +3200,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -3209,7 +3209,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -3218,7 +3218,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -3227,7 +3227,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -3236,7 +3236,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -3245,7 +3245,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -3254,7 +3254,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -3263,7 +3263,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -3272,7 +3272,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -3281,7 +3281,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -3290,7 +3290,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -3299,7 +3299,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -3308,7 +3308,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -3317,7 +3317,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -3341,7 +3341,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -3350,7 +3350,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -3359,7 +3359,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -3368,7 +3368,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -3377,7 +3377,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -3386,7 +3386,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -3395,7 +3395,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -3404,7 +3404,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -3413,7 +3413,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -3422,7 +3422,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -3431,7 +3431,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -3440,7 +3440,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -3449,7 +3449,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -3458,7 +3458,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -3467,7 +3467,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -3491,7 +3491,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -3500,7 +3500,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -3509,7 +3509,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -3518,7 +3518,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -3527,7 +3527,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -3536,7 +3536,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -3545,7 +3545,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -3554,7 +3554,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -3563,7 +3563,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -3572,7 +3572,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -3581,7 +3581,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -3590,7 +3590,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -3599,7 +3599,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -3608,7 +3608,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -3617,7 +3617,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -3641,7 +3641,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -3650,7 +3650,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -3659,7 +3659,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -3668,7 +3668,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -3677,7 +3677,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -3686,7 +3686,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -3695,7 +3695,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -3704,7 +3704,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -3713,7 +3713,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -3722,7 +3722,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -3731,7 +3731,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -3740,7 +3740,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -3749,7 +3749,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -3758,7 +3758,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -3767,7 +3767,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -3791,7 +3791,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -3800,7 +3800,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -3809,7 +3809,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -3818,7 +3818,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -3827,7 +3827,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -3836,7 +3836,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -3845,7 +3845,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -3854,7 +3854,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -3863,7 +3863,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -3872,7 +3872,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -3881,7 +3881,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -3890,7 +3890,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -3899,7 +3899,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -3908,7 +3908,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -3917,7 +3917,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -3941,7 +3941,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -3950,7 +3950,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -3959,7 +3959,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -3968,7 +3968,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -3977,7 +3977,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -3986,7 +3986,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -3995,7 +3995,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -4004,7 +4004,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -4013,7 +4013,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -4022,7 +4022,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -4031,7 +4031,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -4040,7 +4040,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -4049,7 +4049,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -4058,7 +4058,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -4067,7 +4067,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -4091,7 +4091,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -4100,7 +4100,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -4109,7 +4109,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -4118,7 +4118,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -4127,7 +4127,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -4136,7 +4136,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -4145,7 +4145,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -4154,7 +4154,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -4163,7 +4163,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -4172,7 +4172,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -4181,7 +4181,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -4190,7 +4190,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -4199,7 +4199,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -4208,7 +4208,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -4217,7 +4217,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -4241,7 +4241,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -4250,7 +4250,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -4259,7 +4259,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -4268,7 +4268,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -4277,7 +4277,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -4286,7 +4286,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -4295,7 +4295,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -4304,7 +4304,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -4313,7 +4313,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -4322,7 +4322,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -4331,7 +4331,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -4340,7 +4340,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -4349,7 +4349,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -4358,7 +4358,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -4367,7 +4367,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -4391,7 +4391,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -4400,7 +4400,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -4409,7 +4409,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -4418,7 +4418,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -4427,7 +4427,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -4436,7 +4436,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -4445,7 +4445,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -4454,7 +4454,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -4463,7 +4463,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -4472,7 +4472,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -4481,7 +4481,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -4490,7 +4490,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -4499,7 +4499,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -4508,7 +4508,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -4517,7 +4517,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -4541,7 +4541,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -4550,7 +4550,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -4559,7 +4559,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -4568,7 +4568,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -4577,7 +4577,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -4586,7 +4586,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -4595,7 +4595,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -4604,7 +4604,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -4613,7 +4613,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -4622,7 +4622,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -4631,7 +4631,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -4640,7 +4640,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -4649,7 +4649,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -4658,7 +4658,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -4667,7 +4667,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -4691,7 +4691,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -4700,7 +4700,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -4709,7 +4709,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -4718,7 +4718,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -4727,7 +4727,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -4736,7 +4736,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -4745,7 +4745,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -4754,7 +4754,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -4763,7 +4763,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -4772,7 +4772,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -4781,7 +4781,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -4790,7 +4790,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -4799,7 +4799,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -4808,7 +4808,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -4817,7 +4817,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -4841,7 +4841,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -4850,7 +4850,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -4859,7 +4859,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -4868,7 +4868,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -4877,7 +4877,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -4886,7 +4886,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -4895,7 +4895,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -4904,7 +4904,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -4913,7 +4913,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -4922,7 +4922,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -4931,7 +4931,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -4940,7 +4940,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -4949,7 +4949,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -4958,7 +4958,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -4967,7 +4967,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -4991,7 +4991,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -5000,7 +5000,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -5009,7 +5009,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -5018,7 +5018,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -5027,7 +5027,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -5036,7 +5036,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -5045,7 +5045,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -5054,7 +5054,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -5063,7 +5063,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -5072,7 +5072,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -5081,7 +5081,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -5090,7 +5090,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -5099,7 +5099,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -5108,7 +5108,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -5117,7 +5117,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -5141,7 +5141,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -5150,7 +5150,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -5159,7 +5159,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -5168,7 +5168,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -5177,7 +5177,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -5186,7 +5186,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -5195,7 +5195,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -5204,7 +5204,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -5213,7 +5213,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -5222,7 +5222,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -5231,7 +5231,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -5240,7 +5240,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -5249,7 +5249,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -5258,7 +5258,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -5267,7 +5267,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -5291,7 +5291,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -5300,7 +5300,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -5309,7 +5309,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -5318,7 +5318,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -5327,7 +5327,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -5336,7 +5336,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -5345,7 +5345,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -5354,7 +5354,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -5363,7 +5363,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -5372,7 +5372,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -5381,7 +5381,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -5390,7 +5390,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -5399,7 +5399,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -5408,7 +5408,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -5417,7 +5417,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -5441,7 +5441,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -5450,7 +5450,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -5459,7 +5459,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -5468,7 +5468,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -5477,7 +5477,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -5486,7 +5486,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -5495,7 +5495,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -5504,7 +5504,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -5513,7 +5513,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -5522,7 +5522,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -5531,7 +5531,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -5540,7 +5540,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -5549,7 +5549,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -5558,7 +5558,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -5567,7 +5567,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -5591,7 +5591,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -5600,7 +5600,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -5609,7 +5609,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -5618,7 +5618,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -5627,7 +5627,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -5636,7 +5636,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -5645,7 +5645,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -5654,7 +5654,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -5663,7 +5663,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -5672,7 +5672,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -5681,7 +5681,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -5690,7 +5690,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -5699,7 +5699,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -5708,7 +5708,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -5717,7 +5717,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -5741,7 +5741,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -5750,7 +5750,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -5759,7 +5759,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -5768,7 +5768,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -5777,7 +5777,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -5786,7 +5786,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -5795,7 +5795,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -5804,7 +5804,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -5813,7 +5813,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -5822,7 +5822,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -5831,7 +5831,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -5840,7 +5840,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -5849,7 +5849,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -5858,7 +5858,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -5867,7 +5867,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -5891,7 +5891,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -5900,7 +5900,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -5909,7 +5909,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -5918,7 +5918,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -5927,7 +5927,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -5936,7 +5936,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -5945,7 +5945,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -5954,7 +5954,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -5963,7 +5963,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -5972,7 +5972,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -5981,7 +5981,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -5990,7 +5990,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -5999,7 +5999,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -6008,7 +6008,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -6017,7 +6017,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -6043,7 +6043,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -6052,7 +6052,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -6061,7 +6061,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -6070,7 +6070,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -6079,7 +6079,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -6088,7 +6088,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -6097,7 +6097,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -6106,7 +6106,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -6115,7 +6115,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -6124,7 +6124,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -6133,7 +6133,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -6142,7 +6142,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -6151,7 +6151,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -6160,7 +6160,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -6169,7 +6169,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -6196,7 +6196,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -6205,7 +6205,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -6214,7 +6214,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -6223,7 +6223,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -6232,7 +6232,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -6241,7 +6241,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -6250,7 +6250,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -6259,7 +6259,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -6268,7 +6268,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -6277,7 +6277,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -6286,7 +6286,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -6295,7 +6295,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -6304,7 +6304,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -6313,7 +6313,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -6322,7 +6322,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -6349,7 +6349,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -6358,7 +6358,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -6367,7 +6367,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -6376,7 +6376,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -6385,7 +6385,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -6394,7 +6394,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -6403,7 +6403,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -6412,7 +6412,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -6421,7 +6421,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -6430,7 +6430,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -6439,7 +6439,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -6448,7 +6448,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -6457,7 +6457,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -6466,7 +6466,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -6475,7 +6475,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -6502,7 +6502,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -6511,7 +6511,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -6520,7 +6520,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -6529,7 +6529,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -6538,7 +6538,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -6547,7 +6547,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -6556,7 +6556,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -6565,7 +6565,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -6574,7 +6574,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -6583,7 +6583,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -6592,7 +6592,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -6601,7 +6601,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -6610,7 +6610,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -6619,7 +6619,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -6628,7 +6628,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -6655,7 +6655,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -6664,7 +6664,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -6673,7 +6673,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -6682,7 +6682,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -6691,7 +6691,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -6700,7 +6700,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -6709,7 +6709,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -6718,7 +6718,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -6727,7 +6727,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -6736,7 +6736,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -6745,7 +6745,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -6754,7 +6754,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -6763,7 +6763,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -6772,7 +6772,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -6781,7 +6781,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -6808,7 +6808,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -6817,7 +6817,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -6826,7 +6826,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -6835,7 +6835,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -6844,7 +6844,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -6853,7 +6853,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -6862,7 +6862,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -6871,7 +6871,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -6880,7 +6880,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -6889,7 +6889,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -6898,7 +6898,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -6907,7 +6907,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -6916,7 +6916,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -6925,7 +6925,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -6934,7 +6934,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -6961,7 +6961,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -6970,7 +6970,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -6979,7 +6979,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -6988,7 +6988,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -6997,7 +6997,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -7006,7 +7006,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -7015,7 +7015,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -7024,7 +7024,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -7033,7 +7033,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -7042,7 +7042,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -7051,7 +7051,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -7060,7 +7060,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -7069,7 +7069,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -7078,7 +7078,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -7087,7 +7087,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -7114,7 +7114,7 @@
               "name": "Red",
               "string": "#F44336",
               "array": [
-                150,
+                144,
                 32,
                 5
               ]
@@ -7123,7 +7123,7 @@
               "name": "Orange",
               "string": "#F57C00",
               "array": [
-                150,
+                144,
                 32,
                 60
               ]
@@ -7132,7 +7132,7 @@
               "name": "Yellow",
               "string": "#FFEB3B",
               "array": [
-                150,
+                144,
                 32,
                 9
               ]
@@ -7141,7 +7141,7 @@
               "name": "Seafoam Green",
               "string": "#E0F7FA",
               "array": [
-                150,
+                144,
                 32,
                 8
               ]
@@ -7150,7 +7150,7 @@
               "name": "Soft Green",
               "string": "#C8E6C9",
               "array": [
-                150,
+                144,
                 32,
                 12
               ]
@@ -7159,7 +7159,7 @@
               "name": "Pea Green",
               "string": "#9CCC65",
               "array": [
-                150,
+                144,
                 32,
                 13
               ]
@@ -7168,7 +7168,7 @@
               "name": "Green",
               "string": "#4CAF50",
               "array": [
-                150,
+                144,
                 32,
                 21
               ]
@@ -7177,7 +7177,7 @@
               "name": "Teal-ish",
               "string": "#4DB6AC",
               "array": [
-                150,
+                144,
                 32,
                 20
               ]
@@ -7186,7 +7186,7 @@
               "name": "Light Blue",
               "string": "#64B5F6",
               "array": [
-                150,
+                144,
                 32,
                 32
               ]
@@ -7195,7 +7195,7 @@
               "name": "Blue",
               "string": "#2196F3",
               "array": [
-                150,
+                144,
                 32,
                 41
               ]
@@ -7204,7 +7204,7 @@
               "name": "Royal Blue",
               "string": "#163bc4",
               "array": [
-                150,
+                144,
                 32,
                 45
               ]
@@ -7213,7 +7213,7 @@
               "name": "Fuchsia",
               "string": "#BA68C8",
               "array": [
-                150,
+                144,
                 32,
                 53
               ]
@@ -7222,7 +7222,7 @@
               "name": "Pink",
               "string": "#F06292",
               "array": [
-                150,
+                144,
                 32,
                 57
               ]
@@ -7231,7 +7231,7 @@
               "name": "Translucent Purple",
               "string": "#E1BEE7",
               "array": [
-                150,
+                144,
                 32,
                 56
               ]
@@ -7240,7 +7240,7 @@
               "name": "Pepper White",
               "string": "#E8EAF6",
               "array": [
-                150,
+                144,
                 32,
                 107
               ]
@@ -7263,46 +7263,115 @@
             "title": "Solid",
             "effect": "Brightness",
             "validVals": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0
+              ],
+              [
+                3,
+                0,
+                0
+              ],
+              [
+                4,
+                0,
+                0
+              ],
+              [
+                5,
+                0,
+                0
+              ],
+              [
+                6,
+                0,
+                0
+              ]
             ],
-            "defaultVal": 6,
+            "defaultVal": [
+              6,
+              0,
+              0
+            ],
             "lowBoundLabel": "Dim",
-            "highBoundLabel": "Bright",
-            "target": "channel"
+            "highBoundLabel": "Bright"
           },
           {
             "title": "Pulse",
             "effect": "Speed",
             "validVals": [
-              7,
-              8,
-              9,
-              10
+              [
+                7,
+                0,
+                0
+              ],
+              [
+                8,
+                0,
+                0
+              ],
+              [
+                9,
+                0,
+                0
+              ],
+              [
+                10,
+                0,
+                0
+              ]
             ],
-            "defaultVal": 7,
+            "defaultVal": [
+              7,
+              0,
+              0
+            ],
             "lowBoundLabel": "Fast",
-            "highBoundLabel": "Slow",
-            "target": "channel"
+            "highBoundLabel": "Slow"
           },
           {
             "title": "Blink",
             "effect": "Speed",
             "validVals": [
-              11,
-              12,
-              13,
-              14,
-              15
+              [
+                11,
+                0,
+                0
+              ],
+              [
+                12,
+                0,
+                0
+              ],
+              [
+                13,
+                0,
+                0
+              ],
+              [
+                14,
+                0,
+                0
+              ],
+              [
+                15,
+                0,
+                0
+              ]
             ],
-            "defaultVal": 11,
+            "defaultVal": [
+              11,
+              0,
+              0
+            ],
             "lowBoundLabel": "Fast",
-            "highBoundLabel": "Slow",
-            "target": "channel"
+            "highBoundLabel": "Slow"
           }
         ]
       }

@@ -6,10 +6,13 @@ import { Color, FxDriver } from '@shared/driver-types';
 const FX: FxDriver = {
   title: 'Blink',
   effect: 'Speed',
-  target: 'channel',
-  default: true,
-  validVals: [1, 2, 3],
-  defaultVal: 1,
+  isDefault: true,
+  validVals: [
+    [1, 0, 0],
+    [2, 0, 0],
+    [3, 0, 0],
+  ],
+  defaultVal: [1, 0, 0],
   lowBoundLabel: 'Slow',
   highBoundLabel: 'Fast',
 };
@@ -213,7 +216,7 @@ describe('toJSON', () => {
 
 describe('get activeFx', () => {
   test('returns undefined for no fx', () => {
-    const config = createConfig({ availableColors: [RED] });
+    const config = createConfig({ availableColors: [RED], availableFx: [] });
 
     expect(config.getFx(0)).toBe(undefined);
   });

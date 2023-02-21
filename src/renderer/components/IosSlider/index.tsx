@@ -20,8 +20,8 @@ const railStyle: React.CSSProperties = {
 type PropTypes = {
   lowBoundLabel: string;
   highBoundLabel: string;
-  domain: [Channel, Channel];
-  defaultVal: Channel;
+  domain: [number, number];
+  defaultVal: number;
   onChange: (val: number) => void;
 };
 

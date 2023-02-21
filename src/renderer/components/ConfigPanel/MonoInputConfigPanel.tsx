@@ -152,7 +152,6 @@ export default function MonoInputConfigPanel(props: PropTypes) {
               onChange={(v) => {
                 onChange((c) => {
                   c.valueType = v === 'false' ? 'absolute' : 'endless';
-                  c.value = v as MidiNumber;
                 });
               }}
             />

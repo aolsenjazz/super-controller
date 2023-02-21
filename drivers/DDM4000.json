@@ -229,20 +229,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                49,
-                0
-              ]
+              "array": [176, 49, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                49,
-                1
-              ]
+              "array": [176, 49, 1]
             }
           ]
         },
@@ -253,20 +245,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                50,
-                0
-              ]
+              "array": [176, 50, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                50,
-                1
-              ]
+              "array": [176, 50, 1]
             }
           ]
         },
@@ -277,20 +261,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                51,
-                0
-              ]
+              "array": [176, 51, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                51,
-                1
-              ]
+              "array": [176, 51, 1]
             }
           ]
         },
@@ -301,20 +277,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                52,
-                0
-              ]
+              "array": [176, 52, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                52,
-                1
-              ]
+              "array": [176, 52, 1]
             }
           ]
         }
@@ -594,20 +562,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                40,
-                0
-              ]
+              "array": [176, 40, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                40,
-                1
-              ]
+              "array": [176, 40, 1]
             }
           ]
         },
@@ -618,20 +578,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                40,
-                0
-              ]
+              "array": [176, 40, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                40,
-                1
-              ]
+              "array": [176, 40, 1]
             }
           ]
         }
@@ -663,20 +615,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                42,
-                0
-              ]
+              "array": [176, 42, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                42,
-                1
-              ]
+              "array": [176, 42, 1]
             }
           ]
         }
@@ -768,20 +712,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                53,
-                0
-              ]
+              "array": [176, 53, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                53,
-                1
-              ]
+              "array": [176, 53, 1]
             }
           ]
         }
@@ -813,20 +749,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                24,
-                0
-              ]
+              "array": [176, 24, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                24,
-                1
-              ]
+              "array": [176, 24, 1]
             }
           ]
         },
@@ -837,20 +765,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                24,
-                0
-              ]
+              "array": [176, 24, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                24,
-                1
-              ]
+              "array": [176, 24, 1]
             }
           ]
         },
@@ -861,20 +781,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                24,
-                0
-              ]
+              "array": [176, 24, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                24,
-                1
-              ]
+              "array": [176, 24, 1]
             }
           ]
         }
@@ -906,20 +818,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                28,
-                0
-              ]
+              "array": [176, 28, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                28,
-                1
-              ]
+              "array": [176, 28, 1]
             }
           ]
         },
@@ -930,20 +834,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                28,
-                0
-              ]
+              "array": [176, 28, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                28,
-                1
-              ]
+              "array": [176, 28, 1]
             }
           ]
         },
@@ -954,20 +850,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                28,
-                0
-              ]
+              "array": [176, 28, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                28,
-                1
-              ]
+              "array": [176, 28, 1]
             }
           ]
         }
@@ -1024,20 +912,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                27,
-                0
-              ]
+              "array": [176, 27, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                27,
-                1
-              ]
+              "array": [176, 27, 1]
             }
           ]
         }
@@ -1095,20 +975,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                95,
-                0
-              ]
+              "array": [176, 95, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                95,
-                1
-              ]
+              "array": [176, 95, 1]
             }
           ]
         }
@@ -1140,20 +1012,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                31,
-                0
-              ]
+              "array": [176, 31, 0]
             },
             {
               "name": "Blue",
               "string": "#2196F3",
-              "array": [
-                176,
-                31,
-                1
-              ]
+              "array": [176, 31, 1]
             }
           ]
         }
@@ -1268,20 +1132,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                108,
-                0
-              ]
+              "array": [176, 108, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                108,
-                1
-              ]
+              "array": [176, 108, 1]
             }
           ]
         },
@@ -1292,20 +1148,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                108,
-                0
-              ]
+              "array": [176, 108, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                108,
-                1
-              ]
+              "array": [176, 108, 1]
             }
           ]
         },
@@ -1316,20 +1164,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                108,
-                0
-              ]
+              "array": [176, 108, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                108,
-                1
-              ]
+              "array": [176, 108, 1]
             }
           ]
         },
@@ -1340,20 +1180,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                108,
-                0
-              ]
+              "array": [176, 108, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                108,
-                1
-              ]
+              "array": [176, 108, 1]
             }
           ]
         },
@@ -1364,20 +1196,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                108,
-                0
-              ]
+              "array": [176, 108, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                108,
-                1
-              ]
+              "array": [176, 108, 1]
             }
           ]
         }
@@ -1543,20 +1367,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                109,
-                0
-              ]
+              "array": [176, 109, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                109,
-                1
-              ]
+              "array": [176, 109, 1]
             }
           ]
         },
@@ -1567,20 +1383,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                109,
-                0
-              ]
+              "array": [176, 109, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                109,
-                1
-              ]
+              "array": [176, 109, 1]
             }
           ]
         },
@@ -1591,20 +1399,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                109,
-                0
-              ]
+              "array": [176, 109, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                109,
-                1
-              ]
+              "array": [176, 109, 1]
             }
           ]
         },
@@ -1615,20 +1415,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                109,
-                0
-              ]
+              "array": [176, 109, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                109,
-                1
-              ]
+              "array": [176, 109, 1]
             }
           ]
         },
@@ -1642,20 +1434,12 @@
               "name": "Off",
               "default": true,
               "string": "transparent",
-              "array": [
-                176,
-                109,
-                0
-              ]
+              "array": [176, 109, 0]
             },
             {
               "name": "Orange",
               "string": "#F57C00",
-              "array": [
-                176,
-                109,
-                1
-              ]
+              "array": [176, 109, 1]
             }
           ]
         }
@@ -1682,9 +1466,9 @@
       "inputs": [
         {
           "number": 21,
+          "style": { "transform": "rotate(90deg)" },
           "handleWidth": 0.75,
           "handleHeight": 0.25,
-          "horizontal": true,
           "availableColors": []
         }
       ],

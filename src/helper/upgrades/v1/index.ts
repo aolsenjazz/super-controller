@@ -70,7 +70,7 @@ function convertV1SupportedToV2(d: v1SupportedDeviceConfig) {
     const state1Fx = v1.getFxVal(1);
 
     const colorBindings = new Map<number, ColorImpl>();
-    const fxBindings = new Map<number, Channel>();
+    const fxBindings = new Map<number, MidiNumber[]>();
 
     const upgradedState0Color = upgradeColor(state0Color);
     const upgradedState1Color = upgradeColor(state1Color);
@@ -84,11 +84,11 @@ function convertV1SupportedToV2(d: v1SupportedDeviceConfig) {
     }
 
     if (state0Fx !== undefined) {
-      fxBindings.set(0, state0Fx);
+      fxBindings.set(0, [state0Fx, 0, 0]);
     }
 
     if (state1Fx !== undefined) {
-      fxBindings.set(1, state1Fx);
+      fxBindings.set(1, [state1Fx, 0, 0]);
     }
 
     const dev = new ColorConfigPropagator(
@@ -100,8 +100,17 @@ function convertV1SupportedToV2(d: v1SupportedDeviceConfig) {
 
     const fx = v1.availableFx.map((f) => {
       return {
-        ...f,
-        target: 'channel' as const,
+        title: f.title,
+        lowBoundLabel: f.lowBoundLabel,
+        highBoundLabel: f.highBoundLabel,
+        isDefault: f.defaultVal === 6,
+        effect: f.effect,
+        defaultVal: [f.defaultVal, 0 as MidiNumber, 0 as MidiNumber],
+        validVals: f.validVals.map((v) => [
+          v,
+          0 as MidiNumber,
+          0 as MidiNumber,
+        ]),
       };
     });
 

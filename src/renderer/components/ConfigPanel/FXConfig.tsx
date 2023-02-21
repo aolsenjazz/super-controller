@@ -8,9 +8,9 @@ import IosSlider from '../IosSlider';
 type Props = {
   eligibleFx: FxDriver[];
   activeFx: FxDriver | undefined;
-  fxVal: Channel | undefined | '<multiple values>';
+  fxVal: MidiNumber[] | undefined | '<multiple values>';
   onFxChange: (title: string) => void;
-  onFxValChange: (val: Channel) => void;
+  onFxValChange: (val: MidiNumber[]) => void;
 };
 
 export default function FXConfig(props: Props) {
@@ -25,12 +25,37 @@ export default function FXConfig(props: Props) {
 
   const innerFxValChange = useCallback(
     (v: string | number) => {
-      onFxValChange(v as Channel);
+      onFxValChange(activeFx!.validVals[v as number]);
     },
-    [onFxValChange]
+    [onFxValChange, activeFx]
   );
 
   const valueList = eligibleFx.map((fx) => fx.title);
+
+  let SliderOrNull = null;
+  if (
+    activeFx &&
+    activeFx.title !== '<multiple values>' &&
+    fxVal &&
+    fxVal !== '<multiple values>'
+  ) {
+    let defaultVal = 0;
+    activeFx.validVals.forEach((arr, i) => {
+      if (JSON.stringify(arr) === JSON.stringify(fxVal)) {
+        defaultVal = i;
+      }
+    });
+
+    SliderOrNull = (
+      <IosSlider
+        lowBoundLabel={activeFx.lowBoundLabel!}
+        highBoundLabel={activeFx.highBoundLabel!}
+        domain={[0, activeFx.validVals.length - 1]}
+        defaultVal={defaultVal}
+        onChange={innerFxValChange}
+      />
+    );
+  }
 
   return (
     <div className="settings-line fx-setting">
@@ -41,21 +66,7 @@ export default function FXConfig(props: Props) {
         labelList={valueList}
         onChange={innerFxChange}
       />
-      {activeFx &&
-      activeFx.title !== '<multiple values>' &&
-      fxVal &&
-      fxVal !== '<multiple values>' ? (
-        <IosSlider
-          lowBoundLabel={activeFx.lowBoundLabel!}
-          highBoundLabel={activeFx.highBoundLabel!}
-          domain={[
-            Math.min(...activeFx.validVals) as Channel,
-            Math.max(...activeFx.validVals) as Channel,
-          ]}
-          defaultVal={fxVal}
-          onChange={innerFxValChange}
-        />
-      ) : null}
+      {SliderOrNull}
     </div>
   );
 }

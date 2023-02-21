@@ -29,6 +29,8 @@ type InputDefaults = {
 
   readonly knobType?: 'endless' | 'absolute';
 
+  readonly valueType?: 'endless' | 'absolute';
+
   /**
    * List of `Color`s the child Inputs all support
    */

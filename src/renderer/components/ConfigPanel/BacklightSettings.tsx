@@ -103,7 +103,7 @@ export default function BacklightSettings(props: PropTypes) {
   );
 
   const onFxValChange = useCallback(
-    (fxVal: Channel, state: number) => {
+    (fxVal: MidiNumber[], state: number) => {
       // Update all InputConfigs in the InputGroup
       group.inputs.forEach((input) => {
         input.setFxVal(state, fxVal);
@@ -141,7 +141,7 @@ export default function BacklightSettings(props: PropTypes) {
               onFxChange(value, state);
             };
 
-            const innerFxValChange = (value: Channel) => {
+            const innerFxValChange = (value: MidiNumber[]) => {
               onFxValChange(value, state);
             };
 

@@ -20,8 +20,8 @@ export class ContinuousPropagator extends StatelessPropagator {
   ) {
     super('continuous', or, et, n, c, v);
 
-    this.valueType = valueType || this.valueType;
     this.knobType = knobType || this.knobType;
+    this.valueType = valueType || knobType || this.valueType;
   }
 
   toJSON() {

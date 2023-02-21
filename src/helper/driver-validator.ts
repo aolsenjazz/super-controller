@@ -233,9 +233,6 @@ export function validateInputDriver(
           'availableFx object is missing a title property or it is not a string'
         );
       }
-      if (!fx.target || !['number', 'value', 'channel'].includes(fx.target)) {
-        throw new Error(`${fx.target} is an invalid fx target`);
-      }
       if (!fx.effect || typeof fx.effect !== 'string') {
         throw new Error(
           'availableFx object is missing an effect property or it is not a string'
@@ -246,7 +243,12 @@ export function validateInputDriver(
           'availableFx object is missing a validVals property or it is not an array of numbers'
         );
       }
-      if (typeof fx.defaultVal !== 'number') {
+      fx.validVals.forEach((v) => {
+        if (!Array.isArray(v)) {
+          throw new Error('validVals elements must be an array');
+        }
+      });
+      if (!Array.isArray(fx.defaultVal)) {
         throw new Error(
           'availableFx object is missing a defaultVal property or it is not a number'
         );
@@ -431,9 +433,6 @@ function validateInputGridDriver(input: any): asserts input is InputGridDriver {
           'availableFx object is missing a title property or it is not a string'
         );
       }
-      if (!fx.target || !['number', 'value', 'channel'].includes(fx.target)) {
-        throw new Error(`${fx.target} is an invalid fx target`);
-      }
       if (!fx.effect || typeof fx.effect !== 'string') {
         throw new Error(
           'availableFx object is missing an effect property or it is not a string'
@@ -444,7 +443,12 @@ function validateInputGridDriver(input: any): asserts input is InputGridDriver {
           'availableFx object is missing a validVals property or it is not an array of numbers'
         );
       }
-      if (typeof fx.defaultVal !== 'number') {
+      fx.validVals.forEach((v) => {
+        if (!Array.isArray(v)) {
+          throw new Error('validVals elements must be an array');
+        }
+      });
+      if (!Array.isArray(fx.defaultVal)) {
         throw new Error(
           'availableFx object is missing a defaultVal property or it is not a number'
         );
