@@ -5,8 +5,7 @@ import { test, expect } from '@jest/globals';
 import { stringify, parse } from '@shared/util';
 import { Project } from '@shared/project';
 import { SupportedDeviceConfig } from '@shared/hardware-config';
-
-import { DRIVERS } from '../main/drivers';
+import { DRIVERS } from '@shared/drivers';
 
 const APC_DRIVER = DRIVERS.get('APC Key 25');
 

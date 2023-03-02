@@ -93,7 +93,8 @@ describe('nextValue in endless->absolute mode', () => {
       number,
       channel,
       value,
-      'endless'
+      'endless',
+      'absolute'
     );
 
     const m1 = ThreeByteMidiArray.create(eventType, channel, number, 1);
@@ -117,7 +118,8 @@ describe('nextValue in endless->absolute mode', () => {
       number,
       channel,
       value,
-      'endless'
+      'endless',
+      'absolute'
     );
 
     const m1 = ThreeByteMidiArray.create(eventType, channel, number, 127);
@@ -141,7 +143,8 @@ describe('nextValue in endless->absolute mode', () => {
       number,
       channel,
       value,
-      'endless'
+      'endless',
+      'absolute'
     );
 
     const m1 = ThreeByteMidiArray.create(eventType, channel, number, 65);
@@ -165,7 +168,8 @@ describe('nextValue in endless->absolute mode', () => {
       number,
       channel,
       value,
-      'endless'
+      'endless',
+      'absolute'
     );
 
     const m1 = ThreeByteMidiArray.create(eventType, channel, number, 63);

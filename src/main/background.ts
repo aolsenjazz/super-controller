@@ -10,9 +10,9 @@ import {
 import { parse } from '@shared/util';
 import { Project } from '@shared/project';
 import { controllerRequest, fivePinRequest } from '@shared/email-templates';
+import { DRIVERS } from '@shared/drivers';
 
 import { windowService } from './window-service';
-import { DRIVERS } from './drivers';
 import { projectFromFile } from './util-main';
 import { SaveOpenService } from './save-open-service';
 import { PortService } from './port-service';

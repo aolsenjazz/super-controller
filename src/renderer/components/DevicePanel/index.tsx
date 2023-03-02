@@ -3,12 +3,11 @@ import {
   SupportedDeviceConfig,
   AdapterDeviceConfig,
 } from '@shared/hardware-config';
+import { DeviceDriver } from '@shared/driver-types';
 
-import DeviceView from './DeviceLayoutWrapper';
+import DeviceLayoutWrapper from './DeviceLayoutWrapper';
 import UnsupportedView from './UnsupportedView';
 import NoDevicesView from './NoDevicesView';
-
-import { VirtualDevice } from '../../virtual-devices';
 
 const { getDriver } = window.driverService;
 
@@ -51,11 +50,10 @@ export default function DevicePanel(props: PropTypes) {
         : (config as SupportedDeviceConfig);
 
     const driver = getDriver(targetConfig.name);
-    const vDevice = new VirtualDevice(targetConfig.id, driver!);
 
     Element = (
-      <DeviceView
-        device={vDevice}
+      <DeviceLayoutWrapper
+        driver={driver as DeviceDriver}
         config={targetConfig}
         configured={configured}
         selectedInputs={selectedInputs}

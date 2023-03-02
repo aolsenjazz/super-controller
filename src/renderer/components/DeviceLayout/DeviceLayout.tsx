@@ -2,42 +2,24 @@ import {
   SupportedDeviceConfig,
   AdapterDeviceConfig,
 } from '@shared/hardware-config';
+import { DeviceDriver } from '@shared/driver-types';
 
 import Keyboard from './KeyboardLayout';
 import InputGridLayout from './InputGridLayout';
 import XYGridLayout from './XYGridLayout';
 
-import { VirtualDevice } from '../../virtual-devices';
-
 import { UsbIcon } from '../UsbIcon';
 
 type PropTypes = {
-  device: VirtualDevice;
+  driver: DeviceDriver;
   deviceConfig: SupportedDeviceConfig;
-  onClick: (event: React.MouseEvent, ids: string[]) => void;
+  onClick: (e: React.MouseEvent, ids: string[]) => void;
   selectedInputs: string[];
   configured: boolean;
 };
 
-/**
- * @callback onClick
- * @param event Click event
- * @param ids List of selected ids
- */
-
-/**
- * Root container for virtual device layouts. `DeviceLayout`, graphically, covers all
- * of the area contained in and including the outline of the device.
- *
- * @param props Component props
- * @param props.device Containing driver and layout info for the device
- * @param props.deviceConfig Configuration for the device
- * @param props.onClick Click listener for input. used to set selected inputs
- * @param props.selectedInputs Currently-selected input IDs
- * @param props.configured Is the current device configured?
- */
 export default function DeviceLayout(props: PropTypes) {
-  const { device, onClick, selectedInputs, configured, deviceConfig } = props;
+  const { driver, onClick, selectedInputs, configured, deviceConfig } = props;
 
   let Element: JSX.Element;
 
@@ -45,27 +27,30 @@ export default function DeviceLayout(props: PropTypes) {
     Element = <UsbIcon active={false} />;
   } else {
     Element = (
-      <div id={device.name} className="device-root">
-        {device.keyboard ? (
+      <div id={driver.name} className="device-root">
+        {driver.keyboard ? (
           <Keyboard
-            nOctaves={device.keyboard.nOctaves}
-            width={device.keyboard.width}
-            height={device.keyboard.height}
-            left={device.keyboard.left}
-            bottom={device.keyboard.bottom}
-            deviceWidth={device.width}
-            deviceHeight={device.height}
-            enabled={device.keyboard.enabled}
+            nOctaves={driver.keyboard.nOctaves}
+            width={driver.keyboard.width}
+            height={driver.keyboard.height}
+            left={driver.keyboard.left}
+            bottom={driver.keyboard.bottom}
+            deviceWidth={driver.width}
+            deviceHeight={driver.height}
+            enabled={driver.keyboard.enabled}
           />
         ) : null}
 
-        {device.inputGrids.map((inputGrid) => {
-          return inputGrid.isMultiInput ? (
+        {driver.inputGrids.map((inputGrid) => {
+          const xyChildren = inputGrid.inputs.filter((i) => i.type === 'xy');
+          const isMultiInput = xyChildren.length === 2;
+
+          return isMultiInput ? (
             <XYGridLayout
               key={inputGrid.id}
               inputGrid={inputGrid}
-              deviceWidth={device.width}
-              deviceHeight={device.height}
+              deviceWidth={driver.width}
+              deviceHeight={driver.height}
               onClick={onClick}
               selectedInputs={selectedInputs}
               deviceConfig={deviceConfig}
@@ -74,11 +59,10 @@ export default function DeviceLayout(props: PropTypes) {
             <InputGridLayout
               key={inputGrid.id}
               inputGrid={inputGrid}
-              deviceWidth={device.width}
-              deviceHeight={device.height}
+              deviceWidth={driver.width}
+              deviceHeight={driver.height}
               onClick={onClick}
               selectedInputs={selectedInputs}
-              configured={configured}
               deviceConfig={deviceConfig}
             />
           );
@@ -90,8 +74,8 @@ export default function DeviceLayout(props: PropTypes) {
   return (
     <div
       style={{
-        '--r': `${device.width}/${device.height}`,
-        ...device.style,
+        '--r': `${driver.width}/${driver.height}`,
+        ...driver.style,
       }}
       className={`device-layout ${
         configured ? 'configured' : 'not-configured'

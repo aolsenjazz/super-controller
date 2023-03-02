@@ -1,4 +1,5 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
+import { InteractiveInputDrivers } from './driver-types';
 import * as Revivable from './revivable';
 
 function replacer(_key: any, value: any) {
@@ -32,6 +33,12 @@ function reviver(_key: any, value: any) {
   }
 
   return obj || value;
+}
+
+export function id(driver: InteractiveInputDrivers) {
+  return driver.status === 'pitchbend'
+    ? `${driver.status}.${driver.channel}`
+    : `${driver.status}.${driver.channel}.${driver.number}`;
 }
 
 /**

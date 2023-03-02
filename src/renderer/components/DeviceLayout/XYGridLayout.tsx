@@ -1,37 +1,18 @@
 import { SupportedDeviceConfig } from '@shared/hardware-config';
+import { InputGridDriver, InputDriverWithHandle } from '@shared/driver-types';
+import { id as driverId } from '@shared/util';
 
-import XYLayout from './XYLayout';
-
-import { VirtualInputGrid } from '../../virtual-devices';
+import XYLayout from './InteractiveInputLayout/XYLayout';
 
 type PropTypes = {
-  inputGrid: VirtualInputGrid;
+  inputGrid: InputGridDriver;
   deviceWidth: number;
   deviceHeight: number;
   deviceConfig: SupportedDeviceConfig;
-  onClick: (event: React.MouseEvent, ids: string[]) => void;
+  onClick: (e: React.MouseEvent, ids: string[]) => void;
   selectedInputs: string[];
 };
 
-/**
- * @callback onClick
- * @param event Click event
- * @param ids List of selected IDs
- */
-
-/**
- * Graphical representation of a grid of XY inputs. XY inputs can be a pain; some inputs
- * whose 0-values are in the center will transmit the same MIDI information going either left or right,
- * or either top or bottom; the software can't tell the difference between motion in opposing axes.
- *
- * @param props Component props
- * @param props.inputGrid Contains driver and layout info
- * @param props.deviceWidth Width (in inches) of device
- * @param props.deviceHeight Height (in inches) of device
- * @param props.deviceConfig Configuration of parent device
- * @param props.onClick Click callback
- * @Param { string[] } props.selectedInputs Currently-selected inputs
- */
 export default function XYGridLayout(props: PropTypes) {
   const {
     inputGrid,
@@ -42,11 +23,14 @@ export default function XYGridLayout(props: PropTypes) {
     deviceHeight,
   } = props;
 
-  const xInput = inputGrid.inputs[0];
-  const yInput = inputGrid.inputs[1];
+  const xInput = inputGrid.inputs[0] as InputDriverWithHandle;
+  const yInput = inputGrid.inputs[1] as InputDriverWithHandle;
 
-  const xConfig = deviceConfig.getInput(xInput.id);
-  const yConfig = deviceConfig.getInput(yInput.id);
+  const xId = driverId(xInput);
+  const yId = driverId(yInput);
+
+  const xConfig = deviceConfig.getInput(xId);
+  const yConfig = deviceConfig.getInput(yId);
 
   if (!xConfig || !yConfig) throw new Error(`x or y input config is falsy`);
 
@@ -64,7 +48,6 @@ export default function XYGridLayout(props: PropTypes) {
     <div className="input-grid" style={igStyle}>
       <div
         className="input-container"
-        key={xInput.id}
         style={{
           width: `calc(100% / ${inputGrid.nCols})`,
           height: `calc(100% / ${inputGrid.nRows})`,
@@ -75,21 +58,21 @@ export default function XYGridLayout(props: PropTypes) {
           height={`${(xInput.height / inputGrid.height) * 100}%`}
           handleWidth={`${(handleWidth / xInput.width) * 100}%`}
           handleHeight={`${(handleWidth / xInput.height) * 100}%`}
-          isXPitchbend={xInput.isPitchbend}
-          isYPitchbend={yInput.isPitchbend}
+          isXPitchbend={xInput.status === 'pitchbend'}
+          isYPitchbend={yInput.status === 'pitchbend'}
           xMax={127}
           yMax={127}
           xValue={xConfig.value}
           yValue={yConfig.value}
           enabled={enabled}
           shape={xInput.shape ? xInput.shape : 'rect'}
-          onClick={(e) => {
+          onClick={(e: React.MouseEvent) => {
             if (xConfig?.overrideable) {
-              onClick(e, [xInput.id, yInput.id]);
+              onClick(e, [xId, yId]);
             }
           }}
-          overrideable={xInput.overrideable}
-          focus={selectedInputs.includes(xInput.id)}
+          overrideable={xInput.interactive}
+          focus={selectedInputs.includes(xId)}
         />
       </div>
     </div>

@@ -1,10 +1,10 @@
 import midi from '@julusian/midi';
 
+import { getDriver } from '@shared/drivers';
+
 import { Port } from './port';
 import { PortPair } from './port-pair';
 import { DrivenPortPair } from './driven-port-pair';
-
-import { getDriver } from '../drivers';
 
 const INPUT = new midi.Input();
 const OUTPUT = new midi.Output();

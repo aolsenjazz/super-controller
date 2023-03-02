@@ -1,74 +1,41 @@
-import { Color } from './color';
-import { InputDriver } from './input-driver';
-import { FxDriver } from './fx-driver';
-
-type InputDefaults = {
-  /* MIDI channel */
-  readonly channel?: Channel;
-
-  /* MIDI event type */
-  readonly eventType?: StatusString;
-
-  /* See InputResponse */
-  readonly response?: InputDriver['response'];
-
-  /* Physical shape of the input. circle + square have 1:1 aspect ratio enforced */
-  shape?: 'circle' | 'rect' | 'square';
-
-  /* See InputType */
-  type?: InputDriver['type'];
-
-  /* Can the input be overridden? `false` if the input does not transmit data to clients */
-  overrideable?: boolean;
-
-  /* Height of the input in inches */
-  height?: number;
-
-  /* Width of the input in inches */
-  width?: number;
-
-  readonly knobType?: 'endless' | 'absolute';
-
-  readonly valueType?: 'endless' | 'absolute';
-
-  /**
-   * List of `Color`s the child Inputs all support
-   */
-  availableColors?: Color[];
-
-  availableFx?: FxDriver[];
-};
+import { InputDrivers } from './input-drivers';
 
 export type InputGridDriver = {
   /** Simple identifier, e.g. Main Pads */
-  id: string;
+  readonly id: string;
 
   /**
    * Height of input grid, in inches. It can be helpful to add 2 * margin between
    * individual inputs to get a more accurate representation.
    */
-  height: number;
+  readonly height: number;
 
   /**
    * Width of input grid, in inches. It can be helpful to add  2* margin between
    * individual inputs to get a more accurate representation.
    */
-  width: number;
+  readonly width: number;
 
   /** # of rows containing hardware inputs */
-  nRows: number;
+  readonly nRows: number;
 
   /** # of hardware inputs per row */
-  nCols: number;
+  readonly nCols: number;
 
   /* Distance from left edge of device in inches */
-  left: number;
+  readonly left: number;
 
   /* Distance from bottom edge of device in inches */
-  bottom: number;
+  readonly bottom: number;
+
+  // TODO: thhis only appears in the JS10 whatever driver. is thihs realy needed?
+  readonly style?: {
+    width?: string;
+    height?: string;
+    top?: string;
+    left?: string;
+  };
 
   /* See `InputDriver` */
-  inputs: InputDriver[];
-
-  inputDefaults: InputDefaults;
+  readonly inputs: InputDrivers[];
 };

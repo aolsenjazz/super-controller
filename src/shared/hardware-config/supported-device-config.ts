@@ -28,7 +28,9 @@ export class SupportedDeviceConfig extends DeviceConfig {
     const inputs: InputConfig[] = [];
     driver.inputGrids.forEach((ig) => {
       ig.inputs.forEach((d) => {
-        inputs.push(InputConfig.fromDriver(d, ig.inputDefaults));
+        if (d.interactive) {
+          inputs.push(InputConfig.fromDriver(d));
+        }
       });
     });
 

@@ -8,13 +8,13 @@ import {
   AdapterDeviceConfig,
 } from '@shared/hardware-config';
 import { DrivenPortInfo } from '@shared/driven-port-info';
+import { getDriver } from '@shared/drivers';
 
 import { PortPair } from './port-pair';
 import { all } from './port-manager';
 import { DrivenPortPair } from './driven-port-pair';
 import { windowService } from '../window-service';
 import { VirtualPortService } from './virtual-port-service';
-import { getDriver } from '../drivers';
 
 /**
  * Manages sending/receiving of messages to and from device, as well as syncing

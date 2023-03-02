@@ -39,18 +39,20 @@
 }
 
 .device-layout .input-container .pad,
-.device-layout .input-container .pad.disabled,
 .device-layout .input-container .knob .outer,
-.device-layout .keyboard-container.disabled,
+.device-layout .input-container .input-wrapper .noninteractive,
 .device-layout .input-container .xy,
 .device-layout .input-container .xy .inner,
 .device-layout .input-container .wheel,
-.device-layout .input-container .wheel.disabled,
-.device-layout .input-container .wheel.disabled .inner,
 .device-layout .input-container .wheel .inner,
+.device-layout .keyboard-container.disabled,
 .device-layout .keyboard-container.disabled .key,
 .device-layout .keyboard-container.disabled .key:last-of-type {
   border-color: #bcbec0;
+}
+
+.device-layout.not-configured {
+  pointer-events: none;
 }
 
 .device-layout .device-root {
@@ -68,7 +70,8 @@
   text-align: center;
 }
 
-.device-layout .focus {
+.device-layout .focus .pad,
+.device-layout .focus .knob .outer {
   border-style: dashed !important;
   filter: sepia(0.2);
 }
@@ -76,13 +79,20 @@
 .device-layout .pad {
   position: absolute;
   border: 1px solid;
-  top: 50%;
-  margin-left: 50%;
-  transform: translate(-50%, -50%);
   animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-timing-function: steps(1);
   animation-fill-mode: both;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.device-layout .input-wrapper {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .device-layout .hoverable {
@@ -99,7 +109,10 @@
 
 .device-layout .knob {
   display: flex;
+  cursor: pointer;
   position: relative;
+  width: 100%;
+  height: 100%;
   margin-left: 50%;
   margin-top: 50%;
   transform: translate(-50%, -50%);
@@ -116,8 +129,9 @@
   border: 1px solid;
   overflow: hidden;
   position: absolute;
-  width: 100%;
   aspect-ratio: 1;
+  width: 100%;
+  height: 100%;
 }
 
 .device-layout.configured .input-container .knob .outer.disabled {
@@ -181,6 +195,8 @@
   position: relative;
   border: 1px solid;
   margin: 0 auto;
+  width: 100%;
+  height: 100%;
 }
 
 .device-layout .wheel .inner {

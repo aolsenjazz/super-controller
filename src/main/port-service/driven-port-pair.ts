@@ -31,15 +31,13 @@ export class DrivenPortPair extends PortPair {
   resetLights() {
     this.driver.inputGrids.forEach((ig) => {
       ig.inputs.forEach((i) => {
-        const defs = ig.inputDefaults;
-        const availableColors = i.availableColors || defs.availableColors || [];
+        if (i.interactive && i.availableColors.length > 0) {
+          const { availableColors } = i;
+          const defColor = availableColors.filter((c) => c.default)[0];
+          const defColorImpl = new ColorImpl(defColor);
 
-        if (availableColors.length === 0) return;
-
-        const defColor = availableColors.filter((c) => c.default)[0];
-        const defColorImpl = new ColorImpl(defColor);
-
-        this.#pair.send(defColorImpl.array);
+          this.#pair.send(defColorImpl.array);
+        }
       });
     });
   }

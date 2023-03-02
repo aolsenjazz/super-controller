@@ -8,11 +8,10 @@ import {
   ColorConfigPropagator,
 } from '../propagators';
 import {
-  InputDriver,
   InputResponse,
   InputType,
-  InputGridDriver,
   FxDriver,
+  InteractiveInputDrivers,
 } from '../driver-types';
 import { ColorImpl } from './color-impl';
 
@@ -81,34 +80,24 @@ export class InputConfig {
    * @param other Input driver
    * @returnsnew instance of InputConfig
    */
-  static fromDriver(
-    overrides: InputDriver,
-    defaults: InputGridDriver['inputDefaults']
-  ) {
-    const { number, value } = overrides;
-    const channel =
-      overrides.channel !== undefined ? overrides.channel : defaults.channel!;
-    const response = (overrides.response || defaults.response)!;
-    const eventType = (overrides.eventType || defaults.eventType)!;
-    const type = (overrides.type || defaults.type)!;
-    const overrideable =
-      overrides.overrideable !== undefined
-        ? overrides.overrideable
-        : defaults.overrideable!;
-    const def = { number, channel, response, eventType };
-    const knobType = overrides.knobType || defaults.knobType;
+  static fromDriver(d: InteractiveInputDrivers) {
+    const def = {
+      number: d.number,
+      channel: d.channel,
+      eventType: d.status,
+      response: d.response,
+    };
 
-    const availableColors =
-      overrides.availableColors || defaults.availableColors || [];
+    const { availableColors, availableFx, interactive, type } = d;
     const colors = availableColors.map((c) => new ColorImpl(c));
-
-    const availableFx = overrides.availableFx || defaults.availableFx || [];
+    const value = d.type === 'pad' ? d.value : undefined;
+    const knobType = d.type === 'knob' ? d.knobType : undefined;
 
     const instance = new InputConfig(
       def,
       colors,
       availableFx,
-      overrideable,
+      interactive,
       type,
       value,
       undefined,
