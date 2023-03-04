@@ -33,8 +33,6 @@ export type InputDefault = {
 /**
  * Contains configuration details and maintains state for individual hardware
  * inputs. Layout information is delegated to the `VirtualInput` class.
- *
- * TODO: maybe worth extending DefaultPreservedMidiMessage ?
  */
 @Revivable.register
 export class InputConfig {

@@ -58,15 +58,7 @@ export class VirtualPortService {
    * @param id The virtual port ID
    */
   send(msg: MidiArray, id: string) {
-    // TODO: this is an ugly fix
-    let m;
-
-    if ([192, 208].includes(msg.status)) {
-      m = [msg[0], msg[1]];
-    } else {
-      m = msg;
-    }
-
-    this.ports.get(id)?.send(m);
+    const port = this.ports.get(id);
+    if (port) port.send(msg.array);
   }
 }

@@ -4,7 +4,6 @@ export type InputType = 'pad' | 'knob' | 'slider' | 'wheel' | 'xy' | 'switch';
 export type InputShape = 'circle' | 'rect';
 
 export interface InputDriver {
-  /* TODO: really shouldn't need square. I think I've figured that out right? */
   /* Physical shape of the input. circle + square have 1:1 aspect ratio enforced */
   readonly shape: InputShape;
 

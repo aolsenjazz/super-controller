@@ -6,7 +6,7 @@ function replacer(_key: any, value: any) {
   if (value instanceof Map) {
     return {
       dataType: 'Map',
-      value: Array.from(value.entries()), // TODO: might have to call .toJSON
+      value: Array.from(value.entries()),
     };
   }
 
