@@ -5,12 +5,18 @@ import {
 } from '@shared/hardware-config';
 import { stringify } from '@shared/util';
 import { Project } from '@shared/project';
+import { DRIVERS } from '@shared/drivers';
 
 import HelpTip from '../HelpTip';
 import DriverRequestButton from '../DriverRequestButton';
 import BasicSelect from './BasicSelect';
 
-const { driverService, projectService } = window;
+const fivePins = new Map(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  Array.from(DRIVERS.entries()).filter(([_k, d]) => d.type === '5pin')
+);
+
+const { projectService } = window;
 
 type PropTypes = {
   config: AdapterDeviceConfig;
@@ -25,14 +31,12 @@ const tipBody = `When using a 5-pin adapter, only the adapter is visible to Supe
 export default function AdapterView(props: PropTypes) {
   const { config, project, setProject } = props;
 
-  const drivers = driverService.getFivePinDrivers();
-
-  const valueList = Array.from(drivers.keys());
-  const labelList = Array.from(drivers.keys());
+  const valueList = Array.from(fivePins.keys());
+  const labelList = Array.from(fivePins.keys());
   const value = '';
 
   const onChange = (v: string | number) => {
-    const childDriver = driverService.getDriver(v as string);
+    const childDriver = DRIVERS.get(v as string);
     const childConfig = configFromDriver(
       config.siblingIndex,
       childDriver!

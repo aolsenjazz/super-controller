@@ -3,10 +3,9 @@ import { useEffect } from 'react';
 import { DeviceConfig } from '@shared/hardware-config';
 import { DrivenPortInfo } from '@shared/driven-port-info';
 import { Project } from '@shared/project';
+import { DRIVERS } from '@shared/drivers';
 
 import DeviceListItem from './DeviceListItem';
-
-const drivers = window.driverService.getDrivers();
 
 /**
  * Merge available hardware portInfos with device configurations to make
@@ -37,9 +36,9 @@ function sortPorts(portInfos: DrivenPortInfo[], deviceConfigs: DeviceConfig[]) {
       return portInfos.filter((info) => config.id === info.id).length === 0;
     })
     .map((config) => {
-      let d = drivers.get(config.name);
+      let d = DRIVERS.get(config.name);
 
-      d = d === undefined ? drivers.get('Anonymous')! : d;
+      d = d === undefined ? DRIVERS.get('Anonymous')! : d;
       return new DrivenPortInfo(config.name, config.siblingIndex, false, d);
     });
   unconnectedConfigured.sort(sortAlg);

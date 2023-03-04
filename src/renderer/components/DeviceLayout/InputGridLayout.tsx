@@ -94,14 +94,14 @@ const InputGridLayout = (props: PropTypes) => {
       {inputGrid.inputs.map((driver, i) => (
         <div
           className="input-container"
+          // eslint-disable-next-line react/no-array-index-key
+          key={`InputGrid[${i}]`}
           style={{
             width: `calc(100% / ${inputGrid.nCols})`,
             height: `calc(100% / ${inputGrid.nRows})`,
           }}
         >
           <InputLayout
-            // eslint-disable-next-line react/no-array-index-key
-            key={`input[${i}]`}
             deviceConfig={deviceConfig}
             driver={driver}
             width={`${

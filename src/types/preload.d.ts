@@ -1,10 +1,9 @@
-import { HostService, ProjectService, DriverService } from '../main/preload';
+import { HostService, ProjectService } from '../main/preload';
 
 declare global {
   interface Window {
     hostService: HostService;
     projectService: ProjectService;
-    driverService: DriverService;
   }
 }
 

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-const { driverService } = window;
+const { hostService } = window;
 
 type PropTypes = {
   deviceName?: string;
@@ -10,7 +10,7 @@ export default function DriverRequestButton(props: PropTypes) {
   const { deviceName } = props;
 
   const click = useCallback(() => {
-    driverService.request(deviceName);
+    hostService.request(deviceName);
   }, [deviceName]);
 
   return (

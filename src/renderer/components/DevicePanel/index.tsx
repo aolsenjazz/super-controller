@@ -4,12 +4,11 @@ import {
   AdapterDeviceConfig,
 } from '@shared/hardware-config';
 import { DeviceDriver } from '@shared/driver-types';
+import { DRIVERS } from '@shared/drivers';
 
 import DeviceLayoutWrapper from './DeviceLayoutWrapper';
 import UnsupportedView from './UnsupportedView';
 import NoDevicesView from './NoDevicesView';
-
-const { getDriver } = window.driverService;
 
 type PropTypes = {
   config: DeviceConfig | undefined;
@@ -49,7 +48,7 @@ export default function DevicePanel(props: PropTypes) {
         ? asAdapter.child!
         : (config as SupportedDeviceConfig);
 
-    const driver = getDriver(targetConfig.name);
+    const driver = DRIVERS.get(targetConfig.name);
 
     Element = (
       <DeviceLayoutWrapper

@@ -5,7 +5,6 @@
  * is no point in reconstructing proper Objects (PortPair, etc) until the JSX objects
  */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
-import { DeviceDriver } from '@shared/driver-types/device-driver';
 import { DrivenPortInfo } from '@shared/driven-port-info';
 
 import {
@@ -19,8 +18,6 @@ import {
   OS,
   TITLE,
 } from './ipc-channels';
-
-let drivers: Map<string, DeviceDriver>;
 
 /**
  * Generic wrapper around ipcRenderer.on() and ipcRenderer.removeListener()
@@ -55,6 +52,15 @@ const hostService = {
   },
 
   /**
+   * Tells the host that the client would like to request the creation of a new driver
+   *
+   * @param deviceName The device name
+   */
+  request: (deviceName?: string) => {
+    ipcRenderer.send('request', deviceName);
+  },
+
+  /**
    * Sets a callback function to be invoked when the host receives MIDI data from a
    * MIDI port
    *
@@ -80,90 +86,6 @@ const hostService = {
    */
   onPortsChange: (func: (ports: DrivenPortInfo[]) => void) => {
     return addOnChangeListener(PORTS, func);
-  },
-};
-
-/**
- * Exposes data re. which drivers are available to the renderer process
- */
-const driverService = {
-  /**
-   *  Returns a map containing the available drivers and their associated labels
-   */
-  getDrivers: () => {
-    if (!drivers) {
-      const response = ipcRenderer.sendSync('drivers');
-      drivers = new Map(response);
-    }
-    return drivers;
-  },
-
-  getFivePinDrivers: () => {
-    if (!drivers) {
-      const response = ipcRenderer.sendSync('drivers');
-      drivers = new Map(response);
-    }
-
-    const fivePinDrivers = new Map<string, DeviceDriver>();
-    drivers.forEach((v, k) => {
-      if (v.type === '5pin') {
-        fivePinDrivers.set(k, v);
-      }
-    });
-
-    return fivePinDrivers;
-  },
-
-  getDriver: (name: string | undefined) => {
-    if (!drivers) {
-      const response = ipcRenderer.sendSync('drivers');
-      drivers = new Map(response);
-    }
-
-    if (name === undefined) return undefined;
-
-    return drivers.get(name);
-  },
-
-  getDriverById: (id: string | undefined) => {
-    if (!drivers) {
-      const response = ipcRenderer.sendSync('drivers');
-      drivers = new Map(response);
-    }
-
-    if (id === undefined) return undefined;
-
-    const name = id.substr(0, id.lastIndexOf(' '));
-
-    return drivers.get(name);
-  },
-
-  isSupported(name: string) {
-    if (!drivers) {
-      const response = ipcRenderer.sendSync('drivers');
-      drivers = new Map(response);
-    }
-
-    return drivers.get(name) !== undefined;
-  },
-
-  isSupportedById(id: string) {
-    if (!drivers) {
-      const response = ipcRenderer.sendSync('drivers');
-      drivers = new Map(response);
-    }
-
-    const name = id.substr(0, id.lastIndexOf(' '));
-    return drivers.get(name) !== undefined;
-  },
-
-  /**
-   * Tells the host that the client would like to request the creation of a new driver
-   *
-   * @param deviceName The device name
-   */
-  request: (deviceName?: string) => {
-    ipcRenderer.send('request', deviceName);
   },
 };
 
@@ -231,8 +153,6 @@ const projectService = {
 
 contextBridge.exposeInMainWorld('projectService', projectService);
 contextBridge.exposeInMainWorld('hostService', hostService);
-contextBridge.exposeInMainWorld('driverService', driverService);
 
 export type ProjectService = typeof projectService;
 export type HostService = typeof hostService;
-export type DriverService = typeof driverService;
