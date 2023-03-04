@@ -56,15 +56,9 @@ function parsePorts(
   const addedNames = [];
   for (let i = 0; i < parent.getPortCount(); i++) {
     const name = parent.getPortName(i);
-    // Gross safeguard. When closing virtual ports, the port disappears tho getPortCount still reports 1.
-    // getPortName returns ''. Just ignore it when in this state
-    // eslint-disable-next-line no-continue
-    // TODO: should really narrow this `if` but will require testing
-    if (name) {
-      const nameOccurences = addedNames.filter((val) => val === name).length;
-      ports.push(new Port(i, nameOccurences, type, name));
-      addedNames.push(name);
-    }
+    const nameOccurences = addedNames.filter((val) => val === name).length;
+    ports.push(new Port(i, nameOccurences, type, name));
+    addedNames.push(name);
   }
   return ports;
 }
