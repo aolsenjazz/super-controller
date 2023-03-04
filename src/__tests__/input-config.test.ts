@@ -44,7 +44,7 @@ interface Params {
 function createConfig({
   defaultVals = {
     number: 69,
-    eventType: 'controlchange',
+    statusString: 'controlchange',
     channel: 0,
     response: 'gate',
   },
@@ -156,31 +156,31 @@ describe('restoreDefault', () => {
     const d: InputConfig['default'] = {
       number: 2,
       channel: 2,
-      eventType: 'noteon/noteoff',
+      statusString: 'noteon/noteoff',
       response: 'gate',
     };
     const config = createConfig({ defaultVals: d });
 
     expect(config.number).toEqual(d.number);
     expect(config.channel).toEqual(d.channel);
-    expect(config.eventType).toEqual(d.eventType);
+    expect(config.statusString).toEqual(d.statusString);
     expect(config.response).toEqual(d.response);
 
     config.number = 3;
     config.channel = 3;
-    config.eventType = 'controlchange';
+    config.statusString = 'controlchange';
     config.response = 'toggle';
 
     expect(config.number).toEqual(3);
     expect(config.channel).toEqual(3);
-    expect(config.eventType).toEqual('controlchange');
+    expect(config.statusString).toEqual('controlchange');
     expect(config.response).toEqual('toggle');
 
     config.restoreDefaults();
 
     expect(config.number).toEqual(d.number);
     expect(config.channel).toEqual(d.channel);
-    expect(config.eventType).toEqual(d.eventType);
+    expect(config.statusString).toEqual(d.statusString);
     expect(config.response).toEqual(d.response);
   });
 });
@@ -190,7 +190,7 @@ describe('toJSON', () => {
     const d: InputConfig['default'] = {
       number: 2,
       channel: 2,
-      eventType: 'noteon/noteoff',
+      statusString: 'noteon/noteoff',
       response: 'gate',
     };
     const config = createConfig({ defaultVals: d });

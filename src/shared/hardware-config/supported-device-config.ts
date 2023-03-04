@@ -75,16 +75,16 @@ export class SupportedDeviceConfig extends DeviceConfig {
   }
 
   /**
-   * Are the eventType, number, and channel currently in use? Returns true if an input
+   * Are the statusString, number, and channel currently in use? Returns true if an input
    * uses all three params. Useful for avoiding inputs sending the same events
    *
-   * @param eventType The MIDI event type (probably 'controlchange')
+   * @param statusString The MIDI event type (probably 'controlchange')
    * @param number The MIDI number
    * @param channel The MIDI channel
    * @returns Is this binding available?
    */
   bindingAvailable(
-    eventType: StatusString | 'noteon/noteoff',
+    statusString: StatusString | 'noteon/noteoff',
     number: number,
     channel: Channel
   ) {
@@ -92,7 +92,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
 
     this.inputs.forEach((input) => {
       if (
-        input.eventType === eventType &&
+        input.statusString === statusString &&
         input.number === number &&
         input.channel === channel
       ) {

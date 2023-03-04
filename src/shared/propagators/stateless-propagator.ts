@@ -7,7 +7,7 @@ export abstract class StatelessPropagator extends OverrideablePropagator<
   CorrelatedResponse<'continuous' | 'toggle'>
 > {
   nextEventType() {
-    return this.eventType as StatusString;
+    return this.statusString as StatusString;
   }
 
   /**

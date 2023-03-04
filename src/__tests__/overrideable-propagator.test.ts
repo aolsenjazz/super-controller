@@ -12,7 +12,9 @@ class Wrapper<
   }
 
   nextEventType() {
-    return this.eventType === 'noteon/noteoff' ? 'noteon' : this.eventType;
+    return this.statusString === 'noteon/noteoff'
+      ? 'noteon'
+      : this.statusString;
   }
 
   handleAsConstant(msg: ThreeByteMidiArray) {
@@ -35,7 +37,7 @@ describe('toJSON', () => {
 
     expect(from.hardwareResponse).toBe(hr);
     expect(from.outputResponse).toBe(or);
-    expect(from.eventType).toBe(et);
+    expect(from.statusString).toBe(et);
     expect(from.number).toBe(number);
     expect(from.channel).toBe(channel);
     expect(from.value).toBe(value);
@@ -59,7 +61,7 @@ describe('handleAsConstant', () => {
 
   test('returns correct, overridden values', () => {
     w.value = 120;
-    w.eventType = 'noteon';
+    w.statusString = 'noteon';
     w.number = 70;
     w.channel = 9;
 

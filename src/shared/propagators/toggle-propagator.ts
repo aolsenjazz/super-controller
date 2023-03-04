@@ -19,7 +19,7 @@ export class TogglePropagator extends StatelessPropagator {
       name: this.constructor.name,
       args: [
         this.outputResponse,
-        this.eventType,
+        this.statusString,
         this.number,
         this.channel,
         this.value,

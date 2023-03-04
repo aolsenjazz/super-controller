@@ -28,7 +28,7 @@ export class GatePropagator extends StatefulPropagator<
       name: this.constructor.name,
       args: [
         this.outputResponse,
-        this.eventType,
+        this.statusString,
         this.number,
         this.channel,
         this.value,
@@ -72,8 +72,13 @@ export class GatePropagator extends StatefulPropagator<
    * @returns The message to propagate
    */
   #handleAsGate = (msg: MidiArray) => {
-    const eventType = this.nextEventType();
-    return create(eventType, this.channel, this.number, msg[2] as MidiNumber);
+    const statusString = this.nextEventType();
+    return create(
+      statusString,
+      this.channel,
+      this.number,
+      msg[2] as MidiNumber
+    );
   };
 
   /**
@@ -82,9 +87,9 @@ export class GatePropagator extends StatefulPropagator<
    * @returns The message to propagate
    */
   #handleAsToggle = () => {
-    const eventType = this.nextEventType();
+    const statusString = this.nextEventType();
     const value = this.state === 'on' ? 0 : 127;
 
-    return create(eventType, this.channel, this.number, value);
+    return create(statusString, this.channel, this.number, value);
   };
 }

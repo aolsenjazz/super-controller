@@ -5,18 +5,18 @@ import {
   InputConfig,
   ColorImpl,
   DeviceConfig,
-} from '@shared/hardware-config';
+} from '../v2/hardware-config';
 
 import {
   OverrideablePropagator,
   ColorConfigPropagator,
-} from '@shared/propagators';
+} from '../v2/propagators';
 
-import { MidiArray, create } from '@shared/midi-array';
-import { Project as V2Project } from '@shared/project';
+import { MidiArray, create } from '../v2/midi-array';
+import { Project as V2Project } from '../v2/project';
 
-import { statusStringToByte } from '@shared/midi-util';
-import { stringify } from '@shared/util';
+import { statusStringToByte } from '../v2/midi-util';
+import { stringify } from '../v2/util';
 
 import { parse as v1parse } from './util';
 import { Project } from './project';

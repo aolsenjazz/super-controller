@@ -7,12 +7,12 @@ class Wrapper extends StatelessPropagator {}
 function createPropagator(
   ir: 'continuous' | 'toggle',
   or: CorrelatedResponse<typeof ir>,
-  eventType: StatusString = 'controlchange',
+  statusString: StatusString = 'controlchange',
   number: MidiNumber = 0,
   channel: Channel = 0,
   value?: MidiNumber
 ) {
-  return new Wrapper(ir, or, eventType, number, channel, value);
+  return new Wrapper(ir, or, statusString, number, channel, value);
 }
 
 interface NamedCreateCC {
@@ -53,7 +53,7 @@ test('or=continuous applied overrides correctly', () => {
 
   propagator.number = newNumber;
   propagator.channel = newChannel;
-  propagator.eventType = newStatus;
+  propagator.statusString = newStatus;
 
   const result2 = propagator.handleMessage(msg2)! as ThreeByteMidiArray;
 

@@ -1,5 +1,3 @@
-// import { MidiArray } from '../midi-array';
-
 import { InputResponse } from '../driver-types';
 import { Propagator, CorrelatedResponse } from './propagator';
 import { NStepPropagator } from './n-step-propagator';
@@ -78,7 +76,7 @@ export function propagatorFromJSON(obj: any) {
   return createPropagator(
     obj.hardwareResponse,
     obj.outputResponse,
-    obj.eventType,
+    obj.statusString,
     obj.number,
     obj.channel,
     obj.value,

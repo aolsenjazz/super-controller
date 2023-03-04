@@ -40,11 +40,11 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
   }
 
   bindingAvailable(
-    eventType: StatusString | 'noteon/noteoff',
+    statusString: StatusString | 'noteon/noteoff',
     number: number,
     channel: Channel
   ) {
-    return this.child!.bindingAvailable(eventType, number, channel);
+    return this.child!.bindingAvailable(statusString, number, channel);
   }
 
   handleMessage(msg: MidiArray): (MidiArray | undefined)[] {

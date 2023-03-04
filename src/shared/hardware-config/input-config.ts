@@ -24,7 +24,7 @@ export type InputDefault = {
   readonly channel: Channel;
 
   /* MIDI event type */
-  readonly eventType: StatusString | 'noteon/noteoff';
+  readonly statusString: StatusString | 'noteon/noteoff';
 
   /* See InputResponse */
   readonly response: InputResponse;
@@ -84,7 +84,7 @@ export class InputConfig {
     const def = {
       number: d.number,
       channel: d.channel,
-      eventType: d.status,
+      statusString: d.status,
       response: d.response,
     };
 
@@ -138,7 +138,7 @@ export class InputConfig {
       createPropagator(
         r,
         r,
-        this.default.eventType,
+        this.default.statusString,
         this.default.number,
         this.default.channel,
         value,
@@ -283,7 +283,7 @@ export class InputConfig {
   /* Restores all default, numeric values (nothing color-related) */
   restoreDefaults() {
     this.number = this.default.number;
-    this.eventType = this.default.eventType;
+    this.statusString = this.default.statusString;
     this.channel = this.default.channel;
     this.response = this.default.response;
   }
@@ -295,7 +295,7 @@ export class InputConfig {
       case 'toggle':
         return ['toggle', 'constant'];
       case 'constant':
-        return ['noteon/noteoff', 'controlchange'].includes(this.eventType)
+        return ['noteon/noteoff', 'controlchange'].includes(this.statusString)
           ? ['toggle', 'constant']
           : ['constant'];
       default:
@@ -322,7 +322,7 @@ export class InputConfig {
       return ['noteon', 'noteoff', 'controlchange', 'programchange'];
     }
 
-    if (this.default.eventType === 'pitchbend') {
+    if (this.default.statusString === 'pitchbend') {
       return [
         'pitchbend',
         'noteon',
@@ -421,19 +421,19 @@ export class InputConfig {
   }
 
   get id() {
-    const et = this.default.eventType;
+    const et = this.default.statusString;
     const c = this.default.channel;
     const n = this.default.number;
 
     return et === 'pitchbend' ? `${et}.${c}` : `${et}.${c}.${n}`;
   }
 
-  get eventType(): StatusString | 'noteon/noteoff' {
-    return this.outputPropagator.eventType;
+  get statusString(): StatusString | 'noteon/noteoff' {
+    return this.outputPropagator.statusString;
   }
 
-  set eventType(eventType: StatusString | 'noteon/noteoff') {
-    this.outputPropagator.eventType = eventType;
+  set statusString(statusString: StatusString | 'noteon/noteoff') {
+    this.outputPropagator.statusString = statusString;
   }
 
   get nickname() {
@@ -450,12 +450,12 @@ export class InputConfig {
 
   set response(response: InputResponse) {
     if (response === 'constant') {
-      this.eventType =
-        this.eventType === 'noteon/noteoff' ? 'noteon' : this.eventType;
+      this.statusString =
+        this.statusString === 'noteon/noteoff' ? 'noteon' : this.statusString;
     } else {
-      this.eventType = ['noteon', 'noteoff'].includes(this.eventType)
-        ? this.default.eventType
-        : this.eventType;
+      this.statusString = ['noteon', 'noteoff'].includes(this.statusString)
+        ? this.default.statusString
+        : this.statusString;
     }
 
     if (response === 'toggle' || response === 'gate') {

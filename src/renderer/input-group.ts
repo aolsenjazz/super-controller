@@ -20,9 +20,9 @@ const mvf: FxDriver = {
 /**
  * A pseudo-`InputConfig` used to show the values of multiple inputs in a group.
  *
- * E.g. the eventType of several inputs whose `eventType`s are all 'noteon' would be
+ * E.g. the statusString of several inputs whose `statusString`s are all 'noteon' would be
  * 'noteon' (of course). If one input in the group has a different value, the
- * `InputGroup` `eventType` value would be '<multiple values>'
+ * `InputGroup` `statusString` value would be '<multiple values>'
  */
 export class InputGroup {
   inputs: InputConfig[];
@@ -33,7 +33,7 @@ export class InputGroup {
 
   labelForNumber(n: number) {
     const nInputs = this.inputs.length;
-    const et = this.eventType;
+    const et = this.statusString;
 
     if (nInputs === 0 || et === '<multiple values>') return n.toString();
 
@@ -41,13 +41,13 @@ export class InputGroup {
     const isDefault =
       nInputs === 1 &&
       input.default.number === n &&
-      et === input.eventType &&
-      input.eventType === input.default.eventType;
+      et === input.statusString &&
+      input.statusString === input.default.statusString;
 
     let labelTitle;
-    if (input.eventType === 'controlchange') {
+    if (input.statusString === 'controlchange') {
       labelTitle = input.number === n ? '' : ` - ${CC_BINDINGS.get(n)}`;
-    } else if (input.eventType === 'noteon/noteoff') {
+    } else if (input.statusString === 'noteon/noteoff') {
       labelTitle = ` - ${stringVal(n)}`;
     } else {
       labelTitle = ``;
@@ -67,7 +67,7 @@ export class InputGroup {
   }
 
   labelForEventType(et: string) {
-    return this.#labelFor(et, (input) => input.default.eventType);
+    return this.#labelFor(et, (input) => input.default.statusString);
   }
 
   labelForResponse(response: string) {
@@ -90,7 +90,7 @@ export class InputGroup {
 
   /**
    * Returns a value of type T which represents the value for all inputs in
-   * the group. The field being accessed (eventType, number, etc) is determined
+   * the group. The field being accessed (statusString, number, etc) is determined
    * by `getterFn` while equality between individual values is determined with
    * `equalityFn`
    *
@@ -118,7 +118,7 @@ export class InputGroup {
    * E.g. if InputA.availableColors === [RED] and InputB.availableColors === [RED, GREEN],
    * this function will return '<multiple values>'
    *
-   * The field being accessed (eventType, number, etc) is determined
+   * The field being accessed (statusString, number, etc) is determined
    * by `getterFn` while equality between individual values is determined with
    * `equalityFn`
    *
@@ -227,9 +227,9 @@ export class InputGroup {
     );
   }
 
-  get eventType() {
+  get statusString() {
     return this.#groupValue<StatusString | 'noteon/noteoff'>(
-      (c) => c.eventType,
+      (c) => c.statusString,
       (a, b) => a === b
     );
   }

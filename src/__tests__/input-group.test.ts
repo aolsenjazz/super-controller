@@ -40,7 +40,7 @@ const RED: Color = {
 
 function createInput(
   seedNumber: Channel,
-  eventType: StatusString | 'noteon/noteoff',
+  statusString: StatusString | 'noteon/noteoff',
   response: InputResponse,
   inputType: InputType,
   availableColors: Color[] = [],
@@ -51,7 +51,7 @@ function createInput(
   const def: InputConfig['default'] = {
     number: seedNumber,
     channel: seedNumber,
-    eventType,
+    statusString,
     response,
   };
   const avail = availableColors.map((c) => new ColorImpl(c));
@@ -141,7 +141,7 @@ function createSliderInput(seedNumber: Channel = 0) {
 }
 
 describe('labels', () => {
-  test('labelForNumber returns number for inputs w/diff eventTypes', () => {
+  test('labelForNumber returns number for inputs w/diff statusStrings', () => {
     const gate = createGatePadInput(0);
     const slider = createSliderInput(1);
     const group = new InputGroup([gate, slider]);
@@ -177,7 +177,7 @@ describe('labels', () => {
     expect(group.labelForChannel(2).includes('default')).toBe(true);
   });
 
-  test('labelForEventType returns correct eventType for multiple, similar inputs', () => {
+  test('labelForEventType returns correct statusString for multiple, similar inputs', () => {
     const pad1 = createGatePadInput(1);
     const pad2 = createGatePadInput(2);
     const group = new InputGroup([pad1, pad2]);
@@ -258,7 +258,7 @@ describe('number getter', () => {
 });
 
 describe('eligibleEventTypes', () => {
-  test('returns correct eventTypes for similar inputs', () => {
+  test('returns correct statusStrings for similar inputs', () => {
     const slider1 = createSliderInput(0);
     const slider2 = createSliderInput(1);
     const group = new InputGroup([slider1, slider2]);
@@ -271,7 +271,7 @@ describe('eligibleEventTypes', () => {
     expect(group.eligibleEventTypes).toEqual(eligibleEventTypes);
   });
 
-  test('returns correct eventTypes for different inputs', () => {
+  test('returns correct statusStrings for different inputs', () => {
     const gate = createGatePadInput(0);
     const slider = createSliderInput(1);
     const group = new InputGroup([gate, slider]);

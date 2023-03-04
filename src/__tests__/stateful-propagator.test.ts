@@ -47,7 +47,7 @@ describe('nextEventType', () => {
     expect(result).toBe('noteon');
   });
 
-  test('returns eventType for non-`noteon/noteoff` eventType', () => {
+  test('returns statusString for non-`noteon/noteoff` statusString', () => {
     const hr = 'gate';
     const or = 'toggle';
     const et = 'controlchange';

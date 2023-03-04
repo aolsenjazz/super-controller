@@ -8,7 +8,7 @@ type ControlsContainerPropTypes = {
   currentAction: MidiArray | undefined;
   remove: () => void;
   onChange: (
-    eventType: StatusString,
+    statusString: StatusString,
     number: MidiNumber,
     channel: Channel
   ) => void;
@@ -33,7 +33,7 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
     'controlchange',
     'programchange',
   ];
-  const eventTypeLabels = eligibleEventTypes;
+  const statusStringLabels = eligibleEventTypes;
 
   const eligibleNumbers = [...Array(128).keys()] as number[];
   const numberLabels = eligibleNumbers.map((n) => n.toString());
@@ -48,7 +48,7 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
         label="Event Type:"
         value={msg.statusString}
         valueList={eligibleEventTypes}
-        labelList={eventTypeLabels}
+        labelList={statusStringLabels}
         onChange={(e) => {
           onChange(
             e as StatusString,

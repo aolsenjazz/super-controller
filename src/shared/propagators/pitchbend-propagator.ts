@@ -10,17 +10,17 @@ export class PitchbendPropagator extends OverrideablePropagator<
 > {
   constructor(
     outputResponse: CorrelatedResponse<'continuous'>,
-    eventType: StatusString | 'noteon/noteoff',
+    statusString: StatusString | 'noteon/noteoff',
     number: MidiNumber,
     channel: Channel
   ) {
-    super('continuous', outputResponse, eventType, number, channel, 64);
+    super('continuous', outputResponse, statusString, number, channel, 64);
   }
 
   toJSON() {
     return {
       name: this.constructor.name,
-      args: [this.outputResponse, this.eventType, this.number, this.channel],
+      args: [this.outputResponse, this.statusString, this.number, this.channel],
     };
   }
 

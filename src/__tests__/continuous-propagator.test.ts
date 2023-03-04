@@ -17,13 +17,13 @@ class ContinuousPropagator extends WrapMe {
 describe('getResponse', () => {
   test('response value equal to msg.value for valueType = endless', () => {
     const or = 'continuous';
-    const eventType = 'controlchange';
+    const statusString = 'controlchange';
     const number = 32;
     const channel = 3;
     const value = 127;
     const c = new ContinuousPropagator(
       or,
-      eventType,
+      statusString,
       number,
       channel,
       value,
@@ -37,13 +37,13 @@ describe('getResponse', () => {
 
   test('response value equal to msg[2] for knobtype=endless, valueType=absolute', () => {
     const or = 'continuous';
-    const eventType = 'controlchange';
+    const statusString = 'controlchange';
     const number = 32;
     const channel = 3;
     const value = 127;
     const c = new ContinuousPropagator(
       or,
-      eventType,
+      statusString,
       number,
       channel,
       value,
@@ -59,13 +59,13 @@ describe('getResponse', () => {
 describe('toJSON', () => {
   test('stores valueType correctly', () => {
     const or = 'continuous';
-    const eventType = 'controlchange';
+    const statusString = 'controlchange';
     const number = 32;
     const channel = 3;
     const value = 127;
     const c = new ContinuousPropagator(
       or,
-      eventType,
+      statusString,
       number,
       channel,
       value,
@@ -83,13 +83,13 @@ describe('toJSON', () => {
 describe('nextValue in endless->absolute mode', () => {
   test('handles APC-clockwise simulation', () => {
     const or = 'continuous';
-    const eventType = 'controlchange';
+    const statusString = 'controlchange';
     const number = 32;
     const channel = 3;
     const value = 69;
     const c = new ContinuousPropagator(
       or,
-      eventType,
+      statusString,
       number,
       channel,
       value,
@@ -97,24 +97,24 @@ describe('nextValue in endless->absolute mode', () => {
       'absolute'
     );
 
-    const m1 = ThreeByteMidiArray.create(eventType, channel, number, 1);
+    const m1 = ThreeByteMidiArray.create(statusString, channel, number, 1);
     const r1 = c.nextV(m1);
     expect(r1).toBe(70);
 
-    const m2 = ThreeByteMidiArray.create(eventType, channel, number, 2);
+    const m2 = ThreeByteMidiArray.create(statusString, channel, number, 2);
     const r2 = c.nextV(m2);
     expect(r2).toBe(72);
   });
 
   test('handles APC-counter-clockwise simulation', () => {
     const or = 'continuous';
-    const eventType = 'controlchange';
+    const statusString = 'controlchange';
     const number = 32;
     const channel = 3;
     const value = 69;
     const c = new ContinuousPropagator(
       or,
-      eventType,
+      statusString,
       number,
       channel,
       value,
@@ -122,24 +122,24 @@ describe('nextValue in endless->absolute mode', () => {
       'absolute'
     );
 
-    const m1 = ThreeByteMidiArray.create(eventType, channel, number, 127);
+    const m1 = ThreeByteMidiArray.create(statusString, channel, number, 127);
     const r1 = c.nextV(m1);
     expect(r1).toBe(68);
 
-    const m2 = ThreeByteMidiArray.create(eventType, channel, number, 126);
+    const m2 = ThreeByteMidiArray.create(statusString, channel, number, 126);
     const r2 = c.nextV(m2);
     expect(r2).toBe(66);
   });
 
   test('handles minilab-clockwise simulation', () => {
     const or = 'continuous';
-    const eventType = 'controlchange';
+    const statusString = 'controlchange';
     const number = 32;
     const channel = 3;
     const value = 69;
     const c = new ContinuousPropagator(
       or,
-      eventType,
+      statusString,
       number,
       channel,
       value,
@@ -147,24 +147,24 @@ describe('nextValue in endless->absolute mode', () => {
       'absolute'
     );
 
-    const m1 = ThreeByteMidiArray.create(eventType, channel, number, 65);
+    const m1 = ThreeByteMidiArray.create(statusString, channel, number, 65);
     const r1 = c.nextV(m1);
     expect(r1).toBe(70);
 
-    const m2 = ThreeByteMidiArray.create(eventType, channel, number, 66);
+    const m2 = ThreeByteMidiArray.create(statusString, channel, number, 66);
     const r2 = c.nextV(m2);
     expect(r2).toBe(72);
   });
 
   test('handles minilab-counter-clockwise simulation', () => {
     const or = 'continuous';
-    const eventType = 'controlchange';
+    const statusString = 'controlchange';
     const number = 32;
     const channel = 3;
     const value = 69;
     const c = new ContinuousPropagator(
       or,
-      eventType,
+      statusString,
       number,
       channel,
       value,
@@ -172,11 +172,11 @@ describe('nextValue in endless->absolute mode', () => {
       'absolute'
     );
 
-    const m1 = ThreeByteMidiArray.create(eventType, channel, number, 63);
+    const m1 = ThreeByteMidiArray.create(statusString, channel, number, 63);
     const r1 = c.nextV(m1);
     expect(r1).toBe(68);
 
-    const m2 = ThreeByteMidiArray.create(eventType, channel, number, 62);
+    const m2 = ThreeByteMidiArray.create(statusString, channel, number, 62);
     const r2 = c.nextV(m2);
     expect(r2).toBe(66);
   });

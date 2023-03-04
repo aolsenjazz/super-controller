@@ -8,7 +8,7 @@ import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
 function BasicInputConfig() {
   const inputDefault: InputConfig['default'] = {
     channel: 0 as Channel,
-    eventType: 'controlchange' as const,
+    statusString: 'controlchange' as const,
     number: 0,
     response: 'continuous' as const,
   };
@@ -39,7 +39,7 @@ function BasicSupportedDevice() {
 test('getInput throws for bad id', () => {
   const inputDefault: InputConfig['default'] = {
     channel: 0 as Channel,
-    eventType: 'controlchange' as const,
+    statusString: 'controlchange' as const,
     number: 0,
     response: 'continuous' as const,
   };
@@ -66,7 +66,7 @@ test('getInput throws for bad id', () => {
 test('getInput returns correct input for id', () => {
   const inputDefault: InputConfig['default'] = {
     channel: 0 as Channel,
-    eventType: 'controlchange' as const,
+    statusString: 'controlchange' as const,
     number: 0,
     response: 'continuous' as 'continuous' | 'toggle',
   };
@@ -97,7 +97,7 @@ test('getInput returns correct input for id', () => {
 test('handleMessage() passes to correct input for processing', () => {
   const inputDefault: InputConfig['default'] = {
     channel: 0 as Channel,
-    eventType: 'controlchange' as const,
+    statusString: 'controlchange' as const,
     number: 0,
     response: 'continuous' as 'continuous' | 'toggle',
   };
@@ -122,7 +122,7 @@ test('handleMessage() passes to correct input for processing', () => {
   );
 
   const mm = ThreeByteMidiArray.create(
-    input.eventType as 'controlchange',
+    input.statusString as 'controlchange',
     input.channel,
     input.number,
     127
@@ -135,7 +135,7 @@ test('bindingAvailable returns false if binding is taken', () => {
   const device = BasicSupportedDevice();
   const input = device.inputs[0];
   input.number = 43;
-  const result = device.bindingAvailable(input.eventType, 43, input.channel);
+  const result = device.bindingAvailable(input.statusString, 43, input.channel);
   expect(result).toBe(false);
 });
 

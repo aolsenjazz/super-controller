@@ -25,10 +25,10 @@ export abstract class StatefulPropagator<
   }
 
   protected nextEventType() {
-    if (this.eventType === 'noteon/noteoff') {
+    if (this.statusString === 'noteon/noteoff') {
       return this.state === 'on' ? 'noteoff' : 'noteon';
     }
 
-    return this.eventType;
+    return this.statusString;
   }
 }

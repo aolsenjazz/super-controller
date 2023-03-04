@@ -3,11 +3,11 @@ import { PitchbendPropagator } from '@shared/propagators/pitchbend-propagator';
 
 function createPropagator(
   or: 'continuous' | 'constant',
-  eventType: StatusString = 'pitchbend',
+  statusString: StatusString = 'pitchbend',
   number: MidiNumber = 0,
   channel: Channel = 0
 ) {
-  return new PitchbendPropagator(or, eventType, number, channel);
+  return new PitchbendPropagator(or, statusString, number, channel);
 }
 
 interface NamedCreateCC {

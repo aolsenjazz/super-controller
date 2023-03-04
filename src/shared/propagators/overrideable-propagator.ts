@@ -10,7 +10,7 @@ export abstract class OverrideablePropagator<
   T extends InputResponse,
   U extends CorrelatedResponse<T>
 > extends Propagator<T, U> {
-  eventType: StatusString | 'noteon/noteoff';
+  statusString: StatusString | 'noteon/noteoff';
 
   number: MidiNumber;
 
@@ -21,14 +21,14 @@ export abstract class OverrideablePropagator<
   constructor(
     hardwareResponse: T,
     outputResponse: U,
-    eventType: StatusString | 'noteon/noteoff',
+    statusString: StatusString | 'noteon/noteoff',
     number: MidiNumber,
     channel: Channel,
     value?: MidiNumber
   ) {
     super(hardwareResponse, outputResponse);
 
-    this.eventType = eventType;
+    this.statusString = statusString;
     this.number = number;
     this.channel = channel;
 
