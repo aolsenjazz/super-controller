@@ -421,11 +421,11 @@ export class InputConfig {
   }
 
   get id() {
-    const et = this.default.statusString;
+    const ss = this.default.statusString;
     const c = this.default.channel;
     const n = this.default.number;
 
-    return et === 'pitchbend' ? `${et}.${c}` : `${et}.${c}.${n}`;
+    return ss === 'pitchbend' ? `${ss}.${c}` : `${ss}.${c}.${n}`;
   }
 
   get statusString(): StatusString | 'noteon/noteoff' {

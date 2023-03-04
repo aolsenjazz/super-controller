@@ -24,10 +24,10 @@ import { parse as v2Parse, stringify as v2Stringify } from './util';
 function convertInputs(ins: V2InputConfig[]) {
   return ins.map((i) => {
     const defs = {
-      statusString: i.eventType,
-      response: i.response,
-      number: i.number,
-      channel: i.channel,
+      statusString: i.default.eventType,
+      response: i.default.response,
+      number: i.default.number,
+      channel: i.default.channel,
     };
 
     const colors = i.availableColors.map((c) => {
