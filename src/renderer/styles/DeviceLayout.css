@@ -28,10 +28,13 @@
   max-height: 90%;
 }
 
+/* TODO: this should really all be encapsulated in one css class */
 .device-layout.configured,
 .device-layout.configured .input-container .pad,
 .device-layout.configured .input-container .wheel,
 .device-layout.configured .input-container .wheel .inner,
+.device-layout.configured .input-container .switch,
+.device-layout.configured .input-container .switch .inner,
 .device-layout.configured .input-container .xy,
 .device-layout.configured .input-container .xy .inner,
 .device-layout.configured .input-container .knob .outer {
@@ -43,12 +46,19 @@
 .device-layout .input-container .input-wrapper .noninteractive,
 .device-layout .input-container .xy,
 .device-layout .input-container .xy .inner,
+.device-layout .input-container .switch,
+.device-layout .input-container .switch .inner,
 .device-layout .input-container .wheel,
 .device-layout .input-container .wheel .inner,
 .device-layout .keyboard-container.disabled,
 .device-layout .keyboard-container.disabled .key,
 .device-layout .keyboard-container.disabled .key:last-of-type {
   border-color: #bcbec0;
+}
+
+.device-layout .input-container .switch,
+.device-layout .input-container .wheel {
+  cursor: pointer;
 }
 
 .device-layout.not-configured {
@@ -71,6 +81,8 @@
 }
 
 .device-layout .focus .pad,
+.device-layout .focus .switch,
+.device-layout .focus .wheel,
 .device-layout .focus .knob .outer {
   border-style: dashed !important;
   filter: sepia(0.2);
@@ -197,6 +209,20 @@
   margin: 0 auto;
   width: 100%;
   height: 100%;
+}
+
+.device-layout .switch {
+  position: relative;
+  border: 1px solid;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+.device-layout .switch .inner {
+  border: 1px solid;
+  position: absolute;
+  transition: bottom 0.1s linear;
 }
 
 .device-layout .wheel .inner {

@@ -100,8 +100,9 @@ export class PortService {
 
   syncInputLight = (deviceId: string, config: InputConfig) => {
     const pp = this.portPairs.get(deviceId);
-    if (pp && config.currentColor) {
-      pp.send(config.currentColor.array);
+
+    if (pp && config.currentColorResponse) {
+      pp.send(config.currentColorResponse);
     }
   };
 

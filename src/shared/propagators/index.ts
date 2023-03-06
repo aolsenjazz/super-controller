@@ -9,6 +9,7 @@ import { StatelessPropagator } from './stateless-propagator';
 import { ContinuousPropagator } from './continuous-propagator';
 import { TogglePropagator } from './toggle-propagator';
 import { ColorConfigPropagator } from './color-config-propagator';
+import { NonsequentialStepPropagator } from './nonsequential-step-propagator';
 
 export {
   Propagator,
@@ -20,6 +21,7 @@ export {
   OverrideablePropagator,
   ContinuousPropagator,
   ColorConfigPropagator,
+  NonsequentialStepPropagator,
 };
 
 /**

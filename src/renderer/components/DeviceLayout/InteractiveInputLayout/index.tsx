@@ -1,13 +1,17 @@
 import { InputConfig } from '@shared/hardware-config';
+import { NonsequentialStepPropagator } from '@shared/propagators';
 import {
   InteractiveInputDriver,
   InputDriverWithHandle,
+  SwitchDriver,
 } from '@shared/driver-types';
 
 import Pad from './PadLayout';
 import { Knob } from './KnobLayout';
 import { WheelLayout } from './WheelLayout';
+import { SwitchLayout } from './SwitchLayout';
 
+// TODO: is config actually ever udnefined here? I don't think so
 type InputLayoutPropTypes = {
   driver: InteractiveInputDriver;
   config: InputConfig | undefined;
@@ -34,6 +38,19 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
         shape={driver.shape}
         endless={config?.valueType === 'endless'}
       />
+    );
+  }
+
+  if (driver.type === 'switch') {
+    const asSwitch = driver as SwitchDriver;
+    const { steps } = asSwitch;
+
+    const lastStep = config
+      ? (config.outputPropagator as NonsequentialStepPropagator).lastStep
+      : steps[asSwitch.initialStep];
+
+    return (
+      <SwitchLayout steps={steps} lastStep={lastStep} style={driver.style} />
     );
   }
 

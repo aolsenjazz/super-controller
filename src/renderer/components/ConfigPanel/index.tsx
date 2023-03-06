@@ -16,6 +16,7 @@ import DeviceConfigPanel from './DeviceConfigPanel';
 import MonoInputConfigPanel from './MonoInputConfigPanel';
 import AdapterView from './AdapterView';
 import XYConfigPanel from './XYConfigPanel';
+import SwitchConfigPanel from './SwitchConfigPanel';
 
 import { InputGroup } from '../../input-group';
 
@@ -48,22 +49,44 @@ function InputConfiguration(props: InputConfigurationProps) {
   }, [selectedInputs, config]);
 
   // display config panel for multi-input control if necessary, other single-input control panel
-  const InputConfigPanel = group.isMultiInput ? (
-    <XYConfigPanel
-      project={project}
-      config={config}
-      group={group}
-      setProject={setProject}
-    />
-  ) : (
-    <MonoInputConfigPanel
-      project={project}
-      config={config}
-      group={group}
-      title="MIDI Settings"
-      setProject={setProject}
-    />
-  );
+  let InputConfigPanel;
+  if (group.isMultiInput) {
+    InputConfigPanel = (
+      <XYConfigPanel
+        project={project}
+        config={config}
+        group={group}
+        setProject={setProject}
+      />
+    );
+  } else {
+    const isSwitchSelected =
+      group.inputs.filter((i) => i.type === 'switch').length > 0;
+    const isMultipleSelected = group.inputs.length > 1;
+
+    if (isSwitchSelected) {
+      InputConfigPanel = isMultipleSelected ? (
+        <BasicMessage msg="The selected inputs don't share any fields." />
+      ) : (
+        <SwitchConfigPanel
+          deviceConfig={config}
+          inputConfig={group.inputs[0]}
+          project={project}
+          setProject={setProject}
+        />
+      );
+    } else {
+      InputConfigPanel = (
+        <MonoInputConfigPanel
+          project={project}
+          config={config}
+          group={group}
+          title="MIDI Settings"
+          setProject={setProject}
+        />
+      );
+    }
+  }
 
   return (
     <>

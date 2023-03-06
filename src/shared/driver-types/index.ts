@@ -14,4 +14,5 @@ export {
   InteractiveInputDrivers,
   InputDriver,
   InputShape,
+  SwitchDriver,
 } from './input-drivers';

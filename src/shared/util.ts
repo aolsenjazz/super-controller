@@ -233,7 +233,7 @@ export const CC_BINDINGS = new Map<number, string>([
 ]);
 
 /* Mapping between MIDI values and human-readable strings */
-const NOTE_BINDINGS = new Map([
+export const NOTE_BINDINGS = new Map([
   [0, 'C-1'],
   [1, 'C#-1'],
   [2, 'D-1'],

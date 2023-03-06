@@ -12,10 +12,20 @@
 @import './AdapterView.css';
 @import './DriverRequestButton.css';
 @import './WarningIcon.css';
+@import './SwitchPanel.css';
 
 * {
   margin: 0;
   padding: 0;
+}
+
+*::-webkit-scrollbar {
+  background: transparent;
+  width: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1em;
 }
 
 body {

@@ -58,7 +58,7 @@ export class TwoByteMidiArray extends MidiArray {
     return this[1];
   }
 
-  get array() {
+  get array(): NumberArrayWithStatus {
     return [...this];
   }
 

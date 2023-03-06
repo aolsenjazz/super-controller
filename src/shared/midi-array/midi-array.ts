@@ -19,7 +19,7 @@ export abstract class MidiArray extends Array<number> {
     return byteToStatusString(this.status, true);
   }
 
-  get array() {
+  get array(): NumberArrayWithStatus {
     return [...this];
   }
 

@@ -22,7 +22,7 @@ export class SysexMidiArray extends MidiArray {
     return 0xf0 as const;
   }
 
-  get array() {
+  get array(): NumberArrayWithStatus {
     return [...this];
   }
 

@@ -83,6 +83,24 @@ export class ColorConfigPropagator extends Propagator<
     return this.fxBindings.get(step);
   }
 
+  get currentResponse() {
+    const c = this.colorBindings.get(this.currentStep);
+    const fx = this.fxBindings.get(this.currentStep);
+
+    if (c !== undefined) {
+      let arr = c.array;
+
+      // apply fx
+      if (fx !== undefined) {
+        arr = arr.map((v, i) => v + fx[i]) as NumberArrayWithStatus;
+      }
+
+      return create(arr);
+    }
+
+    return undefined;
+  }
+
   get currentFx() {
     return this.fxBindings.get(this.currentStep);
   }

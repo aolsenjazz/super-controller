@@ -6,6 +6,7 @@ import {
   createPropagator,
   ContinuousPropagator,
   ColorConfigPropagator,
+  NonsequentialStepPropagator,
 } from '../propagators';
 import {
   InputResponse,
@@ -90,6 +91,25 @@ export class InputConfig {
     const colors = availableColors.map((c) => new ColorImpl(c));
     const value = d.type === 'pad' ? d.value : undefined;
     const knobType = d.type === 'knob' ? d.knobType : undefined;
+    let outputPropagator;
+
+    // make the output propagator now. this is meant to be a short-term fix
+    // so that a full  InputConfig rewrite doesn't need to be done
+    // TODO: inputconfig rewrite
+    if (d.type === 'switch') {
+      const steps = new Map<string, MidiArray>(
+        d.steps.map((step) => {
+          return [JSON.stringify(step), create(step)];
+        })
+      );
+      outputPropagator = new NonsequentialStepPropagator(
+        d.status,
+        d.channel,
+        d.number,
+        steps,
+        d.steps[d.initialStep]
+      );
+    }
 
     const instance = new InputConfig(
       def,
@@ -98,7 +118,7 @@ export class InputConfig {
       interactive,
       type,
       value,
-      undefined,
+      outputPropagator,
       undefined,
       knobType
     );
@@ -268,13 +288,21 @@ export class InputConfig {
 
     this.devicePropagator.setColor(state, colors[0]);
 
-    // if this input has a default fx, set it now
-    if (this.availableFx.length > 0) {
-      this.availableFx.forEach((fx) => {
-        if (fx.isDefault) {
-          this.setFxVal(state, fx.defaultVal);
-        }
-      });
+    // hack fix. some devices only have 1 available "color" with an fx
+    // that modules brightness. when this is the case, we can't auto-set
+    // a default fx.
+    //
+    // TODO: fix this. intuition says a decent way will be to add a field
+    // to `Color`s which specifies if it is the "off" value
+    if (displayName !== 'Off') {
+      // if this input has a default fx, set it now
+      if (this.availableFx.length > 0) {
+        this.availableFx.forEach((fx) => {
+          if (fx.isDefault) {
+            this.setFxVal(state, fx.defaultVal);
+          }
+        });
+      }
     }
   }
 
@@ -366,6 +394,10 @@ export class InputConfig {
   // TODO: should probably have currentCOlorArray or something to distinguinsh
   get currentColor(): ColorImpl | undefined {
     return this.devicePropagator.currentColor;
+  }
+
+  get currentColorResponse() {
+    return this.devicePropagator.currentResponse;
   }
 
   get currentFx(): FxDriver | undefined {

@@ -79,7 +79,7 @@ export class ThreeByteMidiArray extends MidiArray {
     return this[2];
   }
 
-  get array() {
+  get array(): NumberArrayWithStatus {
     return [...this];
   }
 

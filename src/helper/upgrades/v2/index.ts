@@ -5,6 +5,7 @@ import {
   SupportedDeviceConfig,
   InputConfig,
   ColorImpl,
+  AnonymousDeviceConfig,
 } from '@shared/hardware-config';
 import { stringify, parse } from '@shared/util';
 import { InputResponse } from '@shared/driver-types';
@@ -95,7 +96,7 @@ export function upgradeToV3(projectString: string) {
       );
       configs.push(newConfig);
     } else {
-      configs.push(d);
+      configs.push(d as AnonymousDeviceConfig);
     }
   });
 
