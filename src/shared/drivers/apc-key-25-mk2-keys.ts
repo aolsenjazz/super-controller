@@ -56,7 +56,7 @@ export const Device: DeviceDriver = {
   keyboard: {
     defaultOctave: 2,
     nOctaves: 2,
-    channel: 1,
+    channel: 0,
     width: 11.5,
     height: 3.125,
     left: 0.3125,
