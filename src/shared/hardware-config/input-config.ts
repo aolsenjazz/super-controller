@@ -199,8 +199,8 @@ export class InputConfig {
     // potentially-redundant messages to change the color back to SC-controlled state.
     //
     // TODO: this should probably take place in the ColorConfigPropagator
-    if (toDevice === undefined && this.currentColor !== undefined) {
-      toDevice = create(this.currentColor.array);
+    if (toDevice === undefined && this.currentColorResponse !== undefined) {
+      toDevice = this.currentColorResponse;
       // TODO: I suspect that this also doesn't work w.r.t. applying fx
     }
 
