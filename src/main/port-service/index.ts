@@ -92,8 +92,8 @@ export class PortService {
 
     if (pp && config instanceof SupportedDeviceConfig) {
       config.inputs
-        .filter((i) => i.currentColor !== undefined)
-        .map((i) => i.currentColor!) // get message for color
+        .filter((i) => i.currentColorResponse !== undefined)
+        .map((i) => i.currentColorResponse!) // get message for color
         .forEach((c) => pp.send(c.array)); // send color message
     }
   };
