@@ -169,4 +169,12 @@ describe('create', () => {
       create<ThreeByteMidiArray>(status, channel);
     }).toThrow();
   });
+
+  test('two-byte message is created status is programchange string', () => {
+    const status = 'programchange';
+    const channel = 2;
+    const number = 30;
+    const mm = create(status, channel, number);
+    expect(mm instanceof TwoByteMidiArray).toBe(true);
+  });
 });

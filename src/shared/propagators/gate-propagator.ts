@@ -73,6 +73,7 @@ export class GatePropagator extends StatefulPropagator<
    */
   #handleAsGate = (msg: MidiArray) => {
     const statusString = this.nextEventType();
+
     return create(
       statusString,
       this.channel,

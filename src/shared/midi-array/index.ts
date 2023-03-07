@@ -38,7 +38,7 @@ export function create<Type extends MidiArray = MidiArray>(
   if (channel === undefined) throw new Error(`Channel may not be undefined!`);
   if (number === undefined) throw new Error(`Number may not be undefined!`);
 
-  return ['programchange, channelpressure', 0xc0, 0xd0].includes(arrOrStatus)
+  return ['programchange', 'channelpressure', 0xc0, 0xd0].includes(arrOrStatus)
     ? (TwoByteMidiArray.create(
         arrOrStatus as TwoBStatuses,
         channel,
