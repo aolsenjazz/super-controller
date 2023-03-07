@@ -201,7 +201,6 @@ export class InputConfig {
     // TODO: this should probably take place in the ColorConfigPropagator
     if (toDevice === undefined && this.currentColorResponse !== undefined) {
       toDevice = this.currentColorResponse;
-      // TODO: I suspect that this also doesn't work w.r.t. applying fx
     }
 
     return [toDevice, toPropagate];
@@ -312,6 +311,10 @@ export class InputConfig {
     this.statusString = this.default.statusString;
     this.channel = this.default.channel;
     this.response = this.default.response;
+
+    if (this.type === 'knob' && this.knobType) {
+      this.valueType = this.knobType;
+    }
   }
 
   get eligibleResponses() {

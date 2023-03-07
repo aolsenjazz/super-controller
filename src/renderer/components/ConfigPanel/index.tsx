@@ -107,14 +107,6 @@ type PropTypes = {
   setProject: (p: Project) => void;
 };
 
-/**
- * Parent for device and input configuration controls, or a status message
- *
- * @param props Component props
- * @param props.project Current project
- * @param props.selectedInputs Currently-selected inputs
- * @param props.setProject Updated the project in frontend
- */
 export default function ConfigPanel(props: PropTypes) {
   const { selectedInputs, config, project, setProject } = props;
 

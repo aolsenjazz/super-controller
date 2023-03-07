@@ -142,7 +142,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             }}
           />
         )}
-        {group.isEndlessCapable === true && group.response === 'continuous' ? (
+        {group.isEndlessCapable === true ? (
           <div id="absolute-values">
             <SettingsLineItem
               label="Endless mode:"

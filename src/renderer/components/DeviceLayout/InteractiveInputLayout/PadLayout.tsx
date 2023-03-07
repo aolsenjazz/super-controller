@@ -10,10 +10,6 @@ type PropTypes = {
 export default function Pad(props: PropTypes) {
   const { shape, color, fx } = props;
 
-  // const layoutDimens = /(circle|square)/.test(shape)
-  //   ? { width: `${width}`, aspectRatio: '1' }
-  //   : { width: `${width}`, height: `${height}` };
-
   const mod = color?.modifier || fx?.title;
 
   return (

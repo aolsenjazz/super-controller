@@ -36,10 +36,6 @@ export function Knob(props: PropTypes) {
     convertRange(min, max, startAngle, endAngle, value)
   );
 
-  // const layoutDimens = /(circle|square)/.test(shape)
-  //   ? { width: `${size}`, aspectRatio: '1' }
-  //   : { width: `${size}`, height: `${size}` };
-
   return (
     <div className="knob" role="button">
       <div
