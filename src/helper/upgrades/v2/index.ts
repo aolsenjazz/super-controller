@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 import { Project } from '@shared/project';
 import {
   DeviceConfig,
@@ -32,8 +33,13 @@ function convertInputs(ins: V2InputConfig[]) {
     };
 
     const colors = i.availableColors.map((c) => {
+      const arr = JSON.parse(JSON.stringify(c.array));
+      if (i.availableFx.length > 0) {
+        arr[0] &= 0xf0;
+      }
+
       return new ColorImpl({
-        array: c.array,
+        array: arr,
         name: c.name,
         string: c.string,
         default: c.isDefault,
@@ -47,6 +53,54 @@ function convertInputs(ins: V2InputConfig[]) {
 
     const dpStr = v2Stringify(i.devicePropagator);
     const newDp = parse<ColorConfigPropagator>(dpStr);
+    // if this input has available fx, change channel to 0 for all colors
+    if (i.availableFx.length > 0) {
+      const cImpl0 = newDp.getColor(0);
+      if (cImpl0) {
+        const newArr0 = cImpl0.array;
+        newArr0[0] &= 0xf0;
+        const newC0 = new ColorImpl({
+          array: newArr0,
+          name: cImpl0.name,
+          string: cImpl0.string,
+          default: cImpl0.isDefault,
+          modifier: cImpl0.modifier,
+        });
+        newDp.setColor(0, newC0);
+
+        // now set fx = defaultFx for non-Off colors
+        if (cImpl0.name !== 'Off') {
+          const defFx = i.defaultFx;
+
+          if (defFx && newDp.getFx(0) === undefined) {
+            newDp.setFx(0, defFx.defaultVal);
+          }
+        }
+      }
+
+      const cImpl1 = newDp.getColor(0);
+      if (cImpl1) {
+        const newArr0 = cImpl1.array;
+        newArr0[0] &= 0xf0;
+        const newC1 = new ColorImpl({
+          array: newArr0,
+          name: cImpl1.name,
+          string: cImpl1.string,
+          default: cImpl1.isDefault,
+          modifier: cImpl1.modifier,
+        });
+        newDp.setColor(1, newC1);
+
+        // now set fx = defaultFx for non-Off colors
+        if (cImpl1.name !== 'Off') {
+          const defFx = i.defaultFx;
+
+          if (defFx && newDp.getFx(1) === undefined) {
+            newDp.setFx(1, defFx.defaultVal);
+          }
+        }
+      }
+    }
 
     return new InputConfig(
       defs,
