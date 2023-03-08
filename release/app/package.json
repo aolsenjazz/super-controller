@@ -1,7 +1,7 @@
 {
   "name": "super-controller",
   "productName": "SuperController",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Give your MIDI devices super powers; take control of the lights, messages, and communications between controllers.",
   "license": "MIT",
   "author": {
