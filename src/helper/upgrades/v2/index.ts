@@ -26,7 +26,8 @@ import { parse as v2Parse, stringify as v2Stringify } from './util';
 function convertInputs(ins: V2InputConfig[]) {
   return ins.map((i) => {
     const defs = {
-      statusString: i.default.eventType,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      statusString: i.default.eventType || (i.default as any).statusString,
       response: i.default.response,
       number: i.default.number,
       channel: i.default.channel,

@@ -58,7 +58,7 @@ export class Project {
   toJSON() {
     return {
       name: this.constructor.name,
-      version: this.version,
+      version: Project.CURRENT_VERSION,
       args: [this.devices, Project.CURRENT_VERSION],
     };
   }

@@ -26,7 +26,8 @@ export function upgradeProject(projectString: string) {
     upgradedProject = upgradeFns.get(i)!(upgradedProject);
   }
 
-  return parse<Project>(upgradedProject);
+  const p = parse<Project>(upgradedProject);
+  return p;
 }
 
 upgradeFns.set(0, upgradeToV1);
