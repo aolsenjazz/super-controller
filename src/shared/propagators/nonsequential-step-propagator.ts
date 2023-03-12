@@ -4,8 +4,8 @@ import { OverrideablePropagator } from './overrideable-propagator';
 
 @Revivable.register
 export class NonsequentialStepPropagator extends OverrideablePropagator<
-  'constant',
-  'constant'
+  'enumerated',
+  'enumerated'
 > {
   defaultStep: NumberArrayWithStatus;
 
@@ -20,7 +20,7 @@ export class NonsequentialStepPropagator extends OverrideablePropagator<
     steps: Map<string, MidiArray>,
     defaultStep: NumberArrayWithStatus
   ) {
-    super('constant', 'constant', status, number, channel);
+    super('enumerated', 'enumerated', status, number, channel);
 
     this.steps = steps;
     this.defaultStep = defaultStep;

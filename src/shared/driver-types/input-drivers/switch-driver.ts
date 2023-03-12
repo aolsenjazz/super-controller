@@ -3,8 +3,7 @@ import { InteractiveInputDriver } from './interactive-input-driver';
 export interface SwitchDriver extends InteractiveInputDriver {
   type: 'switch';
 
-  // TODO: ugh, `constant` feels a litle too incorrect
-  response: 'constant';
+  response: 'enumerated';
 
   /**
    * The default MIDI message sent for each step. Note that order is

@@ -43,7 +43,7 @@ export class SwitchConfig extends InputConfig {
   }
 
   get eligibleResponses() {
-    return ['constant' as const];
+    return ['enumerated' as const];
   }
 
   get eligibleStatusStrings() {
