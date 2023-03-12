@@ -3,26 +3,32 @@ import { test, expect, jest } from '@jest/globals';
 
 import { parse, stringify } from '@shared/util';
 import { ThreeByteMidiArray } from '@shared/midi-array';
-import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
+import { SupportedDeviceConfig } from '@shared/hardware-config';
+import { PadConfig, SliderConfig } from '@shared/hardware-config/input-config';
+import { GatePropagator, ContinuousPropagator } from '@shared/propagators';
 
 function BasicInputConfig() {
-  const inputDefault: InputConfig['default'] = {
+  const d = {
     channel: 0 as Channel,
     statusString: 'controlchange' as const,
-    number: 0,
-    response: 'continuous' as const,
+    number: 0 as MidiNumber,
+    response: 'gate' as const,
   };
 
-  const overrideable = true;
-  const type = 'pad';
+  const prop = new GatePropagator(
+    d.response,
+    d.statusString,
+    d.number,
+    d.channel
+  );
 
-  return new InputConfig(inputDefault, [], [], overrideable, type);
+  return new PadConfig(d, [], [], prop);
 }
 
 function BasicSupportedDevice() {
   const name = 'SomeName';
   const shareSustain: string[] = [];
-  const inputConfigs: InputConfig[] = [];
+  const inputConfigs: PadConfig[] = [];
   const nickname = 'SomeNickname';
 
   inputConfigs.push(BasicInputConfig());
@@ -37,20 +43,25 @@ function BasicSupportedDevice() {
 }
 
 test('getInput throws for bad id', () => {
-  const inputDefault: InputConfig['default'] = {
+  const d = {
     channel: 0 as Channel,
     statusString: 'controlchange' as const,
-    number: 0,
+    number: 0 as MidiNumber,
     response: 'continuous' as const,
   };
 
   const name = 'SomeName';
   const shareSustain: string[] = [];
   const nickname = 'SomeNickname';
-  const overrideable = true;
-  const type = 'pad';
 
-  const input = new InputConfig(inputDefault, [], [], overrideable, type);
+  const prop = new ContinuousPropagator(
+    d.response,
+    d.statusString,
+    d.number,
+    d.channel
+  );
+
+  const input = new PadConfig(d, [], [], prop);
 
   const config = new SupportedDeviceConfig(
     name,
@@ -64,21 +75,26 @@ test('getInput throws for bad id', () => {
 });
 
 test('getInput returns correct input for id', () => {
-  const inputDefault: InputConfig['default'] = {
+  const d = {
     channel: 0 as Channel,
     statusString: 'controlchange' as const,
-    number: 0,
-    response: 'continuous' as 'continuous' | 'toggle',
+    number: 0 as MidiNumber,
+    response: 'continuous' as const,
   };
 
   const name = 'SomeName';
   const shareSustain: string[] = [];
-  const inputConfigs: InputConfig[] = [];
+  const inputConfigs = [];
   const nickname = 'SomeNickname';
-  const overrideable = true;
-  const type = 'pad';
 
-  const input = new InputConfig(inputDefault, [], [], overrideable, type);
+  const prop = new ContinuousPropagator(
+    d.response,
+    d.statusString,
+    d.number,
+    d.channel
+  );
+
+  const input = new SliderConfig(d, prop);
 
   inputConfigs.push(input);
 
@@ -95,21 +111,26 @@ test('getInput returns correct input for id', () => {
 });
 
 test('handleMessage() passes to correct input for processing', () => {
-  const inputDefault: InputConfig['default'] = {
+  const d = {
     channel: 0 as Channel,
     statusString: 'controlchange' as const,
-    number: 0,
-    response: 'continuous' as 'continuous' | 'toggle',
+    number: 0 as MidiNumber,
+    response: 'continuous' as const,
   };
 
   const name = 'SomeName';
   const shareSustain: string[] = [];
-  const inputConfigs: InputConfig[] = [];
+  const inputConfigs = [];
   const nickname = 'SomeNickname';
-  const overrideable = true;
-  const type = 'pad';
 
-  const input = new InputConfig(inputDefault, [], [], overrideable, type);
+  const prop = new ContinuousPropagator(
+    d.response,
+    d.statusString,
+    d.number,
+    d.channel
+  );
+
+  const input = new SliderConfig(d, prop);
   const spy = jest.spyOn(input, 'handleMessage');
   inputConfigs.push(input);
 
@@ -127,7 +148,7 @@ test('handleMessage() passes to correct input for processing', () => {
     input.number,
     127
   );
-  config.handleMessage(mm);
+  config.applyOverrides(mm);
   expect(spy).toHaveBeenCalledTimes(1);
 });
 
@@ -148,8 +169,8 @@ test('bindingAvailable return true if binding is not taken', () => {
 test('handleMessage just propagates msgs when no matching inputConfig found', () => {
   const device = BasicSupportedDevice();
   const msg = ThreeByteMidiArray.create(144, 0, 42, 127);
-  const result = device.handleMessage(msg);
-  expect(result[1]).toStrictEqual(msg);
+  const result = device.applyOverrides(msg);
+  expect(result).toStrictEqual(msg);
 });
 
 test('toJSON and fromParsedJSON correctly serializes + deserializes', () => {

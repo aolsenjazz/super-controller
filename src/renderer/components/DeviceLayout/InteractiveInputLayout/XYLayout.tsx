@@ -5,7 +5,6 @@ type PropTypes = {
   yMax: number;
   xValue: number;
   yValue: number;
-  enabled: boolean;
   focus: boolean;
   overrideable: boolean;
   width: string;
@@ -29,7 +28,6 @@ type PropTypes = {
  * @param props.yMax Max value than can be represented on the y-axis
  * @param props.xValue Value currently represented by the x-axis
  * @param props.yValue Value currently represented by the y-axis
- * @param props.enabled Should the input respond to click events?
  * @param props.focus Should the input be highlighted?
  * @param props.overrideable Can this input be overriden?
  * @param props.width CSS width attribute
@@ -49,7 +47,6 @@ export default function XYLayout(props: PropTypes) {
     height,
     xValue,
     yValue,
-    enabled,
     focus,
     onClick,
     shape,
@@ -78,9 +75,7 @@ export default function XYLayout(props: PropTypes) {
 
   return (
     <div
-      className={`xy ${enabled ? 'hoverable' : ''} ${focus ? 'focus' : ''}${
-        overrideable ? '' : 'disabled'
-      }`}
+      className={`xy ${focus ? 'focus' : ''}${overrideable ? '' : 'disabled'}`}
       onClick={(e) => onClick(e)}
       tabIndex={0}
       onKeyDown={() => {}}

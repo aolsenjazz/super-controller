@@ -1,20 +1,17 @@
 import * as Revivable from '../revivable';
 import { MidiArray, create } from '../midi-array';
 import { InputResponse } from '../driver-types';
-import { Propagator, CorrelatedResponse } from './propagator';
+import { Propagator } from './propagator';
 
 @Revivable.register
-export class NStepPropagator extends Propagator<
-  InputResponse,
-  CorrelatedResponse<InputResponse>
-> {
+export class NStepPropagator extends Propagator<InputResponse, InputResponse> {
   protected steps: Map<number, MidiArray>;
 
   currentStep: number = 0;
 
   constructor(
     hardwareResponse: InputResponse,
-    outputResponse: CorrelatedResponse<InputResponse>,
+    outputResponse: InputResponse,
     steps: Map<number, MidiArray>,
     currentStep?: number
   ) {

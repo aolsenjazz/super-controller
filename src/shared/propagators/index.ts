@@ -1,5 +1,5 @@
 import { InputResponse } from '../driver-types';
-import { Propagator, CorrelatedResponse } from './propagator';
+import { Propagator } from './propagator';
 import { NStepPropagator } from './n-step-propagator';
 import { GatePropagator } from './gate-propagator';
 import { OverrideablePropagator } from './overrideable-propagator';
@@ -40,19 +40,14 @@ export function createPropagator(
 ) {
   switch (hr) {
     case 'gate':
-      return new GatePropagator(or as CorrelatedResponse<typeof hr>, et, n, c);
+      return new GatePropagator(or as 'gate' | 'constant' | 'toggle', et, n, c);
     case 'toggle':
-      return new TogglePropagator(
-        or as CorrelatedResponse<typeof hr>,
-        et,
-        n,
-        c
-      );
+      return new TogglePropagator(or as 'toggle' | 'constant', et, n, c);
     case 'continuous':
       return et === 'pitchbend'
-        ? new PitchbendPropagator(or as CorrelatedResponse<typeof hr>, et, n, c)
+        ? new PitchbendPropagator(or as 'continuous', et, n, c)
         : new ContinuousPropagator(
-            or as CorrelatedResponse<typeof hr>,
+            or as 'continuous' | 'constant',
             et,
             n,
             c,
@@ -61,13 +56,7 @@ export function createPropagator(
             valueType
           );
     case 'constant':
-      return new ConstantPropagator(
-        or as CorrelatedResponse<typeof hr>,
-        et,
-        n,
-        c,
-        v
-      );
+      return new ConstantPropagator(or as 'toggle' | 'constant', et, n, c, v);
     default:
       throw new Error('improper use of createPropagator');
   }

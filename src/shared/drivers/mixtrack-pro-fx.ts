@@ -12,11 +12,13 @@ function defaultColors(channel: Channel, number: MidiNumber): Color[] {
       name: 'Off',
       string: 'transparent',
       default: true,
+      effectable: false,
     },
     {
       array: [(144 + channel) as StatusByte, number, 0],
       name: 'Red',
       string: 'red',
+      effectable: false,
     },
   ];
 }
@@ -165,11 +167,13 @@ function playPad(channel: Channel, number: MidiNumber): PadDriver {
         name: 'Off',
         string: 'transparent',
         default: true,
+        effectable: false,
       },
       {
         array: [(144 + channel) as StatusByte, number, 0],
         name: 'Green',
         string: 'green',
+        effectable: false,
       },
     ],
     availableFx: defaultFx(),

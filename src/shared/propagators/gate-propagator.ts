@@ -1,6 +1,5 @@
 import * as Revivable from '../revivable';
 import { MidiArray, create } from '../midi-array';
-import { CorrelatedResponse } from './propagator';
 import { StatefulPropagator } from './stateful-propagator';
 
 /**
@@ -10,10 +9,10 @@ import { StatefulPropagator } from './stateful-propagator';
 @Revivable.register
 export class GatePropagator extends StatefulPropagator<
   'gate',
-  CorrelatedResponse<'gate'>
+  'gate' | 'constant' | 'toggle'
 > {
   constructor(
-    or: CorrelatedResponse<'gate'>,
+    or: 'gate' | 'constant' | 'toggle',
     et: StatusString | 'noteon/noteoff',
     n: MidiNumber,
     c: Channel,

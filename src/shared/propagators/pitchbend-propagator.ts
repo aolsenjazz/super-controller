@@ -1,15 +1,14 @@
 import * as Revivable from '../revivable';
 import { MidiArray, create } from '../midi-array';
-import { CorrelatedResponse } from './propagator';
 import { OverrideablePropagator } from './overrideable-propagator';
 
 @Revivable.register
 export class PitchbendPropagator extends OverrideablePropagator<
   'continuous',
-  CorrelatedResponse<'continuous'>
+  'continuous' | 'constant'
 > {
   constructor(
-    outputResponse: CorrelatedResponse<'continuous'>,
+    outputResponse: 'continuous' | 'constant',
     statusString: StatusString | 'noteon/noteoff',
     number: MidiNumber,
     channel: Channel

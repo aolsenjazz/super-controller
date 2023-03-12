@@ -8,81 +8,97 @@ function mainPadColors(n: MidiNumber): Color[] {
       name: 'Off',
       string: 'transparent',
       array: [144, n, 0],
+      effectable: false,
     },
     {
       name: 'Red',
       string: '#F44336',
       array: [144, n, 5],
+      effectable: true,
     },
     {
       name: 'Orange',
       string: '#F57C00',
       array: [144, n, 60],
+      effectable: true,
     },
     {
       name: 'Yellow',
       string: '#FFEB3B',
       array: [144, n, 9],
+      effectable: true,
     },
     {
       name: 'Seafoam Green',
       string: '#E0F7FA',
       array: [144, n, 8],
+      effectable: true,
     },
     {
       name: 'Soft Green',
       string: '#C8E6C9',
       array: [144, n, 12],
+      effectable: true,
     },
     {
       name: 'Pea Green',
       string: '#9CCC65',
       array: [144, n, 13],
+      effectable: true,
     },
     {
       name: 'Green',
       string: '#4CAF50',
       array: [144, n, 21],
+      effectable: true,
     },
     {
       name: 'Teal-ish',
       string: '#4DB6AC',
       array: [144, n, 20],
+      effectable: true,
     },
     {
       name: 'Light Blue',
       string: '#64B5F6',
       array: [144, n, 32],
+      effectable: true,
     },
     {
       name: 'Blue',
       string: '#2196F3',
       array: [144, n, 41],
+      effectable: true,
     },
     {
       name: 'Royal Blue',
       string: '#163bc4',
       array: [144, n, 45],
+      effectable: true,
     },
     {
       name: 'Fuchsia',
       string: '#BA68C8',
       array: [144, n, 53],
+      effectable: true,
     },
     {
       name: 'Pink',
       string: '#F06292',
       array: [144, n, 57],
+      effectable: true,
     },
     {
       name: 'Translucent Purple',
       string: '#E1BEE7',
       array: [144, n, 56],
+      effectable: true,
     },
     {
       name: 'Pepper White',
       string: '#E8EAF6',
       array: [144, n, 107],
+      effectable: true,
     },
   ];
 }
@@ -94,17 +110,20 @@ function squarePadColors(n: MidiNumber): Color[] {
       default: true,
       string: 'transparent',
       array: [144, n, 0],
+      effectable: false,
     },
     {
       name: 'Red',
       string: '#F44336',
       array: [144, n, 1],
+      effectable: false,
     },
     {
       name: 'Red',
       string: '#F44336',
       array: [144, n, 2],
       modifier: 'blink',
+      effectable: false,
     },
   ];
 }
@@ -116,17 +135,20 @@ function circlePadColors(n: MidiNumber): Color[] {
       name: 'Off',
       string: 'transparent',
       array: [144, n, 0],
+      effectable: false,
     },
     {
       name: 'Green',
       string: '#4CAF50',
       array: [144, n, 1],
+      effectable: false,
     },
     {
       modifier: 'blink',
       name: 'Green',
       string: '#4CAF50',
       array: [144, n, 2],
+      effectable: false,
     },
   ];
 }

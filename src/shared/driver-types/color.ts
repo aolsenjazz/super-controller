@@ -11,6 +11,9 @@ export type Color = {
   /* css-valid background-color attribute e.g. #FFF or rgba(100, 100, 100, 0.5) */
   string: string;
 
+  /* Can the color have fx applied to it? */
+  effectable: boolean;
+
   /* is this the active color when the device is connected? */
   default?: boolean;
 

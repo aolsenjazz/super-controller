@@ -66,19 +66,8 @@ test('handleMessage propagates message when not-overridden', () => {
   const msg = ThreeByteMidiArray.create(144, 0, 0, 0);
 
   /* eslint-disable-next-line */
-  const [_toDevice, toPropagate] = device.handleMessage(msg);
+  const toPropagate = device.applyOverrides(msg);
   expect(toPropagate).toEqual(msg);
-});
-
-test('handleMessage returns undefined message to prop to device', () => {
-  const name = 'littlename';
-  const nickname = 'nick';
-
-  const device = new AnonymousDeviceConfig(name, 7, new Map(), [], nickname);
-  const msg = ThreeByteMidiArray.create(144, 0, 0, 0);
-  /* eslint-disable-next-line */
-  const [toDevice, _toPropagate] = device.handleMessage(msg);
-  expect(toDevice).toBe(undefined);
 });
 
 test('handleMessage applies override', () => {
@@ -93,7 +82,7 @@ test('handleMessage applies override', () => {
   const device = new AnonymousDeviceConfig(name, 7, overrides, [], nickname);
   device.overrideInput(msg, status, channel, override[2]);
   /* eslint-disable-next-line */
-  const [_toDevice, toPropagate] = device.handleMessage(msg);
+  const toPropagate = device.applyOverrides(msg);
   expect(toPropagate![0]).toEqual(override[0]);
   expect(toPropagate![1]).toEqual(override[1]);
 });

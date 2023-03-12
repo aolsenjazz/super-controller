@@ -1,16 +1,18 @@
 import * as Revivable from '../revivable';
 import { MidiArray, create } from '../midi-array';
 import { StatelessPropagator } from './stateless-propagator';
-import { CorrelatedResponse } from './propagator';
 
 @Revivable.register
-export class ContinuousPropagator extends StatelessPropagator {
+export class ContinuousPropagator extends StatelessPropagator<
+  'continuous',
+  'continuous' | 'constant'
+> {
   valueType: 'endless' | 'absolute' = 'absolute';
 
   knobType: 'endless' | 'absolute' = 'absolute';
 
   constructor(
-    or: CorrelatedResponse<'continuous'>,
+    or: 'continuous' | 'constant',
     et: StatusString | 'noteon/noteoff',
     n: MidiNumber,
     c: Channel,

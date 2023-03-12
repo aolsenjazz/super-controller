@@ -7,6 +7,7 @@ import {
   AdapterDeviceConfig,
   InputConfig,
 } from '@shared/hardware-config';
+import { SwitchConfig } from '@shared/hardware-config/input-config';
 import { Project } from '@shared/project';
 
 import Translator from './Translator';
@@ -61,7 +62,7 @@ function InputConfiguration(props: InputConfigurationProps) {
     );
   } else {
     const isSwitchSelected =
-      group.inputs.filter((i) => i.type === 'switch').length > 0;
+      group.inputs.filter((i) => i instanceof SwitchConfig).length > 0;
     const isMultipleSelected = group.inputs.length > 1;
 
     if (isSwitchSelected) {

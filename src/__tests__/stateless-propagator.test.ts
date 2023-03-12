@@ -1,12 +1,14 @@
 import { ThreeByteMidiArray } from '@shared/midi-array';
 import { StatelessPropagator } from '@shared/propagators/stateless-propagator';
-import { CorrelatedResponse } from '@shared/propagators/propagator';
 
-class Wrapper extends StatelessPropagator {}
+class Wrapper extends StatelessPropagator<
+  'continuous' | 'toggle',
+  'continuous'
+> {}
 
 function createPropagator(
   ir: 'continuous' | 'toggle',
-  or: CorrelatedResponse<typeof ir>,
+  or: 'continuous',
   statusString: StatusString = 'controlchange',
   number: MidiNumber = 0,
   channel: Channel = 0,

@@ -4,8 +4,12 @@ import { DeviceConfig } from '@shared/hardware-config/device-config';
 class DeviceConfigWrapper extends DeviceConfig {
   isAdapter = false;
 
-  handleMessage(msg: ThreeByteMidiArray) {
-    return [undefined, msg];
+  applyOverrides(msg: ThreeByteMidiArray) {
+    return msg;
+  }
+
+  getResponse() {
+    return undefined;
   }
 }
 

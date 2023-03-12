@@ -47,8 +47,12 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
     return this.child!.bindingAvailable(statusString, number, channel);
   }
 
-  handleMessage(msg: MidiArray): (MidiArray | undefined)[] {
-    return this.child!.handleMessage(msg);
+  applyOverrides(msg: MidiArray) {
+    return this.child!.applyOverrides(msg);
+  }
+
+  getResponse(msg: MidiArray) {
+    return this.child!.getResponse(msg);
   }
 
   get inputs() {

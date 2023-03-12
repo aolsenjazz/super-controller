@@ -1,38 +1,20 @@
 import { MidiArray } from '../midi-array';
 import { InputResponse } from '../driver-types';
 
-type ResponseMap = {
-  continuous: 'continuous' | 'constant';
-  toggle: 'toggle' | 'constant';
-  gate: 'gate' | 'constant' | 'toggle';
-  constant: 'toggle' | 'constant';
-};
-
-type HardwareResponse<K extends keyof ResponseMap = keyof ResponseMap> = {
-  [P in K]: ResponseMap[P];
-}[K];
-
-export type CorrelatedResponse<T extends InputResponse> = HardwareResponse<T>;
-
 /**
  * Manages propagation of messages to devices and clients. Can be set to propagate
  * message different by setting `outputResponse`
  */
 export abstract class Propagator<
-  T extends keyof ResponseMap,
-  U extends HardwareResponse<T>
+  T extends InputResponse,
+  U extends InputResponse
 > {
   /**
    * See InputResponse
    */
   readonly hardwareResponse: T;
 
-  /**
-   * See InputResponse. Initially set to `constant` to satisfy the compiler
-   *
-   * @ts-ignore
-   */
-  outputResponse: HardwareResponse<T>;
+  outputResponse: U;
 
   constructor(hardwareResponse: T, outputResponse: U) {
     this.hardwareResponse = hardwareResponse;
@@ -62,7 +44,8 @@ export abstract class Propagator<
   protected abstract getResponse(msg: MidiArray): MidiArray | undefined;
 
   /**
-   * Returns the message to propagate if hardwareResponse is gate
+   * Returns the message to propagate if hardwareResponse is gate. Used to omit responding
+   * to noteon events when outputResponse demands it
    *
    * @param msg The message from device
    * @returns the message to propagate

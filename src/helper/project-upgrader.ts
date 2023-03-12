@@ -6,6 +6,7 @@ import { parse } from '@shared/util';
 import { upgradeToV1 } from './upgrades/v0';
 import { upgradeToV2 } from './upgrades/v1';
 import { upgradeToV3 } from './upgrades/v2';
+import { upgradeToV4 } from './upgrades/v3';
 
 const upgradeFns = new Map<number, (projectString: string) => string>();
 
@@ -33,3 +34,4 @@ export function upgradeProject(projectString: string) {
 upgradeFns.set(0, upgradeToV1);
 upgradeFns.set(1, upgradeToV2);
 upgradeFns.set(2, upgradeToV3);
+upgradeFns.set(3, upgradeToV4);

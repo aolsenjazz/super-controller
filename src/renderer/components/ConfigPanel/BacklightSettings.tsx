@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
 
 import { Project } from '@shared/project';
-import { stringify } from '@shared/util';
+import { stringify, colorDisplayName } from '@shared/util';
+import { LightCapableInputConfig } from '@shared/hardware-config';
 
 import { InputGroup } from '../../input-group';
 
@@ -34,7 +35,8 @@ function LightResponse(props: LightResponsePropTypes) {
 
   const onChange = (val: string | number) => {
     group.inputs.forEach((config) => {
-      config.lightResponse = val as 'gate' | 'toggle';
+      const lightConf = config as LightCapableInputConfig;
+      lightConf.lightResponse = val as 'gate' | 'toggle';
       projectService.updateInput(configId, stringify(config));
     });
 
@@ -73,14 +75,15 @@ export default function BacklightSettings(props: PropTypes) {
   const { eligibleLightStates, eligibleColors } = group;
   const isLightable = eligibleColors.length > 0;
 
-  const valueList = eligibleColors.map((c) => c.displayName);
+  const valueList = eligibleColors.map((c) => colorDisplayName(c));
   const labelList = valueList;
 
   const onColorChange = useCallback(
     (colorId: string, state: number) => {
       // Update all InputConfigs in the InputGroup
       group.inputs.forEach((input) => {
-        input.setColorForState(state, colorId);
+        const lightConf = input as LightCapableInputConfig;
+        lightConf.setColor(state, colorId);
         projectService.updateInput(configId, stringify(input));
       });
 
@@ -93,7 +96,8 @@ export default function BacklightSettings(props: PropTypes) {
     (fxId: string, state: number) => {
       // Update all InputConfigs in the InputGroup
       group.inputs.forEach((input) => {
-        input.setFx(state, fxId);
+        const lightConf = input as LightCapableInputConfig;
+        lightConf.setFx(state, fxId);
         projectService.updateInput(configId, stringify(input));
       });
 
@@ -106,7 +110,8 @@ export default function BacklightSettings(props: PropTypes) {
     (fxVal: MidiNumber[], state: number) => {
       // Update all InputConfigs in the InputGroup
       group.inputs.forEach((input) => {
-        input.setFxVal(state, fxVal);
+        const lightConf = input as LightCapableInputConfig;
+        lightConf.setFx(state, fxVal);
         projectService.updateInput(configId, stringify(input));
       });
 
@@ -130,8 +135,10 @@ export default function BacklightSettings(props: PropTypes) {
             const color = group.colorForState(state);
             const stateStr = state === 0 ? 'off' : 'on';
             const containsOff =
-              group.inputs.filter((i) => i.colorForState(state)?.name === 'Off')
-                .length > 0;
+              group.inputs.filter(
+                (i) =>
+                  (i as LightCapableInputConfig).getColor(state)?.name === 'Off'
+              ).length > 0;
 
             const innerColorChange = (value: string | number) => {
               onColorChange(value as string, state);
@@ -157,7 +164,7 @@ export default function BacklightSettings(props: PropTypes) {
                     style={{ backgroundColor: `${color?.string}` }}
                   />
                   <BasicSelect
-                    value={color?.displayName}
+                    value={color ? colorDisplayName(color) : ''}
                     valueList={valueList}
                     labelList={labelList}
                     onChange={innerColorChange}

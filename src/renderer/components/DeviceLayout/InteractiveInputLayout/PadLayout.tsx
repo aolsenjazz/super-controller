@@ -1,9 +1,8 @@
-import { FxDriver } from '@shared/driver-types';
-import { ColorImpl } from '@shared/hardware-config';
+import { FxDriver, ColorDescriptor } from '@shared/driver-types';
 
 type PropTypes = {
   shape: string;
-  color: ColorImpl | undefined;
+  color: ColorDescriptor | undefined;
   fx: FxDriver | undefined;
 };
 

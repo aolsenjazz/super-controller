@@ -1,5 +1,5 @@
 /* eslint-disable no-bitwise */
-import { Project } from '@shared/project';
+import { Project } from '../v3/project';
 import {
   DeviceConfig,
   AdapterDeviceConfig,
@@ -7,13 +7,13 @@ import {
   InputConfig,
   ColorImpl,
   AnonymousDeviceConfig,
-} from '@shared/hardware-config';
-import { stringify, parse } from '@shared/util';
-import { InputResponse } from '@shared/driver-types';
+} from '../v3/hardware-config';
+import { stringify, parse } from '../v3/util';
+import { InputResponse } from '../v3/driver-types';
 import {
   OverrideablePropagator,
   ColorConfigPropagator,
-} from '@shared/propagators';
+} from '../v3/propagators';
 
 import {
   AdapterDeviceConfig as V2AdapterConfig,

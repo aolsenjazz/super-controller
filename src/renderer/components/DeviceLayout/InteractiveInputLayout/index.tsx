@@ -1,5 +1,6 @@
 import { InputConfig } from '@shared/hardware-config';
 import { NonsequentialStepPropagator } from '@shared/propagators';
+import { PadConfig, KnobConfig } from '@shared/hardware-config/input-config';
 import {
   InteractiveInputDriver,
   InputDriverWithHandle,
@@ -24,8 +25,8 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
     return (
       <Pad
         shape={driver.shape}
-        fx={config?.currentFx}
-        color={config?.currentColor}
+        fx={(config as PadConfig).currentFx}
+        color={(config as PadConfig).currentColor}
       />
     );
   }
@@ -36,7 +37,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
       <Knob
         value={val}
         shape={driver.shape}
-        endless={config?.valueType === 'endless'}
+        endless={(config as KnobConfig).valueType === 'endless'}
       />
     );
   }

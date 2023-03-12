@@ -8,39 +8,46 @@ function mainPadColors(n: MidiNumber): Color[] {
       name: 'Off',
       string: 'transparent',
       array: [144, n, 0],
+      effectable: false,
     },
     {
       name: 'Green',
       string: '#4CAF50',
       array: [144, n, 1],
+      effectable: false,
     },
     {
       modifier: 'blink',
       name: 'Green',
       string: '#4CAF50',
       array: [144, n, 2],
+      effectable: false,
     },
     {
       name: 'Red',
       string: '#F44336',
       array: [144, n, 3],
+      effectable: false,
     },
     {
       modifier: 'blink',
       name: 'Red',
       string: '#F44336',
       array: [144, n, 4],
+      effectable: false,
     },
     {
       name: 'Yellow',
       string: '#FFC107',
       array: [144, n, 5],
+      effectable: false,
     },
     {
       modifier: 'blink',
       name: 'Yellow',
       string: '#FFC107',
       array: [144, n, 6],
+      effectable: false,
     },
   ];
 }
@@ -69,17 +76,20 @@ function createSquareColors(n: MidiNumber): Color[] {
       name: 'Off',
       string: 'transparent',
       array: [144, n, 0],
+      effectable: false,
     },
     {
       name: 'Red',
       string: '#F44336',
       array: [144, n, 1],
+      effectable: false,
     },
     {
       name: 'Red',
       string: '#F44336',
       modifier: 'blink',
       array: [144, n, 2],
+      effectable: false,
     },
   ];
 }
@@ -108,17 +118,20 @@ function createVertCircleColors(n: MidiNumber): Color[] {
       name: 'Off',
       string: 'transparent',
       array: [144, n, 0],
+      effectable: false,
     },
     {
       name: 'Green',
       string: '#4CAF50',
       array: [144, n, 1],
+      effectable: false,
     },
     {
       modifier: 'blink',
       name: 'Green',
       string: '#4CAF50',
       array: [144, n, 2],
+      effectable: false,
     },
   ];
 }

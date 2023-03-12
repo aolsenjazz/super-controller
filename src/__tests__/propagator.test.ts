@@ -1,4 +1,4 @@
-import { Propagator, CorrelatedResponse } from '@shared/propagators/propagator';
+import { Propagator } from '@shared/propagators/propagator';
 import { ThreeByteMidiArray } from '@shared/midi-array';
 import { InputResponse } from '@shared/driver-types';
 
@@ -7,7 +7,7 @@ const noteon = ThreeByteMidiArray.create(144, 0, 0, 127);
 
 class PropagatorWrapper<
   T extends InputResponse,
-  U extends CorrelatedResponse<T>
+  U extends InputResponse
 > extends Propagator<T, U> {
   get ineligibleOutputResponses() {
     return ['continuous'] as InputResponse[];

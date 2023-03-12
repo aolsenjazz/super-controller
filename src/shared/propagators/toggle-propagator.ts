@@ -1,11 +1,13 @@
 import * as Revivable from '../revivable';
 import { StatelessPropagator } from './stateless-propagator';
-import { CorrelatedResponse } from './propagator';
 
 @Revivable.register
-export class TogglePropagator extends StatelessPropagator {
+export class TogglePropagator extends StatelessPropagator<
+  'toggle',
+  'toggle' | 'constant'
+> {
   constructor(
-    or: CorrelatedResponse<'toggle'>,
+    or: 'toggle' | 'constant',
     et: StatusString | 'noteon/noteoff',
     n: MidiNumber,
     c: Channel,

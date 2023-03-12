@@ -3,7 +3,7 @@ import { DeviceConfig } from './hardware-config';
 
 @Revivable.register
 export class Project {
-  static CURRENT_VERSION = 3;
+  static CURRENT_VERSION = 4;
 
   version?: number;
 

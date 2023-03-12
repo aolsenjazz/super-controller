@@ -1,5 +1,5 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
-import { InteractiveInputDrivers } from './driver-types';
+import { InteractiveInputDrivers, ColorDescriptor } from './driver-types';
 import * as Revivable from './revivable';
 
 function replacer(_key: any, value: any) {
@@ -33,6 +33,10 @@ function reviver(_key: any, value: any) {
   }
 
   return obj || value;
+}
+
+export function colorDisplayName(c: ColorDescriptor) {
+  return `${c.name}${c.modifier ? ` (${c.modifier})` : ''}`;
 }
 
 export function id(driver: InteractiveInputDrivers) {

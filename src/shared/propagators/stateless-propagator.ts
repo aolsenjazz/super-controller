@@ -1,11 +1,11 @@
 import { MidiArray, create } from '../midi-array';
 import { OverrideablePropagator } from './overrideable-propagator';
-import { CorrelatedResponse } from './propagator';
+import { InputResponse } from '../driver-types';
 
-export abstract class StatelessPropagator extends OverrideablePropagator<
-  'continuous' | 'toggle',
-  CorrelatedResponse<'continuous' | 'toggle'>
-> {
+export abstract class StatelessPropagator<
+  T extends InputResponse,
+  U extends InputResponse
+> extends OverrideablePropagator<T, U> {
   nextEventType() {
     return this.statusString as StatusString;
   }
