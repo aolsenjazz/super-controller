@@ -4,7 +4,7 @@
 <h1 align="center">SuperController</h1>
 <h3 align="center">Give your MIDI devices super powers (for free, forever).</h3>
 <div align="center" style="margin-bottom: 200px;">
-  <img src="https://img.shields.io/github/actions/workflow/status/aolsenjazz/super-controller/Test"/>
+  <img src="https://img.shields.io/github/actions/workflow/status/aolsenjazz/super-controller/test.yml"/>
   <img src="https://img.shields.io/github/license/aolsenjazz/super-controller"/>
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"/>
 </div>
