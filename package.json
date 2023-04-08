@@ -249,14 +249,14 @@
   },
   "keywords": [
     "electron",
-    "boilerplate",
     "react",
     "typescript",
-    "ts",
-    "sass",
-    "webpack",
-    "hot",
-    "reload"
+    "midi",
+    "music",
+    "DAW",
+    "message",
+    "device",
+    "controller"
   ],
   "license": "MIT",
   "homepage": "https://github.com/aolsenjazz/super-controller#readme",

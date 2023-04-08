@@ -15,18 +15,6 @@ type PropTypes = {
   enabled: boolean;
 };
 
-/**
- * Graphical representation of a keyboard
- *
- * @param props Component props
- * @param props.nOctaves Number of octaves in keyboard
- * @param props.width Width of keyboard (in inches)
- * @param props.height Height of keyboard (in inches)
- * @param props.left Distance from left edge of device (in inches)
- * @param props.bottom Distance from bottom edge of device (in inches)
- * @param props.deviceWidth Width (in inches) of device
- * @param props.deviceHeight Height (in inches) of device
- */
 export default function Keyboard(props: PropTypes) {
   const {
     nOctaves,

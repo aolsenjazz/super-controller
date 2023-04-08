@@ -33,7 +33,7 @@ export default function ProjectChangeListener(props: PropTypes) {
   useEffect(() => {
     const throttledSetProject = applyDestructiveThrottle(
       (p) => setProject(p),
-      100
+      50
     );
 
     const cb = (

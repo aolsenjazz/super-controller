@@ -67,7 +67,6 @@ export default function XYGridLayout(props: PropTypes) {
           onClick={(e: React.MouseEvent) => {
             onClick(e, [xId, yId]);
           }}
-          overrideable={xInput.interactive}
           focus={selectedInputs.includes(xId)}
         />
       </div>

@@ -39,7 +39,7 @@ export function Knob(props: PropTypes) {
   return (
     <div className="knob" role="button">
       <div
-        className="outer"
+        className="outer interactive-indicator"
         style={{
           borderRadius: shape === 'circle' || !shape ? '100%' : '',
         }}

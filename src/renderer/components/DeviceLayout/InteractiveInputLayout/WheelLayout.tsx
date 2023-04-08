@@ -23,9 +23,9 @@ export function WheelLayout(props: PropTypes) {
   };
 
   return (
-    <div className="wheel" style={style}>
+    <div className="wheel interactive-indicator" style={style}>
       <div className="bounding-box" style={boundingStyle}>
-        <div className={`inner `} style={iStyle} />
+        <div className="inner interactive-indicator" style={iStyle} />
       </div>
     </div>
   );

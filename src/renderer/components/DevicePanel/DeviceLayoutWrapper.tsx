@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { DeviceDriver } from '@shared/driver-types';
 
-import DeviceLayout from '../DeviceLayout/DeviceLayout';
+import DeviceLayout from '../DeviceLayout';
 import WarningIcon from '../WarningIcon';
 
 const throttleWarning =
@@ -12,31 +12,14 @@ const throttleWarning =
 type PropTypes = {
   driver: DeviceDriver;
   config: SupportedDeviceConfig;
-  configured: boolean;
   selectedInputs: string[];
   setSelectedInputs: (inputs: string[]) => void;
 };
 
-/**
- * @callback setSelectedInputs
- * @param inputs The newly-selected inputs
- */
-
-/**
- * Wrapper for the DeviceLayout
- *
- * @param props Component props
- * @param props.device The VirtualDevice representation
- * @param props.config Device config
- * @param props.configured Has the device been added to the project?
- * @param props.selectedInputs List of the ids of the selected inputs
- * @param props.setSelectedInputs Sets the selected inputs
- */
 export default function DeviceLayoutWrapper(
   props: PropTypes
 ): React.ReactElement {
-  const { driver, configured, selectedInputs, setSelectedInputs, config } =
-    props;
+  const { driver, selectedInputs, setSelectedInputs, config } = props;
 
   // on input click (or ctrl+click) update selectedInputs
   const onInputSelect = useCallback(
@@ -68,7 +51,6 @@ export default function DeviceLayoutWrapper(
         driver={driver}
         onClick={onInputSelect}
         selectedInputs={selectedInputs}
-        configured={configured}
         deviceConfig={config}
       />
       <div className="warning-container">

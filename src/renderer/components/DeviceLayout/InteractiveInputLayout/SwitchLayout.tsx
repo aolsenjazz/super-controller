@@ -24,8 +24,8 @@ export function SwitchLayout(props: PropTypes) {
   };
 
   return (
-    <div className="switch" style={style}>
-      <div className={`inner `} style={iStyle} />
+    <div className="switch interactive-indicator" style={style}>
+      <div className="inner interactive-indicator" style={iStyle} />
     </div>
   );
 }

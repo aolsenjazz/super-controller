@@ -13,7 +13,7 @@ export default function Pad(props: PropTypes) {
 
   return (
     <div
-      className="pad"
+      className="pad interactive-indicator"
       style={{
         animationName: mod,
         backgroundColor: color?.string,

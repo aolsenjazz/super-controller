@@ -12,32 +12,28 @@ import { Knob } from './KnobLayout';
 import { WheelLayout } from './WheelLayout';
 import { SwitchLayout } from './SwitchLayout';
 
-// TODO: is config actually ever udnefined here? I don't think so
 type InputLayoutPropTypes = {
   driver: InteractiveInputDriver;
-  config: InputConfig | undefined;
+  config: InputConfig;
 };
 
 export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
   const { driver, config } = props;
 
   if (driver.type === 'pad') {
+    const conf = config as PadConfig;
     return (
-      <Pad
-        shape={driver.shape}
-        fx={(config as PadConfig).currentFx}
-        color={(config as PadConfig).currentColor}
-      />
+      <Pad shape={driver.shape} fx={conf.currentFx} color={conf.currentColor} />
     );
   }
 
   if (driver.type === 'knob') {
-    const val = config?.value || 0;
+    const conf = config as KnobConfig;
     return (
       <Knob
-        value={val}
+        value={conf.value || 0}
         shape={driver.shape}
-        endless={(config as KnobConfig).valueType === 'endless'}
+        endless={conf.valueType === 'endless'}
       />
     );
   }
@@ -55,11 +51,10 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
     );
   }
 
-  const val = config?.value || 0;
   const handleWidth = (driver as InputDriverWithHandle).handleWidth as number;
   return (
     <WheelLayout
-      value={val}
+      value={config.value || 0}
       handleWidth={`${(handleWidth / driver.width) * 100}%`}
       handleHeight={`${(handleWidth / driver.height) * 100}%`}
       style={driver.style}
