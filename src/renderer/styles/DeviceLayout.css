@@ -28,6 +28,10 @@
   max-height: 90%;
 }
 
+#device-panel .device-container.configured .device-layout {
+  border-color: #3a84e9;
+}
+
 .device-layout .input-container .input-wrapper .noninteractive,
 .device-layout .keyboard-container.disabled,
 .device-layout .keyboard-container.disabled .key,
@@ -121,7 +125,7 @@
   background: #bcbec0;
 }
 
-.device-layout.configured .knob .inner .grip {
+.device-container.configured .knob .inner .grip {
   background: #3a84e9;
 }
 
