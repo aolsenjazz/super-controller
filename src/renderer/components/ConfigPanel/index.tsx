@@ -7,6 +7,7 @@ import {
   AdapterDeviceConfig,
   InputConfig,
 } from '@shared/hardware-config';
+import { SwitchConfig } from '@shared/hardware-config/input-config';
 import { Project } from '@shared/project';
 
 import Translator from './Translator';
@@ -22,19 +23,11 @@ import { InputGroup } from '../../input-group';
 
 type InputConfigurationProps = {
   config: SupportedDeviceConfig;
-  project: Project;
   selectedInputs: string[];
+  project: Project;
   setProject: (p: Project) => void;
 };
 
-/**
- * Parent for configuration controls
- *
- * @param props Component props
- * @param props.config Configuration of current device
- * @param props.project Current project
- * @param props.selectedInputs The currently-selected inputs
- */
 function InputConfiguration(props: InputConfigurationProps) {
   const { config, project, selectedInputs, setProject } = props;
 
@@ -42,13 +35,11 @@ function InputConfiguration(props: InputConfigurationProps) {
 
   // when selectedInputs/config change, update
   useEffect(() => {
-    const inputs = selectedInputs
-      .map((i) => config.getInput(i))
-      .filter((i) => i !== undefined);
+    const inputs = selectedInputs.map((i) => config.getInput(i));
     setGroup(new InputGroup(inputs as InputConfig[]));
   }, [selectedInputs, config]);
 
-  // display config panel for multi-input control if necessary, other single-input control panel
+  // display config panel for multi-input control if necessary, otherwise single-input control panel
   let InputConfigPanel;
   if (group.isMultiInput) {
     InputConfigPanel = (
@@ -61,7 +52,7 @@ function InputConfiguration(props: InputConfigurationProps) {
     );
   } else {
     const isSwitchSelected =
-      group.inputs.filter((i) => i.type === 'switch').length > 0;
+      group.inputs.filter((i) => i instanceof SwitchConfig).length > 0;
     const isMultipleSelected = group.inputs.length > 1;
 
     if (isSwitchSelected) {
@@ -88,16 +79,7 @@ function InputConfiguration(props: InputConfigurationProps) {
     }
   }
 
-  return (
-    <>
-      <DeviceConfigPanel
-        project={project}
-        config={config}
-        setProject={setProject}
-      />
-      {InputConfigPanel}
-    </>
-  );
+  return <>{InputConfigPanel}</>;
 }
 
 type PropTypes = {
@@ -110,64 +92,40 @@ type PropTypes = {
 export default function ConfigPanel(props: PropTypes) {
   const { selectedInputs, config, project, setProject } = props;
 
-  let Element: JSX.Element;
+  let Element: JSX.Element | null = null;
 
   if (config === undefined) {
     Element = <BasicMessage msg="No connected devices." />;
-  } else if (config.isAdapter && !(config as AdapterDeviceConfig).isSet) {
+  } else if (config instanceof AdapterDeviceConfig && !config.isSet) {
     Element = (
-      <AdapterView
-        config={config as AdapterDeviceConfig}
-        setProject={setProject}
-        project={project}
-      />
+      <AdapterView config={config} setProject={setProject} project={project} />
+    );
+  } else if (config instanceof AnonymousDeviceConfig) {
+    Element = (
+      <Translator config={config} project={project} setProject={setProject} />
     );
   } else {
     const isConfigured = project.getDevice(config.id) !== undefined;
-    const asSupported = config as SupportedDeviceConfig;
 
     // show a diff view depending on if device is supported, configured, etc
     if (!isConfigured)
       Element = (
         <NotConfigured
-          config={asSupported}
+          config={config as SupportedDeviceConfig}
           setProject={setProject}
           project={project}
         />
       );
-    else if (!config?.supported) {
+    else if (!config.supported) {
       // device is not supported, handle as anonymous device
-      Element = (
-        <>
-          <DeviceConfigPanel
-            project={project}
-            config={asSupported}
-            setProject={setProject}
-          />
-          <Translator
-            config={config as AnonymousDeviceConfig}
-            project={project}
-            setProject={setProject}
-          />
-        </>
-      );
     } else if (selectedInputs.length === 0) {
-      Element = (
-        <>
-          <DeviceConfigPanel
-            project={project}
-            config={asSupported}
-            setProject={setProject}
-          />
-          <BasicMessage msg="No inputs selected." />
-        </>
-      );
+      Element = <BasicMessage msg="No inputs selected." />;
     } else {
       Element = (
         <InputConfiguration
           selectedInputs={selectedInputs}
           project={project}
-          config={asSupported}
+          config={config as SupportedDeviceConfig}
           setProject={setProject}
         />
       );
@@ -176,6 +134,13 @@ export default function ConfigPanel(props: PropTypes) {
 
   return (
     <div id="config-panel" className="top-level">
+      {config !== undefined ? (
+        <DeviceConfigPanel
+          project={project}
+          config={config}
+          setProject={setProject}
+        />
+      ) : null}
       {Element}
     </div>
   );

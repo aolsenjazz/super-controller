@@ -1,12 +1,11 @@
 import { InputResponse } from '../driver-types';
 import { OverrideablePropagator } from './overrideable-propagator';
-import { CorrelatedResponse } from './propagator';
 
 type State = 'on' | 'off';
 
 export abstract class StatefulPropagator<
   T extends InputResponse,
-  U extends CorrelatedResponse<T>
+  U extends InputResponse
 > extends OverrideablePropagator<T, U> {
   state: State = 'off';
 

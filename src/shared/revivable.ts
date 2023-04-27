@@ -1,11 +1,13 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 /* eslint @typescript-eslint/no-unused-vars: 0 */
 
+export type Skeleton = {
+  name: string;
+  args: any[];
+};
+
 interface Revivable {
-  toJSON(): {
-    name: string;
-    args: any[];
-  };
+  toJSON(): Skeleton;
 }
 
 type Constructor<T> = {

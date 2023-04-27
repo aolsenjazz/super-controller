@@ -1,5 +1,4 @@
 import { DeviceDriver } from '@shared/driver-types';
-import { ColorImpl } from '@shared/hardware-config';
 
 import { PortPair } from './port-pair';
 
@@ -34,9 +33,8 @@ export class DrivenPortPair extends PortPair {
         if (i.interactive && i.availableColors.length > 0) {
           const { availableColors } = i;
           const defColor = availableColors.filter((c) => c.default)[0];
-          const defColorImpl = new ColorImpl(defColor);
 
-          this.#pair.send(defColorImpl.array);
+          this.#pair.send(defColor.array);
         }
       });
     });

@@ -1,6 +1,6 @@
 import { MidiArray, create } from '../midi-array';
 import { InputResponse } from '../driver-types';
-import { Propagator, CorrelatedResponse } from './propagator';
+import { Propagator } from './propagator';
 
 /**
  * Propagates messages to clients. Responds differently depending on `outputResponse`,
@@ -8,7 +8,7 @@ import { Propagator, CorrelatedResponse } from './propagator';
  */
 export abstract class OverrideablePropagator<
   T extends InputResponse,
-  U extends CorrelatedResponse<T>
+  U extends InputResponse
 > extends Propagator<T, U> {
   statusString: StatusString | 'noteon/noteoff';
 

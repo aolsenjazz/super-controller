@@ -33,7 +33,7 @@ export default function ProjectChangeListener(props: PropTypes) {
   useEffect(() => {
     const throttledSetProject = applyDestructiveThrottle(
       (p) => setProject(p),
-      100
+      50
     );
 
     const cb = (
@@ -43,7 +43,7 @@ export default function ProjectChangeListener(props: PropTypes) {
     ) => {
       const msg = create(arr);
       const device = project.getDevice(deviceId);
-      if (device) device.handleMessage(msg);
+      if (device) device.applyOverrides(msg);
 
       const newProj = new Project();
       newProj.devices = project.devices;

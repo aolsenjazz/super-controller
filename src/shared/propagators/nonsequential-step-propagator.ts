@@ -1,11 +1,11 @@
 import * as Revivable from '../revivable';
-import { MidiArray } from '../midi-array';
+import { MidiArray, create } from '../midi-array';
 import { OverrideablePropagator } from './overrideable-propagator';
 
 @Revivable.register
 export class NonsequentialStepPropagator extends OverrideablePropagator<
-  'constant',
-  'constant'
+  'enumerated',
+  'enumerated'
 > {
   defaultStep: NumberArrayWithStatus;
 
@@ -20,7 +20,7 @@ export class NonsequentialStepPropagator extends OverrideablePropagator<
     steps: Map<string, MidiArray>,
     defaultStep: NumberArrayWithStatus
   ) {
-    super('constant', 'constant', status, number, channel);
+    super('enumerated', 'enumerated', status, number, channel);
 
     this.steps = steps;
     this.defaultStep = defaultStep;
@@ -53,6 +53,13 @@ export class NonsequentialStepPropagator extends OverrideablePropagator<
   setStep(step: string | NumberArrayWithStatus, arr: MidiArray) {
     const stepStr = typeof step === 'string' ? step : JSON.stringify(step);
     this.steps.set(stepStr, arr);
+  }
+
+  restoreDefaults() {
+    Array.from(this.steps.keys()).forEach((k) => {
+      const reset = create(JSON.parse(k));
+      this.steps.set(k, reset);
+    });
   }
 
   /* Unused */

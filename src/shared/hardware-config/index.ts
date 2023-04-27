@@ -4,8 +4,7 @@ import { AdapterDeviceConfig } from './adapter-device-config';
 import { DeviceConfig } from './device-config';
 import { DeviceDriver } from '../driver-types';
 
-export { ColorImpl } from './color-impl';
-export { InputConfig } from './input-config';
+export { InputConfig, LightCapableInputConfig } from './input-config';
 export { AdapterDeviceConfig };
 export { DeviceConfig };
 export { AnonymousDeviceConfig };

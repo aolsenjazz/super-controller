@@ -1,8 +1,7 @@
 /* eslint-disable no-bitwise */
 import { stringify, parse } from '@shared/util';
 import { ColorConfigPropagator } from '@shared/propagators';
-import { Color } from '@shared/driver-types';
-import { ColorImpl } from '@shared/hardware-config';
+import { Color, FxDriver } from '@shared/driver-types';
 
 class Wrapped extends ColorConfigPropagator {
   getResponse() {
@@ -10,103 +9,214 @@ class Wrapped extends ColorConfigPropagator {
   }
 }
 
+const OFF: Color = {
+  name: 'Green',
+  string: 'green',
+  array: [144, 0, 0],
+  effectable: false,
+  default: false,
+};
+
 const GREEN: Color = {
   name: 'Green',
   string: 'green',
   array: [144, 5, 2],
+  effectable: true,
+  default: true,
 };
-const GREEN_IMPL = new ColorImpl(GREEN);
 
 const RED: Color = {
   name: 'Red',
   string: 'red',
   array: [144, 5, 3],
+  effectable: true,
 };
-const RED_IMPL = new ColorImpl(RED);
+
+const FX: FxDriver = {
+  title: 'Solid',
+  defaultVal: [1, 0, 0],
+  effect: 'Brightness',
+  validVals: [
+    [1, 0, 0],
+    [2, 0, 0],
+  ],
+  isDefault: true,
+};
 
 describe('toJSON', () => {
   test('de/serializes correctly', () => {
     const hr = 'gate';
     const or = 'toggle';
     const cb = new Map();
-    cb.set(2, GREEN_IMPL);
+    cb.set(0, GREEN);
     const fb = new Map<number, MidiNumber[]>();
-    fb.set(2, [3, 0, 0]);
+    fb.set(0, [3, 0, 0]);
 
-    const propagator = new ColorConfigPropagator(hr, or, cb, fb);
+    const propagator = new Wrapped(hr, or, GREEN, FX, cb, fb);
     const json = stringify(propagator);
     const parsed = parse<ColorConfigPropagator>(json);
     expect(JSON.stringify(parsed)).toEqual(JSON.stringify(propagator));
   });
 });
 
-describe('setColor + getColor', () => {
-  test('sets color and gets color', () => {
+describe('getResponse', () => {
+  test('increments state to 1, then 0', () => {
     const hr = 'gate';
     const or = 'toggle';
     const cb = new Map();
-    const fb = new Map<number, MidiNumber[]>();
+    cb.set(0, GREEN);
+    cb.set(1, RED);
+    const propagator = new Wrapped(hr, or, GREEN, FX, cb);
 
-    const propagator = new ColorConfigPropagator(hr, or, cb, fb);
-    propagator.setColor(2, GREEN_IMPL);
+    propagator.getResponse();
+    expect(propagator.currentStep).toBe(1);
 
-    expect(propagator.getColor(2)).toBe(GREEN_IMPL);
-  });
-
-  test('set color deletes fx config', () => {
-    const hr = 'gate';
-    const or = 'toggle';
-    const cb = new Map();
-    const fb = new Map<number, MidiNumber[]>();
-
-    const propagator = new ColorConfigPropagator(hr, or, cb, fb);
-    propagator.setColor(2, GREEN_IMPL);
-    propagator.setFx(2, [4, 0, 0]);
-    propagator.setColor(2, RED_IMPL);
-    expect(propagator.getFx(2)).toBe(undefined);
+    propagator.getResponse();
+    expect(propagator.currentStep).toBe(0);
   });
 });
 
-describe('setFx + getFx', () => {
-  test('sets fx and gets fx', () => {
+describe('repeat', () => {
+  test('uses default color when unset', () => {
+    const hr = 'gate';
+    const or = 'toggle';
+    const cb = new Map();
+    const fb = new Map<number, MidiNumber[]>();
+    const propagator = new Wrapped(hr, or, RED, undefined, cb, fb);
+
+    const r = propagator.getResponse();
+    expect(r).toEqual(RED.array);
+  });
+
+  test('doesnt apply override when none present', () => {
+    const hr = 'gate';
+    const or = 'toggle';
+    const cb = new Map();
+    cb.set(1, GREEN);
+    const fb = new Map<number, MidiNumber[]>();
+    const propagator = new Wrapped(hr, or, undefined, undefined, cb, fb);
+
+    const r = propagator.getResponse();
+    expect(r).toEqual(GREEN.array);
+  });
+
+  test('applies default fx when present', () => {
+    const hr = 'gate';
+    const or = 'toggle';
+    const cb = new Map();
+    cb.set(1, GREEN);
+    const fb = new Map<number, MidiNumber[]>();
+    const propagator = new Wrapped(hr, or, undefined, FX, cb, fb);
+
+    const r = propagator.getResponse();
+    expect(r![0] & 0x0f).toEqual((GREEN.array[0] & 0x0f) + FX.defaultVal[0]);
+  });
+
+  test('applies override when present', () => {
+    const hr = 'gate';
+    const or = 'toggle';
+    const cb = new Map<number, Color>();
+    cb.set(1, GREEN);
+    const fb = new Map<number, MidiNumber[]>();
+    fb.set(1, [14, 0, 0]);
+    const propagator = new Wrapped(hr, or, undefined, undefined, cb, fb);
+
+    const r = propagator.getResponse();
+    expect(r![1]).toEqual(GREEN.array[1]);
+    expect(r![2]).toEqual(GREEN.array[2]);
+    expect(r![0] & 0xf0).toEqual(GREEN.array[0] & 0xf0);
+    expect(r![0] & 0x0f).toEqual(14);
+  });
+});
+
+describe('restoreDefaults', () => {
+  test('clears all fx + colors', () => {
+    const hr = 'gate';
+    const or = 'toggle';
+    const cb = new Map<number, Color>();
+    cb.set(1, GREEN);
+    const fb = new Map<number, MidiNumber[]>();
+    fb.set(1, [14, 0, 0]);
+    const propagator = new Wrapped(hr, or, undefined, undefined, cb, fb);
+    propagator.restoreDefaults();
+    expect(propagator.getFxVal(1)).toBeUndefined();
+    expect(propagator.getColor(1)).toBeUndefined();
+  });
+});
+
+describe('getColor', () => {
+  test('returns default when unset', () => {
     const hr = 'gate';
     const or = 'toggle';
     const cb = new Map();
     const fb = new Map<number, MidiNumber[]>();
 
-    const propagator = new ColorConfigPropagator(hr, or, cb, fb);
-    propagator.setFx(2, [5, 0, 0]);
+    const propagator = new ColorConfigPropagator(
+      hr,
+      or,
+      GREEN,
+      undefined,
+      cb,
+      fb
+    );
+    propagator.setColor(2, GREEN);
 
-    expect(propagator.getFx(2)).toEqual([5, 0, 0]);
+    expect(propagator.getColor(2)).toBe(GREEN);
   });
 
-  describe('getResponse', () => {
-    test('doesnt apply override when none present', () => {
-      const hr = 'gate';
-      const or = 'toggle';
-      const cb = new Map();
-      cb.set(1, GREEN_IMPL);
-      const fb = new Map<number, MidiNumber[]>();
-      const propagator = new Wrapped(hr, or, cb, fb);
+  test('returns set color when set', () => {
+    const hr = 'gate';
+    const or = 'toggle';
+    const cb = new Map();
+    const fb = new Map<number, MidiNumber[]>();
 
-      const r = propagator.getResponse();
-      expect(r).toEqual(GREEN_IMPL.array);
-    });
+    const propagator = new ColorConfigPropagator(
+      hr,
+      or,
+      GREEN,
+      undefined,
+      cb,
+      fb
+    );
+    propagator.setColor(2, RED);
 
-    test('applies override when present', () => {
-      const hr = 'gate';
-      const or = 'toggle';
-      const cb = new Map<number, ColorImpl>();
-      cb.set(1, GREEN_IMPL);
-      const fb = new Map<number, MidiNumber[]>();
-      fb.set(1, [14, 0, 0]);
-      const propagator = new Wrapped(hr, or, cb, fb);
+    expect(propagator.getColor(2)).toBe(RED);
+  });
+});
 
-      const r = propagator.getResponse();
-      expect(r![1]).toEqual(GREEN_IMPL.array[1]);
-      expect(r![2]).toEqual(GREEN_IMPL.array[2]);
-      expect(r![0] & 0xf0).toEqual(GREEN_IMPL.array[0] & 0xf0);
-      expect(r![0] & 0x0f).toEqual(14);
-    });
+describe('getFxVal', () => {
+  test('returns default fxVal when unset if color is effectable', () => {
+    const hr = 'gate';
+    const or = 'toggle';
+    const cb = new Map();
+    const fb = new Map<number, MidiNumber[]>();
+
+    const propagator = new ColorConfigPropagator(hr, or, GREEN, FX, cb, fb);
+
+    expect(propagator.getFxVal(2)).toEqual(FX.defaultVal);
+  });
+
+  test('returns undefined if color isnt effectable', () => {
+    const hr = 'gate';
+    const or = 'toggle';
+    const cb = new Map();
+    cb.set(0, OFF);
+    const fb = new Map<number, MidiNumber[]>();
+
+    const propagator = new ColorConfigPropagator(hr, or, OFF, FX, cb, fb);
+
+    expect(propagator.getFxVal(0)).toBeUndefined();
+  });
+
+  test('returns set fxVal when set', () => {
+    const hr = 'gate';
+    const or = 'toggle';
+    const cb = new Map();
+    const fb = new Map<number, MidiNumber[]>();
+
+    const propagator = new ColorConfigPropagator(hr, or, GREEN, FX, cb, fb);
+    propagator.setFx(2, [5, 0, 0]);
+
+    expect(propagator.getFxVal(2)).toEqual([5, 0, 0]);
   });
 });

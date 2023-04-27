@@ -22,9 +22,9 @@ export function WheelLayout(props: PropTypes) {
   };
 
   return (
-    <div className="wheel">
+    <div className="wheel interactive-indicator">
       <div className="bounding-box" style={boundingStyle}>
-        <div className={`inner `} style={iStyle} />
+        <div className="inner interactive-indicator" style={iStyle} />
       </div>
     </div>
   );

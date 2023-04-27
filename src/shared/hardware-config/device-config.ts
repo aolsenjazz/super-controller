@@ -85,9 +85,6 @@ export abstract class DeviceConfig {
     this.shareSustain.splice(idx, 1);
   }
 
-  /**
-   * @param message The MidiValue[] from device
-   * @returns [messageToDevice | null, messageToPropagate]
-   */
-  abstract handleMessage(msg: MidiArray): (MidiArray | undefined)[];
+  abstract applyOverrides(msg: MidiArray): MidiArray | undefined;
+  abstract getResponse(msg: MidiArray): MidiArray | undefined;
 }

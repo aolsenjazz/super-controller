@@ -23,12 +23,13 @@ function InputLayout(props: InputLayoutPropTypes) {
   const { driver, deviceConfig, width, height, onClick, selectedInputs } =
     props;
 
-  let Element = null;
-
+  let Element;
   if (driver.interactive) {
     const inputId = id(driver as InteractiveInputDrivers);
     const config = deviceConfig.getInput(inputId);
     const focus = selectedInputs.includes(inputId);
+
+    if (config === undefined) throw new Error('this shouldnt happen');
 
     Element = (
       <div

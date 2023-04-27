@@ -12,7 +12,12 @@ import { FxDriver } from '../fx-driver';
  * continuous: continuous input
  * constant: event fired on press, always the same event
  */
-export type InputResponse = 'gate' | 'toggle' | 'continuous' | 'constant';
+export type InputResponse =
+  | 'gate'
+  | 'toggle'
+  | 'continuous'
+  | 'constant'
+  | 'enumerated';
 
 export interface InteractiveInputDriver extends InputDriver {
   /* Can the input be overridden? `false` if the input cannot send or react to MIDI data */

@@ -155,3 +155,29 @@ describe('setStep', () => {
     expect(prop.responseForStep(arr)).toEqual(ma);
   });
 });
+
+describe('restoreDefaults', () => {
+  test('restores defaults', () => {
+    const status = 'controlchange';
+    const channel = 5;
+    const number = 3;
+    const steps = new Map<string, MidiArray>();
+    const arr: NumberArrayWithStatus = [144, 9, 6];
+    const ma = create(arr);
+    steps.set(JSON.stringify(arr), ma);
+
+    const prop = new NonsequentialStepPropagator(
+      status,
+      channel,
+      number,
+      steps,
+      arr
+    );
+
+    const newStep = create([160, 8, 5]);
+    prop.setStep(arr, newStep);
+    prop.restoreDefaults();
+
+    expect(prop.responseForStep(arr)).toEqual(ma);
+  });
+});

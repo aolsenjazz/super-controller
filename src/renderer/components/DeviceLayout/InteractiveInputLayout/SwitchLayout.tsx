@@ -23,8 +23,8 @@ export function SwitchLayout(props: PropTypes) {
   };
 
   return (
-    <div className="switch">
-      <div className={`inner `} style={iStyle} />
+    <div className="switch interactive-indicator">
+      <div className="inner interactive-indicator" style={iStyle} />
     </div>
   );
 }

@@ -34,26 +34,17 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     };
   }
 
-  /**
-   * Tries to apply overrides. If no matching overrides available,
-   * propagates the message and sends nothing to device.
-   *
-   * @param message The MidiValue[] from device
-   * @returns [messageToDevice | null, messageToPropagate]
-   */
-  handleMessage(msg: MidiArray) {
+  applyOverrides(msg: MidiArray) {
     const valueNegatedMsg = create([msg[0], msg[1]]);
 
     const id = JSON.stringify(valueNegatedMsg.array);
     const override = this.overrides.get(id);
 
-    if (override) {
-      // eslint-disable-next-line
-      const withValue = create([override[0], override[1], msg[2]]);
-      return [undefined, withValue];
-    }
+    return override ? create([override[0], override[1], msg[2]]) : msg;
+  }
 
-    return [undefined, msg];
+  getResponse() {
+    return undefined;
   }
 
   /**

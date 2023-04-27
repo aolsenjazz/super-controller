@@ -5,9 +5,7 @@ type PropTypes = {
   yMax: number;
   xValue: number;
   yValue: number;
-  enabled: boolean;
   focus: boolean;
-  overrideable: boolean;
   width: string;
   height: string;
   handleWidth: string;
@@ -16,29 +14,6 @@ type PropTypes = {
   onClick: (event: React.MouseEvent) => void;
 };
 
-/**
- * @callback onClick
- * @param event Mouse event
- */
-
-/**
- * Graphical representation of an XYLayout. Assumes 0-values are at center
- *
- * @param Component props
- * @param props.xMax Max value that can be represented on the x-axis
- * @param props.yMax Max value than can be represented on the y-axis
- * @param props.xValue Value currently represented by the x-axis
- * @param props.yValue Value currently represented by the y-axis
- * @param props.enabled Should the input respond to click events?
- * @param props.focus Should the input be highlighted?
- * @param props.overrideable Can this input be overriden?
- * @param props.width CSS width attribute
- * @param props.height CSS height attribute
- * @param props.handleWidth CSS width attribute of the "grabbable" portion of input
- * @param props.handleHeight CSS height attribute of the "grabbable" portion of input
- * @param props.shape 'circle' | 'square' | 'rect'
- * @param props.onClick Click listener to set selected inputs
- */
 export default function XYLayout(props: PropTypes) {
   const {
     width,
@@ -49,13 +24,11 @@ export default function XYLayout(props: PropTypes) {
     height,
     xValue,
     yValue,
-    enabled,
     focus,
     onClick,
     shape,
     handleWidth,
     handleHeight,
-    overrideable,
   } = props;
 
   const xShift = xValue / xMax;
@@ -78,9 +51,7 @@ export default function XYLayout(props: PropTypes) {
 
   return (
     <div
-      className={`xy ${enabled ? 'hoverable' : ''} ${focus ? 'focus' : ''}${
-        overrideable ? '' : 'disabled'
-      }`}
+      className={`xy ${focus ? 'focus' : ''} interactive-indicator`}
       onClick={(e) => onClick(e)}
       tabIndex={0}
       onKeyDown={() => {}}
@@ -101,7 +72,7 @@ export default function XYLayout(props: PropTypes) {
           transform: `translate(0, -50%)`,
         }}
       >
-        <div className={`inner `} style={iStyle} />
+        <div className="inner interactive-indicator" style={iStyle} />
       </div>
     </div>
   );

@@ -1,11 +1,15 @@
-import { InputConfig, ColorImpl } from '@shared/hardware-config';
-import { ColorConfigPropagator } from '@shared/propagators';
 import {
-  Color,
-  InputResponse,
-  InputType,
-  FxDriver,
-} from '@shared/driver-types';
+  PadConfig,
+  SliderConfig,
+  InputConfig,
+  XYConfig,
+} from '@shared/hardware-config/input-config';
+import {
+  ColorConfigPropagator,
+  GatePropagator,
+  ContinuousPropagator,
+} from '@shared/propagators';
+import { Color, FxDriver } from '@shared/driver-types';
 
 import { InputGroup } from '../renderer/input-group';
 
@@ -29,6 +33,7 @@ const GREEN: Color = {
   modifier: 'blink',
   string: 'green',
   default: true,
+  effectable: true,
 };
 
 const RED: Color = {
@@ -36,55 +41,73 @@ const RED: Color = {
   array: [144, 69, 5],
   string: 'red',
   default: false,
+  effectable: true,
 };
 
 function createInput(
   seedNumber: Channel,
   statusString: StatusString | 'noteon/noteoff',
-  response: InputResponse,
-  inputType: InputType,
+  response: 'gate' | 'continuous',
   availableColors: Color[] = [],
   availableFx: FxDriver[] = [],
   lightConfig: Map<number, Color> = new Map(),
-  activeFx?: [number, string][]
+  activeFx?: [number, string][],
+  setDefaultColor = false
 ) {
-  const def: InputConfig['default'] = {
+  const def = {
     number: seedNumber,
     channel: seedNumber,
     statusString,
     response,
   };
-  const avail = availableColors.map((c) => new ColorImpl(c));
-  const config = new Map<number, ColorImpl>();
+
+  const config = new Map<number, Color>();
   lightConfig.forEach((v, k) => {
-    config.set(k, new ColorImpl(v));
+    config.set(k, v);
   });
 
-  const outputPropagator = undefined;
+  let outProp;
   let devicePropagator;
   if (lightConfig) {
     devicePropagator = new ColorConfigPropagator(
-      def.response,
-      def.response,
+      def.response as 'gate',
+      def.response as 'gate',
+      setDefaultColor ? GREEN : undefined,
+      undefined,
       config
     );
   }
 
-  const ic = new InputConfig(
-    def,
-    avail,
-    availableFx,
-    true,
-    inputType,
-    0,
-    outputPropagator,
-    devicePropagator
-  );
+  let ic: InputConfig;
+  if (response === 'gate') {
+    outProp = new GatePropagator(
+      response as 'gate' | 'toggle' | 'constant',
+      statusString,
+      seedNumber,
+      seedNumber
+    );
+    ic = new PadConfig(
+      def,
+      availableColors,
+      availableFx,
+      outProp,
+      devicePropagator
+    );
 
-  if (activeFx) {
-    activeFx.forEach(([state, fx]) => {
-      ic.setFx(state, fx);
-    });
+    if (activeFx) {
+      activeFx.forEach(([state, fx]) => {
+        (ic as PadConfig).setFx(state, fx);
+      });
+    }
+  } else {
+    outProp = new ContinuousPropagator(
+      response as 'continuous' | 'constant',
+      statusString,
+      seedNumber,
+      seedNumber
+    );
+
+    ic = new SliderConfig(def, outProp);
   }
 
   return ic;
@@ -95,7 +118,8 @@ function createGatePadInput(
   includeAvailableColors = false,
   includeLightConfig = false,
   includeAvailableFx = false,
-  includeActiveFx = false
+  includeActiveFx = false,
+  setDefaultColor = false
 ) {
   const colors = includeAvailableColors ? [GREEN, RED] : [];
   const lightConfig = new Map<number, Color>();
@@ -110,13 +134,14 @@ function createGatePadInput(
     seedNumber,
     'noteon/noteoff',
     'gate',
-    'pad',
     colors,
     availableFx,
-    lightConfig
+    lightConfig,
+    [],
+    setDefaultColor
   );
 
-  if (includeActiveFx) {
+  if (includeActiveFx && ic instanceof PadConfig) {
     ic.setFx(0, FX.title);
     ic.setFx(1, FX.title);
   }
@@ -125,19 +150,25 @@ function createGatePadInput(
 }
 
 function createXYInput(seedNumber: Channel = 0) {
-  return createInput(
-    seedNumber,
-    'pitchbend',
+  const defs = {
+    number: seedNumber,
+    channel: seedNumber,
+    statusString: 'controlchange' as const,
+    response: 'continuous' as const,
+  };
+
+  const op = new ContinuousPropagator(
     'continuous',
-    'xy',
-    [],
-    [],
-    new Map()
+    'controlchange',
+    seedNumber,
+    seedNumber
   );
+
+  return new XYConfig(defs, op);
 }
 
 function createSliderInput(seedNumber: Channel = 0) {
-  return createInput(seedNumber, 'controlchange', 'continuous', 'slider');
+  return createInput(seedNumber, 'controlchange', 'continuous');
 }
 
 describe('labels', () => {
@@ -199,7 +230,7 @@ describe('colorForState', () => {
   });
 
   test('returns default for unset light config', () => {
-    const pad1 = createGatePadInput(0, true);
+    const pad1 = createGatePadInput(0, true, false, false, false, true);
     const group = new InputGroup([pad1]);
 
     expect(group.colorForState(1)!.name).toEqual('green');
@@ -284,7 +315,7 @@ describe('eligibleColors', () => {
     const pad1 = createGatePadInput(0, true, true);
     const pad2 = createGatePadInput(1, true, true);
     const group = new InputGroup([pad1, pad2]);
-    const expected = pad1.availableColors.length;
+    const expected = (pad1 as PadConfig).availableColors.length;
     expect(group.eligibleColors.length).toBe(expected);
   });
 

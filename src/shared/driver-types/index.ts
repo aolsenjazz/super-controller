@@ -1,4 +1,5 @@
 export { Color } from './color';
+export { ColorDescriptor } from './color-descriptor';
 
 export { DeviceStyle, DeviceDriver } from './device-driver';
 export { InputGridDriver } from './input-grid-driver';
@@ -15,4 +16,6 @@ export {
   InputDriver,
   InputShape,
   SwitchDriver,
+  PadDriver,
+  KnobDriver,
 } from './input-drivers';

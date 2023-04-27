@@ -1,11 +1,10 @@
 import { MidiArray } from '@shared/midi-array';
 import { InputResponse } from '@shared/driver-types';
-import { CorrelatedResponse } from '@shared/propagators/propagator';
 import { StatefulPropagator } from '@shared/propagators/stateful-propagator';
 
 class Wrapper<
   T extends InputResponse,
-  U extends CorrelatedResponse<T>
+  U extends InputResponse
 > extends StatefulPropagator<T, U> {
   getResponse(msg: MidiArray) {
     return msg;

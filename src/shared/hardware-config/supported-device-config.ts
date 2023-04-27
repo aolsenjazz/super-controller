@@ -4,7 +4,7 @@ import { MidiArray } from '../midi-array';
 import { DeviceDriver, KeyboardDriver } from '../driver-types';
 
 import { DeviceConfig } from './device-config';
-import { InputConfig } from './input-config';
+import { InputConfig, create, LightCapableInputConfig } from './input-config';
 
 /* Contains device-specific configurations and managed `InputConfig`s */
 @Revivable.register
@@ -29,7 +29,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
     driver.inputGrids.forEach((ig) => {
       ig.inputs.forEach((d) => {
         if (d.interactive) {
-          inputs.push(InputConfig.fromDriver(d));
+          inputs.push(create(d));
         }
       });
     });
@@ -117,15 +117,16 @@ export class SupportedDeviceConfig extends DeviceConfig {
     return undefined;
   }
 
-  /**
-   * Tries to pass the message to an `InputConfig`. If no matching `InputConfig`s,
-   * send a propagates the message and sends nothing to device.
-   *
-   * @param message The MidiValue[] from device
-   * @returns [messageToDevice | null, messageToPropagate]
-   */
-  handleMessage(msg: MidiArray): (MidiArray | undefined)[] {
+  applyOverrides(msg: MidiArray) {
     const input = this.getInput(msg.id(true));
-    return input !== undefined ? input.handleMessage(msg) : [undefined, msg];
+    return input !== undefined ? input.handleMessage(msg) : msg;
+  }
+
+  getResponse(msg: MidiArray) {
+    const input = this.getInput(msg.id(true));
+
+    return input instanceof LightCapableInputConfig
+      ? input.currentColorArray
+      : undefined;
   }
 }

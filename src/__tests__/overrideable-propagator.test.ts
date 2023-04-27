@@ -1,11 +1,10 @@
 import { ThreeByteMidiArray } from '@shared/midi-array';
 import { InputResponse } from '@shared/driver-types';
 import { OverrideablePropagator } from '@shared/propagators';
-import { CorrelatedResponse } from '@shared/propagators/propagator';
 
 class Wrapper<
   T extends InputResponse,
-  U extends CorrelatedResponse<T>
+  U extends InputResponse
 > extends OverrideablePropagator<T, U> {
   getResponse(msg: ThreeByteMidiArray) {
     return msg;

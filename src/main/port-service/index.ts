@@ -6,6 +6,7 @@ import {
   InputConfig,
   SupportedDeviceConfig,
   AdapterDeviceConfig,
+  LightCapableInputConfig,
 } from '@shared/hardware-config';
 import { DrivenPortInfo } from '@shared/driven-port-info';
 import { getDriver } from '@shared/drivers';
@@ -91,9 +92,11 @@ export class PortService {
     const config = this.#project.getDevice(deviceId);
 
     if (pp && config instanceof SupportedDeviceConfig) {
+      type T = LightCapableInputConfig;
       config.inputs
-        .filter((i) => i.currentColorResponse !== undefined)
-        .map((i) => i.currentColorResponse!) // get message for color
+        .filter((i) => i instanceof LightCapableInputConfig)
+        .filter((i) => (i as T).currentColorArray !== undefined)
+        .map((i) => (i as T).currentColorArray!) // get message for color
         .forEach((c) => pp.send(c.array)); // send color message
     }
   };
@@ -101,8 +104,12 @@ export class PortService {
   syncInputLight = (deviceId: string, config: InputConfig) => {
     const pp = this.portPairs.get(deviceId);
 
-    if (pp && config.currentColorResponse) {
-      pp.send(config.currentColorResponse);
+    if (
+      pp &&
+      config instanceof LightCapableInputConfig &&
+      config.currentColorArray
+    ) {
+      pp.send(config.currentColorArray);
     }
   };
 
@@ -213,26 +220,25 @@ export class PortService {
    * @param msg The message from the device
    */
   #onMessage = (pair: PortPair, msg: MidiArray) => {
-    const device = this.#project.getDevice(pair.id);
+    const config = this.#project.getDevice(pair.id);
 
-    if (device !== undefined) {
+    if (config !== undefined) {
       // device exists. process it
-      const [toDevice, toPropagate] = device.handleMessage(msg);
+      const toPropagate = config.applyOverrides(msg);
+      const toDevice = config.getResponse(msg);
 
-      // send sustain events thru all virtual ports in config
-      if (toPropagate && toPropagate.isSustain)
-        this.#handleSustain(toPropagate, device.shareSustain);
+      if (toPropagate) {
+        // send sustain events thru all virtual ports in config
+        if (toPropagate.isSustain)
+          this.#handleSustain(toPropagate, config.shareSustain);
 
-      // propagate the msg thru virtual port to clients
-      if (toPropagate) this.#virtService.send(toPropagate, device.id);
-
-      // send response to hardware device
-      if (toDevice) {
-        pair.send(toDevice);
+        this.#virtService.send(toPropagate, config.id);
       }
 
+      if (toDevice) pair.send(toDevice);
+
       // send new state to frontend
-      windowService.sendInputMsg(msg.id(true), device.id, msg);
+      windowService.sendInputMsg(msg.id(true), config.id, msg);
     }
   };
 

@@ -32,41 +32,49 @@ function createPadColors(n: MidiNumber): Color[] {
       string: 'transparent',
       default: true,
       array: [240, 0, 32, 107, 127, 66, 2, 0, 16, 112 + n, 0, 247],
+      effectable: false,
     },
     {
       name: 'Red',
       string: 'red',
       array: [240, 0, 32, 107, 127, 66, 2, 0, 16, 112 + n, 1, 247],
+      effectable: false,
     },
     {
       name: 'Green',
       string: 'green',
       array: [240, 0, 32, 107, 127, 66, 2, 0, 16, 112 + n, 4, 247],
+      effectable: false,
     },
     {
       name: 'Yellow',
       string: 'yellow',
       array: [240, 0, 32, 107, 127, 66, 2, 0, 16, 112 + n, 5, 247],
+      effectable: false,
     },
     {
       name: 'Blue',
       string: 'blue',
       array: [240, 0, 32, 107, 127, 66, 2, 0, 16, 112 + n, 16, 247],
+      effectable: false,
     },
     {
       name: 'Magenta',
       string: 'magenta',
       array: [240, 0, 32, 107, 127, 66, 2, 0, 16, 112 + n, 17, 247],
+      effectable: false,
     },
     {
       name: 'Cyan',
       string: 'cyan',
       array: [240, 0, 32, 107, 127, 66, 2, 0, 16, 112 + n, 20, 247],
+      effectable: false,
     },
     {
       name: 'White',
       string: 'white',
       array: [240, 0, 32, 107, 127, 66, 2, 0, 16, 112 + n, 127, 247],
+      effectable: false,
     },
   ];
 }

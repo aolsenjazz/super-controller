@@ -34,7 +34,6 @@ export default function XYGridLayout(props: PropTypes) {
 
   if (!xConfig || !yConfig) throw new Error(`x or y input config is falsy`);
 
-  const enabled = xConfig?.overrideable === true;
   const handleWidth = xInput.handleWidth as number;
 
   const igStyle = {
@@ -64,14 +63,10 @@ export default function XYGridLayout(props: PropTypes) {
           yMax={127}
           xValue={xConfig.value}
           yValue={yConfig.value}
-          enabled={enabled}
           shape={xInput.shape ? xInput.shape : 'rect'}
           onClick={(e: React.MouseEvent) => {
-            if (xConfig?.overrideable) {
-              onClick(e, [xId, yId]);
-            }
+            onClick(e, [xId, yId]);
           }}
-          overrideable={xInput.interactive}
           focus={selectedInputs.includes(xId)}
         />
       </div>

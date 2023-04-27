@@ -6,7 +6,7 @@ import { id } from '@shared/util';
 import { Project } from '@shared/project';
 
 import SwitchStepConfig from './SwitchStepConfig';
-import OsxTabs from './OsxTabs';
+import OsxTabs from '../OsxTabs';
 
 type PropTypes = {
   deviceConfig: SupportedDeviceConfig;

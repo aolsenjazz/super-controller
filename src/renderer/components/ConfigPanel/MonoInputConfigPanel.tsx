@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
+import { KnobConfig } from '@shared/hardware-config/input-config';
 import { Project } from '@shared/project';
 import { stringify } from '@shared/util';
 
@@ -151,7 +152,8 @@ export default function MonoInputConfigPanel(props: PropTypes) {
               labelList={endlessModeLabels}
               onChange={(v) => {
                 onChange((c) => {
-                  c.valueType = v === 'false' ? 'absolute' : 'endless';
+                  (c as KnobConfig).valueType =
+                    v === 'false' ? 'absolute' : 'endless';
                 });
               }}
             />

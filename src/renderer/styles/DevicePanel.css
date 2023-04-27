@@ -4,6 +4,16 @@
   opacity: 0.95;
 }
 
+#device-panel .device-container .interactive-indicator {
+  border-color: #bcbec0;
+  pointer-events: none;
+}
+
+#device-panel .device-container.configured .interactive-indicator {
+  border-color: #3a84e9;
+  cursor: pointer;
+}
+
 #no-devices {
   width: 100%;
   text-align: center;
