@@ -8,7 +8,6 @@ function defaultPad(): NoninteractiveInputDriver {
     height: 1,
     shape: 'rect',
     interactive: false,
-    style: {},
   };
 }
 

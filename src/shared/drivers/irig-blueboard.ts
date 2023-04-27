@@ -12,7 +12,6 @@ function createPad(n: MidiNumber): PadDriver {
     height: 1,
     shape: 'rect',
     response: 'toggle',
-    style: {},
     availableColors: [],
     availableFx: [],
   };

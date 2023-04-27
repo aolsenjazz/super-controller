@@ -11,7 +11,6 @@ function createNoninteractivePad(
     height,
     type: 'pad',
     shape: 'rect',
-    style: {},
   };
 }
 

@@ -11,7 +11,6 @@ function createNoninteractivePad(
     height,
     type: 'pad',
     shape: 'rect',
-    style: {},
   };
 }
 
@@ -22,7 +21,6 @@ function createKnob(width: number, height: number): NoninteractiveInputDriver {
     height,
     type: 'knob',
     shape: 'circle',
-    style: {},
   };
 }
 
@@ -158,7 +156,8 @@ export const Device: DeviceDriver = {
           shape: 'rect',
           handleWidth: 0.5,
           handleHeight: 0.25,
-          style: {},
+          horizontal: false,
+          inverted: false,
           availableColors: [],
           availableFx: [],
         },
@@ -174,7 +173,8 @@ export const Device: DeviceDriver = {
           shape: 'rect',
           handleWidth: 0.5,
           handleHeight: 0.25,
-          style: {},
+          horizontal: false,
+          inverted: false,
           availableColors: [],
           availableFx: [],
         },

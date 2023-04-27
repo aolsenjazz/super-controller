@@ -2,11 +2,10 @@ type PropTypes = {
   value: number;
   handleWidth: string;
   handleHeight: string;
-  style: { transform?: string } | undefined;
 };
 
 export function WheelLayout(props: PropTypes) {
-  const { value, handleWidth, handleHeight, style } = props;
+  const { value, handleWidth, handleHeight } = props;
 
   const max = 127;
   const boundingStyle = {
@@ -23,7 +22,7 @@ export function WheelLayout(props: PropTypes) {
   };
 
   return (
-    <div className="wheel" style={style}>
+    <div className="wheel">
       <div className="bounding-box" style={boundingStyle}>
         <div className={`inner `} style={iStyle} />
       </div>

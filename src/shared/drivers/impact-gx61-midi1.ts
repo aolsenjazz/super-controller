@@ -14,7 +14,6 @@ function createNoninteractivePad(
     height,
     type: 'pad',
     shape: 'rect',
-    style: {},
   };
 }
 
@@ -29,7 +28,6 @@ function createPad(n: MidiNumber): PadDriver {
     height: 0.25,
     shape: 'rect',
     response: 'gate',
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -80,7 +78,8 @@ export const Device: DeviceDriver = {
           response: 'continuous',
           handleWidth: 0.5,
           handleHeight: 0.5,
-          style: {},
+          horizontal: false,
+          inverted: false,
           availableColors: [],
           availableFx: [],
         },
@@ -96,7 +95,8 @@ export const Device: DeviceDriver = {
           response: 'continuous',
           handleWidth: 0.5,
           handleHeight: 0.5,
-          style: {},
+          horizontal: false,
+          inverted: false,
           availableColors: [],
           availableFx: [],
         },
@@ -156,7 +156,6 @@ export const Device: DeviceDriver = {
           knobType: 'absolute',
           shape: 'circle',
           response: 'continuous',
-          style: {},
           availableColors: [],
           availableFx: [],
         },

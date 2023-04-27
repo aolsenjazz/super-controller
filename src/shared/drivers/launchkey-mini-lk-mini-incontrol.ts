@@ -15,7 +15,6 @@ function createNoninteractivePad(
     height,
     type: 'pad',
     shape: 'rect',
-    style: {},
   };
 }
 
@@ -99,7 +98,6 @@ function createMainPad(n: MidiNumber): PadDriver {
     height: 0.75,
     shape: 'rect',
     response: 'gate',
-    style: {},
     availableColors: mainPadColors(n),
     availableFx: [],
   };
@@ -179,7 +177,6 @@ function createTransport(n: MidiNumber): PadDriver {
     height: 0.5,
     shape: 'circle',
     response: 'gate',
-    style: {},
     availableColors: createTransportColors(n),
     availableFx: [],
   };
@@ -197,7 +194,6 @@ function createKnob(n: MidiNumber): KnobDriver {
     height: 0.5,
     shape: 'circle',
     knobType: 'absolute',
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -353,7 +349,6 @@ export const Device: DeviceDriver = {
           height: 0.3,
           shape: 'rect',
           response: 'gate',
-          style: {},
           availableColors: [],
           availableFx: [],
         },
@@ -367,7 +362,6 @@ export const Device: DeviceDriver = {
           height: 0.3,
           shape: 'rect',
           response: 'gate',
-          style: {},
           availableColors: [],
           availableFx: [],
         },
@@ -460,7 +454,6 @@ export const Device: DeviceDriver = {
           height: 0.3,
           shape: 'rect',
           response: 'gate',
-          style: {},
           availableColors: [],
           availableFx: [],
         },
@@ -474,7 +467,6 @@ export const Device: DeviceDriver = {
           height: 0.3,
           shape: 'rect',
           response: 'gate',
-          style: {},
           availableColors: [],
           availableFx: [],
         },

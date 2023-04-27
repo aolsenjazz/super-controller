@@ -13,7 +13,6 @@ function createOctave(): NoninteractiveInputDriver {
     height: 1,
     type: 'pad',
     shape: 'rect',
-    style: {},
   };
 }
 
@@ -28,9 +27,10 @@ function createSlider(n: MidiNumber): InputDriverWithHandle {
     shape: 'rect',
     interactive: true,
     response: 'continuous',
-    style: {},
     handleHeight: 0.625,
     handleWidth: 0.5,
+    horizontal: false,
+    inverted: false,
     availableColors: [],
     availableFx: [],
   };
@@ -47,7 +47,6 @@ function createButton(n: MidiNumber): PadDriver {
     shape: 'circle',
     interactive: true,
     response: 'toggle',
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -60,7 +59,6 @@ function createMainButton(): NoninteractiveInputDriver {
     height: 0.25,
     type: 'pad',
     shape: 'rect',
-    style: {},
   };
 }
 
@@ -78,7 +76,6 @@ function createTransport(
     shape,
     interactive: true,
     response: 'gate',
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -95,7 +92,6 @@ function createPad(n: MidiNumber): PadDriver {
     shape: 'rect',
     interactive: true,
     response: 'gate',
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -112,7 +108,6 @@ function createKnob(n: MidiNumber): KnobDriver {
     height: 0.75,
     shape: 'circle',
     response: 'continuous',
-    style: {},
     availableColors: [],
     availableFx: [],
     knobType: 'absolute',
@@ -164,7 +159,8 @@ export const Device: DeviceDriver = {
           response: 'continuous',
           handleHeight: 0.5,
           handleWidth: 0.5,
-          style: {},
+          horizontal: false,
+          inverted: false,
           availableColors: [],
           availableFx: [],
         },
@@ -180,7 +176,8 @@ export const Device: DeviceDriver = {
           response: 'continuous',
           handleHeight: 0.5,
           handleWidth: 0.5,
-          style: {},
+          horizontal: false,
+          inverted: false,
           availableColors: [],
           availableFx: [],
         },
@@ -274,7 +271,6 @@ export const Device: DeviceDriver = {
           height: 1.875,
           type: 'pad',
           shape: 'rect',
-          style: {},
         },
       ],
     },

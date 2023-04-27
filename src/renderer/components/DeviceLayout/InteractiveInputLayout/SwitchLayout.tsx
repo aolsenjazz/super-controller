@@ -1,11 +1,10 @@
 type PropTypes = {
   lastStep: NumberArrayWithStatus | undefined;
   steps: NumberArrayWithStatus[];
-  style: { transform?: string } | undefined;
 };
 
 export function SwitchLayout(props: PropTypes) {
-  const { lastStep, steps, style } = props;
+  const { lastStep, steps } = props;
 
   const nSteps = steps.length;
   let stepIdx = 0;
@@ -24,7 +23,7 @@ export function SwitchLayout(props: PropTypes) {
   };
 
   return (
-    <div className="switch" style={style}>
+    <div className="switch">
       <div className={`inner `} style={iStyle} />
     </div>
   );

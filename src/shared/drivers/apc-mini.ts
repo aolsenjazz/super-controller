@@ -16,8 +16,9 @@ function createSlider(n: MidiNumber): InputDriverWithHandle {
     height: 1.875,
     handleWidth: 0.625,
     handleHeight: 0.25,
+    horizontal: false,
+    inverted: false,
     shape: 'rect',
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -78,7 +79,6 @@ function createPad(n: MidiNumber): PadDriver {
     type: 'pad',
     width: 0.75,
     height: 0.3,
-    style: {},
     availableColors: createPadColors(n),
     availableFx: [],
   };
@@ -117,7 +117,6 @@ function createGreenCircle(n: MidiNumber): PadDriver {
     type: 'pad',
     width: 0.3,
     height: 0.3,
-    style: {},
     availableColors: createCirclePadColors(n),
     availableFx: [],
   };
@@ -134,7 +133,6 @@ function createRedCircle(n: MidiNumber): PadDriver {
     type: 'pad',
     width: 0.3,
     height: 0.3,
-    style: {},
     availableColors: [
       {
         name: 'Off',
@@ -291,7 +289,6 @@ export const Device: DeviceDriver = {
           type: 'pad',
           width: 0.3,
           height: 0.3,
-          style: {},
           availableColors: [],
           availableFx: [],
         },

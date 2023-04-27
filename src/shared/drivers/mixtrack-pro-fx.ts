@@ -68,7 +68,6 @@ function bigKnob(
     height: 0.75,
     shape: 'circle',
     knobType: mode,
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -90,7 +89,6 @@ function smallKnob(
     height: 0.375,
     shape: 'circle',
     knobType: mode,
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -107,7 +105,6 @@ function widePad(channel: Channel, number: MidiNumber): PadDriver {
     type: 'pad',
     width: 0.875,
     height: 0.25,
-    style: {},
     availableColors: defaultColors(channel, number),
     availableFx: defaultFx(),
   };
@@ -124,7 +121,6 @@ function smallPad(channel: Channel, number: MidiNumber): PadDriver {
     type: 'pad',
     width: 0.45,
     height: 0.25,
-    style: {},
     availableColors: defaultColors(channel, number),
     availableFx: defaultFx(),
   };
@@ -141,7 +137,6 @@ function defaultPad(channel: Channel, number: MidiNumber): PadDriver {
     type: 'pad',
     width: 0.875,
     height: 0.625,
-    style: {},
     availableColors: defaultColors(channel, number),
     availableFx: defaultFx(),
   };
@@ -158,7 +153,6 @@ function playPad(channel: Channel, number: MidiNumber): PadDriver {
     type: 'pad',
     width: 0.875,
     height: 0.625,
-    style: {},
     availableColors: [
       {
         array: [(144 + channel) as StatusByte, number, 0],
@@ -191,7 +185,6 @@ function circlePad(
     type: 'pad',
     width: 0.5,
     height: 0.5,
-    style: {},
     availableColors: colorCapable ? defaultColors(channel, number) : [],
     availableFx: colorCapable ? defaultFx() : [],
   };
@@ -212,7 +205,6 @@ function smallCirclePad(
     type: 'pad',
     width: 0.25,
     height: 0.25,
-    style: {},
     availableColors: colorCapable ? defaultColors(channel, number) : [],
     availableFx: colorCapable ? defaultFx() : [],
   };
@@ -229,11 +221,12 @@ function slider(channel: Channel, number: MidiNumber): InputDriverWithHandle {
     width: 0.8,
     height: 2,
     shape: 'rect',
-    style: {},
     availableColors: [],
     availableFx: [],
     handleHeight: 0.25,
     handleWidth: 0.8,
+    horizontal: false,
+    inverted: false,
   };
 }
 
@@ -270,7 +263,6 @@ export const Device: DeviceDriver = {
           height: 0.5,
           shape: 'circle',
           knobType: 'absolute',
-          style: {},
           availableColors: [],
           availableFx: [],
         },
@@ -291,7 +283,6 @@ export const Device: DeviceDriver = {
           height: 0.5,
           type: 'knob',
           shape: 'circle',
-          style: {},
         },
       ],
     },
@@ -315,7 +306,6 @@ export const Device: DeviceDriver = {
           height: 6,
           shape: 'circle',
           knobType: 'endless',
-          style: {},
           availableColors: [],
           availableFx: [],
         },
@@ -341,7 +331,6 @@ export const Device: DeviceDriver = {
           height: 6,
           shape: 'circle',
           knobType: 'endless',
-          style: {},
           availableColors: [],
           availableFx: [],
         },
@@ -368,9 +357,8 @@ export const Device: DeviceDriver = {
           shape: 'rect',
           handleWidth: 0.75,
           handleHeight: 0.5,
-          style: {
-            transform: 'rotate(180deg)',
-          },
+          horizontal: false,
+          inverted: true,
           availableColors: [],
           availableFx: [],
         },
@@ -397,9 +385,8 @@ export const Device: DeviceDriver = {
           shape: 'rect',
           handleWidth: 0.75,
           handleHeight: 0.5,
-          style: {
-            transform: 'rotate(180deg)',
-          },
+          horizontal: false,
+          inverted: true,
           availableColors: [],
           availableFx: [],
         },
@@ -424,7 +411,6 @@ export const Device: DeviceDriver = {
           width: 0.75,
           height: 1.125,
           shape: 'rect',
-          style: { transform: 'rotate(180deg)' },
           availableFx: [],
           availableColors: [],
           steps: [
@@ -446,7 +432,6 @@ export const Device: DeviceDriver = {
           width: 0.75,
           height: 1.125,
           shape: 'rect',
-          style: { transform: 'rotate(180deg)' },
           availableFx: [],
           availableColors: [],
           steps: [
@@ -745,11 +730,12 @@ export const Device: DeviceDriver = {
           width: 0.8,
           height: 2,
           shape: 'rect',
-          style: { transform: 'rotate(90deg)' },
           availableColors: [],
           availableFx: [],
           handleHeight: 0.25,
           handleWidth: 0.8,
+          horizontal: true,
+          inverted: false,
         },
       ],
     },

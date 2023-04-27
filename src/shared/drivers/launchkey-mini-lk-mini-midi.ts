@@ -11,7 +11,6 @@ function createNoninteractivePad(
     height,
     type: 'pad',
     shape: 'rect',
-    style: {},
   };
 }
 
@@ -25,7 +24,6 @@ function createNoninteractiveKnob(
     height,
     type: 'knob',
     shape: 'circle',
-    style: {},
   };
 }
 
@@ -139,7 +137,6 @@ export const Device: DeviceDriver = {
           height: 0.5,
           type: 'pad',
           shape: 'circle',
-          style: {},
         },
         {
           interactive: false,
@@ -147,7 +144,6 @@ export const Device: DeviceDriver = {
           height: 0.5,
           type: 'pad',
           shape: 'circle',
-          style: {},
         },
       ],
     },

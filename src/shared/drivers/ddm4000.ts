@@ -16,7 +16,6 @@ function createNoninteractivePad(
     height,
     type: 'pad',
     shape: 'rect',
-    style: {},
   };
 }
 
@@ -30,7 +29,6 @@ function createNoninteractiveKnob(
     height,
     type: 'knob',
     shape: 'circle',
-    style: {},
   };
 }
 
@@ -46,7 +44,6 @@ function createKnob(n: MidiNumber): KnobDriver {
     height: 0.5,
     shape: 'circle',
     knobType: 'absolute',
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -66,7 +63,6 @@ function createSmallOrangeButton(
     shape: 'rect',
     interactive: true,
     response: 'gate',
-    style: {},
     availableColors: [
       {
         name: 'Off',
@@ -121,7 +117,6 @@ function createLargeOrangeButton(
     shape: 'rect',
     interactive: true,
     response: 'gate',
-    style: {},
     availableColors: [
       {
         name: 'Off',
@@ -173,7 +168,6 @@ function createSmallColorlessButton(n: MidiNumber): PadDriver {
     shape: 'rect',
     interactive: true,
     response: 'gate',
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -190,7 +184,6 @@ function createTinyButton(n: MidiNumber): PadDriver {
     shape: 'circle',
     interactive: true,
     response: 'gate',
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -209,7 +202,8 @@ function createSlider(n: MidiNumber): InputDriverWithHandle {
     shape: 'rect',
     handleWidth: 0.75,
     handleHeight: 0.25,
-    style: {},
+    horizontal: false,
+    inverted: false,
     availableColors: [],
     availableFx: [],
   };
@@ -643,7 +637,6 @@ export const Device: DeviceDriver = {
           height: 0.3,
           shape: 'circle',
           knobType: 'absolute',
-          style: {},
           availableColors: [],
           availableFx: [],
         },
@@ -702,9 +695,8 @@ export const Device: DeviceDriver = {
           shape: 'rect',
           handleWidth: 0.75,
           handleHeight: 0.25,
-          style: {
-            transform: 'rotate(90deg)',
-          },
+          horizontal: true,
+          inverted: false,
           availableColors: [],
           availableFx: [],
         },

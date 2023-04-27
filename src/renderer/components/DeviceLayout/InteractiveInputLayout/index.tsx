@@ -49,9 +49,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
       ? (config.outputPropagator as NonsequentialStepPropagator).lastStep
       : steps[asSwitch.initialStep];
 
-    return (
-      <SwitchLayout steps={steps} lastStep={lastStep} style={driver.style} />
-    );
+    return <SwitchLayout steps={steps} lastStep={lastStep} />;
   }
 
   const val = config?.value || 0;
@@ -61,7 +59,6 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
       value={val}
       handleWidth={`${(handleWidth / driver.width) * 100}%`}
       handleHeight={`${(handleWidth / driver.height) * 100}%`}
-      style={driver.style}
     />
   );
 }

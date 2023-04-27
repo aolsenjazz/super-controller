@@ -12,7 +12,6 @@ function createPad(n: MidiNumber): PadDriver {
     height: 0.125,
     shape: 'rect',
     response: 'gate',
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -29,7 +28,6 @@ function createOpenString(n: MidiNumber): PadDriver {
     height: 0.125,
     shape: 'rect',
     response: 'gate',
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -68,7 +66,6 @@ export const Device: DeviceDriver = {
           height: 2,
           shape: 'rect',
           response: 'gate',
-          style: {},
           availableColors: [],
           availableFx: [],
         },
@@ -197,7 +194,6 @@ export const Device: DeviceDriver = {
           height: 2.25,
           type: 'pad',
           shape: 'rect',
-          style: {},
         },
       ],
     },

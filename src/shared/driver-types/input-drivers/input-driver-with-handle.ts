@@ -5,6 +5,10 @@ export interface InputDriverWithHandle extends InteractiveInputDriver {
 
   readonly response: 'continuous';
 
+  readonly inverted: boolean;
+
+  readonly horizontal: boolean;
+
   readonly handleWidth: number;
 
   readonly handleHeight: number;

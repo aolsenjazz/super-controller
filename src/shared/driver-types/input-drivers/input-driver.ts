@@ -18,9 +18,4 @@ export interface InputDriver {
 
   /* Width of the input in inches */
   readonly width: number;
-
-  /* Css style-value pairs */
-  readonly style: {
-    transform?: string;
-  };
 }

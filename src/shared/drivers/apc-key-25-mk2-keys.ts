@@ -8,7 +8,6 @@ function createMainPad(): NoninteractiveInputDriver {
     height: 0.3,
     type: 'pad',
     shape: 'rect',
-    style: {},
   };
 }
 
@@ -19,7 +18,6 @@ function createSquarePad(): NoninteractiveInputDriver {
     height: 0.25,
     type: 'pad',
     shape: 'rect',
-    style: {},
   };
 }
 
@@ -30,7 +28,6 @@ function createVertPad(): NoninteractiveInputDriver {
     height: 0.25,
     type: 'pad',
     shape: 'rect',
-    style: {},
   };
 }
 
@@ -41,7 +38,6 @@ function createKnob(): NoninteractiveInputDriver {
     height: 0.5,
     type: 'knob',
     shape: 'circle',
-    style: {},
   };
 }
 

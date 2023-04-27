@@ -56,7 +56,6 @@ function createMainPad(n: MidiNumber): PadDriver {
     width: 0.5,
     height: 0.3,
     shape: 'rect',
-    style: {},
     availableColors: mainPadColors(n),
     availableFx: [],
   };
@@ -95,7 +94,6 @@ function createHoriCirclePad(n: MidiNumber): PadDriver {
     type: 'pad',
     width: 0.25,
     height: 0.25,
-    style: {},
     availableColors: createSquareColors(n),
     availableFx: [],
   };
@@ -134,7 +132,6 @@ function createVertPad(n: MidiNumber): PadDriver {
     type: 'pad',
     width: 0.25,
     height: 0.25,
-    style: {},
     availableColors: createVertCircleColors(n),
     availableFx: [],
   };
@@ -152,7 +149,6 @@ function createKnob(n: MidiNumber): KnobDriver {
     height: 0.5,
     shape: 'circle',
     knobType: 'absolute',
-    style: {},
     availableColors: [],
     availableFx: [],
   };
@@ -265,7 +261,6 @@ export const Device: DeviceDriver = {
           type: 'pad',
           width: 0.25,
           height: 0.25,
-          style: {},
           availableColors: [],
           availableFx: [],
         },
@@ -309,7 +304,6 @@ export const Device: DeviceDriver = {
           type: 'pad',
           width: 0.5,
           height: 0.25,
-          style: {},
           availableColors: [],
           availableFx: [],
         },
@@ -319,7 +313,6 @@ export const Device: DeviceDriver = {
           height: 0.25,
           type: 'pad',
           shape: 'rect',
-          style: {},
         },
         {
           interactive: false,
@@ -327,7 +320,6 @@ export const Device: DeviceDriver = {
           height: 0.25,
           type: 'pad',
           shape: 'rect',
-          style: {},
         },
         {
           interactive: true,
@@ -339,7 +331,6 @@ export const Device: DeviceDriver = {
           type: 'pad',
           width: 0.5,
           height: 0.25,
-          style: {},
           availableColors: [],
           availableFx: [],
         },
@@ -353,7 +344,6 @@ export const Device: DeviceDriver = {
           type: 'pad',
           width: 0.5,
           height: 0.25,
-          style: {},
           availableColors: [],
           availableFx: [],
         },
@@ -367,7 +357,6 @@ export const Device: DeviceDriver = {
           type: 'pad',
           width: 0.5,
           height: 0.25,
-          style: {},
           availableColors: [],
           availableFx: [],
         },
