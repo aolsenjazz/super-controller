@@ -1,5 +1,5 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
-import { InteractiveInputDrivers, ColorDescriptor } from './driver-types';
+import { InteractiveInputDriver, ColorDescriptor } from './driver-types';
 import * as Revivable from './revivable';
 
 function replacer(_key: any, value: any) {
@@ -39,7 +39,7 @@ export function colorDisplayName(c: ColorDescriptor) {
   return `${c.name}${c.modifier ? ` (${c.modifier})` : ''}`;
 }
 
-export function id(driver: InteractiveInputDrivers) {
+export function id(driver: InteractiveInputDriver) {
   return driver.status === 'pitchbend'
     ? `${driver.status}.${driver.channel}`
     : `${driver.status}.${driver.channel}.${driver.number}`;
