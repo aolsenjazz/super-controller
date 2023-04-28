@@ -426,7 +426,7 @@ export const Device: DeviceDriver = {
           sequential: false,
           initialStep: 1,
           inverted: true,
-          horizontal: true,
+          horizontal: false,
         },
         {
           interactive: true,
@@ -449,7 +449,7 @@ export const Device: DeviceDriver = {
           sequential: false,
           initialStep: 1,
           inverted: true,
-          horizontal: true,
+          horizontal: false,
         },
       ],
     },
