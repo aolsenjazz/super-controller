@@ -425,7 +425,7 @@ export const Device: DeviceDriver = {
           stepLabels: ['Up', 'Middle', 'Down'],
           sequential: false,
           initialStep: 1,
-          inverted: true,
+          inverted: false,
           horizontal: false,
         },
         {
@@ -448,7 +448,7 @@ export const Device: DeviceDriver = {
           stepLabels: ['Up', 'Middle', 'Down'],
           sequential: false,
           initialStep: 1,
-          inverted: true,
+          inverted: false,
           horizontal: false,
         },
       ],
