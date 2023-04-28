@@ -684,8 +684,8 @@ export const Device: DeviceDriver = {
       nCols: 1,
       width: 2.25,
       height: 0.75,
-      bottom: 0,
-      left: 5.625,
+      bottom: 0.75,
+      left: 4.9,
       inputs: [
         {
           interactive: true,
