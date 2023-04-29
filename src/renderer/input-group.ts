@@ -3,9 +3,9 @@ import {
   KnobConfig,
   LightCapableInputConfig,
   XYConfig,
+  MonoInputConfig,
+  BaseInputConfig,
 } from '@shared/hardware-config/input-config';
-import { BaseInputConfig } from '@shared/hardware-config/input-config/base-input-config';
-import { MonoInputConfig } from '@shared/hardware-config/input-config';
 import { CC_BINDINGS, stringVal, colorDisplayName } from '@shared/util';
 
 const mvc: Color = {
