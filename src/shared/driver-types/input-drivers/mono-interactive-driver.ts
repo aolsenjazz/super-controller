@@ -20,6 +20,8 @@ export type InputResponse =
   | 'enumerated';
 
 export interface MonoInteractiveDriver extends InteractiveInputDriver {
+  readonly type: 'knob' | 'pad' | 'slider' | 'wheel' | 'switch';
+
   /* See `InputResponse` */
   readonly response: InputResponse;
 

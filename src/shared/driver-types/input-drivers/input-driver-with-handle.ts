@@ -1,7 +1,7 @@
 import { MonoInteractiveDriver } from './mono-interactive-driver';
 
 export interface InputDriverWithHandle extends MonoInteractiveDriver {
-  readonly type: 'wheel' | 'slider' | 'xy';
+  readonly type: 'wheel' | 'slider';
 
   readonly response: 'continuous';
 
