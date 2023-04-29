@@ -36,6 +36,7 @@ export function create(d: InteractiveInputDriver) {
   }
 }
 
+export { BaseInputConfig } from './base-input-config';
 export { MonoInputConfig } from './mono-input-config';
 export { LightCapableInputConfig } from './light-capable-input-config';
 export {
