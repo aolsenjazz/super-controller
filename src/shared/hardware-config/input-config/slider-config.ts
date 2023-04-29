@@ -1,11 +1,11 @@
 /* eslint-disable no-bitwise */
 import * as Revivable from '../../revivable';
-import { InputConfig } from './input-config';
+import { MonoInputConfig } from './mono-input-config';
 import { InputResponse, InputDriverWithHandle } from '../../driver-types';
 import { ContinuousPropagator } from '../../propagators';
 
 @Revivable.register
-export class SliderConfig extends InputConfig {
+export class SliderConfig extends MonoInputConfig {
   static fromDriver(d: InputDriverWithHandle) {
     const def = {
       number: d.number,

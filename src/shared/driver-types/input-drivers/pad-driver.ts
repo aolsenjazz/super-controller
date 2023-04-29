@@ -1,6 +1,6 @@
-import { InteractiveInputDriver } from './interactive-input-driver';
+import { MonoInteractiveDriver } from './mono-interactive-driver';
 
-export interface PadDriver extends InteractiveInputDriver {
+export interface PadDriver extends MonoInteractiveDriver {
   type: 'pad';
   value?: MidiNumber;
 }

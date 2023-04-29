@@ -4,7 +4,7 @@ import { AdapterDeviceConfig } from './adapter-device-config';
 import { DeviceConfig } from './device-config';
 import { DeviceDriver } from '../driver-types';
 
-export { InputConfig, LightCapableInputConfig } from './input-config';
+export { MonoInputConfig, LightCapableInputConfig } from './input-config';
 export { AdapterDeviceConfig };
 export { DeviceConfig };
 export { AnonymousDeviceConfig };

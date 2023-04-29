@@ -2,13 +2,13 @@
 import * as Revivable from '../../revivable';
 import { SliderConfig } from './slider-config';
 import { PitchbendPropagator } from '../../propagators';
-import { InputResponse, InteractiveInputDriver } from '../../driver-types';
+import { InputResponse, MonoInteractiveDriver } from '../../driver-types';
 
 @Revivable.register
 export class PitchbendConfig extends SliderConfig {
   // TODO: not immediate, but pitchbend events don't have a notion of `number`.
   // for correctness' sake, change this
-  static fromDriver(d: InteractiveInputDriver) {
+  static fromDriver(d: MonoInteractiveDriver) {
     const def = {
       number: d.number,
       channel: d.channel,

@@ -1,7 +1,7 @@
-import { Skeleton } from '../../revivable';
 import { MidiArray } from '../../midi-array';
 import { OverrideablePropagator } from '../../propagators';
 import { InputResponse } from '../../driver-types';
+import { BaseInputConfig } from './base-input-config';
 
 /* Default values for the input loaded in from a driver */
 export type InputDefault = {
@@ -18,7 +18,7 @@ export type InputDefault = {
   readonly response: InputResponse;
 };
 
-export abstract class InputConfig {
+export abstract class MonoInputConfig extends BaseInputConfig {
   defaults: InputDefault;
 
   outputPropagator: OverrideablePropagator<InputResponse, InputResponse>;
@@ -30,6 +30,8 @@ export abstract class InputConfig {
     outputPropagator: OverrideablePropagator<InputResponse, InputResponse>,
     nickname?: string
   ) {
+    super();
+
     this.defaults = defaultVals;
     this.outputPropagator = outputPropagator;
     this.#nickname = nickname;
@@ -94,7 +96,6 @@ export abstract class InputConfig {
     this.#nickname = nickname;
   }
 
-  abstract toJSON(): Skeleton;
   abstract get response(): InputResponse;
   abstract set response(response: InputResponse);
   abstract get eligibleResponses(): InputResponse[];

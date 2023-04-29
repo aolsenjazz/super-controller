@@ -1,6 +1,6 @@
-import { InteractiveInputDriver } from './interactive-input-driver';
+import { MonoInteractiveDriver } from './mono-interactive-driver';
 
-export interface SwitchDriver extends InteractiveInputDriver {
+export interface SwitchDriver extends MonoInteractiveDriver {
   readonly type: 'switch';
 
   readonly response: 'enumerated';

@@ -4,7 +4,8 @@ import {
   LightCapableInputConfig,
   XYConfig,
 } from '@shared/hardware-config/input-config';
-import { InputConfig } from '@shared/hardware-config';
+import { BaseInputConfig } from '@shared/hardware-config/input-config/base-input-config';
+import { MonoInputConfig } from '@shared/hardware-config/input-config';
 import { CC_BINDINGS, stringVal, colorDisplayName } from '@shared/util';
 
 const mvc: Color = {
@@ -30,9 +31,9 @@ const mvf: FxDriver = {
  * `InputGroup` `statusString` value would be '<multiple values>'
  */
 export class InputGroup {
-  inputs: InputConfig[];
+  inputs: BaseInputConfig[];
 
-  constructor(inputs: InputConfig[]) {
+  constructor(inputs: BaseInputConfig[]) {
     this.inputs = inputs;
   }
 
@@ -40,9 +41,10 @@ export class InputGroup {
     const nInputs = this.inputs.length;
     const et = this.statusString;
 
-    if (nInputs === 0 || et === '<multiple values>') return n.toString();
+    if (this.isMultiInput || nInputs === 0 || et === '<multiple values>')
+      return n.toString();
 
-    const input = this.inputs[0];
+    const input = this.inputs[0] as MonoInputConfig;
     const isDefault =
       nInputs === 1 &&
       input.defaults.number === n &&
@@ -61,22 +63,32 @@ export class InputGroup {
     return `${n}${labelTitle}${isDefault ? ' [default]' : ''}`;
   }
 
-  #labelFor = <T>(obj: T, defaultGetter: (input: InputConfig) => T) => {
+  #labelFor = <T>(obj: T, defaultGetter: (input: BaseInputConfig) => T) => {
     const nInputs = this.inputs.length;
     const isDefault = nInputs === 1 && defaultGetter(this.inputs[0]) === obj;
     return `${obj}${isDefault ? ' [default]' : ''}`;
   };
 
   labelForChannel(c: Channel) {
-    return this.#labelFor(c, (input) => input.defaults.channel);
+    if (this.isMultiInput) return c.toString();
+    return this.#labelFor(
+      c,
+      (input) => (input as MonoInputConfig).defaults.channel
+    );
   }
 
   labelForEventType(et: string) {
-    return this.#labelFor(et, (input) => input.defaults.statusString);
+    return this.#labelFor(
+      et,
+      (input) => (input as MonoInputConfig).defaults.statusString
+    );
   }
 
   labelForResponse(response: string) {
-    return this.#labelFor(response, (input) => input.defaults.response);
+    return this.#labelFor(
+      response,
+      (input) => (input as MonoInputConfig).defaults.response
+    );
   }
 
   colorForState(state: number) {
@@ -105,12 +117,12 @@ export class InputGroup {
    * @returns A value representing all of the values in the group
    */
   #groupValue = <T>(
-    getterFn: (config: InputConfig) => T,
+    getterFn: (config: MonoInputConfig) => T,
     equalityFn: (a: T, b: T) => boolean
   ) => {
-    if (this.inputs.length === 0) return undefined;
+    if (this.inputs.length === 0 || this.isMultiInput) return undefined;
 
-    const vals = this.inputs.map(getterFn);
+    const vals = (this.inputs as MonoInputConfig[]).map(getterFn);
     const allMatch = vals.filter((v) => !equalityFn(v, vals[0])).length === 0;
 
     return allMatch ? vals[0] : '<multiple values>';
@@ -133,19 +145,19 @@ export class InputGroup {
    * @returns A value representing all of the values in the group
    */
   #getEligibleValues = <T>(
-    getterFn: (i: InputConfig) => T[],
+    getterFn: (i: MonoInputConfig) => T[],
     equalityFn: (a: T[], b: T[]) => boolean
   ) => {
-    if (this.inputs.length === 0) return [];
+    if (this.inputs.length === 0 || this.isMultiInput) return [];
 
     const eligible = this.#groupValue(getterFn, equalityFn);
     return eligible === '<multiple values>'
       ? ([] as T[])
-      : getterFn(this.inputs[0]);
+      : getterFn(this.inputs[0] as MonoInputConfig);
   };
 
   get isEndlessCapable() {
-    const getter = (c: InputConfig) =>
+    const getter = (c: MonoInputConfig) =>
       c instanceof KnobConfig && c.knobType === 'endless';
     const equality = (a: boolean, b: boolean) => {
       return a === true && b === true;
@@ -154,7 +166,7 @@ export class InputGroup {
   }
 
   get isEndlessMode() {
-    const getter = (c: InputConfig) =>
+    const getter = (c: MonoInputConfig) =>
       c instanceof KnobConfig && c.valueType === 'endless';
     const equality = (a: boolean, b: boolean) => {
       return a === b;
@@ -163,7 +175,7 @@ export class InputGroup {
   }
 
   get eligibleLightStates() {
-    const getter = (c: InputConfig) =>
+    const getter = (c: MonoInputConfig) =>
       c instanceof LightCapableInputConfig ? c.eligibleLightStates : [];
     const equality = (a: number[], b: number[]) =>
       JSON.stringify(a) === JSON.stringify(b);
@@ -171,7 +183,7 @@ export class InputGroup {
   }
 
   get eligibleColors() {
-    const getter = (c: InputConfig) =>
+    const getter = (c: MonoInputConfig) =>
       c instanceof LightCapableInputConfig ? c.availableColors : [];
     const equality = (a: ColorDescriptor[], b: ColorDescriptor[]) => {
       const aIds = a.map((ac) => colorDisplayName(ac));
@@ -182,7 +194,7 @@ export class InputGroup {
   }
 
   get eligibleFx() {
-    const getter = (c: InputConfig) =>
+    const getter = (c: MonoInputConfig) =>
       c instanceof LightCapableInputConfig ? c.availableFx : [];
     const equality = (fx1: FxDriver[], fx2: FxDriver[]) =>
       JSON.stringify(fx1) === JSON.stringify(fx2);
@@ -190,7 +202,7 @@ export class InputGroup {
   }
 
   getActiveFx(state: number) {
-    const getter = (c: InputConfig) =>
+    const getter = (c: MonoInputConfig) =>
       c instanceof LightCapableInputConfig ? c.getFx(state) : undefined;
     const equality = (a: FxDriver | undefined, b: FxDriver | undefined) => {
       return a?.title === b?.title;
@@ -201,7 +213,7 @@ export class InputGroup {
   }
 
   getFxVal(state: number) {
-    const getter = (c: InputConfig) =>
+    const getter = (c: MonoInputConfig) =>
       c instanceof LightCapableInputConfig ? c.getFxVal(state) : undefined;
     const equality = (
       a: MidiNumber[] | undefined,

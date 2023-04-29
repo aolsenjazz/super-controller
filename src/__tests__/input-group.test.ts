@@ -1,7 +1,7 @@
 import {
   PadConfig,
   SliderConfig,
-  InputConfig,
+  MonoInputConfig,
   XYConfig,
 } from '@shared/hardware-config/input-config';
 import {
@@ -78,7 +78,7 @@ function createInput(
     );
   }
 
-  let ic: InputConfig;
+  let ic: MonoInputConfig;
   if (response === 'gate') {
     outProp = new GatePropagator(
       response as 'gate' | 'toggle' | 'constant',
@@ -150,21 +150,28 @@ function createGatePadInput(
 }
 
 function createXYInput(seedNumber: Channel = 0) {
-  const defs = {
-    number: seedNumber,
-    channel: seedNumber,
-    statusString: 'controlchange' as const,
-    response: 'continuous' as const,
-  };
-
-  const op = new ContinuousPropagator(
-    'continuous',
-    'controlchange',
+  const x = createInput(
     seedNumber,
-    seedNumber
+    'pitchbend',
+    'continuous',
+    [],
+    [],
+    new Map(),
+    [],
+    false
+  );
+  const y = createInput(
+    (seedNumber + 1) as Channel,
+    'pitchbend',
+    'continuous',
+    [],
+    [],
+    new Map(),
+    [],
+    false
   );
 
-  return new XYConfig(defs, op);
+  return new XYConfig(x, y);
 }
 
 function createSliderInput(seedNumber: Channel = 0) {

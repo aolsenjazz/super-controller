@@ -30,7 +30,7 @@ export class DrivenPortPair extends PortPair {
   resetLights() {
     this.driver.inputGrids.forEach((ig) => {
       ig.inputs.forEach((i) => {
-        if (i.interactive && i.availableColors.length > 0) {
+        if (i.interactive && i.type !== 'xy' && i.availableColors.length > 0) {
           const { availableColors } = i;
           const defColor = availableColors.filter((c) => c.default)[0];
 

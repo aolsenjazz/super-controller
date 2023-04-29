@@ -1,6 +1,6 @@
-import { InteractiveInputDriver } from './interactive-input-driver';
+import { MonoInteractiveDriver } from './mono-interactive-driver';
 
-export interface KnobDriver extends InteractiveInputDriver {
+export interface KnobDriver extends MonoInteractiveDriver {
   readonly type: 'knob';
 
   readonly response: 'continuous';

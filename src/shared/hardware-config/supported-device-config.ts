@@ -4,13 +4,18 @@ import { MidiArray } from '../midi-array';
 import { DeviceDriver, KeyboardDriver } from '../driver-types';
 
 import { DeviceConfig } from './device-config';
-import { InputConfig, create, LightCapableInputConfig } from './input-config';
+import {
+  MonoInputConfig,
+  create,
+  LightCapableInputConfig,
+} from './input-config';
+import { BaseInputConfig } from './input-config/base-input-config';
 
 /* Contains device-specific configurations and managed `InputConfig`s */
 @Revivable.register
 export class SupportedDeviceConfig extends DeviceConfig {
   /* See `InputConfig` */
-  inputs: InputConfig[];
+  inputs: BaseInputConfig[];
 
   /* See `KeyboardDriver` */
   keyboardDriver?: KeyboardDriver;
@@ -25,7 +30,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * @returns a new instance of SupportedDeviceConfig
    */
   static fromDriver(siblingIndex: number, driver: DeviceDriver) {
-    const inputs: InputConfig[] = [];
+    const inputs: BaseInputConfig[] = [];
     driver.inputGrids.forEach((ig) => {
       ig.inputs.forEach((d) => {
         if (d.interactive) {
@@ -50,7 +55,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
     name: string,
     siblingIndex: number,
     shareSustain: string[],
-    inputs: InputConfig[],
+    inputs: BaseInputConfig[],
     nickname?: string,
     keyboardDriver?: KeyboardDriver
   ) {
@@ -91,7 +96,9 @@ export class SupportedDeviceConfig extends DeviceConfig {
     let available = true;
 
     this.inputs.forEach((input) => {
+      // TODO: there's probably a more elegant way to do this
       if (
+        input instanceof MonoInputConfig &&
         input.statusString === statusString &&
         input.number === number &&
         input.channel === channel

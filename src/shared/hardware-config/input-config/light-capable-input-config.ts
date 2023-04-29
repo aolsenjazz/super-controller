@@ -1,4 +1,3 @@
-import { InputConfig, InputDefault } from './input-config';
 import { MidiArray } from '../../midi-array';
 import {
   OverrideablePropagator,
@@ -11,8 +10,9 @@ import {
   ColorDescriptor,
 } from '../../driver-types';
 import { colorDisplayName } from '../../util';
+import { MonoInputConfig, InputDefault } from './mono-input-config';
 
-export abstract class LightCapableInputConfig extends InputConfig {
+export abstract class LightCapableInputConfig extends MonoInputConfig {
   protected readonly devicePropagator: ColorConfigPropagator;
 
   readonly availableColors: Color[];

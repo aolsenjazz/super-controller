@@ -1,6 +1,6 @@
-import { InteractiveInputDriver } from './interactive-input-driver';
+import { MonoInteractiveDriver } from './mono-interactive-driver';
 
-export interface InputDriverWithHandle extends InteractiveInputDriver {
+export interface InputDriverWithHandle extends MonoInteractiveDriver {
   readonly type: 'wheel' | 'slider' | 'xy';
 
   readonly response: 'continuous';

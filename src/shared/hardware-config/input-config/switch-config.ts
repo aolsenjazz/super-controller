@@ -1,12 +1,12 @@
 /* eslint-disable no-bitwise */
 import * as Revivable from '../../revivable';
-import { InputConfig } from './input-config';
 import { MidiArray, create } from '../../midi-array';
 import { NonsequentialStepPropagator } from '../../propagators';
 import { InputResponse, SwitchDriver } from '../../driver-types';
+import { MonoInputConfig } from './mono-input-config';
 
 @Revivable.register
-export class SwitchConfig extends InputConfig {
+export class SwitchConfig extends MonoInputConfig {
   static fromDriver(d: SwitchDriver) {
     const def = {
       number: d.number,

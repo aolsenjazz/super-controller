@@ -1,10 +1,10 @@
 import * as Revivable from '../../revivable';
-import { InputDefault, InputConfig } from './input-config';
 import { ContinuousPropagator } from '../../propagators';
 import { InputResponse, KnobDriver } from '../../driver-types';
+import { MonoInputConfig, InputDefault } from './mono-input-config';
 
 @Revivable.register
-export class KnobConfig extends InputConfig {
+export class KnobConfig extends MonoInputConfig {
   readonly knobType: 'endless' | 'absolute';
 
   outputPropagator: ContinuousPropagator;

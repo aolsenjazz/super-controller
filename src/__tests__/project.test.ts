@@ -4,7 +4,10 @@ import { test, expect } from '@jest/globals';
 
 import { stringify, parse } from '@shared/util';
 import { Project } from '@shared/project';
-import { SupportedDeviceConfig } from '@shared/hardware-config';
+import {
+  MonoInputConfig,
+  SupportedDeviceConfig,
+} from '@shared/hardware-config';
 import { DRIVERS } from '@shared/drivers';
 
 const APC_DRIVER = DRIVERS.get('APC Key 25');
@@ -80,7 +83,7 @@ test('to and from JSON correct transfers device config', () => {
 test('to and from JSON correctly transfers input configs', () => {
   const proj = new Project();
   const device = SupportedDeviceConfig.fromDriver(0, APC_DRIVER!);
-  const input = device.inputs[0];
+  const input = device.inputs[0] as MonoInputConfig;
   input.number = 7;
   proj.addDevice(device);
 
@@ -88,5 +91,5 @@ test('to and from JSON correctly transfers input configs', () => {
   const result = parse<Project>(json);
 
   const d = result.devices[0] as SupportedDeviceConfig;
-  expect(d.inputs[0].number).toBe(input.number);
+  expect((d.inputs[0] as MonoInputConfig).number).toBe(input.number);
 });

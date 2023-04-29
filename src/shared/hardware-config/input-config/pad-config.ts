@@ -1,6 +1,6 @@
 /* eslint-disable no-bitwise */
 import * as Revivable from '../../revivable';
-import { InputDefault } from './input-config';
+import { InputDefault } from './mono-input-config';
 import {
   OverrideablePropagator,
   ColorConfigPropagator,

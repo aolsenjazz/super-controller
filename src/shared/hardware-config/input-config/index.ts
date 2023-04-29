@@ -4,6 +4,7 @@ import {
   PadDriver,
   InputDriverWithHandle,
   SwitchDriver,
+  XYDriver,
 } from '../../driver-types';
 
 import { KnobConfig } from './knob-config';
@@ -20,12 +21,14 @@ export function create(d: InteractiveInputDriver) {
     case 'pad':
       return PadConfig.fromDriver(d as PadDriver);
     case 'wheel':
-      return d.status === 'pitchbend'
-        ? PitchbendConfig.fromDriver(d)
-        : SliderConfig.fromDriver(d as InputDriverWithHandle);
+      // eslint-disable-next-line no-case-declarations
+      const wheel = d as InputDriverWithHandle;
+      return wheel.status === 'pitchbend'
+        ? PitchbendConfig.fromDriver(wheel)
+        : SliderConfig.fromDriver(wheel);
     case 'slider':
     case 'xy':
-      return XYConfig.fromDriver(d as InputDriverWithHandle);
+      return XYConfig.fromDriver(d as XYDriver);
     case 'switch':
       return SwitchConfig.fromDriver(d as SwitchDriver);
     default:
@@ -33,7 +36,7 @@ export function create(d: InteractiveInputDriver) {
   }
 }
 
-export { InputConfig } from './input-config';
+export { MonoInputConfig } from './mono-input-config';
 export { LightCapableInputConfig } from './light-capable-input-config';
 export {
   KnobConfig,

@@ -1,5 +1,10 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
-import { InteractiveInputDriver, ColorDescriptor } from './driver-types';
+import {
+  InteractiveInputDriver,
+  XYDriver,
+  ColorDescriptor,
+} from './driver-types';
+import { MonoInteractiveDriver } from './driver-types/input-drivers';
 import * as Revivable from './revivable';
 
 function replacer(_key: any, value: any) {
@@ -39,10 +44,16 @@ export function colorDisplayName(c: ColorDescriptor) {
   return `${c.name}${c.modifier ? ` (${c.modifier})` : ''}`;
 }
 
-export function id(driver: InteractiveInputDriver) {
-  return driver.status === 'pitchbend'
-    ? `${driver.status}.${driver.channel}`
-    : `${driver.status}.${driver.channel}.${driver.number}`;
+export function id(driver: InteractiveInputDriver): string {
+  if (driver.type === 'xy') {
+    const xy = driver as XYDriver;
+    return `${id(xy.x)}${id(xy.y)}`;
+  }
+
+  const mono = driver as MonoInteractiveDriver;
+  return mono.status === 'pitchbend'
+    ? `${mono.status}.${mono.channel}`
+    : `${mono.status}.${mono.channel}.${mono.number}`;
 }
 
 /**

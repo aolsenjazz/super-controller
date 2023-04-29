@@ -15,7 +15,9 @@ export {
   InteractiveInputDrivers,
   InputDriver,
   InputShape,
+  XYDriver,
   SwitchDriver,
   PadDriver,
   KnobDriver,
+  MonoInteractiveDriver,
 } from './input-drivers';

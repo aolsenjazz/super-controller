@@ -4,7 +4,11 @@ import { test, expect, jest } from '@jest/globals';
 import { parse, stringify } from '@shared/util';
 import { ThreeByteMidiArray } from '@shared/midi-array';
 import { SupportedDeviceConfig } from '@shared/hardware-config';
-import { PadConfig, SliderConfig } from '@shared/hardware-config/input-config';
+import {
+  MonoInputConfig,
+  PadConfig,
+  SliderConfig,
+} from '@shared/hardware-config/input-config';
 import { GatePropagator, ContinuousPropagator } from '@shared/propagators';
 
 function BasicInputConfig() {
@@ -154,7 +158,7 @@ test('handleMessage() passes to correct input for processing', () => {
 
 test('bindingAvailable returns false if binding is taken', () => {
   const device = BasicSupportedDevice();
-  const input = device.inputs[0];
+  const input = device.inputs[0] as MonoInputConfig;
   input.number = 43;
   const result = device.bindingAvailable(input.statusString, 43, input.channel);
   expect(result).toBe(false);

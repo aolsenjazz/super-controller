@@ -1,5 +1,5 @@
 import { InputResponse } from '@shared/driver-types';
-import { InputConfig as IC } from '@shared/hardware-config/input-config';
+import { MonoInputConfig as IC } from '@shared/hardware-config/input-config';
 import { GatePropagator } from '@shared/propagators';
 import { create } from '@shared/midi-array';
 
