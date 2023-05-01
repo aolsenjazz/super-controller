@@ -44,7 +44,7 @@ export const Device: DeviceDriver = {
     height: 3.125,
     left: 0.625,
     bottom: 0,
-    enabled: false,
+    enabled: true,
   },
   controlSequence: [
     [128, 96, 0],

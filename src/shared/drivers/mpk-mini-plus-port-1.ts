@@ -84,7 +84,7 @@ export const Device: DeviceDriver = {
     height: 3.25,
     left: 0.325,
     bottom: 0,
-    enabled: false,
+    enabled: true,
   },
   inputGrids: [
     {
