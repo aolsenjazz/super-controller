@@ -5,7 +5,7 @@ import {
   SupportedDeviceConfig,
   AnonymousDeviceConfig,
   AdapterDeviceConfig,
-  InputConfig,
+  BaseInputConfig,
 } from '@shared/hardware-config';
 import { SwitchConfig } from '@shared/hardware-config/input-config';
 import { Project } from '@shared/project';
@@ -36,7 +36,7 @@ function InputConfiguration(props: InputConfigurationProps) {
   // when selectedInputs/config change, update
   useEffect(() => {
     const inputs = selectedInputs.map((i) => config.getInput(i));
-    setGroup(new InputGroup(inputs as InputConfig[]));
+    setGroup(new InputGroup(inputs as BaseInputConfig[]));
   }, [selectedInputs, config]);
 
   // display config panel for multi-input control if necessary, otherwise single-input control panel
@@ -61,7 +61,7 @@ function InputConfiguration(props: InputConfigurationProps) {
       ) : (
         <SwitchConfigPanel
           deviceConfig={config}
-          inputConfig={group.inputs[0]}
+          inputConfig={group.inputs[0] as SwitchConfig}
           project={project}
           setProject={setProject}
         />

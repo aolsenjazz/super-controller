@@ -1,6 +1,9 @@
 import { useCallback } from 'react';
 
-import { InputConfig, SupportedDeviceConfig } from '@shared/hardware-config';
+import {
+  MonoInputConfig,
+  SupportedDeviceConfig,
+} from '@shared/hardware-config';
 import { KnobConfig } from '@shared/hardware-config/input-config';
 import { Project } from '@shared/project';
 import { stringify } from '@shared/util';
@@ -73,9 +76,9 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   const endlessModeLabels = ['true', 'false'];
 
   const onChange = useCallback(
-    (setter: (c: InputConfig) => void) => {
+    (setter: (c: MonoInputConfig) => void) => {
       group.inputs.forEach((i) => {
-        setter(i);
+        setter(i as MonoInputConfig); // TODO this smells
         projectService.updateInput(config.id, stringify(i));
       });
 

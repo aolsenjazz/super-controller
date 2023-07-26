@@ -1,6 +1,11 @@
-import { InputConfig } from '@shared/hardware-config';
+import { BaseInputConfig } from '@shared/hardware-config';
 import { NonsequentialStepPropagator } from '@shared/propagators';
-import { PadConfig, KnobConfig } from '@shared/hardware-config/input-config';
+import {
+  PadConfig,
+  KnobConfig,
+  SwitchConfig,
+  SliderConfig,
+} from '@shared/hardware-config/input-config';
 import {
   InteractiveInputDriver,
   InputDriverWithHandle,
@@ -14,7 +19,7 @@ import { SwitchLayout } from './SwitchLayout';
 
 type InputLayoutPropTypes = {
   driver: InteractiveInputDriver;
-  config: InputConfig;
+  config: BaseInputConfig;
 };
 
 export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
@@ -41,18 +46,20 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
   if (driver.type === 'switch') {
     const asSwitch = driver as SwitchDriver;
     const { steps } = asSwitch;
+    const conf = config as SwitchConfig;
 
     const lastStep = config
-      ? (config.outputPropagator as NonsequentialStepPropagator).lastStep
+      ? (conf.outputPropagator as NonsequentialStepPropagator).lastStep
       : steps[asSwitch.initialStep];
 
     return <SwitchLayout steps={steps} lastStep={lastStep} />;
   }
 
   const handleWidth = (driver as InputDriverWithHandle).handleWidth as number;
+  const asSlider = config as SliderConfig;
   return (
     <WheelLayout
-      value={config.value || 0}
+      value={asSlider.value || 0}
       handleWidth={`${(handleWidth / driver.width) * 100}%`}
       handleHeight={`${(handleWidth / driver.height) * 100}%`}
     />

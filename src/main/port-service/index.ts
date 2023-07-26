@@ -3,7 +3,7 @@ import { Project } from '@shared/project';
 import { create, MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
 import { getDiff } from '@shared/util';
 import {
-  InputConfig,
+  BaseInputConfig,
   SupportedDeviceConfig,
   AdapterDeviceConfig,
   LightCapableInputConfig,
@@ -101,7 +101,7 @@ export class PortService {
     }
   };
 
-  syncInputLight = (deviceId: string, config: InputConfig) => {
+  syncInputLight = (deviceId: string, config: BaseInputConfig) => {
     const pp = this.portPairs.get(deviceId);
 
     if (

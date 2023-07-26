@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { stringify, CC_BINDINGS, NOTE_BINDINGS } from '@shared/util';
 import { byteToStatusString, statusStringToByte } from '@shared/midi-util';
 import { Project } from '@shared/project';
-import { InputConfig } from '@shared/hardware-config';
+import { SwitchConfig } from '@shared/hardware-config';
 import { NonsequentialStepPropagator } from '@shared/propagators';
 import { create, MidiArray } from '@shared/midi-array';
 
@@ -16,7 +16,7 @@ type PropTypes = {
   defaultMsg: NumberArrayWithStatus;
   msg: MidiArray;
   project: Project;
-  config: InputConfig;
+  config: SwitchConfig;
   deviceId: string;
   setProject: (p: Project) => void;
 };

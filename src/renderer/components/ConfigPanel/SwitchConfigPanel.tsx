@@ -1,4 +1,4 @@
-import { SupportedDeviceConfig, InputConfig } from '@shared/hardware-config';
+import { SupportedDeviceConfig, SwitchConfig } from '@shared/hardware-config';
 import { DRIVERS } from '@shared/drivers';
 import { SwitchDriver } from '@shared/driver-types';
 import { NonsequentialStepPropagator } from '@shared/propagators';
@@ -10,7 +10,7 @@ import OsxTabs from '../OsxTabs';
 
 type PropTypes = {
   deviceConfig: SupportedDeviceConfig;
-  inputConfig: InputConfig;
+  inputConfig: SwitchConfig;
   setProject: (p: Project) => void;
   project: Project;
 };

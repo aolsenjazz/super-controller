@@ -3,7 +3,7 @@ import path from 'path';
 import os from 'os';
 
 import {
-  InputConfig,
+  BaseInputConfig,
   SupportedDeviceConfig,
   DeviceConfig,
 } from '@shared/hardware-config';
@@ -104,10 +104,10 @@ export class Background {
         const config = this.project.getDevice(
           configId
         ) as SupportedDeviceConfig;
-        const inputConfig = parse<InputConfig>(inputString);
+        const inputConfig = parse<BaseInputConfig>(inputString);
 
         const inputConfigIdx = config.inputs
-          .map((conf, i) => [conf, i] as [InputConfig, number])
+          .map((conf, i) => [conf, i] as [BaseInputConfig, number])
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           .filter(([conf, _i]) => conf.id === inputConfig.id)
           // eslint-disable-next-line @typescript-eslint/no-unused-vars

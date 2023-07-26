@@ -58,7 +58,9 @@ export function createPropagator(
     case 'constant':
       return new ConstantPropagator(or as 'toggle' | 'constant', et, n, c, v);
     default:
-      throw new Error('improper use of createPropagator');
+      throw new Error(
+        `unable to create propagator: unknown hardwareResponse: ${hr}`
+      );
   }
 }
 

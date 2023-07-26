@@ -29,7 +29,10 @@ function InputLayout(props: InputLayoutPropTypes) {
     const config = deviceConfig.getInput(inputId);
     const focus = selectedInputs.includes(inputId);
 
-    if (config === undefined) throw new Error('this shouldnt happen');
+    if (config === undefined) {
+      console.log(deviceConfig);
+      throw new Error('this shouldnt happen');
+    }
 
     Element = (
       <div
