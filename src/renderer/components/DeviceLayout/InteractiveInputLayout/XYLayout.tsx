@@ -1,64 +1,40 @@
+import { SliderConfig } from '@shared/hardware-config/input-config';
+
 type PropTypes = {
-  isXPitchbend: boolean;
-  isYPitchbend: boolean;
-  xMax: number;
-  yMax: number;
-  xValue: number;
-  yValue: number;
-  focus: boolean;
-  width: string;
-  height: string;
+  x: SliderConfig;
+  y: SliderConfig;
   handleWidth: string;
   handleHeight: string;
-  shape: string;
-  onClick: (event: React.MouseEvent) => void;
 };
 
 export default function XYLayout(props: PropTypes) {
-  const {
-    width,
-    isXPitchbend,
-    isYPitchbend,
-    xMax,
-    yMax,
-    height,
-    xValue,
-    yValue,
-    focus,
-    onClick,
-    shape,
-    handleWidth,
-    handleHeight,
-  } = props;
+  const { x, y, handleWidth, handleHeight } = props;
 
-  const xShift = xValue / xMax;
-  const yShift = yValue / yMax;
+  const xShift = x.value / 127;
+  const yShift = y.value / 127;
 
   const iStyle = {
-    width: `${width}`,
-    height: `${height}`,
     marginLeft: -1,
     marginTop: -1,
   };
 
-  const xStyle = isXPitchbend
-    ? `calc(${xShift} * 50%)`
-    : `calc(25% + 25% * ${xShift})`;
+  const xStyle =
+    x.statusString === 'pitchbend'
+      ? `calc(${xShift} * 50%)`
+      : `calc(25% + 25% * ${xShift})`;
 
-  const yStyle = isYPitchbend
-    ? `calc(50% + 25% * ${yShift})`
-    : `calc(50% + 25% * ${yShift})`;
+  const yStyle =
+    y.statusString === 'pitchbend'
+      ? `calc(50% + 25% * ${yShift})`
+      : `calc(50% + 25% * ${yShift})`;
 
   return (
     <div
-      className={`xy ${focus ? 'focus' : ''} interactive-indicator`}
-      onClick={(e) => onClick(e)}
+      className="xy interactive-indicator"
       tabIndex={0}
       onKeyDown={() => {}}
       style={{
-        borderRadius: shape === 'circle' ? '100%' : '',
-        height,
-        width,
+        borderRadius: '100%',
       }}
       role="button"
     >

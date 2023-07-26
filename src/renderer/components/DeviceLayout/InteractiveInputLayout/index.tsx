@@ -5,17 +5,20 @@ import {
   KnobConfig,
   SwitchConfig,
   SliderConfig,
+  XYConfig,
 } from '@shared/hardware-config/input-config';
 import {
   InteractiveInputDriver,
   InputDriverWithHandle,
   SwitchDriver,
+  XYDriver,
 } from '@shared/driver-types';
 
 import Pad from './PadLayout';
 import { Knob } from './KnobLayout';
 import { WheelLayout } from './WheelLayout';
 import { SwitchLayout } from './SwitchLayout';
+import XYLayout from './XYLayout';
 
 type InputLayoutPropTypes = {
   driver: InteractiveInputDriver;
@@ -53,6 +56,21 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
       : steps[asSwitch.initialStep];
 
     return <SwitchLayout steps={steps} lastStep={lastStep} />;
+  }
+
+  if (driver.type === 'xy') {
+    const asXY = driver as XYDriver;
+    const conf = config as XYConfig;
+    const handleWidth = (asXY.x as InputDriverWithHandle).handleWidth as number;
+
+    return (
+      <XYLayout
+        x={conf.x}
+        y={conf.y}
+        handleHeight={`${(handleWidth / driver.height) * 100}%`}
+        handleWidth={`${(handleWidth / driver.width) * 100}%`}
+      />
+    );
   }
 
   const handleWidth = (driver as InputDriverWithHandle).handleWidth as number;

@@ -30,8 +30,9 @@ function InputLayout(props: InputLayoutPropTypes) {
     const focus = selectedInputs.includes(inputId);
 
     if (config === undefined) {
-      console.log(deviceConfig);
-      throw new Error('this shouldnt happen');
+      throw new Error(
+        `Unable to locate config for input id ${inputId}. This probably happened because of a failure in updating an old project.`
+      );
     }
 
     Element = (

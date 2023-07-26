@@ -3,7 +3,6 @@ import { DeviceDriver } from '@shared/driver-types';
 
 import Keyboard from './KeyboardLayout';
 import InputGridLayout from './InputGridLayout';
-import XYGridLayout from './XYGridLayout';
 
 type PropTypes = {
   driver: DeviceDriver;
@@ -31,20 +30,7 @@ export default function DeviceLayout(props: PropTypes) {
       ) : null}
 
       {driver.inputGrids.map((inputGrid) => {
-        const xyChildren = inputGrid.inputs.filter((i) => i.type === 'xy');
-        const isMultiInput = xyChildren.length === 2;
-
-        return isMultiInput ? (
-          <XYGridLayout
-            key={inputGrid.id}
-            inputGrid={inputGrid}
-            deviceWidth={driver.width}
-            deviceHeight={driver.height}
-            onClick={onClick}
-            selectedInputs={selectedInputs}
-            deviceConfig={deviceConfig}
-          />
-        ) : (
+        return (
           <InputGridLayout
             key={inputGrid.id}
             inputGrid={inputGrid}
