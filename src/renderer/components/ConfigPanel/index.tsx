@@ -91,6 +91,7 @@ type PropTypes = {
 
 export default function ConfigPanel(props: PropTypes) {
   const { selectedInputs, config, project, setProject } = props;
+  let configured = false;
 
   let Element: JSX.Element | null = null;
 
@@ -100,15 +101,11 @@ export default function ConfigPanel(props: PropTypes) {
     Element = (
       <AdapterView config={config} setProject={setProject} project={project} />
     );
-  } else if (config instanceof AnonymousDeviceConfig) {
-    Element = (
-      <Translator config={config} project={project} setProject={setProject} />
-    );
   } else {
-    const isConfigured = project.getDevice(config.id) !== undefined;
+    configured = project.getDevice(config.id) !== undefined;
 
     // show a diff view depending on if device is supported, configured, etc
-    if (!isConfigured)
+    if (!configured)
       Element = (
         <NotConfigured
           config={config as SupportedDeviceConfig}
@@ -118,6 +115,13 @@ export default function ConfigPanel(props: PropTypes) {
       );
     else if (!config.supported) {
       // device is not supported, handle as anonymous device
+      Element = (
+        <Translator
+          config={config as AnonymousDeviceConfig}
+          project={project}
+          setProject={setProject}
+        />
+      );
     } else if (selectedInputs.length === 0) {
       Element = <BasicMessage msg="No inputs selected." />;
     } else {
@@ -134,10 +138,10 @@ export default function ConfigPanel(props: PropTypes) {
 
   return (
     <div id="config-panel" className="top-level">
-      {config !== undefined ? (
+      {configured ? (
         <DeviceConfigPanel
           project={project}
-          config={config}
+          config={config as DeviceConfig}
           setProject={setProject}
         />
       ) : null}

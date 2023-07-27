@@ -168,7 +168,7 @@ function createKnob(n: MidiNumber): KnobDriver {
 }
 
 export const Device: DeviceDriver = {
-  name: 'APC Key 25',
+  name: 'APC Key 25FOX<E',
   type: 'normal',
   anonymous: false,
   height: 7.5,
