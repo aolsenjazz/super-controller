@@ -12,6 +12,7 @@
 #device-panel .device-container.configured .interactive-indicator {
   border-color: #3a84e9;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 #no-devices {
