@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { DeviceDriver } from '@shared/driver-types';
 
-import DeviceLayout from '../DeviceLayout';
+import DeviceLayout from './DeviceLayout';
 import WarningIcon from '../WarningIcon';
 
 const throttleWarning =

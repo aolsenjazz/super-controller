@@ -2,6 +2,7 @@ import {
   DeviceConfig,
   SupportedDeviceConfig,
   AdapterDeviceConfig,
+  AnonymousDeviceConfig,
 } from '@shared/hardware-config';
 import { DeviceDriver } from '@shared/driver-types';
 import { DRIVERS } from '@shared/drivers';
@@ -25,7 +26,7 @@ export default function DevicePanel(props: PropTypes) {
 
   if (config === undefined) {
     Element = <NoDevicesView />;
-  } else if (config.supported === false) {
+  } else if (config instanceof AnonymousDeviceConfig) {
     Element = <UnsupportedView deviceName={config.name} />;
   } else if (config instanceof AdapterDeviceConfig && config.isSet) {
     Element = <UsbView />;
