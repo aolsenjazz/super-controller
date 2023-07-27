@@ -1,6 +1,6 @@
 import { DeviceDriver } from '@shared/driver-types';
 
-import DeviceIcon from './DeviceIcon';
+import DeviceIcon from '../DeviceIcon';
 
 /**
  * Returns the css class depending on connection and configuration status

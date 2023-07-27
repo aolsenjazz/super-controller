@@ -21,12 +21,12 @@ export function create(d: InteractiveInputDriver) {
     case 'pad':
       return PadConfig.fromDriver(d as PadDriver);
     case 'wheel':
+    case 'slider':
       // eslint-disable-next-line no-case-declarations
       const wheel = d as InputDriverWithHandle;
       return wheel.status === 'pitchbend'
         ? PitchbendConfig.fromDriver(wheel)
         : SliderConfig.fromDriver(wheel);
-    case 'slider':
     case 'xy':
       return XYConfig.fromDriver(d as XYDriver);
     case 'switch':

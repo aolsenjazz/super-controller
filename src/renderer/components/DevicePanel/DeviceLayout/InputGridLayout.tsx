@@ -31,10 +31,11 @@ const InputGridLayout = (props: PropTypes) => {
 
   return (
     <div className="input-grid" style={style}>
-      {grid.inputs.map((driver) => (
+      {grid.inputs.map((driver, i) => (
         <div
           className="input-container"
-          key={`InputGrid[${grid.id}]`}
+          // eslint-disable-next-line react/no-array-index-key
+          key={`Input[${i}]`}
           style={{
             width: `calc(100% / ${grid.nCols})`,
             height: `calc(100% / ${grid.nRows})`,

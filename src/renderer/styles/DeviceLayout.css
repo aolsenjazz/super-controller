@@ -28,18 +28,15 @@
   max-height: 90%;
 }
 
-#device-panel .device-container.configured .device-layout {
+#device-panel .device-container.configured * {
   border-color: #3a84e9;
 }
 
-.device-layout .input-container .input-wrapper .noninteractive,
-.device-layout .keyboard-container.disabled,
-.device-layout .keyboard-container.disabled .key,
-.device-layout .keyboard-container.disabled .key:last-of-type {
+#device-panel .device-container * {
   border-color: #bcbec0;
 }
 
-.device-layout .device-root {
+#device-panel .device-container .device-layout .device-root {
   height: 100%;
 }
 
@@ -129,7 +126,7 @@
   background: #3a84e9;
 }
 
-.device-layout .keyboard-container {
+#device-panel .device-container .device-layout .keyboard-container {
   position: relative;
   display: flex;
   width: 100%;
@@ -137,6 +134,7 @@
   border-top: 1px solid;
   border-right: 1px solid;
   border-bottom: 1px solid;
+  border-color: #bcbec0;
 }
 
 .device-layout .octave {
@@ -146,10 +144,11 @@
   display: flex;
 }
 
-.device-layout .key {
+#device-panel .device-container .device-layout .key {
   border-left: 1px solid;
   display: inline-block;
   flex: 1;
+  border-color: #bcbec0;
 }
 
 .device-layout .key-black {
@@ -160,6 +159,7 @@
   top: 0;
   height: 60%;
   background-color: #e6e2e3;
+  border-color: #bcbec0;
   width: 10%;
 }
 

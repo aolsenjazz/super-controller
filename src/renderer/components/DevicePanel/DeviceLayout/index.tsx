@@ -40,7 +40,7 @@ export default function DeviceLayout(props: PropTypes) {
           return (
             <InputGridLayout
               key={inputGrid.id}
-              inputGrid={inputGrid}
+              grid={inputGrid}
               deviceWidth={driver.width}
               deviceHeight={driver.height}
               onClick={onClick}
