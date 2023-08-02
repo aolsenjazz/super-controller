@@ -80,7 +80,7 @@ test('handleMessage applies override', () => {
   const nickname = 'nick';
   const overrides = new Map<string, ThreeByteMidiArray>();
   const device = new AnonymousDeviceConfig(name, 7, overrides, [], nickname);
-  device.overrideInput(msg, status, channel, override[2]);
+  device.overrideInput(msg, status, channel, override[2], 60);
   /* eslint-disable-next-line */
   const toPropagate = device.applyOverrides(msg);
   expect(toPropagate![0]).toEqual(override[0]);
@@ -96,7 +96,7 @@ test('serializes + deserializes correctly', () => {
   const nickname = 'nick';
   const overrides = new Map<string, ThreeByteMidiArray>();
   const device = new AnonymousDeviceConfig(name, 7, overrides, [], nickname);
-  device.overrideInput(msg, status, channel, override[2]);
+  device.overrideInput(msg, status, channel, override[2], 60);
 
   const json = stringify(device);
   const from = parse<AnonymousDeviceConfig>(json);

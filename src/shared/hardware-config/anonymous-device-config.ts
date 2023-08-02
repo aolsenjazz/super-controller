@@ -34,15 +34,12 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     };
   }
 
-  applyOverrides(msg: MidiArray) {
-    const valueNegatedMsg = create([msg[0], msg[1]]);
-
-    const id = JSON.stringify(valueNegatedMsg.array);
+  applyOverrides(mArray: MidiArray) {
+    const msg = create(mArray);
+    const id = JSON.stringify(msg);
     const override = this.overrides.get(id);
 
-    return override !== undefined
-      ? create([override[0], override[1], msg[2]])
-      : msg;
+    return override;
   }
 
   getResponse() {
@@ -60,12 +57,11 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     targetInput: MidiArray,
     newStatus: StatusString | StatusByte,
     newChannel: Channel,
-    newNumber: MidiNumber
+    newNumber: MidiNumber,
+    newValue: MidiNumber
   ) {
-    const valueNegatedTarget = [...targetInput];
-    valueNegatedTarget[2] = 0;
-    const override = create(newStatus, newChannel, newNumber, 0);
-    this.overrides.set(JSON.stringify(valueNegatedTarget), override);
+    const override = create(newStatus, newChannel, newNumber, newValue);
+    this.overrides.set(JSON.stringify(targetInput), override);
   }
 
   /**
@@ -78,8 +74,6 @@ export class AnonymousDeviceConfig extends DeviceConfig {
    * independently of value
    */
   getOverride(input: MidiArray) {
-    const valueNegatedMsg = [...input];
-    valueNegatedMsg[2] = 0;
-    return this.overrides.get(JSON.stringify(valueNegatedMsg));
+    return this.overrides.get(JSON.stringify(input));
   }
 }

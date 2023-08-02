@@ -22,13 +22,14 @@
 }
 
 .translator-list-container .column.event {
-  width: 45% !important;
+  width: 35% !important;
   margin-left: 8px;
 }
 
 .translator-list-container p.number,
-.translator-list-container p.channel {
-  width: 25% !important;
+.translator-list-container p.channel,
+.translator-list-container p.value {
+  width: 20% !important;
 }
 
 .translator-list-container .row.selected {

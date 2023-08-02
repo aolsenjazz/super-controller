@@ -10,7 +10,8 @@ type ControlsContainerPropTypes = {
   onChange: (
     statusString: StatusString,
     number: MidiNumber,
-    channel: Channel
+    channel: Channel,
+    value: MidiNumber
   ) => void;
 };
 
@@ -41,6 +42,9 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
   const eligibleChannels = [...Array(16).keys()] as Channel[];
   const channelLabels = eligibleChannels.map((c) => c.toString());
 
+  const eligibleValues = [...Array(128).keys()] as MidiNumber[];
+  const valueLabels = eligibleValues.map((v) => v.toString());
+
   return (
     <div id="controls-container">
       <h4>Apply the following overrides:</h4>
@@ -53,7 +57,8 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
           onChange(
             e as StatusString,
             (msg as ThreeByteMidiArray)[1],
-            (msg as ThreeByteMidiArray).channel
+            (msg as ThreeByteMidiArray).channel,
+            (msg.length === 3 ? msg[2] : 0) as MidiNumber
           );
         }}
       />
@@ -67,7 +72,8 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
             onChange(
               msg.statusString as StatusString,
               n as MidiNumber,
-              (msg as ThreeByteMidiArray).channel
+              (msg as ThreeByteMidiArray).channel,
+              (msg.length === 3 ? msg[2] : 0) as MidiNumber
             );
           }}
         />
@@ -81,10 +87,28 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
           onChange(
             status as StatusString,
             (msg as ThreeByteMidiArray)[1],
-            c as Channel
+            c as Channel,
+            (msg.length === 3 ? msg[2] : 0) as MidiNumber
           );
         }}
       />
+      {msg.length === 3 ? (
+        <SettingsLineItem
+          label="Value:"
+          value={msg[2]}
+          labelList={valueLabels}
+          valueList={eligibleValues}
+          onChange={(v) => {
+            onChange(
+              status as StatusString,
+              (msg as ThreeByteMidiArray)[1],
+              (msg as ThreeByteMidiArray).channel,
+              v as MidiNumber
+            );
+          }}
+        />
+      ) : null}
+
       {overrideOrUndefined ? (
         <button type="button" onClick={() => remove()}>
           Delete Override

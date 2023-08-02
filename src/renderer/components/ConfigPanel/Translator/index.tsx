@@ -23,9 +23,20 @@ export default function Translator(props: PropTypes) {
   const [currentAction, setCurrentAction] = useState<MidiArray | undefined>();
 
   const onChange = useCallback(
-    (statusString: StatusString, number: MidiNumber, channel: Channel) => {
+    (
+      statusString: StatusString,
+      number: MidiNumber,
+      channel: Channel,
+      value: MidiNumber
+    ) => {
       if (currentAction !== undefined) {
-        config.overrideInput(currentAction, statusString, channel, number);
+        config.overrideInput(
+          currentAction,
+          statusString,
+          channel,
+          number,
+          value
+        );
         setProject(new Project(project.devices));
         projectService.updateDevice(stringify(config));
       }
@@ -41,6 +52,7 @@ export default function Translator(props: PropTypes) {
           <p className="column event">Event</p>
           <p className="column number">Number</p>
           <p className="column channel">Channel</p>
+          <p className="column channel">Value</p>
         </div>
         <RecentMessageRow
           config={config}
