@@ -4,7 +4,7 @@ type PropTypes = {
   handleHeight: string;
 };
 
-export function WheelLayout(props: PropTypes) {
+export function VerticalHandleLayout(props: PropTypes) {
   const { value, handleWidth, handleHeight } = props;
 
   const max = 127;
@@ -22,10 +22,8 @@ export function WheelLayout(props: PropTypes) {
   };
 
   return (
-    <div className="wheel interactive-indicator">
-      <div className="bounding-box" style={boundingStyle}>
-        <div className="inner interactive-indicator" style={iStyle} />
-      </div>
+    <div className="bounding-box" style={boundingStyle}>
+      <div className="inner interactive-indicator" style={iStyle} />
     </div>
   );
 }

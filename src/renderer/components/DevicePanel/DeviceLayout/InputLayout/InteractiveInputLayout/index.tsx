@@ -16,7 +16,7 @@ import {
 
 import Pad from './PadLayout';
 import { Knob } from './KnobLayout';
-import { WheelLayout } from './WheelLayout';
+import { HandleLayout } from './HandleLayout';
 import { SwitchLayout } from './SwitchLayout';
 import XYLayout from './XYLayout';
 
@@ -73,13 +73,15 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
     );
   }
 
-  const handleWidth = (driver as InputDriverWithHandle).handleWidth as number;
+  const { handleWidth, handleHeight, horizontal } =
+    driver as InputDriverWithHandle;
   const asSlider = config as SliderConfig;
   return (
-    <WheelLayout
+    <HandleLayout
       value={asSlider.value || 0}
       handleWidth={`${(handleWidth / driver.width) * 100}%`}
-      handleHeight={`${(handleWidth / driver.height) * 100}%`}
+      handleHeight={`${(handleHeight / driver.height) * 100}%`}
+      horizontal={horizontal}
     />
   );
 }

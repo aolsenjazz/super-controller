@@ -53,7 +53,7 @@
 
 .device-layout .focus .pad,
 .device-layout .focus .switch,
-.device-layout .focus .wheel,
+.device-layout .focus .handle-input,
 .device-layout .focus .knob .outer {
   border-style: dashed !important;
   filter: sepia(0.2);
@@ -167,7 +167,7 @@
   height: 100%;
 }
 
-.device-layout .wheel {
+.device-layout .handle-input {
   position: relative;
   border: 1px solid;
   margin: 0 auto;
@@ -189,14 +189,18 @@
   transition: bottom 0.1s linear;
 }
 
-.device-layout .wheel .inner {
+.device-layout .handle-input .inner {
   border: 1px solid;
   position: absolute;
-  transform: translateY(50%);
   transition: bottom 0.1s linear;
+  transform: translateY(50%);
 }
 
-.device-layout .wheel .bounding-box {
+.device-layout .handle-input.horizontal .inner {
+  transform: translateX(-50%);
+}
+
+.device-layout .handle-input .bounding-box {
   position: absolute;
   width: 100%;
 }
