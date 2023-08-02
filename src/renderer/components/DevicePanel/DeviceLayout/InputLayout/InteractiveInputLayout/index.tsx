@@ -73,7 +73,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
     );
   }
 
-  const { handleWidth, handleHeight, horizontal } =
+  const { handleWidth, handleHeight, horizontal, inverted } =
     driver as InputDriverWithHandle;
   const asSlider = config as SliderConfig;
   return (
@@ -82,6 +82,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
       handleWidth={`${(handleWidth / driver.width) * 100}%`}
       handleHeight={`${(handleHeight / driver.height) * 100}%`}
       horizontal={horizontal}
+      inverted={inverted}
     />
   );
 }

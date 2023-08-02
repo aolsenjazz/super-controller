@@ -1,11 +1,10 @@
 type PropTypes = {
   value: number;
   handleWidth: string;
-  handleHeight: string;
 };
 
 export function HorizontalHandleLayout(props: PropTypes) {
-  const { value, handleWidth, handleHeight } = props;
+  const { value, handleWidth } = props;
 
   const max = 127;
   const boundingStyle = {
@@ -18,7 +17,7 @@ export function HorizontalHandleLayout(props: PropTypes) {
   const iStyle = {
     left: `${shift * 100}%`,
     bottom: 0,
-    height: `calc(${handleHeight} - 2px)`,
+    height: `calc(100% - 2px)`,
     width: `calc(${handleWidth} + ${handleWidth} / 2 - 2px)`,
   };
 

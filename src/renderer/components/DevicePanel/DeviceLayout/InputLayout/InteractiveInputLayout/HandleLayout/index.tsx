@@ -6,10 +6,11 @@ type PropTypes = {
   handleWidth: string;
   handleHeight: string;
   horizontal: boolean;
+  inverted: boolean;
 };
 
 export function HandleLayout(props: PropTypes) {
-  const { value, handleWidth, handleHeight, horizontal } = props;
+  const { value, handleWidth, handleHeight, horizontal, inverted } = props;
 
   const Layout = horizontal ? HorizontalHandleLayout : VerticalHandleLayout;
 
@@ -20,7 +21,7 @@ export function HandleLayout(props: PropTypes) {
       }`}
     >
       <Layout
-        value={value}
+        value={inverted ? 127 - value : value}
         handleWidth={handleWidth}
         handleHeight={handleHeight}
       />
