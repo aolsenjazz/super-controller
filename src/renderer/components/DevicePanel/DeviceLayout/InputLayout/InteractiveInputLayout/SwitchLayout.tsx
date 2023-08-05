@@ -14,8 +14,6 @@ export function SwitchLayout(props: PropTypes) {
     }
   });
 
-  console.log(stepIdx);
-
   const position = stepIdx / nSteps;
   const iStyle = {
     top: `calc(${position * 100}% - 1px)`,
