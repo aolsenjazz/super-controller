@@ -231,6 +231,16 @@ export class InputGroup {
     );
   }
 
+  get isValueCapable() {
+    return (
+      !this.isMultiInput &&
+      this.response === 'constant' &&
+      this.inputs.filter(
+        (i) => (i as MonoInputConfig).statusString === 'programchange'
+      ).length === 0
+    );
+  }
+
   get number() {
     return this.#groupValue<number>(
       (c) => c.number,

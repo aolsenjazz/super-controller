@@ -166,7 +166,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
             />
           </div>
         ) : null}
-        {statusString !== 'programchange' && response === 'constant' ? (
+        {group.isValueCapable ? (
           <SettingsLineItem
             label="Value:"
             value={value}
