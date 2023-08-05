@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 
-import { Project } from '@shared/project';
-import { stringify, colorDisplayName } from '@shared/util';
 import { LightCapableInputConfig } from '@shared/hardware-config';
+import { Project } from '@shared/project';
+import { colorDisplayName, stringify } from '@shared/util';
 
 import { InputGroup } from '../../input-group';
 
-import SettingsLineItem from './SettingsLineItem';
 import BasicSelect from './BasicSelect';
 import FXConfig from './FXConfig';
+import SettingsLineItem from './SettingsLineItem';
 
 const { projectService } = window;
 
@@ -133,13 +133,8 @@ export default function BacklightSettings(props: PropTypes) {
           />
           {eligibleLightStates.map((state: number) => {
             const color = group.colorForState(state);
-            console.log(`State[${state}]: ${color}`);
+
             const stateStr = state === 0 ? 'off' : 'on';
-            const containsOff =
-              group.inputs.filter(
-                (i) =>
-                  (i as LightCapableInputConfig).getColor(state)?.name === 'Off'
-              ).length > 0;
 
             const innerColorChange = (value: string | number) => {
               onColorChange(value as string, state);
@@ -171,7 +166,7 @@ export default function BacklightSettings(props: PropTypes) {
                     onChange={innerColorChange}
                   />
                 </div>
-                {group.eligibleFx?.length > 0 && !containsOff && color?.effectable === true ? (
+                {group.eligibleFx?.length > 0 && color?.effectable === true ? (
                   <FXConfig
                     eligibleFx={group.eligibleFx}
                     activeFx={group.getActiveFx(state)}
