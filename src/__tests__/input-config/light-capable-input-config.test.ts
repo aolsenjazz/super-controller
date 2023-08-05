@@ -1,5 +1,5 @@
 import { LightCapableInputConfig as WrapMe } from '@shared/hardware-config/input-config';
-import { FxDriver, Color } from '@shared/driver-types';
+import { FxDriver, Color, InputResponse } from '@shared/driver-types';
 import { GatePropagator, ColorConfigPropagator } from '@shared/propagators';
 import { create } from '@shared/midi-array';
 
@@ -22,6 +22,10 @@ class LightCapableInputConfig extends WrapMe {
 
   get response() {
     return 'gate' as const;
+  }
+
+  set response(_or: InputResponse) {
+    Function.prototype(); // noop to satisfy compiler
   }
 
   get deviceProp() {
