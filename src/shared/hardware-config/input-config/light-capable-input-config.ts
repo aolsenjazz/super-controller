@@ -108,6 +108,7 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
   }
 
   restoreDefaults() {
+    super.restoreDefaults();
     this.devicePropagator.restoreDefaults();
   }
 
