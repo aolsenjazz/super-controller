@@ -59,6 +59,10 @@
   filter: sepia(0.2);
 }
 
+#device-panel .device-layout .noninteractive {
+  border-color: #bcbec0;
+}
+
 .device-layout .pad {
   position: absolute;
   border: 1px solid;
