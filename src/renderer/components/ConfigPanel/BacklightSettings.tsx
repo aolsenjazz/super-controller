@@ -133,6 +133,7 @@ export default function BacklightSettings(props: PropTypes) {
           />
           {eligibleLightStates.map((state: number) => {
             const color = group.colorForState(state);
+            console.log(`State[${state}]: ${color}`);
             const stateStr = state === 0 ? 'off' : 'on';
             const containsOff =
               group.inputs.filter(
@@ -161,7 +162,7 @@ export default function BacklightSettings(props: PropTypes) {
                   <p>Color:</p>
                   <div
                     className="color-sample"
-                    style={{ backgroundColor: `${color?.string}` }}
+                    style={{ backgroundColor: `${color ? color.string : ''}` }}
                   />
                   <BasicSelect
                     value={color ? colorDisplayName(color) : ''}
