@@ -24,3 +24,9 @@ test('getDiff returns 1 pair at second index', () => {
 
   expect(result[1].length).toBe(1);
 });
+
+describe('id', () => {
+  test('returns expected ID for xy driver', () => {});
+  test('returns expected ID for two-byte driver', () => {});
+  test('returns expected ID for three-byte driver', () => {});
+});

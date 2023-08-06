@@ -7,7 +7,7 @@ describe('toJSON', () => {
 });
 
 describe('restoreDefaults', () => {
-  test('restores default value', () => {});
+  test('restores default values', () => {});
 });
 
 describe('eligibleResponses', () => {

@@ -2,6 +2,9 @@ import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { SupportedDeviceConfig } from './supported-device-config';
 
+// TODO: Unclear if we really want to implement SupportedDeviceConfig or
+// extends DeviceConfig. Gut says extend DeviceConfig but needs research
+// TODO: yeah definitely don't want to implemenet Supported. Messes up instanceof checks downstream
 @Revivable.register
 export class AdapterDeviceConfig implements SupportedDeviceConfig {
   isAdapter = true;

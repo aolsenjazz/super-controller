@@ -206,4 +206,6 @@ describe('restoreDefaults', () => {
     ic.restoreDefaults();
     expect(spy).toHaveBeenCalled();
   });
+
+  test('calls super.restoreDefaults()', () => {});
 });
