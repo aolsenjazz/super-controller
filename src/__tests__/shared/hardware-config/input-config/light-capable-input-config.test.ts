@@ -207,5 +207,11 @@ describe('restoreDefaults', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  test('calls super.restoreDefaults()', () => {});
+  test('calls super.restoreDefaults()', () => {
+    const ic = new LightCapableInputConfig(D, C, F, OUT_PROP, FULL_PROP);
+    const correctResult = ic.number;
+    ic.number = 50;
+    ic.restoreDefaults();
+    expect(ic.number).toBe(correctResult);
+  });
 });

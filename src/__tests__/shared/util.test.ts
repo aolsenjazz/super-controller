@@ -1,4 +1,83 @@
-import { getDiff } from '@shared/util';
+import {
+  XYDriver,
+  PadDriver,
+  InputDriverWithHandle,
+} from '@shared/driver-types';
+import { getDiff, id } from '@shared/util';
+
+const TwoByteDriver: PadDriver = {
+  shape: 'circle',
+  type: 'pad',
+  interactive: true,
+  height: 1,
+  width: 1,
+  response: 'gate',
+  number: 10,
+  channel: 11,
+  status: 'programchange',
+  availableColors: [],
+  availableFx: [],
+};
+
+const ThreeByteDriver: PadDriver = {
+  shape: 'circle',
+  type: 'pad',
+  interactive: true,
+  height: 1,
+  width: 1,
+  response: 'gate',
+  number: 10,
+  channel: 11,
+  status: 'controlchange',
+  availableColors: [],
+  availableFx: [],
+};
+
+const X: InputDriverWithHandle = {
+  shape: 'circle',
+  type: 'slider',
+  interactive: true,
+  height: 1,
+  width: 1,
+  response: 'continuous',
+  number: 10,
+  channel: 11,
+  status: 'controlchange',
+  availableColors: [],
+  availableFx: [],
+  inverted: false,
+  horizontal: false,
+  handleWidth: 0.5,
+  handleHeight: 0.5,
+};
+
+const Y: InputDriverWithHandle = {
+  shape: 'circle',
+  type: 'slider',
+  interactive: true,
+  height: 1,
+  width: 1,
+  response: 'continuous',
+  number: 11,
+  channel: 12,
+  status: 'pitchbend',
+  availableColors: [],
+  availableFx: [],
+  inverted: false,
+  horizontal: false,
+  handleWidth: 0.5,
+  handleHeight: 0.5,
+};
+
+const XYDrive: XYDriver = {
+  x: X,
+  y: Y,
+  shape: 'circle',
+  type: 'xy',
+  height: 2,
+  width: 2,
+  interactive: true,
+};
 
 test('getDiff returns no PortPairs if same list', () => {
   const ids = ['1', '2', '3'];
@@ -26,7 +105,18 @@ test('getDiff returns 1 pair at second index', () => {
 });
 
 describe('id', () => {
-  test('returns expected ID for xy driver', () => {});
-  test('returns expected ID for two-byte driver', () => {});
-  test('returns expected ID for three-byte driver', () => {});
+  test('returns expected ID for xy driver', () => {
+    const result = id(TwoByteDriver);
+    expect(result).toBe('programchange.11.10');
+  });
+
+  test('returns expected ID for two-byte driver', () => {
+    const result = id(ThreeByteDriver);
+    expect(result).toBe('controlchange.11.10');
+  });
+
+  test('returns expected ID for three-byte driver', () => {
+    const result = id(XYDrive);
+    expect(result).toBe('controlchange.11.10pitchbend.12');
+  });
 });
