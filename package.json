@@ -48,7 +48,9 @@
     "singleQuote": true
   },
   "jest": {
-    "testURL": "http://localhost/",
+    "testEnvironmentOptions": {
+      "url": "http://localhost/"
+    },
     "testEnvironment": "jsdom",
     "transform": {
       "\\.(ts|tsx|js|jsx)$": "ts-jest"
