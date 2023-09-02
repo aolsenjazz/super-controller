@@ -72,7 +72,7 @@ export function all(omitSCPorts = true) {
 
   if (omitSCPorts) {
     portMap.forEach((_value, key, map) => {
-      if (key.startsWith('SC ')) map.delete(key);
+      if (key.startsWith('SC ') || key.startsWith('RtMidi ')) map.delete(key);
     });
   }
 
