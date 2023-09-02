@@ -74,7 +74,7 @@ const createWindow = async () => {
     width: 1024,
     height: 600,
     transparent: true,
-    frame: false,
+    frame: os.platform() === 'darwin' ? 'false' : 'true',
     minHeight: 312,
     minWidth: 850,
     titleBarStyle: os.platform() === 'darwin' ? 'hiddenInset' : 'default',
