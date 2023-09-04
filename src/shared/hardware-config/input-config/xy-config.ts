@@ -1,11 +1,13 @@
 import { Skeleton } from '@shared/revivable';
 import { MidiArray } from '@shared/midi-array';
 import { XYDriver } from '@shared/driver-types';
+import * as Revivable from '@shared/revivable';
 
 import { PitchbendConfig } from './pitchbend-config';
 import { SliderConfig } from './slider-config';
 import { BaseInputConfig } from './base-input-config';
 
+@Revivable.register
 export class XYConfig extends BaseInputConfig {
   x: SliderConfig;
 
@@ -16,8 +18,8 @@ export class XYConfig extends BaseInputConfig {
   static fromDriver(d: XYDriver) {
     const confs = [d.x, d.y].map((driver) => {
       return driver.status === 'pitchbend'
-        ? PitchbendConfig.fromDriver(d.x)
-        : SliderConfig.fromDriver(d.x);
+        ? PitchbendConfig.fromDriver(driver)
+        : SliderConfig.fromDriver(driver);
     });
 
     return new XYConfig(confs[0], confs[1]);

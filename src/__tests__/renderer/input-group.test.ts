@@ -11,7 +11,7 @@ import {
 } from '@shared/propagators';
 import { Color, FxDriver } from '@shared/driver-types';
 
-import { InputGroup } from '../renderer/input-group';
+import { InputGroup } from '../../renderer/input-group';
 
 const FX: FxDriver = {
   title: 'Blink',

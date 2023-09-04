@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Port } from '../main/port-service/port';
-import { PortPair } from '../main/port-service/port-pair';
+import { Port } from '../../main/port-service/port';
+import { PortPair } from '../../main/port-service/port-pair';
 
 class MockPort implements Port {
   index: number;

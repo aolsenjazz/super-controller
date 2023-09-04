@@ -151,13 +151,6 @@ export class InputConfig {
 
     this.devicePropagator = devicePropagator || new ColorConfigPropagator(r, r);
 
-    if (
-      outputPropagator !== undefined &&
-      !(outputPropagator instanceof OverrideablePropagator)
-    ) {
-      console.log('sanity');
-    }
-
     this.outputPropagator =
       outputPropagator ||
       createPropagator(

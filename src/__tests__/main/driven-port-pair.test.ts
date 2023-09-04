@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { DRIVERS } from '@shared/drivers';
 
-import { DrivenPortPair } from '../main/port-service/driven-port-pair';
-import { Port } from '../main/port-service/port';
-import { PortPair } from '../main/port-service/port-pair';
+import { DrivenPortPair } from '../../main/port-service/driven-port-pair';
+import { Port } from '../../main/port-service/port';
+import { PortPair } from '../../main/port-service/port-pair';
 
 class MockPort implements Port {
   index: number;
