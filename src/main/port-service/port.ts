@@ -9,7 +9,7 @@ export class Port {
 
   name: string;
 
-  port: midi.Input | midi.Output;
+  port: midi.Input | midi.Output | null;
 
   constructor(
     index: number,
