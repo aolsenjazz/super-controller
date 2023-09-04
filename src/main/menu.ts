@@ -36,7 +36,7 @@ export default class MenuBuilder {
     const template =
       process.platform === 'darwin'
         ? this.buildDarwinTemplate(createWindow)
-        : this.buildDefaultTemplate();
+        : this.buildDefaultTemplate(createWindow);
 
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
@@ -246,14 +246,44 @@ export default class MenuBuilder {
     ];
   }
 
-  buildDefaultTemplate() {
+  buildDefaultTemplate(createWindow: () => void): MenuItemConstructorOptions[] {
     const templateDefault = [
       {
         label: '&File',
         submenu: [
           {
+            label: '&New',
+            accelerator: 'Ctrl+N',
+            click: () => {
+              this.background
+                .onNew()
+                .then(createWindow)
+                .catch(() => {});
+            },
+          },
+          {
+            label: '&Save',
+            accelerator: 'Ctrl+S',
+            click: () => {
+              this.background.onSave().catch(() => {}); // ignore cancels
+            },
+          },
+          {
+            label: 'Save &As',
+            accelerator: 'Shift+Ctrl+S',
+            click: () => {
+              this.background.onSaveAs().catch(() => {}); // ignore cancels
+            },
+          },
+          {
             label: '&Open',
             accelerator: 'Ctrl+O',
+            click: () => {
+              this.background
+                .onOpen()
+                .then(createWindow)
+                .catch(() => {});
+            },
           },
           {
             label: '&Close',
