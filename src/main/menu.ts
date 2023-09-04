@@ -246,7 +246,7 @@ export default class MenuBuilder {
     ];
   }
 
-  buildDefaultTemplate(createWindow: () => void) : MenuItemConstructorOptions[] {
+  buildDefaultTemplate(createWindow: () => void): MenuItemConstructorOptions[] {
     const templateDefault = [
       {
         label: '&File',

@@ -21,20 +21,20 @@ export class Port {
     this.siblingIndex = siblingIndex;
     this.type = type;
     this.name = name;
-    this.port = null; 
+    this.port = null;
   }
 
   open() {
     if (this.port === null) {
-        this.port = this.type === 'input' ? new midi.Input() : new midi.Output();
+      this.port = this.type === 'input' ? new midi.Input() : new midi.Output();
     }
     this.port.openPort(this.index);
   }
 
   close() {
     if (this.port === null) {
-        // closing unopened port
-        return;
+      // closing unopened port
+      return;
     }
     this.port.closePort();
   }
