@@ -13,7 +13,7 @@ type PropTypes = {
 
 export default function DeviceLayout(props: PropTypes) {
   const { driver, onClick, selectedInputs, deviceConfig } = props;
-
+  // TODO: Pretty sure we removed need for the --r variable. research
   return (
     <div
       style={{

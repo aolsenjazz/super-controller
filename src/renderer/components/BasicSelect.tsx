@@ -1,4 +1,4 @@
-import SelectTab from '../../assets/select-tab.svg';
+import SelectTab from '../assets/select-tab.svg';
 
 type PropTypes = {
   valueList: (string | number)[];

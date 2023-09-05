@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
+import { PortInfo } from '@shared/port-info';
 import { DeviceConfig } from '@shared/hardware-config';
-import { DrivenPortInfo } from '@shared/driven-port-info';
 import { Project } from '@shared/project';
 import { DRIVERS } from '@shared/drivers';
 
@@ -15,10 +15,9 @@ import DeviceListItem from './DeviceListItem';
  * @param deviceConfigs The device configurations in the current project
  * @returns A sorted list of all connected, available, and disconnected ports/devices.
  */
-function sortPorts(portInfos: DrivenPortInfo[], deviceConfigs: DeviceConfig[]) {
+function sortPorts(portInfos: PortInfo[], deviceConfigs: DeviceConfig[]) {
   // sort by ID descending
-  const sortAlg = (a: DrivenPortInfo, b: DrivenPortInfo) =>
-    a.id > b.id ? 1 : -1;
+  const sortAlg = (a: PortInfo, b: PortInfo) => (a.id > b.id ? 1 : -1);
 
   const connectedConfigured = portInfos.filter((info) => {
     return deviceConfigs.filter((config) => config.id === info.id).length > 0;
@@ -36,10 +35,7 @@ function sortPorts(portInfos: DrivenPortInfo[], deviceConfigs: DeviceConfig[]) {
       return portInfos.filter((info) => config.id === info.id).length === 0;
     })
     .map((config) => {
-      let d = DRIVERS.get(config.name);
-
-      d = d === undefined ? DRIVERS.get('Anonymous')! : d;
-      return new DrivenPortInfo(config.name, config.siblingIndex, false, d);
+      return new PortInfo(config.portName, config.siblingIndex, false);
     });
   unconnectedConfigured.sort(sortAlg);
 
@@ -48,63 +44,51 @@ function sortPorts(portInfos: DrivenPortInfo[], deviceConfigs: DeviceConfig[]) {
     .concat(unconnectedConfigured);
 }
 
-/**
- * @callback setSelectedId
- * @param selectedId The id of the active device
- */
-
 type PropTypes = {
-  ports: DrivenPortInfo[];
+  ports: PortInfo[];
   project: Project;
-  setSelectedId: (selectedId: string | undefined) => void;
-  selectedId: string | undefined;
+  setSelectedPort: (selectedId: PortInfo | undefined) => void;
+  selectedPort: PortInfo | undefined;
 };
-
-/**
- * Displays available ports + configurations, and manages selectedId.
- *
- * @param props Component props
- * @param props.ports The available ports
- * @param props.project The current project
- * @param props.setSelectedId Sets the current device ID
- * @param props.selectedId The active device ID
- */
 export default function DeviceList(props: PropTypes) {
-  const { ports, setSelectedId, selectedId, project } = props;
+  const { ports, setSelectedPort, selectedPort, project } = props;
   const sorted = sortPorts(ports, project.devices);
 
   // Updated selectedId when anything changes
   useEffect(() => {
-    if (selectedId === undefined) {
+    if (selectedPort === undefined) {
       // there are were no devices last render, update in case there are new devices
-      const id = sorted.length > 0 ? sorted[0].id : undefined;
-      setSelectedId(id);
+      const port = sorted.length > 0 ? sorted[0] : undefined;
+      setSelectedPort(port);
     } else {
       // find out if the currently selected ID has a corresponding config/port
-      const inPorts = ports.filter((port) => port.id === selectedId).length > 0;
+      const inPorts =
+        ports.filter((port) => port.id === selectedPort.id).length > 0;
       const inProject =
-        project.devices.filter((device) => device.id === selectedId).length > 0;
+        project.devices.filter((device) => device.id === selectedPort.id)
+          .length > 0;
       const isPortRepresented = inPorts || inProject;
 
       // if not, change the selectedID
       if (!isPortRepresented) {
-        const newId = sorted.length === 0 ? undefined : sorted[0].id;
-        setSelectedId(newId);
+        const newPort = sorted.length === 0 ? undefined : sorted[0];
+        setSelectedPort(newPort);
       }
     }
-  }, [project, ports, setSelectedId, selectedId, sorted]);
+  }, [project, ports, setSelectedPort, selectedPort, sorted]);
 
   // Assemble the JSX for device list
   const elements = sorted.map((info) => {
     const config = project.getDevice(info.id);
+    const driver = DRIVERS.get(info.name) || DRIVERS.get('Anonymous')!;
 
     return (
       <DeviceListItem
         key={info.id}
         id={info.id}
-        driver={info.driver}
-        onClick={() => setSelectedId(info.id)}
-        active={selectedId === info.id}
+        driver={driver}
+        onClick={() => setSelectedPort(info)}
+        active={selectedPort?.id === info.id}
         connected={info.connected}
         configured={config !== undefined}
         name={info.name}

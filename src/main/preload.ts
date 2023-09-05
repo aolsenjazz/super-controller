@@ -5,7 +5,7 @@
  * is no point in reconstructing proper Objects (PortPair, etc) until the JSX objects
  */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
-import { DrivenPortInfo } from '@shared/driven-port-info';
+import { PortInfo } from '@shared/port-info';
 
 import {
   ADD_DEVICE,
@@ -48,7 +48,7 @@ const hostService = {
    * Returns a string representation of the current operating system
    */
   getHost: () => {
-    return ipcRenderer.sendSync(OS);
+    return ipcRenderer.sendSync(OS, process.platform);
   },
 
   /**
@@ -84,7 +84,7 @@ const hostService = {
    *
    * @param func The callback to be invoked
    */
-  onPortsChange: (func: (ports: DrivenPortInfo[]) => void) => {
+  onPortsChange: (func: (ports: PortInfo[]) => void) => {
     return addOnChangeListener(PORTS, func);
   },
 };

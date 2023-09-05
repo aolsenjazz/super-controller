@@ -21,13 +21,14 @@ test('constructor sets values correctly', () => {
   const nickname = 'nick';
   const dev = new DeviceConfigWrapper(
     name,
+    name,
     siblingIndex,
     supported,
     shareSustain,
     nickname
   );
 
-  expect(dev.name).toBe(name);
+  expect(dev.portName).toBe(name);
   expect(dev.siblingIndex).toBe(siblingIndex);
   expect(dev.supported).toBe(supported);
   expect(dev.shareSustain).toEqual(shareSustain);
@@ -40,6 +41,7 @@ test('with unset nickname, device.nickname returns name', () => {
   const supported = true;
   const shareSustain = ['otherDevice'];
   const dev = new DeviceConfigWrapper(
+    name,
     name,
     siblingIndex,
     supported,
@@ -56,6 +58,7 @@ test('sharing with returns true', () => {
   const shareSustain = ['otherDevice'];
   const dev = new DeviceConfigWrapper(
     name,
+    name,
     siblingIndex,
     supported,
     shareSustain
@@ -70,6 +73,7 @@ test('sharing with returns false', () => {
   const supported = true;
   const shareSustain = ['otherDevice'];
   const dev = new DeviceConfigWrapper(
+    name,
     name,
     siblingIndex,
     supported,
@@ -86,6 +90,7 @@ test('stop sharing with removes device from array', () => {
   const shareSustain = ['otherDevice'];
   const dev = new DeviceConfigWrapper(
     name,
+    name,
     siblingIndex,
     supported,
     shareSustain
@@ -100,6 +105,7 @@ test('shareWith add device to array', () => {
   const supported = true;
   const shareSustain: string[] = [];
   const dev = new DeviceConfigWrapper(
+    name,
     name,
     siblingIndex,
     supported,

@@ -8,8 +8,8 @@ import {
   AdapterDeviceConfig,
   LightCapableInputConfig,
 } from '@shared/hardware-config';
-import { DrivenPortInfo } from '@shared/driven-port-info';
 import { getDriver } from '@shared/drivers';
+import { PortInfo } from '@shared/port-info';
 
 import { PortPair } from './port-pair';
 import { all } from './port-manager';
@@ -42,7 +42,7 @@ export class PortService {
   sendToFrontend() {
     // pass port info to frontend
     const info = Array.from(this.portPairs.values()).map((p) => {
-      return new DrivenPortInfo(p.name, p.siblingIndex, true, p.driver);
+      return new PortInfo(p.name, p.siblingIndex, true);
     });
 
     windowService.sendPortInfos(info);
@@ -280,8 +280,8 @@ export class PortService {
           pp.open(); // open connection to device
           this.#virtService.open(pp.name, pp.siblingIndex); // open virt port
 
-          if (dev instanceof AdapterDeviceConfig) {
-            const driver = getDriver(dev.child!.name);
+          if (dev instanceof AdapterDeviceConfig && dev.child) {
+            const driver = getDriver(dev.child.driverName);
             pp.applyThrottle(driver.throttle);
           }
 

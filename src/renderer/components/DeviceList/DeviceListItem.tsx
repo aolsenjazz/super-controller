@@ -55,20 +55,6 @@ type PropTypes = {
   nickname: string | undefined;
 };
 
-/**
- * List item in the devices panel. Displays name, a stylized ID icon, and connection status.
- *
- * @param props Component props
- * @param props.name The name of the port
- * @param props.id Port id
- * @param props.siblingIndex The nth time this device is connected (if > 1 device of same model connected)
- * @param props.onClick Click listener
- * @param props.active Is this the currently selected device?
- * @param props.configured Is this device added to the current project?
- * @param props.connected Is the device connected?
- * @param props.driver The driver for this list item
- * @param props.nickname Device nickname
- */
 export default function DeviceListItem(props: PropTypes) {
   const {
     onClick,

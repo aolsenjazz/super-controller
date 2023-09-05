@@ -9,7 +9,7 @@ import { DRIVERS } from '@shared/drivers';
 
 import HelpTip from '../HelpTip';
 import DriverRequestButton from '../DriverRequestButton';
-import BasicSelect from './BasicSelect';
+import BasicSelect from '../BasicSelect';
 
 const fivePins = new Map(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -38,18 +38,19 @@ export default function AdapterView(props: PropTypes) {
   const onChange = (v: string | number) => {
     const childDriver = DRIVERS.get(v as string);
     const childConfig = configFromDriver(
+      childDriver!.name,
       config.siblingIndex,
       childDriver!
     ) as SupportedDeviceConfig;
+
     config.setChild(childConfig);
-    project.addDevice(config);
     setProject(new Project(project.devices)); // update in frontend
-    projectService.addDevice(stringify(config)); // update in backend
+    projectService.updateDevice(stringify(config)); // update in backend
   };
 
   return (
     <div id="adapter-view-container">
-      <h2>{config.name}</h2>
+      <h2>{config.portName}</h2>
       <div className="subtitle-container">
         <h3>5-pin adapter</h3>
         <HelpTip body={tipBody} transform="translateX(-300px)" />

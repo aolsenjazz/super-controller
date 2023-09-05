@@ -50,7 +50,7 @@ export default function ShareSustain(props: PropTypes) {
           <ShareSustainLine
             name={disambiguatedNickname(
               dev.nickname,
-              dev.name,
+              dev.portName,
               dev.siblingIndex
             )}
             key={dev.id}

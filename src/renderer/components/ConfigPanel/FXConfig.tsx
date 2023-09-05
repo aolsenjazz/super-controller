@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { FxDriver } from '@shared/driver-types';
 
-import BasicSelect from './BasicSelect';
+import BasicSelect from '../BasicSelect';
 import IosSlider from '../IosSlider';
 
 type Props = {

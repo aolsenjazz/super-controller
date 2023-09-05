@@ -18,10 +18,10 @@ type PropTypes = {
 export default function SwitchConfigPanel(props: PropTypes) {
   const { deviceConfig, inputConfig, setProject, project } = props;
 
-  const deviceDriver = DRIVERS.get(deviceConfig.name);
+  const deviceDriver = DRIVERS.get(deviceConfig.driverName);
 
   if (!deviceDriver)
-    throw new Error(`unable to find driver for ${deviceConfig.name}`);
+    throw new Error(`unable to find driver for ${deviceConfig.driverName}`);
 
   let inputDriver: SwitchDriver | undefined;
   deviceDriver.inputGrids.forEach((ig) => {

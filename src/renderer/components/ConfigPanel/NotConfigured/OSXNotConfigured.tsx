@@ -1,8 +1,10 @@
 import { useCallback } from 'react';
 
-import { SupportedDeviceConfig } from '@shared/hardware-config';
+import { configFromDriver } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 import { stringify } from '@shared/util';
+import { PortInfo } from '@shared/port-info';
+import { DRIVERS } from '@shared/drivers';
 
 const { projectService } = window;
 
@@ -12,18 +14,21 @@ const { projectService } = window;
  * @param props Component props
  * @param props.config Configuration of the current device
  */
-export default function NotConfigured(props: {
-  config: SupportedDeviceConfig;
+export default function OSXNotConfigured(props: {
+  port: PortInfo;
   project: Project;
   setProject: (p: Project) => void;
 }) {
-  const { config, project, setProject } = props;
+  const { port, project, setProject } = props;
 
   const onClick = useCallback(() => {
+    const driver = DRIVERS.get(port.name)!;
+    const config = configFromDriver(port.name, port.siblingIndex, driver);
+
     project.addDevice(config);
     setProject(new Project(project.devices));
     projectService.addDevice(stringify(config));
-  }, [config, project, setProject]);
+  }, [port, project, setProject]);
 
   return (
     <div className="message not-configured">

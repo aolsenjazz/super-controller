@@ -6,7 +6,7 @@ import { colorDisplayName, stringify } from '@shared/util';
 
 import { InputGroup } from '../../input-group';
 
-import BasicSelect from './BasicSelect';
+import BasicSelect from '../BasicSelect';
 import FXConfig from './FXConfig';
 import SettingsLineItem from './SettingsLineItem';
 

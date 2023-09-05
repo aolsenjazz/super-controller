@@ -14,14 +14,6 @@ type PropTypes = {
   setProject: (p: Project) => void;
 };
 
-/**
- * Panel for device-specific configuration
- *
- * @param props Component props
- * @param props.project Current project
- * @param props.config Device configuration
- * @param props.setProject Sets the project in frontend
- */
 export default function DeviceConfigPanel(props: PropTypes) {
   const { project, config, setProject } = props;
 

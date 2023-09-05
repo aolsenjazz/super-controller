@@ -21,7 +21,7 @@ test('new UnsupportedDevice() correctly assigns values', () => {
   );
 
   expect(device.id).toBe(`${name} ${siblingIndex}`);
-  expect(device.name).toBe(name);
+  expect(device.portName).toBe(name);
   expect(device.siblingIndex).toBe(siblingIndex);
   expect(device.nickname).toBe(nickname);
   expect(Array.from(device.overrides.entries())).toEqual(
@@ -48,7 +48,7 @@ test('toJSON and fromJSON correctly serializes and deserializes', () => {
   const other = parse<AnonymousDeviceConfig>(json);
 
   expect(device.id).toBe(other.id);
-  expect(device.name).toBe(other.name);
+  expect(device.driverName).toBe(other.driverName);
   expect(device.siblingIndex).toBe(other.siblingIndex);
   expect(device.nickname).toBe(other.nickname);
   expect(device.supported).toBe(other.supported);

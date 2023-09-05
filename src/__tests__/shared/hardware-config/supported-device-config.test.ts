@@ -39,6 +39,7 @@ function BasicSupportedDevice() {
 
   return new SupportedDeviceConfig(
     name,
+    name,
     0,
     shareSustain,
     inputConfigs,
@@ -68,6 +69,7 @@ test('getInput throws for bad id', () => {
   const input = new PadConfig(d, [], [], prop);
 
   const config = new SupportedDeviceConfig(
+    name,
     name,
     0,
     shareSustain,
@@ -104,6 +106,7 @@ test('getInput returns correct input for id', () => {
 
   const config = new SupportedDeviceConfig(
     name,
+    name,
     0,
     shareSustain,
     inputConfigs,
@@ -139,6 +142,7 @@ test('handleMessage() passes to correct input for processing', () => {
   inputConfigs.push(input);
 
   const config = new SupportedDeviceConfig(
+    name,
     name,
     0,
     shareSustain,
@@ -183,7 +187,8 @@ test('toJSON and fromParsedJSON correctly serializes + deserializes', () => {
   const other = parse<SupportedDeviceConfig>(json);
 
   expect(conf.id).toBe(other.id);
-  expect(conf.name).toBe(other.name);
+  expect(conf.portName).toBe(other.portName);
+  expect(conf.driverName).toBe(other.driverName);
   expect(conf.siblingIndex).toBe(other.siblingIndex);
   expect(conf.nickname).toBe(other.nickname);
   expect(conf.supported).toBe(other.supported);

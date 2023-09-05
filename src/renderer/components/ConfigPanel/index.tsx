@@ -9,6 +9,7 @@ import {
 } from '@shared/hardware-config';
 import { SwitchConfig } from '@shared/hardware-config/input-config';
 import { Project } from '@shared/project';
+import { PortInfo } from '@shared/port-info';
 
 import Translator from './Translator';
 import BasicMessage from './BasicMessage';
@@ -83,38 +84,37 @@ function InputConfiguration(props: InputConfigurationProps) {
 }
 
 type PropTypes = {
-  config: DeviceConfig | undefined;
   project: Project;
+  config: DeviceConfig | undefined;
+  selectedPort: PortInfo | undefined;
   selectedInputs: string[];
   setProject: (p: Project) => void;
 };
 
 export default function ConfigPanel(props: PropTypes) {
-  const { selectedInputs, config, project, setProject } = props;
+  const { selectedInputs, config, project, setProject, selectedPort } = props;
   let configured = false;
 
   let Element: JSX.Element | null = null;
 
-  if (config === undefined) {
+  if (selectedPort === undefined) {
     Element = <BasicMessage msg="No connected devices." />;
-  } else if (config instanceof AdapterDeviceConfig && !config.isSet) {
+  } else if (config === undefined) {
     Element = (
-      <AdapterView config={config} setProject={setProject} project={project} />
+      <NotConfigured
+        setProject={setProject}
+        project={project}
+        port={selectedPort}
+      />
+    );
+  } else if (config instanceof AdapterDeviceConfig && !config.child) {
+    Element = (
+      <AdapterView config={config} project={project} setProject={setProject} />
     );
   } else {
     configured = project.getDevice(config.id) !== undefined;
 
-    // show a diff view depending on if device is supported, configured, etc
-    if (!configured)
-      Element = (
-        <NotConfigured
-          config={config as SupportedDeviceConfig}
-          setProject={setProject}
-          project={project}
-        />
-      );
-    else if (!config.supported) {
-      // device is not supported, handle as anonymous device
+    if (config.driverName === 'Anonymous') {
       Element = (
         <Translator
           config={config as AnonymousDeviceConfig}

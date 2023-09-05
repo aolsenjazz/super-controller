@@ -16,6 +16,8 @@ export default function XYLayout(props: PropTypes) {
   const iStyle = {
     marginLeft: -1,
     marginTop: -1,
+    width: '100%',
+    height: '100%',
   };
 
   const xStyle =
@@ -34,6 +36,8 @@ export default function XYLayout(props: PropTypes) {
       tabIndex={0}
       onKeyDown={() => {}}
       style={{
+        width: '100%',
+        height: '100%', // TODO: these shouldn't be in ts
         borderRadius: '100%',
       }}
       role="button"

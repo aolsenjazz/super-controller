@@ -3,9 +3,9 @@ import {
   SupportedDeviceConfig,
   AdapterDeviceConfig,
   AnonymousDeviceConfig,
-} from '@shared/hardware-config';
-import { Project } from '@shared/project';
-import { stringify } from '@shared/util';
+} from './shared/hardware-config';
+import { Project } from './shared/project';
+import { stringify } from './shared/util';
 import {
   KnobConfig,
   PadConfig,
@@ -13,13 +13,13 @@ import {
   SliderConfig,
   SwitchConfig,
   XYConfig,
-} from '@shared/hardware-config/input-config';
+} from './shared/hardware-config/input-config';
 import {
   ContinuousPropagator,
   ColorConfigPropagator,
   createPropagator,
-} from '@shared/propagators';
-import { Color } from '@shared/driver-types';
+} from './shared/propagators';
+import { Color } from './shared/driver-types';
 
 import { parse as v3Parse } from './util';
 import { Project as V3Project } from './project';

@@ -1,4 +1,4 @@
-import BasicSelect from './BasicSelect';
+import BasicSelect from '../BasicSelect';
 
 type SettingsLineItemPropTypes = {
   label: string;

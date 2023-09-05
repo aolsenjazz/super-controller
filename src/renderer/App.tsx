@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import { Project } from '@shared/project';
-import { DrivenPortInfo } from '@shared/driven-port-info';
-import { DeviceConfig, configFromDriver } from '@shared/hardware-config';
+import { PortInfo } from '@shared/port-info';
+import { DeviceConfig } from '@shared/hardware-config';
 
 import TitleBar from './components/TitleBar';
 import DeviceList from './components/DeviceList';
@@ -29,33 +29,26 @@ export default function App() {
   const [project, setProject] = useState(new Project());
 
   // Currently-available hardware ports
-  const [ports, setPorts] = useState<DrivenPortInfo[]>([]);
+  const [ports, setPorts] = useState<PortInfo[]>([]);
 
   const [activeConfig, setActiveConfig] = useState<DeviceConfig | undefined>();
 
   // Selected device ID
-  const [selectedId, setSelectedId] = useState<string>();
+  const [selectedPort, setSelectedPort] = useState<PortInfo>();
 
   const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
 
   // Clear selected inputs when selectedId changes
   useEffect(() => {
     setSelectedInputs([]);
-  }, [selectedId]);
+  }, [selectedPort]);
 
   // Listen to changes to available MIDI ports
   useEffect(() => {
-    const cb = (p: DrivenPortInfo[]) =>
-      setPorts(
-        p.map((i) => {
-          return new DrivenPortInfo(
-            i.name,
-            i.siblingIndex,
-            i.connected,
-            i.driver
-          );
-        })
-      );
+    const cb = (p: PortInfo[]) => {
+      setPorts(p.map((i) => new PortInfo(i.name, i.siblingIndex, i.connected)));
+    };
+
     const unsubscribe = hostService.onPortsChange(cb);
     hostService.requestPorts();
     return () => unsubscribe();
@@ -63,17 +56,9 @@ export default function App() {
 
   // Update the active device when selected index, project, or ports change
   useEffect(() => {
-    let config = project.getDevice(selectedId);
-
-    if (ports.length > 0) {
-      const portInfo = ports.filter((info) => info.id === selectedId)[0];
-      if (!config && selectedId && portInfo) {
-        config = configFromDriver(portInfo.siblingIndex, portInfo.driver);
-      }
-    }
-
+    const config = project.getDevice(selectedPort?.id);
     setActiveConfig(config);
-  }, [ports, project, selectedId]);
+  }, [ports, project, selectedPort]);
 
   return (
     <>
@@ -83,18 +68,19 @@ export default function App() {
         <DeviceList
           ports={ports}
           project={project}
-          setSelectedId={setSelectedId}
-          selectedId={selectedId}
+          setSelectedPort={setSelectedPort}
+          selectedPort={selectedPort}
         />
         <DevicePanel
+          selectedPort={selectedPort}
           config={activeConfig}
-          configured={project.getDevice(activeConfig?.id) !== undefined}
           selectedInputs={selectedInputs}
           setSelectedInputs={setSelectedInputs}
         />
         <ConfigPanel
           config={activeConfig}
           project={project}
+          selectedPort={selectedPort}
           selectedInputs={selectedInputs}
           setProject={setProject}
         />
