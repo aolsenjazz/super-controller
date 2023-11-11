@@ -1,11 +1,11 @@
 import { dialog, app } from 'electron';
+import fs from 'fs';
+import path from 'path';
 
 import { Project } from '@shared/project';
 import { stringify } from '@shared/util';
 
-const fs = require('fs');
-const path = require('path');
-const Store = require('electron-store');
+import Store from 'electron-store';
 
 const SAVE_DIR = 'dir';
 const store = new Store();
@@ -16,15 +16,27 @@ const store = new Store();
  * @returns Recommended save/open dir
  */
 function recommendedDir(): string {
-  return store.get(SAVE_DIR, app.getPath('desktop'));
+  return store.get(SAVE_DIR, app.getPath('desktop')) as string;
 }
 
 /**
  * Convenience class for opening, saving, remembering convenient paths.
  */
-export class SaveOpenService {
+class SaveOpenServiceSingleton {
   /* The most-recently-used folder path */
   currentPath?: string;
+
+  private static instance: SaveOpenServiceSingleton;
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private constructor() {}
+
+  public static getInstance(): SaveOpenServiceSingleton {
+    if (!SaveOpenServiceSingleton.instance) {
+      SaveOpenServiceSingleton.instance = new SaveOpenServiceSingleton();
+    }
+    return SaveOpenServiceSingleton.instance;
+  }
 
   /**
    * Write current project to disk at `project`s default path. If no such default path
@@ -113,3 +125,5 @@ export class SaveOpenService {
       });
   }
 }
+
+export const SaveOpenService = SaveOpenServiceSingleton.getInstance();

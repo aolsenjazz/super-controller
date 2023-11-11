@@ -11,31 +11,41 @@ import {
 import { getDriver } from '@shared/drivers';
 import { PortInfo } from '@shared/port-info';
 
+import { ProjectManager as pm } from '../project-manager';
+import { WindowService as ws } from '../window-service';
 import { PortPair } from './port-pair';
 import { all } from './port-manager';
 import { DrivenPortPair } from './driven-port-pair';
-import { windowService } from '../window-service';
 import { VirtualPortService } from './virtual-port-service';
 
 /**
  * Manages sending/receiving of messages to and from device, as well as syncing
  * with the front end.
+ *
+ * TODO: this should be a singleton
  */
-export class PortService {
-  /* The current project */
-  #project: Project;
-
+class PortServiceSingleton {
   /* List of available port pairs */
   portPairs: Map<string, DrivenPortPair> = new Map();
 
   /* See `VirtualPortService` */
   #virtService: VirtualPortService;
 
-  constructor(project: Project) {
-    this.#project = project;
+  private static instance: PortServiceSingleton;
+
+  // 2. Private constructor to prevent direct construction calls with the `new` operator
+  private constructor() {
     this.#virtService = new VirtualPortService();
 
     this.#checkPorts(); // Scan for ports right away
+  }
+
+  // 3. Static method to get the instance of the class
+  public static getInstance(): PortServiceSingleton {
+    if (!PortServiceSingleton.instance) {
+      PortServiceSingleton.instance = new PortServiceSingleton();
+    }
+    return PortServiceSingleton.instance;
   }
 
   /* Pass current list of `PortPair`s to the front end */
@@ -45,7 +55,7 @@ export class PortService {
       return new PortInfo(p.name, p.siblingIndex, true);
     });
 
-    windowService.sendPortInfos(info);
+    ws.sendPortInfos(info);
   }
 
   /**
@@ -59,7 +69,7 @@ export class PortService {
    */
   initDevice(deviceId: string) {
     const pp = this.portPairs.get(deviceId);
-    const config = this.#project.getDevice(deviceId);
+    const config = pm.getProject().getDevice(deviceId);
 
     // if hardware is connected and configured in project, run initialization
     if (pp && config) {
@@ -89,7 +99,7 @@ export class PortService {
    */
   syncDeviceLights = (deviceId: string) => {
     const pp = this.portPairs.get(deviceId);
-    const config = this.#project.getDevice(deviceId);
+    const config = pm.getProject().getDevice(deviceId);
 
     if (pp && config instanceof SupportedDeviceConfig) {
       type T = LightCapableInputConfig;
@@ -176,8 +186,9 @@ export class PortService {
   }
 
   /* On project update, reset all devices, init defaults in fresh copy of `Project` */
-  set project(p: Project) {
-    this.#project = p;
+  set project(_p: Project) {
+    // this.#project = p;
+    // TODO: this will have big chnages
 
     this.portPairs.forEach((pp) => {
       if (pp instanceof DrivenPortPair) pp.resetLights();
@@ -198,7 +209,7 @@ export class PortService {
    */
   #handleSustain = (msg: MidiArray, shareWith: string[]) => {
     shareWith.forEach((devId) => {
-      const device = this.#project.getDevice(devId);
+      const device = pm.getProject().getDevice(devId);
       let newMsg = msg;
 
       if (device?.keyboardDriver !== undefined) {
@@ -220,7 +231,7 @@ export class PortService {
    * @param msg The message from the device
    */
   #onMessage = (pair: PortPair, msg: MidiArray) => {
-    const config = this.#project.getDevice(pair.id);
+    const config = pm.getProject().getDevice(pair.id);
 
     if (config !== undefined) {
       // device exists. process it
@@ -238,7 +249,7 @@ export class PortService {
       if (toDevice) pair.send(toDevice);
 
       // send new state to frontend
-      windowService.sendInputMsg(msg.id(true), config.id, msg);
+      ws.sendInputMsg(msg.id(true), config.id, msg);
     }
   };
 
@@ -271,8 +282,8 @@ export class PortService {
    */
   #openNewConfigs = () => {
     // for every device added to project, open port and init
-    this.#project.devices
-      .filter((dev) => !this.#virtService.isOpen(dev.id)) // get devices which aren't connected
+    pm.getProject()
+      .devices.filter((dev) => !this.#virtService.isOpen(dev.id)) // get devices which aren't connected
       .forEach((dev) => {
         const pp = this.portPairs.get(dev.id);
 
@@ -298,7 +309,7 @@ export class PortService {
     let didClose = false;
 
     this.#virtService.ports.forEach((_pp, id) => {
-      if (!this.#project.getDevice(id)) {
+      if (!pm.getProject().getDevice(id)) {
         this.portPairs.get(id)?.close();
         this.portPairs.delete(id);
         this.#virtService.close(id);
@@ -361,3 +372,5 @@ export class PortService {
     setTimeout(() => this.#checkPorts(), pollInterval);
   };
 }
+
+export const PortService = PortServiceSingleton.getInstance();

@@ -12,9 +12,20 @@ import { MSG, TITLE, PROJECT, PORTS } from './ipc-channels';
  * 1. Sending information to the client
  * 2. Setting the document-edited state
  */
-class WindowService {
+class WindowServiceSingleton {
   /* Has the document been edited (should there be a dot in the close button)? */
   edited = false;
+
+  private static instance: WindowServiceSingleton;
+
+  private constructor() {}
+
+  public static getInstance(): WindowServiceSingleton {
+    if (!WindowServiceSingleton.instance) {
+      WindowServiceSingleton.instance = new WindowServiceSingleton();
+    }
+    return WindowServiceSingleton.instance;
+  }
 
   /**
    * Send a serialized `Project` to the frontend
@@ -77,4 +88,4 @@ class WindowService {
   };
 }
 
-export const windowService = new WindowService();
+export const WindowService = WindowServiceSingleton.getInstance();
