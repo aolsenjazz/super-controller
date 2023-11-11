@@ -94,6 +94,11 @@ class ProjectManagerSingleton {
     );
   }
 
+  public initDefault() {
+    this.project = new Project();
+    this.notifyListeners();
+  }
+
   public setProject(project: Project) {
     this.project = project;
     this.notifyListeners();

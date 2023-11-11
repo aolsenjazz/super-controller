@@ -45,23 +45,37 @@ class SaveOpenServiceSingleton {
    * @param project The project to save
    * @returns resolves once save complete/canceled
    */
-  save(project: Project): Promise<string> {
+  save(project: Project): Promise<boolean> {
     if (!this.currentPath) return this.saveAs(project);
-    return new Promise<string>((resolve) => resolve(this.saveSync(project)));
+    return new Promise<boolean>((resolve) => resolve(this.saveSync(project)));
   }
 
   /**
+   * Prompts user that they're about to lose progress if necessary.
    * If a file has already been opened/saved, saves automatically to the same path.
    * Otherwise, opens a save dialog.
    *
    * @param project The project to save
    * @returns true if save was complete, false if canceled
    */
-  saveSync(project: Project): string {
+  saveSync(project: Project, doCheck = false): boolean {
+    // TODO: I'm not convinced this belongs here
+    if (doCheck) {
+      const value = dialog.showMessageBoxSync({
+        type: 'question',
+        buttons: ['Yes', 'No'],
+        title: 'Unsaved Progress',
+        message: 'You are about to lose progress. Do you want to save first?',
+      });
+
+      const yes = 0;
+      if (value !== yes) return false;
+    }
+
     if (this.currentPath) {
       fs.writeFileSync(this.currentPath, stringify(project), {});
       app.addRecentDocument(this.currentPath);
-      return this.currentPath;
+      return true;
     }
 
     const filePath = dialog.showSaveDialogSync({
@@ -83,7 +97,7 @@ class SaveOpenServiceSingleton {
    * @param project The project to save
    * @returns resolves once the save is complete or canceled
    */
-  saveAs(project: Project): Promise<string> {
+  saveAs(project: Project): Promise<boolean> {
     const suggestedName = this.currentPath || 'Untitled Project';
 
     return dialog

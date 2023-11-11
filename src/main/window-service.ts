@@ -1,10 +1,9 @@
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, Menu } from 'electron';
+import os from 'os';
 
-import { Project } from '@shared/project';
-import { PortInfo } from '@shared/port-info';
-import { stringify } from '@shared/util';
+import { getAssetPath, getPreloadPath, resolveHtmlPath } from './util-main';
 
-import { MSG, TITLE, PROJECT, PORTS } from './ipc-channels';
+type WindowFocusListener = (w: BrowserWindow | null) => void;
 
 /**
  * Convenience class for accessing the main window. Used for:
@@ -16,8 +15,11 @@ class WindowServiceSingleton {
   /* Has the document been edited (should there be a dot in the close button)? */
   edited = false;
 
+  private listeners: WindowFocusListener[] = [];
+
   private static instance: WindowServiceSingleton;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
 
   public static getInstance(): WindowServiceSingleton {
@@ -27,29 +29,33 @@ class WindowServiceSingleton {
     return WindowServiceSingleton.instance;
   }
 
-  /**
-   * Send a serialized `Project` to the frontend
-   *
-   * @param project The project
-   */
-  sendProject(project: Project) {
-    this.#send(PROJECT, stringify(project));
-  }
+  public async createMainWindow() {
+    // create window
+    const w = new BrowserWindow({
+      show: false,
+      width: 1024,
+      height: 600,
+      transparent: true,
+      frame: false,
+      minHeight: 312,
+      minWidth: 850,
+      titleBarStyle: os.platform() === 'darwin' ? 'hiddenInset' : 'default',
+      icon: getAssetPath('icon.png'),
+      webPreferences: { preload: getPreloadPath() },
+    });
 
-  /**
-   * Send the new name of the current document to the frontend.
-   */
-  sendTitle(title: string) {
-    this.#send(TITLE, title);
-  }
+    if (
+      process.env.NODE_ENV === 'development' ||
+      process.env.DEBUG_PROD === 'true'
+    ) {
+      this.initInspectListener(w);
+    }
 
-  /**
-   * Send a list of `PortInfo` to the frontend
-   *
-   * @param portInfos List `PortInfo`s
-   */
-  sendPortInfos(portInfos: PortInfo[]) {
-    this.#send(PORTS, portInfos);
+    w.documentEdited = this.edited;
+    w.loadURL(resolveHtmlPath('index.html'));
+    w.on('ready-to-show', () => w.show());
+    w.on('focus', () => this.notifyListeners());
+    w.on('closed', () => this.notifyListeners());
   }
 
   /**
@@ -57,7 +63,7 @@ class WindowServiceSingleton {
    *
    * @param edited Is the document edited?
    */
-  setEdited(edited: boolean) {
+  public setEdited(edited: boolean) {
     const windows = BrowserWindow.getAllWindows();
     const window = windows.length ? windows[0] : null;
     this.edited = edited;
@@ -67,25 +73,34 @@ class WindowServiceSingleton {
     }
   }
 
-  sendInputMsg(inputId: string, deviceId: string, msg: number[]) {
-    this.#send(MSG, inputId, deviceId, msg);
+  private initInspectListener(w: BrowserWindow) {
+    w.webContents.on('context-menu', (_, props) => {
+      const { x, y } = props;
+
+      Menu.buildFromTemplate([
+        {
+          label: 'Inspect element',
+          click: () => {
+            w.webContents.inspectElement(x, y);
+          },
+        },
+      ]).popup({ window: w });
+    });
   }
 
-  /**
-   * Send objects to the frontend
-   *
-   * @param channel The IPC channel on which to send
-   * @param args The objects to send
-   */
-  /* eslint-disable-next-line */
-  #send = (channel: string, ...args: any[]) => {
-    const windows = BrowserWindow.getAllWindows();
-    const window = windows.length ? windows[0] : null;
+  public subscribeToFocusChange(listener: WindowFocusListener) {
+    this.listeners.push(listener);
+  }
 
-    if (window !== null) {
-      window.webContents.send(channel, ...args);
-    }
-  };
+  public unsubscribeFromFocusChange(listener: WindowFocusListener) {
+    this.listeners = this.listeners.filter((l) => l !== listener);
+  }
+
+  private notifyListeners() {
+    this.listeners.forEach((listener) =>
+      listener(BrowserWindow.getFocusedWindow())
+    );
+  }
 }
 
 export const WindowService = WindowServiceSingleton.getInstance();

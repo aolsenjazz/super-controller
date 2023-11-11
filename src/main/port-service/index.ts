@@ -55,7 +55,7 @@ class PortServiceSingleton {
       return new PortInfo(p.name, p.siblingIndex, true);
     });
 
-    ws.sendPortInfos(info);
+    // ws.sendPortInfos(info); TODO:
   }
 
   /**
@@ -249,7 +249,7 @@ class PortServiceSingleton {
       if (toDevice) pair.send(toDevice);
 
       // send new state to frontend
-      ws.sendInputMsg(msg.id(true), config.id, msg);
+      // ws.sendInputMsg(msg.id(true), config.id, msg); TODO:
     }
   };
 
