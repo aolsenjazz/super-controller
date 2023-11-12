@@ -67,7 +67,7 @@ class PortServiceSingleton {
    */
   initDevice(deviceId: string) {
     const pp = this.portPairs.get(deviceId);
-    const config = pm.getProject().getDevice(deviceId);
+    const config = pm.project.getDevice(deviceId);
 
     // if hardware is connected and configured in project, run initialization
     if (pp && config) {
@@ -97,7 +97,7 @@ class PortServiceSingleton {
    */
   syncDeviceLights = (deviceId: string) => {
     const pp = this.portPairs.get(deviceId);
-    const config = pm.getProject().getDevice(deviceId);
+    const config = pm.project.getDevice(deviceId);
 
     if (pp && config instanceof SupportedDeviceConfig) {
       type T = LightCapableInputConfig;
@@ -207,7 +207,7 @@ class PortServiceSingleton {
    */
   #handleSustain = (msg: MidiArray, shareWith: string[]) => {
     shareWith.forEach((devId) => {
-      const device = pm.getProject().getDevice(devId);
+      const device = pm.project.getDevice(devId);
       let newMsg = msg;
 
       if (device?.keyboardDriver !== undefined) {
@@ -229,7 +229,7 @@ class PortServiceSingleton {
    * @param msg The message from the device
    */
   #onMessage = (pair: PortPair, msg: MidiArray) => {
-    const config = pm.getProject().getDevice(pair.id);
+    const config = pm.project.getDevice(pair.id);
 
     if (config !== undefined) {
       // device exists. process it
@@ -280,8 +280,8 @@ class PortServiceSingleton {
    */
   #openNewConfigs = () => {
     // for every device added to project, open port and init
-    pm.getProject()
-      .devices.filter((dev) => !this.#virtService.isOpen(dev.id)) // get devices which aren't connected
+    pm.project.devices
+      .filter((dev) => !this.#virtService.isOpen(dev.id)) // get devices which aren't connected
       .forEach((dev) => {
         const pp = this.portPairs.get(dev.id);
 
@@ -307,7 +307,7 @@ class PortServiceSingleton {
     let didClose = false;
 
     this.#virtService.ports.forEach((_pp, id) => {
-      if (!pm.getProject().getDevice(id)) {
+      if (!pm.project.getDevice(id)) {
         this.portPairs.get(id)?.close();
         this.portPairs.delete(id);
         this.#virtService.close(id);

@@ -6,7 +6,6 @@ import { WindowService as ws } from './window-service';
 import { SaveOpenService as sos } from './save-open-service';
 import { DialogService as ds } from './dialog-service';
 import { MenuProvider as mp } from './menu';
-import { projectFromFile } from './util-main';
 import './port-service';
 
 class LifecycleSingleton {
@@ -42,17 +41,13 @@ class LifecycleSingleton {
     app.on('window-all-closed', () => {}); // do nothing, continue to run
   }
 
+  /**
+   * OSX: Invoked when opening a recent document from File->Open recent submenu
+   */
   private subscribeToOpenFile() {
     app.on('open-file', (_event: Event, filePath: string) => {
       // TODO: this will be untested until packaged
-      app.addRecentDocument(filePath);
-
-      const proj = projectFromFile(filePath);
-
-      // ws.sendTitle(path.basename(filePath));
-      pm.setProject(proj);
-      ws.setEdited(false);
-
+      pm.loadProject(filePath);
       sos.currentPath = filePath;
     });
   }
@@ -61,7 +56,7 @@ class LifecycleSingleton {
     app.on('before-quit', () => {
       if (ws.edited === true) {
         const doSave = ds.unsavedCheckSync();
-        if (doSave === true) sos.saveSync(pm.getProject());
+        if (doSave === true) sos.saveSync(pm.project);
       }
     });
   }
@@ -85,7 +80,7 @@ export const Lifecycle = LifecycleSingleton.getInstance();
 // export const Background = {
 //   /* Invoked when a new window has opened and finished loading index.html */
 //   onDidFinishLoad() {
-//     ws.sendProject(pm.getProject());
+//     ws.sendProject(pm.project);
 //     ws.setEdited(ws.edited);
 //   },
 
@@ -107,7 +102,7 @@ export const Lifecycle = LifecycleSingleton.getInstance();
 //   /* File->SaveAs or shift+cmd+s */
 //   onSaveAs() {
 //     return sos
-//       .saveAs(pm.getProject())
+//       .saveAs(pm.project)
 //       .then(() => path.basename(sos.currentPath!))
 //       .then((fName: string) => ws.sendTitle(fName))
 //       .then(() => ws.setEdited(false));
@@ -116,7 +111,7 @@ export const Lifecycle = LifecycleSingleton.getInstance();
 //   /* File->Save or cmd+s */
 //   onSave() {
 //     return sos
-//       .save(pm.getProject())
+//       .save(pm.project)
 //       .then(() => path.basename(sos.currentPath!))
 //       .then((fName: string) => ws.sendTitle(fName))
 //       .then(() => ws.setEdited(false));

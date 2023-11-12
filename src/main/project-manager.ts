@@ -1,3 +1,8 @@
+// eslint-disable-next-line max-classes-per-file
+import { ipcMain, app } from 'electron';
+import { EventEmitter } from 'events';
+import path from 'path';
+
 import {
   BaseInputConfig,
   DeviceConfig,
@@ -5,29 +10,59 @@ import {
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 import { parse } from '@shared/util';
-import { ipcMain } from 'electron';
+
 import {
   ADD_DEVICE,
   REMOVE_DEVICE,
   UPDATE_DEVICE,
   UPDATE_INPUT,
 } from './ipc-channels';
-import { WindowService as ws } from './window-service';
+import { projectFromFile } from './util-main';
 
-type ProjectUpdateListener = (project: Project) => void;
+export enum ProjectManagerEvent {
+  NewProject = 'new-project',
+  AddDevice = 'add-device',
+  RemoveDevice = 'remove-device',
+  UpdateDevice = 'update-device',
+  UpdateInput = 'update-input',
+}
+
+interface ProjectManagerEvents {
+  [ProjectManagerEvent.NewProject]: (name: string) => void;
+  [ProjectManagerEvent.AddDevice]: (project: Project) => void;
+  [ProjectManagerEvent.RemoveDevice]: (project: Project) => void;
+  [ProjectManagerEvent.UpdateDevice]: (project: Project) => void;
+  [ProjectManagerEvent.UpdateInput]: (project: Project) => void;
+}
+
+class TypedEventEmitter extends EventEmitter {
+  public on<U extends keyof ProjectManagerEvents>(
+    event: U,
+    listener: ProjectManagerEvents[U]
+  ): this {
+    super.on(event, listener);
+    return this;
+  }
+
+  public emit<U extends keyof ProjectManagerEvents>(
+    event: U,
+    ...args: Parameters<ProjectManagerEvents[U]>
+  ): boolean {
+    return super.emit(event, ...args);
+  }
+}
 
 /**
- * Manages state of current project for the backend. Notifies listeners whenever the
+ * Manages state of current project for the backend. Emits whenever the
  * project is updated or changed.
  */
-class ProjectManagerSingleton {
+class ProjectManagerSingleton extends TypedEventEmitter {
   private static instance: ProjectManagerSingleton;
 
-  private project: Project = new Project();
-
-  private listeners: ProjectUpdateListener[] = [];
+  public project: Project = new Project();
 
   private constructor() {
+    super();
     this.initIpc();
   }
 
@@ -40,36 +75,27 @@ class ProjectManagerSingleton {
 
   private initIpc() {
     ipcMain.on(ADD_DEVICE, (_e: Event, c: string) => {
-      ws.setEdited(true);
-
       const config = parse<DeviceConfig>(c);
       this.project.addDevice(config);
 
-      this.notifyListeners();
+      this.emit(ProjectManagerEvent.AddDevice, this.project);
     });
 
     /* When a device is removed from project, remove it here and re-init all devices */
     ipcMain.on(REMOVE_DEVICE, (_e: Event, deviceId: string) => {
-      ws.setEdited(true);
-
       const config = this.project.getDevice(deviceId);
+      this.project.removeDevice(config!);
 
-      if (!config) throw new Error(`no config exists for device ${deviceId}`);
-
-      this.project.removeDevice(config);
-
-      this.notifyListeners();
+      this.emit(ProjectManagerEvent.RemoveDevice, this.project);
     });
 
     ipcMain.on(UPDATE_DEVICE, (_e: Event, deviceJSON: string) => {
-      ws.setEdited(true);
-
       const config = parse<DeviceConfig>(deviceJSON);
 
       this.project.removeDevice(config);
       this.project.addDevice(config);
 
-      this.notifyListeners();
+      this.emit(ProjectManagerEvent.UpdateDevice, this.project);
     });
 
     ipcMain.on(
@@ -89,35 +115,26 @@ class ProjectManagerSingleton {
 
         config.inputs.splice(inputConfigIdx, 1, inputConfig);
         // ps.syncInputLight(configId, inputConfig); TODO: replace with a smart notify
-        ws.setEdited(true);
+
+        this.emit(ProjectManagerEvent.UpdateInput, this.project);
       }
     );
   }
 
   public initDefault() {
     this.project = new Project();
-    this.notifyListeners();
+    this.emit(ProjectManagerEvent.NewProject, 'Untitled Project');
   }
 
-  public setProject(project: Project) {
-    this.project = project;
-    this.notifyListeners();
-  }
+  public loadProject(filePath: string) {
+    app.addRecentDocument(filePath);
 
-  public getProject(): Project {
-    return this.project;
-  }
+    this.project = projectFromFile(filePath);
 
-  public subscribe(listener: ProjectUpdateListener) {
-    this.listeners.push(listener);
-  }
-
-  public unsubscribe(listener: ProjectUpdateListener) {
-    this.listeners = this.listeners.filter((l) => l !== listener);
-  }
-
-  private notifyListeners() {
-    this.listeners.forEach((listener) => listener(this.project));
+    this.emit(
+      ProjectManagerEvent.NewProject,
+      path.basename(filePath, '.controller')
+    );
   }
 }
 

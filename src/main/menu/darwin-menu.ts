@@ -62,14 +62,14 @@ const subMenuFile: DarwinMenuItemConstructorOptions = {
       label: 'Save',
       accelerator: 'Command+S',
       click: () => {
-        sos.save(pm.getProject());
+        sos.save(pm.project);
       },
     },
     {
       label: 'Save As',
       accelerator: 'Shift+Command+S',
       click: () => {
-        sos.saveAs(pm.getProject());
+        sos.saveAs(pm.project);
       },
     },
     {

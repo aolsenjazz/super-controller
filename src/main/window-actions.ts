@@ -1,6 +1,6 @@
 import { PortInfo } from '@shared/port-info';
 import { BrowserWindow } from 'electron';
-import { PORTS } from './ipc-channels';
+import { PORTS, TITLE } from './ipc-channels';
 
 export class WindowActions {
   private windowId: number;
@@ -16,6 +16,13 @@ export class WindowActions {
    */
   public sendPortInfos(portInfos: PortInfo[]) {
     this.send(PORTS, portInfos);
+  }
+
+  /**
+   * Send the new name of the current document to the frontend.
+   */
+  sendTitle(title: string) {
+    this.send(TITLE, title);
   }
 
   /**

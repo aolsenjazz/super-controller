@@ -1,6 +1,7 @@
 import { BrowserWindow, Menu } from 'electron';
 import os from 'os';
 
+import { ProjectManager as pm, ProjectManagerEvent } from './project-manager';
 import { WindowActions } from './window-actions';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from './util-main';
 
@@ -22,8 +23,11 @@ class WindowServiceSingleton {
 
   private static instance: WindowServiceSingleton;
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
+  private constructor() {
+    pm.on(ProjectManagerEvent.NewProject, (name) => {
+      this.mainWindow().sendTitle(name);
+    });
+  }
 
   public static getInstance(): WindowServiceSingleton {
     if (!WindowServiceSingleton.instance) {
