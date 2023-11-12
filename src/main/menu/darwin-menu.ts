@@ -113,43 +113,47 @@ const subMenuEdit: DarwinMenuItemConstructorOptions = {
     },
   ],
 };
-const subMenuViewDev: DarwinMenuItemConstructorOptions = {
-  label: 'View',
-  submenu: [
-    {
-      label: 'Reload',
-      accelerator: 'Command+R',
-      click: () => {
-        // this.mainWindow.webContents.reload();
+const subMenuViewDev = (w: BrowserWindow) => {
+  return {
+    label: 'View',
+    submenu: [
+      {
+        label: 'Reload',
+        accelerator: 'Command+R',
+        click: () => {
+          w.webContents.reload();
+        },
       },
-    },
-    {
-      label: 'Toggle Full Screen',
-      accelerator: 'Ctrl+Command+F',
-      click: () => {
-        // this.mainWindow.setFullScreen(!this.mainWindow.isFullScreen());
+      {
+        label: 'Toggle Full Screen',
+        accelerator: 'Ctrl+Command+F',
+        click: () => {
+          w.setFullScreen(!w.isFullScreen());
+        },
       },
-    },
-    {
-      label: 'Toggle Developer Tools',
-      accelerator: 'Alt+Command+I',
-      click: () => {
-        // this.mainWindow.webContents.toggleDevTools();
+      {
+        label: 'Toggle Developer Tools',
+        accelerator: 'Alt+Command+I',
+        click: () => {
+          w.webContents.toggleDevTools();
+        },
       },
-    },
-  ],
+    ],
+  };
 };
-const subMenuViewProd: DarwinMenuItemConstructorOptions = {
-  label: 'View',
-  submenu: [
-    {
-      label: 'Toggle Full Screen',
-      accelerator: 'Ctrl+Command+F',
-      click: () => {
-        // this.mainWindow.setFullScreen(!this.mainWindow.isFullScreen());
+const subMenuViewProd = (w: BrowserWindow) => {
+  return {
+    label: 'View',
+    submenu: [
+      {
+        label: 'Toggle Full Screen',
+        accelerator: 'Ctrl+Command+F',
+        click: () => {
+          w.setFullScreen(!w.isFullScreen());
+        },
       },
-    },
-  ],
+    ],
+  };
 };
 const subMenuWindow: DarwinMenuItemConstructorOptions = {
   label: 'Window',
@@ -193,10 +197,11 @@ const subMenuView =
     : subMenuViewProd;
 
 export function build(w: BrowserWindow | null) {
-  const coreMenu = [subMenuAbout, subMenuFile, subMenuEdit];
-  const windowMenu = [subMenuView, subMenuWindow];
+  let menu = [subMenuAbout, subMenuFile, subMenuEdit];
 
-  return w === null
-    ? coreMenu.concat(subMenuContact)
-    : coreMenu.concat(windowMenu, subMenuContact);
+  if (w !== null) {
+    menu = menu.concat([subMenuView(w), subMenuWindow]);
+  }
+
+  return menu.concat(subMenuContact);
 }
