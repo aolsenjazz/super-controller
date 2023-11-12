@@ -11,7 +11,6 @@ import { BUG_REPORT, FEATURE_REQUEST } from '@shared/email-templates';
 import { projectFromFile } from '../util-main';
 import { ProjectManager as pm } from '../project-manager';
 import { SaveOpenService as sos } from '../save-open-service';
-import { WindowService as ws } from '../window-service';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
