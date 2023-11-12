@@ -21,8 +21,6 @@ import { VirtualPortService } from './virtual-port-service';
 /**
  * Manages sending/receiving of messages to and from device, as well as syncing
  * with the front end.
- *
- * TODO: this should be a singleton
  */
 class PortServiceSingleton {
   /* List of available port pairs */
@@ -55,7 +53,7 @@ class PortServiceSingleton {
       return new PortInfo(p.name, p.siblingIndex, true);
     });
 
-    // ws.sendPortInfos(info); TODO:
+    ws.mainWindow().sendPortInfos(info);
   }
 
   /**

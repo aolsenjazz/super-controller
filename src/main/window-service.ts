@@ -1,6 +1,7 @@
 import { BrowserWindow, Menu } from 'electron';
 import os from 'os';
 
+import { WindowActions } from './window-actions';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from './util-main';
 
 type WindowFocusListener = (w: BrowserWindow | null) => void;
@@ -107,6 +108,10 @@ class WindowServiceSingleton {
     this.listeners.forEach((listener) =>
       listener(BrowserWindow.getFocusedWindow())
     );
+  }
+
+  public mainWindow() {
+    return new WindowActions(this.mainWindowIdx);
   }
 }
 
