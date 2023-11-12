@@ -1,12 +1,9 @@
 /* eslint global-require: off, no-console: off, promise/always-return: off */
 import './ipc-manager';
-import { app } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 
-import { WindowService as ws } from './window-service';
-import { MenuProvider as mp } from './menu';
-import { Background } from './background';
+import { Lifecycle } from './lifecycle';
 
 // TODO: Why on earth would we put this functionality in a class? just silly...
 class AppUpdater {
@@ -31,9 +28,8 @@ const isDebug =
 
 if (isDebug) {
   require('electron-debug')();
-}
 
-const installExtensions = async () => {
+  // const installExtensions = async () => {
   // TODO: as of 11/11/2023, this isn't working anyways (react's fault) should be fixed soon
   // const installer = require('electron-devtools-installer');
   // const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
@@ -44,34 +40,8 @@ const installExtensions = async () => {
   //     forceDownload
   //   )
   //   .catch(console.log);
-};
+  // };
+}
 
-app.on('window-all-closed', () => {}); // do nothing, continue to run
-
-app.on('open-file', (_event: Event, filePath: string) => {
-  // if (mainWindow === null) createWindow();
-  Background.onOpenFile(filePath);
-});
-
-app.on('before-quit', (event) => {
-  const shouldQuit = Background.beforeQuit();
-  if (!shouldQuit) {
-    event.preventDefault();
-  }
-});
-
-app
-  .whenReady()
-  .then(async () => {
-    mp.buildMenu(null);
-    ws.createMainWindow();
-
-    if (isDebug) await installExtensions();
-
-    app.on('activate', () => {
-      // On macOS it's common to re-create a window in the app when the
-      // dock icon is clicked and there are no other windows open.
-      ws.createMainWindow();
-    });
-  })
-  .catch(console.log);
+// start the background processes, load renderer, create menu bar
+Lifecycle.start();

@@ -13,7 +13,9 @@ type WindowFocusListener = (w: BrowserWindow | null) => void;
  */
 class WindowServiceSingleton {
   /* Has the document been edited (should there be a dot in the close button)? */
-  edited = false;
+  public edited = false;
+
+  private mainWindowIdx = 0;
 
   private listeners: WindowFocusListener[] = [];
 
@@ -30,7 +32,10 @@ class WindowServiceSingleton {
   }
 
   public async createMainWindow() {
-    // create window
+    if (BrowserWindow.fromId(this.mainWindowIdx) !== null) {
+      return;
+    }
+
     const w = new BrowserWindow({
       show: false,
       width: 1024,
@@ -56,6 +61,8 @@ class WindowServiceSingleton {
     w.on('ready-to-show', () => w.show());
     w.on('focus', () => this.notifyListeners());
     w.on('closed', () => this.notifyListeners());
+
+    this.mainWindowIdx = w.id;
   }
 
   /**

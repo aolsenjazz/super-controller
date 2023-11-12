@@ -58,20 +58,7 @@ class SaveOpenServiceSingleton {
    * @param project The project to save
    * @returns true if save was complete, false if canceled
    */
-  saveSync(project: Project, doCheck = false): boolean {
-    // TODO: I'm not convinced this belongs here
-    if (doCheck) {
-      const value = dialog.showMessageBoxSync({
-        type: 'question',
-        buttons: ['Yes', 'No'],
-        title: 'Unsaved Progress',
-        message: 'You are about to lose progress. Do you want to save first?',
-      });
-
-      const yes = 0;
-      if (value !== yes) return false;
-    }
-
+  saveSync(project: Project): boolean {
     if (this.currentPath) {
       fs.writeFileSync(this.currentPath, stringify(project), {});
       app.addRecentDocument(this.currentPath);
