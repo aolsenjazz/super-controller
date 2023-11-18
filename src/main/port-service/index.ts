@@ -1,7 +1,6 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 import { ipcMain } from 'electron';
 
-import { Project } from '@shared/project';
 import { create, MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
 import { getDiff } from '@shared/util';
 import {
@@ -13,7 +12,7 @@ import {
 import { getDriver } from '@shared/drivers';
 import { PortInfo } from '@shared/port-info';
 
-import { ProjectProvider } from '../project-provider';
+import { ProjectProvider, ProjectProviderEvent } from '../project-provider';
 import { wp } from '../window-provider';
 import { PortPair } from './port-pair';
 import { all } from './port-manager';
@@ -44,6 +43,10 @@ class PortServiceSingleton {
 
     ipcMain.on(PORTS, () => {
       this.sendToFrontend();
+    });
+
+    ProjectProvider.on(ProjectProviderEvent.NewProject, () => {
+      this.updatePorts();
     });
   }
 
@@ -190,21 +193,6 @@ class PortServiceSingleton {
     this.portPairs.forEach((v, k) => {
       if (id === k) v.applyThrottle(throttleMs);
     });
-  }
-
-  /* On project update, reset all devices, init defaults in fresh copy of `Project` */
-  set project(_p: Project) {
-    // this.#project = p;
-    // TODO: this will have big chnages
-
-    this.portPairs.forEach((pp) => {
-      if (pp instanceof DrivenPortPair) pp.resetLights();
-      pp.close();
-    });
-    this.portPairs.clear();
-    this.#virtService.shutdown(); // close all open vPorts
-
-    this.updatePorts();
   }
 
   /**

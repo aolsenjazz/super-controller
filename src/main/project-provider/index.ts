@@ -115,11 +115,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
   }
 
   /**
-   * Shows an open dialog to the user
-   *
-   * TODO: I don't really love that this is here
-   *
-   * @returns Promise<string> promise which resolves with the filePath
+   * Shows an open dialog to the user, and loads the project at the given URI
    */
   public async open() {
     const result = await dialogs.open(recommendedDir());

@@ -2,10 +2,14 @@ import { app } from 'electron';
 import os from 'os';
 
 import { wp } from './window-provider';
-import { ProjectProvider as pp } from './project-provider';
+import {
+  ProjectProvider as pp,
+  ProjectProviderEvent,
+} from './project-provider';
 import { dialogs } from './dialogs';
 import { AppMenu as am } from './menu';
 import './port-service';
+import './ipc-service';
 
 const { MainWindow } = wp;
 
@@ -17,6 +21,7 @@ class LifecycleSingleton {
     this.subscribeToOpenFile();
     this.subscribeToBeforeQuit();
     this.subscribeToActivate();
+    this.subscribeToProjectChange();
   }
 
   public static getInstance() {
@@ -49,7 +54,6 @@ class LifecycleSingleton {
     app.on('open-file', (_event: Event, filePath: string) => {
       // TODO: this will be untested until packaged
       pp.loadProject(filePath);
-      // pp.currentPath = filePath; TODO: this shouldn't be necessary
     });
   }
 
@@ -74,55 +78,12 @@ class LifecycleSingleton {
       }
     });
   }
+
+  private subscribeToProjectChange() {
+    pp.on(ProjectProviderEvent.NewProject, (title) => {
+      MainWindow.title = title;
+    });
+  }
 }
 
 export const Lifecycle = LifecycleSingleton.getInstance();
-
-// export const Background = {
-//   /* Invoked when a new window has opened and finished loading index.html */
-//   onDidFinishLoad() {
-//     ws.sendProject(pm.project);
-//     ws.setEdited(ws.edited);
-//   },
-
-//   /* MENU/KEYBINDS */
-
-//   /* File->New or cmd+N */
-//   onNew() {
-//     sos.currentPath = undefined;
-
-//     // return unsavedCheck().then(() => {
-//     //   // this.project = new Project(); TODO: this needs to be changed
-//     //   // ps.project = this.project; TODO: this needs to go
-//     //   ws.sendProject(new Project()); // TODO: this isn't correct anymore
-//     //   ws.setEdited(false);
-//     //   return ws.sendTitle('Untitled Project');
-//     // });
-//   },
-
-//   /* File->SaveAs or shift+cmd+s */
-//   onSaveAs() {
-//     return sos
-//       .saveAs(pm.project)
-//       .then(() => path.basename(sos.currentPath!))
-//       .then((fName: string) => ws.sendTitle(fName))
-//       .then(() => ws.setEdited(false));
-//   },
-
-//   /* File->Save or cmd+s */
-//   onSave() {
-//     return sos
-//       .save(pm.project)
-//       .then(() => path.basename(sos.currentPath!))
-//       .then((fName: string) => ws.sendTitle(fName))
-//       .then(() => ws.setEdited(false));
-//   },
-
-//   /* File->Open or cmd+O */
-//   onOpen() {
-//     sos
-//       .open()
-//       .then((fPath: string) => this.onOpenFile(fPath))
-//       .catch(() => {}); // ignore cancel dialogs
-//   },
-// };
