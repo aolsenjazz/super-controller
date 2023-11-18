@@ -5,18 +5,18 @@ import { build as buildDefault } from './default-menu';
 
 import { wp } from '../window-provider';
 
-class MenuProviderSingleton {
-  private static instance: MenuProviderSingleton;
+class AppMenuSingleton {
+  private static instance: AppMenuSingleton;
 
   private constructor() {
     wp.onFocusChange(this.buildMenu);
   }
 
-  public static getInstance(): MenuProviderSingleton {
-    if (!MenuProviderSingleton.instance) {
-      MenuProviderSingleton.instance = new MenuProviderSingleton();
+  public static getInstance(): AppMenuSingleton {
+    if (!AppMenuSingleton.instance) {
+      AppMenuSingleton.instance = new AppMenuSingleton();
     }
-    return MenuProviderSingleton.instance;
+    return AppMenuSingleton.instance;
   }
 
   public buildMenu(w: BrowserWindow | null) {
@@ -28,4 +28,4 @@ class MenuProviderSingleton {
   }
 }
 
-export const MenuProvider = MenuProviderSingleton.getInstance();
+export const AppMenu = AppMenuSingleton.getInstance();

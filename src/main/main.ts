@@ -1,4 +1,24 @@
 /* eslint global-require: off, no-console: off, promise/always-return: off */
+
+/**
+ *                        ___________________
+ *                       |                   |
+ *                       |      main.ts      |
+ *                       |___________________|
+ *                        _________|_________
+ *                       |                   |
+ *                       |    lifecycle.ts   |
+ *                       |___________________|
+ *  ___________________ / _________|_________ \ ___________________
+ * |                   | |                   | |                   |
+ * |       menu        | |   *-service.ts    | |     renderer      |
+ * |___________________| |___________________| |___________________|
+ *              __|_____________|__
+ *             |                   |
+ *             |   *-provider.ts   |
+ *             |___________________|
+ */
+
 import './ipc-manager';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';

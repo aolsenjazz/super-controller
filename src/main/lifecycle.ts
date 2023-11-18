@@ -5,7 +5,7 @@ import { ProjectManager as pm } from './project-manager';
 import { wp } from './window-provider';
 import { SaveOpenService as sos } from './save-open-service';
 import { DialogService as ds } from './dialog-service';
-import { MenuProvider as mp } from './menu';
+import { AppMenu as am } from './menu';
 import './port-service';
 
 const { MainWindow } = wp;
@@ -32,7 +32,7 @@ class LifecycleSingleton {
     app
       .whenReady()
       .then(() => {
-        mp.buildMenu(null);
+        am.buildMenu(null);
         MainWindow.create();
         return true;
       })
