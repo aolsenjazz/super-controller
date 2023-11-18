@@ -2,11 +2,13 @@ import { app } from 'electron';
 import os from 'os';
 
 import { ProjectManager as pm } from './project-manager';
-import { WindowService as ws } from './window-service';
+import { wp } from './window-provider';
 import { SaveOpenService as sos } from './save-open-service';
 import { DialogService as ds } from './dialog-service';
 import { MenuProvider as mp } from './menu';
 import './port-service';
+
+const { MainWindow } = wp;
 
 class LifecycleSingleton {
   private static instance: LifecycleSingleton;
@@ -31,7 +33,7 @@ class LifecycleSingleton {
       .whenReady()
       .then(() => {
         mp.buildMenu(null);
-        ws.createMainWindow();
+        MainWindow.create();
         return true;
       })
       .catch(console.log);
@@ -54,7 +56,7 @@ class LifecycleSingleton {
 
   private subscribeToBeforeQuit() {
     app.on('before-quit', () => {
-      if (ws.edited === true) {
+      if (MainWindow.edited === true) {
         const doSave = ds.unsavedCheckSync();
         if (doSave === true) sos.saveSync(pm.project);
       }
@@ -69,7 +71,7 @@ class LifecycleSingleton {
   private subscribeToActivate() {
     return app.on('activate', () => {
       if (os.platform() === 'darwin') {
-        ws.createMainWindow();
+        MainWindow.create();
       }
     });
   }

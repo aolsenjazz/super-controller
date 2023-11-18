@@ -36,7 +36,7 @@ class DialogServiceSingleton {
    * changes were saved.
    */
   async unsavedCheck() {
-    return unsavedCheckSync();
+    return this.unsavedCheckSync();
   }
 }
 

@@ -3,13 +3,13 @@ import { BrowserWindow, Menu } from 'electron';
 import { build as buildDarwin } from './darwin-menu';
 import { build as buildDefault } from './default-menu';
 
-import { WindowService as ws } from '../window-service';
+import { wp } from '../window-provider';
 
 class MenuProviderSingleton {
   private static instance: MenuProviderSingleton;
 
   private constructor() {
-    ws.subscribeToFocusChange(this.buildMenu);
+    wp.onFocusChange(this.buildMenu);
   }
 
   public static getInstance(): MenuProviderSingleton {

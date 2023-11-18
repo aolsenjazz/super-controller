@@ -12,11 +12,13 @@ import { getDriver } from '@shared/drivers';
 import { PortInfo } from '@shared/port-info';
 
 import { ProjectManager as pm } from '../project-manager';
-import { WindowService as ws } from '../window-service';
+import { wp } from '../window-provider';
 import { PortPair } from './port-pair';
 import { all } from './port-manager';
 import { DrivenPortPair } from './driven-port-pair';
 import { VirtualPortService } from './virtual-port-service';
+
+const { MainWindow } = wp;
 
 /**
  * Manages sending/receiving of messages to and from device, as well as syncing
@@ -53,7 +55,7 @@ class PortServiceSingleton {
       return new PortInfo(p.name, p.siblingIndex, true);
     });
 
-    ws.mainWindow().sendPortInfos(info);
+    MainWindow.sendPortInfos(info);
   }
 
   /**
