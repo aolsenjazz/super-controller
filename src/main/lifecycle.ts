@@ -40,6 +40,7 @@ class LifecycleSingleton {
         MainWindow.create();
         return true;
       })
+      // eslint-disable-next-line no-console
       .catch(console.log);
   }
 
@@ -82,6 +83,7 @@ class LifecycleSingleton {
   private subscribeToProjectChange() {
     pp.on(ProjectProviderEvent.NewProject, (title) => {
       MainWindow.title = title;
+      MainWindow.sendProject(pp.project); // TODO: this will be gone soon
     });
   }
 }

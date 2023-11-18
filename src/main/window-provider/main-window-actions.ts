@@ -3,9 +3,10 @@ import os from 'os';
 
 import { PortInfo } from '@shared/port-info';
 
-import { PORTS } from '../ipc-channels';
+import { PORTS, PROJECT } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';
+import { stringify } from '@shared/util';
 
 /**
  * Provides a number of frequently-used functions targetting the main window.
@@ -43,5 +44,9 @@ export class MainWindowActions extends StatefulWindowActions {
    */
   public sendPortInfos(portInfos: PortInfo[]) {
     this.send(PORTS, portInfos);
+  }
+
+  sendProject(p: Project) {
+    this.send(PROJECT, stringify(p));
   }
 }
