@@ -8,9 +8,7 @@ import {
 
 import { BUG_REPORT, FEATURE_REQUEST } from '@shared/email-templates';
 
-import { projectFromFile } from '../util-main';
-import { ProjectManager as pm } from '../project-manager';
-import { SaveOpenService as sos } from '../save-open-service';
+import { ProjectProvider as pp } from '../project-provider';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
@@ -55,33 +53,28 @@ const subMenuFile: DarwinMenuItemConstructorOptions = {
       label: 'New',
       accelerator: 'Command+N',
       click: () => {
-        pm.initDefault();
+        pp.initDefault();
       },
     },
     {
       label: 'Save',
       accelerator: 'Command+S',
       click: () => {
-        sos.save(pm.project);
+        pp.save();
       },
     },
     {
       label: 'Save As',
       accelerator: 'Shift+Command+S',
       click: () => {
-        sos.saveAs(pm.project);
+        pp.saveAs();
       },
     },
     {
       label: 'Open',
       accelerator: 'Command+O',
       click: () => {
-        sos
-          .open()
-          .then((path) => projectFromFile(path))
-          .then((p) => pm.setProject(p))
-          // eslint-disable-next-line no-console
-          .catch((e) => console.error(e));
+        pp.open();
       },
     },
     {

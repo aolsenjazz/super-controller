@@ -1,4 +1,6 @@
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
+import { ipcMain } from 'electron';
+
 import { Project } from '@shared/project';
 import { create, MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
 import { getDiff } from '@shared/util';
@@ -11,12 +13,13 @@ import {
 import { getDriver } from '@shared/drivers';
 import { PortInfo } from '@shared/port-info';
 
-import { ProjectManager as pm } from '../project-manager';
+import { ProjectProvider } from '../project-provider';
 import { wp } from '../window-provider';
 import { PortPair } from './port-pair';
 import { all } from './port-manager';
 import { DrivenPortPair } from './driven-port-pair';
 import { VirtualPortService } from './virtual-port-service';
+import { PORTS } from '../ipc-channels';
 
 const { MainWindow } = wp;
 
@@ -38,6 +41,10 @@ class PortServiceSingleton {
     this.#virtService = new VirtualPortService();
 
     this.#checkPorts(); // Scan for ports right away
+
+    ipcMain.on(PORTS, () => {
+      this.sendToFrontend();
+    });
   }
 
   // 3. Static method to get the instance of the class
@@ -69,7 +76,7 @@ class PortServiceSingleton {
    */
   initDevice(deviceId: string) {
     const pp = this.portPairs.get(deviceId);
-    const config = pm.project.getDevice(deviceId);
+    const config = ProjectProvider.project.getDevice(deviceId);
 
     // if hardware is connected and configured in project, run initialization
     if (pp && config) {
@@ -99,7 +106,7 @@ class PortServiceSingleton {
    */
   syncDeviceLights = (deviceId: string) => {
     const pp = this.portPairs.get(deviceId);
-    const config = pm.project.getDevice(deviceId);
+    const config = ProjectProvider.project.getDevice(deviceId);
 
     if (pp && config instanceof SupportedDeviceConfig) {
       type T = LightCapableInputConfig;
@@ -209,7 +216,7 @@ class PortServiceSingleton {
    */
   #handleSustain = (msg: MidiArray, shareWith: string[]) => {
     shareWith.forEach((devId) => {
-      const device = pm.project.getDevice(devId);
+      const device = ProjectProvider.project.getDevice(devId);
       let newMsg = msg;
 
       if (device?.keyboardDriver !== undefined) {
@@ -231,7 +238,7 @@ class PortServiceSingleton {
    * @param msg The message from the device
    */
   #onMessage = (pair: PortPair, msg: MidiArray) => {
-    const config = pm.project.getDevice(pair.id);
+    const config = ProjectProvider.project.getDevice(pair.id);
 
     if (config !== undefined) {
       // device exists. process it
@@ -282,7 +289,7 @@ class PortServiceSingleton {
    */
   #openNewConfigs = () => {
     // for every device added to project, open port and init
-    pm.project.devices
+    ProjectProvider.project.devices
       .filter((dev) => !this.#virtService.isOpen(dev.id)) // get devices which aren't connected
       .forEach((dev) => {
         const pp = this.portPairs.get(dev.id);
@@ -309,7 +316,7 @@ class PortServiceSingleton {
     let didClose = false;
 
     this.#virtService.ports.forEach((_pp, id) => {
-      if (!pm.project.getDevice(id)) {
+      if (!ProjectProvider.project.getDevice(id)) {
         this.portPairs.get(id)?.close();
         this.portPairs.delete(id);
         this.#virtService.close(id);

@@ -1,10 +1,9 @@
 import { app } from 'electron';
 import os from 'os';
 
-import { ProjectManager as pm } from './project-manager';
 import { wp } from './window-provider';
-import { SaveOpenService as sos } from './save-open-service';
-import { DialogService as ds } from './dialog-service';
+import { ProjectProvider as pp } from './project-provider';
+import { dialogs } from './dialogs';
 import { AppMenu as am } from './menu';
 import './port-service';
 
@@ -49,16 +48,16 @@ class LifecycleSingleton {
   private subscribeToOpenFile() {
     app.on('open-file', (_event: Event, filePath: string) => {
       // TODO: this will be untested until packaged
-      pm.loadProject(filePath);
-      sos.currentPath = filePath;
+      pp.loadProject(filePath);
+      // pp.currentPath = filePath; TODO: this shouldn't be necessary
     });
   }
 
   private subscribeToBeforeQuit() {
-    app.on('before-quit', () => {
+    app.on('before-quit', async () => {
       if (MainWindow.edited === true) {
-        const doSave = ds.unsavedCheckSync();
-        if (doSave === true) sos.saveSync(pm.project);
+        const doSave = dialogs.unsavedCheck();
+        if (doSave === true) await pp.save();
       }
     });
   }
