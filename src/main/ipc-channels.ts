@@ -11,3 +11,9 @@ export const UPDATE_DEVICE = 'update-device';
 export const UPDATE_INPUT = 'update-input';
 
 export const REQUEST = 'request';
+
+// ~~~~ new ~~~~
+export const REQUEST_DEVICE_LIST = 'request-device-list';
+export const REQUEST_DEVICE_DESCRIPTOR = 'request-device-descriptor';
+export const DEVICE_LIST = 'device-list';
+export const DEVICE_DESCRIPTOR = 'device-descriptor';

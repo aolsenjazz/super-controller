@@ -18,7 +18,6 @@ import { PortPair } from './port-pair';
 import { all } from './port-manager';
 import { DrivenPortPair } from './driven-port-pair';
 import { VirtualPortService } from './virtual-port-service';
-import { PORTS } from '../ipc-channels';
 
 const { MainWindow } = wp;
 
@@ -41,10 +40,6 @@ class PortServiceSingleton {
 
     this.#checkPorts(); // Scan for ports right away
 
-    ipcMain.on(PORTS, () => {
-      this.sendToFrontend();
-    });
-
     ProjectProvider.on(ProjectProviderEvent.NewProject, () => {
       this.updatePorts();
     });
@@ -60,12 +55,15 @@ class PortServiceSingleton {
 
   /* Pass current list of `PortPair`s to the front end */
   sendToFrontend() {
-    // pass port info to frontend
-    const info = Array.from(this.portPairs.values()).map((p) => {
-      return new PortInfo(p.name, p.siblingIndex, true);
-    });
+    const configuredDeviceIds = ProjectProvider.project.devices.map(
+      (d) => d.id
+    );
+    const availableDevices = Array.from(this.portPairs.keys());
+    const deviceIds = Array.from(
+      new Set([...configuredDeviceIds, ...availableDevices])
+    );
 
-    MainWindow.sendPortInfos(info);
+    MainWindow.sendDeviceList(deviceIds);
   }
 
   /**

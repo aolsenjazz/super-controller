@@ -17,7 +17,12 @@ import {
   MSG,
   OS,
   TITLE,
+  REQUEST_DEVICE_LIST,
+  DEVICE_LIST,
+  DEVICE_DESCRIPTOR,
+  REQUEST_DEVICE_DESCRIPTOR,
 } from './ipc-channels';
+import { DeviceDescriptor } from '@shared/hardware-config/descriptors/device-descriptor';
 
 /**
  * Generic wrapper around ipcRenderer.on() and ipcRenderer.removeListener()
@@ -151,8 +156,35 @@ const projectService = {
   },
 };
 
+const deviceService = {
+  onDeviceListChange: (func: (ids: string[]) => void) => {
+    return addOnChangeListener(DEVICE_LIST, func);
+  },
+
+  requestDeviceList: () => {
+    ipcRenderer.send(REQUEST_DEVICE_LIST);
+  },
+
+  /**
+   * Subscribe to changes to a device for the given id. A new channel named
+   * `device-descriptor-{deviceId}` will be created to which the renderer can listen.
+   */
+  onDeviceChange: (
+    deviceId: string,
+    func: (desc: DeviceDescriptor) => void
+  ) => {
+    return addOnChangeListener(`device-descriptor-${deviceId}`, func);
+  },
+
+  requestDeviceDescriptor: (id: string) => {
+    ipcRenderer.send(REQUEST_DEVICE_DESCRIPTOR, id);
+  },
+};
+
 contextBridge.exposeInMainWorld('projectService', projectService);
 contextBridge.exposeInMainWorld('hostService', hostService);
+contextBridge.exposeInMainWorld('deviceService', deviceService);
 
 export type ProjectService = typeof projectService;
 export type HostService = typeof hostService;
+export type DeviceService = typeof deviceService;

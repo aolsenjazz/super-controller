@@ -2,11 +2,16 @@ import { BrowserWindow } from 'electron';
 import os from 'os';
 
 import { PortInfo } from '@shared/port-info';
+import { stringify } from '@shared/util';
 
-import { PORTS, PROJECT } from '../ipc-channels';
+import {
+  DEVICE_DESCRIPTOR,
+  DEVICE_LIST,
+  PORTS,
+  PROJECT,
+} from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';
-import { stringify } from '@shared/util';
 
 /**
  * Provides a number of frequently-used functions targetting the main window.
@@ -37,13 +42,12 @@ export class MainWindowActions extends StatefulWindowActions {
     });
   }
 
-  /**
-   * Send a list of `PortInfo` to the frontend
-   *
-   * @param portInfos List `PortInfo`s
-   */
-  public sendPortInfos(portInfos: PortInfo[]) {
-    this.send(PORTS, portInfos);
+  public sendDeviceList(deviceIds: string[]) {
+    this.send(DEVICE_LIST, deviceIds);
+  }
+
+  public sendDeviceDescriptor(desc: DeviceDescriptor) {
+    this.send(`device-descriptor-${desc.id}`, desc);
   }
 
   sendProject(p: Project) {

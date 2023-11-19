@@ -1,6 +1,11 @@
-import { DeviceDriver } from '@shared/driver-types';
+import { useEffect, useState } from 'react';
+
+import { getDriver } from '@shared/drivers';
+import { DeviceDescriptor } from '@shared/hardware-config/descriptors/device-descriptor';
 
 import DeviceIcon from '../DeviceIcon';
+
+const { deviceService } = window;
 
 /**
  * Returns the css class depending on connection and configuration status
@@ -44,34 +49,32 @@ function reformatId(id: string, siblingIndex: number) {
 }
 
 type PropTypes = {
-  name: string;
-  id: string;
-  siblingIndex: number;
+  deviceId: string;
+  selected: boolean;
   onClick: () => void;
-  active: boolean;
-  configured: boolean;
-  connected: boolean;
-  driver: DeviceDriver;
-  nickname: string | undefined;
 };
 
 export default function DeviceListItem(props: PropTypes) {
-  const {
-    onClick,
-    active,
-    connected,
-    configured,
-    name,
-    siblingIndex,
-    id,
-    driver,
-    nickname,
-  } = props;
+  const { deviceId, selected, onClick } = props;
+  const [descriptor, setDescriptor] = useState<DeviceDescriptor>();
+
+  useEffect(() => {
+    const cb = (desc: DeviceDescriptor) => {
+      setDescriptor(desc);
+    };
+
+    const off = deviceService.onDeviceChange(deviceId, cb);
+    deviceService.requestDeviceDescriptor(deviceId);
+
+    return () => off();
+  }, [deviceId]);
+
+  if (descriptor === undefined) return null;
 
   return (
-    <div className={`device-list-item ${active ? 'active' : ''}`}>
+    <div className={`device-list-item ${selected ? 'active' : ''}`}>
       <div className="device-icon-container">
-        <DeviceIcon driver={driver} active={active} />
+        <DeviceIcon driver={getDriver(deviceId)} active={selected} />
       </div>
       <div
         className="device-list-item-label"
@@ -80,12 +83,17 @@ export default function DeviceListItem(props: PropTypes) {
         tabIndex={0}
         onKeyDown={onClick}
       >
-        <h2>{nickname || name}</h2>
-        <p className="id">{reformatId(id, siblingIndex)}</p>
+        <h2>{descriptor.nickname || descriptor.name}</h2>
+        <p className="id">{reformatId(deviceId, descriptor.siblingIdx)}</p>
         <div
-          className={`connection-color ${cssClassFor(connected, configured)}`}
+          className={`connection-color ${cssClassFor(
+            descriptor.connected,
+            descriptor.configured
+          )}`}
         />
-        <p className="connection-status">{statusFor(connected, configured)}</p>
+        <p className="connection-status">
+          {statusFor(descriptor.connected, descriptor.configured)}
+        </p>
       </div>
     </div>
   );
