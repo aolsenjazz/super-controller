@@ -1,18 +1,11 @@
-import { BaseInputConfig } from '@shared/hardware-config';
 import { NonsequentialStepPropagator } from '@shared/propagators';
-import {
-  PadConfig,
-  KnobConfig,
-  SwitchConfig,
-  SliderConfig,
-  XYConfig,
-} from '@shared/hardware-config/input-config';
 import {
   InteractiveInputDriver,
   InputDriverWithHandle,
   SwitchDriver,
   XYDriver,
 } from '@shared/driver-types';
+import { id as idForInput } from '@shared/util';
 
 import Pad from './PadLayout';
 import { Knob } from './KnobLayout';
@@ -22,63 +15,66 @@ import XYLayout from './XYLayout';
 
 type InputLayoutPropTypes = {
   driver: InteractiveInputDriver;
-  config: BaseInputConfig;
 };
 
 export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
-  const { driver, config } = props;
+  const { driver } = props;
+  const id = idForInput(driver);
 
   if (driver.type === 'pad') {
-    const conf = config as PadConfig;
-    return (
-      <Pad shape={driver.shape} fx={conf.currentFx} color={conf.currentColor} />
-    );
+    return <Pad shape={driver.shape} id={id} />;
   }
 
   if (driver.type === 'knob') {
-    const conf = config as KnobConfig;
     return (
-      <Knob
-        value={conf.value || 0}
-        shape={driver.shape}
-        endless={conf.valueType === 'endless'}
-      />
+      // <Knob
+      //   value={conf.value || 0}
+      //   shape={driver.shape}
+      //   endless={conf.valueType === 'endless'}
+      // />
+      <Knob value={0} shape={driver.shape} endless={false} />
     );
   }
 
-  if (driver.type === 'switch') {
-    const asSwitch = driver as SwitchDriver;
-    const { steps } = asSwitch;
-    const conf = config as SwitchConfig;
+  // if (driver.type === 'switch') {
+  //   const asSwitch = driver as SwitchDriver;
+  //   const { steps } = asSwitch;
 
-    const lastStep = config
-      ? (conf.outputPropagator as NonsequentialStepPropagator).lastStep
-      : steps[asSwitch.initialStep];
+  //   const lastStep = config
+  //     ? (conf.outputPropagator as NonsequentialStepPropagator).lastStep
+  //     : steps[asSwitch.initialStep];
 
-    return <SwitchLayout steps={steps} lastStep={lastStep} />;
-  }
+  //   return <SwitchLayout steps={steps} lastStep={lastStep} />;
+  // }
 
-  if (driver.type === 'xy') {
-    const asXY = driver as XYDriver;
-    const conf = config as XYConfig;
-    const handleWidth = (asXY.x as InputDriverWithHandle).handleWidth as number;
+  // if (driver.type === 'xy') {
+  //   const asXY = driver as XYDriver;
+  //   const handleWidth = (asXY.x as InputDriverWithHandle).handleWidth as number;
 
-    return (
-      <XYLayout
-        x={conf.x}
-        y={conf.y}
-        handleHeight={`${(handleWidth / driver.height) * 100}%`}
-        handleWidth={`${(handleWidth / driver.width) * 100}%`}
-      />
-    );
-  }
+  //   return (
+  //     <XYLayout
+  //       x={conf.x}
+  //       y={conf.y}
+  //       handleHeight={`${(handleWidth / driver.height) * 100}%`}
+  //       handleWidth={`${(handleWidth / driver.width) * 100}%`}
+  //     />
+  //   );
+  // }
 
   const { handleWidth, handleHeight, horizontal, inverted } =
     driver as InputDriverWithHandle;
-  const asSlider = config as SliderConfig;
+  // return (
+  //   <HandleLayout
+  //     value={asSlider.value || 0}
+  //     handleWidth={`${(handleWidth / driver.width) * 100}%`}
+  //     handleHeight={`${(handleHeight / driver.height) * 100}%`}
+  //     horizontal={horizontal}
+  //     inverted={inverted}
+  //   />
+  // );
   return (
     <HandleLayout
-      value={asSlider.value || 0}
+      value={0}
       handleWidth={`${(handleWidth / driver.width) * 100}%`}
       handleHeight={`${(handleHeight / driver.height) * 100}%`}
       horizontal={horizontal}

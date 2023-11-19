@@ -1,12 +1,17 @@
 import { MidiArray } from '@shared/midi-array';
 import { Skeleton } from '@shared/revivable';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface BaseInputDescriptor {}
+
 export abstract class BaseInputConfig {
   abstract get nickname(): string;
 
   abstract set nickname(nickname: string);
 
   abstract get id(): string;
+
+  abstract get descriptor(): BaseInputDescriptor;
 
   abstract handleMessage(msg: MidiArray): MidiArray | undefined;
 

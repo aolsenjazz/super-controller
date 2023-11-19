@@ -7,7 +7,19 @@ import {
   createPropagator,
 } from '../../propagators';
 import { LightCapableInputConfig } from './light-capable-input-config';
-import { InputResponse, PadDriver, FxDriver, Color } from '../../driver-types';
+import {
+  InputResponse,
+  PadDriver,
+  FxDriver,
+  Color,
+  ColorDescriptor,
+} from '../../driver-types';
+import { BaseInputDescriptor } from './base-input-config';
+
+export interface PadDescriptor extends BaseInputDescriptor {
+  color: ColorDescriptor | undefined;
+  fx: FxDriver | undefined;
+}
 
 @Revivable.register
 export class PadConfig extends LightCapableInputConfig {
@@ -81,6 +93,13 @@ export class PadConfig extends LightCapableInputConfig {
     if (this.defaultValue !== undefined) {
       this.value = this.defaultValue;
     }
+  }
+
+  get descriptor() {
+    return {
+      color: this.currentColor,
+      fx: this.currentFx,
+    };
   }
 
   get eligibleResponses() {

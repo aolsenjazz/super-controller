@@ -21,6 +21,7 @@ import {
   DEVICE_LIST,
   DEVICE_DESCRIPTOR,
   REQUEST_DEVICE_DESCRIPTOR,
+  REQUEST_INPUT_DESCRIPTOR,
 } from './ipc-channels';
 import { DeviceDescriptor } from '@shared/hardware-config/descriptors/device-descriptor';
 
@@ -178,6 +179,18 @@ const deviceService = {
 
   requestDeviceDescriptor: (id: string) => {
     ipcRenderer.send(REQUEST_DEVICE_DESCRIPTOR, id);
+  },
+
+  onInputChange: <T>(
+    deviceId: string,
+    inputId: string,
+    func: (desc: T) => void
+  ) => {
+    return addOnChangeListener(`device-${deviceId}-input-${inputId}`, func);
+  },
+
+  requestInputDescriptor: (deviceId: string, inputId: string) => {
+    ipcRenderer.send(REQUEST_INPUT_DESCRIPTOR, deviceId, inputId);
   },
 };
 

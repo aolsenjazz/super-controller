@@ -13,74 +13,75 @@ import NoDevicesView from './NoDevicesView';
 import NoPreviewAvailable from './NoPreviewAvailableView';
 import UsbView from './UsbView';
 import SelectAdapterChild from './SelectAdapterChild';
+import { DeviceDescriptor } from '@shared/hardware-config/descriptors/device-descriptor';
+import { useEffect, useState } from 'react';
+import { useDevice } from 'renderer/context/device-context';
+import { useSelectedInputs } from 'renderer/context/selected-inputs-context';
 
-type PropTypes = {
-  selectedPort: PortInfo | undefined;
-  config: DeviceConfig | undefined;
-  selectedInputs: string[];
-  setSelectedInputs: (inputs: string[]) => void;
-};
+const { deviceService } = window;
 
-export default function DevicePanel(props: PropTypes) {
-  const { selectedPort, selectedInputs, setSelectedInputs, config } = props;
+export default function DevicePanel() {
+  const { selectedDevice } = useDevice();
+  const [descriptor, setDescriptor] = useState<DeviceDescriptor>();
 
-  const configured = config !== undefined;
+  // TODO: at some point this will be put in a custom hook
+  useEffect(() => {
+    const cb = (desc: DeviceDescriptor) => {
+      setDescriptor(desc);
+    };
+
+    const off = deviceService.onDeviceChange(selectedDevice || '', cb);
+    deviceService.requestDeviceDescriptor(selectedDevice || '');
+
+    return () => off();
+  }, [selectedDevice]);
+
   let Element: React.ReactElement;
 
-  if (selectedPort === undefined) {
+  if (descriptor === undefined) {
     Element = <NoDevicesView />;
-  } else if (config === undefined) {
-    const driver = DRIVERS.get(selectedPort.name);
+  } else if (descriptor.configured === false) {
+    const driver = DRIVERS.get(descriptor.driverName);
 
     if (driver) {
       if (driver.type === 'adapter') {
         Element = <UsbView />;
       } else {
-        const tempConf = SupportedDeviceConfig.fromDriver(
-          selectedPort.name,
-          selectedPort.siblingIndex,
-          driver
-        );
-
-        Element = (
-          <DeviceLayoutWrapper
-            driver={driver}
-            config={tempConf}
-            selectedInputs={selectedInputs}
-            setSelectedInputs={setSelectedInputs}
-          />
-        );
+        Element = <DeviceLayoutWrapper driver={driver} />;
       }
     } else {
-      Element = <NoMatchingDriverView deviceName={selectedPort.name} />;
+      Element = <NoMatchingDriverView deviceName={descriptor.name} />;
     }
-  } else if (config instanceof AdapterDeviceConfig && !config.child) {
-    Element = <SelectAdapterChild />;
-  } else {
-    const targetConfig =
-      config instanceof AdapterDeviceConfig
-        ? config.child!
-        : (config as SupportedDeviceConfig);
+  }
+  // else if (config instanceof AdapterDeviceConfig && !config.child) {
+  //   Element = <SelectAdapterChild />;
+  // }
+  else {
+    // const targetConfig =
+    //   config instanceof AdapterDeviceConfig
+    //     ? config.child!
+    //     : (config as SupportedDeviceConfig);
 
-    const driver = DRIVERS.get(targetConfig.driverName);
+    // const driver = DRIVERS.get(targetConfig.driverName);
+    const driver = DRIVERS.get(descriptor.driverName);
 
-    Element =
-      driver!.name === 'Anonymous' ? (
-        <NoPreviewAvailable deviceName={selectedPort.name} />
-      ) : (
-        <DeviceLayoutWrapper
-          driver={driver as DeviceDriver}
-          config={targetConfig}
-          selectedInputs={selectedInputs}
-          setSelectedInputs={setSelectedInputs}
-        />
-      );
+    Element = (
+      // driver!.name === 'Anonymous' ? (
+      //   <NoPreviewAvailable deviceName={selectedPort.name} />
+      // ) : (
+      <DeviceLayoutWrapper driver={driver as DeviceDriver} />
+    );
+    // );
   }
 
   return (
     <div id="device-panel" className="top-level">
-      <div className={`device-container ${configured ? 'configured' : ''}`}>
-        {Element}
+      <div
+        className={`device-container ${
+          descriptor?.configured ? 'configured' : ''
+        }`}
+      >
+        {Element || null}
       </div>
     </div>
   );

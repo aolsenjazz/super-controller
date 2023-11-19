@@ -1,22 +1,40 @@
-import { FxDriver, ColorDescriptor } from '@shared/driver-types';
+import { useEffect, useState } from 'react';
+
+import { PadDescriptor } from '@shared/hardware-config/input-config/pad-config';
+import { useDevice } from 'renderer/context/device-context';
+
+const { deviceService } = window;
 
 type PropTypes = {
   shape: string;
-  color: ColorDescriptor | undefined;
-  fx: FxDriver | undefined;
+  id: string;
 };
 
 export default function Pad(props: PropTypes) {
-  const { shape, color, fx } = props;
+  const { shape, id } = props;
+  const { selectedDevice } = useDevice();
 
-  const mod = color?.modifier || fx?.title;
+  const [descriptor, setDescriptor] = useState<PadDescriptor>();
+
+  useEffect(() => {
+    const cb = (desc: PadDescriptor) => {
+      setDescriptor(desc);
+    };
+
+    const off = deviceService.onInputChange(selectedDevice!, id, cb);
+    deviceService.requestInputDescriptor(selectedDevice!, id);
+
+    return () => off();
+  }, [id, selectedDevice]);
+
+  const mod = descriptor?.color?.modifier || descriptor?.fx?.title;
 
   return (
     <div
       className="pad interactive-indicator"
       style={{
         animationName: mod,
-        backgroundColor: color?.string,
+        backgroundColor: descriptor?.color?.string,
         animationTimingFunction: mod === 'Pulse' ? 'ease-in-out' : undefined,
         borderRadius: shape === 'circle' ? '100%' : 0,
       }}

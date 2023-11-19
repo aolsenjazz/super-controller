@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useDevice } from 'renderer/context/device-context';
 
 import DeviceListItem from './DeviceListItem';
 
 const { deviceService } = window;
 
-type PropTypes = {
-  setSelectedDevice: (selectedId: string | undefined) => void;
-  selectedDevice: string | undefined;
-};
-export default function DeviceList(props: PropTypes) {
-  const { setSelectedDevice, selectedDevice } = props;
+export default function DeviceList() {
+  const { selectedDevice, setSelectedDevice } = useDevice();
 
   const [devices, setDevices] = useState<string[]>([]);
 

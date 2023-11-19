@@ -9,6 +9,7 @@ import { ipcMain, Event, shell } from 'electron';
 
 import { controllerRequest, fivePinRequest } from '@shared/email-templates';
 import { DRIVERS } from '@shared/drivers';
+import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 import { ProjectProvider as pp } from './project-provider';
 import { PortService as ps } from './port-service';
@@ -19,7 +20,9 @@ import {
   REQUEST,
   REQUEST_DEVICE_DESCRIPTOR,
   REQUEST_DEVICE_LIST,
+  REQUEST_INPUT_DESCRIPTOR,
 } from './ipc-channels';
+import { PadConfig } from '@shared/hardware-config/input-config';
 
 const { MainWindow } = wp;
 
@@ -62,12 +65,31 @@ ipcMain.on(REQUEST_DEVICE_DESCRIPTOR, (_e: Event, id: string) => {
   const descriptor = {
     id,
     siblingIdx: port?.siblingIndex || 0,
-    name: conf?.nickname || port?.name,
-    nickname: conf?.nickname,
-    driverName: conf?.driverName || port?.name,
+    name: conf?.nickname || port?.name || '',
+    nickname: conf?.nickname || '',
+    driverName: conf?.driverName || port?.name || '',
     configured: conf !== undefined,
     connected: ps.portPairs.get(id) !== undefined,
   };
 
   MainWindow.sendDeviceDescriptor(descriptor);
 });
+
+ipcMain.on(
+  REQUEST_INPUT_DESCRIPTOR,
+  (_e: Event, deviceId: string, inputId: string) => {
+    const p = pp.project;
+    const d = p.getDevice(deviceId);
+
+    if (d && d instanceof SupportedDeviceConfig) {
+      const conf = d.getInput(inputId);
+
+      if (conf) {
+        if (conf instanceof PadConfig && conf.defaults.number === 32) {
+          console.log(conf.devicePropagator);
+        }
+        MainWindow.sendInputDescriptor(deviceId, inputId, conf.descriptor);
+      }
+    }
+  }
+);

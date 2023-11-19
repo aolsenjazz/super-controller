@@ -1,25 +1,24 @@
 import { useCallback } from 'react';
 
-import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { DeviceDriver } from '@shared/driver-types';
 
 import DeviceLayout from './DeviceLayout';
 import WarningIcon from '../WarningIcon';
+import { useSelectedInputs } from '../../context/selected-inputs-context';
 
 const throttleWarning =
   "Because this is an older device, it can't process MIDI data as fast. Messages received by this device from SuperController may have a noticeable delay.";
 
 type PropTypes = {
   driver: DeviceDriver;
-  config: SupportedDeviceConfig;
-  selectedInputs: string[];
-  setSelectedInputs: (inputs: string[]) => void;
 };
 
 export default function DeviceLayoutWrapper(
   props: PropTypes
 ): React.ReactElement {
-  const { driver, selectedInputs, setSelectedInputs, config } = props;
+  const { driver } = props;
+
+  const { selectedInputs, setSelectedInputs } = useSelectedInputs();
 
   // on input click (or ctrl+click) update selectedInputs
   const onInputSelect = useCallback(
@@ -47,12 +46,7 @@ export default function DeviceLayoutWrapper(
 
   return (
     <>
-      <DeviceLayout
-        driver={driver}
-        onClick={onInputSelect}
-        selectedInputs={selectedInputs}
-        deviceConfig={config}
-      />
+      <DeviceLayout driver={driver} onClick={onInputSelect} />
       <div className="warning-container">
         {driver.throttle ? <WarningIcon warningBody={throttleWarning} /> : null}
       </div>

@@ -1,4 +1,3 @@
-import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { DeviceDriver } from '@shared/driver-types';
 
 import Keyboard from './KeyboardLayout';
@@ -6,13 +5,11 @@ import InputGridLayout from './InputGridLayout';
 
 type PropTypes = {
   driver: DeviceDriver;
-  deviceConfig: SupportedDeviceConfig;
   onClick: (e: React.MouseEvent, ids: string[]) => void;
-  selectedInputs: string[];
 };
 
 export default function DeviceLayout(props: PropTypes) {
-  const { driver, onClick, selectedInputs, deviceConfig } = props;
+  const { driver, onClick } = props;
   // TODO: Pretty sure we removed need for the --r variable. research
   return (
     <div
@@ -44,8 +41,6 @@ export default function DeviceLayout(props: PropTypes) {
               deviceWidth={driver.width}
               deviceHeight={driver.height}
               onClick={onClick}
-              selectedInputs={selectedInputs}
-              deviceConfig={deviceConfig}
             />
           );
         })}

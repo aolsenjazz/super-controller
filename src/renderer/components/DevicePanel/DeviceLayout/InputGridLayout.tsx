@@ -1,4 +1,3 @@
-import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { InputGridDriver } from '@shared/driver-types';
 
 import InputLayout from './InputLayout';
@@ -7,20 +6,11 @@ type PropTypes = {
   grid: InputGridDriver;
   deviceWidth: number;
   deviceHeight: number;
-  deviceConfig: SupportedDeviceConfig;
   onClick: (e: React.MouseEvent, ids: string[]) => void;
-  selectedInputs: string[];
 };
 
 const InputGridLayout = (props: PropTypes) => {
-  const {
-    grid,
-    onClick,
-    selectedInputs,
-    deviceConfig,
-    deviceHeight,
-    deviceWidth,
-  } = props;
+  const { grid, onClick, deviceHeight, deviceWidth } = props;
 
   const style = {
     width: `${(grid.width / deviceWidth) * 100}%`,
@@ -42,11 +32,9 @@ const InputGridLayout = (props: PropTypes) => {
           }}
         >
           <InputLayout
-            deviceConfig={deviceConfig}
             driver={driver}
             width={`${(driver.width / (grid.width / grid.nCols)) * 100}%`}
             height={`${(driver.height / (grid.height / grid.nRows)) * 100}%`}
-            selectedInputs={selectedInputs}
             onClick={onClick}
           />
         </div>

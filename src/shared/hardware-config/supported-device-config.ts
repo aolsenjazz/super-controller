@@ -127,7 +127,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
       const input = this.inputs[i];
       if (input.id === id) return input;
     }
-
     return undefined;
   }
 

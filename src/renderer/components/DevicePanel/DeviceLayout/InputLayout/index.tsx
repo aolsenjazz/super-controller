@@ -1,33 +1,25 @@
-import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { InputDriver, InteractiveInputDriver } from '@shared/driver-types';
 import { id } from '@shared/util';
+import { useSelectedInputs } from '../../../../context/selected-inputs-context';
 
 import InteractiveInputLayout from './InteractiveInputLayout';
 import NoninteractiveInputLayout from './NoninteractiveInputLayout';
 
 type InputLayoutPropTypes = {
   driver: InputDriver;
-  deviceConfig: SupportedDeviceConfig;
   width: string;
   height: string;
   onClick: (e: React.MouseEvent, ids: string[]) => void;
-  selectedInputs: string[];
 };
 
 export default function InputLayout(props: InputLayoutPropTypes) {
-  const { driver, deviceConfig, width, height, onClick, selectedInputs } =
-    props;
+  const { driver, width, height, onClick } = props;
+  const { selectedInputs } = useSelectedInputs();
 
   let Element;
   if (driver.interactive) {
     const inputId = id(driver as InteractiveInputDriver);
-    const config = deviceConfig.getInput(inputId);
     const focus = selectedInputs.includes(inputId);
-
-    if (config === undefined)
-      throw new Error(
-        `Unable to locate config for input id ${inputId}. This probably happened because of a failure in updating an old project.`
-      );
 
     Element = (
       <div
@@ -39,10 +31,7 @@ export default function InputLayout(props: InputLayoutPropTypes) {
           height,
         }}
       >
-        <InteractiveInputLayout
-          driver={driver as InteractiveInputDriver}
-          config={config}
-        />
+        <InteractiveInputLayout driver={driver as InteractiveInputDriver} />
       </div>
     );
   } else {

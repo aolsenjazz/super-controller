@@ -16,4 +16,4 @@ export const REQUEST = 'request';
 export const REQUEST_DEVICE_LIST = 'request-device-list';
 export const REQUEST_DEVICE_DESCRIPTOR = 'request-device-descriptor';
 export const DEVICE_LIST = 'device-list';
-export const DEVICE_DESCRIPTOR = 'device-descriptor';
+export const REQUEST_INPUT_DESCRIPTOR = 'request-input-descriptor';

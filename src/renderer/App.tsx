@@ -1,18 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { Project } from '@shared/project';
-import { PortInfo } from '@shared/port-info';
-import { DeviceConfig } from '@shared/hardware-config';
+import { DeviceProvider } from './context/device-context';
+import { SelectedInputsProvider } from './context/selected-inputs-context';
 
 import TitleBar from './components/TitleBar';
 import DeviceList from './components/DeviceList';
 import DevicePanel from './components/DevicePanel';
 import ConfigPanel from './components/ConfigPanel';
-import ProjectChangeListener from './components/ProjectChangeListener';
 
 import './styles/App.global.css';
-
-const { hostService } = window;
 
 document.body.ondragover = (event) => {
   if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
@@ -20,10 +16,6 @@ document.body.ondragover = (event) => {
 };
 
 export default function App() {
-  const [selectedDevice, setSelectedDevice] = useState<string>();
-
-  const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
-
   // Clear selected inputs when selectedId changes
   // useEffect(() => {
   //   setSelectedInputs([]);
@@ -47,23 +39,15 @@ export default function App() {
   // }, [ports, project, selectedPort]);
 
   return (
-    <>
-      <TitleBar />
-      <div id="main-content">
-        <DeviceList
-          setSelectedDevice={setSelectedDevice}
-          selectedDevice={selectedDevice}
-        />
-        <DevicePanel
-          selectedDevice={selectedDevice}
-          selectedInputs={selectedInputs}
-          setSelectedInputs={setSelectedInputs}
-        />
-        <ConfigPanel
-          selectedDevice={selectedDevice}
-          selectedInputs={selectedInputs}
-        />
-      </div>
-    </>
+    <DeviceProvider>
+      <SelectedInputsProvider>
+        <TitleBar />
+        <div id="main-content">
+          <DeviceList />
+          <DevicePanel />
+          <ConfigPanel />
+        </div>
+      </SelectedInputsProvider>
+    </DeviceProvider>
   );
 }

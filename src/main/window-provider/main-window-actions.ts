@@ -1,15 +1,10 @@
 import { BrowserWindow } from 'electron';
 import os from 'os';
 
-import { PortInfo } from '@shared/port-info';
-import { stringify } from '@shared/util';
+import { DeviceDescriptor } from '@shared/hardware-config/descriptors/device-descriptor';
+import { BaseInputDescriptor } from '@shared/hardware-config/input-config/base-input-config';
 
-import {
-  DEVICE_DESCRIPTOR,
-  DEVICE_LIST,
-  PORTS,
-  PROJECT,
-} from '../ipc-channels';
+import { DEVICE_LIST } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';
 
@@ -50,7 +45,11 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(`device-descriptor-${desc.id}`, desc);
   }
 
-  sendProject(p: Project) {
-    this.send(PROJECT, stringify(p));
+  public sendInputDescriptor<T extends BaseInputDescriptor>(
+    deviceId: string,
+    inputId: string,
+    desc: T
+  ) {
+    this.send(`device-${deviceId}-input-${inputId}`, desc);
   }
 }
