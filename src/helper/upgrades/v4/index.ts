@@ -1,17 +1,295 @@
-import { Project as V4Project } from '../v3/project';
-import { parse as v4Parse } from '../v3/util';
+import {
+  AdapterDeviceConfig,
+  AnonymousDeviceConfig,
+  BaseInputConfig,
+  SupportedDeviceConfig,
+} from '@shared/hardware-config';
 
-import { Project } from './shared/project';
-import { configFromDriver } from './shared/hardware-config';
-import { getDriver } from './shared/drivers';
+import {
+  KnobConfig,
+  PadConfig,
+  PitchbendConfig,
+  SliderConfig,
+  SwitchConfig,
+  XYConfig,
+} from '@shared/hardware-config/input-config';
+
+import {
+  ColorConfigPropagator,
+  ConstantPropagator,
+  ContinuousPropagator,
+  GatePropagator,
+  NonsequentialStepPropagator,
+  OverrideablePropagator,
+  PitchbendPropagator,
+} from '@shared/propagators';
+import { TogglePropagator } from '@shared/propagators/toggle-propagator';
+
+import { Project } from '@shared/project';
+
+import { Project as V4Project } from './shared/project';
+import {
+  SupportedDeviceConfig as V4SupportedDeviceConfig,
+  AdapterDeviceConfig as V4AdapterDeviceConfig,
+  AnonymousDeviceConfig as V4AnonymousDeviceConfig,
+  BaseInputConfig as V4BaseInputConfig,
+} from '../v3/shared/hardware-config';
+import { parse } from '../v3/shared/util';
 import { stringify } from './shared/util';
+import {
+  KnobConfig as V4KnobConfig,
+  PadConfig as V4PadConfig,
+  PitchbendConfig as V4PitchbendConfig,
+  SliderConfig as V4SliderConfig,
+  SwitchConfig as V4SwitchConfig,
+  XYConfig as V4XYConfig,
+} from '../v3/shared/hardware-config/input-config';
+import {
+  ColorConfigPropagator as V4ColorConfigPropagator,
+  ConstantPropagator as V4ConstantPropagator,
+  ContinuousPropagator as V4ContinuousPropagator,
+  GatePropagator as V4GatePropagator,
+  NonsequentialStepPropagator as V4NonsequentialStepPropagator,
+  OverrideablePropagator as V4OverrideablePropagator,
+  PitchbendPropagator as V4PitchbendPropagator,
+} from '../v3/shared/propagators';
+import { TogglePropagator as V4TogglePropagator } from '../v3/shared/propagators/toggle-propagator';
+import { InputResponse } from '../v3/shared/driver-types';
+
+function convertDeviceProp(d: V4ColorConfigPropagator): ColorConfigPropagator {
+  const {
+    colorBindings,
+    fxBindings,
+    defaultColor,
+    defaultFx,
+    currentStep,
+    hardwareResponse,
+    outputResponse,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } = d as any;
+
+  return new ColorConfigPropagator(
+    hardwareResponse,
+    outputResponse,
+    defaultColor,
+    defaultFx,
+    colorBindings,
+    fxBindings,
+    currentStep
+  );
+}
+
+function convertOutputProp(
+  o: V4OverrideablePropagator<InputResponse, InputResponse>
+): OverrideablePropagator<InputResponse, InputResponse> {
+  const { outputResponse } = o;
+
+  const { statusString, number, channel, value } = o;
+
+  if (o instanceof V4TogglePropagator) {
+    return new TogglePropagator(
+      outputResponse as 'toggle' | 'constant',
+      statusString,
+      number,
+      channel,
+      value
+    );
+  }
+
+  if (o instanceof V4PitchbendPropagator) {
+    return new PitchbendPropagator(
+      outputResponse as 'continuous' | 'constant',
+      statusString,
+      number,
+      channel
+    );
+  }
+
+  if (o instanceof V4NonsequentialStepPropagator) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { steps, defaultStep } = o as any;
+    return new NonsequentialStepPropagator(
+      statusString,
+      channel,
+      number,
+      steps,
+      defaultStep
+    );
+  }
+
+  if (o instanceof V4GatePropagator) {
+    const { state } = o;
+    return new GatePropagator(
+      outputResponse as 'constant' | 'toggle' | 'gate',
+      statusString,
+      number,
+      channel,
+      value,
+      state
+    );
+  }
+
+  if (o instanceof V4ContinuousPropagator) {
+    const { knobType, valueType } = o;
+    return new ContinuousPropagator(
+      outputResponse as 'constant' | 'continuous',
+      statusString,
+      number,
+      channel,
+      value,
+      knobType,
+      valueType
+    );
+  }
+
+  if (o instanceof V4ConstantPropagator) {
+    const { state } = o;
+    return new ConstantPropagator(
+      outputResponse as 'constant' | 'toggle',
+      statusString,
+      number,
+      channel,
+      value,
+      state
+    );
+  }
+
+  throw new Error();
+}
+
+function convertInput(i: V4BaseInputConfig): BaseInputConfig {
+  if (i instanceof V4KnobConfig) {
+    const { defaults, outputPropagator, knobType, nickname } = i;
+
+    return new KnobConfig(
+      defaults,
+      convertOutputProp(outputPropagator) as ContinuousPropagator,
+      knobType,
+      nickname
+    );
+  }
+
+  if (i instanceof V4PadConfig) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { devicePropagator } = i as any;
+
+    const {
+      defaults,
+      availableColors,
+      availableFx,
+      outputPropagator,
+      defaultValue,
+      nickname,
+    } = i;
+
+    return new PadConfig(
+      defaults,
+      availableColors,
+      availableFx,
+      convertOutputProp(outputPropagator),
+      convertDeviceProp(devicePropagator),
+      defaultValue,
+      nickname
+    );
+  }
+
+  if (i instanceof V4PitchbendConfig) {
+    const { defaults, outputPropagator, nickname } = i;
+    return new PitchbendConfig(
+      defaults,
+      convertOutputProp(outputPropagator),
+      nickname
+    );
+  }
+
+  if (i instanceof V4SliderConfig) {
+    const { defaults, outputPropagator, nickname } = i;
+    return new SliderConfig(
+      defaults,
+      convertOutputProp(outputPropagator),
+      nickname
+    );
+  }
+
+  if (i instanceof V4SwitchConfig) {
+    const { defaults, outputPropagator, nickname } = i;
+    return new SwitchConfig(
+      defaults,
+      convertOutputProp(outputPropagator),
+      nickname
+    );
+  }
+
+  if (i instanceof V4XYConfig) {
+    const { x, y, nickname } = i;
+    return new XYConfig(
+      convertInput(x) as SliderConfig,
+      convertInput(y) as SliderConfig,
+      nickname
+    );
+  }
+
+  throw new Error();
+}
+
+function convertAnonymous(d: V4AnonymousDeviceConfig): AnonymousDeviceConfig {
+  const { name, siblingIndex, nickname, shareSustain, overrides } = d;
+
+  const newConf = new AnonymousDeviceConfig(
+    name,
+    siblingIndex,
+    overrides,
+    shareSustain,
+    nickname
+  );
+
+  return newConf;
+}
+
+function convertSupported(d: V4SupportedDeviceConfig): SupportedDeviceConfig {
+  const { name, siblingIndex, shareSustain, inputs, nickname, keyboardDriver } =
+    d;
+
+  const newInputs = inputs.map((i) => {
+    return convertInput(i);
+  });
+
+  const newConf = new SupportedDeviceConfig(
+    name,
+    name,
+    siblingIndex,
+    shareSustain,
+    newInputs,
+    nickname,
+    keyboardDriver
+  );
+  return newConf;
+}
+
+function convertAdapter(d: V4AdapterDeviceConfig): AdapterDeviceConfig {
+  const { name, siblingIndex, child } = d;
+
+  const newChild = child ? convertSupported(child) : undefined;
+
+  const newConf = new AdapterDeviceConfig(name, name, siblingIndex, newChild);
+  return newConf;
+}
 
 export function upgradeToV5(projectString: string) {
-  const oldProj = v4Parse<V4Project>(projectString);
+  const oldProj = parse<V4Project>(projectString);
 
   const newDevices = oldProj.devices.map((d) => {
-    const driver = getDriver(d.name);
-    return configFromDriver(d.name, d.siblingIndex, driver);
+    if (d instanceof V4SupportedDeviceConfig) {
+      return convertSupported(d);
+    }
+    if (d instanceof V4AdapterDeviceConfig) {
+      return convertAdapter(d);
+    }
+    if (d instanceof V4AnonymousDeviceConfig) {
+      return convertAnonymous(d);
+    }
+
+    throw new Error();
   });
 
   const newProj = new Project(newDevices);
