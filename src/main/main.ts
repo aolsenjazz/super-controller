@@ -62,5 +62,4 @@ if (isDebug) {
   // };
 }
 
-// start the background processes, load renderer, create menu bar
 Lifecycle.start();

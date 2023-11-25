@@ -9,7 +9,7 @@ export class Port {
 
   name: string;
 
-  port: midi.Input | midi.Output;
+  port: midi.Input | midi.Output | null;
 
   constructor(
     index: number,
@@ -21,14 +21,21 @@ export class Port {
     this.siblingIndex = siblingIndex;
     this.type = type;
     this.name = name;
-    this.port = type === 'input' ? new midi.Input() : new midi.Output();
+    this.port = null;
   }
 
   open() {
+    if (this.port === null) {
+      this.port = this.type === 'input' ? new midi.Input() : new midi.Output();
+    }
     this.port.openPort(this.index);
   }
 
   close() {
+    if (this.port === null) {
+      // closing unopened port
+      return;
+    }
     this.port.closePort();
   }
 
@@ -45,6 +52,9 @@ export class Port {
   }
 
   isPortOpen() {
+    if (this.port === null) {
+      return false;
+    }
     return this.port.isPortOpen();
   }
 }
