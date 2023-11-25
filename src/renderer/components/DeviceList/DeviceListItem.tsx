@@ -1,11 +1,7 @@
-import { useEffect, useState } from 'react';
-
 import { getDriver } from '@shared/drivers';
-import { DeviceDescriptor } from '@shared/hardware-config/descriptors/device-descriptor';
+import { useDeviceDescriptor } from '@hooks/use-device-descriptor';
 
 import DeviceIcon from '../DeviceIcon';
-
-const { deviceService } = window;
 
 /**
  * Returns the css class depending on connection and configuration status
@@ -56,18 +52,8 @@ type PropTypes = {
 
 export default function DeviceListItem(props: PropTypes) {
   const { deviceId, selected, onClick } = props;
-  const [descriptor, setDescriptor] = useState<DeviceDescriptor>();
 
-  useEffect(() => {
-    const cb = (desc: DeviceDescriptor) => {
-      setDescriptor(desc);
-    };
-
-    const off = deviceService.onDeviceChange(deviceId, cb);
-    deviceService.requestDeviceDescriptor(deviceId);
-
-    return () => off();
-  }, [deviceId]);
+  const { descriptor } = useDeviceDescriptor(deviceId);
 
   if (descriptor === undefined) return null;
 

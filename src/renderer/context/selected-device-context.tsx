@@ -1,11 +1,11 @@
 import { useState, useContext, createContext, ReactNode } from 'react';
 
-interface DeviceContextType {
+interface SelectedDeviceContextType {
   selectedDevice: string | undefined;
   setSelectedDevice: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-const DeviceContext = createContext<DeviceContextType>({
+const SelectedDeviceContext = createContext<SelectedDeviceContextType>({
   selectedDevice: undefined,
   setSelectedDevice: () => {},
 });
@@ -18,14 +18,16 @@ export const DeviceProvider = ({ children }: PropTypes) => {
   const [selectedDevice, setSelectedDevice] = useState<string | undefined>();
 
   return (
-    <DeviceContext.Provider value={{ selectedDevice, setSelectedDevice }}>
+    <SelectedDeviceContext.Provider
+      value={{ selectedDevice, setSelectedDevice }}
+    >
       {children}
-    </DeviceContext.Provider>
+    </SelectedDeviceContext.Provider>
   );
 };
 
-export const useDevice = () => {
-  const context = useContext(DeviceContext);
+export const useSelectedDevice = () => {
+  const context = useContext(SelectedDeviceContext);
   if (context === undefined) {
     throw new Error('useDevice must be used within a DeviceProvider');
   }

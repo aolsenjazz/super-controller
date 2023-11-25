@@ -76,4 +76,15 @@ export class AnonymousDeviceConfig extends DeviceConfig {
   getOverride(input: MidiArray) {
     return this.overrides.get(JSON.stringify(input));
   }
+
+  get descriptor(): ConfigDescriptor {
+    return {
+      isAdapter: false,
+      isSupported: false,
+      isAnonymous: true,
+      isAdapterChildSet: false,
+      nickname: this.nickname,
+      shareSustain: this.shareSustain,
+    };
+  }
 }

@@ -22,8 +22,10 @@ import {
   DEVICE_DESCRIPTOR,
   REQUEST_DEVICE_DESCRIPTOR,
   REQUEST_INPUT_DESCRIPTOR,
+  REQUEST_CONFIG_DESCRIPTOR,
 } from './ipc-channels';
 import { DeviceDescriptor } from '@shared/hardware-config/descriptors/device-descriptor';
+import { ConfigDescriptor } from '@shared/hardware-config/device-config';
 
 /**
  * Generic wrapper around ipcRenderer.on() and ipcRenderer.removeListener()
@@ -179,6 +181,21 @@ const deviceService = {
 
   requestDeviceDescriptor: (id: string) => {
     ipcRenderer.send(REQUEST_DEVICE_DESCRIPTOR, id);
+  },
+
+  /**
+   * Subscribe to changes to a config for the given id. A new channel named
+   * `device-descriptor-{deviceId}` will be created to which the renderer can listen.
+   */
+  onConfigChange: (
+    deviceId: string,
+    func: (desc: ConfigDescriptor | undefined) => void
+  ) => {
+    return addOnChangeListener(`config-descriptor-${deviceId}`, func);
+  },
+
+  requestConfigDescriptor: (id: string) => {
+    ipcRenderer.send(REQUEST_CONFIG_DESCRIPTOR, id);
   },
 
   onInputChange: <T>(

@@ -18,11 +18,11 @@ import {
   DRIVERS as DRIVERS_CHANNEL,
   OS,
   REQUEST,
+  REQUEST_CONFIG_DESCRIPTOR,
   REQUEST_DEVICE_DESCRIPTOR,
   REQUEST_DEVICE_LIST,
   REQUEST_INPUT_DESCRIPTOR,
 } from './ipc-channels';
-import { PadConfig } from '@shared/hardware-config/input-config';
 
 const { MainWindow } = wp;
 
@@ -75,6 +75,14 @@ ipcMain.on(REQUEST_DEVICE_DESCRIPTOR, (_e: Event, id: string) => {
   MainWindow.sendDeviceDescriptor(descriptor);
 });
 
+ipcMain.on(REQUEST_CONFIG_DESCRIPTOR, (_e: Event, id: string) => {
+  const p = pp.project;
+  const conf = p.getDevice(id);
+  const desc = conf ? conf.descriptor : undefined;
+
+  MainWindow.sendConfigDescriptor(id, desc);
+});
+
 ipcMain.on(
   REQUEST_INPUT_DESCRIPTOR,
   (_e: Event, deviceId: string, inputId: string) => {
@@ -85,9 +93,6 @@ ipcMain.on(
       const conf = d.getInput(inputId);
 
       if (conf) {
-        if (conf instanceof PadConfig && conf.defaults.number === 32) {
-          console.log(conf.devicePropagator);
-        }
         MainWindow.sendInputDescriptor(deviceId, inputId, conf.descriptor);
       }
     }

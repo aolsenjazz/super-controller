@@ -1,6 +1,7 @@
 import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { SupportedDeviceConfig } from './supported-device-config';
+import { ConfigDescriptor } from './device-config';
 
 // TODO: Unclear if we really want to implement SupportedDeviceConfig or
 // extends DeviceConfig. Gut says extend DeviceConfig but needs research
@@ -87,6 +88,17 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
 
   get id() {
     return `${this.portName} ${this.siblingIndex}`;
+  }
+
+  get descriptor(): ConfigDescriptor {
+    return {
+      isAdapter: true,
+      isSupported: true,
+      isAnonymous: false,
+      isAdapterChildSet: this.child !== undefined,
+      nickname: this.nickname,
+      shareSustain: this.shareSustain,
+    };
   }
 
   shareWith(id: string) {

@@ -3,7 +3,7 @@ import { MidiArray } from '../midi-array';
 
 import { DeviceDriver, KeyboardDriver } from '../driver-types';
 
-import { DeviceConfig } from './device-config';
+import { ConfigDescriptor, DeviceConfig } from './device-config';
 import {
   MonoInputConfig,
   create,
@@ -141,5 +141,16 @@ export class SupportedDeviceConfig extends DeviceConfig {
     return input instanceof LightCapableInputConfig
       ? input.currentColorArray
       : undefined;
+  }
+
+  get descriptor(): ConfigDescriptor {
+    return {
+      isAdapter: false,
+      isSupported: true,
+      isAnonymous: false,
+      isAdapterChildSet: false,
+      nickname: this.nickname,
+      shareSustain: this.shareSustain,
+    };
   }
 }

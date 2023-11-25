@@ -1,5 +1,5 @@
 import LinuxNoMatchingDriverView from './LinuxNoMatchingDriverView';
-import OSXNoMatchingDriverView from '../NoPreviewAvailableView';
+import OSXNoMatchingDriverView from './NoPreviewAvailableView';
 
 const { hostService } = window;
 

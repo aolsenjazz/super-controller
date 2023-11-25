@@ -72,12 +72,14 @@ export function getAvailableDrivers() {
   return Array.from(DRIVERS.keys());
 }
 
-export function getDriver(portName: string) {
-  let driverOrUndefined = DRIVERS.get(portName);
+// TODO: I hate the idea that this would return an anonymous driver if
+// no mathc is found
+export function getDriver(deviceName: string) {
+  let driverOrUndefined = DRIVERS.get(deviceName);
 
   if (driverOrUndefined === undefined) {
     driverOrUndefined = DRIVERS.get('Anonymous')!;
-    driverOrUndefined = { ...driverOrUndefined, name: portName };
+    driverOrUndefined = { ...driverOrUndefined, name: deviceName };
   }
 
   return driverOrUndefined;

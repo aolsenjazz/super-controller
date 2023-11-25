@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { PadDescriptor } from '@shared/hardware-config/input-config/pad-config';
-import { useDevice } from 'renderer/context/device-context';
+import { useSelectedDevice } from '@context/selected-device-context';
 
 const { deviceService } = window;
 
@@ -12,7 +12,7 @@ type PropTypes = {
 
 export default function Pad(props: PropTypes) {
   const { shape, id } = props;
-  const { selectedDevice } = useDevice();
+  const { selectedDevice } = useSelectedDevice();
 
   const [descriptor, setDescriptor] = useState<PadDescriptor>();
 

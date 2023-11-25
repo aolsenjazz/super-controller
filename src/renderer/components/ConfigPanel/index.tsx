@@ -21,6 +21,11 @@ import XYConfigPanel from './XYConfigPanel';
 import SwitchConfigPanel from './SwitchConfigPanel';
 
 import { InputGroup } from '../../input-group';
+import { useDevice } from 'renderer/context/device-context';
+import { useSelectedInputs } from 'renderer/context/selected-inputs-context';
+import { DeviceDescriptor } from '@shared/hardware-config/descriptors/device-descriptor';
+
+const { deviceService } = window;
 
 type InputConfigurationProps = {
   config: SupportedDeviceConfig;
@@ -83,30 +88,33 @@ function InputConfiguration(props: InputConfigurationProps) {
   return <>{InputConfigPanel}</>;
 }
 
-type PropTypes = {
-  project: Project;
-  config: DeviceConfig | undefined;
-  selectedPort: PortInfo | undefined;
-  selectedInputs: string[];
-  setProject: (p: Project) => void;
-};
+export default function ConfigPanel() {
+  const { selectedDevice } = useDevice();
+  const { selectedInputs } = useSelectedInputs();
 
-export default function ConfigPanel(props: PropTypes) {
-  const { selectedInputs, config, project, setProject, selectedPort } = props;
-  let configured = false;
+  const [deviceDesc, setDeviceDesc] = useState<DeviceDescriptor>();
+
+  // TODO: this can likely go in its own provider, depending on useDevice()
+  useEffect(() => {
+    if (selectedDevice === undefined) setDeviceDesc(undefined);
+
+    const cb = (d: DeviceDescriptor) => {
+      setDeviceDesc(d);
+    };
+
+    const off = deviceService.onDeviceChange(selectedDevice || '', cb);
+
+    return () => off();
+  }, [selectedDevice]);
 
   let Element: JSX.Element | null = null;
 
-  if (selectedPort === undefined) {
+  if (selectedDevice === undefined) {
     Element = <BasicMessage msg="No connected devices." />;
-  } else if (config === undefined) {
-    Element = (
-      <NotConfigured
-        setProject={setProject}
-        project={project}
-        port={selectedPort}
-      />
-    );
+  }
+
+  if (deviceDesc === undefined) {
+    Element = <NotConfigured />;
   } else if (config instanceof AdapterDeviceConfig && !config.child) {
     Element = (
       <AdapterView config={config} project={project} setProject={setProject} />
@@ -127,7 +135,6 @@ export default function ConfigPanel(props: PropTypes) {
     } else {
       Element = (
         <InputConfiguration
-          selectedInputs={selectedInputs}
           project={project}
           config={config as SupportedDeviceConfig}
           setProject={setProject}

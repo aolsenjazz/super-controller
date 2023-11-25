@@ -1,6 +1,15 @@
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
 
+export type ConfigDescriptor = {
+  isAdapter: boolean;
+  isSupported: boolean;
+  isAnonymous: boolean;
+  isAdapterChildSet: boolean;
+  nickname: string;
+  shareSustain: string[];
+};
+
 /**
  * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.
  */
@@ -25,6 +34,9 @@ export abstract class DeviceConfig {
   /**
    * True if a driver exists for the given name. Right now, this only applies to OSX;
    * driver names vary per-OS, and likely per-OS-MIDI-driver.
+   *
+   * TODO: now that we're allowing lazily-selecting the driver to use on linux,
+   * this description is either inaccurate or `supported` is a flawed concept
    */
   readonly supported: boolean;
 
@@ -104,6 +116,7 @@ export abstract class DeviceConfig {
     this.shareSustain.splice(idx, 1);
   }
 
+  abstract get descriptor(): ConfigDescriptor;
   abstract applyOverrides(msg: MidiArray): MidiArray | undefined;
   abstract getResponse(msg: MidiArray): MidiArray | undefined;
 }

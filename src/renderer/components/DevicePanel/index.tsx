@@ -1,77 +1,38 @@
-import {
-  DeviceConfig,
-  SupportedDeviceConfig,
-  AdapterDeviceConfig,
-} from '@shared/hardware-config';
-import { DeviceDriver } from '@shared/driver-types';
+import { useSelectedDevice } from '@context/selected-device-context';
+import { useConfigDescriptor } from '@hooks/use-config-descriptor';
+import { useDeviceDescriptor } from '@hooks/use-device-descriptor';
+
 import { DRIVERS } from '@shared/drivers';
-import { PortInfo } from '@shared/port-info';
 
 import DeviceLayoutWrapper from './DeviceLayoutWrapper';
 import NoMatchingDriverView from './NoMatchingDriverView';
 import NoDevicesView from './NoDevicesView';
-import NoPreviewAvailable from './NoPreviewAvailableView';
 import UsbView from './UsbView';
 import SelectAdapterChild from './SelectAdapterChild';
-import { DeviceDescriptor } from '@shared/hardware-config/descriptors/device-descriptor';
-import { useEffect, useState } from 'react';
-import { useDevice } from 'renderer/context/device-context';
-import { useSelectedInputs } from 'renderer/context/selected-inputs-context';
-
-const { deviceService } = window;
 
 export default function DevicePanel() {
-  const { selectedDevice } = useDevice();
-  const [descriptor, setDescriptor] = useState<DeviceDescriptor>();
+  const { selectedDevice } = useSelectedDevice();
+  const { descriptor } = useDeviceDescriptor(selectedDevice || '');
+  const { configDescriptor } = useConfigDescriptor(selectedDevice || '');
 
-  // TODO: at some point this will be put in a custom hook
-  useEffect(() => {
-    const cb = (desc: DeviceDescriptor) => {
-      setDescriptor(desc);
-    };
-
-    const off = deviceService.onDeviceChange(selectedDevice || '', cb);
-    deviceService.requestDeviceDescriptor(selectedDevice || '');
-
-    return () => off();
-  }, [selectedDevice]);
+  const driver = DRIVERS.get(descriptor?.name);
 
   let Element: React.ReactElement;
 
   if (descriptor === undefined) {
     Element = <NoDevicesView />;
-  } else if (descriptor.configured === false) {
-    const driver = DRIVERS.get(descriptor.driverName);
-
-    if (driver) {
-      if (driver.type === 'adapter') {
-        Element = <UsbView />;
-      } else {
-        Element = <DeviceLayoutWrapper driver={driver} />;
-      }
+  } else if (driver === undefined) {
+    Element = <NoMatchingDriverView deviceName={descriptor.name} />;
+  } else if (configDescriptor?.isSupported === true) {
+    Element = <DeviceLayoutWrapper driver={driver} />;
+  } else if (descriptor.configured) {
+    if (configDescriptor?.isAdapterChildSet === true) {
+      Element = <DeviceLayoutWrapper driver={driver} />;
     } else {
-      Element = <NoMatchingDriverView deviceName={descriptor.name} />;
+      return <SelectAdapterChild />;
     }
-  }
-  // else if (config instanceof AdapterDeviceConfig && !config.child) {
-  //   Element = <SelectAdapterChild />;
-  // }
-  else {
-    // const targetConfig =
-    //   config instanceof AdapterDeviceConfig
-    //     ? config.child!
-    //     : (config as SupportedDeviceConfig);
-
-    // const driver = DRIVERS.get(targetConfig.driverName);
-    const driver = DRIVERS.get(descriptor.driverName);
-
-    Element = (
-      // driver!.name === 'Anonymous' ? (
-      //   <NoPreviewAvailable deviceName={selectedPort.name} />
-      // ) : (
-      <DeviceLayoutWrapper driver={driver as DeviceDriver} />
-    );
-    // );
+  } else {
+    Element = <UsbView />;
   }
 
   return (

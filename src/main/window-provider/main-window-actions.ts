@@ -3,6 +3,7 @@ import os from 'os';
 
 import { DeviceDescriptor } from '@shared/hardware-config/descriptors/device-descriptor';
 import { BaseInputDescriptor } from '@shared/hardware-config/input-config/base-input-config';
+import { ConfigDescriptor } from '@shared/hardware-config/device-config';
 
 import { DEVICE_LIST } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
@@ -43,6 +44,10 @@ export class MainWindowActions extends StatefulWindowActions {
 
   public sendDeviceDescriptor(desc: DeviceDescriptor) {
     this.send(`device-descriptor-${desc.id}`, desc);
+  }
+
+  public sendConfigDescriptor(id: string, desc: ConfigDescriptor | undefined) {
+    this.send(`config-descriptor-${id}`, desc);
   }
 
   public sendInputDescriptor<T extends BaseInputDescriptor>(

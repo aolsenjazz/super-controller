@@ -1,5 +1,5 @@
-import HelpTip from '../HelpTip';
-import DriverRequestButton from '../DriverRequestButton';
+import HelpTip from '../../HelpTip';
+import DriverRequestButton from '../../DriverRequestButton';
 
 type PropTypes = {
   deviceName: string;
