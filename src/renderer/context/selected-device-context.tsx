@@ -1,4 +1,12 @@
-import { useState, useContext, createContext, ReactNode } from 'react';
+import { useConfiguredDevices } from '@hooks/use-configured-devices';
+import { useConnectedDevices } from '@hooks/use-connected-devices';
+import {
+  useState,
+  useContext,
+  createContext,
+  ReactNode,
+  useEffect,
+} from 'react';
 
 interface SelectedDeviceContextType {
   selectedDevice: string | undefined;
@@ -16,6 +24,22 @@ type PropTypes = {
 
 export const DeviceProvider = ({ children }: PropTypes) => {
   const [selectedDevice, setSelectedDevice] = useState<string | undefined>();
+
+  const { connectedDevices } = useConnectedDevices();
+  const { configStubs } = useConfiguredDevices();
+
+  // when the available/configured devices change, if an item is selected which no
+  // longer exists, switch to another item
+  useEffect(() => {
+    const sortedIds = [
+      ...connectedDevices.map((d) => d.id),
+      ...configStubs.map((s) => s.id),
+    ];
+
+    if (!sortedIds.includes(selectedDevice || '')) {
+      setSelectedDevice(sortedIds.length === 0 ? undefined : sortedIds[0]);
+    }
+  }, [selectedDevice, setSelectedDevice, connectedDevices, configStubs]);
 
   return (
     <SelectedDeviceContext.Provider

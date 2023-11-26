@@ -1,8 +1,8 @@
 import { useSelectedDevice } from '@context/selected-device-context';
-import { useConfigDescriptor } from '@hooks/use-config-descriptor';
-import { useDeviceDescriptor } from '@hooks/use-device-descriptor';
+import { useConfigStub } from '@hooks/use-config-stub';
+import { useDeviceStub } from '@hooks/use-device-stub';
 
-import { DRIVERS } from '@shared/drivers';
+import { DRIVERS, getDriver } from '@shared/drivers';
 
 import DeviceLayoutWrapper from './DeviceLayoutWrapper';
 import NoMatchingDriverView from './NoMatchingDriverView';
@@ -12,21 +12,25 @@ import SelectAdapterChild from './SelectAdapterChild';
 
 export default function DevicePanel() {
   const { selectedDevice } = useSelectedDevice();
-  const { descriptor } = useDeviceDescriptor(selectedDevice || '');
-  const { configDescriptor } = useConfigDescriptor(selectedDevice || '');
 
-  const driver = DRIVERS.get(descriptor?.name);
+  const { deviceStub } = useDeviceStub(selectedDevice || '');
+  const { configStub } = useConfigStub(selectedDevice || '');
+
+  const driverName = configStub?.driverName || deviceStub?.name || '';
+  const isSupported =
+    configStub !== undefined || getDriver(driverName) !== undefined;
+  const driver = DRIVERS.get(driverName);
 
   let Element: React.ReactElement;
 
-  if (descriptor === undefined) {
+  if (selectedDevice === undefined) {
     Element = <NoDevicesView />;
   } else if (driver === undefined) {
-    Element = <NoMatchingDriverView deviceName={descriptor.name} />;
-  } else if (configDescriptor?.isSupported === true) {
+    Element = <NoMatchingDriverView deviceName={deviceStub?.name || ''} />;
+  } else if (isSupported === true) {
     Element = <DeviceLayoutWrapper driver={driver} />;
-  } else if (descriptor.configured) {
-    if (configDescriptor?.isAdapterChildSet === true) {
+  } else if (configStub) {
+    if (configStub.isAdapterChildSet === true) {
       Element = <DeviceLayoutWrapper driver={driver} />;
     } else {
       return <SelectAdapterChild />;
@@ -37,11 +41,7 @@ export default function DevicePanel() {
 
   return (
     <div id="device-panel" className="top-level">
-      <div
-        className={`device-container ${
-          descriptor?.configured ? 'configured' : ''
-        }`}
-      >
+      <div className={`device-container ${configStub ? 'configured' : ''}`}>
         {Element || null}
       </div>
     </div>

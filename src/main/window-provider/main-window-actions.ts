@@ -1,11 +1,11 @@
 import { BrowserWindow } from 'electron';
 import os from 'os';
 
-import { DeviceDescriptor } from '@shared/hardware-config/descriptors/device-descriptor';
-import { BaseInputDescriptor } from '@shared/hardware-config/input-config/base-input-config';
-import { ConfigDescriptor } from '@shared/hardware-config/device-config';
+import { BaseInputStub } from '@shared/hardware-config/input-config/base-input-config';
+import { ConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceStub } from '@shared/device-stub';
 
-import { DEVICE_LIST } from '../ipc-channels';
+import { CONFIGURED_DEVICES, CONNECTED_DEVICES } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';
 
@@ -38,22 +38,26 @@ export class MainWindowActions extends StatefulWindowActions {
     });
   }
 
-  public sendDeviceList(deviceIds: string[]) {
-    this.send(DEVICE_LIST, deviceIds);
+  public sendConnectedDevices(stubs: DeviceStub[]) {
+    this.send(CONNECTED_DEVICES, stubs);
   }
 
-  public sendDeviceDescriptor(desc: DeviceDescriptor) {
-    this.send(`device-descriptor-${desc.id}`, desc);
+  public sendConfiguredDevices(stubs: ConfigStub[]) {
+    this.send(CONFIGURED_DEVICES, stubs);
   }
 
-  public sendConfigDescriptor(id: string, desc: ConfigDescriptor | undefined) {
-    this.send(`config-descriptor-${id}`, desc);
+  public sendDeviceStub(id: string, desc: DeviceStub | undefined) {
+    this.send(`device-stub-${id}`, desc);
   }
 
-  public sendInputDescriptor<T extends BaseInputDescriptor>(
+  public sendConfigStub(id: string, desc: ConfigStub | undefined) {
+    this.send(`config-stub-${id}`, desc);
+  }
+
+  public sendInputStub<T extends BaseInputStub>(
     deviceId: string,
     inputId: string,
-    desc: T
+    desc: T | undefined
   ) {
     this.send(`device-${deviceId}-input-${inputId}`, desc);
   }

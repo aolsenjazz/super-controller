@@ -13,8 +13,11 @@ export const UPDATE_INPUT = 'update-input';
 export const REQUEST = 'request';
 
 // ~~~~ new ~~~~
-export const REQUEST_DEVICE_LIST = 'request-device-list';
-export const REQUEST_DEVICE_DESCRIPTOR = 'request-device-descriptor';
-export const DEVICE_LIST = 'device-list';
-export const REQUEST_INPUT_DESCRIPTOR = 'request-input-descriptor';
-export const REQUEST_CONFIG_DESCRIPTOR = 'request-input-descriptor';
+export const REQUEST_CONNECTED_DEVICES = 'request-connected-devices';
+export const CONNECTED_DEVICES = 'connected-devices';
+export const REQUEST_CONFIGURED_DEVICES = 'request-configured-devices';
+export const CONFIGURED_DEVICES = 'configured-devices';
+
+export const REQUEST_INPUT_STUB = 'request-input-stub';
+export const REQUEST_CONFIG_STUB = 'request-config-stub';
+export const REQUEST_DEVICE_STUB = 'request-device-stub';

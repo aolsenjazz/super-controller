@@ -2,35 +2,86 @@ import { useEffect, useState } from 'react';
 
 import { useSelectedDevice } from '@context/selected-device-context';
 
+import { useConnectedDevices } from '@hooks/use-connected-devices';
+import { useConfiguredDevices } from '@hooks/use-configured-devices';
+
 import DeviceListItem from './DeviceListItem';
 
-const { deviceService } = window;
+type DeviceListItemData = {
+  id: string;
+  name: string;
+  connected: boolean;
+  configured: boolean;
+  driverName: string;
+  siblingIndex: number;
+};
+
+const sortDevices = (a: DeviceListItemData, b: DeviceListItemData) => {
+  if (a.connected && a.configured && (!b.connected || !b.configured)) return -1;
+  if (b.connected && b.configured && (!a.connected || !a.configured)) return 1;
+
+  if (a.connected && !b.connected) return -1;
+  if (b.connected && !a.connected) return 1;
+
+  if (a.configured && !b.configured) return -1;
+  if (b.configured && !a.configured) return 1;
+
+  return a.name.localeCompare(b.name);
+};
 
 export default function DeviceList() {
   const { selectedDevice, setSelectedDevice } = useSelectedDevice();
 
-  const [devices, setDevices] = useState<string[]>([]);
+  const { connectedDevices } = useConnectedDevices();
+  const { configStubs } = useConfiguredDevices();
+
+  const [data, setData] = useState<DeviceListItemData[]>([]);
 
   useEffect(() => {
-    const cb = (ids: string[]) => {
-      setDevices(ids);
-    };
+    const connectedDevicesIds = connectedDevices.map((d) => d.id);
+    const configuredDeviceIds = configStubs.map((s) => s.id);
 
-    const off = deviceService.onDeviceListChange(cb);
-    deviceService.requestDeviceList();
+    const configuredDevices = configStubs.map((s) => {
+      return {
+        ...s,
+        name: s.nickname,
+        connected: connectedDevicesIds.includes(s.id),
+        configured: true,
+      };
+    });
 
-    return () => off();
-  }, [setDevices]);
+    const nonConfiguredDevices = connectedDevices
+      .filter((d) => !configuredDeviceIds.includes(d.id))
+      .map((d) => {
+        return {
+          ...d,
+          connected: true,
+          configured: false,
+          driverName: d.name,
+        };
+      });
+
+    const sorted = [...configuredDevices, ...nonConfiguredDevices].sort(
+      sortDevices
+    );
+
+    setData(sorted);
+  }, [connectedDevices, configStubs]);
 
   return (
     <div id="device-list" className="top-level">
-      {devices.map((id) => {
+      {data.map((d) => {
         return (
           <DeviceListItem
-            key={id}
-            deviceId={id}
-            selected={selectedDevice === id}
-            onClick={() => setSelectedDevice(id)}
+            key={d.id}
+            deviceId={d.id}
+            selected={selectedDevice === d.id}
+            onClick={() => setSelectedDevice(d.id)}
+            connected={d.connected}
+            configured={d.configured}
+            name={d.name}
+            driverName={d.driverName}
+            siblingIndex={d.siblingIndex}
           />
         );
       })}

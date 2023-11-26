@@ -6,6 +6,8 @@
  */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 import { PortInfo } from '@shared/port-info';
+import { ConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceStub } from '@shared/device-stub';
 
 import {
   ADD_DEVICE,
@@ -17,15 +19,19 @@ import {
   MSG,
   OS,
   TITLE,
-  REQUEST_DEVICE_LIST,
-  DEVICE_LIST,
-  DEVICE_DESCRIPTOR,
-  REQUEST_DEVICE_DESCRIPTOR,
-  REQUEST_INPUT_DESCRIPTOR,
-  REQUEST_CONFIG_DESCRIPTOR,
+  REQUEST_INPUT_STUB,
+  REQUEST_CONFIG_STUB,
+  REQUEST_CONNECTED_DEVICES,
+  CONNECTED_DEVICES,
+  REQUEST_CONFIGURED_DEVICES,
+  CONFIGURED_DEVICES,
+  REQUEST_DEVICE_STUB,
 } from './ipc-channels';
-import { DeviceDescriptor } from '@shared/hardware-config/descriptors/device-descriptor';
-import { ConfigDescriptor } from '@shared/hardware-config/device-config';
+
+// the frontend uses a lot of listeners. because of this, this number gets
+// pretty high. If it complains, make sure that we're not leaking memory,
+// then increase this number.
+ipcRenderer.setMaxListeners(100);
 
 /**
  * Generic wrapper around ipcRenderer.on() and ipcRenderer.removeListener()
@@ -160,27 +166,20 @@ const projectService = {
 };
 
 const deviceService = {
-  onDeviceListChange: (func: (ids: string[]) => void) => {
-    return addOnChangeListener(DEVICE_LIST, func);
+  onConnectedDevicesChange: (func: (stubs: DeviceStub[]) => void) => {
+    return addOnChangeListener(CONNECTED_DEVICES, func);
   },
 
-  requestDeviceList: () => {
-    ipcRenderer.send(REQUEST_DEVICE_LIST);
+  requestConnectedDevices: () => {
+    ipcRenderer.send(REQUEST_CONNECTED_DEVICES);
   },
 
-  /**
-   * Subscribe to changes to a device for the given id. A new channel named
-   * `device-descriptor-{deviceId}` will be created to which the renderer can listen.
-   */
-  onDeviceChange: (
-    deviceId: string,
-    func: (desc: DeviceDescriptor) => void
-  ) => {
-    return addOnChangeListener(`device-descriptor-${deviceId}`, func);
+  onConfiguredDevicesChange: (func: (stubs: ConfigStub[]) => void) => {
+    return addOnChangeListener(CONFIGURED_DEVICES, func);
   },
 
-  requestDeviceDescriptor: (id: string) => {
-    ipcRenderer.send(REQUEST_DEVICE_DESCRIPTOR, id);
+  requestConfiguredDevices: () => {
+    ipcRenderer.send(REQUEST_CONFIGURED_DEVICES);
   },
 
   /**
@@ -189,13 +188,24 @@ const deviceService = {
    */
   onConfigChange: (
     deviceId: string,
-    func: (desc: ConfigDescriptor | undefined) => void
+    func: (desc: ConfigStub | undefined) => void
   ) => {
-    return addOnChangeListener(`config-descriptor-${deviceId}`, func);
+    return addOnChangeListener(`config-stub-${deviceId}`, func);
   },
 
-  requestConfigDescriptor: (id: string) => {
-    ipcRenderer.send(REQUEST_CONFIG_DESCRIPTOR, id);
+  requestConfigStub: (id: string) => {
+    ipcRenderer.send(REQUEST_CONFIG_STUB, id);
+  },
+
+  onDeviceChange: (
+    deviceId: string,
+    func: (desc: DeviceStub | undefined) => void
+  ) => {
+    return addOnChangeListener(`device-stub-${deviceId}`, func);
+  },
+
+  requestDeviceStub: (id: string) => {
+    ipcRenderer.send(REQUEST_DEVICE_STUB, id);
   },
 
   onInputChange: <T>(
@@ -206,8 +216,8 @@ const deviceService = {
     return addOnChangeListener(`device-${deviceId}-input-${inputId}`, func);
   },
 
-  requestInputDescriptor: (deviceId: string, inputId: string) => {
-    ipcRenderer.send(REQUEST_INPUT_DESCRIPTOR, deviceId, inputId);
+  requestInputStub: (deviceId: string, inputId: string) => {
+    ipcRenderer.send(REQUEST_INPUT_STUB, deviceId, inputId);
   },
 };
 

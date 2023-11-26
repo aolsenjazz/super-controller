@@ -1,12 +1,16 @@
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
 
-export type ConfigDescriptor = {
+export type ConfigStub = {
+  id: string;
+  portName: string;
+  siblingIndex: number;
+  driverName: string;
+  nickname: string;
   isAdapter: boolean;
   isSupported: boolean;
   isAnonymous: boolean;
   isAdapterChildSet: boolean;
-  nickname: string;
   shareSustain: string[];
 };
 
@@ -116,7 +120,7 @@ export abstract class DeviceConfig {
     this.shareSustain.splice(idx, 1);
   }
 
-  abstract get descriptor(): ConfigDescriptor;
+  abstract get stub(): ConfigStub;
   abstract applyOverrides(msg: MidiArray): MidiArray | undefined;
   abstract getResponse(msg: MidiArray): MidiArray | undefined;
 }

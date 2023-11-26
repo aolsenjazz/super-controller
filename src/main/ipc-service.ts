@@ -12,16 +12,13 @@ import { DRIVERS } from '@shared/drivers';
 import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 import { ProjectProvider as pp } from './project-provider';
-import { PortService as ps } from './port-service';
 import { wp } from './window-provider';
 import {
   DRIVERS as DRIVERS_CHANNEL,
   OS,
   REQUEST,
-  REQUEST_CONFIG_DESCRIPTOR,
-  REQUEST_DEVICE_DESCRIPTOR,
-  REQUEST_DEVICE_LIST,
-  REQUEST_INPUT_DESCRIPTOR,
+  REQUEST_CONFIG_STUB,
+  REQUEST_INPUT_STUB,
 } from './ipc-channels';
 
 const { MainWindow } = wp;
@@ -45,56 +42,23 @@ ipcMain.on(REQUEST, (_e: Event, deviceName: string) => {
   );
 });
 
-// request a list of all device IDs
-ipcMain.on(REQUEST_DEVICE_LIST, () => {
-  // TODO: this code is duplicated in PortService; not worth consolidating now
-  const configuredDeviceIds = pp.project.devices.map((d) => d.id);
-  const availableDevices = Array.from(ps.portPairs.keys());
-  const deviceIds = Array.from(
-    new Set([...configuredDeviceIds, ...availableDevices])
-  );
-
-  MainWindow.sendDeviceList(deviceIds);
-});
-
-ipcMain.on(REQUEST_DEVICE_DESCRIPTOR, (_e: Event, id: string) => {
+ipcMain.on(REQUEST_CONFIG_STUB, (_e: Event, id: string) => {
   const p = pp.project;
   const conf = p.getDevice(id);
-  const port = ps.portPairs.get(id);
+  const desc = conf ? conf.stub : undefined;
 
-  const descriptor = {
-    id,
-    siblingIdx: port?.siblingIndex || 0,
-    name: conf?.nickname || port?.name || '',
-    nickname: conf?.nickname || '',
-    driverName: conf?.driverName || port?.name || '',
-    configured: conf !== undefined,
-    connected: ps.portPairs.get(id) !== undefined,
-  };
-
-  MainWindow.sendDeviceDescriptor(descriptor);
-});
-
-ipcMain.on(REQUEST_CONFIG_DESCRIPTOR, (_e: Event, id: string) => {
-  const p = pp.project;
-  const conf = p.getDevice(id);
-  const desc = conf ? conf.descriptor : undefined;
-
-  MainWindow.sendConfigDescriptor(id, desc);
+  MainWindow.sendConfigStub(id, desc);
 });
 
 ipcMain.on(
-  REQUEST_INPUT_DESCRIPTOR,
+  REQUEST_INPUT_STUB,
   (_e: Event, deviceId: string, inputId: string) => {
     const p = pp.project;
     const d = p.getDevice(deviceId);
 
     if (d && d instanceof SupportedDeviceConfig) {
-      const conf = d.getInput(inputId);
-
-      if (conf) {
-        MainWindow.sendInputDescriptor(deviceId, inputId, conf.descriptor);
-      }
+      const stub = d.getInput(inputId)?.stub;
+      MainWindow.sendInputStub(deviceId, inputId, stub);
     }
   }
 );

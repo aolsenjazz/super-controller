@@ -3,7 +3,7 @@ import { MidiArray } from '../midi-array';
 
 import { DeviceDriver, KeyboardDriver } from '../driver-types';
 
-import { ConfigDescriptor, DeviceConfig } from './device-config';
+import { DeviceConfig } from './device-config';
 import {
   MonoInputConfig,
   create,
@@ -143,13 +143,17 @@ export class SupportedDeviceConfig extends DeviceConfig {
       : undefined;
   }
 
-  get descriptor(): ConfigDescriptor {
+  get stub() {
     return {
+      id: this.id,
+      portName: this.portName,
+      driverName: this.driverName,
+      nickname: this.nickname,
+      siblingIndex: this.siblingIndex,
       isAdapter: false,
       isSupported: true,
       isAnonymous: false,
       isAdapterChildSet: false,
-      nickname: this.nickname,
       shareSustain: this.shareSustain,
     };
   }

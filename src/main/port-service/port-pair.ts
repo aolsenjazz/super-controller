@@ -3,6 +3,7 @@ import randomstring from 'randomstring';
 import { applyNondestructiveThrottle } from '@shared/util';
 
 import { Port } from './port';
+import { DeviceStub } from '@shared/device-stub';
 
 /**
  * Couples input and output ports. Each pair doesn't necessarily have to have both an input and
@@ -98,5 +99,13 @@ export class PortPair {
 
   get id() {
     return `${this.name} ${this.siblingIndex}`;
+  }
+
+  get stub(): DeviceStub {
+    return {
+      id: this.id,
+      name: this.name,
+      siblingIndex: this.siblingIndex,
+    };
   }
 }

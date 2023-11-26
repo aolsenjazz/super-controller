@@ -10,7 +10,6 @@ import {
   LightCapableInputConfig,
 } from '@shared/hardware-config';
 import { getDriver } from '@shared/drivers';
-import { PortInfo } from '@shared/port-info';
 
 import { ProjectProvider, ProjectProviderEvent } from '../project-provider';
 import { wp } from '../window-provider';
@@ -18,6 +17,10 @@ import { PortPair } from './port-pair';
 import { all } from './port-manager';
 import { DrivenPortPair } from './driven-port-pair';
 import { VirtualPortService } from './virtual-port-service';
+import {
+  REQUEST_CONNECTED_DEVICES,
+  REQUEST_DEVICE_STUB,
+} from '../ipc-channels';
 
 const { MainWindow } = wp;
 
@@ -27,7 +30,7 @@ const { MainWindow } = wp;
  */
 class PortServiceSingleton {
   /* List of available port pairs */
-  portPairs: Map<string, DrivenPortPair> = new Map();
+  private portPairs: Map<string, DrivenPortPair> = new Map();
 
   /* See `VirtualPortService` */
   #virtService: VirtualPortService;
@@ -43,6 +46,14 @@ class PortServiceSingleton {
     ProjectProvider.on(ProjectProviderEvent.NewProject, () => {
       this.updatePorts();
     });
+
+    // request a list of all device IDs
+    ipcMain.on(REQUEST_CONNECTED_DEVICES, () => this.sendToFrontend());
+
+    ipcMain.on(REQUEST_DEVICE_STUB, (_e: Event, deviceId: string) => {
+      const p = this.portPairs.get(deviceId);
+      MainWindow.sendDeviceStub(deviceId, p?.stub);
+    });
   }
 
   // 3. Static method to get the instance of the class
@@ -55,15 +66,8 @@ class PortServiceSingleton {
 
   /* Pass current list of `PortPair`s to the front end */
   sendToFrontend() {
-    const configuredDeviceIds = ProjectProvider.project.devices.map(
-      (d) => d.id
-    );
-    const availableDevices = Array.from(this.portPairs.keys());
-    const deviceIds = Array.from(
-      new Set([...configuredDeviceIds, ...availableDevices])
-    );
-
-    MainWindow.sendDeviceList(deviceIds);
+    const devices = Array.from(this.portPairs).map(([_k, v]) => v.stub);
+    MainWindow.sendConnectedDevices(devices);
   }
 
   /**

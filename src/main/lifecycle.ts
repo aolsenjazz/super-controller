@@ -8,7 +8,8 @@ import {
 } from './project-provider';
 import { dialogs } from './dialogs';
 import { AppMenu as am } from './menu';
-import { PortService as ps } from './port-service';
+
+import './port-service';
 import './ipc-service';
 
 const { MainWindow } = wp;
@@ -84,31 +85,8 @@ class LifecycleSingleton {
     pp.on(ProjectProviderEvent.NewProject, (title) => {
       MainWindow.title = title;
 
-      // TODO: this now lives like 3 different places
-      const configuredDeviceIds = pp.project.devices.map((d) => d.id);
-      const availableDevices = Array.from(ps.portPairs.keys());
-      const deviceIds = Array.from(
-        new Set([...configuredDeviceIds, ...availableDevices])
-      );
-      MainWindow.sendDeviceList(deviceIds);
-
-      // TODO: this won't live here for long
-      deviceIds.forEach((id) => {
-        const port = ps.portPairs.get(id);
-        const conf = pp.project.getDevice(id);
-
-        const descriptor = {
-          id,
-          siblingIdx: port?.siblingIndex || 0,
-          name: conf?.nickname || port?.name || '',
-          nickname: conf?.nickname || '',
-          driverName: conf?.driverName || port?.name || '',
-          configured: conf !== undefined,
-          connected: ps.portPairs.get(id) !== undefined,
-        };
-
-        MainWindow.sendDeviceDescriptor(descriptor);
-      });
+      const stubs = pp.project.devices.map((d) => d.stub);
+      MainWindow.sendConfiguredDevices(stubs);
     });
   }
 }

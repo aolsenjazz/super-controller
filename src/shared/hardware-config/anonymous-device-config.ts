@@ -1,6 +1,6 @@
 import * as Revivable from '../revivable';
 import { MidiArray, create } from '../midi-array';
-import { DeviceConfig } from './device-config';
+import { ConfigStub, DeviceConfig } from './device-config';
 
 @Revivable.register
 export class AnonymousDeviceConfig extends DeviceConfig {
@@ -77,13 +77,17 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     return this.overrides.get(JSON.stringify(input));
   }
 
-  get descriptor(): ConfigDescriptor {
+  get stub(): ConfigStub {
     return {
+      id: this.id,
+      portName: this.portName,
+      driverName: this.driverName,
+      nickname: this.nickname,
+      siblingIndex: this.siblingIndex,
       isAdapter: false,
       isSupported: false,
       isAnonymous: true,
       isAdapterChildSet: false,
-      nickname: this.nickname,
       shareSustain: this.shareSustain,
     };
   }
