@@ -50,7 +50,6 @@ export function Knob(props: PropTypes) {
     const max = 127;
     const startAngle = (360 - degrees) / 2;
     const endAngle = startAngle + degrees;
-    console.log(state);
 
     setCurDeg(
       Math.floor(convertRange(min, max, startAngle, endAngle, state.value))
