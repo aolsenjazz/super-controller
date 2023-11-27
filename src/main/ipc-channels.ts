@@ -18,6 +18,6 @@ export const CONNECTED_DEVICES = 'connected-devices';
 export const REQUEST_CONFIGURED_DEVICES = 'request-configured-devices';
 export const CONFIGURED_DEVICES = 'configured-devices';
 
-export const REQUEST_INPUT_STUB = 'request-input-stub';
+export const REQUEST_INPUT_STATE = 'request-input-stub';
 export const REQUEST_CONFIG_STUB = 'request-config-stub';
 export const REQUEST_DEVICE_STUB = 'request-device-stub';

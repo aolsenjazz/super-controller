@@ -18,7 +18,7 @@ import {
   OS,
   REQUEST,
   REQUEST_CONFIG_STUB,
-  REQUEST_INPUT_STUB,
+  REQUEST_INPUT_STATE,
 } from './ipc-channels';
 
 const { MainWindow } = wp;
@@ -51,14 +51,15 @@ ipcMain.on(REQUEST_CONFIG_STUB, (_e: Event, id: string) => {
 });
 
 ipcMain.on(
-  REQUEST_INPUT_STUB,
+  REQUEST_INPUT_STATE,
   (_e: Event, deviceId: string, inputId: string) => {
     const p = pp.project;
     const d = p.getDevice(deviceId);
 
     if (d && d instanceof SupportedDeviceConfig) {
-      const stub = d.getInput(inputId)?.stub;
-      MainWindow.sendInputStub(deviceId, inputId, stub);
+      const state = d.getInput(inputId)?.state;
+
+      if (state) MainWindow.sendInputState(deviceId, inputId, state);
     }
   }
 );

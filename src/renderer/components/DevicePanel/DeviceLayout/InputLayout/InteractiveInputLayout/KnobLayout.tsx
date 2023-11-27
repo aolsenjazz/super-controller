@@ -1,3 +1,12 @@
+import { useSelectedDevice } from '@context/selected-device-context';
+import { useInputState } from '@hooks/use-input-state';
+import { KnobState } from '@shared/hardware-config/input-config/knob-config';
+import { useEffect, useState } from 'react';
+
+const defaultState = {
+  value: 0,
+};
+
 /**
  * Converts a value in given range to the equivalent value in a new range
  *
@@ -18,23 +27,35 @@ const convertRange = (
 };
 
 type PropTypes = {
-  value: number;
+  id: string;
   shape: string;
   endless: boolean;
 };
 
 export function Knob(props: PropTypes) {
-  const { value, shape, endless } = props;
+  const { shape, endless, id } = props;
 
-  const degrees = 270;
-  const min = 0;
-  const max = 127;
-  const startAngle = (360 - degrees) / 2;
-  const endAngle = startAngle + degrees;
+  const { selectedDevice } = useSelectedDevice();
+  const [curDeg, setCurDeg] = useState(0);
 
-  const curDeg = Math.floor(
-    convertRange(min, max, startAngle, endAngle, value)
+  const { state } = useInputState<KnobState>(
+    selectedDevice || '',
+    id,
+    defaultState
   );
+
+  useEffect(() => {
+    const degrees = 270;
+    const min = 0;
+    const max = 127;
+    const startAngle = (360 - degrees) / 2;
+    const endAngle = startAngle + degrees;
+    console.log(state);
+
+    setCurDeg(
+      Math.floor(convertRange(min, max, startAngle, endAngle, state.value))
+    );
+  }, [state]);
 
   return (
     <div className="knob" role="button">

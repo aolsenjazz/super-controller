@@ -3,6 +3,11 @@ import * as Revivable from '../../revivable';
 import { MonoInputConfig } from './mono-input-config';
 import { InputResponse, InputDriverWithHandle } from '../../driver-types';
 import { ContinuousPropagator } from '../../propagators';
+import { InputState } from './base-input-config';
+
+export interface SliderState extends InputState {
+  value: number;
+}
 
 @Revivable.register
 export class SliderConfig extends MonoInputConfig {
@@ -28,6 +33,12 @@ export class SliderConfig extends MonoInputConfig {
     return {
       name: this.constructor.name,
       args: [this.defaults, this.outputPropagator, this.nickname],
+    };
+  }
+
+  get state() {
+    return {
+      value: this.outputPropagator.value,
     };
   }
 

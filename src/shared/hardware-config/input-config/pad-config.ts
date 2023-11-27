@@ -14,9 +14,9 @@ import {
   Color,
   ColorDescriptor,
 } from '../../driver-types';
-import { BaseInputStub } from './base-input-config';
+import { InputState } from './base-input-config';
 
-export interface PadStub extends BaseInputStub {
+export interface PadState extends InputState {
   color: ColorDescriptor | undefined;
   fx: FxDriver | undefined;
 }
@@ -95,7 +95,7 @@ export class PadConfig extends LightCapableInputConfig {
     }
   }
 
-  get stub() {
+  get state() {
     return {
       color: this.currentColor,
       fx: this.currentFx,

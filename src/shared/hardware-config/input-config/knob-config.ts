@@ -2,6 +2,11 @@ import * as Revivable from '../../revivable';
 import { ContinuousPropagator } from '../../propagators';
 import { InputResponse, KnobDriver } from '../../driver-types';
 import { MonoInputConfig, InputDefault } from './mono-input-config';
+import { InputState } from './base-input-config';
+
+export interface KnobState extends InputState {
+  value: number;
+}
 
 @Revivable.register
 export class KnobConfig extends MonoInputConfig {
@@ -56,6 +61,12 @@ export class KnobConfig extends MonoInputConfig {
     super.restoreDefaults();
 
     this.valueType = this.knobType;
+  }
+
+  get state(): KnobState {
+    return {
+      value: this.outputPropagator.value,
+    };
   }
 
   get eligibleResponses() {

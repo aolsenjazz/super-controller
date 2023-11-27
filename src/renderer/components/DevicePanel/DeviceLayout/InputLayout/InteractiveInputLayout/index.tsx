@@ -32,7 +32,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
       //   shape={driver.shape}
       //   endless={conf.valueType === 'endless'}
       // />
-      <Knob value={0} shape={driver.shape} endless={false} />
+      <Knob id={id} shape={driver.shape} endless={false} />
     );
   }
 

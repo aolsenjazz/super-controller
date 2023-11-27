@@ -5,7 +5,16 @@ import * as Revivable from '@shared/revivable';
 
 import { PitchbendConfig } from './pitchbend-config';
 import { SliderConfig } from './slider-config';
-import { BaseInputConfig } from './base-input-config';
+import { BaseInputConfig, InputState } from './base-input-config';
+
+export interface XYState extends InputState {
+  x: {
+    value: number;
+  };
+  y: {
+    value: number;
+  };
+}
 
 @Revivable.register
 export class XYConfig extends BaseInputConfig {
@@ -51,6 +60,17 @@ export class XYConfig extends BaseInputConfig {
   restoreDefaults() {
     this.x.restoreDefaults();
     this.y.restoreDefaults();
+  }
+
+  get state(): XYState {
+    return {
+      x: {
+        value: this.x.value,
+      },
+      y: {
+        value: this.y.value,
+      },
+    };
   }
 
   get id() {

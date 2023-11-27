@@ -19,7 +19,7 @@ import {
   MSG,
   OS,
   TITLE,
-  REQUEST_INPUT_STUB,
+  REQUEST_INPUT_STATE,
   REQUEST_CONFIG_STUB,
   REQUEST_CONNECTED_DEVICES,
   CONNECTED_DEVICES,
@@ -211,13 +211,13 @@ const deviceService = {
   onInputChange: <T>(
     deviceId: string,
     inputId: string,
-    func: (desc: T) => void
+    func: (state: T) => void
   ) => {
     return addOnChangeListener(`device-${deviceId}-input-${inputId}`, func);
   },
 
-  requestInputStub: (deviceId: string, inputId: string) => {
-    ipcRenderer.send(REQUEST_INPUT_STUB, deviceId, inputId);
+  requestInputState: (deviceId: string, inputId: string) => {
+    ipcRenderer.send(REQUEST_INPUT_STATE, deviceId, inputId);
   },
 };
 

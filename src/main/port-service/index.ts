@@ -8,6 +8,7 @@ import {
   SupportedDeviceConfig,
   AdapterDeviceConfig,
   LightCapableInputConfig,
+  AnonymousDeviceConfig,
 } from '@shared/hardware-config';
 import { getDriver } from '@shared/drivers';
 
@@ -66,6 +67,7 @@ class PortServiceSingleton {
 
   /* Pass current list of `PortPair`s to the front end */
   sendToFrontend() {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const devices = Array.from(this.portPairs).map(([_k, v]) => v.stub);
     MainWindow.sendConnectedDevices(devices);
   }
@@ -245,8 +247,18 @@ class PortServiceSingleton {
 
       if (toDevice) pair.send(toDevice);
 
-      // send new state to frontend
-      // ws.sendInputMsg(msg.id(true), config.id, msg); TODO:
+      if (config instanceof SupportedDeviceConfig) {
+        // send new state to frontend
+        const input = config.getInput(msg.id(true));
+
+        if (input) {
+          MainWindow.sendInputState(config.id, input.id, input.state);
+        }
+      } else if (config instanceof AdapterDeviceConfig) {
+        // TODO:
+      } else if (config instanceof AnonymousDeviceConfig) {
+        // TODO:
+      }
     }
   };
 

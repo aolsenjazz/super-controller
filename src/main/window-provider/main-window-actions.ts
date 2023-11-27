@@ -1,13 +1,13 @@
 import { BrowserWindow } from 'electron';
 import os from 'os';
 
-import { BaseInputStub } from '@shared/hardware-config/input-config/base-input-config';
 import { ConfigStub } from '@shared/hardware-config/device-config';
 import { DeviceStub } from '@shared/device-stub';
 
 import { CONFIGURED_DEVICES, CONNECTED_DEVICES } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';
+import { InputState } from '@shared/hardware-config/input-config/base-input-config';
 
 /**
  * Provides a number of frequently-used functions targetting the main window.
@@ -54,11 +54,11 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(`config-stub-${id}`, desc);
   }
 
-  public sendInputStub<T extends BaseInputStub>(
+  public sendInputState<T extends InputState>(
     deviceId: string,
     inputId: string,
-    desc: T | undefined
+    state: T
   ) {
-    this.send(`device-${deviceId}-input-${inputId}`, desc);
+    this.send(`device-${deviceId}-input-${inputId}`, state);
   }
 }

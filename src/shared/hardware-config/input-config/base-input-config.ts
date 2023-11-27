@@ -2,7 +2,7 @@ import { MidiArray } from '@shared/midi-array';
 import { Skeleton } from '@shared/revivable';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface BaseInputStub {}
+export interface InputState {}
 
 export abstract class BaseInputConfig {
   abstract get nickname(): string;
@@ -11,7 +11,7 @@ export abstract class BaseInputConfig {
 
   abstract get id(): string;
 
-  abstract get stub(): BaseInputStub;
+  abstract get state(): InputState;
 
   abstract handleMessage(msg: MidiArray): MidiArray | undefined;
 

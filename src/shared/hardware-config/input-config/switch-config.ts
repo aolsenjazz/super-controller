@@ -4,6 +4,11 @@ import { MidiArray, create } from '../../midi-array';
 import { NonsequentialStepPropagator } from '../../propagators';
 import { InputResponse, SwitchDriver } from '../../driver-types';
 import { MonoInputConfig } from './mono-input-config';
+import { InputState } from './base-input-config';
+
+export interface SwitchState extends InputState {
+  step: number;
+}
 
 @Revivable.register
 export class SwitchConfig extends MonoInputConfig {
@@ -39,7 +44,14 @@ export class SwitchConfig extends MonoInputConfig {
   }
 
   restoreDefaults() {
+    // TODO: why on earth am I casting this
     (this.outputPropagator as NonsequentialStepPropagator).restoreDefaults();
+  }
+
+  get state() {
+    return {
+      step: (this.outputPropagator as NonsequentialStepPropagator).lastStep,
+    };
   }
 
   get eligibleResponses() {
