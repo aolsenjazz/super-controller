@@ -25,7 +25,8 @@ export default function DevicePanel() {
 
   if (selectedDevice === undefined) {
     Element = <NoDevicesView />;
-  } else if (driver === undefined) {
+  } else if (driverName === 'Anonymous' || driver === undefined) {
+    // TODO: this if statement kinda sucks. Having to check driver name is ugh
     Element = <NoMatchingDriverView deviceName={deviceStub?.name || ''} />;
   } else if (isSupported === true) {
     Element = <DeviceLayoutWrapper driver={driver} />;
