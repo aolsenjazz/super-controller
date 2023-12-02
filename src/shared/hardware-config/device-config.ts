@@ -12,6 +12,7 @@ export type ConfigStub = {
   isAnonymous: boolean;
   isAdapterChildSet: boolean;
   shareSustain: string[];
+  child?: ConfigStub;
 };
 
 /**

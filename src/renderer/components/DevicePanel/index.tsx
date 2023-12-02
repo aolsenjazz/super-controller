@@ -23,21 +23,22 @@ export default function DevicePanel() {
 
   let Element: React.ReactElement;
 
-  if (selectedDevice === undefined) {
+  if (selectedDevice === undefined || !deviceStub) {
     Element = <NoDevicesView />;
   } else if (driverName === 'Anonymous' || driver === undefined) {
-    // TODO: this if statement kinda sucks. Having to check driver name is ugh
-    Element = <NoMatchingDriverView deviceName={deviceStub?.name || ''} />;
-  } else if (isSupported === true) {
-    Element = <DeviceLayoutWrapper driver={driver} />;
-  } else if (configStub) {
-    if (configStub.isAdapterChildSet === true) {
-      Element = <DeviceLayoutWrapper driver={driver} />;
-    } else {
-      return <SelectAdapterChild />;
-    }
+    Element = <NoMatchingDriverView deviceName={deviceStub!.name} />;
+  } else if (isSupported === true && !configStub) {
+    Element =
+      driver.type === 'adapter' ? (
+        <UsbView />
+      ) : (
+        <DeviceLayoutWrapper driver={driver} />
+      );
+  } else if (driver.type === 'adapter' && configStub!.child) {
+    const childDriver = getDriver(configStub!.child.driverName!);
+    Element = <DeviceLayoutWrapper driver={childDriver} />;
   } else {
-    Element = <UsbView />;
+    Element = <SelectAdapterChild />;
   }
 
   return (

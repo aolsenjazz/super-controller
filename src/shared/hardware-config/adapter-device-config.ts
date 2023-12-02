@@ -108,6 +108,7 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
       isAnonymous: false,
       isAdapterChildSet: this.child !== undefined,
       shareSustain: this.shareSustain,
+      child: this.child?.stub,
     };
   }
 
