@@ -1,3 +1,4 @@
+import { useConfigStub } from '@hooks/use-config-stub';
 import { getDriver } from '@shared/drivers';
 
 import DeviceIcon from '../DeviceIcon';
@@ -54,6 +55,8 @@ export default function DeviceListItem(props: PropTypes) {
     siblingIndex,
   } = props;
 
+  const { configStub } = useConfigStub(deviceId);
+
   return (
     <div className={`device-list-item ${selected ? 'active' : ''}`}>
       <div className="device-icon-container">
@@ -66,7 +69,7 @@ export default function DeviceListItem(props: PropTypes) {
         tabIndex={0}
         onKeyDown={onClick}
       >
-        <h2>{name}</h2>
+        <h2>{configStub?.nickname || name}</h2>
         <p className="id">{reformatId(deviceId, siblingIndex)}</p>
         <div
           className={`connection-color ${cssClassFor(connected, configured)}`}

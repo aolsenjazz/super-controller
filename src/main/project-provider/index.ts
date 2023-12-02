@@ -26,7 +26,7 @@ import {
   ProjectEventEmitter,
   ProjectProviderEvent,
 } from './project-event-emitter';
-import { wp } from 'main/window-provider';
+import { wp } from '../window-provider';
 
 const { MainWindow } = wp;
 
