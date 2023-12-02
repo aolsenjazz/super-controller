@@ -3,11 +3,16 @@
  *
  * All of these functions occur in the main process, and so (unfortunately), there
  * is no point in reconstructing proper Objects (PortPair, etc) until the JSX objects
+ *
+ * TODO: but service should be available here. should be able to refactor + simplify a lot of this
+ * if this is the case
  */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 import { PortInfo } from '@shared/port-info';
 import { ConfigStub } from '@shared/hardware-config/device-config';
 import { DeviceStub } from '@shared/device-stub';
+
+// import { ProjectProvider as pp } from './project-provider';
 
 import {
   ADD_DEVICE,
@@ -26,7 +31,12 @@ import {
   REQUEST_CONFIGURED_DEVICES,
   CONFIGURED_DEVICES,
   REQUEST_DEVICE_STUB,
+  REMOVE_TRANSLATOR_OVERRIDE,
+  ADD_TRANSLATOR_OVERRIDE,
+  GET_TRANSLATOR_OVERRIDE,
+  REQUEST_OVERRIDES,
 } from './ipc-channels';
+import { MidiArray } from '@shared/midi-array';
 
 // the frontend uses a lot of listeners. because of this, this number gets
 // pretty high. If it complains, make sure that we're not leaking memory,
@@ -176,6 +186,47 @@ const projectService = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateInput(deviceId: string, i: string) {
     ipcRenderer.send(UPDATE_INPUT, deviceId, i);
+  },
+
+  removeTranslatorOverride(deviceId: string, action: NumberArrayWithStatus) {
+    ipcRenderer.send(REMOVE_TRANSLATOR_OVERRIDE, deviceId, action);
+  },
+
+  addTranslatorOverride(
+    deviceId: string,
+    action: NumberArrayWithStatus,
+    statusString: StatusString,
+    channel: Channel,
+    number: MidiNumber,
+    value: MidiNumber
+  ) {
+    ipcRenderer.send(
+      ADD_TRANSLATOR_OVERRIDE,
+      deviceId,
+      action,
+      statusString,
+      channel,
+      number,
+      value
+    );
+  },
+
+  getTranslatorOverride(
+    deviceId: string,
+    action: NumberArrayWithStatus
+  ): NumberArrayWithStatus | undefined {
+    return ipcRenderer.sendSync(GET_TRANSLATOR_OVERRIDE, deviceId, action);
+  },
+
+  requestOverrides(deviceId: string) {
+    ipcRenderer.send(REQUEST_OVERRIDES, deviceId);
+  },
+
+  onOverridesChange(
+    deviceId: string,
+    func: (overrides: Map<string, MidiArray>) => void
+  ) {
+    return addOnChangeListener(`${deviceId}-overrides`, func);
   },
 };
 

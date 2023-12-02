@@ -1,11 +1,13 @@
-import { MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
-import { AnonymousDeviceConfig } from '@shared/hardware-config';
+import { create, MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
+import { ConfigStub } from '@shared/hardware-config/device-config';
 
 import SettingsLineItem from '../SettingsLineItem';
 
+const { projectService } = window;
+
 type ControlsContainerPropTypes = {
-  config: AnonymousDeviceConfig;
-  currentAction: MidiArray | undefined;
+  config: ConfigStub;
+  currentAction: MidiArray;
   remove: () => void;
   onChange: (
     statusString: StatusString,
@@ -21,8 +23,12 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
   // if there is no selected source message, hide yaself
   if (currentAction === undefined) return null;
 
-  const overrideOrUndefined = config.getOverride(currentAction);
-  const msg = overrideOrUndefined || currentAction;
+  const overrideOrUndefined = projectService.getTranslatorOverride(
+    config.id,
+    currentAction
+  );
+  const arr = overrideOrUndefined || currentAction;
+  const msg = create(arr);
 
   const status = msg.statusString;
   const { channel } = msg as ThreeByteMidiArray;

@@ -31,7 +31,7 @@ export abstract class WindowActions {
   }
 
   public sendRecentMsg(deviceId: string, msg: NumberArrayWithStatus) {
-    this.send(`${deviceId}-messages`, msg);
+    this.send(`${deviceId}-message`, msg);
   }
 
   /**

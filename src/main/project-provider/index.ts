@@ -1,11 +1,12 @@
 // eslint-disable-next-line max-classes-per-file
-import { ipcMain, app } from 'electron';
+import { ipcMain, app, IpcMainEvent, IpcMain } from 'electron';
 import Store from 'electron-store';
 import path from 'path';
-import fs from 'fs';
+import fs, { stat } from 'fs';
 
 import {
   AdapterDeviceConfig,
+  AnonymousDeviceConfig,
   BaseInputConfig,
   configFromDriver,
   SupportedDeviceConfig,
@@ -14,10 +15,15 @@ import { Project } from '@shared/project';
 import { parse, stringify } from '@shared/util';
 import { getDriver } from '@shared/drivers';
 import { ConfigStub } from '@shared/hardware-config/device-config';
+import { create } from '@shared/midi-array';
 
 import {
   ADD_DEVICE,
+  ADD_TRANSLATOR_OVERRIDE,
+  GET_TRANSLATOR_OVERRIDE,
   REMOVE_DEVICE,
+  REMOVE_TRANSLATOR_OVERRIDE,
+  REQUEST_OVERRIDES,
   UPDATE_DEVICE,
   UPDATE_INPUT,
 } from '../ipc-channels';
@@ -151,16 +157,16 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         if (conf instanceof AdapterDeviceConfig) {
           const childDriver = getDriver(childName!);
           const childConf = configFromDriver(
-            childName,
+            childName!,
             siblingIdx,
             childDriver
           );
-          conf.setChild(childConf);
+          conf.setChild(childConf as SupportedDeviceConfig);
         }
 
         this.project.addDevice(conf);
 
-        this.emit(ProjectProviderEvent.AddDevice, this.project);
+        this.emit(ProjectProviderEvent.AddDevice, conf);
         MainWindow.sendConfiguredDevices(
           this.project.devices.map((d) => d.stub)
         );
@@ -207,6 +213,63 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         this.emit(ProjectProviderEvent.UpdateInput, this.project);
       }
     );
+
+    ipcMain.on(
+      REMOVE_TRANSLATOR_OVERRIDE,
+      (_e: IpcMainEvent, deviceId: string, action: NumberArrayWithStatus) => {
+        const conf = this.project.getDevice(deviceId);
+
+        if (conf instanceof AnonymousDeviceConfig) {
+          // TODO: is this how we're handling binding keys? this should be formalized either way
+          // TODO: also this process should exist as a function on AnonymousDeviceConfigs
+          conf.overrides.delete(JSON.stringify(action));
+        }
+      }
+    );
+
+    ipcMain.on(
+      ADD_TRANSLATOR_OVERRIDE,
+      (
+        _e: IpcMainEvent,
+        deviceId: string,
+        action: NumberArrayWithStatus,
+        statusString: StatusString,
+        channel: Channel,
+        number: MidiNumber,
+        value: MidiNumber
+      ) => {
+        const conf = this.project.getDevice(deviceId);
+
+        if (conf instanceof AnonymousDeviceConfig) {
+          const ma = create(action);
+          conf.overrideInput(ma, statusString, channel, number, value);
+
+          MainWindow.sendOverrides(deviceId, conf.overrides);
+        }
+      }
+    );
+
+    ipcMain.on(
+      GET_TRANSLATOR_OVERRIDE,
+      (e: IpcMainEvent, deviceId: string, action: NumberArrayWithStatus) => {
+        const conf = this.project.getDevice(deviceId);
+
+        if (conf instanceof AnonymousDeviceConfig) {
+          const ma = create(action);
+          e.returnValue = conf.getOverride(ma);
+        } else {
+          e.returnValue = undefined;
+        }
+      }
+    );
+
+    ipcMain.on(REQUEST_OVERRIDES, (_e: IpcMainEvent, deviceId: string) => {
+      const conf = this.project.getDevice(deviceId);
+
+      if (conf instanceof AnonymousDeviceConfig) {
+        MainWindow.sendOverrides(deviceId, conf.overrides);
+      }
+    });
   }
 }
 

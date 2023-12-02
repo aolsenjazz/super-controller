@@ -48,6 +48,11 @@ class PortServiceSingleton {
       this.updatePorts();
     });
 
+    ProjectProvider.on(ProjectProviderEvent.AddDevice, () => {
+      // TODO: running an entire port update here seems ridiculous. should just be able to init.
+      this.updatePorts();
+    });
+
     // request a list of all device IDs
     ipcMain.on(REQUEST_CONNECTED_DEVICES, () => this.sendToFrontend());
 

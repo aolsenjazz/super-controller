@@ -21,3 +21,8 @@ export const CONFIGURED_DEVICES = 'configured-devices';
 export const REQUEST_INPUT_STATE = 'request-input-stub';
 export const REQUEST_CONFIG_STUB = 'request-config-stub';
 export const REQUEST_DEVICE_STUB = 'request-device-stub';
+
+export const REMOVE_TRANSLATOR_OVERRIDE = 'remove-translator-override';
+export const ADD_TRANSLATOR_OVERRIDE = 'add-translator-override';
+export const GET_TRANSLATOR_OVERRIDE = 'get-translator-override';
+export const REQUEST_OVERRIDES = 'request-overrides';

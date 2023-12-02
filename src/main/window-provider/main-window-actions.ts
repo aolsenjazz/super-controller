@@ -8,6 +8,7 @@ import { InputState } from '@shared/hardware-config/input-config/base-input-conf
 import { CONFIGURED_DEVICES, CONNECTED_DEVICES } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';
+import { MidiArray } from '@shared/midi-array';
 
 /**
  * Provides a number of frequently-used functions targetting the main window.
@@ -52,6 +53,10 @@ export class MainWindowActions extends StatefulWindowActions {
 
   public sendConfigStub(id: string, desc: ConfigStub | undefined) {
     this.send(`config-stub-${id}`, desc);
+  }
+
+  public sendOverrides(id: string, overrides: Map<string, MidiArray>) {
+    this.send(`${id}-overrides`, overrides);
   }
 
   public sendInputState<T extends InputState>(
