@@ -135,8 +135,20 @@ const projectService = {
     return addOnChangeListener(TITLE, func);
   },
 
-  addDevice(deviceName: string, siblingIndex: number, driverName?: string) {
-    ipcRenderer.send(ADD_DEVICE, deviceName, siblingIndex, driverName);
+  // TODO: worth documenting this to specify how adapters/supporteds are handled
+  addDevice(
+    deviceName: string,
+    siblingIndex: number,
+    driverName?: string,
+    childName?: string
+  ) {
+    ipcRenderer.send(
+      ADD_DEVICE,
+      deviceName,
+      siblingIndex,
+      driverName,
+      childName
+    );
   },
 
   /**

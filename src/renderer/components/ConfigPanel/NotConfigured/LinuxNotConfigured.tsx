@@ -1,11 +1,11 @@
+import { useCallback } from 'react';
+
 import { useSelectedDevice } from '@context/selected-device-context';
 import { DRIVERS } from '@shared/drivers';
 import { useDeviceStub } from '@hooks/use-device-stub';
 
 import DriverRequestButton from '../../DriverRequestButton';
 import BasicSelect from '../../BasicSelect';
-
-import { useCallback } from 'react';
 
 const drivers = new Map(Array.from(DRIVERS.entries()));
 

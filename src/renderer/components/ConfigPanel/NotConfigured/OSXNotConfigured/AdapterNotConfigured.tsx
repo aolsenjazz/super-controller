@@ -1,9 +1,9 @@
 import { DRIVERS } from '@shared/drivers';
 import { DeviceStub } from '@shared/device-stub';
 
-import HelpTip from '../HelpTip';
-import DriverRequestButton from '../DriverRequestButton';
-import BasicSelect from '../BasicSelect';
+import HelpTip from '../../../HelpTip';
+import DriverRequestButton from '../../../DriverRequestButton';
+import BasicSelect from '../../../BasicSelect';
 
 // TODO: is this supposed to be a set... no reason to be a map
 const fivePins = new Map(
@@ -21,7 +21,7 @@ const tipBody = `When using a 5-pin adapter, only the adapter is visible to Supe
 
    Don't see your device? Request it using the button below.`;
 
-export default function AdapterView(props: PropTypes) {
+export default function AdapterNotConfigured(props: PropTypes) {
   const { device } = props;
 
   const valueList = Array.from(fivePins.keys());

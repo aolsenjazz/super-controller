@@ -86,6 +86,12 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
     return [];
   }
 
+  set shareSustain(shareSustain: string[]) {
+    if (this.child) {
+      this.child.shareSustain = shareSustain;
+    }
+  }
+
   get id() {
     return `${this.portName} ${this.siblingIndex}`;
   }

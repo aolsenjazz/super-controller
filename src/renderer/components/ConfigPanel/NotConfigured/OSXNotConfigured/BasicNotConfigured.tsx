@@ -5,7 +5,7 @@ import { useDeviceStub } from '@hooks/use-device-stub';
 
 const { projectService } = window;
 
-export default function OSXNotConfigured() {
+export default function BasicNotConfigured() {
   const { selectedDevice } = useSelectedDevice();
   const { deviceStub } = useDeviceStub(selectedDevice || '');
 

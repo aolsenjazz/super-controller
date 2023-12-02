@@ -5,6 +5,7 @@ import path from 'path';
 import fs from 'fs';
 
 import {
+  AdapterDeviceConfig,
   BaseInputConfig,
   configFromDriver,
   SupportedDeviceConfig,
@@ -141,10 +142,21 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         _e: Event,
         deviceName: string,
         siblingIdx: number,
-        driverName?: string
+        driverName?: string,
+        childName?: string
       ) => {
         const driver = getDriver(driverName || deviceName);
         const conf = configFromDriver(deviceName, siblingIdx, driver);
+
+        if (conf instanceof AdapterDeviceConfig) {
+          const childDriver = getDriver(childName!);
+          const childConf = configFromDriver(
+            childName,
+            siblingIdx,
+            childDriver
+          );
+          conf.setChild(childConf);
+        }
 
         this.project.addDevice(conf);
 

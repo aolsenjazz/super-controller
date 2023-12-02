@@ -101,10 +101,6 @@ export default function ConfigPanel() {
 
   if (configStub === undefined) {
     Element = <NotConfigured />;
-  } else if (configStub instanceof AdapterDeviceConfig && !configStub.child) {
-    // Element = (
-    //   <AdapterView config={config} project={project} setProject={setProject} />
-    // );
   } else {
     // configured = project.getDevice(config.id) !== undefined;
     // if (config.driverName === 'Anonymous') {
