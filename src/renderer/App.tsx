@@ -22,7 +22,7 @@ export default function App() {
         <div id="main-content">
           <DeviceList />
           <DevicePanel />
-          {/*<ConfigPanel />*/}
+          <ConfigPanel />
         </div>
       </SelectedInputsProvider>
     </DeviceProvider>

@@ -6,11 +6,13 @@ import fs from 'fs';
 
 import {
   BaseInputConfig,
-  DeviceConfig,
+  configFromDriver,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 import { parse, stringify } from '@shared/util';
+import { getDriver } from '@shared/drivers';
+import { ConfigStub } from '@shared/hardware-config/device-config';
 
 import {
   ADD_DEVICE,
@@ -24,6 +26,9 @@ import {
   ProjectEventEmitter,
   ProjectProviderEvent,
 } from './project-event-emitter';
+import { wp } from 'main/window-provider';
+
+const { MainWindow } = wp;
 
 const SAVE_DIR = 'dir';
 const store = new Store();
@@ -130,12 +135,25 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
   }
 
   private initIpc() {
-    ipcMain.on(ADD_DEVICE, (_e: Event, c: string) => {
-      const config = parse<DeviceConfig>(c);
-      this.project.addDevice(config);
+    ipcMain.on(
+      ADD_DEVICE,
+      (
+        _e: Event,
+        deviceName: string,
+        siblingIdx: number,
+        driverName?: string
+      ) => {
+        const driver = getDriver(driverName || deviceName);
+        const conf = configFromDriver(deviceName, siblingIdx, driver);
 
-      this.emit(ProjectProviderEvent.AddDevice, this.project);
-    });
+        this.project.addDevice(conf);
+
+        this.emit(ProjectProviderEvent.AddDevice, this.project);
+        MainWindow.sendConfiguredDevices(
+          this.project.devices.map((d) => d.stub)
+        );
+      }
+    );
 
     /* When a device is removed from project, remove it here and re-init all devices */
     ipcMain.on(REMOVE_DEVICE, (_e: Event, deviceId: string) => {
@@ -143,15 +161,17 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
       this.project.removeDevice(config!);
 
       this.emit(ProjectProviderEvent.RemoveDevice, this.project);
+      MainWindow.sendConfiguredDevices(this.project.devices.map((d) => d.stub));
     });
 
-    ipcMain.on(UPDATE_DEVICE, (_e: Event, deviceJSON: string) => {
-      const config = parse<DeviceConfig>(deviceJSON);
+    ipcMain.on(UPDATE_DEVICE, (_e: Event, updates: ConfigStub) => {
+      const config = this.project.getDevice(updates.id)!;
 
-      this.project.removeDevice(config);
-      this.project.addDevice(config);
+      config.nickname = updates.nickname;
+      config.shareSustain = updates.shareSustain;
 
       this.emit(ProjectProviderEvent.UpdateDevice, this.project);
+      MainWindow.sendConfigStub(config.id, config.stub);
     });
 
     ipcMain.on(

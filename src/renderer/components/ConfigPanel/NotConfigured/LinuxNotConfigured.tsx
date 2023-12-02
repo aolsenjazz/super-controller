@@ -1,41 +1,30 @@
-import { configFromDriver } from '@shared/hardware-config';
-import { stringify } from '@shared/util';
-import { Project } from '@shared/project';
+import { useSelectedDevice } from '@context/selected-device-context';
 import { DRIVERS } from '@shared/drivers';
-import { PortInfo } from '@shared/port-info';
+import { useDeviceStub } from '@hooks/use-device-stub';
 
 import DriverRequestButton from '../../DriverRequestButton';
 import BasicSelect from '../../BasicSelect';
+
+import { useCallback } from 'react';
 
 const drivers = new Map(Array.from(DRIVERS.entries()));
 
 const { projectService } = window;
 
-/**
- * Inform the current user that the device isn't configured, and allow them to configure
- *
- * @param props Component props
- * @param props.config Configuration of the current device
- */
-export default function LinuxNotConfigured(props: {
-  port: PortInfo;
-  project: Project;
-  setProject: (p: Project) => void;
-}) {
-  const { port, project, setProject } = props;
+export default function LinuxNotConfigured() {
+  const { selectedDevice } = useSelectedDevice();
+  const { deviceStub } = useDeviceStub(selectedDevice || '');
 
   const valueList = Array.from(drivers.keys());
   const labelList = Array.from(drivers.keys());
   const value = '';
 
-  const onChange = (v: string | number) => {
-    const driver = DRIVERS.get(v as string);
-    const config = configFromDriver(port.name, port.siblingIndex, driver!);
-
-    project.addDevice(config);
-    setProject(new Project(project.devices)); // update in frontend
-    projectService.addDevice(stringify(config)); // update in backend
-  };
+  const onChange = useCallback(
+    (v: string | number) => {
+      projectService.addDevice(deviceStub!.name, deviceStub!.siblingIndex, v);
+    },
+    [deviceStub]
+  );
 
   return (
     <div id="adapter-view-container">

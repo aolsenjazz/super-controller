@@ -54,6 +54,15 @@ function addOnChangeListener(
   };
 }
 
+type Host =
+  | 'linux'
+  | 'win32'
+  | 'sunos'
+  | 'openbsd'
+  | 'freebsd'
+  | 'darwin'
+  | 'aix';
+
 /**
  * Expose data re. the host (usually the OS + hardware) to the renderer process
  */
@@ -62,7 +71,7 @@ const hostService = {
    * Returns a string representation of the current operating system
    */
   getHost: () => {
-    return ipcRenderer.sendSync(OS, process.platform);
+    return ipcRenderer.sendSync(OS, process.platform) as Host;
   },
 
   /**
@@ -126,13 +135,8 @@ const projectService = {
     return addOnChangeListener(TITLE, func);
   },
 
-  /**
-   * Inform the backend to add the device
-   *
-   * @param configJSON JSON representation of the device config
-   */
-  addDevice(configString: string) {
-    ipcRenderer.send(ADD_DEVICE, configString);
+  addDevice(deviceName: string, siblingIndex: number, driverName?: string) {
+    ipcRenderer.send(ADD_DEVICE, deviceName, siblingIndex, driverName);
   },
 
   /**
@@ -149,8 +153,8 @@ const projectService = {
    *
    * @param deviceString Serialized version of the device
    */
-  updateDevice(d: string) {
-    ipcRenderer.send(UPDATE_DEVICE, d);
+  updateDevice(config: ConfigStub) {
+    ipcRenderer.send(UPDATE_DEVICE, config);
   },
 
   /**

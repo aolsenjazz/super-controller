@@ -3,11 +3,11 @@ import os from 'os';
 
 import { ConfigStub } from '@shared/hardware-config/device-config';
 import { DeviceStub } from '@shared/device-stub';
+import { InputState } from '@shared/hardware-config/input-config/base-input-config';
 
 import { CONFIGURED_DEVICES, CONNECTED_DEVICES } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';
-import { InputState } from '@shared/hardware-config/input-config/base-input-config';
 
 /**
  * Provides a number of frequently-used functions targetting the main window.

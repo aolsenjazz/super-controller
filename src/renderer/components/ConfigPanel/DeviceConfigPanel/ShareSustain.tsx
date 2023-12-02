@@ -1,6 +1,5 @@
-import { DeviceConfig } from '@shared/hardware-config';
-import { Project } from '@shared/project';
-import { stringify } from '@shared/util';
+import { useConfiguredDevices } from '@hooks/use-configured-devices';
+import { ConfigStub } from '@shared/hardware-config/device-config';
 
 import ShareSustainLine from './ShareSustainLine';
 
@@ -19,26 +18,15 @@ function disambiguatedNickname(
 }
 
 type PropTypes = {
-  project: Project;
-  config: DeviceConfig;
-  setProject: (p: Project) => void;
+  config: ConfigStub;
 };
 
-/**
- * List of all devices eligible to share sustain events
- *
- * @param props Component props
- * @param props.project Current project
- * @param props.config Device configuration
- * @param props.setProject updates the project in frontend
- */
 export default function ShareSustain(props: PropTypes) {
-  const { config, project, setProject } = props;
+  const { config } = props;
+  const { configStubs } = useConfiguredDevices();
 
   // get all devices which aren't this device
-  const shareableDevices = project.devices.filter(
-    (dev) => dev.id !== config.id
-  );
+  const shareableDevices = configStubs.filter((dev) => dev.id !== config.id);
 
   if (shareableDevices.length === 0) return null;
 
@@ -54,13 +42,15 @@ export default function ShareSustain(props: PropTypes) {
               dev.siblingIndex
             )}
             key={dev.id}
-            value={config.sharingWith(dev.id)}
+            value={config.shareSustain.includes(dev.id)}
             onChange={(checked) => {
-              if (checked) config.shareWith(dev.id);
-              else config.stopSharing(dev.id);
+              if (checked) config.shareSustain.push(dev.id);
+              else
+                config.shareSustain = config.shareSustain.filter(
+                  (id) => id === dev.id
+                );
 
-              projectService.updateDevice(stringify(config)); // send update to the backend
-              setProject(new Project(project.devices)); // update in frontend
+              projectService.updateDevice(config);
             }}
           />
         );
