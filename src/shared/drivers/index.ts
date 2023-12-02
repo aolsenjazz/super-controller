@@ -39,7 +39,7 @@ export const DRIVERS = (() => {
   map.set(Anonymous.name, Anonymous);
   map.set(APCKey25Mk2Control.name, APCKey25Mk2Control);
   map.set(APCKey25Mk2Keys.name, APCKey25Mk2Keys);
-  map.set(APCKey25.name, APCKey25);
+  // map.set(APCKey25.name, APCKey25); TODO: uncomment me!
   map.set(APCMini.name, APCMini);
   map.set(ArturiaMiniLabMKII.name, ArturiaMiniLabMKII);
   map.set(Axiom49AxiomUSBIn.name, Axiom49AxiomUSBIn);

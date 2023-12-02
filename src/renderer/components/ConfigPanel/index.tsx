@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 
 import {
-  DeviceConfig,
   SupportedDeviceConfig,
-  AnonymousDeviceConfig,
-  AdapterDeviceConfig,
   BaseInputConfig,
 } from '@shared/hardware-config';
 import { SwitchConfig } from '@shared/hardware-config/input-config';
 import { Project } from '@shared/project';
+import { useSelectedDevice } from '@context/selected-device-context';
+import { useSelectedInputs } from '@context/selected-inputs-context';
+import { DeviceStub } from '@shared/device-stub';
+import { useConfigStub } from '@hooks/use-config-stub';
 
 import Translator from './Translator';
 import BasicMessage from './BasicMessage';
@@ -20,10 +21,6 @@ import XYConfigPanel from './XYConfigPanel';
 import SwitchConfigPanel from './SwitchConfigPanel';
 
 import { InputGroup } from '../../input-group';
-import { useSelectedDevice } from '@context/selected-device-context';
-import { useSelectedInputs } from '@context/selected-inputs-context';
-import { DeviceStub } from '@shared/device-stub';
-import { useConfigStub } from '@hooks/use-config-stub';
 
 const { deviceService } = window;
 
@@ -102,26 +99,19 @@ export default function ConfigPanel() {
   if (configStub === undefined) {
     Element = <NotConfigured />;
   } else {
-    // configured = project.getDevice(config.id) !== undefined;
-    // if (config.driverName === 'Anonymous') {
-    //   Element = (
-    //     <Translator
-    //       config={config as AnonymousDeviceConfig}
-    //       project={project}
-    //       setProject={setProject}
-    //     />
-    //   );
-    // } else if (selectedInputs.length === 0) {
-    //   Element = <BasicMessage msg="No inputs selected." />;
-    // } else {
-    //   Element = (
-    //     <InputConfiguration
-    //       project={project}
-    //       config={config as SupportedDeviceConfig}
-    //       setProject={setProject}
-    //     />
-    //   );
-    // }
+    if (configStub.driverName === 'Anonymous') {
+      Element = <Translator config={configStub} />;
+    } else if (selectedInputs.length === 0) {
+      Element = <BasicMessage msg="No inputs selected." />;
+    } else {
+      // Element = (
+      //   <InputConfiguration
+      //     project={project}
+      //     config={config as SupportedDeviceConfig}
+      //     setProject={setProject}
+      //   />
+      // );
+    }
   }
 
   return (

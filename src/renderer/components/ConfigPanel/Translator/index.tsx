@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 import { MidiArray } from '@shared/midi-array';
 import { Project } from '@shared/project';
 import { stringify } from '@shared/util';
-import { AnonymousDeviceConfig } from '@shared/hardware-config';
+import { ConfigStub } from '@shared/hardware-config/device-config';
 
 import RecentMessageRow from './RecentMessageRow';
 import ControlsContainer from './ControlsContainer';
@@ -12,13 +12,11 @@ import OverrideRow from './OverrideRow';
 const { projectService } = window;
 
 type PropTypes = {
-  config: AnonymousDeviceConfig;
-  project: Project;
-  setProject: (p: Project) => void;
+  config: ConfigStub;
 };
 
 export default function Translator(props: PropTypes) {
-  const { config, project, setProject } = props;
+  const { config } = props;
 
   const [currentAction, setCurrentAction] = useState<MidiArray | undefined>();
 
@@ -29,19 +27,17 @@ export default function Translator(props: PropTypes) {
       channel: Channel,
       value: MidiNumber
     ) => {
-      if (currentAction !== undefined) {
-        config.overrideInput(
-          currentAction,
-          statusString,
-          channel,
-          number,
-          value
-        );
-        setProject(new Project(project.devices));
-        projectService.updateDevice(stringify(config));
-      }
+      // if (currentAction !== undefined) {
+      //   config.overrideInput(
+      //     currentAction,
+      //     statusString,
+      //     channel,
+      //     number,
+      //     value
+      //   );
+      // }
     },
-    [project, config, setProject, currentAction]
+    [config, currentAction]
   );
 
   return (
@@ -59,16 +55,16 @@ export default function Translator(props: PropTypes) {
           setCurrentAction={setCurrentAction}
           currentAction={currentAction}
         />
-        {Array.from(config.overrides).map(([overrideKey]) => (
+        {/*{Array.from(config.overrides).map(([overrideKey]) => (
           <OverrideRow
             currentAction={currentAction}
             setCurrentAction={setCurrentAction}
             overrideKey={overrideKey}
             key={overrideKey}
           />
-        ))}
+        ))}*/}
       </div>
-      <ControlsContainer
+      {/* <ControlsContainer
         currentAction={currentAction}
         onChange={onChange}
         config={config}
@@ -77,7 +73,7 @@ export default function Translator(props: PropTypes) {
           setProject(new Project(project.devices));
           projectService.updateDevice(stringify(config));
         }}
-      />
+      />*/}
     </div>
   );
 }

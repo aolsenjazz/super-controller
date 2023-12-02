@@ -30,6 +30,10 @@ export abstract class WindowActions {
     w.loadURL(this.url);
   }
 
+  public sendRecentMsg(deviceId: string, msg: NumberArrayWithStatus) {
+    this.send(`${deviceId}-messages`, msg);
+  }
+
   /**
    * Send objects to the frontend
    *

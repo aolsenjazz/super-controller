@@ -247,6 +247,7 @@ class PortServiceSingleton {
 
       if (toDevice) pair.send(toDevice);
 
+      MainWindow.sendRecentMsg(pair.id, msg.array);
       if (config instanceof SupportedDeviceConfig) {
         // send new state to frontend
         const input = config.getInput(msg.id(true));
