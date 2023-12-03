@@ -37,8 +37,10 @@ export default function DevicePanel() {
   } else if (driver.type === 'adapter' && configStub!.child) {
     const childDriver = getDriver(configStub!.child.driverName!);
     Element = <DeviceLayoutWrapper driver={childDriver} />;
-  } else {
+  } else if (driver.type === 'adapter') {
     Element = <SelectAdapterChild />;
+  } else {
+    Element = <DeviceLayoutWrapper driver={driver} />;
   }
 
   return (
