@@ -2,11 +2,12 @@
 import * as Revivable from '../../revivable';
 import { SliderConfig } from './slider-config';
 import { PitchbendPropagator } from '../../propagators';
-import { InputResponse, MonoInteractiveDriver } from '../../driver-types';
+import { MonoInteractiveDriver } from '../../driver-types';
 import { InputState } from './base-input-config';
+import { MonoInputConfigStub } from './mono-input-config';
 
 export interface PitchbendState extends InputState {
-  value: number;
+  value: MidiNumber;
 }
 
 @Revivable.register
@@ -31,6 +32,17 @@ export class PitchbendConfig extends SliderConfig {
     return new PitchbendConfig(def, prop);
   }
 
+  get config(): MonoInputConfigStub {
+    return {
+      defaults: this.defaults,
+      statusString: this.statusString,
+      outputResponse: this.response,
+      channel: this.channel,
+      number: this.number,
+      type: 'pitchbend',
+    };
+  }
+
   get id() {
     const ss = this.defaults.statusString;
     const c = this.defaults.channel;
@@ -42,13 +54,5 @@ export class PitchbendConfig extends SliderConfig {
     return {
       value: this.outputPropagator.value,
     };
-  }
-
-  get eligibleResponses() {
-    return ['continuous'] as InputResponse[];
-  }
-
-  get eligibleStatusStrings() {
-    return ['pitchbend'] as StatusString[];
   }
 }

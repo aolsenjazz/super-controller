@@ -6,7 +6,10 @@ import {
   ColorConfigPropagator,
   createPropagator,
 } from '../../propagators';
-import { LightCapableInputConfig } from './light-capable-input-config';
+import {
+  ColorConfigStub,
+  LightCapableInputConfig,
+} from './light-capable-input-config';
 import {
   InputResponse,
   PadDriver,
@@ -95,38 +98,38 @@ export class PadConfig extends LightCapableInputConfig {
     }
   }
 
+  get config() {
+    const stateColorConfig: [number, ColorConfigStub][] =
+      this.eligibleLightStates.map((s) => {
+        return [
+          s,
+          {
+            color: this.getColor(s),
+            fx: this.getFx(s),
+          },
+        ];
+      });
+
+    return {
+      defaults: this.defaults,
+      statusString: this.statusString,
+      outputResponse: this.response,
+      channel: this.channel,
+      number: this.number,
+      value: this.value,
+      type: 'pad' as const,
+      lightResponse: this.lightResponse,
+      availableColors: this.availableColors,
+      availableFx: this.availableFx,
+      colorConfig: new Map<number, ColorConfigStub>(stateColorConfig),
+    };
+  }
+
   get state() {
     return {
       color: this.currentColor,
       fx: this.currentFx,
     };
-  }
-
-  get eligibleResponses() {
-    const gateC = 'gate' as const;
-    const togC = 'toggle' as const;
-    const constC = 'constant' as const;
-
-    switch (this.defaults.response) {
-      case 'gate':
-        return [gateC, togC, constC];
-      case 'toggle':
-        return [togC, constC];
-      case 'constant':
-        return ['noteon/noteoff', 'controlchange'].includes(this.statusString)
-          ? [togC, constC]
-          : [constC];
-      default:
-        throw new Error(`unrecognized response ${this.defaults.response}`);
-    }
-  }
-
-  get eligibleStatusStrings() {
-    return (
-      this.response === 'constant'
-        ? ['noteon', 'noteoff', 'controlchange', 'programchange']
-        : ['noteon/noteoff', 'controlchange', 'programchange']
-    ) as StatusString[];
   }
 
   get value(): MidiNumber {
@@ -135,25 +138,6 @@ export class PadConfig extends LightCapableInputConfig {
 
   set value(value: MidiNumber) {
     this.outputPropagator.value = value;
-  }
-
-  get eligibleLightResponses() {
-    const gateC = 'gate' as const;
-    const togC = 'toggle' as const;
-
-    switch (this.defaults.response) {
-      case 'constant':
-      case 'gate':
-        return [gateC, togC];
-      case 'toggle':
-        return [togC];
-      default:
-        return [];
-    }
-  }
-
-  get eligibleLightStates() {
-    return [0, 1];
   }
 
   get response(): InputResponse {

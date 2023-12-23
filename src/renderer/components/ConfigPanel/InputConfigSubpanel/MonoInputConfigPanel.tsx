@@ -20,24 +20,11 @@ const absoluteHelpTip = `When false, the values of endless knobs will be transfo
 
 type PropTypes = {
   group: InputGroup;
-  project: Project;
-  config: SupportedDeviceConfig;
   title: string;
-  setProject: (p: Project) => void;
 };
 
-/**
- * Configuration controls for individual inputs
- *
- * @param props Component props
- * @param props.inputGroup Input group for selected inputs
- * @param props.project Current project
- * @param props.config Current device's configuration
- * @param props.setProject updates the project in the frontend
- * @param props.title Title of the input configuration panel
- */
 export default function MonoInputConfigPanel(props: PropTypes) {
-  const { group, config, project, title, setProject } = props;
+  const { group, title } = props;
 
   const {
     number,
@@ -182,12 +169,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
         <button type="button" onClick={restoreDefaults}>
           Restore Defaults
         </button>
-        <BacklightSettings
-          group={group}
-          project={project}
-          setProject={setProject}
-          configId={config.id}
-        />
+        <BacklightSettings group={group} configId={config.id} />
       </div>
     </div>
   );

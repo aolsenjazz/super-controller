@@ -1,7 +1,16 @@
 import { MidiArray } from '../../midi-array';
 import { OverrideablePropagator } from '../../propagators';
 import { InputResponse } from '../../driver-types';
-import { BaseInputConfig } from './base-input-config';
+import { BaseInputConfig, InputConfigStub } from './base-input-config';
+
+export interface MonoInputConfigStub extends InputConfigStub {
+  defaults: InputDefault;
+  statusString: StatusString | 'noteon/noteoff';
+  outputResponse: InputResponse;
+  channel: Channel;
+  number: MidiNumber;
+  value?: MidiNumber;
+}
 
 /* Default values for the input loaded in from a driver */
 export type InputDefault = {
@@ -98,6 +107,4 @@ export abstract class MonoInputConfig extends BaseInputConfig {
 
   abstract get response(): InputResponse;
   abstract set response(response: InputResponse);
-  abstract get eligibleResponses(): InputResponse[];
-  abstract get eligibleStatusStrings(): StatusString[];
 }

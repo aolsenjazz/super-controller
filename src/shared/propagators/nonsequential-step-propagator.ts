@@ -9,7 +9,7 @@ export class NonsequentialStepPropagator extends OverrideablePropagator<
 > {
   defaultStep: NumberArrayWithStatus;
 
-  protected steps: Map<string, MidiArray>;
+  steps: Map<string, MidiArray>;
 
   lastStep: NumberArrayWithStatus;
 

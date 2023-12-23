@@ -26,3 +26,6 @@ export const REMOVE_TRANSLATOR_OVERRIDE = 'remove-translator-override';
 export const ADD_TRANSLATOR_OVERRIDE = 'add-translator-override';
 export const GET_TRANSLATOR_OVERRIDE = 'get-translator-override';
 export const REQUEST_OVERRIDES = 'request-overrides';
+
+export const INPUT_CONFIG_CHANGE = 'input-config-change';
+export const REQUEST_INPUT_CONFIG = 'request-input-config';

@@ -23,7 +23,7 @@ export default function DevicePanel() {
 
   let Element: React.ReactElement;
 
-  if (selectedDevice === undefined || !deviceStub) {
+  if (selectedDevice === undefined || (!deviceStub && !configStub)) {
     Element = <NoDevicesView />;
   } else if (driverName === 'Anonymous' || driver === undefined) {
     Element = <NoMatchingDriverView deviceName={deviceStub!.name} />;

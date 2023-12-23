@@ -10,7 +10,24 @@ import {
   ColorDescriptor,
 } from '../../driver-types';
 import { colorDisplayName } from '../../util';
-import { MonoInputConfig, InputDefault } from './mono-input-config';
+import {
+  MonoInputConfig,
+  InputDefault,
+  MonoInputConfigStub,
+} from './mono-input-config';
+
+export type ColorConfigStub = {
+  color?: ColorDescriptor;
+  fx?: FxDriver;
+};
+
+export interface ColorCapableInputConfigStub extends MonoInputConfigStub {
+  type: 'pad';
+  lightResponse: 'gate' | 'toggle';
+  availableColors: ColorDescriptor[];
+  availableFx: FxDriver[];
+  colorConfig: Map<number, ColorConfigStub>;
+}
 
 export abstract class LightCapableInputConfig extends MonoInputConfig {
   protected readonly devicePropagator: ColorConfigPropagator;

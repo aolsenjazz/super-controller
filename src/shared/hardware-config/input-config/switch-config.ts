@@ -4,12 +4,18 @@ import { MidiArray, create } from '../../midi-array';
 import { NonsequentialStepPropagator } from '../../propagators';
 import { InputResponse, SwitchDriver } from '../../driver-types';
 import { MonoInputConfig } from './mono-input-config';
-import { InputState } from './base-input-config';
+import { InputConfigStub, InputState } from './base-input-config';
 
 export interface SwitchState extends InputState {
   step: number;
 }
 
+export interface SwitchConfigStub extends InputConfigStub {
+  states: Map<string, MidiArray>;
+}
+
+// TODO: does it really make sense to be extending MonoInputConfig here?
+// certainly doesn't "feel" like a mono input config
 @Revivable.register
 export class SwitchConfig extends MonoInputConfig {
   static fromDriver(d: SwitchDriver) {
@@ -48,23 +54,17 @@ export class SwitchConfig extends MonoInputConfig {
     (this.outputPropagator as NonsequentialStepPropagator).restoreDefaults();
   }
 
+  get config(): SwitchConfigStub {
+    return {
+      states: (this.outputPropagator as NonsequentialStepPropagator).steps,
+      type: 'switch',
+    };
+  }
+
   get state() {
     return {
       step: (this.outputPropagator as NonsequentialStepPropagator).lastStep,
     };
-  }
-
-  get eligibleResponses() {
-    return ['enumerated' as const];
-  }
-
-  get eligibleStatusStrings() {
-    return [
-      'noteon',
-      'noteoff',
-      'controlchange',
-      'programchange',
-    ] as StatusString[];
   }
 
   get response(): InputResponse {

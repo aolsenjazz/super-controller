@@ -1,8 +1,13 @@
+/* eslint @typescript-eslint/no-empty-interface: 0 */
+
 import { MidiArray } from '@shared/midi-array';
 import { Skeleton } from '@shared/revivable';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface InputState {}
+
+export interface InputConfigStub {
+  type: 'pad' | 'knob' | 'xy' | 'switch' | 'slider' | 'pitchbend';
+}
 
 export abstract class BaseInputConfig {
   abstract get nickname(): string;
@@ -12,6 +17,8 @@ export abstract class BaseInputConfig {
   abstract get id(): string;
 
   abstract get state(): InputState;
+
+  abstract get config(): InputConfigStub;
 
   abstract handleMessage(msg: MidiArray): MidiArray | undefined;
 

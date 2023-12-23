@@ -23,6 +23,7 @@ import {
   GET_TRANSLATOR_OVERRIDE,
   REMOVE_DEVICE,
   REMOVE_TRANSLATOR_OVERRIDE,
+  REQUEST_INPUT_CONFIG,
   REQUEST_OVERRIDES,
   UPDATE_DEVICE,
   UPDATE_INPUT,
@@ -270,6 +271,21 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         MainWindow.sendOverrides(deviceId, conf.overrides);
       }
     });
+
+    ipcMain.on(
+      REQUEST_INPUT_CONFIG,
+      (_e: IpcMainEvent, deviceId: string, inputIds: string[]) => {
+        const conf = this.project.getDevice(deviceId);
+
+        if (
+          conf instanceof SupportedDeviceConfig ||
+          conf instanceof AdapterDeviceConfig
+        ) {
+          const configs = inputIds.map((i) => conf.getInput(i)!.config);
+          MainWindow.sendInputConfigs(configs);
+        }
+      }
+    );
   }
 }
 

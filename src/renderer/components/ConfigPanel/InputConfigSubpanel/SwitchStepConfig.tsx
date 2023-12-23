@@ -8,7 +8,7 @@ import { SwitchConfig } from '@shared/hardware-config';
 import { NonsequentialStepPropagator } from '@shared/propagators';
 import { create, MidiArray } from '@shared/midi-array';
 
-import SettingsLineItem from './SettingsLineItem';
+import SettingsLineItem from '../SettingsLineItem';
 
 const { projectService } = window;
 

@@ -3,10 +3,17 @@ import os from 'os';
 
 import { ConfigStub } from '@shared/hardware-config/device-config';
 import { DeviceStub } from '@shared/device-stub';
-import { InputState } from '@shared/hardware-config/input-config/base-input-config';
+import {
+  InputConfigStub,
+  InputState,
+} from '@shared/hardware-config/input-config/base-input-config';
 import { MidiArray } from '@shared/midi-array';
 
-import { CONFIGURED_DEVICES, CONNECTED_DEVICES } from '../ipc-channels';
+import {
+  CONFIGURED_DEVICES,
+  CONNECTED_DEVICES,
+  INPUT_CONFIG_CHANGE,
+} from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';
 
@@ -57,6 +64,10 @@ export class MainWindowActions extends StatefulWindowActions {
 
   public sendOverrides(id: string, overrides: Map<string, MidiArray>) {
     this.send(`${id}-overrides`, overrides);
+  }
+
+  public sendInputConfigs(configs: InputConfigStub[]) {
+    this.send(INPUT_CONFIG_CHANGE, configs);
   }
 
   public sendInputState<T extends InputState>(

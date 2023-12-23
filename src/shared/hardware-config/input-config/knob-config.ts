@@ -1,8 +1,18 @@
 import * as Revivable from '../../revivable';
 import { ContinuousPropagator } from '../../propagators';
-import { InputResponse, KnobDriver } from '../../driver-types';
-import { MonoInputConfig, InputDefault } from './mono-input-config';
+import { KnobDriver } from '../../driver-types';
+import {
+  MonoInputConfig,
+  InputDefault,
+  MonoInputConfigStub,
+} from './mono-input-config';
 import { InputState } from './base-input-config';
+
+export interface KnobConfigStub extends MonoInputConfigStub {
+  knobType: 'absolute' | 'endless';
+  valueType: 'absolute' | 'endless';
+  type: 'knob';
+}
 
 export interface KnobState extends InputState {
   value: number;
@@ -63,14 +73,26 @@ export class KnobConfig extends MonoInputConfig {
     this.valueType = this.knobType;
   }
 
+  get config(): MonoInputConfigStub {
+    return {
+      defaults: this.defaults,
+      eligibleStatusStrings: this.eligibleStatusStrings,
+      eligibleResponses: this.eligibleResponses,
+      statusString: this.statusString,
+      outputResponse: this.response,
+      channel: this.channel,
+      number: this.number,
+      value: this.value,
+      knobType: this.knobType,
+      valueType: this.valueType,
+      type: 'knob',
+    };
+  }
+
   get state(): KnobState {
     return {
       value: this.outputPropagator.value,
     };
-  }
-
-  get eligibleResponses() {
-    return ['continuous', 'constant'] as InputResponse[];
   }
 
   get valueType() {
@@ -79,15 +101,6 @@ export class KnobConfig extends MonoInputConfig {
 
   set valueType(type: 'endless' | 'absolute') {
     this.outputPropagator.valueType = type;
-  }
-
-  get eligibleStatusStrings() {
-    return [
-      'noteon',
-      'noteoff',
-      'controlchange',
-      'programchange',
-    ] as StatusString[];
   }
 
   get response(): 'continuous' | 'constant' {

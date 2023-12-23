@@ -1,6 +1,6 @@
 /* eslint-disable no-bitwise */
 import * as Revivable from '../../revivable';
-import { MonoInputConfig } from './mono-input-config';
+import { MonoInputConfig, MonoInputConfigStub } from './mono-input-config';
 import { InputResponse, InputDriverWithHandle } from '../../driver-types';
 import { ContinuousPropagator } from '../../propagators';
 import { InputState } from './base-input-config';
@@ -36,23 +36,21 @@ export class SliderConfig extends MonoInputConfig {
     };
   }
 
+  get config(): MonoInputConfigStub {
+    return {
+      defaults: this.defaults,
+      statusString: this.statusString,
+      outputResponse: this.response,
+      channel: this.channel,
+      number: this.number,
+      type: 'slider',
+    };
+  }
+
   get state() {
     return {
       value: this.outputPropagator.value,
     };
-  }
-
-  get eligibleResponses() {
-    return ['continuous', 'constant'] as InputResponse[];
-  }
-
-  get eligibleStatusStrings() {
-    return [
-      'noteon',
-      'noteoff',
-      'controlchange',
-      'programchange',
-    ] as StatusString[];
   }
 
   get response(): InputResponse {

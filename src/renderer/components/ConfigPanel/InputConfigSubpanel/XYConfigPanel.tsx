@@ -3,7 +3,7 @@ import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 import MonoInputConfigPanel from './MonoInputConfigPanel';
 
-import { InputGroup } from '../../input-group';
+import { InputGroup } from '../../../input-group';
 
 type PropTypes = {
   group: InputGroup;

@@ -35,8 +35,11 @@ import {
   ADD_TRANSLATOR_OVERRIDE,
   GET_TRANSLATOR_OVERRIDE,
   REQUEST_OVERRIDES,
+  REQUEST_INPUT_CONFIG,
+  INPUT_CONFIG_CHANGE,
 } from './ipc-channels';
 import { MidiArray } from '@shared/midi-array';
+import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
 
 // the frontend uses a lot of listeners. because of this, this number gets
 // pretty high. If it complains, make sure that we're not leaking memory,
@@ -227,6 +230,14 @@ const projectService = {
     func: (overrides: Map<string, MidiArray>) => void
   ) {
     return addOnChangeListener(`${deviceId}-overrides`, func);
+  },
+
+  onInputConfigChange(func: (configs: InputConfigStub[]) => void) {
+    return addOnChangeListener(INPUT_CONFIG_CHANGE, func);
+  },
+
+  requestInputConfigs(deviceId: string, inputIds: string[]) {
+    ipcRenderer.send(REQUEST_INPUT_CONFIG, deviceId, inputIds);
   },
 };
 
