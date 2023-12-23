@@ -46,6 +46,14 @@ export abstract class MonoInputConfig extends BaseInputConfig {
     this.#nickname = nickname;
   }
 
+  applyStub(s: MonoInputConfigStub) {
+    this.response = s.outputResponse;
+    this.statusString = s.statusString;
+    this.channel = s.channel;
+    this.number = s.number;
+    this.value = s.value || 0;
+  }
+
   handleMessage(msg: MidiArray): MidiArray | undefined {
     return this.outputPropagator.handleMessage(msg);
   }

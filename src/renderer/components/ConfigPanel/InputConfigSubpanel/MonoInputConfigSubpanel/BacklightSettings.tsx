@@ -4,32 +4,19 @@ import { LightCapableInputConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 import { colorDisplayName, stringify } from '@shared/util';
 
-import { InputGroup } from '../../input-group';
-
-import BasicSelect from '../BasicSelect';
+import BasicSelect from '../../../BasicSelect';
 import FXConfig from './FXConfig';
-import SettingsLineItem from './SettingsLineItem';
+import SettingsLineItem from '../../SettingsLineItem';
 
 const { projectService } = window;
 
 type LightResponsePropTypes = {
   group: InputGroup;
-  project: Project;
-  setProject: (p: Project) => void;
   configId: string;
 };
 
-/**
- * Multi-select for the event propagation response to devices.
- *
- * @param props Component props
- * @param props.group Input group
- * @param props.project Current project
- * @param props.deviceId ID of the selected device
- * @param props.setProject Frontend project setter
- */
 function LightResponse(props: LightResponsePropTypes) {
-  const { group, project, setProject, configId } = props;
+  const { group, configId } = props;
 
   const { eligibleLightResponses } = group;
 
@@ -39,8 +26,6 @@ function LightResponse(props: LightResponsePropTypes) {
       lightConf.lightResponse = val as 'gate' | 'toggle';
       projectService.updateInput(configId, stringify(config));
     });
-
-    setProject(new Project(project.devices));
   };
 
   return (
@@ -61,14 +46,6 @@ type PropTypes = {
   configId: string;
 };
 
-/**
- * Controls for adjusting the settings of backlights. Choose colors, propagation method, etc.
- *
- * @param props Component props
- * @param props.group Input group
- * @param props.project Current project
- * @param props.configId Device config ID
- */
 export default function BacklightSettings(props: PropTypes) {
   const { group, project, setProject, configId } = props;
 
@@ -125,12 +102,7 @@ export default function BacklightSettings(props: PropTypes) {
       {isLightable ? (
         <>
           <h3>Backlight Settings</h3>
-          <LightResponse
-            group={group}
-            project={project}
-            setProject={setProject}
-            configId={configId}
-          />
+          <LightResponse group={group} configId={configId} />
           {eligibleLightStates.map((state: number) => {
             const color = group.colorForState(state);
 

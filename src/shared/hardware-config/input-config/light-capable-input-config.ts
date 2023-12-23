@@ -53,6 +53,22 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
     this.devicePropagator = devicePropagator || new ColorConfigPropagator(r, r);
   }
 
+  // TODO: now that we're applying color update via applyStub, it's likely that the
+  // API to change colors can be modified
+  applyStub(s: ColorCapableInputConfigStub) {
+    super.applyStub(s);
+
+    this.lightResponse = s.lightResponse;
+    s.colorConfig.forEach((v, k) => {
+      if (v.color) {
+        this.setColor(k, v.color.name);
+      }
+      if (v.fx) {
+        this.setFx(k, v.fx);
+      }
+    });
+  }
+
   handleMessage(msg: MidiArray): MidiArray | undefined {
     this.devicePropagator.handleMessage(msg);
     return super.handleMessage(msg);
@@ -150,7 +166,4 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
 
     this.devicePropagator.currentStep = 0; // reset propagator state
   }
-
-  abstract get eligibleLightResponses(): InputResponse[];
-  abstract get eligibleLightStates(): number[];
 }

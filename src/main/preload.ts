@@ -21,7 +21,6 @@ import {
   UPDATE_INPUT,
   PORTS,
   PROJECT,
-  MSG,
   OS,
   TITLE,
   REQUEST_INPUT_STATE,
@@ -239,8 +238,14 @@ const projectService = {
   requestInputConfigs(deviceId: string, inputIds: string[]) {
     ipcRenderer.send(REQUEST_INPUT_CONFIG, deviceId, inputIds);
   },
+
+  updateInputs(deviceId: string, configs: InputConfigStub[]) {
+    ipcRenderer.send(UPDATE_INPUT, deviceId, configs);
+  },
 };
 
+// TODO: right now, updates to inputs/device configs are split between project service
+// and the device service
 const deviceService = {
   onConnectedDevicesChange: (func: (stubs: DeviceStub[]) => void) => {
     return addOnChangeListener(CONNECTED_DEVICES, func);

@@ -1,15 +1,11 @@
-import { Project } from '@shared/project';
-import { SupportedDeviceConfig } from '@shared/hardware-config';
+import { MonoInputConfigStub } from '@shared/hardware-config/input-config/mono-input-config';
 
-import MonoInputConfigPanel from './MonoInputConfigPanel';
-
-import { InputGroup } from '../../../input-group';
+import MonoInputConfigPanel from './MonoInputConfigSubpanel';
+import { createInputGroup } from './input-group';
 
 type PropTypes = {
-  group: InputGroup;
-  project: Project;
-  config: SupportedDeviceConfig;
-  setProject: (p: Project) => void;
+  x: MonoInputConfigStub;
+  y: MonoInputConfigStub;
 };
 
 /**
@@ -22,29 +18,19 @@ type PropTypes = {
  * @param props.setProject updates the project in the frontend
  */
 export default function XYConfigPanel(props: PropTypes) {
-  const { group, config, project, setProject } = props;
-
-  const xInput = group.inputs[0];
-  const yInput = group.inputs[1];
+  const { x, y } = props;
 
   return (
     <>
       <MonoInputConfigPanel
-        project={project}
-        key={xInput.id}
+        key="x"
         title="MIDI Settings - X Axis"
-        config={config}
-        group={new InputGroup([xInput])}
-        setProject={setProject}
+        group={createInputGroup([x])}
       />
-
       <MonoInputConfigPanel
-        project={project}
-        key={yInput.id}
+        key="y"
         title="MIDI Settings - Y Axis"
-        config={config}
-        group={new InputGroup([yInput])}
-        setProject={setProject}
+        group={createInputGroup([y])}
       />
     </>
   );

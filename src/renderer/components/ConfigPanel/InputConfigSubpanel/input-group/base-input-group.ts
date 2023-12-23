@@ -2,6 +2,21 @@ import { InputResponse } from '@shared/driver-types';
 import { MonoInputConfigStub } from '@shared/hardware-config/input-config/mono-input-config';
 import { CC_BINDINGS, stringVal } from '@shared/util';
 
+function getEligibleStatusStrings(
+  stub: MonoInputConfigStub
+): (StatusString | 'noteon/noteoff')[] {
+  switch (stub.type) {
+    case 'pad':
+      return stub.outputResponse === 'constant'
+        ? ['noteon', 'noteoff', 'controlchange', 'programchange']
+        : ['noteon/noteoff', 'controlchange', 'programchange'];
+    case 'pitchbend':
+      return ['pitchbend'];
+    default:
+      return ['noteon', 'noteoff', 'controlchange', 'programchange'];
+  }
+}
+
 /**
  * A pseudo-`InputConfig` used to show the values of multiple inputs in a group.
  *
@@ -9,8 +24,9 @@ import { CC_BINDINGS, stringVal } from '@shared/util';
  * 'noteon' (of course). If one input in the group has a different value, the
  * `InputGroup` `statusString` value would be '<multiple values>'
  */
-export class BaseInputGroup<K extends MonoInputConfigStub> {
-  // TODO: can this be protected or private?
+export class BaseInputGroup<
+  K extends MonoInputConfigStub = MonoInputConfigStub
+> {
   inputs: K[];
 
   constructor(inputs: K[]) {
@@ -124,7 +140,7 @@ export class BaseInputGroup<K extends MonoInputConfigStub> {
    * Returns a string representation of the `this.statusString`, with an added '[default]'specifier if
    * `this.statusString` matches the default ss value for all inputs in this group.
    */
-  public labelForStatsuString(et: string) {
+  public labelForStatusString(et: string) {
     return this.labelFor(et, (input) => input.defaults.statusString);
   }
 
@@ -160,7 +176,7 @@ export class BaseInputGroup<K extends MonoInputConfigStub> {
     return this.groupValue<number>((c) => c.value!);
   }
 
-  public get channel() {
+  public get chanel() {
     return this.groupValue<Channel>((c) => c.channel);
   }
 
@@ -174,19 +190,11 @@ export class BaseInputGroup<K extends MonoInputConfigStub> {
     return this.groupValue((c) => c.outputResponse);
   }
 
-  public get eligibleStateStrings(): (StatusString | 'noteon/noteoff')[] {
-    switch (this.type) {
-      case '<multiple values>':
-        return [];
-      case 'pad':
-        return this.response === 'constant'
-          ? ['noteon', 'noteoff', 'controlchange', 'programchange']
-          : ['noteon/noteoff', 'controlchange', 'programchange'];
-      case 'pitchbend':
-        return ['pitchbend'];
-      default:
-        return ['noteon', 'noteoff', 'controlchange', 'programchange'];
-    }
+  public get eligibleStatusStrings() {
+    return this.groupValue(
+      (c) => getEligibleStatusStrings(c),
+      (a, b) => JSON.stringify(a) === JSON.stringify(b)
+    );
   }
 
   public get eligibleResponses(): InputResponse[] {

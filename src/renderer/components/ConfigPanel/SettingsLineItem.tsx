@@ -1,29 +1,16 @@
 import BasicSelect from '../BasicSelect';
 
-type SettingsLineItemPropTypes = {
+type SettingsLineItemPropTypes<T extends string | number> = {
   label: string;
-  value: string | number | undefined;
-  valueList: string[] | number[];
+  value: string | number;
+  valueList: T[];
   labelList: string[];
-  onChange: (val: string | number) => void;
+  onChange: (val: T) => void;
 };
 
-/**
- * @callback onChange
- * @param val The newly-selected value
- */
-
-/**
- * Contains a label and dropdown for a configurable settings
- *
- * @param props Component props
- * @param props.label The name of the setting
- * @param props.value The current value of the setting
- * @param props.valueList All eligible values for the setting
- * @param props.labelList String representation of all value in valueList
- * @param props.onChange Value change callback
- */
-export default function SettingsLineItem(props: SettingsLineItemPropTypes) {
+export default function SettingsLineItem<T extends string | number>(
+  props: SettingsLineItemPropTypes<T>
+) {
   const { label, value, valueList, onChange, labelList } = props;
   return (
     <div className="settings-line">
@@ -32,7 +19,7 @@ export default function SettingsLineItem(props: SettingsLineItemPropTypes) {
         value={value}
         valueList={valueList}
         labelList={labelList}
-        onChange={onChange}
+        onChange={onChange as (val: unknown) => void}
       />
     </div>
   );

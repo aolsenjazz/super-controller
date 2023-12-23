@@ -55,6 +55,12 @@ export class KnobConfig extends MonoInputConfig {
     this.knobType = knobType;
   }
 
+  applyStub(s: KnobConfigStub) {
+    super.applyStub(s);
+
+    this.valueType = s.valueType;
+  }
+
   toJSON() {
     return {
       name: this.constructor.name,
@@ -73,11 +79,9 @@ export class KnobConfig extends MonoInputConfig {
     this.valueType = this.knobType;
   }
 
-  get config(): MonoInputConfigStub {
+  get config(): KnobConfigStub {
     return {
       defaults: this.defaults,
-      eligibleStatusStrings: this.eligibleStatusStrings,
-      eligibleResponses: this.eligibleResponses,
       statusString: this.statusString,
       outputResponse: this.response,
       channel: this.channel,
@@ -95,6 +99,8 @@ export class KnobConfig extends MonoInputConfig {
     };
   }
 
+  // TODO: Why on earth is this valueType? Should really just use knobType
+  // and store the defaultKnobType in a defaults object
   get valueType() {
     return this.outputPropagator.valueType;
   }

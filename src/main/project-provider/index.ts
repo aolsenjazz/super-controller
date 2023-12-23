@@ -1,21 +1,21 @@
 // eslint-disable-next-line max-classes-per-file
-import { ipcMain, app, IpcMainEvent, IpcMain } from 'electron';
+import { ipcMain, app, IpcMainEvent } from 'electron';
 import Store from 'electron-store';
 import path from 'path';
-import fs, { stat } from 'fs';
+import fs from 'fs';
 
 import {
   AdapterDeviceConfig,
   AnonymousDeviceConfig,
-  BaseInputConfig,
   configFromDriver,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
-import { parse, stringify } from '@shared/util';
+import { idForConfigStub, stringify } from '@shared/util';
 import { getDriver } from '@shared/drivers';
 import { ConfigStub } from '@shared/hardware-config/device-config';
 import { create } from '@shared/midi-array';
+import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
 
 import {
   ADD_DEVICE,
@@ -195,23 +195,28 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     ipcMain.on(
       UPDATE_INPUT,
-      (_e: Event, configId: string, inputString: string) => {
-        const config = this.project.getDevice(
-          configId
+      (_e: Event, deviceId: string, configs: InputConfigStub[]) => {
+        const deviceConfig = this.project.getDevice(
+          deviceId
         ) as SupportedDeviceConfig;
-        const inputConfig = parse<BaseInputConfig>(inputString);
 
-        const inputConfigIdx = config.inputs
-          .map((conf, i) => [conf, i] as [BaseInputConfig, number])
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          .filter(([conf, _i]) => conf.id === inputConfig.id)
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          .map(([_conf, i]) => i)[0];
+        configs.forEach((c) => {
+          const id = idForConfigStub(c);
+          const input = deviceConfig.getInput(id);
 
-        config.inputs.splice(inputConfigIdx, 1, inputConfig);
+          if (input) {
+            console.log(`applying ${input}`);
+            input.applyStub(c);
+          }
+        });
+
+        // TODO: figure out who to tell and how
+        MainWindow.sendInputConfigs(configs);
+
+        // config.inputs.splice(inputConfigIdx, 1, inputConfig);
         // ps.syncInputLight(configId, inputConfig); TODO: replace with a smart notify
 
-        this.emit(ProjectProviderEvent.UpdateInput, this.project);
+        // this.emit(ProjectProviderEvent.UpdateInput, this.project);
       }
     );
 

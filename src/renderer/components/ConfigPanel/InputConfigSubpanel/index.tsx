@@ -1,46 +1,49 @@
-import { useInputConfigs } from '@hooks/use-input-configs';
 import { ConfigStub } from '@shared/hardware-config/device-config';
 import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
 import { MonoInputConfigStub } from '@shared/hardware-config/input-config/mono-input-config';
+import { XYConfigStub } from '@shared/hardware-config/input-config/xy-config';
 
-import { InputGroup } from './input-group';
+import { createInputGroup } from './input-group';
 import BasicMessage from '../BasicMessage';
-import MonoInputConfigPanel from './MonoInputConfigPanel';
+import MonoInputConfigPanel from './MonoInputConfigSubpanel';
 import SwitchConfigPanel from './SwitchConfigPanel';
 import XYConfigPanel from './XYConfigPanel';
 
 function areInputsHomogenous(inputConfigs: InputConfigStub[]) {
   if (inputConfigs.length === 1) return true;
   return (
-    inputConfigs.filter((c) => !['xy', 'switch'].includes(c.type)).length === 0
+    inputConfigs.filter((c) => ['xy', 'switch'].includes(c.type)).length === 0
   );
 }
 
 type InputConfigurationProps = {
   config: ConfigStub;
-  selectedInputs: string[];
+  inputConfigs: InputConfigStub[];
 };
 
 export default function InputConfigSubpanel(props: InputConfigurationProps) {
-  const { config, selectedInputs } = props;
-  const { inputConfigs } = useInputConfigs(config.id, selectedInputs);
+  const { config, inputConfigs } = props;
 
   const homogenous = areInputsHomogenous(inputConfigs);
 
   let InputConfigPanel;
 
   if (homogenous === false) {
-    InputConfigPanel = (
-      <BasicMessage msg="The selected inputs don't share any fields." />
-    );
+    const msg = "The selected inputs don't share any fields";
+    InputConfigPanel = <BasicMessage msg={msg} />;
   } else if (inputConfigs[0].type === 'xy') {
-    InputConfigPanel = <XYConfigPanel />;
+    const conf = inputConfigs[0] as XYConfigStub;
+    InputConfigPanel = <XYConfigPanel x={conf.x} y={conf.y} />;
   } else if (inputConfigs[0].type === 'switch') {
     InputConfigPanel = <SwitchConfigPanel />;
   } else {
-    const group = new InputGroup(inputConfigs as MonoInputConfigStub[]);
+    const group = createInputGroup(inputConfigs as MonoInputConfigStub[]);
     InputConfigPanel = (
-      <MonoInputConfigPanel title="MIDI Settings" group={group} />
+      <MonoInputConfigPanel
+        title="MIDI Settings"
+        group={group}
+        deviceId={config.id}
+      />
     );
   }
 

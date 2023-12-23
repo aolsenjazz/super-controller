@@ -5,6 +5,9 @@ import {
   ColorDescriptor,
 } from './driver-types';
 import { MonoInteractiveDriver } from './driver-types/input-drivers';
+import { InputConfigStub } from './hardware-config/input-config/base-input-config';
+import { MonoInputConfigStub } from './hardware-config/input-config/mono-input-config';
+import { XYConfigStub } from './hardware-config/input-config/xy-config';
 import * as Revivable from './revivable';
 
 function replacer(_key: any, value: any) {
@@ -54,6 +57,18 @@ export function id(driver: InteractiveInputDriver): string {
   return mono.status === 'pitchbend'
     ? `${mono.status}.${mono.channel}`
     : `${mono.status}.${mono.channel}.${mono.number}`;
+}
+
+export function idForConfigStub(c: InputConfigStub): string {
+  if (c.type === 'xy') {
+    const xy = c as XYConfigStub;
+    return `${idForConfigStub(xy.x)}${idForConfigStub(xy.y)}`;
+  }
+
+  const mono = c as MonoInputConfigStub;
+  return mono.defaults.statusString === 'pitchbend'
+    ? `${mono.defaults.statusString}.${mono.defaults.channel}`
+    : `${mono.defaults.statusString}.${mono.defaults.channel}.${mono.defaults.number}`;
 }
 
 /**

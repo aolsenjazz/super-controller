@@ -99,16 +99,15 @@ export class PadConfig extends LightCapableInputConfig {
   }
 
   get config() {
-    const stateColorConfig: [number, ColorConfigStub][] =
-      this.eligibleLightStates.map((s) => {
-        return [
-          s,
-          {
-            color: this.getColor(s),
-            fx: this.getFx(s),
-          },
-        ];
-      });
+    const stateColorConfig: [number, ColorConfigStub][] = [0, 1].map((s) => {
+      return [
+        s,
+        {
+          color: this.getColor(s),
+          fx: this.getFx(s),
+        },
+      ];
+    });
 
     return {
       defaults: this.defaults,

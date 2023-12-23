@@ -20,6 +20,8 @@ export abstract class BaseInputConfig {
 
   abstract get config(): InputConfigStub;
 
+  abstract applyStub(s: InputConfigStub): void;
+
   abstract handleMessage(msg: MidiArray): MidiArray | undefined;
 
   abstract restoreDefaults(): void;
