@@ -113,8 +113,10 @@ export class BaseInputGroup<
     if (this.statusString === '<multiple values>') return n.toString();
 
     const isDefault =
-      this.isDefaultValue(this.statusString, (input) => input.statusString) &&
-      this.isDefaultValue(this.number, (input) => input.number);
+      this.isDefaultValue(
+        this.statusString,
+        (input) => input.defaults.statusString
+      ) && this.isDefaultValue(this.number, (input) => input.defaults.number);
 
     let labelTitle;
     if (this.statusString === 'controlchange') {
@@ -176,7 +178,7 @@ export class BaseInputGroup<
     return this.groupValue<number>((c) => c.value!);
   }
 
-  public get chanel() {
+  public get channel() {
     return this.groupValue<Channel>((c) => c.channel);
   }
 
@@ -191,10 +193,12 @@ export class BaseInputGroup<
   }
 
   public get eligibleStatusStrings() {
-    return this.groupValue(
+    const ss = this.groupValue(
       (c) => getEligibleStatusStrings(c),
       (a, b) => JSON.stringify(a) === JSON.stringify(b)
     );
+
+    return ss === '<multiple values>' ? [] : ss;
   }
 
   public get eligibleResponses(): InputResponse[] {

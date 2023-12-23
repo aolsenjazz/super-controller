@@ -200,18 +200,19 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
           deviceId
         ) as SupportedDeviceConfig;
 
+        const updatedConfigs: InputConfigStub[] = [];
         configs.forEach((c) => {
           const id = idForConfigStub(c);
           const input = deviceConfig.getInput(id);
 
           if (input) {
-            console.log(`applying ${input}`);
             input.applyStub(c);
+            updatedConfigs.push(input.config);
           }
         });
 
         // TODO: figure out who to tell and how
-        MainWindow.sendInputConfigs(configs);
+        MainWindow.sendInputConfigs(updatedConfigs);
 
         // config.inputs.splice(inputConfigIdx, 1, inputConfig);
         // ps.syncInputLight(configId, inputConfig); TODO: replace with a smart notify

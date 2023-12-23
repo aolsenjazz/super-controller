@@ -8,20 +8,6 @@ type PropTypes = {
   onChange: (value: string | number) => void;
 };
 
-/**
- * @callback onChange
- * @param value The new value
- */
-
-/**
- * Simple dropdown select
- *
- * @param props Component props
- * @param props.valueList List of values
- * @param props.labelList String representation of the value in props.valueList
- * @param props.value Current value
- * @param onChange Value change callback
- */
 export default function BasicSelect(props: PropTypes) {
   const { valueList, value, onChange, labelList, placeholder } = props;
   const isMultiple = value === '<multiple values>';
