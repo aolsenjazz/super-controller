@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 import { FxDriver } from '@shared/driver-types';
 
 import BasicSelect from '../../../BasicSelect';
@@ -9,64 +7,55 @@ type Props = {
   eligibleFx: FxDriver[];
   activeFx: FxDriver | undefined;
   fxVal: MidiNumber[] | undefined | '<multiple values>';
-  onFxChange: (title: string) => void;
-  onFxValChange: (val: MidiNumber[]) => void;
+  onChange: (fx: FxDriver, fxVal: MidiNumber[]) => void;
 };
 
 export default function FXConfig(props: Props) {
-  const { eligibleFx, activeFx, onFxChange, onFxValChange, fxVal } = props;
-
-  const innerFxChange = useCallback(
-    (v: string | number) => {
-      onFxChange(v as string);
-    },
-    [onFxChange]
-  );
-
-  const innerFxValChange = useCallback(
-    (v: string | number) => {
-      onFxValChange(activeFx!.validVals[v as number]);
-    },
-    [onFxValChange, activeFx]
-  );
+  const { eligibleFx, activeFx, onChange, fxVal } = props;
 
   const valueList = eligibleFx.map((fx) => fx.title);
 
-  let SliderOrNull = null;
+  let defaultVal = 0;
+  let showValueSlider = false;
+
   if (
     activeFx &&
     activeFx.title !== '<multiple values>' &&
     fxVal &&
     fxVal !== '<multiple values>'
   ) {
-    let defaultVal = 0;
     activeFx.validVals.forEach((arr, i) => {
       if (JSON.stringify(arr) === JSON.stringify(fxVal)) {
         defaultVal = i;
       }
     });
-
-    SliderOrNull = (
-      <IosSlider
-        lowBoundLabel={activeFx.lowBoundLabel!}
-        highBoundLabel={activeFx.highBoundLabel!}
-        domain={[0, activeFx.validVals.length - 1]}
-        defaultVal={defaultVal}
-        onChange={innerFxValChange}
-      />
-    );
+    showValueSlider = true;
   }
 
   return (
     <div className="settings-line fx-setting">
       <p>FX:</p>
       <BasicSelect
-        value={activeFx?.title}
+        value={activeFx?.title || ''}
         valueList={valueList}
         labelList={valueList}
-        onChange={innerFxChange}
+        onChange={(fxTitle) => {
+          const fx = eligibleFx.filter((f) => f.title === fxTitle)[0];
+          onChange(fx, fx.defaultVal);
+        }}
       />
-      {SliderOrNull}
+      {showValueSlider && activeFx && (
+        <IosSlider
+          lowBoundLabel={activeFx.lowBoundLabel!}
+          highBoundLabel={activeFx.highBoundLabel!}
+          domain={[0, activeFx.validVals.length - 1]}
+          defaultVal={defaultVal}
+          onChange={(validValsIdx) => {
+            const fv = activeFx.validVals[validValsIdx];
+            onChange(activeFx, fv);
+          }}
+        />
+      )}
     </div>
   );
 }

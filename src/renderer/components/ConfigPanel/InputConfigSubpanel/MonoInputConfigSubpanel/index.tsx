@@ -2,16 +2,16 @@ import { useCallback } from 'react';
 
 import { KnobConfigStub } from '@shared/hardware-config/input-config/knob-config';
 
-// import BacklightSettings from './BacklightSettings';
-import { BaseInputGroup } from '../input-group/base-input-group';
-
+import BacklightSettings from './BacklightSettings';
 import StatusStringDropdown from './dropdowns/StatusStringDropdown';
 import ResponseDropdown from './dropdowns/ResponseDropdown';
 import ChannelDropdown from './dropdowns/ChannelDropdown';
 import NumberDropdown from './dropdowns/NumberDropdown';
 import ValueDropdown from './dropdowns/ValueDropdown';
 import EndlessDropdown from './dropdowns/EndlessModeDropdown';
+import { BaseInputGroup } from '../input-group/base-input-group';
 import { KnobInputGroup } from '../input-group/knob-input-group';
+import { ColorCapableInputGroup } from '../input-group/color-capable-input-group';
 
 const { projectService } = window;
 
@@ -65,7 +65,12 @@ export default function MonoInputConfigPanel(props: PropTypes) {
         <button type="button" onClick={restoreDefaults}>
           Restore Defaults
         </button>
-        {/*<BacklightSettings group={group} />*/}
+        {group.isColorCapable && (
+          <BacklightSettings
+            group={group as ColorCapableInputGroup}
+            deviceId={deviceId}
+          />
+        )}
       </div>
     </div>
   );

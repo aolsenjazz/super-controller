@@ -68,7 +68,7 @@ export class BaseInputGroup<
   protected groupValue<T>(
     getterFn: (config: K) => T,
     equalityFn: (a: T, b: T) => boolean = (a, b) => a === b
-  ) {
+  ): '<multiple values>' | T {
     const vals = this.inputs.map(getterFn);
     const allMatch = vals.filter((v) => !equalityFn(v, vals[0])).length === 0;
 
@@ -212,6 +212,15 @@ export class BaseInputGroup<
       default:
         return ['continuous', 'constant'];
     }
+  }
+
+  public get isColorCapable(): boolean {
+    return (
+      this.groupValue(
+        (c) => c.colorCapable,
+        (a, b) => a === true && b === true
+      ) === true
+    );
   }
 
   /**

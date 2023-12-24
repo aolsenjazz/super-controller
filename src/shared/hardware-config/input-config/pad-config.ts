@@ -105,12 +105,14 @@ export class PadConfig extends LightCapableInputConfig {
         {
           color: this.getColor(s),
           fx: this.getFx(s),
+          fxVal: this.getFxVal(s),
         },
       ];
     });
 
     return {
       defaults: this.defaults,
+      colorCapable: true,
       statusString: this.statusString,
       outputResponse: this.response,
       channel: this.channel,

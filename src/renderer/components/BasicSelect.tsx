@@ -1,14 +1,16 @@
 import SelectTab from '../assets/select-tab.svg';
 
-type PropTypes = {
-  valueList: (string | number)[];
+type PropTypes<T extends string | number> = {
+  valueList: T[];
   labelList: string[];
-  value: string | number | null | undefined;
+  value: T;
   placeholder?: string;
-  onChange: (value: string | number) => void;
+  onChange: (value: T) => void;
 };
 
-export default function BasicSelect(props: PropTypes) {
+export default function BasicSelect<T extends string | number>(
+  props: PropTypes<T>
+) {
   const { valueList, value, onChange, labelList, placeholder } = props;
   const isMultiple = value === '<multiple values>';
 

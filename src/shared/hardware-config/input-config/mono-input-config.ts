@@ -5,6 +5,7 @@ import { BaseInputConfig, InputConfigStub } from './base-input-config';
 
 export interface MonoInputConfigStub extends InputConfigStub {
   defaults: InputDefault;
+  colorCapable: boolean;
   statusString: StatusString | 'noteon/noteoff';
   outputResponse: InputResponse;
   channel: Channel;

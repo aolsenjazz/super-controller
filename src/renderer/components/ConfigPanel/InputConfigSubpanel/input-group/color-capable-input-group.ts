@@ -9,11 +9,15 @@ function areColorDisplayNamesEqual(
   c2: ColorDescriptor | undefined
 ): boolean {
   if (c1 && c2) return colorDisplayName(c1) === colorDisplayName(c2);
-  return c1 !== undefined || c2 !== undefined;
+  return c1 !== undefined || c2 !== undefined || true;
 }
 
-// "MultipleValuesColor": a default color to return when mutiple values exist
-// TODO: smelly
+/**
+ * When a multiple inputs are selected with different colors set, we use this object to
+ * set the "color hint", label, and hide FX.
+ *
+ * TODO: Probably makes sense to put this closer to UI logic given the subject matter
+ */
 const mvc: Color = {
   name: '<multiple values>',
   string: 'transparent',
@@ -21,8 +25,6 @@ const mvc: Color = {
   effectable: false,
 };
 
-// "MutipleValuesFX": a default FX to return when mutiple values exist
-// TODO: smelly
 const mvf: FxDriver = {
   title: '<multiple values>',
   effect: '',
@@ -40,35 +42,47 @@ export class ColorCapableInputGroup extends BaseInputGroup<ColorCapableInputConf
 
     if (color === '<multiple values>') color = mvc;
 
-    // TODO: why are we return null here? should just be undefined.
-    return color === undefined ? null : (color as Color);
+    return color === undefined ? undefined : (color as Color);
   }
 
-  public fxForState(state: number) {
+  public fxForState(state: number): FxDriver | undefined {
     const getter = (c: ColorCapableInputConfigStub) =>
       c.colorConfig.get(state)?.fx;
     const equality = (a: FxDriver | undefined, b: FxDriver | undefined) => {
       return a?.title === b?.title;
     };
-    const activeFx = this.groupValue<FxDriver | undefined>(getter, equality);
 
-    return activeFx === '<multiple values>' ? mvf : activeFx;
+    let activeFx = this.groupValue<FxDriver | undefined>(getter, equality);
+    const defaultFx = this.availableFx.filter((fx) => fx.isDefault);
+    const color = this.colorForState(state);
+
+    if (color?.effectable && activeFx === undefined && defaultFx.length === 1) {
+      [activeFx] = defaultFx;
+    }
+
+    return typeof activeFx === 'string' ? mvf : activeFx;
   }
 
   public fxValForState(state: number) {
-    // TODO: this is probably buggy
     const getter = (c: ColorCapableInputConfigStub) =>
-      c.colorConfig.get(state)?.fx?.defaultVal;
+      c.colorConfig.get(state)?.fxVal;
     const equality = (
       a: MidiNumber[] | undefined,
       b: MidiNumber[] | undefined
     ) => {
       return JSON.stringify(a) === JSON.stringify(b);
     };
-    return this.groupValue<MidiNumber[] | undefined>(getter, equality);
+
+    const fx = this.fxForState(state);
+    let fxVal = this.groupValue<MidiNumber[] | undefined>(getter, equality);
+    if (fxVal === undefined && fx !== undefined) {
+      fxVal = fx.defaultVal;
+    }
+
+    return fxVal;
   }
 
-  public get eligibleColors() {
+  public get availableColors() {
     const getter = (c: ColorCapableInputConfigStub) => c.availableColors;
     const equality = (a: ColorDescriptor[], b: ColorDescriptor[]) => {
       const aIds = a.map((ac) => colorDisplayName(ac));
@@ -78,7 +92,7 @@ export class ColorCapableInputGroup extends BaseInputGroup<ColorCapableInputConf
     return this.getEligibleValues(getter, equality);
   }
 
-  public get eligibleFx() {
+  public get availableFx() {
     const getter = (c: ColorCapableInputConfigStub) => c.availableFx;
     const equality = (fx1: FxDriver[], fx2: FxDriver[]) =>
       JSON.stringify(fx1) === JSON.stringify(fx2);
@@ -86,15 +100,13 @@ export class ColorCapableInputGroup extends BaseInputGroup<ColorCapableInputConf
   }
 
   get lightResponse() {
-    return this.groupValue((c) =>
-      c.colorConfig !== undefined ? c.lightResponse : undefined
-    );
+    return this.groupValue((c) => c.lightResponse);
   }
 
   /**
    * While pads are the only input which support colors, this function is simple
    */
-  public get eligibleLightResponses() {
+  public get availableLightResponses(): ('gate' | 'toggle')[] {
     const input = this.inputs[0];
     switch (input.defaults.response) {
       case 'constant':
@@ -111,7 +123,7 @@ export class ColorCapableInputGroup extends BaseInputGroup<ColorCapableInputConf
    * While pads are the only input which support colors, and while pads are only
    * supported with 2 states, this will always be `[0, 1]`
    */
-  public get eligibleLightStates() {
+  public get availableLightStates() {
     return [0, 1];
   }
 }

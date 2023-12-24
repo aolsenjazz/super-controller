@@ -19,10 +19,12 @@ import {
 export type ColorConfigStub = {
   color?: ColorDescriptor;
   fx?: FxDriver;
+  fxVal?: MidiNumber[];
 };
 
 export interface ColorCapableInputConfigStub extends MonoInputConfigStub {
   type: 'pad';
+  colorCapable: true;
   lightResponse: 'gate' | 'toggle';
   availableColors: ColorDescriptor[];
   availableFx: FxDriver[];
@@ -66,6 +68,9 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
       if (v.fx) {
         this.setFx(k, v.fx);
       }
+      if (v.fxVal) {
+        this.setFxVal(k, v.fxVal);
+      }
     });
   }
 
@@ -78,7 +83,7 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
     return this.devicePropagator.getColor(state);
   }
 
-  getFx(state: number) {
+  getFx(state: number): FxDriver | undefined {
     const fxVal = this.devicePropagator.getFxVal(state);
     let fx;
 
@@ -101,7 +106,18 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
     return this.devicePropagator.getFxVal(step);
   }
 
-  setFx(step: number, fx: string | MidiNumber[] | FxDriver) {
+  setFxVal(step: number, fx: MidiNumber[]) {
+    this.devicePropagator.setFx(step, fx);
+  }
+
+  /**
+   * Set the FX for the current step based on type of data of `fx`:
+   *
+   * string: sets FxDriver based on `driver.title` and inits with default value
+   * MidiNumber[]: sets Fx val directly
+   * FxDriver: Sets Fx to the default value of the given FxDriver
+   */
+  setFx(step: number, fx: string | FxDriver) {
     if (typeof fx === 'string') {
       let set = false;
 
@@ -113,8 +129,6 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
       });
 
       if (!set) throw new Error(`no matching fx for ${fx}`);
-    } else if (Array.isArray(fx)) {
-      this.devicePropagator.setFx(step, fx);
     } else {
       this.devicePropagator.setFx(step, fx.defaultVal);
     }

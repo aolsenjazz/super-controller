@@ -39,6 +39,7 @@ export class SliderConfig extends MonoInputConfig {
   get config(): MonoInputConfigStub {
     return {
       defaults: this.defaults,
+      colorCapable: false,
       statusString: this.statusString,
       outputResponse: this.response,
       channel: this.channel,
