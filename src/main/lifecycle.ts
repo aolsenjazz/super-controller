@@ -1,4 +1,4 @@
-import { app } from 'electron';
+import { app, Event } from 'electron';
 import os from 'os';
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
@@ -72,6 +72,7 @@ class LifecycleSingleton {
    */
   private subscribeToOpenFile() {
     app.on('open-file', (_event: Event, filePath: string) => {
+      console.log('sanity');
       pp.loadProject(filePath);
     });
   }

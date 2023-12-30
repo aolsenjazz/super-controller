@@ -10,8 +10,7 @@ export abstract class Port<T extends Input | Output = Input | Output> {
   port: T;
 
   constructor(index: number, siblingIndex: number, name: string) {
-    // this.index = index;
-    this.index = 10;
+    this.index = index;
     this.siblingIndex = siblingIndex;
     this.name = name;
 
