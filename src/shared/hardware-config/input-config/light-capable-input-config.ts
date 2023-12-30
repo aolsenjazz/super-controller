@@ -15,6 +15,7 @@ import {
   InputDefault,
   MonoInputConfigStub,
 } from './mono-input-config';
+import { StatefulPropagator } from '@shared/propagators/stateful-propagator';
 
 export type ColorConfigStub = {
   color?: ColorDescriptor;
@@ -72,6 +73,12 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
         this.setFxVal(k, v.fxVal);
       }
     });
+
+    // reset propagator states. things can get messy when messing w/config in a non-default state
+    this.devicePropagator.currentStep = 0; // reset propagator state
+    if (this.outputPropagator instanceof StatefulPropagator) {
+      this.outputPropagator.state = 'off';
+    }
   }
 
   handleMessage(msg: MidiArray): MidiArray | undefined {
@@ -110,13 +117,6 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
     this.devicePropagator.setFx(step, fx);
   }
 
-  /**
-   * Set the FX for the current step based on type of data of `fx`:
-   *
-   * string: sets FxDriver based on `driver.title` and inits with default value
-   * MidiNumber[]: sets Fx val directly
-   * FxDriver: Sets Fx to the default value of the given FxDriver
-   */
   setFx(step: number, fx: string | FxDriver) {
     if (typeof fx === 'string') {
       let set = false;
@@ -177,7 +177,5 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
 
   set lightResponse(response: 'gate' | 'toggle') {
     this.devicePropagator.outputResponse = response;
-
-    this.devicePropagator.currentStep = 0; // reset propagator state
   }
 }

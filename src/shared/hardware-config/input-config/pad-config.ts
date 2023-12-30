@@ -160,15 +160,5 @@ export class PadConfig extends LightCapableInputConfig {
     }
 
     this.outputPropagator.outputResponse = response;
-    this.devicePropagator.currentStep = 0; // reset propagator state
-  }
-
-  get lightResponse() {
-    return this.devicePropagator.outputResponse as 'gate' | 'toggle';
-  }
-
-  set lightResponse(response: 'gate' | 'toggle') {
-    this.devicePropagator.outputResponse = response;
-    this.devicePropagator.currentStep = 0; // reset propagator state
   }
 }

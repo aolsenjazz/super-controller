@@ -1,217 +1,285 @@
-/* eslint @typescript-eslint/no-non-null-assertion: 0 */
+/**
+ *                        ___________________
+ *                       |                   |
+ *                       |     index.ts      |
+ *                       |___________________|
+ *              _________|_____________     |
+ *             |                       |    |
+ *             |virtual-port-service.ts|    |
+ *             |_______________________|    |
+ *   ______________|____   ____|____________|_
+ *  |                   | |                   |
+ *  |   virtual conns   | |   port-manager.ts |
+ *  |___________________| |___________________|
+ *                         _________|_________
+ *                        |                   |
+ *                        |  hardware conns   |
+ *                        |___________________|
+ */
 import { ipcMain } from 'electron';
 
-import { create, MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
-import { getDiff } from '@shared/util';
-import {
-  BaseInputConfig,
-  SupportedDeviceConfig,
-  AdapterDeviceConfig,
-  LightCapableInputConfig,
-  AnonymousDeviceConfig,
-} from '@shared/hardware-config';
 import { getDriver } from '@shared/drivers';
+import {
+  AdapterDeviceConfig,
+  AnonymousDeviceConfig,
+  DeviceConfig,
+  LightCapableInputConfig,
+  SupportedDeviceConfig,
+} from '@shared/hardware-config';
+import { create, MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
 
+import { PortScanResult, PortManager } from './port-manager';
 import { ProjectProvider, ProjectProviderEvent } from '../project-provider';
-import { wp } from '../window-provider';
 import { PortPair } from './port-pair';
-import { all } from './port-manager';
-import { DrivenPortPair } from './driven-port-pair';
-import { VirtualPortService } from './virtual-port-service';
+import { NewProjectEvent } from '../project-provider/project-event-emitter';
+import { InputPort } from './input-port';
+import { OutputPort } from './output-port';
+import { PortInfoPair } from './port-info-pair';
+import { wp } from '../window-provider';
 import {
   REQUEST_CONNECTED_DEVICES,
   REQUEST_DEVICE_STUB,
 } from '../ipc-channels';
+import { VirtualPortService } from './virtual-port-service';
 
 const { MainWindow } = wp;
 
 /**
- * Manages sending/receiving of messages to and from device, as well as syncing
- * with the front end.
+ * Convenience method for creating an `InputPort`
  */
-class PortServiceSingleton {
-  /* List of available port pairs */
-  private portPairs: Map<string, DrivenPortPair> = new Map();
+function createIPort(p: PortInfoPair) {
+  return p.iPort === null
+    ? p.iPort
+    : new InputPort(p.iPort.index, p.siblingIndex, p.name);
+}
 
-  /* See `VirtualPortService` */
-  #virtService: VirtualPortService;
+/**
+ * Convenience method for creating an `OutputPort`
+ */
+function createOPort(p: PortInfoPair) {
+  return p.oPort === null
+    ? p.oPort
+    : new OutputPort(p.oPort.index, p.siblingIndex, p.name);
+}
 
-  private static instance: PortServiceSingleton;
+export class HardwarePortServiceSingleton {
+  ports = new Map<string, PortPair>();
 
-  // 2. Private constructor to prevent direct construction calls with the `new` operator
+  private availableHardwarePorts: PortInfoPair[] = [];
+
+  private static instance: HardwarePortServiceSingleton;
+
   private constructor() {
-    this.#virtService = new VirtualPortService();
+    this.setHardwareChangeListener();
+    this.setProjectChangeListener();
+    this.setConfigChangeListener();
+    this.setFrontendListeners();
+  }
 
-    this.#checkPorts(); // Scan for ports right away
+  public static getInstance(): HardwarePortServiceSingleton {
+    if (!HardwarePortServiceSingleton.instance) {
+      HardwarePortServiceSingleton.instance =
+        new HardwarePortServiceSingleton();
+    }
+    return HardwarePortServiceSingleton.instance;
+  }
 
-    ProjectProvider.on(ProjectProviderEvent.NewProject, () => {
-      this.updatePorts();
-    });
-
-    ProjectProvider.on(ProjectProviderEvent.AddDevice, () => {
-      // TODO: running an entire port update here seems ridiculous. should just be able to init.
-      this.updatePorts();
-    });
-
-    // request a list of all device IDs
-    ipcMain.on(REQUEST_CONNECTED_DEVICES, () => this.sendToFrontend());
+  /**
+   * Listen to IPC comms from frontend
+   */
+  private setFrontendListeners() {
+    ipcMain.on(REQUEST_CONNECTED_DEVICES, () =>
+      this.sendConnectedDevicesToFrontend()
+    );
 
     ipcMain.on(REQUEST_DEVICE_STUB, (_e: Event, deviceId: string) => {
-      const p = this.portPairs.get(deviceId);
-      MainWindow.sendDeviceStub(deviceId, p?.stub);
+      this.availableHardwarePorts
+        .filter((p) => p.id === deviceId)
+        .forEach((p) => MainWindow.sendDeviceStub(deviceId, p.stub));
     });
   }
 
-  // 3. Static method to get the instance of the class
-  public static getInstance(): PortServiceSingleton {
-    if (!PortServiceSingleton.instance) {
-      PortServiceSingleton.instance = new PortServiceSingleton();
-    }
-    return PortServiceSingleton.instance;
+  /**
+   * When configs are added or removed, open/close port as required
+   */
+  private setConfigChangeListener() {
+    ProjectProvider.on(ProjectProviderEvent.AddDevice, (config) => {
+      // if the hardware is available, open a connection to it
+      this.availableHardwarePorts
+        .filter((p) => p.id === config.id)
+        .forEach((p) => this.open(p));
+    });
+
+    ProjectProvider.on(ProjectProviderEvent.RemoveDevice, (c) =>
+      this.close(c.id)
+    );
+
+    ProjectProvider.on(
+      ProjectProviderEvent.UpdateInput,
+      (deviceConfig, inputConfigs) => {
+        const pair = this.ports.get(deviceConfig.id);
+
+        if (pair !== undefined) {
+          inputConfigs.forEach((i) => {
+            if (i instanceof LightCapableInputConfig && i.currentColorArray) {
+              pair.send(i.currentColorArray);
+            }
+          });
+        }
+      }
+    );
   }
 
-  /* Pass current list of `PortPair`s to the front end */
-  sendToFrontend() {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const devices = Array.from(this.portPairs).map(([_k, v]) => v.stub);
+  /**
+   * When the project changes, reset all ports
+   */
+  private setProjectChangeListener() {
+    const listener = (event: NewProjectEvent) => {
+      const { project } = event;
+
+      // close all current hardware connections
+      Array.from(this.ports.keys()).forEach((id) => this.close(id));
+
+      // open all new hardware connections if they're available
+      this.availableHardwarePorts
+        .filter((p) => project.getDevice(p.id))
+        .forEach((p) => this.open(p));
+    };
+
+    ProjectProvider.on(ProjectProviderEvent.NewProject, listener);
+  }
+
+  /**
+   * When the available hardware changes, open/close ports as required
+   */
+  private setHardwareChangeListener() {
+    const hardwareChangeListener = (ports: PortScanResult) => {
+      const { addedPorts, removedPorts, currentPorts } = ports;
+
+      // for all removedPorts, if hardware connection is open, close and remove
+      removedPorts.forEach((p) => {
+        const portPair = this.ports.get(p.id);
+        if (portPair) {
+          portPair.close();
+          this.ports.delete(p.id);
+        }
+      });
+
+      // for all addedPorts, if device is configured + if hardware is available, connect
+      addedPorts
+        .filter((p) => this.ports.get(p.id) === undefined)
+        .filter((p) => ProjectProvider.project.getDevice(p.id) !== undefined)
+        .forEach((p) => {
+          this.open(p);
+        });
+
+      this.availableHardwarePorts = currentPorts;
+      this.sendConnectedDevicesToFrontend();
+      VirtualPortService.onHardwareChanged(ports);
+    };
+
+    PortManager.addListener(hardwareChangeListener);
+  }
+
+  private sendConnectedDevicesToFrontend() {
+    const devices = this.availableHardwarePorts.map((d) => d.stub);
     MainWindow.sendConnectedDevices(devices);
   }
 
-  /**
-   * If hardware device is connected && configured:
-   *
-   * 1. Takes control of the device
-   * 2. Resets lights to reasonable defaults
-   * 3. Applies default backlight configuration
-   *
-   * @param deviceId The idea of the device
-   */
-  initDevice(deviceId: string) {
-    const pp = this.portPairs.get(deviceId);
-    const config = ProjectProvider.project.getDevice(deviceId);
+  private open(p: PortInfoPair) {
+    // open port
+    const iPort = createIPort(p);
+    const oPort = createOPort(p);
+    const pair = new PortPair(iPort, oPort);
 
-    // if hardware is connected and configured in project, run initialization
-    if (pp && config) {
-      if (pp instanceof DrivenPortPair) {
-        pp.runControlSequence(); // take control of midi device
-        pp.resetLights(); // init default lights
+    this.ports.set(pair.id, pair);
+
+    // init device
+    this.initDevice(pair);
+  }
+
+  /**
+   * Performs the following:
+   *
+   * - applies throttle if exists
+   * - runs control sequence if required
+   * - sets all color capable inputs to default color
+   * - sets onMessage event listener
+   * - sets all color capable inputs to configured colors
+   */
+  private initDevice(pair: PortPair) {
+    const config = ProjectProvider.project.getDevice(pair.id);
+
+    if (config) {
+      // TODO: ensure that this driver is the correct target for adapter devices
+      const driver = getDriver(config?.driverName);
+
+      if (driver) {
+        pair.applyThrottle(driver.throttle); // apply throttle if exists
+        driver.controlSequence.forEach((msg) => pair.send(msg)); // run control sequence
+        driver.inputGrids // init default colors if they exist
+          .flatMap((ig) => ig.inputs)
+          .forEach((i) => {
+            if (i.interactive && i.type !== 'xy') {
+              i.availableColors
+                .filter((c) => c.default === true)
+                .forEach((c) => pair.send(c.array));
+            }
+          });
       }
 
-      pp.onMessage((_delta: number, tuple: MidiTuple) => {
+      // set onMessage
+      pair.onMessage((_delta, tuple) => {
         const msg = create(tuple);
         // we'll occasionally receive message of length 1. ignore these.
         // reason is unclear, message of lenght 1 don't match midi spec
-        if (msg.length >= 2) this.#onMessage(pp, msg);
+        if (msg.length >= 2) this.onMessage(config, pair, msg);
       });
 
-      // // if device is configured, apply default light config
-      if (config.supported === true) {
-        this.syncDeviceLights(config.id);
+      // load current color config
+      if (config instanceof SupportedDeviceConfig) {
+        config.inputs.forEach((i) => {
+          if (i instanceof LightCapableInputConfig && i.currentColorArray) {
+            pair.send(i.currentColorArray);
+          }
+        });
       }
     }
   }
 
   /**
-   * Synchronize device hardware lights with software state
-   *
-   * @param deviceId The id of the device
+   * TODO: yiiiikes
    */
-  syncDeviceLights = (deviceId: string) => {
-    const pp = this.portPairs.get(deviceId);
-    const config = ProjectProvider.project.getDevice(deviceId);
+  private onMessage(config: DeviceConfig, pair: PortPair, msg: MidiArray) {
+    const toPropagate = config.applyOverrides(msg);
+    const toDevice = config.getResponse(msg);
 
-    if (pp && config instanceof SupportedDeviceConfig) {
-      type T = LightCapableInputConfig;
-      config.inputs
-        .filter((i) => i instanceof LightCapableInputConfig)
-        .filter((i) => (i as T).currentColorArray !== undefined)
-        .map((i) => (i as T).currentColorArray!) // get message for color
-        .forEach((c) => pp.send(c.array)); // send color message
+    if (toPropagate) {
+      // send sustain events thru all virtual ports in config
+      if (toPropagate.isSustain)
+        this.handleSustain(toPropagate, config.shareSustain);
+
+      VirtualPortService.send(toPropagate, config.id);
     }
-  };
 
-  syncInputLight = (deviceId: string, config: BaseInputConfig) => {
-    const pp = this.portPairs.get(deviceId);
+    if (toDevice) pair.send(toDevice);
 
-    if (
-      pp &&
-      config instanceof LightCapableInputConfig &&
-      config.currentColorArray
-    ) {
-      pp.send(config.currentColorArray);
+    MainWindow.sendRecentMsg(pair.id, msg.array);
+    if (config instanceof SupportedDeviceConfig) {
+      // send new state to frontend
+      const input = config.getInput(msg.id(true));
+
+      if (input) {
+        MainWindow.sendInputState(config.id, input.id, input.state);
+      }
+    } else if (config instanceof AdapterDeviceConfig) {
+      // TODO:
+    } else if (config instanceof AnonymousDeviceConfig) {
+      // TODO:
     }
-  };
-
-  /**
-   * Synchronize the list of available MIDI clients with the list of configured
-   * devices in `this.project`. Removes + closes unneeded connections, opens new
-   * connections, runs device initialization, lets the frontend know.
-   */
-  updatePorts() {
-    // If multiple devices of the same name are plugged in, close all with said name.
-    // This must be done until connection can be tracked via USB connection id; the following
-    // situation illustrates why:
-    //
-    // APC[0] is plugged in, at USB index[1]. User plugs in APC[1] at index [0].
-    // Internally, APC[1] becomes APC[0], but SC isn't aware of the change because we're
-    // currently not monitoring USB indexes.
-    // TODO: track USB connection IDs
-    let freshPorts = all();
-    const entries = Array.from(freshPorts.values());
-    const nonUniquePorts: string[] = [];
-    freshPorts.forEach((v, k) => {
-      const nOccur = entries.filter((e) => e.name === v.name).length;
-      if (nOccur > 1) nonUniquePorts.push(k);
-    });
-    this.#closeSiblings(nonUniquePorts);
-
-    // midi clients which are present in the most recent scan but not in `this.portPairs`
-    // should be added to current list. midi clients which are preset in `this.portPairs`
-    // but not the most recent scan are broken and should be removed
-    freshPorts = all();
-    let [toAdd, broken] = getDiff(
-      Array.from(freshPorts.keys()),
-      Array.from(this.portPairs.keys())
-    );
-
-    // close broken port and all of its siblings
-    this.#closeSiblings(broken);
-    // close ports for config which have been removed from `this.project`
-    this.#trimRemovedConfigs();
-
-    // at this point, ports *might* have been closed. if ports were closed, then port
-    // indexes have changed. refresh the current midi client list to be safe
-    freshPorts = all();
-    [toAdd, broken] = getDiff(
-      Array.from(freshPorts.keys()),
-      Array.from(this.portPairs.keys())
-    );
-
-    // update all available, but not-configured, midi clients in `this.portPairs`
-    this.#updateDisconnectedPorts(freshPorts);
-    // add all newly-available midi clients to `this.portPairs`
-    this.#addAll(toAdd, freshPorts);
-    // open connections to devices for newly-added configs
-    this.#openNewConfigs();
-
-    // tell the frontend what happened
-    this.sendToFrontend();
   }
 
-  applyThrottle(id: string, throttleMs: number | undefined) {
-    this.portPairs.forEach((v, k) => {
-      if (id === k) v.applyThrottle(throttleMs);
-    });
-  }
-
-  /**
-   * Send sustain events from all devices shareWith on the same channel as their
-   * respective keyboards if exist, otherwise default channel
-   *
-   * @param msg The event from the device
-   * @param The list of ids with which sustain events are being shared
-   */
-  #handleSustain = (msg: MidiArray, shareWith: string[]) => {
+  private handleSustain(msg: MidiArray, shareWith: string[]) {
     shareWith.forEach((devId) => {
       const device = ProjectProvider.project.getDevice(devId);
       let newMsg = msg;
@@ -222,170 +290,17 @@ class PortServiceSingleton {
         newMsg = create('controlchange', c, asThree.number, asThree.value);
       }
 
-      this.#virtService.send(newMsg, devId);
+      VirtualPortService.send(newMsg, devId);
     });
-  };
+  }
 
   /**
-   * 1. If device is configured, pass msg to config and respond/propagate.
-   * 2. If sustain event, send sustain events for all devices in config.shareSustain
-   * 3. Sync state with frontend
-   *
-   * @param pair The input+output ports for device
-   * @param msg The message from the device
+   * Tries to close the port with the given id. If no port exists for the id, does nothing.
    */
-  #onMessage = (pair: PortPair, msg: MidiArray) => {
-    const config = ProjectProvider.project.getDevice(pair.id);
-
-    if (config !== undefined) {
-      // device exists. process it
-      const toPropagate = config.applyOverrides(msg);
-      const toDevice = config.getResponse(msg);
-
-      if (toPropagate) {
-        // send sustain events thru all virtual ports in config
-        if (toPropagate.isSustain)
-          this.#handleSustain(toPropagate, config.shareSustain);
-
-        this.#virtService.send(toPropagate, config.id);
-      }
-
-      if (toDevice) pair.send(toDevice);
-
-      MainWindow.sendRecentMsg(pair.id, msg.array);
-      if (config instanceof SupportedDeviceConfig) {
-        // send new state to frontend
-        const input = config.getInput(msg.id(true));
-
-        if (input) {
-          MainWindow.sendInputState(config.id, input.id, input.state);
-        }
-      } else if (config instanceof AdapterDeviceConfig) {
-        // TODO:
-      } else if (config instanceof AnonymousDeviceConfig) {
-        // TODO:
-      }
-    }
-  };
-
-  /**
-   * Closes the corresponding ports for each element in portIds, and closes
-   * sibling ports for each id. Sibling ports are ports which share the same
-   * name. E.g. a user has 2 'APC Key 25' devices plugged in
-   *
-   * @param portIds The corresponding IDs of the ports (and siblings) to close
-   */
-  #closeSiblings = (portIds: string[]) => {
-    let didClose = false;
-
-    const brokenPortNames = portIds.map((id) => this.portPairs.get(id)?.name);
-    this.portPairs.forEach((pp, id, map) => {
-      if (brokenPortNames.includes(pp.name)) {
-        pp.close();
-        map.delete(id);
-        this.#virtService.close(id);
-        didClose = true;
-      }
-    });
-
-    return didClose;
-  };
-
-  /**
-   * For every `DeviceConfig` which was added to the project, open its
-   * corresponding hardware and virtual ports
-   */
-  #openNewConfigs = () => {
-    // for every device added to project, open port and init
-    ProjectProvider.project.devices
-      .filter((dev) => !this.#virtService.isOpen(dev.id)) // get devices which aren't connected
-      .forEach((dev) => {
-        const pp = this.portPairs.get(dev.id);
-
-        if (pp) {
-          pp.open(); // open connection to device
-          this.#virtService.open(pp.name, pp.siblingIndex); // open virt port
-
-          if (dev instanceof AdapterDeviceConfig && dev.child) {
-            const driver = getDriver(dev.child.driverName);
-            pp.applyThrottle(driver.throttle);
-          }
-
-          this.initDevice(pp.id);
-        }
-      });
-  };
-
-  /**
-   * Close connections to all ports for which configs have been removed from
-   * `this.project`
-   */
-  #trimRemovedConfigs = () => {
-    let didClose = false;
-
-    this.#virtService.ports.forEach((_pp, id) => {
-      if (!ProjectProvider.project.getDevice(id)) {
-        this.portPairs.get(id)?.close();
-        this.portPairs.delete(id);
-        this.#virtService.close(id);
-        didClose = true;
-      }
-    });
-
-    return didClose;
-  };
-
-  /**
-   * Update the information for all ports which have not been opened, but are
-   * available
-   *
-   * @param freshPorts The currently-available MIDI ports
-   */
-  #updateDisconnectedPorts = (freshPorts: Map<string, DrivenPortPair>) => {
-    const toUpdate = Array.from(this.portPairs.values())
-      .filter((pp) => !this.#virtService.isOpen(pp.id))
-      .map((pp) => pp.id);
-
-    toUpdate.forEach((id) => {
-      const freshPort = freshPorts.get(id);
-      if (freshPort) this.portPairs.set(id, freshPort);
-    });
-  };
-
-  /**
-   * Add all of the ports to `this.portPairs`
-   *
-   * @param toAdd List of corresponding port IDs to add
-   * @param freshPorts The currently-available MIDI ports
-   */
-  #addAll = (toAdd: string[], freshPorts: Map<string, DrivenPortPair>) => {
-    // add new ports
-    toAdd
-      .map((id) => freshPorts.get(id))
-      .forEach((pp) => {
-        if (pp) this.portPairs.set(pp.id, pp);
-      });
-  };
-
-  /**
-   * Check if the list of available midi clients has changed since we last checked
-   *
-   * @param pollInterval Inteval in ms to wait before checking new ports again
-   */
-  #checkPorts = (pollInterval = 1000) => {
-    const freshDevices = all(true);
-
-    const stalePortNames = Array.from(this.portPairs.keys()).sort();
-    const freshPortNames = Array.from(freshDevices.keys()).sort();
-
-    // We only care about non-SC-created ports. The ports will change when a new
-    // project is opened, etc because virtual ports will be opened/closed. ignore these
-    if (JSON.stringify(stalePortNames) !== JSON.stringify(freshPortNames)) {
-      this.updatePorts();
-    }
-
-    setTimeout(() => this.#checkPorts(), pollInterval);
-  };
+  private close(id: string) {
+    this.ports.get(id)?.close();
+    this.ports.delete(id);
+  }
 }
 
-export const PortService = PortServiceSingleton.getInstance();
+export const HardwarePortService = HardwarePortServiceSingleton.getInstance();

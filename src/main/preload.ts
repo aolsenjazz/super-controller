@@ -8,11 +8,11 @@
  * if this is the case
  */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
-import { PortInfo } from '@shared/port-info';
+import { PortInfoWithStatus } from '@shared/port-info-with-status';
 import { ConfigStub } from '@shared/hardware-config/device-config';
 import { DeviceStub } from '@shared/device-stub';
-
-// import { ProjectProvider as pp } from './project-provider';
+import { MidiArray } from '@shared/midi-array';
+import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
 
 import {
   ADD_DEVICE,
@@ -37,8 +37,6 @@ import {
   REQUEST_INPUT_CONFIG,
   INPUT_CONFIG_CHANGE,
 } from './ipc-channels';
-import { MidiArray } from '@shared/midi-array';
-import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
 
 // the frontend uses a lot of listeners. because of this, this number gets
 // pretty high. If it complains, make sure that we're not leaking memory,
@@ -117,7 +115,7 @@ const hostService = {
    *
    * @param func The callback to be invoked
    */
-  onPortsChange: (func: (ports: PortInfo[]) => void) => {
+  onPortsChange: (func: (ports: PortInfoWithStatus[]) => void) => {
     return addOnChangeListener(PORTS, func);
   },
 };

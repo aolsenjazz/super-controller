@@ -82,8 +82,8 @@ class LifecycleSingleton {
   }
 
   private subscribeToProjectChange() {
-    pp.on(ProjectProviderEvent.NewProject, (title) => {
-      MainWindow.title = title;
+    pp.on(ProjectProviderEvent.NewProject, ({ name }) => {
+      MainWindow.title = name;
 
       const stubs = pp.project.devices.map((d) => d.stub);
       MainWindow.sendConfiguredDevices(stubs);

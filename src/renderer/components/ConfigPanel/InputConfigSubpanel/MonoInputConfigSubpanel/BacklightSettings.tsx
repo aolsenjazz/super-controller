@@ -48,6 +48,7 @@ export default function BacklightSettings(props: PropTypes) {
           {availableLightStates.map((state: number) => {
             return (
               <ColorConfigRow
+                key={state}
                 color={group.colorForState(state)}
                 availableColors={group.availableColors}
                 availableFx={group.availableFx}

@@ -1,80 +1,92 @@
-import midi from '@julusian/midi';
+import { getDiff } from '@shared/util';
 
-import { getDriver } from '@shared/drivers';
+import { PortInfoPair } from './port-info-pair';
+import { readAvailableHardwarePorts } from './port-utils';
 
-import { Port } from './port';
-import { PortPair } from './port-pair';
-import { DrivenPortPair } from './driven-port-pair';
+export type PortScanResult = {
+  addedPorts: PortInfoPair[];
+  removedPorts: PortInfoPair[];
+  currentPorts: PortInfoPair[];
+};
 
-const INPUT = new midi.Input();
-const OUTPUT = new midi.Output();
+type PortChangeListener = (ports: PortScanResult) => void;
 
-/**
- * Retrieves the sister port from the given list of possible sister candidates. A port is considered
- * a sister port if both the port names and occurrences match.
- */
-function getSister(port: Port, sisterList: Port[]): Port | null {
-  let sister = null;
-  sisterList.forEach((candidate) => {
-    if (
-      port.name === candidate.name &&
-      port.siblingIndex === candidate.siblingIndex
-    ) {
-      sister = candidate;
-    }
-  });
-  return sister;
-}
+class PortManagerSingleton {
+  private static instance: PortManagerSingleton;
 
-/**
- * Pairs each `Port` in `portList` with its sister port in `sisterList` and adds
- * the pair to portMap
- */
-function createPairsAndAddToDevices(
-  portList: Port[],
-  sisterList: Port[],
-  portMap: Map<string, DrivenPortPair>
-) {
-  portList.forEach((port: Port) => {
-    const sister = getSister(port, sisterList);
-    const first = port.type === 'input' ? port : sister;
-    const second = port.type === 'input' ? sister : port;
+  private listeners: PortChangeListener[] = [];
 
-    const pair = new PortPair(first, second);
-    const driver = getDriver(pair.name);
-    const driven = new DrivenPortPair(pair, driver);
+  private ports: PortInfoPair[] = [];
 
-    portMap.set(pair.id, driven);
-  });
-}
-
-function parsePorts(
-  parent: midi.Input | midi.Output,
-  type: 'input' | 'output'
-) {
-  const ports = [];
-  const addedNames = [];
-  for (let i = 0; i < parent.getPortCount(); i++) {
-    const name = parent.getPortName(i);
-    const nameOccurences = addedNames.filter((val) => val === name).length;
-    ports.push(new Port(i, nameOccurences, type, name));
-    addedNames.push(name);
+  private constructor() {
+    this.pollPorts();
   }
-  return ports;
-}
 
-export function all(omitSCPorts = true) {
-  const iPorts = parsePorts(INPUT, 'input');
-  const oPorts = parsePorts(OUTPUT, 'output');
-  const portMap = new Map<string, DrivenPortPair>();
-  createPairsAndAddToDevices(iPorts, oPorts, portMap);
-  createPairsAndAddToDevices(oPorts, iPorts, portMap);
+  public static getInstance(): PortManagerSingleton {
+    if (!PortManagerSingleton.instance) {
+      PortManagerSingleton.instance = new PortManagerSingleton();
+    }
+    return PortManagerSingleton.instance;
+  }
 
-  if (omitSCPorts) {
-    portMap.forEach((_value, key, map) => {
-      if (key.startsWith('SC ') || key.startsWith('RtMidi ')) map.delete(key);
+  /**
+   * Begins polling available ports at a regular interval
+   */
+  private pollPorts(pollInterval = 1000) {
+    const freshPorts = readAvailableHardwarePorts(true);
+
+    if (JSON.stringify(freshPorts) !== JSON.stringify(this.ports)) {
+      this.updatePorts(freshPorts);
+    }
+
+    setTimeout(() => this.pollPorts(), pollInterval);
+  }
+
+  private updatePorts(ports: PortInfoPair[]) {
+    const stalePortNames = this.ports.map((p) => p.name);
+
+    const staleSiblingNames = stalePortNames.filter(
+      (n) => stalePortNames.filter((n1) => n1 === n).length > 1
+    );
+    const staleSiblings = this.ports.filter((p) =>
+      staleSiblingNames.includes(p.name)
+    );
+    const newSiblings = ports.filter((p) => staleSiblingNames.includes(p.name));
+
+    let [addedPorts, removedPorts] = getDiff(ports, this.ports, (p) => p.id);
+    const removedIds = removedPorts.map((p) => p.id);
+
+    // If in the new list sibling ports exist, all siblings must be reopened
+    addedPorts = addedPorts.concat(newSiblings);
+
+    // If in the new list sibling ports exist, all siblings must be closed
+    removedPorts = removedPorts.concat(
+      staleSiblings.filter((p) => !removedIds.includes(p.id))
+    );
+
+    this.ports = ports;
+
+    this.listeners.forEach((listener) => {
+      listener({
+        addedPorts,
+        removedPorts,
+        currentPorts: ports,
+      });
     });
   }
 
-  return portMap;
+  /**
+   * Adds a listener which is invoked when the available hardware ports change. Also invoked
+   * immediately with the currently-available ports
+   */
+  public addListener(listener: PortChangeListener) {
+    this.listeners.push(listener);
+    listener({ addedPorts: [], removedPorts: [], currentPorts: this.ports });
+  }
+
+  public removeListener(listener: PortChangeListener) {
+    this.listeners.splice(this.listeners.indexOf(listener), 1);
+  }
 }
+
+export const PortManager = PortManagerSingleton.getInstance();

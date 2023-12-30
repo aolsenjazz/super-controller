@@ -1,33 +1,20 @@
-import randomstring from 'randomstring';
-
 import { applyNondestructiveThrottle } from '@shared/util';
-
-import { Port } from './port';
 import { DeviceStub } from '@shared/device-stub';
 
+import { InputPort } from './input-port';
+import { OutputPort } from './output-port';
+
 /**
- * Couples input and output ports. Each pair doesn't necessarily have to have both an input and
- * output port; pairs of (iPort && null) or (null ** oPort) may exist.
+ * Opens and maintains connection to hardware ports
  */
 export class PortPair {
-  iPort: Port | null;
+  iPort: InputPort | null;
 
-  oPort: Port | null;
+  oPort: OutputPort | null;
 
-  connectionId: string;
-
-  constructor(iPort: Port | null, oPort: Port | null) {
+  constructor(iPort: InputPort | null, oPort: OutputPort | null) {
     this.iPort = iPort;
     this.oPort = oPort;
-    this.connectionId = randomstring.generate();
-  }
-
-  /**
-   * Open the input and/or output ports if not null.
-   */
-  open() {
-    if (this.iPort !== null) this.iPort.open();
-    if (this.oPort !== null) this.oPort.open();
   }
 
   /**
@@ -56,7 +43,7 @@ export class PortPair {
 
   isPortOpen() {
     const open =
-      this.iPort != null ? this.iPort.isPortOpen() : this.oPort?.isPortOpen();
+      this.iPort != null ? this.iPort.isOpen() : this.oPort?.isOpen();
 
     if (open === undefined)
       throw new Error(`isPortOpen should not be undefined`);
@@ -70,7 +57,6 @@ export class PortPair {
     this.send = applyNondestructiveThrottle(this.send.bind(this), throttleMs);
   }
 
-  /** getters */
   get hasInput() {
     return this.iPort != null;
   }

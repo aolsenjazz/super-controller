@@ -86,9 +86,20 @@ export function stringify<T>(obj: T) {
   return JSON.stringify(obj, replacer);
 }
 
-export function getDiff(l1: string[], l2: string[]) {
-  const ex1 = l1.filter((str) => !l2.includes(str));
-  const ex2 = l2.filter((str) => !l1.includes(str));
+/**
+ * Returns [itemsPresentInL1ButNotL2, itemsPresentInL2ButNotL1]. Optionally, you may
+ * provide `keyFn`, which should be an accessor to a unique key representing the object.
+ */
+export function getDiff<T>(
+  l1: T[],
+  l2: T[],
+  keyFn: (a: T) => any = (a: T) => a
+) {
+  const l1Ids = l1.map((a) => keyFn(a));
+  const l2Ids = l2.map((b) => keyFn(b));
+
+  const ex1 = l1.filter((a) => !l2Ids.includes(keyFn(a)));
+  const ex2 = l2.filter((b) => !l1Ids.includes(keyFn(b)));
   return [ex1, ex2];
 }
 

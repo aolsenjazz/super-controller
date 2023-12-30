@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-classes-per-file
 import { ipcMain, app, IpcMainEvent } from 'electron';
 import Store from 'electron-store';
 import path from 'path';
@@ -15,7 +14,10 @@ import { idForConfigStub, stringify } from '@shared/util';
 import { getDriver } from '@shared/drivers';
 import { ConfigStub } from '@shared/hardware-config/device-config';
 import { create } from '@shared/midi-array';
-import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
+import {
+  BaseInputConfig,
+  InputConfigStub,
+} from '@shared/hardware-config/input-config/base-input-config';
 
 import {
   ADD_DEVICE,
@@ -71,7 +73,10 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
   public initDefault() {
     this.project = new Project();
-    this.emit(ProjectProviderEvent.NewProject, 'Untitled Project');
+    this.emit(ProjectProviderEvent.NewProject, {
+      name: 'Untitled project',
+      project: this.project,
+    });
   }
 
   public loadProject(filePath: string) {
@@ -79,15 +84,17 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     this.project = projectFromFile(filePath);
 
-    this.emit(
-      ProjectProviderEvent.NewProject,
-      path.basename(filePath, '.controller')
-    );
+    this.emit(ProjectProviderEvent.NewProject, {
+      name: path.basename(filePath, '.controller'),
+      project: this.project,
+    });
   }
 
   /**
    * Write current project to disk at `project`s default path. If no such default path
    * exists, create a saveAs dialog
+   *
+   * TODO: this actually doesn't return anything other than true; just throws. no point in returning true
    *
    * @returns true if successfully saved
    */
@@ -109,8 +116,6 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
   /**
    * Create a save dialog, update `project` `path` and `name`, write to disk.
-   *
-   * @returns resolves if project was successfully saved
    */
   public async saveAs() {
     const suggestedName = this.currentPath || 'Untitled Project';
@@ -176,10 +181,10 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     /* When a device is removed from project, remove it here and re-init all devices */
     ipcMain.on(REMOVE_DEVICE, (_e: Event, deviceId: string) => {
-      const config = this.project.getDevice(deviceId);
-      this.project.removeDevice(config!);
+      const config = this.project.getDevice(deviceId)!;
+      this.project.removeDevice(config);
 
-      this.emit(ProjectProviderEvent.RemoveDevice, this.project);
+      this.emit(ProjectProviderEvent.RemoveDevice, config);
       MainWindow.sendConfiguredDevices(this.project.devices.map((d) => d.stub));
     });
 
@@ -200,24 +205,24 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
           deviceId
         ) as SupportedDeviceConfig;
 
-        const updatedConfigs: InputConfigStub[] = [];
+        const updatedConfigs: BaseInputConfig[] = [];
         configs.forEach((c) => {
           const id = idForConfigStub(c);
           const input = deviceConfig.getInput(id);
 
           if (input) {
             input.applyStub(c);
-            updatedConfigs.push(input.config);
+            updatedConfigs.push(input);
+            MainWindow.sendInputState(deviceId, id, input.state); // TODO: I really don't like that we're notifying the frontend from here
           }
         });
 
-        // TODO: figure out who to tell and how
-        MainWindow.sendInputConfigs(updatedConfigs);
-
-        // config.inputs.splice(inputConfigIdx, 1, inputConfig);
-        // ps.syncInputLight(configId, inputConfig); TODO: replace with a smart notify
-
-        // this.emit(ProjectProviderEvent.UpdateInput, this.project);
+        MainWindow.sendInputConfigs(updatedConfigs.map((c) => c.config));
+        this.emit(
+          ProjectProviderEvent.UpdateInput,
+          deviceConfig,
+          updatedConfigs
+        );
       }
     );
 

@@ -1,4 +1,4 @@
-import { DeviceConfig } from '@shared/hardware-config';
+import { BaseInputConfig, DeviceConfig } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 import EventEmitter from 'events';
 
@@ -10,12 +10,20 @@ export enum ProjectProviderEvent {
   UpdateInput = 'update-input',
 }
 
+export type NewProjectEvent = {
+  name: string;
+  project: Project;
+};
+
 interface ProjectProviderEvents {
-  [ProjectProviderEvent.NewProject]: (name: string) => void;
+  [ProjectProviderEvent.NewProject]: (event: NewProjectEvent) => void;
   [ProjectProviderEvent.AddDevice]: (config: DeviceConfig) => void;
-  [ProjectProviderEvent.RemoveDevice]: (project: Project) => void;
+  [ProjectProviderEvent.RemoveDevice]: (config: DeviceConfig) => void;
   [ProjectProviderEvent.UpdateDevice]: (project: Project) => void;
-  [ProjectProviderEvent.UpdateInput]: (project: Project) => void;
+  [ProjectProviderEvent.UpdateInput]: (
+    deviceConfig: DeviceConfig,
+    inputConfigs: BaseInputConfig[]
+  ) => void;
 }
 
 export class ProjectEventEmitter extends EventEmitter {

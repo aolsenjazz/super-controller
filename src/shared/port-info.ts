@@ -1,20 +1,34 @@
 /**
- * Contains identifying information and connection status for ports
+ * Contains identifying information for hardware ports
  */
 export class PortInfo {
-  /* is a device with matching ID connected? */
-  readonly connected: boolean;
+  /**
+   * The index of this port in its parent `midi.Input` or `midi.Output` list
+   */
+  readonly index: number;
 
-  /* Device-reported name */
+  /**
+   * OS-reported device name. This will differ per-OS and therefore consistent naming
+   * conventions should not be relied upon
+   */
   readonly name: string;
 
+  readonly type: 'input' | 'output';
+
   /* nth-occurrence of device. Relevant when >1 devices of same model are connected */
+  // TODO: why isn't this readonly?
   siblingIndex: number;
 
-  constructor(name: string, siblingIndex: number, connected: boolean) {
+  constructor(
+    index: number,
+    type: 'input' | 'output',
+    name: string,
+    siblingIndex: number
+  ) {
+    this.index = index;
+    this.type = type;
     this.name = name;
     this.siblingIndex = siblingIndex;
-    this.connected = connected;
   }
 
   get id() {
