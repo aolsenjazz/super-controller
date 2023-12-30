@@ -1,5 +1,8 @@
 import { app } from 'electron';
 import os from 'os';
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+} from 'electron-extension-installer';
 
 import { wp } from './window-provider';
 import {
@@ -13,6 +16,19 @@ import './port-service';
 import './ipc-service';
 
 const { MainWindow } = wp;
+
+async function installRDT() {
+  const isDebug =
+    process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
+
+  if (isDebug) {
+    await installExtension(REACT_DEVELOPER_TOOLS, {
+      loadExtensionOptions: {
+        allowFileAccess: true,
+      },
+    });
+  }
+}
 
 class LifecycleSingleton {
   private static instance: LifecycleSingleton;
@@ -36,7 +52,9 @@ class LifecycleSingleton {
   public start() {
     app
       .whenReady()
-      .then(() => {
+      .then(async () => {
+        await installRDT();
+
         am.buildMenu(null);
         MainWindow.create();
         return true;
@@ -54,7 +72,6 @@ class LifecycleSingleton {
    */
   private subscribeToOpenFile() {
     app.on('open-file', (_event: Event, filePath: string) => {
-      // TODO: this will be untested until packaged
       pp.loadProject(filePath);
     });
   }
