@@ -151,7 +151,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     ipcMain.on(
       ADD_DEVICE,
       (
-        _e: Event,
+        _e: IpcMainEvent,
         deviceName: string,
         siblingIdx: number,
         driverName?: string,
@@ -180,7 +180,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     );
 
     /* When a device is removed from project, remove it here and re-init all devices */
-    ipcMain.on(REMOVE_DEVICE, (_e: Event, deviceId: string) => {
+    ipcMain.on(REMOVE_DEVICE, (_e: IpcMainEvent, deviceId: string) => {
       const config = this.project.getDevice(deviceId)!;
       this.project.removeDevice(config);
 
@@ -188,7 +188,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
       MainWindow.sendConfiguredDevices(this.project.devices.map((d) => d.stub));
     });
 
-    ipcMain.on(UPDATE_DEVICE, (_e: Event, updates: ConfigStub) => {
+    ipcMain.on(UPDATE_DEVICE, (_e: IpcMainEvent, updates: ConfigStub) => {
       const config = this.project.getDevice(updates.id)!;
 
       config.nickname = updates.nickname;
@@ -200,7 +200,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     ipcMain.on(
       UPDATE_INPUT,
-      (_e: Event, deviceId: string, configs: InputConfigStub[]) => {
+      (_e: IpcMainEvent, deviceId: string, configs: InputConfigStub[]) => {
         const deviceConfig = this.project.getDevice(
           deviceId
         ) as SupportedDeviceConfig;

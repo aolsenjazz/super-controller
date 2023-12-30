@@ -79,11 +79,11 @@ const subMenuFile: DarwinMenuItemConstructorOptions = {
     },
     {
       label: 'Open Recent',
-      role: 'recentDocuments',
+      role: 'recentdocuments',
       submenu: [
         {
           label: 'Clear Recent',
-          role: 'clearRecentDocuments',
+          role: 'clearrecentdocuments',
         },
       ],
     },

@@ -72,7 +72,6 @@ class LifecycleSingleton {
    */
   private subscribeToOpenFile() {
     app.on('open-file', (_event: Event, filePath: string) => {
-      console.log('sanity');
       pp.loadProject(filePath);
     });
   }
