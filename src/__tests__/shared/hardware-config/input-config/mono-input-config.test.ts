@@ -35,6 +35,16 @@ class InputConfig extends IC {
       args: [this.defaults, this.outputPropagator, this.nickname],
     };
   }
+
+  get config() {
+    return {
+      type: 'pad' as const,
+    };
+  }
+
+  get state() {
+    return {};
+  }
 }
 
 describe('handleMessage', () => {

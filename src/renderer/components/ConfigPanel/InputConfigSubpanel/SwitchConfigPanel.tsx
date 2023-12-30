@@ -3,7 +3,6 @@ import { DRIVERS } from '@shared/drivers';
 import { SwitchDriver } from '@shared/driver-types';
 import { NonsequentialStepPropagator } from '@shared/propagators';
 import { id } from '@shared/util';
-import { Project } from '@shared/project';
 
 import SwitchStepConfig from './SwitchStepConfig';
 import OsxTabs from '../../OsxTabs';
@@ -11,12 +10,10 @@ import OsxTabs from '../../OsxTabs';
 type PropTypes = {
   deviceConfig: SupportedDeviceConfig;
   inputConfig: SwitchConfig;
-  setProject: (p: Project) => void;
-  project: Project;
 };
 
 export default function SwitchConfigPanel(props: PropTypes) {
-  const { deviceConfig, inputConfig, setProject, project } = props;
+  const { deviceConfig, inputConfig } = props;
 
   const deviceDriver = DRIVERS.get(deviceConfig.driverName);
 
@@ -42,8 +39,6 @@ export default function SwitchConfigPanel(props: PropTypes) {
       <SwitchStepConfig
         msg={prop.responseForStep(msg)!}
         config={inputConfig}
-        setProject={setProject}
-        project={project}
         defaultMsg={msg}
         deviceId={deviceConfig.id}
       />

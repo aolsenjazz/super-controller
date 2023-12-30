@@ -1,54 +1,17 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Port } from '../../main/port-service/port';
+import { InputPort } from 'main/port-service/input-port';
+import { OutputPort } from 'main/port-service/output-port';
+
 import { PortPair } from '../../main/port-service/port-pair';
 
-class MockPort implements Port {
-  index: number;
-
-  siblingIndex: number;
-
-  type: 'input' | 'output';
-
-  name: string;
-
-  /* eslint-disable-next-line */
-  port: any;
-
-  open() {}
-
-  close() {}
-
-  /* eslint-disable-next-line */
-  send(_msg: number[]) {}
-
-  onMessage() {}
-
-  isPortOpen() {
-    return true;
-  }
-
-  constructor(index: number, name: string, type: 'input' | 'output') {
-    this.index = index;
-    this.siblingIndex = index;
-    this.name = name;
-    this.type = type;
-  }
-}
+class MockInput extends InputPort {}
+class MockOutput extends OutputPort {}
 
 function makePortPair(index: number, name: string) {
-  const iPort = new MockPort(index, name, 'input');
-  const oPort = new MockPort(index, name, 'output');
+  const iPort = new MockInput(index, index, name);
+  const oPort = new MockOutput(index, index, name);
   return new PortPair(iPort, oPort);
 }
-
-test('open() calls open on child ports', () => {
-  const pair = makePortPair(0, 'test');
-  const iPortSpy = jest.spyOn(pair.iPort!, 'open');
-  const oPortSpy = jest.spyOn(pair.oPort!, 'open');
-  pair.open();
-  expect(iPortSpy).toHaveBeenCalled();
-  expect(oPortSpy).toHaveBeenCalled();
-});
 
 test('close() calls close on child ports', () => {
   const pair = makePortPair(0, 'test');

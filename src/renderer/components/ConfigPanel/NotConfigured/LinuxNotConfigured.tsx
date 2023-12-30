@@ -20,7 +20,7 @@ export default function LinuxNotConfigured() {
   const value = '';
 
   const onChange = useCallback(
-    (v: string | number) => {
+    (v: string) => {
       projectService.addDevice(deviceStub!.name, deviceStub!.siblingIndex, v);
     },
     [deviceStub]

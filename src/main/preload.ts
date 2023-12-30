@@ -8,21 +8,13 @@
  * if this is the case
  */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
-import { PortInfoWithStatus } from '@shared/port-info-with-status';
+
 import { ConfigStub } from '@shared/hardware-config/device-config';
 import { DeviceStub } from '@shared/device-stub';
 import { MidiArray } from '@shared/midi-array';
 import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
 
 import {
-  ADD_DEVICE,
-  REMOVE_DEVICE,
-  UPDATE_DEVICE,
-  UPDATE_INPUT,
-  PORTS,
-  PROJECT,
-  OS,
-  TITLE,
   REQUEST_INPUT_STATE,
   REQUEST_CONFIG_STUB,
   REQUEST_CONNECTED_DEVICES,
@@ -36,6 +28,12 @@ import {
   REQUEST_OVERRIDES,
   REQUEST_INPUT_CONFIG,
   INPUT_CONFIG_CHANGE,
+  OS,
+  TITLE,
+  ADD_DEVICE,
+  REMOVE_DEVICE,
+  UPDATE_DEVICE,
+  UPDATE_INPUT,
 } from './ipc-channels';
 
 // the frontend uses a lot of listeners. because of this, this number gets
@@ -102,22 +100,6 @@ const hostService = {
   onMessage: (deviceId: string, func: (msg: MidiTuple) => void) => {
     return addOnChangeListener(`${deviceId}-message`, func);
   },
-
-  /**
-   * Requests that the host send updated port information
-   */
-  requestPorts: () => {
-    ipcRenderer.send(PORTS);
-  },
-
-  /**
-   * Registers a callback to be invoked whenever the available MIDI ports change
-   *
-   * @param func The callback to be invoked
-   */
-  onPortsChange: (func: (ports: PortInfoWithStatus[]) => void) => {
-    return addOnChangeListener(PORTS, func);
-  },
 };
 
 /**
@@ -125,20 +107,6 @@ const hostService = {
  * the current `Project`
  */
 const projectService = {
-  /**
-   * Invokes a callback when the current `Project` is modified
-   *
-   * @param func The callback
-   */
-  onProjectChange: (func: (projJSON: string) => void) => {
-    return addOnChangeListener(PROJECT, func);
-  },
-
-  /**
-   * Invokes a callback when the project title is changed
-   *
-   * @param func The callback
-   */
   onTitleChange: (func: (title: string) => void) => {
     return addOnChangeListener(TITLE, func);
   },
@@ -175,17 +143,6 @@ const projectService = {
    */
   updateDevice(config: ConfigStub) {
     ipcRenderer.send(UPDATE_DEVICE, config);
-  },
-
-  /**
-   * Send an updated copy of the configuration for the given input for the given device.
-   *
-   * @param deviceId The ID of the parent device
-   * @param inputString The serialized `InputConfig`
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  updateInput(deviceId: string, i: string) {
-    ipcRenderer.send(UPDATE_INPUT, deviceId, i);
   },
 
   removeTranslatorOverride(deviceId: string, action: NumberArrayWithStatus) {
@@ -240,18 +197,6 @@ const projectService = {
   updateInputs(deviceId: string, configs: InputConfigStub[]) {
     ipcRenderer.send(UPDATE_INPUT, deviceId, configs);
   },
-};
-
-// TODO: right now, updates to inputs/device configs are split between project service
-// and the device service
-const deviceService = {
-  onConnectedDevicesChange: (func: (stubs: DeviceStub[]) => void) => {
-    return addOnChangeListener(CONNECTED_DEVICES, func);
-  },
-
-  requestConnectedDevices: () => {
-    ipcRenderer.send(REQUEST_CONNECTED_DEVICES);
-  },
 
   onConfiguredDevicesChange: (func: (stubs: ConfigStub[]) => void) => {
     return addOnChangeListener(CONFIGURED_DEVICES, func);
@@ -274,6 +219,18 @@ const deviceService = {
 
   requestConfigStub: (id: string) => {
     ipcRenderer.send(REQUEST_CONFIG_STUB, id);
+  },
+};
+
+// TODO: right now, updates to inputs/device configs are split between project service
+// and the device service
+const deviceService = {
+  onConnectedDevicesChange: (func: (stubs: DeviceStub[]) => void) => {
+    return addOnChangeListener(CONNECTED_DEVICES, func);
+  },
+
+  requestConnectedDevices: () => {
+    ipcRenderer.send(REQUEST_CONNECTED_DEVICES);
   },
 
   onDeviceChange: (

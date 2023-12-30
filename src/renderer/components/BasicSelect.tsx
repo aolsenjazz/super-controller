@@ -21,12 +21,12 @@ export default function BasicSelect<T extends string | number>(
         <img src={SelectTab} alt="" />
       </div>
       <select
-        value={value || ''}
+        value={value}
         onChange={(e) => {
           const newValue = e.target.value;
           const isNum = /^\d+$/.test(newValue);
           const v = isNum ? parseInt(newValue, 10) : newValue;
-          onChange(v);
+          onChange(v as T);
         }}
       >
         {placeholder !== undefined ? (

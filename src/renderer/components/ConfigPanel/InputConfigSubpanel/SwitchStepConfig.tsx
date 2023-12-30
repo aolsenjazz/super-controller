@@ -1,9 +1,8 @@
 /* eslint-disable no-bitwise */
 import { useCallback } from 'react';
 
-import { stringify, CC_BINDINGS, NOTE_BINDINGS } from '@shared/util';
+import { CC_BINDINGS, NOTE_BINDINGS } from '@shared/util';
 import { byteToStatusString, statusStringToByte } from '@shared/midi-util';
-import { Project } from '@shared/project';
 import { SwitchConfig } from '@shared/hardware-config';
 import { NonsequentialStepPropagator } from '@shared/propagators';
 import { create, MidiArray } from '@shared/midi-array';
@@ -15,29 +14,27 @@ const { projectService } = window;
 type PropTypes = {
   defaultMsg: NumberArrayWithStatus;
   msg: MidiArray;
-  project: Project;
   config: SwitchConfig;
   deviceId: string;
-  setProject: (p: Project) => void;
 };
 
 export default function MonoInputConfigPanel(props: PropTypes) {
-  const { defaultMsg, msg, project, config, setProject, deviceId } = props;
+  const { defaultMsg, msg, config, deviceId } = props;
 
   const statusString = byteToStatusString((msg[0] & 0xf0) as StatusByte, true);
   const channel = msg[0] & 0x0f;
   const number = msg[1];
   const value = msg.length === 3 ? msg[2] : 0;
 
-  const eligibleStatusStrings = [
+  const eligibleStatusStrings: StatusString[] = [
     'noteon',
     'noteoff',
     'controlchange',
     'programchange',
   ];
   const eligibleChannels = [...Array(16).keys()] as Channel[];
-  const eligibleNumbers = [...Array(128).keys()] as number[];
-  const eligibleValues = [...Array(128).keys()] as number[];
+  const eligibleNumbers = [...Array(128).keys()] as MidiNumber[];
+  const eligibleValues = [...Array(128).keys()] as MidiNumber[];
 
   const statusLabels = eligibleStatusStrings.map((s) => {
     const defStatus = byteToStatusString((defaultMsg[0] & 0xf0) as StatusByte);
@@ -73,58 +70,58 @@ export default function MonoInputConfigPanel(props: PropTypes) {
     (m: NumberArrayWithStatus) => {
       const prop = config.outputPropagator as NonsequentialStepPropagator;
       prop.setStep(defaultMsg, create(m));
-      projectService.updateInput(deviceId, stringify(config));
-      setProject(new Project(project.devices));
+      // projectService.updateInput(deviceId, stringify(config));
+      // setProject(new Project(project.devices));
     },
-    [setProject, project, defaultMsg, config, deviceId]
+    [defaultMsg, config, deviceId]
   );
 
   return (
     <div>
       <div id="controls-container">
-        <SettingsLineItem
+        <SettingsLineItem<StatusString>
           label="Event Type:"
           value={statusString}
           valueList={eligibleStatusStrings}
           labelList={statusLabels}
           onChange={(v) => {
-            const newByte = statusStringToByte(v as StatusString);
+            const newByte = statusStringToByte(v);
             const newArr = JSON.parse(JSON.stringify(msg.array));
             newArr[0] = newByte | (newArr[0] & 0x0f);
             onChange(newArr);
           }}
         />
-        <SettingsLineItem
+        <SettingsLineItem<Channel>
           label="Channel:"
           value={channel}
           labelList={channelLabels}
           valueList={eligibleChannels}
           onChange={(c) => {
             const newArr = JSON.parse(JSON.stringify(msg.array));
-            newArr[0] = (c as Channel) | (newArr[0] & 0xf0);
+            newArr[0] = c | (newArr[0] & 0xf0);
             onChange(newArr);
           }}
         />
-        <SettingsLineItem
+        <SettingsLineItem<MidiNumber>
           label="Number:"
           value={number}
           valueList={eligibleNumbers}
           labelList={numberLabels}
           onChange={(v) => {
             const newArr = JSON.parse(JSON.stringify(msg.array));
-            newArr[1] = v as MidiNumber;
+            newArr[1] = v;
             onChange(newArr);
           }}
         />
         {statusString !== 'programchange' ? (
-          <SettingsLineItem
+          <SettingsLineItem<MidiNumber>
             label="Value:"
             value={value}
             valueList={eligibleValues}
             labelList={valueLabels}
             onChange={(v) => {
               const newArr = JSON.parse(JSON.stringify(msg.array));
-              newArr[2] = v as MidiNumber;
+              newArr[2] = v;
               onChange(newArr);
             }}
           />

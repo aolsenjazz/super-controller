@@ -8,13 +8,11 @@ import os from 'os';
 import { ipcMain, Event, shell } from 'electron';
 
 import { controllerRequest, fivePinRequest } from '@shared/email-templates';
-import { DRIVERS } from '@shared/drivers';
 import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 import { ProjectProvider as pp } from './project-provider';
 import { wp } from './window-provider';
 import {
-  DRIVERS as DRIVERS_CHANNEL,
   OS,
   REQUEST,
   REQUEST_CONFIG_STUB,
@@ -22,11 +20,6 @@ import {
 } from './ipc-channels';
 
 const { MainWindow } = wp;
-
-// When the frontend requests the drivers, send them
-ipcMain.on(DRIVERS_CHANNEL, (e: Event) => {
-  e.returnValue = Array.from(DRIVERS.entries());
-});
 
 // When the frontend as for OS details, send them
 ipcMain.on(OS, (e: Event) => {

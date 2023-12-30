@@ -26,14 +26,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
   }
 
   if (driver.type === 'knob') {
-    return (
-      // <Knob
-      //   value={conf.value || 0}
-      //   shape={driver.shape}
-      //   endless={conf.valueType === 'endless'}
-      // />
-      <Knob id={id} shape={driver.shape} endless={false} />
-    );
+    return <Knob id={id} shape={driver.shape} endless={false} />;
   }
 
   // if (driver.type === 'switch') {

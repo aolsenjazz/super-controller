@@ -7,7 +7,7 @@ export const useDeviceStub = (deviceId: string) => {
   const [deviceStub, setDeviceStub] = useState<DeviceStub | undefined>();
 
   useEffect(() => {
-    const cb = (stub: DeviceStub) => {
+    const cb = (stub: DeviceStub | undefined) => {
       setDeviceStub(stub);
     };
 

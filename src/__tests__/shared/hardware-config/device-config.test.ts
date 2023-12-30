@@ -11,6 +11,21 @@ class DeviceConfigWrapper extends DeviceConfig {
   getResponse() {
     return undefined;
   }
+
+  get stub() {
+    return {
+      id: '',
+      portName: '',
+      siblingIndex: 0,
+      driverName: '',
+      nickname: '',
+      isAdapter: false,
+      isSupported: true,
+      isAnonymous: false,
+      isAdapterChildSet: false,
+      shareSustain: [],
+    };
+  }
 }
 
 test('constructor sets values correctly', () => {

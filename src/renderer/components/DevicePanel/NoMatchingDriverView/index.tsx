@@ -7,12 +7,10 @@ type PropTypes = {
   deviceName: string;
 };
 
-type Host = 'darwin' | 'linux' | 'win32';
-
 export default function UnsupportedView(props: PropTypes) {
   const { deviceName } = props;
 
-  const host: Host = hostService.getHost();
+  const host = hostService.getHost();
 
   return (
     <>

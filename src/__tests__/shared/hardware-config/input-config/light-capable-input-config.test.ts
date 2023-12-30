@@ -45,6 +45,16 @@ class LightCapableInputConfig extends WrapMe {
       ],
     };
   }
+
+  get config() {
+    return {
+      type: 'pad' as const,
+    };
+  }
+
+  get state() {
+    return {};
+  }
 }
 
 const D = {
@@ -166,7 +176,7 @@ describe('setFx', () => {
 
   test('sets fx using MidiNumber[]', () => {
     const ic = new LightCapableInputConfig(D, C, F, OUT_PROP, FULL_PROP);
-    ic.setFx(1, [3, 0, 0]);
+    ic.setFxVal(1, [3, 0, 0]);
     expect(ic.getFxVal(1)).toEqual(F[1].defaultVal);
   });
   test('throws for nonexistent fx', () => {
