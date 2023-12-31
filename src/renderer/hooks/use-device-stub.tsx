@@ -1,7 +1,7 @@
 import { DeviceStub } from '@shared/device-stub';
 import { useState, useEffect } from 'react';
 
-const { deviceService } = window;
+const { HostService } = window;
 
 export const useDeviceStub = (deviceId: string) => {
   const [deviceStub, setDeviceStub] = useState<DeviceStub | undefined>();
@@ -11,8 +11,7 @@ export const useDeviceStub = (deviceId: string) => {
       setDeviceStub(stub);
     };
 
-    const off = deviceService.onDeviceChange(deviceId, cb);
-    deviceService.requestDeviceStub(deviceId);
+    const off = HostService.onDeviceChange(deviceId, cb);
 
     return () => off();
   }, [deviceId]);

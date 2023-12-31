@@ -9,7 +9,7 @@ import StatusStringDropdown from './StatusStringDropdown';
 import NumberDropdown from './NumberDropdown';
 import ValueDropdown from './ValueDropdown';
 
-const { projectService } = window;
+const { ConfigService } = window;
 
 type PropTypes = {
   defaultMsg: NumberArrayWithStatus;
@@ -29,7 +29,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   const onChange = useCallback(
     (m: NumberArrayWithStatus) => {
       config.steps.set(JSON.stringify(defaultMsg), m);
-      projectService.updateInputs(deviceId, [config]);
+      ConfigService.updateInputs(deviceId, [config]);
     },
     [defaultMsg, config, deviceId]
   );

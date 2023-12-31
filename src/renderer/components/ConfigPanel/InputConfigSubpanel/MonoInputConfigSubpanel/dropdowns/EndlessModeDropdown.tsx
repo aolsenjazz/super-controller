@@ -4,7 +4,7 @@ import HelpTip from '../../../../HelpTip';
 import SettingsLineItem from '../../../SettingsLineItem';
 import { KnobInputGroup } from '../../input-group/knob-input-group';
 
-const { projectService } = window;
+const { ConfigService } = window;
 
 const helpTip = `When false, the values of endless knobs will be transformed to numbers between 0 and 127.`;
 
@@ -22,7 +22,7 @@ export default function EndlessDropdown(props: PropTypes) {
     (v: 'true' | 'false') => {
       group.inputs.forEach((i) => {
         i.valueType = v === 'true' ? 'endless' : 'absolute';
-        projectService.updateInputs(deviceId, group.inputs);
+        ConfigService.updateInputs(deviceId, group.inputs);
       });
     },
     [group, deviceId]

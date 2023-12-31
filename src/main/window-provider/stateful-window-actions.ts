@@ -1,6 +1,6 @@
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron';
 
-import { TITLE } from '../ipc-channels';
+import { HOST } from '../ipc-channels';
 import { WindowActions } from './window-actions';
 import { WindowFocusListener } from './window-focus-listener';
 
@@ -34,7 +34,7 @@ export abstract class StatefulWindowActions extends WindowActions {
     const w = BrowserWindow.fromId(this.id!)!;
 
     w.documentEdited = this.windowEdited;
-    this.send(TITLE, this.windowTitle);
+    this.send(HOST.TITLE, this.windowTitle);
 
     w.on('focus', () => this.notifyListeners());
     w.on('closed', () => this.notifyListeners());
@@ -53,7 +53,7 @@ export abstract class StatefulWindowActions extends WindowActions {
 
   public set title(title: string) {
     this.windowTitle = title;
-    this.send(TITLE, title);
+    this.send(HOST.TITLE, title);
   }
 
   /**

@@ -3,7 +3,7 @@ import { ConfigStub } from '@shared/hardware-config/device-config';
 
 import ShareSustainLine from './ShareSustainLine';
 
-const { projectService } = window;
+const { ConfigService } = window;
 
 function disambiguatedNickname(
   nickname: string,
@@ -50,7 +50,7 @@ export default function ShareSustain(props: PropTypes) {
                   (id) => id === dev.id
                 );
 
-              projectService.updateDevice(config);
+              ConfigService.updateDevice(config);
             }}
           />
         );

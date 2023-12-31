@@ -9,7 +9,7 @@ import BasicSelect from '../../BasicSelect';
 
 const drivers = new Map(Array.from(DRIVERS.entries()));
 
-const { projectService } = window;
+const { ConfigService } = window;
 
 export default function LinuxNotConfigured() {
   const { selectedDevice } = useSelectedDevice();
@@ -21,7 +21,7 @@ export default function LinuxNotConfigured() {
 
   const onChange = useCallback(
     (v: string) => {
-      projectService.addDevice(deviceStub!.name, deviceStub!.siblingIndex, v);
+      ConfigService.addDevice(deviceStub!.name, deviceStub!.siblingIndex, v);
     },
     [deviceStub]
   );

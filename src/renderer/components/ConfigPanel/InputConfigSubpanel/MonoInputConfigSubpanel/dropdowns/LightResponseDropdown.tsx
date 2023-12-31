@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import SettingsLineItem from '../../../SettingsLineItem';
 import { ColorCapableInputGroup } from '../../input-group/color-capable-input-group';
 
-const { projectService } = window;
+const { ConfigService } = window;
 
 type PropTypes = {
   group: ColorCapableInputGroup;
@@ -18,7 +18,7 @@ export default function LightResponseDropdown(props: PropTypes) {
     (r: 'gate' | 'toggle') => {
       group.inputs.forEach((i) => {
         i.lightResponse = r;
-        projectService.updateInputs(deviceId, group.inputs);
+        ConfigService.updateInputs(deviceId, group.inputs);
       });
     },
     [group, deviceId]

@@ -13,7 +13,7 @@ import { BaseInputGroup } from '../input-group/base-input-group';
 import { KnobInputGroup } from '../input-group/knob-input-group';
 import { ColorCapableInputGroup } from '../input-group/color-capable-input-group';
 
-const { projectService } = window;
+const { ConfigService } = window;
 
 type PropTypes = {
   group: BaseInputGroup;
@@ -39,7 +39,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
       }
     });
 
-    projectService.updateInputs(deviceId, group.inputs);
+    ConfigService.updateInputs(deviceId, group.inputs);
   }, [group, deviceId]);
 
   return (

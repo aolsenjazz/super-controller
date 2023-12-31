@@ -1,28 +1,41 @@
-export const OS = 'os';
-export const TITLE = 'title';
+/**
+ * IPC channel names used to transmit data pertaining to the host OS or devices connected to the host
+ */
+export const HOST = {
+  OS: 'os',
+  TITLE: 'title',
+  REQUEST: 'request',
 
-// request a new driver
-export const REQUEST = 'request';
+  REQUEST_DEVICE_STUB: 'request-device-stub',
+  REQUEST_CONNECTED_DEVICES: 'request-connected-devices',
+  CONNECTED_DEVICES: 'connected-devices',
 
-export const ADD_DEVICE = 'add-device';
-export const REMOVE_DEVICE = 'remove-device';
-export const UPDATE_DEVICE = 'update-device';
+  REQUEST_INPUT_STATE: 'request-input-state',
+};
 
-export const UPDATE_INPUT = 'update-input';
+/**
+ * IPC channel names used to transmit data pertaining to configurations
+ */
+export const CONFIG = {
+  ADD_DEVICE: 'add-device',
+  REMOVE_DEVICE: 'remove-device',
+  UPDATE_DEVICE: 'update-device',
+  UPDATE_INPUT: 'update-input',
 
-export const REQUEST_CONNECTED_DEVICES = 'request-connected-devices';
-export const CONNECTED_DEVICES = 'connected-devices';
-export const REQUEST_CONFIGURED_DEVICES = 'request-configured-devices';
-export const CONFIGURED_DEVICES = 'configured-devices';
+  REQUEST_DEVICE_CONFIG_STUB: 'request-device-config-stub',
+  CONFIGURED_DEVICES: 'configured-devices',
+  REQUEST_CONFIGURED_DEVICES: 'request-configured-devices',
 
-export const REQUEST_INPUT_STATE = 'request-input-stub';
-export const REQUEST_CONFIG_STUB = 'request-config-stub';
-export const REQUEST_DEVICE_STUB = 'request-device-stub';
+  INPUT_CONFIG_CHANGE: 'input-config-change',
+  REQUEST_INPUT_CONFIG_STUB: 'request-input-config-stub',
+};
 
-export const REMOVE_TRANSLATOR_OVERRIDE = 'remove-translator-override';
-export const ADD_TRANSLATOR_OVERRIDE = 'add-translator-override';
-export const GET_TRANSLATOR_OVERRIDE = 'get-translator-override';
-export const REQUEST_OVERRIDES = 'request-overrides';
-
-export const INPUT_CONFIG_CHANGE = 'input-config-change';
-export const REQUEST_INPUT_CONFIG = 'request-input-config';
+/**
+ * IPC channel names used to transmit data pertaining to translators
+ */
+export const TRANSLATOR = {
+  REMOVE_TRANSLATOR_OVERRIDE: 'remove-translator-override',
+  ADD_TRANSLATOR_OVERRIDE: 'add-translator-override',
+  GET_TRANSLATOR_OVERRIDE: 'get-translator-override',
+  REQUEST_OVERRIDES: 'request-overrides',
+};

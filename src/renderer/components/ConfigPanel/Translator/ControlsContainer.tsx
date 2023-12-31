@@ -3,7 +3,7 @@ import { ConfigStub } from '@shared/hardware-config/device-config';
 
 import SettingsLineItem from '../SettingsLineItem';
 
-const { projectService } = window;
+const { TranslatorService } = window;
 
 type ControlsContainerPropTypes = {
   config: ConfigStub;
@@ -23,7 +23,7 @@ export default function ControlsContainer(props: ControlsContainerPropTypes) {
   // if there is no selected source message, hide yaself
   if (currentAction === undefined) return null;
 
-  const overrideOrUndefined = projectService.getTranslatorOverride(
+  const overrideOrUndefined = TranslatorService.getTranslatorOverride(
     config.id,
     currentAction
   );

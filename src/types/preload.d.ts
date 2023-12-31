@@ -1,10 +1,10 @@
-import { HostService, ProjectService, DeviceService } from '../main/preload';
+import { HostService, TranslatorService, ConfigService } from '../main/preload';
 
 declare global {
   interface Window {
-    hostService: HostService;
-    projectService: ProjectService;
-    deviceService: DeviceService;
+    HostService: HostService;
+    ConfigService: ConfigService;
+    TranslatorService: TranslatorService;
   }
 }
 

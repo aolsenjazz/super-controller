@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import SettingsLineItem from '../../../SettingsLineItem';
 import { BaseInputGroup } from '../../input-group/base-input-group';
 
-const { projectService } = window;
+const { ConfigService } = window;
 
 type PropTypes = {
   group: BaseInputGroup;
@@ -37,7 +37,7 @@ export default function NumberDropdown(props: PropTypes) {
     (n: MidiNumber) => {
       group.inputs.forEach((i) => {
         i.number = n;
-        projectService.updateInputs(deviceId, group.inputs);
+        ConfigService.updateInputs(deviceId, group.inputs);
       });
     },
     [group, deviceId]

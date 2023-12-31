@@ -8,7 +8,7 @@ import RecentMessageRow from './RecentMessageRow';
 import ControlsContainer from './ControlsContainer';
 import OverrideRow from './OverrideRow';
 
-const { projectService } = window;
+const { TranslatorService } = window;
 
 type PropTypes = {
   config: ConfigStub;
@@ -29,7 +29,7 @@ export default function Translator(props: PropTypes) {
       channel: Channel,
       value: MidiNumber
     ) => {
-      projectService.addTranslatorOverride(
+      TranslatorService.addTranslatorOverride(
         config.id,
         currentAction!.array,
         statusString,
@@ -74,7 +74,7 @@ export default function Translator(props: PropTypes) {
           onChange={onChange}
           config={config}
           remove={() => {
-            projectService.removeTranslatorOverride(
+            TranslatorService.removeTranslatorOverride(
               config.id,
               currentAction!.array
             );

@@ -1,7 +1,7 @@
 import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
 import { useState, useEffect } from 'react';
 
-const { projectService } = window;
+const { ConfigService } = window;
 
 export const useInputConfigs = (deviceId: string, inputIds: string[]) => {
   const [inputConfigs, setInputConfigs] = useState<InputConfigStub[]>([]);
@@ -11,8 +11,7 @@ export const useInputConfigs = (deviceId: string, inputIds: string[]) => {
       setInputConfigs(configs);
     };
 
-    const off = projectService.onInputConfigChange(cb);
-    projectService.requestInputConfigs(deviceId, inputIds);
+    const off = ConfigService.onInputConfigChange(cb);
 
     return () => off();
   }, [deviceId, inputIds]);

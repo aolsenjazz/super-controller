@@ -6,7 +6,7 @@ import { ColorCapableInputGroup } from '../input-group/color-capable-input-group
 import LightResponseDropdown from './dropdowns/LightResponseDropdown';
 import ColorConfigRow from './ColorConfigRow';
 
-const { projectService } = window;
+const { ConfigService } = window;
 
 type PropTypes = {
   group: ColorCapableInputGroup;
@@ -34,7 +34,7 @@ export default function BacklightSettings(props: PropTypes) {
         });
       });
 
-      projectService.updateInputs(deviceId, group.inputs);
+      ConfigService.updateInputs(deviceId, group.inputs);
     },
     [group, deviceId]
   );

@@ -19,17 +19,7 @@ import {
   InputConfigStub,
 } from '@shared/hardware-config/input-config/base-input-config';
 
-import {
-  ADD_DEVICE,
-  ADD_TRANSLATOR_OVERRIDE,
-  GET_TRANSLATOR_OVERRIDE,
-  REMOVE_DEVICE,
-  REMOVE_TRANSLATOR_OVERRIDE,
-  REQUEST_INPUT_CONFIG,
-  REQUEST_OVERRIDES,
-  UPDATE_DEVICE,
-  UPDATE_INPUT,
-} from '../ipc-channels';
+import { CONFIG, TRANSLATOR } from '../ipc-channels';
 import { projectFromFile } from '../util-main';
 import { dialogs } from '../dialogs';
 import {
@@ -149,7 +139,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
   private initIpc() {
     ipcMain.on(
-      ADD_DEVICE,
+      CONFIG.ADD_DEVICE,
       (
         _e: IpcMainEvent,
         deviceName: string,
@@ -180,7 +170,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     );
 
     /* When a device is removed from project, remove it here and re-init all devices */
-    ipcMain.on(REMOVE_DEVICE, (_e: IpcMainEvent, deviceId: string) => {
+    ipcMain.on(CONFIG.REMOVE_DEVICE, (_e: IpcMainEvent, deviceId: string) => {
       const config = this.project.getDevice(deviceId)!;
       this.project.removeDevice(config);
 
@@ -188,18 +178,21 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
       MainWindow.sendConfiguredDevices(this.project.devices.map((d) => d.stub));
     });
 
-    ipcMain.on(UPDATE_DEVICE, (_e: IpcMainEvent, updates: ConfigStub) => {
-      const config = this.project.getDevice(updates.id)!;
+    ipcMain.on(
+      CONFIG.UPDATE_DEVICE,
+      (_e: IpcMainEvent, updates: ConfigStub) => {
+        const config = this.project.getDevice(updates.id)!;
 
-      config.nickname = updates.nickname;
-      config.shareSustain = updates.shareSustain;
+        config.nickname = updates.nickname;
+        config.shareSustain = updates.shareSustain;
 
-      this.emit(ProjectProviderEvent.UpdateDevice, this.project);
-      MainWindow.sendConfigStub(config.id, config.stub);
-    });
+        this.emit(ProjectProviderEvent.UpdateDevice, this.project);
+        MainWindow.sendConfigStub(config.id, config.stub);
+      }
+    );
 
     ipcMain.on(
-      UPDATE_INPUT,
+      CONFIG.UPDATE_INPUT,
       (_e: IpcMainEvent, deviceId: string, configs: InputConfigStub[]) => {
         const deviceConfig = this.project.getDevice(
           deviceId
@@ -227,7 +220,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     );
 
     ipcMain.on(
-      REMOVE_TRANSLATOR_OVERRIDE,
+      TRANSLATOR.REMOVE_TRANSLATOR_OVERRIDE,
       (_e: IpcMainEvent, deviceId: string, action: NumberArrayWithStatus) => {
         const conf = this.project.getDevice(deviceId);
 
@@ -240,7 +233,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     );
 
     ipcMain.on(
-      ADD_TRANSLATOR_OVERRIDE,
+      TRANSLATOR.ADD_TRANSLATOR_OVERRIDE,
       (
         _e: IpcMainEvent,
         deviceId: string,
@@ -262,7 +255,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     );
 
     ipcMain.on(
-      GET_TRANSLATOR_OVERRIDE,
+      TRANSLATOR.GET_TRANSLATOR_OVERRIDE,
       (e: IpcMainEvent, deviceId: string, action: NumberArrayWithStatus) => {
         const conf = this.project.getDevice(deviceId);
 
@@ -275,16 +268,19 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
       }
     );
 
-    ipcMain.on(REQUEST_OVERRIDES, (_e: IpcMainEvent, deviceId: string) => {
-      const conf = this.project.getDevice(deviceId);
+    ipcMain.on(
+      TRANSLATOR.REQUEST_OVERRIDES,
+      (_e: IpcMainEvent, deviceId: string) => {
+        const conf = this.project.getDevice(deviceId);
 
-      if (conf instanceof AnonymousDeviceConfig) {
-        MainWindow.sendOverrides(deviceId, conf.overrides);
+        if (conf instanceof AnonymousDeviceConfig) {
+          MainWindow.sendOverrides(deviceId, conf.overrides);
+        }
       }
-    });
+    );
 
     ipcMain.on(
-      REQUEST_INPUT_CONFIG,
+      CONFIG.REQUEST_INPUT_CONFIG_STUB,
       (_e: IpcMainEvent, deviceId: string, inputIds: string[]) => {
         const conf = this.project.getDevice(deviceId);
 

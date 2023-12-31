@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ConfigStub } from '@shared/hardware-config/device-config';
 
-const { projectService } = window;
+const { ConfigService } = window;
 
 export const useConfiguredDevices = () => {
   const [configStubs, setConfigStubs] = useState<ConfigStub[]>([]);
@@ -11,8 +11,7 @@ export const useConfiguredDevices = () => {
       setConfigStubs(stubs);
     };
 
-    const off = projectService.onConfiguredDevicesChange(cb);
-    projectService.requestConfiguredDevices();
+    const off = ConfigService.onConfiguredDevicesChange(cb);
 
     return () => off();
   }, []);

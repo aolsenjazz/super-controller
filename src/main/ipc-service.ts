@@ -12,21 +12,17 @@ import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 import { ProjectProvider as pp } from './project-provider';
 import { wp } from './window-provider';
-import {
-  OS,
-  REQUEST,
-  REQUEST_CONFIG_STUB,
-  REQUEST_INPUT_STATE,
-} from './ipc-channels';
+import { HOST, CONFIG } from './ipc-channels';
 
 const { MainWindow } = wp;
 
 // When the frontend as for OS details, send them
-ipcMain.on(OS, (e: Event) => {
+ipcMain.on(HOST.OS, (e: Event) => {
   e.returnValue = os.platform();
 });
 
-ipcMain.on(REQUEST, (_e: Event, deviceName: string) => {
+// User wants to send an email
+ipcMain.on(HOST.REQUEST, (_e: Event, deviceName: string) => {
   const template = deviceName
     ? controllerRequest(deviceName)
     : fivePinRequest();
@@ -35,7 +31,7 @@ ipcMain.on(REQUEST, (_e: Event, deviceName: string) => {
   );
 });
 
-ipcMain.on(REQUEST_CONFIG_STUB, (_e: Event, id: string) => {
+ipcMain.on(CONFIG.REQUEST_DEVICE_CONFIG_STUB, (_e: Event, id: string) => {
   const p = pp.project;
   const conf = p.getDevice(id);
   const desc = conf ? conf.stub : undefined;
@@ -44,7 +40,7 @@ ipcMain.on(REQUEST_CONFIG_STUB, (_e: Event, id: string) => {
 });
 
 ipcMain.on(
-  REQUEST_INPUT_STATE,
+  HOST.REQUEST_INPUT_STATE,
   (_e: Event, deviceId: string, inputString: string) => {
     const p = pp.project;
     const d = p.getDevice(deviceId);

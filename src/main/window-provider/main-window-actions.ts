@@ -9,11 +9,7 @@ import {
 } from '@shared/hardware-config/input-config/base-input-config';
 import { MidiArray } from '@shared/midi-array';
 
-import {
-  CONFIGURED_DEVICES,
-  CONNECTED_DEVICES,
-  INPUT_CONFIG_CHANGE,
-} from '../ipc-channels';
+import { HOST, CONFIG } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';
 
@@ -47,11 +43,11 @@ export class MainWindowActions extends StatefulWindowActions {
   }
 
   public sendConnectedDevices(stubs: DeviceStub[]) {
-    this.send(CONNECTED_DEVICES, stubs);
+    this.send(HOST.CONNECTED_DEVICES, stubs);
   }
 
   public sendConfiguredDevices(stubs: ConfigStub[]) {
-    this.send(CONFIGURED_DEVICES, stubs);
+    this.send(CONFIG.CONFIGURED_DEVICES, stubs);
   }
 
   public sendDeviceStub(id: string, desc: DeviceStub | undefined) {
@@ -67,7 +63,7 @@ export class MainWindowActions extends StatefulWindowActions {
   }
 
   public sendInputConfigs(configs: InputConfigStub[]) {
-    this.send(INPUT_CONFIG_CHANGE, configs);
+    this.send(CONFIG.INPUT_CONFIG_CHANGE, configs);
   }
 
   public sendInputState<T extends InputState>(

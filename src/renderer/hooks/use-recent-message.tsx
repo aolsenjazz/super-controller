@@ -1,7 +1,7 @@
 import { create, MidiArray } from '@shared/midi-array';
 import { useState, useEffect } from 'react';
 
-const { hostService } = window;
+const { HostService } = window;
 
 export const useRecentMessage = (deviceId: string) => {
   const [recentMsg, setRecentMsg] = useState<MidiArray>();
@@ -11,7 +11,7 @@ export const useRecentMessage = (deviceId: string) => {
       setRecentMsg(create(msg));
     };
 
-    const off = hostService.onMessage(deviceId, cb);
+    const off = HostService.onMessage(deviceId, cb);
 
     return () => off();
   }, [deviceId]);

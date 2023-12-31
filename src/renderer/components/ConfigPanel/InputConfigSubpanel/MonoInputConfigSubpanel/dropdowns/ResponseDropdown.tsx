@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import SettingsLineItem from '../../../SettingsLineItem';
 import { BaseInputGroup } from '../../input-group/base-input-group';
 
-const { projectService } = window;
+const { ConfigService } = window;
 
 type PropTypes = {
   group: BaseInputGroup;
@@ -22,7 +22,7 @@ export default function ResponseDropdown(props: PropTypes) {
     (or: InputResponse) => {
       group.inputs.forEach((i) => {
         i.outputResponse = or;
-        projectService.updateInputs(deviceId, group.inputs);
+        ConfigService.updateInputs(deviceId, group.inputs);
       });
     },
     [group, deviceId]

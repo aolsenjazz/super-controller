@@ -1,11 +1,8 @@
 /**
  * Exposes icpRenderer communication to the renderer process via `ContextBridge`.
  *
- * All of these functions occur in the main process, and so (unfortunately), there
- * is no point in reconstructing proper Objects (PortPair, etc) until the JSX objects
- *
- * TODO: but service should be available here. should be able to refactor + simplify a lot of this
- * if this is the case
+ * This file exists in an isolated context with limited access to APIs, so no real work
+ * can be done here. More at: https://www.electronjs.org/docs/latest/tutorial/tutorial-preload
  */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
@@ -14,27 +11,7 @@ import { DeviceStub } from '@shared/device-stub';
 import { MidiArray } from '@shared/midi-array';
 import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
 
-import {
-  REQUEST_INPUT_STATE,
-  REQUEST_CONFIG_STUB,
-  REQUEST_CONNECTED_DEVICES,
-  CONNECTED_DEVICES,
-  REQUEST_CONFIGURED_DEVICES,
-  CONFIGURED_DEVICES,
-  REQUEST_DEVICE_STUB,
-  REMOVE_TRANSLATOR_OVERRIDE,
-  ADD_TRANSLATOR_OVERRIDE,
-  GET_TRANSLATOR_OVERRIDE,
-  REQUEST_OVERRIDES,
-  REQUEST_INPUT_CONFIG,
-  INPUT_CONFIG_CHANGE,
-  OS,
-  TITLE,
-  ADD_DEVICE,
-  REMOVE_DEVICE,
-  UPDATE_DEVICE,
-  UPDATE_INPUT,
-} from './ipc-channels';
+import { CONFIG, TRANSLATOR, HOST } from './ipc-channels';
 
 // the frontend uses a lot of listeners. because of this, this number gets
 // pretty high. If it complains, make sure that we're not leaking memory,
@@ -79,74 +56,74 @@ const hostService = {
    * Returns a string representation of the current operating system
    */
   getHost: () => {
-    return ipcRenderer.sendSync(OS, process.platform) as Host;
+    return ipcRenderer.sendSync(HOST.OS, process.platform) as Host;
   },
 
   /**
    * Tells the host that the client would like to request the creation of a new driver
-   *
-   * @param deviceName The device name
    */
-  request: (deviceName?: string) => {
-    ipcRenderer.send('request', deviceName);
+  sendDeviceRequest: (deviceName?: string) => {
+    ipcRenderer.send(HOST.REQUEST, deviceName);
   },
 
   /**
    * Sets a callback function to be invoked when the host receives MIDI data from a
    * MIDI port
-   *
-   * @param func The callbacack function to be invoked
    */
   onMessage: (deviceId: string, func: (msg: MidiTuple) => void) => {
     return addOnChangeListener(`${deviceId}-message`, func);
   },
+
+  /**
+   * Invokes `func` whenever the available MIDI ports (hardware and virtual)
+   * change. Contains only data available from MIDI connections; without config.
+   * Also immediately invokes with current list of devices.
+   */
+  onConnectedDevicesChange(func: (stubs: DeviceStub[]) => void) {
+    const off = addOnChangeListener(HOST.CONNECTED_DEVICES, func);
+    ipcRenderer.send(HOST.REQUEST_CONNECTED_DEVICES);
+    return off;
+  },
+
+  /**
+   * Invokes `func` whenever this device changes. As this data is received from the OS,
+   * this information is very unlikely to change for any given session. Also immediately
+   * invokes with current `DeviceStub`
+   */
+  onDeviceChange(
+    deviceId: string,
+    func: (desc: DeviceStub | undefined) => void
+  ) {
+    const off = addOnChangeListener(`device-stub-${deviceId}`, func);
+    ipcRenderer.send(HOST.REQUEST_DEVICE_STUB, deviceId);
+    return off;
+  },
+
+  /**
+   * Invokes `func` whenever this input changes state, usually as a result of somebody
+   * interacting with the physical controls of a device. Also immediately invokes with
+   * the current state.
+   */
+  onInputChange<T>(
+    deviceId: string,
+    inputId: string,
+    func: (state: T) => void
+  ) {
+    const off = addOnChangeListener(
+      `device-${deviceId}-input-${inputId}`,
+      func
+    );
+    ipcRenderer.send(HOST.REQUEST_INPUT_STATE, deviceId, inputId);
+    return off;
+  },
 };
 
 /**
- * Provides data related to the current `Project` and exposes methods to modify
- * the current `Project`
+ * Contains IPC functions related to translators
  */
-const projectService = {
-  onTitleChange: (func: (title: string) => void) => {
-    return addOnChangeListener(TITLE, func);
-  },
-
-  // TODO: worth documenting this to specify how adapters/supporteds are handled
-  addDevice(
-    deviceName: string,
-    siblingIndex: number,
-    driverName?: string,
-    childName?: string
-  ) {
-    ipcRenderer.send(
-      ADD_DEVICE,
-      deviceName,
-      siblingIndex,
-      driverName,
-      childName
-    );
-  },
-
-  /**
-   * Inform that backend that the given device was removed
-   *
-   * @param id The id of the device being removed
-   */
-  removeDevice(id: string) {
-    ipcRenderer.send(REMOVE_DEVICE, id);
-  },
-
-  /**
-   * Send an updated copy of a device config to the backend.
-   *
-   * @param deviceString Serialized version of the device
-   */
-  updateDevice(config: ConfigStub) {
-    ipcRenderer.send(UPDATE_DEVICE, config);
-  },
-
+const translatorService = {
   removeTranslatorOverride(deviceId: string, action: NumberArrayWithStatus) {
-    ipcRenderer.send(REMOVE_TRANSLATOR_OVERRIDE, deviceId, action);
+    ipcRenderer.send(TRANSLATOR.REMOVE_TRANSLATOR_OVERRIDE, deviceId, action);
   },
 
   addTranslatorOverride(
@@ -158,7 +135,7 @@ const projectService = {
     value: MidiNumber
   ) {
     ipcRenderer.send(
-      ADD_TRANSLATOR_OVERRIDE,
+      TRANSLATOR.ADD_TRANSLATOR_OVERRIDE,
       deviceId,
       action,
       statusString,
@@ -172,95 +149,106 @@ const projectService = {
     deviceId: string,
     action: NumberArrayWithStatus
   ): NumberArrayWithStatus | undefined {
-    return ipcRenderer.sendSync(GET_TRANSLATOR_OVERRIDE, deviceId, action);
-  },
-
-  requestOverrides(deviceId: string) {
-    ipcRenderer.send(REQUEST_OVERRIDES, deviceId);
+    return ipcRenderer.sendSync(
+      TRANSLATOR.GET_TRANSLATOR_OVERRIDE,
+      deviceId,
+      action
+    );
   },
 
   onOverridesChange(
     deviceId: string,
     func: (overrides: Map<string, MidiArray>) => void
   ) {
-    return addOnChangeListener(`${deviceId}-overrides`, func);
+    const off = addOnChangeListener(`${deviceId}-overrides`, func);
+    ipcRenderer.send(TRANSLATOR.REQUEST_OVERRIDES, deviceId);
+    return off;
+  },
+};
+
+/**
+ * Provides data related to the current `Project` and exposes methods to modify
+ * the current `Project`
+ */
+const configService = {
+  onTitleChange: (func: (title: string) => void) => {
+    return addOnChangeListener(HOST.TITLE, func);
+  },
+
+  /**
+   * Creates a `SupportedDeviceConfig`, `AdapterDeviceConfig`, or `AnonymousDeviceConfig`
+   * and adds it to the current project
+   */
+  addDevice(
+    deviceName: string,
+    siblingIndex: number,
+    driverName?: string,
+    childName?: string
+  ) {
+    ipcRenderer.send(
+      CONFIG.ADD_DEVICE,
+      deviceName,
+      siblingIndex,
+      driverName,
+      childName
+    );
+  },
+
+  /**
+   * Inform that backend that the given device was removed
+   */
+  removeDevice(deviceId: string) {
+    ipcRenderer.send(CONFIG.REMOVE_DEVICE, deviceId);
+  },
+
+  /**
+   * Send an updated copy of a device config to the backend.
+   */
+  updateDevice(config: ConfigStub) {
+    ipcRenderer.send(CONFIG.UPDATE_DEVICE, config);
   },
 
   onInputConfigChange(func: (configs: InputConfigStub[]) => void) {
-    return addOnChangeListener(INPUT_CONFIG_CHANGE, func);
+    return addOnChangeListener(CONFIG.INPUT_CONFIG_CHANGE, func);
   },
 
   requestInputConfigs(deviceId: string, inputIds: string[]) {
-    ipcRenderer.send(REQUEST_INPUT_CONFIG, deviceId, inputIds);
+    ipcRenderer.send(CONFIG.REQUEST_INPUT_CONFIG_STUB, deviceId, inputIds);
   },
 
   updateInputs(deviceId: string, configs: InputConfigStub[]) {
-    ipcRenderer.send(UPDATE_INPUT, deviceId, configs);
+    ipcRenderer.send(CONFIG.UPDATE_INPUT, deviceId, configs);
   },
 
+  /**
+   * Invokes `func` whenever the list of configured devices changes, e.g.
+   * when a new project is loaded for a given device is connected. Also immediately
+   * invokes `func` with currently-configured devices
+   */
   onConfiguredDevicesChange: (func: (stubs: ConfigStub[]) => void) => {
-    return addOnChangeListener(CONFIGURED_DEVICES, func);
-  },
-
-  requestConfiguredDevices: () => {
-    ipcRenderer.send(REQUEST_CONFIGURED_DEVICES);
+    const off = addOnChangeListener(CONFIG.CONFIGURED_DEVICES, func);
+    ipcRenderer.send(CONFIG.REQUEST_CONFIGURED_DEVICES);
+    return off;
   },
 
   /**
    * Subscribe to changes to a config for the given id. A new channel named
    * `device-descriptor-{deviceId}` will be created to which the renderer can listen.
    */
-  onConfigChange: (
+  onConfigChange(
     deviceId: string,
     func: (desc: ConfigStub | undefined) => void
-  ) => {
-    return addOnChangeListener(`config-stub-${deviceId}`, func);
-  },
-
-  requestConfigStub: (id: string) => {
-    ipcRenderer.send(REQUEST_CONFIG_STUB, id);
+  ) {
+    const off = addOnChangeListener(`config-stub-${deviceId}`, func);
+    ipcRenderer.send(CONFIG.REQUEST_DEVICE_CONFIG_STUB, deviceId);
+    return off;
   },
 };
 
-// TODO: right now, updates to inputs/device configs are split between project service
-// and the device service
-const deviceService = {
-  onConnectedDevicesChange: (func: (stubs: DeviceStub[]) => void) => {
-    return addOnChangeListener(CONNECTED_DEVICES, func);
-  },
+contextBridge.exposeInMainWorld('ConfigService', configService);
+contextBridge.exposeInMainWorld('HostService', hostService);
+contextBridge.exposeInMainWorld('TranslatorService', translatorService);
 
-  requestConnectedDevices: () => {
-    ipcRenderer.send(REQUEST_CONNECTED_DEVICES);
-  },
-
-  onDeviceChange: (
-    deviceId: string,
-    func: (desc: DeviceStub | undefined) => void
-  ) => {
-    return addOnChangeListener(`device-stub-${deviceId}`, func);
-  },
-
-  requestDeviceStub: (id: string) => {
-    ipcRenderer.send(REQUEST_DEVICE_STUB, id);
-  },
-
-  onInputChange: <T>(
-    deviceId: string,
-    inputId: string,
-    func: (state: T) => void
-  ) => {
-    return addOnChangeListener(`device-${deviceId}-input-${inputId}`, func);
-  },
-
-  requestInputState: (deviceId: string, inputId: string) => {
-    ipcRenderer.send(REQUEST_INPUT_STATE, deviceId, inputId);
-  },
-};
-
-contextBridge.exposeInMainWorld('projectService', projectService);
-contextBridge.exposeInMainWorld('hostService', hostService);
-contextBridge.exposeInMainWorld('deviceService', deviceService);
-
-export type ProjectService = typeof projectService;
+export type ConfigService = typeof configService;
 export type HostService = typeof hostService;
-export type DeviceService = typeof deviceService;
+export type TranslatorService = typeof translatorService;

@@ -1,7 +1,7 @@
 import { MidiArray } from '@shared/midi-array';
 import { useState, useEffect } from 'react';
 
-const { projectService } = window;
+const { TranslatorService } = window;
 
 export const useOverrides = (deviceId: string) => {
   const [overrides, setOverrides] = useState<Map<string, MidiArray>>();
@@ -11,8 +11,7 @@ export const useOverrides = (deviceId: string) => {
       setOverrides(o);
     };
 
-    const off = projectService.onOverridesChange(deviceId, cb);
-    projectService.requestOverrides(deviceId);
+    const off = TranslatorService.onOverridesChange(deviceId, cb);
 
     return () => off();
   }, [deviceId]);

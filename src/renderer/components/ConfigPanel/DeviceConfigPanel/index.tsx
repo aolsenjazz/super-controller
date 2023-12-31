@@ -4,7 +4,7 @@ import { ConfigStub } from '@shared/hardware-config/device-config';
 
 import ShareSustain from './ShareSustain';
 
-const { projectService } = window;
+const { ConfigService } = window;
 
 type PropTypes = {
   config: ConfigStub;
@@ -16,7 +16,7 @@ export default function DeviceConfigPanel(props: PropTypes) {
   const onNameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       config.nickname = e.target.value;
-      projectService.updateDevice(config);
+      ConfigService.updateDevice(config);
     },
     [config]
   );
@@ -38,7 +38,7 @@ export default function DeviceConfigPanel(props: PropTypes) {
   const confirmEquals = confirm === config.nickname;
 
   const onDelete = useCallback(() => {
-    projectService.removeDevice(config.id);
+    ConfigService.removeDevice(config.id);
   }, [config]);
 
   return (

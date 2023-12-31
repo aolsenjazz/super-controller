@@ -2,7 +2,7 @@ import { InputState } from '@shared/hardware-config/input-config/base-input-conf
 import { useState, useEffect } from 'react';
 import { useConfiguredDevices } from './use-configured-devices';
 
-const { deviceService } = window;
+const { HostService } = window;
 
 export function useInputState<T extends InputState>(
   deviceId: string,
@@ -17,8 +17,7 @@ export function useInputState<T extends InputState>(
       setState(s);
     };
 
-    const off = deviceService.onInputChange(deviceId, inputId, cb);
-    deviceService.requestInputState(deviceId, inputId);
+    const off = HostService.onInputChange(deviceId, inputId, cb);
 
     return () => {
       setState(defaultState);

@@ -36,10 +36,7 @@ import { InputPort } from './input-port';
 import { OutputPort } from './output-port';
 import { PortInfoPair } from './port-info-pair';
 import { wp } from '../window-provider';
-import {
-  REQUEST_CONNECTED_DEVICES,
-  REQUEST_DEVICE_STUB,
-} from '../ipc-channels';
+import { HOST } from '../ipc-channels';
 import { VirtualPortService } from './virtual-port-service';
 
 const { MainWindow } = wp;
@@ -88,11 +85,11 @@ export class HardwarePortServiceSingleton {
    * Listen to IPC comms from frontend
    */
   private setFrontendListeners() {
-    ipcMain.on(REQUEST_CONNECTED_DEVICES, () =>
+    ipcMain.on(HOST.REQUEST_CONNECTED_DEVICES, () =>
       this.sendConnectedDevicesToFrontend()
     );
 
-    ipcMain.on(REQUEST_DEVICE_STUB, (_e: Event, deviceId: string) => {
+    ipcMain.on(HOST.REQUEST_DEVICE_STUB, (_e: Event, deviceId: string) => {
       this.availableHardwarePorts
         .filter((p) => p.id === deviceId)
         .forEach((p) => MainWindow.sendDeviceStub(deviceId, p.stub));
