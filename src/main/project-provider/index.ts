@@ -208,7 +208,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         const updatedConfigs: BaseInputConfig[] = [];
         configs.forEach((c) => {
           const id = idForConfigStub(c);
-          const input = deviceConfig.getInput(id);
+          const input = deviceConfig.getInputById(id);
 
           if (input) {
             input.applyStub(c);
@@ -292,7 +292,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
           conf instanceof SupportedDeviceConfig ||
           conf instanceof AdapterDeviceConfig
         ) {
-          const configs = inputIds.map((i) => conf.getInput(i)!.config);
+          const configs = inputIds.map((i) => conf.getInputById(i)!.config);
           MainWindow.sendInputConfigs(configs);
         }
       }

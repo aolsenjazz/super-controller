@@ -81,6 +81,7 @@ export class KnobConfig extends MonoInputConfig {
 
   get config(): KnobConfigStub {
     return {
+      id: this.id,
       defaults: this.defaults,
       colorCapable: false,
       statusString: this.statusString,

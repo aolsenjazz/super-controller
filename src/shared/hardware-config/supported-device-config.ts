@@ -22,13 +22,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
 
   isAdapter = false;
 
-  /**
-   * Constructs a new instance of SupportedDeviceConfig from DeviceDriver.
-   *
-   * @param siblingIndex The nth-occurrence of this device. Relevant when >1 device of same model is connected
-   * @param driver The driver
-   * @returns a new instance of SupportedDeviceConfig
-   */
   static fromDriver(
     portName: string,
     siblingIndex: number,
@@ -89,11 +82,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
   /**
    * Are the statusString, number, and channel currently in use? Returns true if an input
    * uses all three params. Useful for avoiding inputs sending the same events
-   *
-   * @param statusString The MIDI event type (probably 'controlchange')
-   * @param number The MIDI number
-   * @param channel The MIDI channel
-   * @returns Is this binding available?
    */
   bindingAvailable(
     statusString: StatusString | 'noteon/noteoff',
@@ -117,12 +105,9 @@ export class SupportedDeviceConfig extends DeviceConfig {
   }
 
   /**
-   * Get an input by id
-   *
-   * @param id The ID of the requested input
-   * @returns
+   * Returns the `BaseInputConfig` for given id
    */
-  getInput(id: string) {
+  getInputById(id: string) {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i];
       if (input.id === id) return input;
@@ -130,13 +115,26 @@ export class SupportedDeviceConfig extends DeviceConfig {
     return undefined;
   }
 
+  /**
+   * Returns the `BaseInputConfig` which is the originator of `msg`. E.g. a CC pad
+   * input with number 32 and channel 2 is the originator of the message [178, 32, 127]
+   * but not [144, 32, 127] nor [178, 31, 127]
+   */
+  getOriginatorInput(msg: MidiArray | NumberArrayWithStatus) {
+    for (let i = 0; i < this.inputs.length; i++) {
+      const input = this.inputs[i];
+      if (input.isOriginator(msg)) return input;
+    }
+    return undefined;
+  }
+
   applyOverrides(msg: MidiArray) {
-    const input = this.getInput(msg.id(true));
+    const input = this.getOriginatorInput(msg);
     return input !== undefined ? input.handleMessage(msg) : msg;
   }
 
   getResponse(msg: MidiArray) {
-    const input = this.getInput(msg.id(true));
+    const input = this.getOriginatorInput(msg);
 
     return input instanceof LightCapableInputConfig
       ? input.currentColorArray

@@ -1,4 +1,3 @@
-import { NonsequentialStepPropagator } from '@shared/propagators';
 import {
   InteractiveInputDriver,
   InputDriverWithHandle,
@@ -29,42 +28,36 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
     return <Knob id={id} shape={driver.shape} endless={false} />;
   }
 
-  // if (driver.type === 'switch') {
-  //   const asSwitch = driver as SwitchDriver;
-  //   const { steps } = asSwitch;
+  if (driver.type === 'switch') {
+    const asSwitch = driver as SwitchDriver;
+    const { steps } = asSwitch;
 
-  //   const lastStep = config
-  //     ? (conf.outputPropagator as NonsequentialStepPropagator).lastStep
-  //     : steps[asSwitch.initialStep];
+    return (
+      <SwitchLayout
+        steps={steps}
+        id={id}
+        initialStep={steps[asSwitch.initialStep]}
+      />
+    );
+  }
 
-  //   return <SwitchLayout steps={steps} lastStep={lastStep} />;
-  // }
+  if (driver.type === 'xy') {
+    const asXY = driver as XYDriver;
+    const handleWidth = (asXY.x as InputDriverWithHandle).handleWidth as number;
 
-  // if (driver.type === 'xy') {
-  //   const asXY = driver as XYDriver;
-  //   const handleWidth = (asXY.x as InputDriverWithHandle).handleWidth as number;
-
-  //   return (
-  //     <XYLayout
-  //       x={conf.x}
-  //       y={conf.y}
-  //       handleHeight={`${(handleWidth / driver.height) * 100}%`}
-  //       handleWidth={`${(handleWidth / driver.width) * 100}%`}
-  //     />
-  //   );
-  // }
+    return (
+      <XYLayout
+        id={id}
+        driver={driver as XYDriver}
+        handleHeight={`${(handleWidth / driver.height) * 100}%`}
+        handleWidth={`${(handleWidth / driver.width) * 100}%`}
+      />
+    );
+  }
 
   const { handleWidth, handleHeight, horizontal, inverted } =
     driver as InputDriverWithHandle;
-  // return (
-  //   <HandleLayout
-  //     value={asSlider.value || 0}
-  //     handleWidth={`${(handleWidth / driver.width) * 100}%`}
-  //     handleHeight={`${(handleHeight / driver.height) * 100}%`}
-  //     horizontal={horizontal}
-  //     inverted={inverted}
-  //   />
-  // );
+
   return (
     <HandleLayout
       value={0}

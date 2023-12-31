@@ -38,7 +38,7 @@ export class TwoByteMidiArray extends MidiArray {
     super(items);
   }
 
-  id() {
+  asString() {
     return `${this.statusString}.${this.channel}.${this.number}`;
   }
 

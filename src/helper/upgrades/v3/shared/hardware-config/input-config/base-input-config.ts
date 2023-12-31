@@ -1,5 +1,5 @@
-import { MidiArray } from '@shared/midi-array';
-import { Skeleton } from '@shared/revivable';
+import { MidiArray } from '../../midi-array';
+import { Skeleton } from '../../revivable';
 
 export abstract class BaseInputConfig {
   abstract get nickname(): string;

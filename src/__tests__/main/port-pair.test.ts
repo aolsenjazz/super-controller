@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable max-classes-per-file */
 import { InputPort } from 'main/port-service/input-port';
 import { OutputPort } from 'main/port-service/output-port';
 

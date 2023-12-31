@@ -1,17 +1,33 @@
-import { SliderConfig } from '@shared/hardware-config/input-config';
+import { useSelectedDevice } from '@context/selected-device-context';
+import { useInputState } from '@hooks/use-input-state';
+import { XYDriver } from '@shared/driver-types';
+import { XYState } from '@shared/hardware-config/input-config/xy-config';
 
 type PropTypes = {
-  x: SliderConfig;
-  y: SliderConfig;
   handleWidth: string;
   handleHeight: string;
+  id: string;
+  driver: XYDriver;
 };
 
 export default function XYLayout(props: PropTypes) {
-  const { x, y, handleWidth, handleHeight } = props;
+  const { handleWidth, handleHeight, id, driver } = props;
 
-  const xShift = x.value / 127;
-  const yShift = y.value / 127;
+  const { selectedDevice } = useSelectedDevice();
+
+  const { state } = useInputState<XYState>(selectedDevice || '', id, {
+    x: {
+      value: 64,
+    },
+    y: {
+      value: 64,
+    },
+  });
+
+  if (state === undefined) return null;
+
+  const xShift = state.x.value / 127;
+  const yShift = state.y.value / 127;
 
   const iStyle = {
     marginLeft: -1,
@@ -21,12 +37,12 @@ export default function XYLayout(props: PropTypes) {
   };
 
   const xStyle =
-    x.statusString === 'pitchbend'
+    driver.x.status === 'pitchbend'
       ? `calc(${xShift} * 50%)`
       : `calc(25% + 25% * ${xShift})`;
 
   const yStyle =
-    y.statusString === 'pitchbend'
+    driver.y.status === 'pitchbend'
       ? `calc(50% + 25% * ${yShift})`
       : `calc(50% + 25% * ${yShift})`;
 

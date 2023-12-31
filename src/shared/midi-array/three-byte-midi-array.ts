@@ -49,7 +49,7 @@ export class ThreeByteMidiArray extends MidiArray {
     super(items);
   }
 
-  id(mergeNoteEvents: boolean) {
+  asString(mergeNoteEvents: boolean) {
     const status =
       (this.isNoteOn || this.isNoteOff) && mergeNoteEvents
         ? 'noteon/noteoff'

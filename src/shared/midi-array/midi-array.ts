@@ -23,7 +23,7 @@ export abstract class MidiArray extends Array<number> {
     return [...this];
   }
 
-  abstract id(mergeNoteEvents: boolean): string;
+  abstract asString(mergeNoteEvents: boolean): string;
   abstract get status(): StatusByte;
   abstract get isNoteOff(): boolean;
   abstract get isNoteOn(): boolean;

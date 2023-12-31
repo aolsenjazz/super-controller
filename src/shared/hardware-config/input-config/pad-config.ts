@@ -111,6 +111,7 @@ export class PadConfig extends LightCapableInputConfig {
     });
 
     return {
+      id: this.id,
       defaults: this.defaults,
       colorCapable: true,
       statusString: this.statusString,

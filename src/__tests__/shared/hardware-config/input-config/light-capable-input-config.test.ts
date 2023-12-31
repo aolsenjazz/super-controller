@@ -49,6 +49,7 @@ class LightCapableInputConfig extends WrapMe {
   get config() {
     return {
       type: 'pad' as const,
+      id: this.id,
     };
   }
 

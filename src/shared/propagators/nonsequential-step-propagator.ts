@@ -1,9 +1,21 @@
 import * as Revivable from '../revivable';
 import { MidiArray, create } from '../midi-array';
-import { OverrideablePropagator } from './overrideable-propagator';
+import { Propagator } from './propagator';
 
+/**
+ * Propagator which pages through enumerated steps. For example, one could
+ * imagine a 3-state switch, where the following positions are:
+ *
+ * Up: [176, 32, 0]
+ * Middle: [176, 32, 1]
+ * Bottom: [176, 32, 2]
+ *
+ * Propagated values and default values are stored inside of `this.steps` where each
+ * key is a JSON.stringify'd representation of the hardware-generated message for
+ * a given message, and the value is its override.
+ */
 @Revivable.register
-export class NonsequentialStepPropagator extends OverrideablePropagator<
+export class NonsequentialStepPropagator extends Propagator<
   'enumerated',
   'enumerated'
 > {
@@ -14,13 +26,10 @@ export class NonsequentialStepPropagator extends OverrideablePropagator<
   lastStep: NumberArrayWithStatus;
 
   constructor(
-    status: StatusString | 'noteon/noteoff',
-    channel: Channel,
-    number: MidiNumber,
     steps: Map<string, MidiArray>,
     defaultStep: NumberArrayWithStatus
   ) {
-    super('enumerated', 'enumerated', status, number, channel);
+    super('enumerated', 'enumerated');
 
     this.steps = steps;
     this.defaultStep = defaultStep;
@@ -30,13 +39,7 @@ export class NonsequentialStepPropagator extends OverrideablePropagator<
   toJSON() {
     return {
       name: this.constructor.name,
-      args: [
-        this.statusString,
-        this.channel,
-        this.number,
-        this.steps,
-        this.defaultStep,
-      ],
+      args: [this.steps, this.defaultStep],
     };
   }
 
@@ -45,14 +48,18 @@ export class NonsequentialStepPropagator extends OverrideablePropagator<
     return this.steps.get(JSON.stringify(arr.array));
   }
 
-  responseForStep(step: string | NumberArrayWithStatus) {
-    const stepStr = typeof step === 'string' ? step : JSON.stringify(step);
-    return this.steps.get(stepStr);
+  /**
+   * Returns the override for the `step`.
+   */
+  responseForStep(step: NumberArrayWithStatus) {
+    return this.steps.get(JSON.stringify(step));
   }
 
-  setStep(step: string | NumberArrayWithStatus, arr: MidiArray) {
-    const stepStr = typeof step === 'string' ? step : JSON.stringify(step);
-    this.steps.set(stepStr, arr);
+  /**
+   * Sets the override for `step` equal to `arr`
+   */
+  setStep(step: NumberArrayWithStatus, arr: MidiArray) {
+    this.steps.set(JSON.stringify(step), arr);
   }
 
   restoreDefaults() {
@@ -60,10 +67,5 @@ export class NonsequentialStepPropagator extends OverrideablePropagator<
       const reset = create(JSON.parse(k));
       this.steps.set(k, reset);
     });
-  }
-
-  /* Unused */
-  nextEventType() {
-    return 'controlchange' as const;
   }
 }

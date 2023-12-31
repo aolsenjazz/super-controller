@@ -34,6 +34,7 @@ export class PitchbendConfig extends SliderConfig {
 
   get config(): MonoInputConfigStub {
     return {
+      id: this.id,
       defaults: this.defaults,
       colorCapable: false,
       statusString: this.statusString,

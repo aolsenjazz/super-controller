@@ -132,14 +132,25 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
   }
 
   /**
-   * Get an input by id
-   *
-   * @param id The ID of the requested input
-   * @returns
+   * Returns the `BaseInputConfig` for given id
    */
-  getInput(id: string) {
-    if (this.child) {
-      return this.child!.getInput(id);
+  getInputById(id: string) {
+    for (let i = 0; i < this.inputs.length; i++) {
+      const input = this.inputs[i];
+      if (input.id === id) return input;
+    }
+    return undefined;
+  }
+
+  /**
+   * Returns the `BaseInputConfig` which is the originator of `msg`. E.g. a CC pad
+   * input with number 32 and channel 2 is the originator of the message [178, 32, 127]
+   * but not [144, 32, 127] nor [178, 31, 127]
+   */
+  getOriginatorInput(msg: MidiArray | NumberArrayWithStatus) {
+    for (let i = 0; i < this.inputs.length; i++) {
+      const input = this.inputs[i];
+      if (input.isOriginator(msg)) return input;
     }
     return undefined;
   }

@@ -60,7 +60,7 @@ export class XYConfig extends BaseInputConfig {
   }
 
   handleMessage(msg: MidiArray) {
-    if (this.x.id === msg.id(true)) {
+    if (this.x.id === msg.asString(true)) {
       return this.x.handleMessage(msg);
     }
 
@@ -72,8 +72,18 @@ export class XYConfig extends BaseInputConfig {
     this.y.restoreDefaults();
   }
 
+  applyStub(s: XYConfigStub): void {
+    this.x.applyStub(s.x);
+    this.y.applyStub(s.y);
+  }
+
+  isOriginator(msg: MidiArray | NumberArrayWithStatus) {
+    return this.x.isOriginator(msg) || this.y.isOriginator(msg);
+  }
+
   get config(): XYConfigStub {
     return {
+      id: this.id,
       type: 'xy',
       x: this.x.config,
       y: this.y.config,

@@ -2,11 +2,12 @@ import { ConfigStub } from '@shared/hardware-config/device-config';
 import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
 import { MonoInputConfigStub } from '@shared/hardware-config/input-config/mono-input-config';
 import { XYConfigStub } from '@shared/hardware-config/input-config/xy-config';
+import { SwitchConfigStub } from '@shared/hardware-config/input-config/switch-config';
 
 import { createInputGroup } from './input-group';
 import BasicMessage from '../BasicMessage';
 import MonoInputConfigPanel from './MonoInputConfigSubpanel';
-import SwitchConfigPanel from './SwitchConfigPanel';
+import SwitchConfigPanel from './SwitchConfigSubpanel';
 import XYConfigPanel from './XYConfigPanel';
 
 function areInputsHomogenous(inputConfigs: InputConfigStub[]) {
@@ -33,9 +34,14 @@ export default function InputConfigSubpanel(props: InputConfigurationProps) {
     InputConfigPanel = <BasicMessage msg={msg} />;
   } else if (inputConfigs[0].type === 'xy') {
     const conf = inputConfigs[0] as XYConfigStub;
-    InputConfigPanel = <XYConfigPanel x={conf.x} y={conf.y} />;
+    InputConfigPanel = (
+      <XYConfigPanel x={conf.x} y={conf.y} deviceId={config.id} />
+    );
   } else if (inputConfigs[0].type === 'switch') {
-    InputConfigPanel = <SwitchConfigPanel />;
+    const conf = inputConfigs[0] as SwitchConfigStub;
+    InputConfigPanel = (
+      <SwitchConfigPanel deviceConfig={config} inputConfigStub={conf} />
+    );
   } else {
     const group = createInputGroup(inputConfigs as MonoInputConfigStub[]);
     InputConfigPanel = (

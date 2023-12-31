@@ -10,6 +10,11 @@ type PropTypes = {
   deviceId: string;
 };
 
+/**
+ * TODO: in previous version, we made it clear in this list when a give number/channel
+ * combination were in use by other inputs. I think this is a good design idea, but unclear how it fits
+ * into the new design
+ */
 export default function NumberDropdown(props: PropTypes) {
   const { group, deviceId } = props;
   const { number, statusString } = group;
@@ -17,9 +22,8 @@ export default function NumberDropdown(props: PropTypes) {
   const eligibleNumbers = [...Array(128).keys()] as MidiNumber[];
   const numberLabels = eligibleNumbers.map((v) => {
     if (statusString === 'controlchange') {
-      const inUseLabel = v === number ? '' : ' [in use]';
+      // const inUseLabel = v === number ? '' : ' [in use]';
       return group.labelForNumber(v);
-      // TODO: yiiiikes
       // return config.bindingAvailable(statusString, v, channel as Channel) ||
       //   v === number
       //   ? group.labelForNumber(v)

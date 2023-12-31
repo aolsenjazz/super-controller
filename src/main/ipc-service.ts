@@ -45,14 +45,14 @@ ipcMain.on(REQUEST_CONFIG_STUB, (_e: Event, id: string) => {
 
 ipcMain.on(
   REQUEST_INPUT_STATE,
-  (_e: Event, deviceId: string, inputId: string) => {
+  (_e: Event, deviceId: string, inputString: string) => {
     const p = pp.project;
     const d = p.getDevice(deviceId);
 
     if (d && d instanceof SupportedDeviceConfig) {
-      const state = d.getInput(inputId)?.state;
+      const state = d.getInputById(inputString)?.state;
 
-      if (state) MainWindow.sendInputState(deviceId, inputId, state);
+      if (state) MainWindow.sendInputState(deviceId, inputString, state);
     }
   }
 );

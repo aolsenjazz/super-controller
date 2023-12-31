@@ -39,6 +39,7 @@ class InputConfig extends IC {
   get config() {
     return {
       type: 'pad' as const,
+      id: this.id,
     };
   }
 

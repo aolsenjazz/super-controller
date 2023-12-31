@@ -1,3 +1,5 @@
+import { StatefulPropagator } from '../../propagators/stateful-propagator';
+
 import { MidiArray } from '../../midi-array';
 import {
   OverrideablePropagator,
@@ -15,7 +17,6 @@ import {
   InputDefault,
   MonoInputConfigStub,
 } from './mono-input-config';
-import { StatefulPropagator } from '@shared/propagators/stateful-propagator';
 
 export type ColorConfigStub = {
   color?: ColorDescriptor;

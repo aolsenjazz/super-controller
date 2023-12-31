@@ -1,7 +1,7 @@
-import { Skeleton } from '@shared/revivable';
-import { MidiArray } from '@shared/midi-array';
-import { XYDriver } from '@shared/driver-types';
-import * as Revivable from '@shared/revivable';
+import { Skeleton } from '../../revivable';
+import { MidiArray } from '../../midi-array';
+import { XYDriver } from '../../driver-types';
+import * as Revivable from '../../revivable';
 
 import { PitchbendConfig } from './pitchbend-config';
 import { SliderConfig } from './slider-config';

@@ -14,6 +14,8 @@ import {
   XYConfig,
 } from '@shared/hardware-config/input-config';
 
+import { create, MidiArray } from '@shared/midi-array';
+
 import {
   ColorConfigPropagator,
   ConstantPropagator,
@@ -79,9 +81,11 @@ function convertDeviceProp(d: V4ColorConfigPropagator): ColorConfigPropagator {
   );
 }
 
-function convertOutputProp(
-  o: V4OverrideablePropagator<InputResponse, InputResponse>
-): OverrideablePropagator<InputResponse, InputResponse> {
+function convertOutputProp<
+  T extends
+    | OverrideablePropagator<InputResponse, InputResponse>
+    | NonsequentialStepPropagator
+>(o: V4OverrideablePropagator<InputResponse, InputResponse>): T {
   const { outputResponse } = o;
 
   const { statusString, number, channel, value } = o;
@@ -93,7 +97,7 @@ function convertOutputProp(
       number,
       channel,
       value
-    );
+    ) as unknown as T;
   }
 
   if (o instanceof V4PitchbendPropagator) {
@@ -102,19 +106,13 @@ function convertOutputProp(
       statusString,
       number,
       channel
-    );
+    ) as unknown as T;
   }
 
   if (o instanceof V4NonsequentialStepPropagator) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { steps, defaultStep } = o as any;
-    return new NonsequentialStepPropagator(
-      statusString,
-      channel,
-      number,
-      steps,
-      defaultStep
-    );
+    return new NonsequentialStepPropagator(steps, defaultStep) as unknown as T;
   }
 
   if (o instanceof V4GatePropagator) {
@@ -126,7 +124,7 @@ function convertOutputProp(
       channel,
       value,
       state
-    );
+    ) as unknown as T;
   }
 
   if (o instanceof V4ContinuousPropagator) {
@@ -139,7 +137,7 @@ function convertOutputProp(
       value,
       knobType,
       valueType
-    );
+    ) as unknown as T;
   }
 
   if (o instanceof V4ConstantPropagator) {
@@ -151,7 +149,7 @@ function convertOutputProp(
       channel,
       value,
       state
-    );
+    ) as unknown as T;
   }
 
   throw new Error();
@@ -212,12 +210,8 @@ function convertInput(i: V4BaseInputConfig): BaseInputConfig {
   }
 
   if (i instanceof V4SwitchConfig) {
-    const { defaults, outputPropagator, nickname } = i;
-    return new SwitchConfig(
-      defaults,
-      convertOutputProp(outputPropagator),
-      nickname
-    );
+    const { outputPropagator, nickname } = i;
+    return new SwitchConfig(convertOutputProp(outputPropagator), nickname);
   }
 
   if (i instanceof V4XYConfig) {
@@ -235,10 +229,17 @@ function convertInput(i: V4BaseInputConfig): BaseInputConfig {
 function convertAnonymous(d: V4AnonymousDeviceConfig): AnonymousDeviceConfig {
   const { name, siblingIndex, nickname, shareSustain, overrides } = d;
 
+  const newOverrides = new Map<string, MidiArray>();
+  Array.from(overrides.keys()).forEach((k) => {
+    const oldArr = overrides.get(k)!;
+    const newArr = create(oldArr);
+    newOverrides.set(k, newArr);
+  });
+
   const newConf = new AnonymousDeviceConfig(
     name,
     siblingIndex,
-    overrides,
+    newOverrides,
     shareSustain,
     nickname
   );

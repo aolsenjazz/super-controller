@@ -7,6 +7,7 @@ export interface InputState {}
 
 export interface InputConfigStub {
   type: 'pad' | 'knob' | 'xy' | 'switch' | 'slider' | 'pitchbend';
+  id: string;
 }
 
 export abstract class BaseInputConfig {
@@ -19,6 +20,12 @@ export abstract class BaseInputConfig {
   abstract get state(): InputState;
 
   abstract get config(): InputConfigStub;
+
+  /**
+   * Returns true if the input this config represents is responsible for generating
+   * `msg`. Used to associate message from devices with its config.
+   */
+  abstract isOriginator(msg: MidiArray | NumberArrayWithStatus): boolean;
 
   abstract applyStub(s: InputConfigStub): void;
 

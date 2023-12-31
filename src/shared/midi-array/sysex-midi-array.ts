@@ -4,7 +4,7 @@ import { MidiArray } from './midi-array';
 
 @Revivable.register
 export class SysexMidiArray extends MidiArray {
-  id() {
+  asString() {
     let id = 'sysex';
     this.array
       .filter((_v, i) => i !== 0)

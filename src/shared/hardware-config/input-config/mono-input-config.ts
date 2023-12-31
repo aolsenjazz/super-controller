@@ -1,4 +1,9 @@
-import { MidiArray } from '../../midi-array';
+import {
+  create,
+  MidiArray,
+  ThreeByteMidiArray,
+  TwoByteMidiArray,
+} from '../../midi-array';
 import { OverrideablePropagator } from '../../propagators';
 import { InputResponse } from '../../driver-types';
 import { BaseInputConfig, InputConfigStub } from './base-input-config';
@@ -45,6 +50,20 @@ export abstract class MonoInputConfig extends BaseInputConfig {
     this.defaults = defaultVals;
     this.outputPropagator = outputPropagator;
     this.#nickname = nickname;
+  }
+
+  isOriginator(msg: MidiArray | NumberArrayWithStatus) {
+    const ma = msg instanceof MidiArray ? msg : create(msg);
+
+    if (ma instanceof TwoByteMidiArray || ma instanceof ThreeByteMidiArray) {
+      return (
+        ma.statusString === this.defaults.statusString &&
+        ma.channel === this.defaults.channel &&
+        ma.number === this.defaults.number
+      );
+    }
+
+    return this.id === ma.asString(true);
   }
 
   applyStub(s: MonoInputConfigStub) {

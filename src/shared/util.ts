@@ -4,7 +4,10 @@ import {
   XYDriver,
   ColorDescriptor,
 } from './driver-types';
-import { MonoInteractiveDriver } from './driver-types/input-drivers';
+import {
+  MonoInteractiveDriver,
+  SwitchDriver,
+} from './driver-types/input-drivers';
 import { InputConfigStub } from './hardware-config/input-config/base-input-config';
 import { MonoInputConfigStub } from './hardware-config/input-config/mono-input-config';
 import { XYConfigStub } from './hardware-config/input-config/xy-config';
@@ -51,6 +54,12 @@ export function id(driver: InteractiveInputDriver): string {
   if (driver.type === 'xy') {
     const xy = driver as XYDriver;
     return `${id(xy.x)}${id(xy.y)}`;
+  }
+
+  if (driver.type === 'switch') {
+    const sw = driver as SwitchDriver;
+
+    return `switch.${sw.steps[sw.initialStep][1]}`;
   }
 
   const mono = driver as MonoInteractiveDriver;

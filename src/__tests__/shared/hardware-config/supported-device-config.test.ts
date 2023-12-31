@@ -77,44 +77,7 @@ test('getInput throws for bad id', () => {
     nickname
   );
 
-  expect(config.getInput('badid!')).toBe(undefined);
-});
-
-test('getInput returns correct input for id', () => {
-  const d = {
-    channel: 0 as Channel,
-    statusString: 'controlchange' as const,
-    number: 0 as MidiNumber,
-    response: 'continuous' as const,
-  };
-
-  const name = 'SomeName';
-  const shareSustain: string[] = [];
-  const inputConfigs = [];
-  const nickname = 'SomeNickname';
-
-  const prop = new ContinuousPropagator(
-    d.response,
-    d.statusString,
-    d.number,
-    d.channel
-  );
-
-  const input = new SliderConfig(d, prop);
-
-  inputConfigs.push(input);
-
-  const config = new SupportedDeviceConfig(
-    name,
-    name,
-    0,
-    shareSustain,
-    inputConfigs,
-    nickname
-  );
-
-  const result = config.getInput(input.id);
-  expect(result!.id).toBe(input.id);
+  expect(config.getOriginatorInput([144, 42, 32])).toBe(undefined);
 });
 
 test('handleMessage() passes to correct input for processing', () => {

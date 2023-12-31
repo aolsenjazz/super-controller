@@ -267,7 +267,7 @@ export class HardwarePortServiceSingleton {
     MainWindow.sendRecentMsg(pair.id, msg.array);
     if (config instanceof SupportedDeviceConfig) {
       // send new state to frontend
-      const input = config.getInput(msg.id(true));
+      const input = config.getOriginatorInput(msg);
 
       if (input) {
         MainWindow.sendInputState(config.id, input.id, input.state);
