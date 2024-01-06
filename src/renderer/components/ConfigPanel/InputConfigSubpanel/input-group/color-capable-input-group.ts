@@ -1,4 +1,4 @@
-import { Color, ColorDescriptor, FxDriver } from '@shared/driver-types';
+import { ColorDescriptor, FxDriver } from '@shared/driver-types';
 import { ColorCapableInputConfigStub } from '@shared/hardware-config/input-config/light-capable-input-config';
 import { colorDisplayName } from '@shared/util';
 
@@ -12,40 +12,15 @@ function areColorDisplayNamesEqual(
   return c1 !== undefined || c2 !== undefined || true;
 }
 
-/**
- * When a multiple inputs are selected with different colors set, we use this object to
- * set the "color hint", label, and hide FX.
- *
- * TODO: Probably makes sense to put this closer to UI logic given the subject matter
- */
-const mvc: Color = {
-  name: '<multiple values>',
-  string: 'transparent',
-  array: [144, 0, 0],
-  effectable: false,
-};
-
-const mvf: FxDriver = {
-  title: '<multiple values>',
-  effect: '',
-  isDefault: true,
-  validVals: [[0, 0, 0]],
-  defaultVal: [0, 0, 0],
-};
-
 export class ColorCapableInputGroup extends BaseInputGroup<ColorCapableInputConfigStub> {
   public colorForState(state: number) {
-    let color = this.groupValue<ColorDescriptor | undefined>(
+    return this.groupValue<ColorDescriptor | undefined>(
       (c) => c.colorConfig.get(state)?.color,
       (a, b) => areColorDisplayNamesEqual(a, b)
     );
-
-    if (color === '<multiple values>') color = mvc;
-
-    return color === undefined ? undefined : (color as Color);
   }
 
-  public fxForState(state: number): FxDriver | undefined {
+  public fxForState(state: number) {
     const getter = (c: ColorCapableInputConfigStub) =>
       c.colorConfig.get(state)?.fx;
     const equality = (a: FxDriver | undefined, b: FxDriver | undefined) => {
@@ -56,11 +31,16 @@ export class ColorCapableInputGroup extends BaseInputGroup<ColorCapableInputConf
     const defaultFx = this.availableFx.filter((fx) => fx.isDefault);
     const color = this.colorForState(state);
 
-    if (color?.effectable && activeFx === undefined && defaultFx.length === 1) {
+    if (
+      typeof color !== 'string' &&
+      color?.effectable &&
+      activeFx === undefined &&
+      defaultFx.length === 1
+    ) {
       [activeFx] = defaultFx;
     }
 
-    return typeof activeFx === 'string' ? mvf : activeFx;
+    return activeFx;
   }
 
   public fxValForState(state: number) {
@@ -75,7 +55,7 @@ export class ColorCapableInputGroup extends BaseInputGroup<ColorCapableInputConf
 
     const fx = this.fxForState(state);
     let fxVal = this.groupValue<MidiNumber[] | undefined>(getter, equality);
-    if (fxVal === undefined && fx !== undefined) {
+    if (fxVal === undefined && fx !== undefined && typeof fx !== 'string') {
       fxVal = fx.defaultVal;
     }
 

@@ -8,7 +8,11 @@ import ConfigPanel from './components/ConfigPanel';
 
 import './styles/App.global.css';
 
-// TODO: document this. what exactly is this doing?
+/**
+ * When dragging a file over a chrome window, normally the cursor will change to indicate
+ * that the file can be dropped into chrome and be interpreted (e.g. a picture would be read)
+ * and displayed. We do not want this behavior to exist, so prevent the default.
+ */
 document.body.ondragover = (event) => {
   if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
   event.preventDefault();

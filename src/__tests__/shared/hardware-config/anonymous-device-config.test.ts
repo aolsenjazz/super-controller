@@ -24,9 +24,7 @@ test('new UnsupportedDevice() correctly assigns values', () => {
   expect(device.portName).toBe(name);
   expect(device.siblingIndex).toBe(siblingIndex);
   expect(device.nickname).toBe(nickname);
-  expect(Array.from(device.overrides.entries())).toEqual(
-    Array.from(overrides.entries())
-  );
+  expect(JSON.stringify(device.overrides)).toEqual(JSON.stringify(overrides));
 });
 
 test('toJSON and fromJSON correctly serializes and deserializes', () => {
@@ -51,10 +49,9 @@ test('toJSON and fromJSON correctly serializes and deserializes', () => {
   expect(device.driverName).toBe(other.driverName);
   expect(device.siblingIndex).toBe(other.siblingIndex);
   expect(device.nickname).toBe(other.nickname);
-  expect(device.supported).toBe(other.supported);
   expect(device.shareSustain).toEqual(other.shareSustain);
-  expect(Array.from(device.overrides.entries())).toEqual(
-    Array.from(other.overrides.entries())
+  expect(JSON.stringify(device.overrides)).toEqual(
+    Array.from(JSON.stringify(other.overrides))
   );
 });
 

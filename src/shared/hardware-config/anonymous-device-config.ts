@@ -2,10 +2,13 @@ import * as Revivable from '../revivable';
 import { MidiArray, create } from '../midi-array';
 import { ConfigStub, DeviceConfig } from './device-config';
 
+export interface ImmutableMidiArrayMap {
+  get(key: string): MidiArray | undefined;
+}
+
 @Revivable.register
 export class AnonymousDeviceConfig extends DeviceConfig {
-  // TODO: This likely should be made private - accessing this from outside of this class is smelly
-  readonly overrides: Map<string, MidiArray>;
+  #overrides: Map<string, MidiArray>;
 
   isAdapter = false;
 
@@ -18,7 +21,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
   ) {
     super(portName, 'Anonymous', siblingIndex, shareSustain, nickname);
 
-    this.overrides = overrides;
+    this.#overrides = overrides;
   }
 
   toJSON() {
@@ -27,7 +30,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
       args: [
         this.portName,
         this.siblingIndex,
-        this.overrides,
+        this.#overrides,
         this.shareSustain,
         this.nickname,
       ],
@@ -37,7 +40,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
   applyOverrides(mArray: MidiArray) {
     const msg = create(mArray);
     const id = JSON.stringify(msg);
-    const override = this.overrides.get(id);
+    const override = this.#overrides.get(id);
 
     return override === undefined ? mArray : override;
   }
@@ -61,7 +64,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     newValue: MidiNumber
   ) {
     const override = create(newStatus, newChannel, newNumber, newValue);
-    this.overrides.set(JSON.stringify(targetInput), override);
+    this.#overrides.set(JSON.stringify(targetInput), override);
   }
 
   /**
@@ -74,7 +77,15 @@ export class AnonymousDeviceConfig extends DeviceConfig {
    * independently of value
    */
   getOverride(input: MidiArray) {
-    return this.overrides.get(JSON.stringify(input));
+    return this.#overrides.get(JSON.stringify(input));
+  }
+
+  deleteOverride(action: NumberArrayWithStatus) {
+    this.#overrides.delete(JSON.stringify(action));
+  }
+
+  get overrides(): ImmutableMidiArrayMap {
+    return this.#overrides;
   }
 
   get stub(): ConfigStub {

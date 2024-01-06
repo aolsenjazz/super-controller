@@ -7,7 +7,7 @@ import {
   InputConfigStub,
   InputState,
 } from '@shared/hardware-config/input-config/base-input-config';
-import { MidiArray } from '@shared/midi-array';
+import { ImmutableMidiArrayMap } from '@shared/hardware-config/anonymous-device-config';
 
 import { HOST, CONFIG } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
@@ -58,7 +58,7 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(`config-stub-${id}`, desc);
   }
 
-  public sendOverrides(id: string, overrides: Map<string, MidiArray>) {
+  public sendOverrides(id: string, overrides: ImmutableMidiArrayMap) {
     this.send(`${id}-overrides`, overrides);
   }
 

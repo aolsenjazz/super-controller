@@ -54,7 +54,21 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
     this.availableFx = availableFx;
 
     const r = this.defaults.response;
-    this.devicePropagator = devicePropagator || new ColorConfigPropagator(r, r);
+    this.devicePropagator =
+      devicePropagator ||
+      (() => {
+        let defaultColor: Color | undefined;
+        this.availableColors.forEach((c) => {
+          defaultColor = c.default ? c : defaultColor;
+        });
+
+        let defaultFx: FxDriver | undefined;
+        this.availableFx.forEach((f) => {
+          defaultFx = f.isDefault ? f : defaultFx;
+        });
+
+        return new ColorConfigPropagator(r, r, defaultColor, defaultFx);
+      })();
   }
 
   // TODO: now that we're applying color update via applyStub, it's likely that the

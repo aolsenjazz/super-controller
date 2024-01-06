@@ -12,6 +12,7 @@ export const useInputConfigs = (deviceId: string, inputIds: string[]) => {
     };
 
     const off = ConfigService.onInputConfigChange(cb);
+    ConfigService.requestInputConfigs(deviceId, inputIds);
 
     return () => off();
   }, [deviceId, inputIds]);

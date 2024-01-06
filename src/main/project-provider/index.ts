@@ -83,16 +83,11 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
   /**
    * Write current project to disk at `project`s default path. If no such default path
    * exists, create a saveAs dialog
-   *
-   * TODO: this actually doesn't return anything other than true; just throws. no point in returning true
-   *
-   * @returns true if successfully saved
    */
   public async save() {
     if (this.currentPath) {
       fs.writeFileSync(this.currentPath, stringify(this.project), {});
       app.addRecentDocument(this.currentPath);
-      return true;
     }
 
     const result = await dialogs.save(recommendedDir(), 'Untitled project');
@@ -101,7 +96,6 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     store.set(SAVE_DIR, path.parse(result.filePath).dir);
     this.currentPath = result.filePath;
-    return true;
   }
 
   /**
@@ -206,7 +200,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
           if (input) {
             input.applyStub(c);
             updatedConfigs.push(input);
-            MainWindow.sendInputState(deviceId, id, input.state); // TODO: I really don't like that we're notifying the frontend from here
+            MainWindow.sendInputState(deviceId, id, input.state);
           }
         });
 
@@ -225,9 +219,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         const conf = this.project.getDevice(deviceId);
 
         if (conf instanceof AnonymousDeviceConfig) {
-          // TODO: is this how we're handling binding keys? this should be formalized either way
-          // TODO: also this process should exist as a function on AnonymousDeviceConfigs
-          conf.overrides.delete(JSON.stringify(action));
+          conf.deleteOverride(action);
         }
       }
     );
