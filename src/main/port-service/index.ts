@@ -261,7 +261,6 @@ export class HardwarePortServiceSingleton {
 
     if (toDevice) pair.send(toDevice);
 
-    MainWindow.sendRecentMsg(pair.id, msg.array);
     if (config instanceof SupportedDeviceConfig) {
       // send new state to frontend
       const input = config.getOriginatorInput(msg);
@@ -272,7 +271,7 @@ export class HardwarePortServiceSingleton {
     } else if (config instanceof AdapterDeviceConfig) {
       // TODO:
     } else if (config instanceof AnonymousDeviceConfig) {
-      // TODO:
+      MainWindow.sendRecentMsg(pair.id, msg.array);
     }
   }
 

@@ -43,7 +43,6 @@ export function projectFromFile(filePath: string) {
 }
 
 export function getAssetPath(...paths: string[]) {
-  // TODO: these can really be moved up to top-level orrrrr to util-main
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
     : path.join(__dirname, '../../assets');
