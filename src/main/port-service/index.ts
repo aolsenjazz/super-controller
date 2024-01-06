@@ -208,8 +208,11 @@ export class HardwarePortServiceSingleton {
     const config = ProjectProvider.project.getDevice(pair.id);
 
     if (config) {
-      // TODO: ensure that this driver is the correct target for adapter devices
-      const driver = getDriver(config.driverName);
+      const driverName =
+        config instanceof AdapterDeviceConfig
+          ? config.child?.driverName
+          : config.driverName;
+      const driver = driverName ? getDriver(driverName) : undefined;
 
       if (driver) {
         pair.applyThrottle(driver.throttle); // apply throttle if exists
@@ -244,9 +247,6 @@ export class HardwarePortServiceSingleton {
     }
   }
 
-  /**
-   * TODO: yiiiikes
-   */
   private onMessage(config: DeviceConfig, pair: PortPair, msg: MidiArray) {
     const toPropagate = config.applyOverrides(msg);
     const toDevice = config.getResponse(msg);
@@ -261,15 +261,16 @@ export class HardwarePortServiceSingleton {
 
     if (toDevice) pair.send(toDevice);
 
-    if (config instanceof SupportedDeviceConfig) {
+    if (
+      config instanceof SupportedDeviceConfig ||
+      config instanceof AdapterDeviceConfig
+    ) {
       // send new state to frontend
       const input = config.getOriginatorInput(msg);
 
       if (input) {
         MainWindow.sendInputState(config.id, input.id, input.state);
       }
-    } else if (config instanceof AdapterDeviceConfig) {
-      // TODO:
     } else if (config instanceof AnonymousDeviceConfig) {
       MainWindow.sendRecentMsg(pair.id, msg.array);
     }

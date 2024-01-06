@@ -7,13 +7,13 @@ import { ConfigStub } from './device-config';
 export class AdapterDeviceConfig implements SupportedDeviceConfig {
   portName: string;
 
-  driverName: string;
-
   isAdapter = true;
 
   nickname: string;
 
   siblingIndex: number;
+
+  driverName: string;
 
   child?: SupportedDeviceConfig;
 

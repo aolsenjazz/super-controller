@@ -28,13 +28,8 @@ export default function AdapterView(props: PropTypes) {
   const labelList = Array.from(fivePins.keys());
   const value = '';
 
-  const onChange = (v: string | number) => {
-    ConfigService.addDevice(
-      device.name,
-      device.siblingIndex,
-      device.name,
-      v as string
-    );
+  const onChange = (v: string) => {
+    ConfigService.addDevice(device.name, device.siblingIndex, device.name, v);
   };
 
   return (
@@ -46,7 +41,7 @@ export default function AdapterView(props: PropTypes) {
       </div>
       <div>
         <p className="label">Select Device: </p>
-        <BasicSelect
+        <BasicSelect<string>
           valueList={valueList}
           labelList={labelList}
           value={value}

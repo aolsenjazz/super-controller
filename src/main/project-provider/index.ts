@@ -284,7 +284,10 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
       (_e: IpcMainEvent, deviceId: string, inputIds: string[]) => {
         const conf = this.project.getDevice(deviceId);
 
-        if (conf instanceof SupportedDeviceConfig) {
+        if (
+          conf instanceof SupportedDeviceConfig ||
+          conf instanceof AdapterDeviceConfig
+        ) {
           const configs = inputIds.map((i) => conf.getInputById(i)!.config);
           MainWindow.sendInputConfigs(configs);
         }
