@@ -24,6 +24,11 @@ jobs:
         run: |
           sudo apt-get install -y libasound2-dev
 
+      - name: install distutils on osx
+        if: runner.os == 'macOS'
+        run: |
+          sudo apt-get install python3-distutils
+
       - name: run post-clone
         run: |
           npm run post-clone
