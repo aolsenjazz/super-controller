@@ -58,7 +58,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
     nickname?: string,
     keyboardDriver?: KeyboardDriver
   ) {
-    super(name, driverName, siblingIndex, true, shareSustain, nickname);
+    super(name, driverName, siblingIndex, shareSustain, nickname);
     this.inputs = inputs;
     this.keyboardDriver = keyboardDriver;
   }
@@ -149,9 +149,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
       isAdapter: false,
-      isSupported: true,
       isAnonymous: false,
-      isAdapterChildSet: false,
       shareSustain: this.shareSustain,
     };
   }

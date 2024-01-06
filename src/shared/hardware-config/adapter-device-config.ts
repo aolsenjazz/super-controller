@@ -3,9 +3,6 @@ import { MidiArray } from '../midi-array';
 import { SupportedDeviceConfig } from './supported-device-config';
 import { ConfigStub } from './device-config';
 
-// TODO: Unclear if we really want to implement SupportedDeviceConfig or
-// extends DeviceConfig. Gut says extend DeviceConfig but needs research
-// TODO: yeah definitely don't want to implemenet Supported. Messes up instanceof checks downstream
 @Revivable.register
 export class AdapterDeviceConfig implements SupportedDeviceConfig {
   portName: string;
@@ -15,8 +12,6 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
   isAdapter = true;
 
   nickname: string;
-
-  supported = true;
 
   siblingIndex: number;
 
@@ -46,10 +41,6 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
     this.child = config;
   }
 
-  get isSet() {
-    return this.child !== undefined;
-  }
-
   bindingAvailable(
     statusString: StatusString | 'noteon/noteoff',
     number: number,
@@ -70,46 +61,6 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
       return this.child!.getResponse(msg);
     }
     return msg;
-  }
-
-  get inputs() {
-    if (this.child) {
-      return this.child!.inputs;
-    }
-    return [];
-  }
-
-  get shareSustain() {
-    if (this.child) {
-      return this.child.shareSustain;
-    }
-    return [];
-  }
-
-  set shareSustain(shareSustain: string[]) {
-    if (this.child) {
-      this.child.shareSustain = shareSustain;
-    }
-  }
-
-  get id() {
-    return `${this.portName} ${this.siblingIndex}`;
-  }
-
-  get stub(): ConfigStub {
-    return {
-      id: this.id,
-      portName: this.portName,
-      driverName: this.driverName,
-      nickname: this.nickname,
-      siblingIndex: this.siblingIndex,
-      isAdapter: true,
-      isSupported: true,
-      isAnonymous: false,
-      isAdapterChildSet: this.child !== undefined,
-      shareSustain: this.shareSustain,
-      child: this.child?.stub,
-    };
   }
 
   shareWith(id: string) {
@@ -153,5 +104,43 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
       if (input.isOriginator(msg)) return input;
     }
     return undefined;
+  }
+
+  get inputs() {
+    if (this.child) {
+      return this.child!.inputs;
+    }
+    return [];
+  }
+
+  get shareSustain() {
+    if (this.child) {
+      return this.child.shareSustain;
+    }
+    return [];
+  }
+
+  set shareSustain(shareSustain: string[]) {
+    if (this.child) {
+      this.child.shareSustain = shareSustain;
+    }
+  }
+
+  get id() {
+    return `${this.portName} ${this.siblingIndex}`;
+  }
+
+  get stub(): ConfigStub {
+    return {
+      id: this.id,
+      portName: this.portName,
+      driverName: this.driverName,
+      nickname: this.nickname,
+      siblingIndex: this.siblingIndex,
+      isAdapter: true,
+      isAnonymous: false,
+      shareSustain: this.shareSustain,
+      child: this.child?.stub,
+    };
   }
 }

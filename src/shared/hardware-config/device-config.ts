@@ -8,9 +8,7 @@ export type ConfigStub = {
   driverName: string;
   nickname: string;
   isAdapter: boolean;
-  isSupported: boolean;
   isAnonymous: boolean;
-  isAdapterChildSet: boolean;
   shareSustain: string[];
   child?: ConfigStub;
 };
@@ -36,15 +34,6 @@ export abstract class DeviceConfig {
    */
   readonly driverName: string;
 
-  /**
-   * True if a driver exists for the given name. Right now, this only applies to OSX;
-   * driver names vary per-OS, and likely per-OS-MIDI-driver.
-   *
-   * TODO: now that we're allowing lazily-selecting the driver to use on linux,
-   * this description is either inaccurate or `supported` is a flawed concept
-   */
-  readonly supported: boolean;
-
   /* nth-occurence of this device. applicable if > 1 device of same model is connected/configured */
   readonly siblingIndex: number;
 
@@ -68,14 +57,12 @@ export abstract class DeviceConfig {
     portName: string,
     driverName: string,
     siblingIndex: number,
-    supported: boolean,
     shareSustain: string[],
     nickname?: string
   ) {
     this.portName = portName;
     this.driverName = driverName;
     this.siblingIndex = siblingIndex;
-    this.supported = supported;
     this.shareSustain = shareSustain;
     this.#nickname = nickname;
   }

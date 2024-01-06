@@ -16,7 +16,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     shareSustain: string[],
     nickname?: string
   ) {
-    super(portName, 'Anonymous', siblingIndex, false, shareSustain, nickname);
+    super(portName, 'Anonymous', siblingIndex, shareSustain, nickname);
 
     this.overrides = overrides;
   }
@@ -85,9 +85,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
       isAdapter: false,
-      isSupported: false,
       isAnonymous: true,
-      isAdapterChildSet: false,
       shareSustain: this.shareSustain,
     };
   }

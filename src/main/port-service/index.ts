@@ -209,7 +209,7 @@ export class HardwarePortServiceSingleton {
 
     if (config) {
       // TODO: ensure that this driver is the correct target for adapter devices
-      const driver = getDriver(config?.driverName);
+      const driver = getDriver(config.driverName);
 
       if (driver) {
         pair.applyThrottle(driver.throttle); // apply throttle if exists
