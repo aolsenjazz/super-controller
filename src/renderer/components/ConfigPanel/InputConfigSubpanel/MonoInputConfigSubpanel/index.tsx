@@ -49,7 +49,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
         <StatusStringDropdown group={group} deviceId={deviceId} />
         <ResponseDropdown group={group} deviceId={deviceId} />
         <ChannelDropdown group={group} deviceId={deviceId} />
-        {statusString === 'pitchbend' && (
+        {statusString !== 'pitchbend' && (
           <NumberDropdown group={group} deviceId={deviceId} />
         )}
         {type === 'knob' &&

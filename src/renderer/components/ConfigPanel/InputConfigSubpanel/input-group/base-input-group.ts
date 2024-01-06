@@ -2,6 +2,27 @@ import { InputResponse } from '@shared/driver-types';
 import { MonoInputConfigStub } from '@shared/hardware-config/input-config/mono-input-config';
 import { CC_BINDINGS, stringVal } from '@shared/util';
 
+/**
+ * Determining eligible responses for a pad is a touch more difficult, as a pad with
+ * hardware input 'constant' is capable of both constant and gate toggle should its
+ * statusString be set to a multiple-step-capable `StatusString`
+ */
+function eligibleResponsesForPad(stub: MonoInputConfigStub): InputResponse[] {
+  const defaultResponse = stub.defaults.response;
+  switch (defaultResponse) {
+    case 'toggle':
+      return ['toggle', 'constant'];
+    case 'constant':
+      return ['noteon/noteoff', 'controlchange'].includes(stub.statusString)
+        ? ['toggle', 'constant']
+        : ['constant'];
+    default:
+      return stub.statusString === 'programchange'
+        ? ['constant']
+        : ['gate', 'toggle', 'constant']; // basically case 'gate'
+  }
+}
+
 function getEligibleStatusStrings(
   stub: MonoInputConfigStub
 ): (StatusString | 'noteon/noteoff')[] {
@@ -14,6 +35,19 @@ function getEligibleStatusStrings(
       return ['pitchbend'];
     default:
       return ['noteon', 'noteoff', 'controlchange', 'programchange'];
+  }
+}
+
+function getEligibleResponses(stub: MonoInputConfigStub): InputResponse[] {
+  switch (stub.type) {
+    case 'pad':
+      return eligibleResponsesForPad(stub);
+    case 'pitchbend':
+      return ['continuous'];
+    default:
+      return stub.statusString === 'programchange'
+        ? ['constant']
+        : ['constant', 'continuous'];
   }
 }
 
@@ -193,25 +227,24 @@ export class BaseInputGroup<
   }
 
   public get eligibleStatusStrings() {
-    const ss = this.groupValue(
-      (c) => getEligibleStatusStrings(c),
-      (a, b) => JSON.stringify(a) === JSON.stringify(b)
+    const eligibleLists = this.inputs.map((i) => getEligibleStatusStrings(i));
+    return [...new Set([...eligibleLists.flat()])].filter(
+      (i) =>
+        eligibleLists.filter((i2) => i2.includes(i)).length ===
+        eligibleLists.length
     );
-
-    return ss === '<multiple values>' ? [] : ss;
   }
 
+  /**
+   * Returns an intersection of all of the eligible response lists
+   */
   public get eligibleResponses(): InputResponse[] {
-    switch (this.type) {
-      case '<multiple values>':
-        return [];
-      case 'pad':
-        return this.eligibleResponsesForPad();
-      case 'pitchbend':
-        return ['continuous'];
-      default:
-        return ['continuous', 'constant'];
-    }
+    const eligibleLists = this.inputs.map((i) => getEligibleResponses(i));
+    return [...new Set([...eligibleLists.flat()])].filter(
+      (i) =>
+        eligibleLists.filter((i2) => i2.includes(i)).length ===
+        eligibleLists.length
+    );
   }
 
   public get isColorCapable(): boolean {
@@ -221,24 +254,5 @@ export class BaseInputGroup<
         (a, b) => a === true && b === true
       ) === true
     );
-  }
-
-  /**
-   * Determining eligible responses for a pad is a touch more difficult, as a pad with
-   * hardware input 'constant' is capable of both constant and gate toggle should its
-   * statusString be set to a multiple-step-capable `StatusString`
-   */
-  private eligibleResponsesForPad(): InputResponse[] {
-    const defaultResponse = this.inputs[0].defaults.response;
-    switch (defaultResponse) {
-      case 'toggle':
-        return ['toggle', 'constant'];
-      case 'constant':
-        return ['noteon/noteoff', 'controlchange'].includes(this.statusString)
-          ? ['toggle', 'constant']
-          : ['constant'];
-      default:
-        return ['gate', 'toggle', 'constant']; // basically case 'gate'
-    }
   }
 }

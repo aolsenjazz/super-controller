@@ -75,6 +75,10 @@ export abstract class MonoInputConfig<
     this.channel = s.channel;
     this.number = s.number;
     this.value = s.value || 0;
+
+    if (s.statusString === 'programchange') {
+      this.response = 'constant';
+    }
   }
 
   handleMessage(msg: MidiArray): MidiArray | undefined {
