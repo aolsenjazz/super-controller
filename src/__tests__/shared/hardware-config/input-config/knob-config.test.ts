@@ -22,16 +22,7 @@ describe('fromDriver', () => {
     const conf = KnobConfig.fromDriver(DRIVER);
     expect(conf.response).toBe(DRIVER.response);
     expect(conf.number).toBe(DRIVER.number);
-    expect(conf.knobType).toBe(DRIVER.knobType);
-  });
-});
-
-describe('restoreDefaults', () => {
-  test('restores valueType', () => {
-    const conf = KnobConfig.fromDriver(DRIVER);
-    conf.valueType = 'absolute';
-    conf.restoreDefaults();
-    expect(conf.valueType).toBe('endless');
+    expect(conf.defaults.knobType).toBe(DRIVER.knobType);
   });
 });
 

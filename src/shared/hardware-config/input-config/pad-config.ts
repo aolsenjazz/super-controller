@@ -90,14 +90,6 @@ export class PadConfig extends LightCapableInputConfig {
     };
   }
 
-  restoreDefaults() {
-    super.restoreDefaults();
-
-    if (this.defaultValue !== undefined) {
-      this.value = this.defaultValue;
-    }
-  }
-
   get config() {
     const stateColorConfig: [number, ColorConfigStub][] = [0, 1].map((s) => {
       return [

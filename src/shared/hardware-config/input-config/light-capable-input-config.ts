@@ -71,8 +71,6 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
       })();
   }
 
-  // TODO: now that we're applying color update via applyStub, it's likely that the
-  // API to change colors can be modified
   applyStub(s: ColorCapableInputConfigStub) {
     super.applyStub(s);
 
@@ -128,11 +126,11 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
     return this.devicePropagator.getFxVal(step);
   }
 
-  setFxVal(step: number, fx: MidiNumber[]) {
+  protected setFxVal(step: number, fx: MidiNumber[]) {
     this.devicePropagator.setFx(step, fx);
   }
 
-  setFx(step: number, fx: string | FxDriver) {
+  protected setFx(step: number, fx: string | FxDriver) {
     if (typeof fx === 'string') {
       let set = false;
 
@@ -149,7 +147,7 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
     }
   }
 
-  setColor(step: number, colorOrDisplayName: string | Color) {
+  protected setColor(step: number, colorOrDisplayName: string | Color) {
     if (typeof colorOrDisplayName === 'string') {
       let set = false;
 
@@ -167,11 +165,6 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
     } else {
       this.devicePropagator.setColor(step, colorOrDisplayName);
     }
-  }
-
-  restoreDefaults() {
-    super.restoreDefaults();
-    this.devicePropagator.restoreDefaults();
   }
 
   get currentColorArray() {

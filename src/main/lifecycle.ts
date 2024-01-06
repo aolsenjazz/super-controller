@@ -87,8 +87,8 @@ class LifecycleSingleton {
 
   /**
    * OSX: Invoked when user clicks on app icon in system tray
-   * Windows: TODO: unknown
-   * Linux: TODO: unknown
+   * Windows: Does nothing
+   * Linux: Does nothing
    */
   private subscribeToActivate() {
     return app.on('activate', () => {

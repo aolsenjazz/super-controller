@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from 'react';
 
-import { ConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 
 import ShareSustain from './ShareSustain';
 
 const { ConfigService } = window;
 
 type PropTypes = {
-  config: ConfigStub;
+  config: DeviceConfigStub;
 };
 
 export default function DeviceConfigPanel(props: PropTypes) {

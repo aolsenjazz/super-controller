@@ -1,7 +1,7 @@
 import { BrowserWindow } from 'electron';
 import os from 'os';
 
-import { ConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 import { DeviceStub } from '@shared/device-stub';
 import {
   InputConfigStub,
@@ -46,7 +46,7 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(HOST.CONNECTED_DEVICES, stubs);
   }
 
-  public sendConfiguredDevices(stubs: ConfigStub[]) {
+  public sendConfiguredDevices(stubs: DeviceConfigStub[]) {
     this.send(CONFIG.CONFIGURED_DEVICES, stubs);
   }
 
@@ -54,7 +54,7 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(`device-stub-${id}`, desc);
   }
 
-  public sendConfigStub(id: string, desc: ConfigStub | undefined) {
+  public sendConfigStub(id: string, desc: DeviceConfigStub | undefined) {
     this.send(`config-stub-${id}`, desc);
   }
 

@@ -8,8 +8,9 @@ import { OverrideablePropagator } from '../../propagators';
 import { InputResponse } from '../../driver-types';
 import { BaseInputConfig, InputConfigStub } from './base-input-config';
 
-export interface MonoInputConfigStub extends InputConfigStub {
-  defaults: InputDefault;
+export interface MonoInputConfigStub<T extends InputDefault = InputDefault>
+  extends InputConfigStub {
+  defaults: T;
   colorCapable: boolean;
   statusString: StatusString | 'noteon/noteoff';
   outputResponse: InputResponse;
@@ -33,15 +34,17 @@ export type InputDefault = {
   readonly response: InputResponse;
 };
 
-export abstract class MonoInputConfig extends BaseInputConfig {
-  defaults: InputDefault;
+export abstract class MonoInputConfig<
+  T extends InputDefault = InputDefault
+> extends BaseInputConfig {
+  defaults: T;
 
   outputPropagator: OverrideablePropagator<InputResponse, InputResponse>;
 
   #nickname?: string;
 
   constructor(
-    defaultVals: InputDefault,
+    defaultVals: T,
     outputPropagator: OverrideablePropagator<InputResponse, InputResponse>,
     nickname?: string
   ) {
@@ -76,13 +79,6 @@ export abstract class MonoInputConfig extends BaseInputConfig {
 
   handleMessage(msg: MidiArray): MidiArray | undefined {
     return this.outputPropagator.handleMessage(msg);
-  }
-
-  restoreDefaults() {
-    this.response = this.defaults.response;
-    this.statusString = this.defaults.statusString;
-    this.channel = this.defaults.channel;
-    this.number = this.defaults.number;
   }
 
   get statusString(): StatusString | 'noteon/noteoff' {

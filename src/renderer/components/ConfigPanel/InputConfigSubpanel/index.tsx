@@ -1,4 +1,4 @@
-import { ConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
 import { MonoInputConfigStub } from '@shared/hardware-config/input-config/mono-input-config';
 import { XYConfigStub } from '@shared/hardware-config/input-config/xy-config';
@@ -18,7 +18,7 @@ function areInputsHomogenous(inputConfigs: InputConfigStub[]) {
 }
 
 type InputConfigurationProps = {
-  config: ConfigStub;
+  config: DeviceConfigStub;
   inputConfigs: InputConfigStub[];
 };
 

@@ -35,7 +35,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
 
       if (i.type === 'knob') {
         const asKnob = i as KnobConfigStub;
-        asKnob.valueType = asKnob.knobType;
+        asKnob.valueType = asKnob.defaults.knobType;
       }
     });
 

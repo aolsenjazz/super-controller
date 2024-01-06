@@ -1,19 +1,23 @@
 /* eslint-disable no-bitwise */
 import * as Revivable from '../../revivable';
-import { SliderConfig } from './slider-config';
 import { PitchbendPropagator } from '../../propagators';
-import { MonoInteractiveDriver } from '../../driver-types';
+import { InputResponse, MonoInteractiveDriver } from '../../driver-types';
 import { InputState } from './base-input-config';
-import { MonoInputConfigStub } from './mono-input-config';
+import { MonoInputConfig, MonoInputConfigStub } from './mono-input-config';
 
 export interface PitchbendState extends InputState {
   value: MidiNumber;
 }
 
+/**
+ * It should be noted that while `PitchbendConfig` extends `MonoInputConfig`, pitchbend
+ * messages do not have a notion of `number` and therefore `config.number` and
+ * `config.defaults.number` are a misnomer. Normally, the value at the number-index of a
+ * pitchbend MIDI message array would be the MSB of the pitchbend value, but because of how
+ * create configs from drivers, `config.number` is instead just assigned a meaningless number.
+ */
 @Revivable.register
-export class PitchbendConfig extends SliderConfig {
-  // TODO: not immediate, but pitchbend events don't have a notion of `number`.
-  // for correctness' sake, change this
+export class PitchbendConfig extends MonoInputConfig {
   static fromDriver(d: MonoInteractiveDriver) {
     const def = {
       number: d.number,
@@ -55,6 +59,21 @@ export class PitchbendConfig extends SliderConfig {
   get state(): PitchbendState {
     return {
       value: this.outputPropagator.value,
+    };
+  }
+
+  get response(): InputResponse {
+    return this.outputPropagator.outputResponse;
+  }
+
+  set response(response: InputResponse) {
+    this.outputPropagator.outputResponse = response;
+  }
+
+  toJSON() {
+    return {
+      name: this.constructor.name,
+      args: [this.defaults, this.outputPropagator, this.nickname],
     };
   }
 }

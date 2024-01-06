@@ -40,20 +40,6 @@ describe('toJSON', () => {
   });
 });
 
-describe('restoreDefaults', () => {
-  test('restores default values', () => {
-    const conf = PadConfig.fromDriver(DRIVER);
-    conf.number = 20;
-    conf.response = 'constant';
-    conf.channel = 5;
-    conf.restoreDefaults();
-
-    expect(conf.response).toBe(DRIVER.response);
-    expect(conf.number).toBe(DRIVER.number);
-    expect(conf.channel).toBe(DRIVER.channel);
-  });
-});
-
 describe('set response', () => {
   test('going from gate -> constant changes statusString to noteon', () => {
     const gateDriver = {

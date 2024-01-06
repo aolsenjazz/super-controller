@@ -55,10 +55,6 @@ export class SwitchConfig extends BaseInputConfig {
     };
   }
 
-  restoreDefaults() {
-    this.outputPropagator.restoreDefaults();
-  }
-
   handleMessage(msg: MidiArray): MidiArray | undefined {
     return this.outputPropagator.handleMessage(msg);
   }

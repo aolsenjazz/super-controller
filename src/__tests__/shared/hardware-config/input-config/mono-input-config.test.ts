@@ -57,22 +57,6 @@ describe('handleMessage', () => {
   });
 });
 
-describe('restoreDefaults', () => {
-  test('restores defaults', () => {
-    const ic = new InputConfig(D, PROP);
-    ic.statusString = 'controlchange';
-    ic.channel = 9;
-    ic.number = 100;
-    ic.response = 'toggle';
-    ic.restoreDefaults();
-
-    expect(ic.statusString).toBe(D.statusString);
-    expect(ic.channel).toBe(D.channel);
-    expect(ic.number).toBe(D.number);
-    expect(ic.response).toBe(D.response);
-  });
-});
-
 describe('id', () => {
   test('returns correct id', () => {
     const ic = new InputConfig(D, PROP);

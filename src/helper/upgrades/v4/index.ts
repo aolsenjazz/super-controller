@@ -159,10 +159,14 @@ function convertInput(i: V4BaseInputConfig): BaseInputConfig {
   if (i instanceof V4KnobConfig) {
     const { defaults, outputPropagator, knobType, nickname } = i;
 
-    return new KnobConfig(
-      defaults,
-      convertOutputProp(outputPropagator) as ContinuousPropagator,
+    const newDefaults = {
+      ...defaults,
       knobType,
+    };
+
+    return new KnobConfig(
+      newDefaults,
+      convertOutputProp(outputPropagator) as ContinuousPropagator,
       nickname
     );
   }

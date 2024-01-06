@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import { ConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 
 const { ConfigService } = window;
 
 export const useConfiguredDevices = () => {
-  const [configStubs, setConfigStubs] = useState<ConfigStub[]>([]);
+  const [configStubs, setConfigStubs] = useState<DeviceConfigStub[]>([]);
 
   useEffect(() => {
-    const cb = (stubs: ConfigStub[]) => {
+    const cb = (stubs: DeviceConfigStub[]) => {
       setConfigStubs(stubs);
     };
 

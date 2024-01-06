@@ -91,7 +91,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
     let available = true;
 
     this.inputs.forEach((input) => {
-      // TODO: there's probably a more elegant way to do this
       if (
         input instanceof MonoInputConfig &&
         input.statusString === statusString &&

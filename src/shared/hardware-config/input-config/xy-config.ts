@@ -67,11 +67,6 @@ export class XYConfig extends BaseInputConfig {
     return this.y.handleMessage(msg);
   }
 
-  restoreDefaults() {
-    this.x.restoreDefaults();
-    this.y.restoreDefaults();
-  }
-
   applyStub(s: XYConfigStub): void {
     this.x.applyStub(s.x);
     this.y.applyStub(s.y);

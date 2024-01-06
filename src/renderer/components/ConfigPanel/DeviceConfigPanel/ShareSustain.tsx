@@ -1,5 +1,5 @@
 import { useConfiguredDevices } from '@hooks/use-configured-devices';
-import { ConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 
 import ShareSustainLine from './ShareSustainLine';
 
@@ -18,7 +18,7 @@ function disambiguatedNickname(
 }
 
 type PropTypes = {
-  config: ConfigStub;
+  config: DeviceConfigStub;
 };
 
 export default function ShareSustain(props: PropTypes) {

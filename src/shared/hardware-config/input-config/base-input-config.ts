@@ -31,7 +31,5 @@ export abstract class BaseInputConfig {
 
   abstract handleMessage(msg: MidiArray): MidiArray | undefined;
 
-  abstract restoreDefaults(): void;
-
   abstract toJSON(): Skeleton;
 }

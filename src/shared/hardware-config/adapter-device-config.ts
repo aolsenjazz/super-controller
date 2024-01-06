@@ -1,7 +1,6 @@
 import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { SupportedDeviceConfig } from './supported-device-config';
-import { ConfigStub } from './device-config';
 
 @Revivable.register
 export class AdapterDeviceConfig implements SupportedDeviceConfig {
@@ -130,7 +129,7 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
     return `${this.portName} ${this.siblingIndex}`;
   }
 
-  get stub(): ConfigStub {
+  get stub() {
     return {
       id: this.id,
       portName: this.portName,

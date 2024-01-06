@@ -6,7 +6,7 @@
  */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
-import { ConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 import { DeviceStub } from '@shared/device-stub';
 import { MidiArray } from '@shared/midi-array';
 import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
@@ -204,7 +204,7 @@ const configService = {
   /**
    * Send an updated copy of a device config to the backend.
    */
-  updateDevice(config: ConfigStub) {
+  updateDevice(config: DeviceConfigStub) {
     ipcRenderer.send(CONFIG.UPDATE_DEVICE, config);
   },
 
@@ -225,7 +225,7 @@ const configService = {
    * when a new project is loaded for a given device is connected. Also immediately
    * invokes `func` with currently-configured devices
    */
-  onConfiguredDevicesChange: (func: (stubs: ConfigStub[]) => void) => {
+  onConfiguredDevicesChange: (func: (stubs: DeviceConfigStub[]) => void) => {
     const off = addOnChangeListener(CONFIG.CONFIGURED_DEVICES, func);
     ipcRenderer.send(CONFIG.REQUEST_CONFIGURED_DEVICES);
     return off;
@@ -237,7 +237,7 @@ const configService = {
    */
   onConfigChange(
     deviceId: string,
-    func: (desc: ConfigStub | undefined) => void
+    func: (desc: DeviceConfigStub | undefined) => void
   ) {
     const off = addOnChangeListener(`config-stub-${deviceId}`, func);
     ipcRenderer.send(CONFIG.REQUEST_DEVICE_CONFIG_STUB, deviceId);

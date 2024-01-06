@@ -1,12 +1,12 @@
 import { create, MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
-import { ConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 
 import SettingsLineItem from '../SettingsLineItem';
 
 const { TranslatorService } = window;
 
 type ControlsContainerPropTypes = {
-  config: ConfigStub;
+  config: DeviceConfigStub;
   currentAction: MidiArray;
   remove: () => void;
   onChange: (

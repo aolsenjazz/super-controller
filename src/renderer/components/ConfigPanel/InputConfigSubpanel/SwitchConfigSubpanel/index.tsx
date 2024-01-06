@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useDeviceDriver } from '@hooks/use-driver';
-import { ConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 import { SwitchDriver } from '@shared/driver-types';
 import { id } from '@shared/util';
 import { SwitchConfigStub } from '@shared/hardware-config/input-config/switch-config';
@@ -10,7 +10,7 @@ import SwitchStepConfig from './SwitchStepConfig';
 import OsxTabs from '../../../OsxTabs';
 
 type PropTypes = {
-  deviceConfig: ConfigStub;
+  deviceConfig: DeviceConfigStub;
   inputConfigStub: SwitchConfigStub;
 };
 

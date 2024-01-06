@@ -1,7 +1,7 @@
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
 
-export type ConfigStub = {
+export type DeviceConfigStub = {
   id: string;
   portName: string;
   siblingIndex: number;
@@ -10,7 +10,7 @@ export type ConfigStub = {
   isAdapter: boolean;
   isAnonymous: boolean;
   shareSustain: string[];
-  child?: ConfigStub;
+  child?: DeviceConfigStub;
 };
 
 /**
@@ -108,7 +108,7 @@ export abstract class DeviceConfig {
     this.shareSustain.splice(idx, 1);
   }
 
-  abstract get stub(): ConfigStub;
+  abstract get stub(): DeviceConfigStub;
   abstract applyOverrides(msg: MidiArray): MidiArray | undefined;
   abstract getResponse(msg: MidiArray): MidiArray | undefined;
 }

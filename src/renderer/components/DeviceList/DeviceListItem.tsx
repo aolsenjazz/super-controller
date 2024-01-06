@@ -1,5 +1,5 @@
 import { useConfigStub } from '@hooks/use-config-stub';
-import { getDriver } from '@shared/drivers';
+import { Anonymous, getDriver } from '@shared/drivers';
 
 import DeviceIcon from '../DeviceIcon';
 
@@ -56,11 +56,12 @@ export default function DeviceListItem(props: PropTypes) {
   } = props;
 
   const { configStub } = useConfigStub(deviceId);
+  const driver = getDriver(driverName) || Anonymous;
 
   return (
     <div className={`device-list-item ${selected ? 'active' : ''}`}>
       <div className="device-icon-container">
-        <DeviceIcon driver={getDriver(driverName)} active={selected} />
+        <DeviceIcon driver={driver} active={selected} />
       </div>
       <div
         className="device-list-item-label"

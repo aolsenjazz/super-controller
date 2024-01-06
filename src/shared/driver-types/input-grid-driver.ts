@@ -1,4 +1,12 @@
-import { InputDrivers } from './input-drivers';
+import {
+  InputDriverWithHandle,
+  KnobDriver,
+  MonoInteractiveDriver,
+  NoninteractiveInputDriver,
+  PadDriver,
+  SwitchDriver,
+  XYDriver,
+} from './input-drivers';
 
 export type InputGridDriver = {
   /** Simple identifier, e.g. Main Pads */
@@ -29,5 +37,14 @@ export type InputGridDriver = {
   readonly bottom: number;
 
   /* See `InputDriver` */
-  readonly inputs: InputDrivers[];
+
+  readonly inputs: (
+    | NoninteractiveInputDriver
+    | KnobDriver
+    | MonoInteractiveDriver
+    | InputDriverWithHandle
+    | PadDriver
+    | XYDriver
+    | SwitchDriver
+  )[];
 };

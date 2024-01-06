@@ -8,8 +8,7 @@ import {
 } from './mono-input-config';
 import { InputState } from './base-input-config';
 
-export interface KnobConfigStub extends MonoInputConfigStub {
-  knobType: 'absolute' | 'endless';
+export interface KnobConfigStub extends MonoInputConfigStub<KnobDefaults> {
   valueType: 'absolute' | 'endless';
   type: 'knob';
 }
@@ -18,10 +17,12 @@ export interface KnobState extends InputState {
   value: number;
 }
 
-@Revivable.register
-export class KnobConfig extends MonoInputConfig {
-  readonly knobType: 'endless' | 'absolute';
+interface KnobDefaults extends InputDefault {
+  knobType: 'endless' | 'absolute';
+}
 
+@Revivable.register
+export class KnobConfig extends MonoInputConfig<KnobDefaults> {
   outputPropagator: ContinuousPropagator;
 
   static fromDriver(d: KnobDriver) {
@@ -30,6 +31,7 @@ export class KnobConfig extends MonoInputConfig {
       channel: d.channel,
       statusString: d.status,
       response: d.response,
+      knobType: d.knobType,
     };
 
     const prop = new ContinuousPropagator(
@@ -45,14 +47,12 @@ export class KnobConfig extends MonoInputConfig {
   }
 
   constructor(
-    defaultVals: InputDefault,
+    defaultVals: KnobDefaults,
     outputPropagator: ContinuousPropagator,
-    knobType: 'endless' | 'absolute',
     nickname?: string
   ) {
     super(defaultVals, outputPropagator, nickname);
     this.outputPropagator = outputPropagator;
-    this.knobType = knobType;
   }
 
   applyStub(s: KnobConfigStub) {
@@ -64,19 +64,8 @@ export class KnobConfig extends MonoInputConfig {
   toJSON() {
     return {
       name: this.constructor.name,
-      args: [
-        this.defaults,
-        this.outputPropagator,
-        this.knobType,
-        this.nickname,
-      ],
+      args: [this.defaults, this.outputPropagator, this.nickname],
     };
-  }
-
-  restoreDefaults() {
-    super.restoreDefaults();
-
-    this.valueType = this.knobType;
   }
 
   get config(): KnobConfigStub {
@@ -89,7 +78,6 @@ export class KnobConfig extends MonoInputConfig {
       channel: this.channel,
       number: this.number,
       value: this.value,
-      knobType: this.knobType,
       valueType: this.valueType,
       type: 'knob',
     };
@@ -101,8 +89,6 @@ export class KnobConfig extends MonoInputConfig {
     };
   }
 
-  // TODO: Why on earth is this valueType? Should really just use knobType
-  // and store the defaultKnobType in a defaults object
   get valueType() {
     return this.outputPropagator.valueType;
   }

@@ -3,7 +3,7 @@ import { BaseInputGroup } from './base-input-group';
 
 export class KnobInputGroup extends BaseInputGroup<KnobConfigStub> {
   get isEndlessCapable() {
-    const getter = (c: KnobConfigStub) => c.knobType === 'endless';
+    const getter = (c: KnobConfigStub) => c.defaults.knobType === 'endless';
     const equality = (a: boolean, b: boolean) => {
       return a === true && b === true;
     };

@@ -12,7 +12,7 @@ import {
 import { Project } from '@shared/project';
 import { idForConfigStub, stringify } from '@shared/util';
 import { getDriver } from '@shared/drivers';
-import { ConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 import { create } from '@shared/midi-array';
 import {
   BaseInputConfig,
@@ -141,11 +141,14 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         driverName?: string,
         childName?: string
       ) => {
-        const driver = getDriver(driverName || deviceName);
+        const driver = getDriver(driverName || deviceName)!;
         const conf = configFromDriver(deviceName, siblingIdx, driver);
 
         if (conf instanceof AdapterDeviceConfig) {
-          const childDriver = getDriver(childName!);
+          if (childName === undefined)
+            throw new Error('must provide child name');
+
+          const childDriver = getDriver(childName)!;
           const childConf = configFromDriver(
             childName!,
             siblingIdx,
@@ -174,7 +177,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     ipcMain.on(
       CONFIG.UPDATE_DEVICE,
-      (_e: IpcMainEvent, updates: ConfigStub) => {
+      (_e: IpcMainEvent, updates: DeviceConfigStub) => {
         const config = this.project.getDevice(updates.id)!;
 
         config.nickname = updates.nickname;
