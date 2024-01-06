@@ -5,11 +5,10 @@ import HelpTip from '../../../HelpTip';
 import DriverRequestButton from '../../../DriverRequestButton';
 import BasicSelect from '../../../BasicSelect';
 
-// TODO: is this supposed to be a set... no reason to be a map
-const fivePins = new Map(
+const fivePins = Array.from(DRIVERS.entries())
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  Array.from(DRIVERS.entries()).filter(([_k, d]) => d.type === '5pin')
-);
+  .filter(([_k, v]) => v.type === '5pin')
+  .map(([k]) => k);
 
 const { ConfigService } = window;
 
@@ -24,8 +23,6 @@ const tipBody = `When using a 5-pin adapter, only the adapter is visible to Supe
 export default function AdapterNotConfigured(props: PropTypes) {
   const { device } = props;
 
-  const valueList = Array.from(fivePins.keys());
-  const labelList = Array.from(fivePins.keys());
   const value = '';
 
   const onChange = (v: string | number) => {
@@ -47,8 +44,8 @@ export default function AdapterNotConfigured(props: PropTypes) {
       <div>
         <p className="label">Select Device: </p>
         <BasicSelect
-          valueList={valueList}
-          labelList={labelList}
+          valueList={fivePins}
+          labelList={fivePins}
           value={value}
           onChange={onChange}
           placeholder="Choose your device"

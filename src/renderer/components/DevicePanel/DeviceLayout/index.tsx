@@ -10,12 +10,11 @@ type PropTypes = {
 
 export default function DeviceLayout(props: PropTypes) {
   const { driver, onClick } = props;
-  // TODO: Pretty sure we removed need for the --r variable. research
   return (
     <div
       style={{
-        '--r': `${driver.width}/${driver.height}`, // TODO: really should document this
         ...driver.style,
+        aspectRatio: `${driver.width / driver.height}`,
       }}
       className="device-layout"
     >

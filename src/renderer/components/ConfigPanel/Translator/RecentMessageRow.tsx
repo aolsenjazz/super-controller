@@ -8,7 +8,6 @@ type RecentMessageRowPropTypes = {
   currentAction: MidiArray | undefined;
 };
 
-// TODO: why is no value specified?
 export default function RecentMessageRow(props: RecentMessageRowPropTypes) {
   const { config, setCurrentAction, currentAction } = props;
   const { recentMsg } = useRecentMessage(config.id);

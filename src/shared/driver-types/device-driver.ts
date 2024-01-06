@@ -3,8 +3,6 @@ import { KeyboardDriver } from './keyboard-driver';
 
 /* Options obj w/css style-value pairs to make virtual devices look more realistic */
 export type DeviceStyle = {
-  '--r'?: number /* used to calculate aspect-ratio */;
-
   /* Radius in `em` or `px` */
   borderTopLeftRadius?: string;
 
