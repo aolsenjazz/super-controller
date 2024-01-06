@@ -16,8 +16,7 @@ export class PortInfo {
   readonly type: 'input' | 'output';
 
   /* nth-occurrence of device. Relevant when >1 devices of same model are connected */
-  // TODO: why isn't this readonly?
-  siblingIndex: number;
+  readonly siblingIndex: number;
 
   constructor(
     index: number,

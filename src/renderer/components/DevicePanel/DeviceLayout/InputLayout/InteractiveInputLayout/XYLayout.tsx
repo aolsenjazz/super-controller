@@ -51,11 +51,6 @@ export default function XYLayout(props: PropTypes) {
       className="xy interactive-indicator"
       tabIndex={0}
       onKeyDown={() => {}}
-      style={{
-        width: '100%',
-        height: '100%', // TODO: these shouldn't be in ts
-        borderRadius: '100%',
-      }}
       role="button"
     >
       <div

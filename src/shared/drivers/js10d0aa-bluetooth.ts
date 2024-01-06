@@ -95,12 +95,6 @@ export const Device: DeviceDriver = {
       bottom: 1.57,
       nRows: 1,
       nCols: 5,
-      style: {
-        width: '45%',
-        height: '5%',
-        top: '21%',
-        left: '11%',
-      },
       inputs: [
         createPad(34),
         createPad(35),
@@ -181,12 +175,6 @@ export const Device: DeviceDriver = {
       bottom: 0,
       nRows: 1,
       nCols: 4,
-      style: {
-        width: '4.6%',
-        height: '100%',
-        top: '0',
-        left: '58%',
-      },
       inputs: [
         {
           interactive: false,

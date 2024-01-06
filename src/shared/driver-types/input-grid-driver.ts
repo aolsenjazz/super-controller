@@ -28,14 +28,6 @@ export type InputGridDriver = {
   /* Distance from bottom edge of device in inches */
   readonly bottom: number;
 
-  // TODO: thhis only appears in the JS10 whatever driver. is thihs realy needed?
-  readonly style?: {
-    width?: string;
-    height?: string;
-    top?: string;
-    left?: string;
-  };
-
   /* See `InputDriver` */
   readonly inputs: InputDrivers[];
 };
