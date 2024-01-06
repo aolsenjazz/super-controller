@@ -1,12 +1,28 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable max-classes-per-file */
-import { InputPort } from 'main/port-service/input-port';
-import { OutputPort } from 'main/port-service/output-port';
+import { InputPort } from '../../main/port-service/input-port';
+import { OutputPort } from '../../main/port-service/output-port';
 
 import { PortPair } from '../../main/port-service/port-pair';
 
-class MockInput extends InputPort {}
-class MockOutput extends OutputPort {}
+class MockInput extends InputPort {
+  open() {}
+
+  close() {}
+
+  isOpen() {
+    return true;
+  }
+}
+class MockOutput extends OutputPort {
+  open() {}
+
+  close() {}
+
+  isOpen() {
+    return true;
+  }
+}
 
 function makePortPair(index: number, name: string) {
   const iPort = new MockInput(index, index, name);

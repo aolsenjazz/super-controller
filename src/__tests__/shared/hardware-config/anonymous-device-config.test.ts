@@ -51,7 +51,7 @@ test('toJSON and fromJSON correctly serializes and deserializes', () => {
   expect(device.nickname).toBe(other.nickname);
   expect(device.shareSustain).toEqual(other.shareSustain);
   expect(JSON.stringify(device.overrides)).toEqual(
-    Array.from(JSON.stringify(other.overrides))
+    JSON.stringify(other.overrides)
   );
 });
 
