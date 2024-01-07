@@ -44,7 +44,7 @@ export default function DeviceList() {
     const configuredDevices = configStubs.map((s) => {
       return {
         ...s,
-        name: s.nickname,
+        name: s.nickname || s.portName,
         connected: connectedDevicesIds.includes(s.id),
         configured: true,
       };

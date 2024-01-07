@@ -68,7 +68,7 @@ export abstract class DeviceConfig {
   }
 
   get nickname() {
-    return this.#nickname || this.portName;
+    return this.#nickname !== undefined ? this.#nickname : this.portName;
   }
 
   set nickname(nickname: string) {

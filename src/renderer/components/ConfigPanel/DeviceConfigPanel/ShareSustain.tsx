@@ -40,7 +40,7 @@ export default function ShareSustain(props: PropTypes) {
         return (
           <ShareSustainLine
             name={disambiguatedNickname(
-              dev.nickname,
+              dev.nickname || dev.portName,
               dev.portName,
               dev.siblingIndex
             )}
