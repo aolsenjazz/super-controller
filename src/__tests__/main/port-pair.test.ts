@@ -6,10 +6,12 @@ import { OutputPort } from '../../main/port-service/output-port';
 
 import { PortPair } from '../../main/port-service/port-pair';
 
+class MockMidiPort {}
+
 jest.mock('@julusian/midi', () => {
   return {
-    Output: () => {},
-    Input: () => {},
+    Output: MockMidiPort,
+    Input: MockMidiPort,
   };
 });
 
