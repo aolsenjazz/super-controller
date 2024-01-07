@@ -40,6 +40,10 @@ export abstract class StatefulWindowActions extends WindowActions {
     w.on('closed', () => this.notifyListeners());
   }
 
+  public get edited() {
+    return this.windowEdited;
+  }
+
   public set edited(edited: boolean) {
     if (this.id === undefined) {
       throw new Error(

@@ -61,7 +61,14 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     return ProjectProviderSingleton.instance;
   }
 
-  public initDefault() {
+  public async initDefault() {
+    if (MainWindow.edited) {
+      const doSave = dialogs.unsavedCheck();
+      if (doSave === true) await this.save();
+    }
+
+    MainWindow.edited = false;
+    this.currentPath = undefined;
     this.project = new Project();
     this.emit(ProjectProviderEvent.NewProject, {
       name: 'Untitled project',
@@ -69,10 +76,17 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     });
   }
 
-  public loadProject(filePath: string) {
+  public async loadProject(filePath: string) {
+    if (MainWindow.edited) {
+      const doSave = dialogs.unsavedCheck();
+      if (doSave === true) await this.save();
+    }
+
     app.addRecentDocument(filePath);
 
+    MainWindow.edited = false;
     this.project = projectFromFile(filePath);
+    this.currentPath = filePath;
 
     this.emit(ProjectProviderEvent.NewProject, {
       name: path.basename(filePath, '.controller'),
@@ -85,17 +99,12 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
    * exists, create a saveAs dialog
    */
   public async save() {
-    if (this.currentPath) {
-      fs.writeFileSync(this.currentPath, stringify(this.project), {});
-      app.addRecentDocument(this.currentPath);
-    }
+    if (this.currentPath === undefined) await this.saveAs();
 
-    const result = await dialogs.save(recommendedDir(), 'Untitled project');
+    fs.writeFileSync(this.currentPath!, stringify(this.project), {});
 
-    if (result.filePath === undefined) throw new Error('aborted');
-
-    store.set(SAVE_DIR, path.parse(result.filePath).dir);
-    this.currentPath = result.filePath;
+    MainWindow.edited = false;
+    app.addRecentDocument(this.currentPath!);
   }
 
   /**
@@ -114,6 +123,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     this.currentPath = filePath;
     this.save();
+    MainWindow.title = path.basename(filePath, '.controller');
   }
 
   /**
