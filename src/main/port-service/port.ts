@@ -1,5 +1,9 @@
 import { Input, Output } from '@julusian/midi';
 
+/**
+ * Base class for `InputPort` and `OutputPort`s. Upon instantiation, open a connection
+ * to the input or output port using the `this.index`
+ */
 export abstract class Port<T extends Input | Output = Input | Output> {
   index: number;
 

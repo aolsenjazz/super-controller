@@ -1,9 +1,17 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable max-classes-per-file */
+
 import { InputPort } from '../../main/port-service/input-port';
 import { OutputPort } from '../../main/port-service/output-port';
 
 import { PortPair } from '../../main/port-service/port-pair';
+
+jest.mock('@julusian/midi', () => {
+  return {
+    Output: () => {},
+    Input: () => {},
+  };
+});
 
 class MockInput extends InputPort {
   open() {}
