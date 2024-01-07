@@ -159,6 +159,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
         this.project.addDevice(conf);
 
+        MainWindow.edited = true;
         this.emit(ProjectProviderEvent.AddDevice, conf);
         MainWindow.sendConfiguredDevices(
           this.project.devices.map((d) => d.stub)
@@ -171,6 +172,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
       const config = this.project.getDevice(deviceId)!;
       this.project.removeDevice(config);
 
+      MainWindow.edited = true;
       this.emit(ProjectProviderEvent.RemoveDevice, config);
       MainWindow.sendConfiguredDevices(this.project.devices.map((d) => d.stub));
     });
@@ -188,6 +190,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         config.nickname = updates.nickname;
         config.shareSustain = updates.shareSustain;
 
+        MainWindow.edited = true;
         this.emit(ProjectProviderEvent.UpdateDevice, this.project);
         MainWindow.sendConfigStub(config.id, config.stub);
       }
@@ -212,6 +215,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
           }
         });
 
+        MainWindow.edited = true;
         MainWindow.sendInputConfigs(updatedConfigs.map((c) => c.config));
         this.emit(
           ProjectProviderEvent.UpdateInput,
@@ -226,6 +230,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
       (_e: IpcMainEvent, deviceId: string, action: NumberArrayWithStatus) => {
         const conf = this.project.getDevice(deviceId);
 
+        MainWindow.edited = true;
         if (conf instanceof AnonymousDeviceConfig) {
           conf.deleteOverride(action);
         }
@@ -245,6 +250,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
       ) => {
         const conf = this.project.getDevice(deviceId);
 
+        MainWindow.edited = true;
         if (conf instanceof AnonymousDeviceConfig) {
           const ma = create(action);
           conf.overrideInput(ma, statusString, channel, number, value);
