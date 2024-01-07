@@ -2,6 +2,7 @@ import { useSelectedDevice } from '@context/selected-device-context';
 import { useInputState } from '@hooks/use-input-state';
 import { XYDriver } from '@shared/driver-types';
 import { XYState } from '@shared/hardware-config/input-config/xy-config';
+import { useMemo } from 'react';
 
 type PropTypes = {
   handleWidth: string;
@@ -14,15 +15,22 @@ export default function XYLayout(props: PropTypes) {
   const { handleWidth, handleHeight, id, driver } = props;
 
   const { selectedDevice } = useSelectedDevice();
+  const initialState = useMemo(() => {
+    return {
+      x: {
+        value: 64,
+      },
+      y: {
+        value: 64,
+      },
+    };
+  }, []);
 
-  const { state } = useInputState<XYState>(selectedDevice || '', id, {
-    x: {
-      value: 64,
-    },
-    y: {
-      value: 64,
-    },
-  });
+  const { state } = useInputState<XYState>(
+    selectedDevice || '',
+    id,
+    initialState
+  );
 
   if (state === undefined) return null;
 
@@ -38,12 +46,12 @@ export default function XYLayout(props: PropTypes) {
 
   const xStyle =
     driver.x.status === 'pitchbend'
-      ? `calc(${xShift} * 50%)`
-      : `calc(25% + 25% * ${xShift})`;
+      ? `calc(25% + ${xShift * 50}%)`
+      : `calc(25% + 25% * ${xShift})`; // this is probably incorrect
 
   const yStyle =
     driver.y.status === 'pitchbend'
-      ? `calc(50% + 25% * ${yShift})`
+      ? `calc(50% + 50% * ${yShift})` // this is probably incorrect
       : `calc(50% + 25% * ${yShift})`;
 
   return (
@@ -55,12 +63,12 @@ export default function XYLayout(props: PropTypes) {
     >
       <div
         style={{
-          top: yStyle,
+          marginTop: yStyle,
           left: xStyle,
           position: 'absolute',
           width: handleWidth,
           height: handleHeight,
-          transform: `translate(0, -50%)`,
+          transform: `translate(-50%, -50%)`,
         }}
       >
         <div className="inner interactive-indicator" style={iStyle} />
