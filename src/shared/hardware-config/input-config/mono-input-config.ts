@@ -64,7 +64,7 @@ export abstract class MonoInputConfig<
         ma.statusString.includes('note');
 
       return (
-        noteOnOffMatch &&
+        (noteOnOffMatch || ma.statusString === this.defaults.statusString) &&
         ma.channel === this.defaults.channel &&
         ma.number === this.defaults.number
       );
