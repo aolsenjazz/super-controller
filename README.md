@@ -25,7 +25,7 @@ Basic usage guides can be found at the [SuperController knowledgebase](https://h
 
 If a device is supported, it will have a driver file in the drivers folder. Supporting more devices make this software more useful for everyone so if you are able to write drivers for your devices, please do so! If not, please [open a pull request](https://github.com/aolsenjazz/super-controller/pulls) and we'll work together to get your device supported.
 
-## Build + run locally
+## Build and run locally
 
 ```shell
 git clone https://github.com/aolsenjazz/super-controller
