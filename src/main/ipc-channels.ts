@@ -23,8 +23,8 @@ export const CONFIG = {
   UPDATE_INPUT: 'update-input',
 
   REQUEST_DEVICE_CONFIG_STUB: 'request-device-config-stub',
+  GET_CONFIGURED_DEVICES: 'get-configured-devices',
   CONFIGURED_DEVICES: 'configured-devices',
-  REQUEST_CONFIGURED_DEVICES: 'request-configured-devices',
 
   INPUT_CONFIG_CHANGE: 'input-config-change',
   REQUEST_INPUT_CONFIG_STUB: 'request-input-config-stub',

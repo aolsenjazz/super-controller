@@ -1,5 +1,6 @@
 import { useConfiguredDevices } from '@hooks/use-configured-devices';
 import { DeviceConfigStub } from '@shared/hardware-config/device-config';
+import { useMemo } from 'react';
 
 import ShareSustainLine from './ShareSustainLine';
 
@@ -26,7 +27,9 @@ export default function ShareSustain(props: PropTypes) {
   const { configStubs } = useConfiguredDevices();
 
   // get all devices which aren't this device
-  const shareableDevices = configStubs.filter((dev) => dev.id !== config.id);
+  const shareableDevices = useMemo(() => {
+    return configStubs.filter((dev) => dev.id !== config.id);
+  }, [configStubs, config.id]);
 
   if (shareableDevices.length === 0) return null;
 
@@ -47,7 +50,7 @@ export default function ShareSustain(props: PropTypes) {
               if (checked) config.shareSustain.push(dev.id);
               else
                 config.shareSustain = config.shareSustain.filter(
-                  (id) => id === dev.id
+                  (id) => id !== dev.id
                 );
 
               ConfigService.updateDevice(config);

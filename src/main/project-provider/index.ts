@@ -11,7 +11,7 @@ import {
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 import { idForConfigStub, stringify } from '@shared/util';
-import { getDriver } from '@shared/drivers';
+import { Anonymous, getDriver } from '@shared/drivers';
 import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 import { create } from '@shared/midi-array';
 import {
@@ -141,7 +141,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         driverName?: string,
         childName?: string
       ) => {
-        const driver = getDriver(driverName || deviceName)!;
+        const driver = getDriver(driverName || deviceName) || Anonymous;
         const conf = configFromDriver(deviceName, siblingIdx, driver);
 
         if (conf instanceof AdapterDeviceConfig) {
@@ -173,6 +173,11 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
       this.emit(ProjectProviderEvent.RemoveDevice, config);
       MainWindow.sendConfiguredDevices(this.project.devices.map((d) => d.stub));
+    });
+
+    /* When a device is removed from project, remove it here and re-init all devices */
+    ipcMain.on(CONFIG.GET_CONFIGURED_DEVICES, (e: IpcMainEvent) => {
+      e.returnValue = this.project.devices.map((d) => d.stub);
     });
 
     ipcMain.on(

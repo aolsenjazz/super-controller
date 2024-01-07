@@ -4,7 +4,9 @@ import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 const { ConfigService } = window;
 
 export const useConfiguredDevices = () => {
-  const [configStubs, setConfigStubs] = useState<DeviceConfigStub[]>([]);
+  const [configStubs, setConfigStubs] = useState<DeviceConfigStub[]>(
+    ConfigService.getConfiguredDevices()
+  );
 
   useEffect(() => {
     const cb = (stubs: DeviceConfigStub[]) => {

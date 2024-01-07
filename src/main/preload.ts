@@ -16,7 +16,7 @@ import { CONFIG, TRANSLATOR, HOST } from './ipc-channels';
 // the frontend uses a lot of listeners. because of this, this number gets
 // pretty high. If it complains, make sure that we're not leaking memory,
 // then increase this number.
-ipcRenderer.setMaxListeners(100);
+ipcRenderer.setMaxListeners(1000);
 
 /**
  * Generic wrapper around ipcRenderer.on() and ipcRenderer.removeListener()
@@ -220,15 +220,17 @@ const configService = {
     ipcRenderer.send(CONFIG.UPDATE_INPUT, deviceId, configs);
   },
 
+  getConfiguredDevices: () => {
+    return ipcRenderer.sendSync(CONFIG.GET_CONFIGURED_DEVICES);
+  },
+
   /**
    * Invokes `func` whenever the list of configured devices changes, e.g.
    * when a new project is loaded for a given device is connected. Also immediately
    * invokes `func` with currently-configured devices
    */
   onConfiguredDevicesChange: (func: (stubs: DeviceConfigStub[]) => void) => {
-    const off = addOnChangeListener(CONFIG.CONFIGURED_DEVICES, func);
-    ipcRenderer.send(CONFIG.REQUEST_CONFIGURED_DEVICES);
-    return off;
+    return addOnChangeListener(CONFIG.CONFIGURED_DEVICES, func);
   },
 
   /**
