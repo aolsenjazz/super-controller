@@ -4,6 +4,7 @@ import os from 'os';
 import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 import { DeviceStub } from '@shared/device-stub';
 import {
+  BaseInputConfig,
   InputConfigStub,
   InputState,
 } from '@shared/hardware-config/input-config/base-input-config';
@@ -55,7 +56,7 @@ export class MainWindowActions extends StatefulWindowActions {
   }
 
   public sendConfigStub(id: string, desc: DeviceConfigStub | undefined) {
-    this.send(`config-stub-${id}`, desc);
+    this.send(`device-config-stub-${id}`, desc);
   }
 
   public sendOverrides(id: string, overrides: ImmutableMidiArrayMap) {
@@ -71,6 +72,14 @@ export class MainWindowActions extends StatefulWindowActions {
     inputId: string,
     state: T
   ) {
-    this.send(`device-${deviceId}-input-${inputId}`, state);
+    this.send(`device-${deviceId}-input-${inputId}-state`, state);
+  }
+
+  public sendInputConfig<T extends InputConfigStub>(
+    deviceId: string,
+    inputId: string,
+    config: T
+  ) {
+    this.send(`device-${deviceId}-input-${inputId}-config`, config);
   }
 }

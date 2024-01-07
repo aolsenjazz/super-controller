@@ -1,6 +1,10 @@
 import { useSelectedDevice } from '@context/selected-device-context';
+import { useInputConfig } from '@hooks/use-input-config';
 import { useInputState } from '@hooks/use-input-state';
-import { KnobState } from '@shared/hardware-config/input-config/knob-config';
+import {
+  KnobConfigStub,
+  KnobState,
+} from '@shared/hardware-config/input-config/knob-config';
 import { useEffect, useState } from 'react';
 
 const defaultState = {
@@ -34,9 +38,19 @@ type PropTypes = {
 
 export function Knob(props: PropTypes) {
   const { shape, endless, id } = props;
-
   const { selectedDevice } = useSelectedDevice();
   const [curDeg, setCurDeg] = useState(0);
+
+  const { inputConfig } = useInputConfig<KnobConfigStub>(
+    selectedDevice || '',
+    id
+  );
+
+  const [isEndless, setEndless] = useState(endless);
+
+  useEffect(() => {
+    if (inputConfig) setEndless(inputConfig.valueType === 'endless');
+  }, [inputConfig]);
 
   const { state } = useInputState<KnobState>(
     selectedDevice || '',
@@ -65,7 +79,7 @@ export function Knob(props: PropTypes) {
         }}
       >
         <div className="inner" style={{ transform: `rotate(${curDeg}deg)` }}>
-          {endless ? null : <div className="grip" />}
+          {isEndless ? null : <div className="grip" />}
         </div>
       </div>
     </div>

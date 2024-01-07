@@ -239,6 +239,24 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     );
 
     ipcMain.on(
+      CONFIG.GET_INPUT_CONFIG,
+      (_e: IpcMainEvent, deviceId: string, inputId: string) => {
+        const dConf = this.project.getDevice(deviceId);
+
+        if (
+          dConf instanceof SupportedDeviceConfig ||
+          dConf instanceof AdapterDeviceConfig
+        ) {
+          const iConf = dConf.getInputById(inputId);
+
+          if (iConf) {
+            MainWindow.sendInputConfig(deviceId, inputId, iConf.config);
+          }
+        }
+      }
+    );
+
+    ipcMain.on(
       TRANSLATOR.REMOVE_TRANSLATOR_OVERRIDE,
       (_e: IpcMainEvent, deviceId: string, action: NumberArrayWithStatus) => {
         const conf = this.project.getDevice(deviceId);

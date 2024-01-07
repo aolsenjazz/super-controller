@@ -3,19 +3,22 @@ import { useState, useEffect } from 'react';
 
 const { ConfigService } = window;
 
-export const useInputConfigs = (deviceId: string, inputIds: string[]) => {
-  const [inputConfigs, setInputConfigs] = useState<InputConfigStub[]>([]);
+export function useInputConfigs<T extends InputConfigStub = InputConfigStub>(
+  deviceId: string,
+  inputIds: string[]
+) {
+  const [inputConfigs, setInputConfigs] = useState<T[]>([]);
 
   useEffect(() => {
-    const cb = (configs: InputConfigStub[]) => {
+    const cb = (configs: T[]) => {
       setInputConfigs(configs);
     };
 
-    const off = ConfigService.onInputConfigChange(cb);
+    const off = ConfigService.onInputConfigsChange<T>(cb);
     ConfigService.requestInputConfigs(deviceId, inputIds);
 
     return () => off();
   }, [deviceId, inputIds]);
 
   return { inputConfigs };
-};
+}

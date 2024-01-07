@@ -110,7 +110,7 @@ const hostService = {
     func: (state: T) => void
   ) {
     const off = addOnChangeListener(
-      `device-${deviceId}-input-${inputId}`,
+      `device-${deviceId}-input-${inputId}-state`,
       func
     );
     ipcRenderer.send(HOST.REQUEST_INPUT_STATE, deviceId, inputId);
@@ -208,7 +208,28 @@ const configService = {
     ipcRenderer.send(CONFIG.UPDATE_DEVICE, config);
   },
 
-  onInputConfigChange(func: (configs: InputConfigStub[]) => void) {
+  onInputConfigChange<T extends InputConfigStub = InputConfigStub>(
+    deviceId: string,
+    inputId: string,
+    func: (config: T) => void
+  ) {
+    const off = addOnChangeListener(
+      `device-${deviceId}-input-${inputId}-config`,
+      func
+    );
+    return off;
+  },
+
+  getInputConfig<T extends InputConfigStub = InputConfigStub>(
+    deviceId: string,
+    inputId: string
+  ): T {
+    ipcRenderer.send(CONFIG.GET_INPUT_CONFIG, deviceId, inputId);
+  },
+
+  onInputConfigsChange<T extends InputConfigStub = InputConfigStub>(
+    func: (configs: T[]) => void
+  ) {
     return addOnChangeListener(CONFIG.INPUT_CONFIG_CHANGE, func);
   },
 
@@ -241,7 +262,7 @@ const configService = {
     deviceId: string,
     func: (desc: DeviceConfigStub | undefined) => void
   ) {
-    const off = addOnChangeListener(`config-stub-${deviceId}`, func);
+    const off = addOnChangeListener(`device-config-stub-${deviceId}`, func);
     ipcRenderer.send(CONFIG.REQUEST_DEVICE_CONFIG_STUB, deviceId);
     return off;
   },

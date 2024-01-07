@@ -21,6 +21,7 @@ export const CONFIG = {
   REMOVE_DEVICE: 'remove-device',
   UPDATE_DEVICE: 'update-device',
   UPDATE_INPUT: 'update-input',
+  GET_INPUT_CONFIG: 'get-input-config',
 
   REQUEST_DEVICE_CONFIG_STUB: 'request-device-config-stub',
   GET_CONFIGURED_DEVICES: 'get-configured-devices',
