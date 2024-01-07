@@ -1,4 +1,3 @@
-import { useConfigStub } from '@hooks/use-config-stub';
 import { Anonymous, getDriver } from '@shared/drivers';
 
 import DeviceIcon from '../DeviceIcon';

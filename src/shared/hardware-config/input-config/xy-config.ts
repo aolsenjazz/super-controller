@@ -28,9 +28,9 @@ export interface XYConfigStub extends InputConfigStub {
 
 @Revivable.register
 export class XYConfig extends BaseInputConfig {
-  x: SliderConfig;
+  x: SliderConfig | PitchbendConfig;
 
-  y: SliderConfig;
+  y: SliderConfig | PitchbendConfig;
 
   #nickname?: string;
 

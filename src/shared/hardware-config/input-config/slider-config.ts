@@ -6,7 +6,7 @@ import { ContinuousPropagator } from '../../propagators';
 import { InputState } from './base-input-config';
 
 export interface SliderState extends InputState {
-  value: number;
+  value: MidiNumber;
 }
 
 @Revivable.register

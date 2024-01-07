@@ -6,7 +6,7 @@ import { HorizontalHandleLayout } from './HorizontalHandleLayout';
 import { VerticalHandleLayout } from './VerticalHandleLayout';
 
 const defaultState = {
-  value: 127,
+  value: 127 as MidiNumber,
 };
 
 type PropTypes = {

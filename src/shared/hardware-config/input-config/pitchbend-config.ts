@@ -1,13 +1,11 @@
 /* eslint-disable no-bitwise */
+import { create, MidiArray, ThreeByteMidiArray } from '../../midi-array';
+
 import * as Revivable from '../../revivable';
 import { PitchbendPropagator } from '../../propagators';
 import { InputResponse, MonoInteractiveDriver } from '../../driver-types';
-import { InputState } from './base-input-config';
 import { MonoInputConfig, MonoInputConfigStub } from './mono-input-config';
-
-export interface PitchbendState extends InputState {
-  value: MidiNumber;
-}
+import { SliderState } from './slider-config';
 
 /**
  * It should be noted that while `PitchbendConfig` extends `MonoInputConfig`, pitchbend
@@ -36,6 +34,19 @@ export class PitchbendConfig extends MonoInputConfig {
     return new PitchbendConfig(def, prop);
   }
 
+  isOriginator(msg: MidiArray | NumberArrayWithStatus) {
+    const ma = msg instanceof MidiArray ? msg : create(msg);
+
+    if (ma instanceof ThreeByteMidiArray) {
+      return (
+        ma.statusString === this.defaults.statusString &&
+        ma.channel === this.defaults.channel
+      );
+    }
+
+    return false;
+  }
+
   get config(): MonoInputConfigStub {
     return {
       id: this.id,
@@ -56,7 +67,7 @@ export class PitchbendConfig extends MonoInputConfig {
     return `${ss}.${c}`;
   }
 
-  get state(): PitchbendState {
+  get state(): SliderState {
     return {
       value: this.outputPropagator.value,
     };
