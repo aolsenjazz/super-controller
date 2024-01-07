@@ -59,8 +59,12 @@ export abstract class MonoInputConfig<
     const ma = msg instanceof MidiArray ? msg : create(msg);
 
     if (ma instanceof TwoByteMidiArray || ma instanceof ThreeByteMidiArray) {
+      const noteOnOffMatch =
+        this.defaults.statusString === 'noteon/noteoff' &&
+        ma.statusString.includes('note');
+
       return (
-        ma.statusString === this.defaults.statusString &&
+        noteOnOffMatch &&
         ma.channel === this.defaults.channel &&
         ma.number === this.defaults.number
       );
