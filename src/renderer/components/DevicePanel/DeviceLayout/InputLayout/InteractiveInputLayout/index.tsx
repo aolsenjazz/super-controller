@@ -60,7 +60,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
 
   return (
     <HandleLayout
-      value={0}
+      id={id}
       handleWidth={`${(handleWidth / driver.width) * 100}%`}
       handleHeight={`${(handleHeight / driver.height) * 100}%`}
       horizontal={horizontal}
