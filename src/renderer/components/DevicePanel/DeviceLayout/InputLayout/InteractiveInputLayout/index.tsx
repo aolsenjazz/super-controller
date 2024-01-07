@@ -3,6 +3,7 @@ import {
   InputDriverWithHandle,
   SwitchDriver,
   XYDriver,
+  KnobDriver,
 } from '@shared/driver-types';
 import { id as idForInput } from '@shared/util';
 
@@ -25,7 +26,14 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
   }
 
   if (driver.type === 'knob') {
-    return <Knob id={id} shape={driver.shape} endless={false} />;
+    const asKnob = driver as KnobDriver;
+    return (
+      <Knob
+        id={id}
+        shape={driver.shape}
+        endless={asKnob.knobType === 'endless'}
+      />
+    );
   }
 
   if (driver.type === 'switch') {
