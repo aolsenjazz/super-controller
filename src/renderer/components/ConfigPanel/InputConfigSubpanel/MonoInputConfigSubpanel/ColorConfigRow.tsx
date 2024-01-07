@@ -49,7 +49,7 @@ export default function ColorConfigRow(props: PropTypes) {
           }}
         />
       </div>
-      {color && fxVal && fxVal !== '<multiple values>' ? (
+      {color?.effectable && fxVal ? (
         <FXConfig
           eligibleFx={availableFx}
           activeFx={fx}
