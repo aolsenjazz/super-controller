@@ -23,6 +23,8 @@ class MockInput extends InputPort {
   isOpen() {
     return true;
   }
+
+  onMessage(): void {}
 }
 class MockOutput extends OutputPort {
   open() {}
@@ -32,6 +34,8 @@ class MockOutput extends OutputPort {
   isOpen() {
     return true;
   }
+
+  send(): void {}
 }
 
 function makePortPair(index: number, name: string) {
