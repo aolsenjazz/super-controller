@@ -203,6 +203,9 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         MainWindow.edited = true;
         this.emit(ProjectProviderEvent.UpdateDevice, this.project);
         MainWindow.sendConfigStub(config.id, config.stub);
+        MainWindow.sendConfiguredDevices(
+          this.project.devices.map((d) => d.stub)
+        );
       }
     );
 
