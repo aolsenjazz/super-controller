@@ -1,13 +1,17 @@
 import { MidiArray } from '@shared/midi-array';
 import { DeviceConfig } from '@shared/hardware-config';
 
-import { PortScanResult } from './port-manager';
-import { ProjectProvider, ProjectProviderEvent } from '../project-provider';
-import { PortPair } from './port-pair';
+import { PortScanResult } from '../port-manager';
+import { ProjectProvider, ProjectProviderEvent } from '../../project-provider';
+import { PortPair } from '../port-pair';
 import { VirtualInput } from './virtual-input';
 import { VirtualOutput } from './virtual-output';
-import { NewProjectEvent } from '../project-provider/project-event-emitter';
+import { NewProjectEvent } from '../../project-provider/project-event-emitter';
 
+/**
+ * Manages connections to SC-created virtual ports, *not* other virtual MIDI
+ * ports. Connections to non-SC-created ports are managed in `PortService`
+ */
 export class VirtualPortServiceSingleton {
   ports = new Map<string, PortPair>();
 
@@ -40,6 +44,11 @@ export class VirtualPortServiceSingleton {
     if (port) port.send(msg.array);
   }
 
+  /**
+   * Informs the `VirtualPortService` that the available hardware or non-SC
+   * virtual MIDI ports have been changed, and therefore an SC virtual midi
+   * port will either need to be opened or closed
+   */
   public onHardwareChanged(ports: PortScanResult) {
     const { addedPorts, removedPorts, currentPorts } = ports;
 
@@ -56,6 +65,9 @@ export class VirtualPortServiceSingleton {
     this.availableHardwarePorts = currentPorts.map((p) => p.id);
   }
 
+  /**
+   * Sets listeners to device config change events
+   */
   private setConfigChangeListener() {
     ProjectProvider.on(ProjectProviderEvent.AddDevice, (config) => {
       if (this.availableHardwarePorts.includes(config.id)) {
@@ -68,6 +80,9 @@ export class VirtualPortServiceSingleton {
     );
   }
 
+  /**
+   * Sets listener to new-project events
+   */
   private setProjectChangeListener() {
     const listener = (event: NewProjectEvent) => {
       const { project } = event;
@@ -100,8 +115,8 @@ export class VirtualPortServiceSingleton {
     const id = `${deviceName} ${siblingIndex}`;
 
     // note: arg[0] here isn't used
-    const iPort = new VirtualInput(0, siblingIndex, deviceName);
-    const oPort = new VirtualOutput(0, siblingIndex, deviceName);
+    const iPort = new VirtualInput(siblingIndex, deviceName);
+    const oPort = new VirtualOutput(siblingIndex, deviceName);
     const portPair = new PortPair(iPort, oPort);
 
     this.ports.set(id, portPair);

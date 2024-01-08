@@ -1,6 +1,9 @@
 import { Input, MidiMessage } from '@julusian/midi';
 import { Port } from './port';
 
+/**
+ * Manages a connection to a MIDI input port
+ */
 export class InputPort extends Port<Input> {
   protected createPort() {
     return new Input();

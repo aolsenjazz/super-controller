@@ -60,8 +60,16 @@ function createOPort(p: PortInfoPair) {
 }
 
 export class HardwarePortServiceSingleton {
-  ports = new Map<string, PortPair>();
+  /**
+   * List of currently-opened `PortPair`s. Opened ports may be either hardware
+   * or virtual, but will never be SC-created ports; SC-created ports are managed
+   * in `VirtualPortService`
+   */
+  private ports = new Map<string, PortPair>();
 
+  /**
+   * List of hardware ports available for connection
+   */
   private availableHardwarePorts: PortInfoPair[] = [];
 
   private static instance: HardwarePortServiceSingleton;
@@ -183,6 +191,10 @@ export class HardwarePortServiceSingleton {
     MainWindow.sendConnectedDevices(devices);
   }
 
+  /**
+   * Constructs a `PortPair` and opens both the input and output ports,
+   * if available. Also runs intialization protocols; see `initDevice` for more
+   */
   private open(p: PortInfoPair) {
     // open port
     const iPort = createIPort(p);
@@ -247,6 +259,9 @@ export class HardwarePortServiceSingleton {
     }
   }
 
+  /**
+   * Function to be invoked whenever a message is received from a MIDI ports
+   */
   private onMessage(config: DeviceConfig, pair: PortPair, msg: MidiArray) {
     const toPropagate = config.applyOverrides(msg);
     const toDevice = config.getResponse(msg);
