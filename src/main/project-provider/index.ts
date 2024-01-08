@@ -202,6 +202,11 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     );
   }
 
+  /**
+   * IPC channels for updating translator overrides
+   *
+   * TODO: this will go in its own plugin file/dir at some point
+   */
   private initTranslatorIpc() {
     ipcMain.on(
       TRANSLATOR.REMOVE_TRANSLATOR_OVERRIDE,
@@ -264,6 +269,11 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     );
   }
 
+  /**
+   * IPC channels for updating input configs.
+   *
+   * TODO: this will go in its own plugin file/dir at some point
+   */
   private initInputConfigIpc() {
     ipcMain.on(
       CONFIG.UPDATE_INPUT,
