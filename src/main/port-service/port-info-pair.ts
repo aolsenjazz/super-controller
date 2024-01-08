@@ -1,5 +1,7 @@
 import { DeviceStub } from '@shared/device-stub';
 import { PortInfo } from '@shared/port-info';
+import { InputPort } from './input-port';
+import { OutputPort } from './output-port';
 
 /**
  * Couples sister `Port`s and provides convenience functions for accessing
@@ -7,15 +9,16 @@ import { PortInfo } from '@shared/port-info';
  *
  * 'Sister' ports would be the Input and Output port for a single MIDI device,
  * however, not all MIDI devices provide both an input and output port.
- *
- * TODO: no reason to have iPort and oPort be PortInfo | null; can just be PortInfo?
  */
-export class PortInfoPair {
-  iPort: PortInfo | null;
+export class PortInfoPair<
+  InputType extends PortInfo | InputPort = PortInfo,
+  OutputType extends PortInfo | OutputPort = PortInfo
+> {
+  public iPort?: InputType;
 
-  oPort: PortInfo | null;
+  public oPort?: OutputType;
 
-  constructor(iPort: PortInfo | null, oPort: PortInfo | null) {
+  constructor(iPort?: InputType, oPort?: OutputType) {
     this.iPort = iPort;
     this.oPort = oPort;
   }
@@ -24,8 +27,8 @@ export class PortInfoPair {
    * Returns the name of the input port if exists, or output port if it doesn't.
    * Throws if both ports are undefined
    */
-  get name() {
-    const name = this.iPort != null ? this.iPort.name : this.oPort?.name;
+  public get name() {
+    const name = this.iPort?.name || this.oPort?.name;
 
     if (name === undefined) throw new Error(`name should not be undefined`);
 
@@ -40,9 +43,8 @@ export class PortInfoPair {
    * other) OS's don't disambiguate between the two devices; they will both appear as
    * DeviceName in the system registry. This number is used to disambiguate
    */
-  get siblingIndex() {
-    const occurNum =
-      this.iPort !== null ? this.iPort.siblingIndex : this.oPort?.siblingIndex;
+  public get siblingIndex() {
+    const occurNum = this.iPort?.siblingIndex || this.oPort?.siblingIndex;
 
     if (occurNum === undefined)
       throw new Error(`occurNum should not be undefined`);
@@ -50,11 +52,11 @@ export class PortInfoPair {
     return occurNum;
   }
 
-  get id() {
+  public get id() {
     return `${this.name} ${this.siblingIndex}`;
   }
 
-  get stub(): DeviceStub {
+  public get stub(): DeviceStub {
     return {
       id: this.id,
       name: this.name,

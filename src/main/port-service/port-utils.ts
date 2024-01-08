@@ -11,8 +11,11 @@ const OUTPUT = new Output();
  * a sister port if both the port names and occurrences match. Most midi devices will have both an
  * input and output port, so for a given input, there usually exists one (output) sister.
  */
-function getSister(port: PortInfo, sisterList: PortInfo[]): PortInfo | null {
-  let sister = null;
+function getSister(
+  port: PortInfo,
+  sisterList: PortInfo[]
+): PortInfo | undefined {
+  let sister;
   sisterList.forEach((candidate) => {
     if (
       port.name === candidate.name &&

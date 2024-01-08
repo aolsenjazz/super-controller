@@ -45,7 +45,7 @@ const { MainWindow } = wp;
  * Convenience method for creating an `InputPort`
  */
 function createIPort(p: PortInfoPair) {
-  return p.iPort === null
+  return p.iPort === undefined
     ? p.iPort
     : new InputPort(p.iPort.index, p.siblingIndex, p.name);
 }
@@ -54,7 +54,7 @@ function createIPort(p: PortInfoPair) {
  * Convenience method for creating an `OutputPort`
  */
 function createOPort(p: PortInfoPair) {
-  return p.oPort === null
+  return p.oPort === undefined
     ? p.oPort
     : new OutputPort(p.oPort.index, p.siblingIndex, p.name);
 }
