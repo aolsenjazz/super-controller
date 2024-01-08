@@ -188,6 +188,9 @@ const subMenuView =
     ? subMenuViewDev
     : subMenuViewProd;
 
+/**
+ * Builds an app menu, omitting window-specific commands when a window is not visible
+ */
 export function build(w: BrowserWindow | null) {
   let menu = [subMenuAbout, subMenuFile, subMenuEdit];
 

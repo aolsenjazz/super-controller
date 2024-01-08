@@ -37,7 +37,7 @@ import { OutputPort } from './output-port';
 import { PortInfoPair } from './port-info-pair';
 import { wp } from '../window-provider';
 import { HOST } from '../ipc-channels';
-import { VirtualPortService } from './virtual-port-service';
+import { VirtualPortService } from './virtual/virtual-port-service';
 
 const { MainWindow } = wp;
 

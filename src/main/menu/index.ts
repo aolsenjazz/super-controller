@@ -5,6 +5,11 @@ import { build as buildDefault } from './default-menu';
 
 import { wp } from '../window-provider';
 
+/**
+ * Provides functions for creating an app menu, and binds a listener to Window focus
+ * changes so that a different AppMenu can be displayed depending on which (or if a)
+ * menu is currently in focus
+ */
 class AppMenuSingleton {
   private static instance: AppMenuSingleton;
 

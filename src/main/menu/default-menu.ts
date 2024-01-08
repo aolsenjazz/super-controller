@@ -55,6 +55,9 @@ const subMenuView: MenuItemConstructorOptions = {
         ],
 };
 
+/**
+ * Builds app menu, omitted window-specific commands when a window is not present
+ */
 export function build(w: BrowserWindow | null) {
   return w === null ? [subMenuFile] : [subMenuFile, subMenuView];
 }
