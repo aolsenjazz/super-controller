@@ -14,6 +14,10 @@ import { AppMenu as am } from './menu';
 
 import './port-service';
 import './ipc-service';
+import {
+  DevicesChangedEvent,
+  ProjectChangedEvent,
+} from './project-provider/project-event-emitter';
 
 const { MainWindow } = wp;
 
@@ -99,12 +103,26 @@ class LifecycleSingleton {
   }
 
   private subscribeToProjectChange() {
-    pp.on(ProjectProviderEvent.NewProject, ({ name }) => {
+    const projChangeCb = ({ name, project }: ProjectChangedEvent) => {
       MainWindow.title = name;
+      MainWindow.edited = false;
 
-      const stubs = pp.project.devices.map((d) => d.stub);
+      const stubs = project.devices.map((d) => d.stub);
       MainWindow.sendConfiguredDevices(stubs);
-    });
+    };
+
+    pp.on(ProjectProviderEvent.NewProject, projChangeCb);
+    pp.on(ProjectProviderEvent.Save, projChangeCb);
+
+    const deviceChangeCb = ({ changed, project }: DevicesChangedEvent) => {
+      MainWindow.edited = true;
+      MainWindow.sendConfiguredDevices(project.devices.map((d) => d.stub));
+      changed.forEach((d) => {
+        MainWindow.sendConfigStub(d.id, d.stub);
+      });
+    };
+
+    pp.on(ProjectProviderEvent.DevicesChanged, deviceChangeCb);
   }
 }
 

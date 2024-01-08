@@ -4,22 +4,28 @@ import EventEmitter from 'events';
 
 export enum ProjectProviderEvent {
   NewProject = 'new-project',
-  AddDevice = 'add-device',
-  RemoveDevice = 'remove-device',
+  DevicesChanged = 'devices-changed',
   UpdateDevice = 'update-device',
   UpdateInput = 'update-input',
+  Save = 'save',
 }
 
-export type NewProjectEvent = {
+export type ProjectChangedEvent = {
   name: string;
   project: Project;
 };
 
+export type DevicesChangedEvent = {
+  changed: DeviceConfig[];
+  project: Project;
+  action: 'remove' | 'add' | 'update';
+};
+
 interface ProjectProviderEvents {
-  [ProjectProviderEvent.NewProject]: (event: NewProjectEvent) => void;
-  [ProjectProviderEvent.AddDevice]: (config: DeviceConfig) => void;
-  [ProjectProviderEvent.RemoveDevice]: (config: DeviceConfig) => void;
-  [ProjectProviderEvent.UpdateDevice]: (project: Project) => void;
+  [ProjectProviderEvent.NewProject]: (event: ProjectChangedEvent) => void;
+  [ProjectProviderEvent.Save]: (event: ProjectChangedEvent) => void;
+  [ProjectProviderEvent.DevicesChanged]: (event: DevicesChangedEvent) => void;
+  [ProjectProviderEvent.UpdateDevice]: (event: DevicesChangedEvent) => void;
   [ProjectProviderEvent.UpdateInput]: (
     deviceConfig: DeviceConfig,
     inputConfigs: BaseInputConfig[]

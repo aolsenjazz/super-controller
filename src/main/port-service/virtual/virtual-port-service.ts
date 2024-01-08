@@ -6,7 +6,7 @@ import { ProjectProvider, ProjectProviderEvent } from '../../project-provider';
 import { PortPair } from '../port-pair';
 import { VirtualInput } from './virtual-input';
 import { VirtualOutput } from './virtual-output';
-import { NewProjectEvent } from '../../project-provider/project-event-emitter';
+import { ProjectChangedEvent } from '../../project-provider/project-event-emitter';
 
 /**
  * Manages connections to SC-created virtual ports, *not* other virtual MIDI
@@ -69,22 +69,23 @@ export class VirtualPortServiceSingleton {
    * Sets listeners to device config change events
    */
   private setConfigChangeListener() {
-    ProjectProvider.on(ProjectProviderEvent.AddDevice, (config) => {
-      if (this.availableHardwarePorts.includes(config.id)) {
-        this.open(config.portName, config.siblingIndex);
+    // check whether it was added or removed
+    ProjectProvider.on(ProjectProviderEvent.DevicesChanged, (event) => {
+      if (event.action === 'add') {
+        event.changed.forEach((c) => this.open(c.portName, c.siblingIndex));
+      }
+
+      if (event.action === 'remove') {
+        event.changed.forEach((c) => this.close(c.id));
       }
     });
-
-    ProjectProvider.on(ProjectProviderEvent.RemoveDevice, (c) =>
-      this.close(c.id)
-    );
   }
 
   /**
    * Sets listener to new-project events
    */
   private setProjectChangeListener() {
-    const listener = (event: NewProjectEvent) => {
+    const listener = (event: ProjectChangedEvent) => {
       const { project } = event;
 
       // close ports for which there is no config

@@ -52,6 +52,8 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
   private constructor() {
     super();
     this.initIpc();
+    this.initTranslatorIpc();
+    this.initInputConfigIpc();
   }
 
   public static getInstance(): ProjectProviderSingleton {
@@ -62,12 +64,6 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
   }
 
   public async initDefault() {
-    if (MainWindow.edited) {
-      const doSave = dialogs.unsavedCheck();
-      if (doSave === true) await this.save();
-    }
-
-    MainWindow.edited = false;
     this.currentPath = undefined;
     this.project = new Project();
     this.emit(ProjectProviderEvent.NewProject, {
@@ -77,14 +73,8 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
   }
 
   public async loadProject(filePath: string) {
-    if (MainWindow.edited) {
-      const doSave = dialogs.unsavedCheck();
-      if (doSave === true) await this.save();
-    }
-
     app.addRecentDocument(filePath);
 
-    MainWindow.edited = false;
     this.project = projectFromFile(filePath);
     this.currentPath = filePath;
 
@@ -103,8 +93,11 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     fs.writeFileSync(this.currentPath!, stringify(this.project), {});
 
-    MainWindow.edited = false;
     app.addRecentDocument(this.currentPath!);
+    this.emit(ProjectProviderEvent.Save, {
+      name: path.basename(this.currentPath!, '.controller'),
+      project: this.project,
+    });
   }
 
   /**
@@ -123,7 +116,6 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     this.currentPath = filePath;
     this.save();
-    MainWindow.title = path.basename(filePath, '.controller');
   }
 
   /**
@@ -136,7 +128,6 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     const filePath = result.filePaths[0];
     store.set(SAVE_DIR, path.parse(filePath).dir);
-    this.currentPath = filePath;
 
     this.loadProject(filePath);
   }
@@ -169,11 +160,11 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
         this.project.addDevice(conf);
 
-        MainWindow.edited = true;
-        this.emit(ProjectProviderEvent.AddDevice, conf);
-        MainWindow.sendConfiguredDevices(
-          this.project.devices.map((d) => d.stub)
-        );
+        this.emit(ProjectProviderEvent.DevicesChanged, {
+          changed: [conf],
+          project: this.project,
+          action: 'add',
+        });
       }
     );
 
@@ -182,9 +173,11 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
       const config = this.project.getDevice(deviceId)!;
       this.project.removeDevice(config);
 
-      MainWindow.edited = true;
-      this.emit(ProjectProviderEvent.RemoveDevice, config);
-      MainWindow.sendConfiguredDevices(this.project.devices.map((d) => d.stub));
+      this.emit(ProjectProviderEvent.DevicesChanged, {
+        changed: [config],
+        project: this.project,
+        action: 'remove',
+      });
     });
 
     /* When a device is removed from project, remove it here and re-init all devices */
@@ -200,62 +193,16 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         config.nickname = updates.nickname;
         config.shareSustain = updates.shareSustain;
 
-        MainWindow.edited = true;
-        this.emit(ProjectProviderEvent.UpdateDevice, this.project);
-        MainWindow.sendConfigStub(config.id, config.stub);
-        MainWindow.sendConfiguredDevices(
-          this.project.devices.map((d) => d.stub)
-        );
-      }
-    );
-
-    ipcMain.on(
-      CONFIG.UPDATE_INPUT,
-      (_e: IpcMainEvent, deviceId: string, configs: InputConfigStub[]) => {
-        const deviceConfig = this.project.getDevice(
-          deviceId
-        ) as SupportedDeviceConfig;
-
-        const updatedConfigs: BaseInputConfig[] = [];
-        configs.forEach((c) => {
-          const id = idForConfigStub(c);
-          const input = deviceConfig.getInputById(id);
-
-          if (input) {
-            input.applyStub(c);
-            updatedConfigs.push(input);
-            MainWindow.sendInputState(deviceId, id, input.state);
-          }
+        this.emit(ProjectProviderEvent.DevicesChanged, {
+          changed: [config],
+          project: this.project,
+          action: 'update',
         });
-
-        MainWindow.edited = true;
-        MainWindow.sendInputConfigs(updatedConfigs.map((c) => c.config));
-        this.emit(
-          ProjectProviderEvent.UpdateInput,
-          deviceConfig,
-          updatedConfigs
-        );
       }
     );
+  }
 
-    ipcMain.on(
-      CONFIG.GET_INPUT_CONFIG,
-      (_e: IpcMainEvent, deviceId: string, inputId: string) => {
-        const dConf = this.project.getDevice(deviceId);
-
-        if (
-          dConf instanceof SupportedDeviceConfig ||
-          dConf instanceof AdapterDeviceConfig
-        ) {
-          const iConf = dConf.getInputById(inputId);
-
-          if (iConf) {
-            MainWindow.sendInputConfig(deviceId, inputId, iConf.config);
-          }
-        }
-      }
-    );
-
+  private initTranslatorIpc() {
     ipcMain.on(
       TRANSLATOR.REMOVE_TRANSLATOR_OVERRIDE,
       (_e: IpcMainEvent, deviceId: string, action: NumberArrayWithStatus) => {
@@ -312,6 +259,55 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
         if (conf instanceof AnonymousDeviceConfig) {
           MainWindow.sendOverrides(deviceId, conf.overrides);
+        }
+      }
+    );
+  }
+
+  private initInputConfigIpc() {
+    ipcMain.on(
+      CONFIG.UPDATE_INPUT,
+      (_e: IpcMainEvent, deviceId: string, configs: InputConfigStub[]) => {
+        const deviceConfig = this.project.getDevice(
+          deviceId
+        ) as SupportedDeviceConfig;
+
+        const updatedConfigs: BaseInputConfig[] = [];
+        configs.forEach((c) => {
+          const id = idForConfigStub(c);
+          const input = deviceConfig.getInputById(id);
+
+          if (input) {
+            input.applyStub(c);
+            updatedConfigs.push(input);
+            MainWindow.sendInputState(deviceId, id, input.state);
+          }
+        });
+
+        MainWindow.edited = true;
+        MainWindow.sendInputConfigs(updatedConfigs.map((c) => c.config));
+        this.emit(
+          ProjectProviderEvent.UpdateInput,
+          deviceConfig,
+          updatedConfigs
+        );
+      }
+    );
+
+    ipcMain.on(
+      CONFIG.GET_INPUT_CONFIG,
+      (_e: IpcMainEvent, deviceId: string, inputId: string) => {
+        const dConf = this.project.getDevice(deviceId);
+
+        if (
+          dConf instanceof SupportedDeviceConfig ||
+          dConf instanceof AdapterDeviceConfig
+        ) {
+          const iConf = dConf.getInputById(inputId);
+
+          if (iConf) {
+            MainWindow.sendInputConfig(deviceId, inputId, iConf.config);
+          }
         }
       }
     );

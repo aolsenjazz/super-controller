@@ -29,9 +29,13 @@ import {
 import { create, MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
 
 import { PortScanResult, PortManager } from './port-manager';
-import { ProjectProvider, ProjectProviderEvent } from '../project-provider';
+import { ProjectProvider } from '../project-provider';
 import { PortPair } from './port-pair';
-import { NewProjectEvent } from '../project-provider/project-event-emitter';
+import {
+  DevicesChangedEvent,
+  ProjectChangedEvent,
+  ProjectProviderEvent,
+} from '../project-provider/project-event-emitter';
 import { InputPort } from './input-port';
 import { OutputPort } from './output-port';
 import { PortInfoPair } from './port-info-pair';
@@ -108,15 +112,21 @@ export class HardwarePortServiceSingleton {
    * When configs are added or removed, open/close port as required
    */
   private setConfigChangeListener() {
-    ProjectProvider.on(ProjectProviderEvent.AddDevice, (config) => {
-      // if the hardware is available, open a connection to it
-      this.availableHardwarePorts
-        .filter((p) => p.id === config.id)
-        .forEach((p) => this.open(p));
-    });
+    ProjectProvider.on(
+      ProjectProviderEvent.DevicesChanged,
+      (event: DevicesChangedEvent) => {
+        // if the hardware is available, open a connection to it
+        if (event.action === 'add') {
+          const addedIds = event.changed.map((d) => d.id);
+          this.availableHardwarePorts
+            .filter((p) => addedIds.includes(p.id))
+            .forEach((p) => this.open(p));
+        }
 
-    ProjectProvider.on(ProjectProviderEvent.RemoveDevice, (c) =>
-      this.close(c.id)
+        if (event.action === 'remove') {
+          event.changed.forEach((c) => this.close(c.id));
+        }
+      }
     );
 
     ProjectProvider.on(
@@ -139,7 +149,7 @@ export class HardwarePortServiceSingleton {
    * When the project changes, reset all ports
    */
   private setProjectChangeListener() {
-    const listener = (event: NewProjectEvent) => {
+    const listener = (event: ProjectChangedEvent) => {
       const { project } = event;
 
       // close all current hardware connections
