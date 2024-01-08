@@ -5,6 +5,10 @@ import { BaseInputGroup } from './base-input-group';
 import { ColorCapableInputGroup } from './color-capable-input-group';
 import { KnobInputGroup } from './knob-input-group';
 
+/**
+ * Depending on the `type` of each input in `inputs`, returns a `KnobInputGroup`
+ * or `ColorCapableInputGroup` if possible, `BaseInputGroup` if not
+ */
 export function createInputGroup(inputs: MonoInputConfigStub[]) {
   const baseGroup = new BaseInputGroup(inputs);
 

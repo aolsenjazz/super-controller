@@ -4,7 +4,6 @@ import os from 'os';
 import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 import { DeviceStub } from '@shared/device-stub';
 import {
-  BaseInputConfig,
   InputConfigStub,
   InputState,
 } from '@shared/hardware-config/input-config/base-input-config';

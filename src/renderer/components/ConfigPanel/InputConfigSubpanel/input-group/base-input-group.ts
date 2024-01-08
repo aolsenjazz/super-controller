@@ -3,9 +3,9 @@ import { MonoInputConfigStub } from '@shared/hardware-config/input-config/mono-i
 import { CC_BINDINGS, stringVal } from '@shared/util';
 
 /**
- * Determining eligible responses for a pad is a touch more difficult, as a pad with
- * hardware input 'constant' is capable of both constant and gate toggle should its
- * statusString be set to a multiple-step-capable `StatusString`
+ * Returns the output responses the given `MonoInputConfigStub` is capable of.
+ * This is determined both by its hardware response, and its currently-configured
+ * status string.
  */
 function eligibleResponsesForPad(stub: MonoInputConfigStub): InputResponse[] {
   const defaultResponse = stub.defaults.response;
@@ -23,6 +23,11 @@ function eligibleResponsesForPad(stub: MonoInputConfigStub): InputResponse[] {
   }
 }
 
+/**
+ * Returns which status strings the given `MonoInputConfigStub` is capable of.
+ * This list is determined both the `stub.type` and the currently-configured
+ * output response.
+ */
 function getEligibleStatusStrings(
   stub: MonoInputConfigStub
 ): (StatusString | 'noteon/noteoff')[] {
@@ -38,6 +43,10 @@ function getEligibleStatusStrings(
   }
 }
 
+/**
+ * Returns a list of output responses the given `MonoInputConfigStub` is capable of.
+ * Determined by both `stub.type` and `stub.statusString`
+ */
 function getEligibleResponses(stub: MonoInputConfigStub): InputResponse[] {
   switch (stub.type) {
     case 'pad':
@@ -55,8 +64,8 @@ function getEligibleResponses(stub: MonoInputConfigStub): InputResponse[] {
  * A pseudo-`InputConfig` used to show the values of multiple inputs in a group.
  *
  * E.g. the statusString of several inputs whose `statusString`s are all 'noteon' would be
- * 'noteon' (of course). If one input in the group has a different value, the
- * `InputGroup` `statusString` value would be '<multiple values>'
+ * 'noteon'. If one input in the group has a different value, `InputGroup.statusString`
+ * would be '<multiple values>'.
  */
 export class BaseInputGroup<
   K extends MonoInputConfigStub = MonoInputConfigStub
@@ -188,6 +197,10 @@ export class BaseInputGroup<
     return this.labelFor(response, (input) => input.defaults.response);
   }
 
+  /**
+   * Is this input group capable of sending value along with their expected message? E.g.
+   * no for pitchbend, programchange messages, non-constant-response messages
+   */
   public get isValueCapable() {
     return (
       this.response === 'constant' &&
@@ -203,6 +216,10 @@ export class BaseInputGroup<
     return this.groupValue<number>((c) => c.number);
   }
 
+  /**
+   * Returns a single `MidiNumber` value, or '<multiple values>'. Throws if called on
+   * a non-value-capable input group.
+   */
   public get value() {
     if (this.isValueCapable === false)
       throw new Error(
@@ -226,6 +243,9 @@ export class BaseInputGroup<
     return this.groupValue((c) => c.outputResponse);
   }
 
+  /**
+   * Returns an intersection of all of the eligible status string lists
+   */
   public get eligibleStatusStrings() {
     const eligibleLists = this.inputs.map((i) => getEligibleStatusStrings(i));
     return [...new Set([...eligibleLists.flat()])].filter(
@@ -244,15 +264,6 @@ export class BaseInputGroup<
       (i) =>
         eligibleLists.filter((i2) => i2.includes(i)).length ===
         eligibleLists.length
-    );
-  }
-
-  public get isColorCapable(): boolean {
-    return (
-      this.groupValue(
-        (c) => c.colorCapable,
-        (a, b) => a === true && b === true
-      ) === true
     );
   }
 }

@@ -65,11 +65,8 @@ export default function MonoInputConfigPanel(props: PropTypes) {
         <button type="button" onClick={restoreDefaults}>
           Restore Defaults
         </button>
-        {group.isColorCapable && (
-          <BacklightSettings
-            group={group as ColorCapableInputGroup}
-            deviceId={deviceId}
-          />
+        {group instanceof ColorCapableInputGroup && (
+          <BacklightSettings group={group} deviceId={deviceId} />
         )}
       </div>
     </div>

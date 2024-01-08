@@ -15,7 +15,6 @@ export function useInputConfigs<T extends InputConfigStub = InputConfigStub>(
     };
 
     const off = ConfigService.onInputConfigsChange<T>(cb);
-    ConfigService.requestInputConfigs(deviceId, inputIds);
 
     return () => off();
   }, [deviceId, inputIds]);

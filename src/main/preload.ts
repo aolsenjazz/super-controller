@@ -208,6 +208,10 @@ const configService = {
     ipcRenderer.send(CONFIG.UPDATE_DEVICE, config);
   },
 
+  /**
+   * Subscribe to changes made to input config for given `deviceId` and
+   * `inputId`
+   */
   onInputConfigChange<T extends InputConfigStub = InputConfigStub>(
     deviceId: string,
     inputId: string,
@@ -217,14 +221,8 @@ const configService = {
       `device-${deviceId}-input-${inputId}-config`,
       func
     );
-    return off;
-  },
-
-  getInputConfig<T extends InputConfigStub = InputConfigStub>(
-    deviceId: string,
-    inputId: string
-  ): T {
     ipcRenderer.send(CONFIG.GET_INPUT_CONFIG, deviceId, inputId);
+    return off;
   },
 
   onInputConfigsChange<T extends InputConfigStub = InputConfigStub>(

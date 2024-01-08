@@ -7,9 +7,7 @@ export function useInputConfig<T extends InputConfigStub = InputConfigStub>(
   deviceId: string,
   inputId: string
 ) {
-  const [inputConfig, setInputConfig] = useState<T>(
-    ConfigService.getInputConfig<T>(deviceId, inputId)
-  );
+  const [inputConfig, setInputConfig] = useState<T>();
 
   useEffect(() => {
     const cb = (config: T) => {

@@ -12,6 +12,15 @@ function areColorDisplayNamesEqual(
   return c1 !== undefined || c2 !== undefined || true;
 }
 
+/**
+ * A pseudo-`InputConfig` used to show the values of multiple inputs in a group.
+ *
+ * E.g. the statusString of several inputs whose `statusString`s are all 'noteon' would be
+ * 'noteon'. If one input in the group has a different value, `InputGroup.statusString`
+ * would be '<multiple values>'.
+ *
+ * Extends `BaseInputGroup`, adding supported for color-capable input fields
+ */
 export class ColorCapableInputGroup extends BaseInputGroup<ColorCapableInputConfigStub> {
   public colorForState(state: number) {
     return this.groupValue<ColorDescriptor | undefined>(
