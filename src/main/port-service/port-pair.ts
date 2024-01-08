@@ -41,28 +41,10 @@ export class PortPair {
     }
   }
 
-  isPortOpen() {
-    const open =
-      this.iPort != null ? this.iPort.isOpen() : this.oPort?.isOpen();
-
-    if (open === undefined)
-      throw new Error(`isPortOpen should not be undefined`);
-
-    return open;
-  }
-
   applyThrottle(throttleMs: number | undefined) {
     if (!throttleMs || throttleMs === 0) return;
 
     this.send = applyNondestructiveThrottle(this.send.bind(this), throttleMs);
-  }
-
-  get hasInput() {
-    return this.iPort != null;
-  }
-
-  get hasOutput() {
-    return this.oPort != null;
   }
 
   get name() {

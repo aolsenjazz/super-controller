@@ -11,6 +11,14 @@ export type PortScanResult = {
 
 type PortChangeListener = (ports: PortScanResult) => void;
 
+/**
+ * Reads available Input and Output ports, couples 'sister' ports, and allows
+ * subscribers to receive updated `PortInfoPair` lists when the available
+ * hardware changes.
+ *
+ * 'Sister' ports would be the Input and Output port for a single MIDI device,
+ * however, not all MIDI devices provide both an input and output port.
+ */
 class PortManagerSingleton {
   private static instance: PortManagerSingleton;
 
@@ -30,6 +38,19 @@ class PortManagerSingleton {
   }
 
   /**
+   * Adds a listener which is invoked when the available hardware ports change. Also invoked
+   * immediately with the currently-available ports
+   */
+  public addListener(listener: PortChangeListener) {
+    this.listeners.push(listener);
+    listener({ addedPorts: [], removedPorts: [], currentPorts: this.ports });
+  }
+
+  public removeListener(listener: PortChangeListener) {
+    this.listeners.splice(this.listeners.indexOf(listener), 1);
+  }
+
+  /**
    * Begins polling available ports at a regular interval
    */
   private pollPorts(pollInterval = 1000) {
@@ -42,6 +63,17 @@ class PortManagerSingleton {
     setTimeout(() => this.pollPorts(), pollInterval);
   }
 
+  /**
+   * Invoked whenever the available connectable ports change. Couples sister ports,
+   * disambuates siblings, and notifies listener
+   *
+   * 'Sister' ports would be the Input and Output port for a single MIDI device,
+   * however, not all MIDI devices provide both an input and output port.
+   *
+   * 'Siblings' are relevant when two devices of the same model exist. OSX (and likely
+   * other) OS's don't disambiguate between the two devices; they will both appear as
+   * DeviceName in the system registry.
+   */
   private updatePorts(ports: PortInfoPair[]) {
     const stalePortNames = this.ports.map((p) => p.name);
 
@@ -73,19 +105,6 @@ class PortManagerSingleton {
         currentPorts: ports,
       });
     });
-  }
-
-  /**
-   * Adds a listener which is invoked when the available hardware ports change. Also invoked
-   * immediately with the currently-available ports
-   */
-  public addListener(listener: PortChangeListener) {
-    this.listeners.push(listener);
-    listener({ addedPorts: [], removedPorts: [], currentPorts: this.ports });
-  }
-
-  public removeListener(listener: PortChangeListener) {
-    this.listeners.splice(this.listeners.indexOf(listener), 1);
   }
 }
 

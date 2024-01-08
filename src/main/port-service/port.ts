@@ -22,13 +22,6 @@ export abstract class Port<T extends Input | Output = Input | Output> {
     this.open();
   }
 
-  public isOpen() {
-    if (this.port === null) {
-      return false;
-    }
-    return this.port.isPortOpen();
-  }
-
   public close() {
     this.port.closePort();
   }

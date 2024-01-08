@@ -60,11 +60,6 @@ test('send() invokes oPort.send', () => {
   expect(spy).toHaveBeenCalled();
 });
 
-test('isPortOpen() returns true', () => {
-  const pair = makePortPair(0, 'test');
-  expect(pair.isPortOpen()).toBe(true);
-});
-
 test('name getter returns port name', () => {
   const name = 'yo';
   const pair = makePortPair(0, name);
