@@ -1,4 +1,8 @@
-import { HostService, TranslatorService, ConfigService } from '../main/preload';
+import {
+  HostService,
+  TranslatorService,
+  ConfigService,
+} from '../main/preload/preload';
 
 declare global {
   interface Window {
