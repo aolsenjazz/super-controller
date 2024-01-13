@@ -1,5 +1,6 @@
-import { DeviceStub } from '@shared/device-stub';
 import { ipcRenderer } from 'electron';
+
+import { DeviceStub } from '@shared/device-stub';
 
 import { HOST } from '../ipc-channels';
 import { addOnChangeListener } from './common';
