@@ -2,6 +2,8 @@ import path from 'path';
 import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import fs from 'fs';
+
 import baseConfig from './webpack.config.base';
 import webpackPaths from './webpack.paths';
 import checkNodeEnv from '../scripts/check-node-env';
@@ -19,11 +21,20 @@ const configuration: webpack.Configuration = {
 
   target: 'electron-preload',
 
-  entry: path.join(webpackPaths.srcMainPath, 'preload', 'preload.ts'),
+  entry: {
+    app: path.join(webpackPaths.srcMainPath, 'preload', 'preload.ts'),
+    // Dynamically load the preload files for all of the plugins
+    vendor: fs
+      .readdirSync(webpackPaths.pluginsPath, { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) =>
+        path.join(webpackPaths.pluginsPath, dirent.name, 'preload.ts')
+      ),
+  },
 
   output: {
     path: webpackPaths.dllPath,
-    filename: 'preload.js',
+    filename: '[name].js',
     library: {
       type: 'umd',
     },

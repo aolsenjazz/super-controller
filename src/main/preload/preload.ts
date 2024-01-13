@@ -8,7 +8,6 @@ import { contextBridge, ipcRenderer } from 'electron';
 
 import { configService } from './preload-config-service';
 import { hostService } from './preload-host-service';
-import { translatorService } from './preload-translator-service';
 
 // the frontend uses a lot of listeners. because of this, this number gets
 // pretty high. If it complains, make sure that we're not leaking memory,
@@ -17,4 +16,3 @@ ipcRenderer.setMaxListeners(1000);
 
 contextBridge.exposeInMainWorld('ConfigService', configService);
 contextBridge.exposeInMainWorld('HostService', hostService);
-contextBridge.exposeInMainWorld('TranslatorService', translatorService);

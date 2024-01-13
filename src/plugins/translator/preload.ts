@@ -1,16 +1,17 @@
+import { contextBridge, ipcRenderer } from 'electron';
+
 import { MidiArray } from '@shared/midi-array';
-import { ipcRenderer } from 'electron';
-import { TRANSLATOR } from 'main/ipc-channels';
-import { addOnChangeListener } from './common';
+
+import { TRANSLATOR } from '../../main/ipc-channels';
+import { addOnChangeListener } from '../../main/preload/common';
 
 /**
  * Contains IPC functions related to translators
  */
-export const translatorService = {
+const TranslatorService = {
   removeTranslatorOverride(deviceId: string, action: NumberArrayWithStatus) {
     ipcRenderer.send(TRANSLATOR.REMOVE_TRANSLATOR_OVERRIDE, deviceId, action);
   },
-
   addTranslatorOverride(
     deviceId: string,
     action: NumberArrayWithStatus,
@@ -29,7 +30,6 @@ export const translatorService = {
       value
     );
   },
-
   getTranslatorOverride(
     deviceId: string,
     action: NumberArrayWithStatus
@@ -40,7 +40,6 @@ export const translatorService = {
       action
     );
   },
-
   onOverridesChange(
     deviceId: string,
     func: (overrides: Map<string, MidiArray>) => void
@@ -51,4 +50,16 @@ export const translatorService = {
   },
 };
 
-export type TranslatorService = typeof translatorService;
+/**
+ * Inject this service into the renderer process.
+ */
+contextBridge.exposeInMainWorld('TranslatorService', TranslatorService);
+
+/**
+ * Let the compiler know that this service is avaiable in renderer-living files
+ */
+declare global {
+  interface Window {
+    TranslatorService: typeof TranslatorService;
+  }
+}

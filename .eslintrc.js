@@ -10,6 +10,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     'no-bitwise': 'off',
+    'no-underscore-dangle': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

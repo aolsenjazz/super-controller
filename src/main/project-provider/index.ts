@@ -10,14 +10,10 @@ import {
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
-import { idForConfigStub, stringify } from '@shared/util';
+import { stringify } from '@shared/util';
 import { Anonymous, getDriver } from '@shared/drivers';
 import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 import { create } from '@shared/midi-array';
-import {
-  BaseInputConfig,
-  InputConfigStub,
-} from '@shared/hardware-config/input-config/base-input-config';
 
 import { CONFIG, TRANSLATOR } from '../ipc-channels';
 import { projectFromFile } from '../util-main';
@@ -53,7 +49,6 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     super();
     this.initIpc();
     this.initTranslatorIpc();
-    this.initInputConfigIpc();
   }
 
   public static getInstance(): ProjectProviderSingleton {
@@ -264,75 +259,6 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
         if (conf instanceof AnonymousDeviceConfig) {
           MainWindow.sendOverrides(deviceId, conf.overrides);
-        }
-      }
-    );
-  }
-
-  /**
-   * IPC channels for updating input configs.
-   *
-   * TODO: this will go in its own plugin file/dir at some point
-   */
-  private initInputConfigIpc() {
-    ipcMain.on(
-      CONFIG.UPDATE_INPUT,
-      (_e: IpcMainEvent, deviceId: string, configs: InputConfigStub[]) => {
-        const deviceConfig = this.project.getDevice(
-          deviceId
-        ) as SupportedDeviceConfig;
-
-        const updatedConfigs: BaseInputConfig[] = [];
-        configs.forEach((c) => {
-          const id = idForConfigStub(c);
-          const input = deviceConfig.getInputById(id);
-
-          if (input) {
-            input.applyStub(c);
-            updatedConfigs.push(input);
-            MainWindow.sendInputState(deviceId, id, input.state);
-          }
-        });
-
-        MainWindow.edited = true;
-        MainWindow.sendInputConfigs(updatedConfigs.map((c) => c.config));
-        this.emit(
-          ProjectProviderEvent.UpdateInput,
-          deviceConfig,
-          updatedConfigs
-        );
-      }
-    );
-
-    ipcMain.on(
-      CONFIG.GET_INPUT_CONFIG,
-      (_e: IpcMainEvent, deviceId: string, inputId: string) => {
-        const dConf = this.project.getDevice(deviceId);
-
-        if (
-          dConf instanceof SupportedDeviceConfig ||
-          dConf instanceof AdapterDeviceConfig
-        ) {
-          const iConf = dConf.getInputById(inputId);
-
-          if (iConf) {
-            MainWindow.sendInputConfig(deviceId, inputId, iConf.config);
-          }
-        }
-      }
-    );
-
-    ipcMain.on(
-      CONFIG.REQUEST_INPUT_CONFIG_STUB,
-      (_e: IpcMainEvent, deviceId: string, inputIds: string[]) => {
-        const conf = this.project.getDevice(deviceId);
-
-        if (
-          conf instanceof SupportedDeviceConfig ||
-          conf instanceof AdapterDeviceConfig
-        ) {
-          const configs = inputIds.map((i) => conf.getInputById(i)!.config);
-          MainWindow.sendInputConfigs(configs);
         }
       }
     );

@@ -55,3 +55,9 @@ export function getPreloadPath() {
     ? path.join(__dirname, 'preload', 'preload.ts')
     : path.join(__dirname, '../../.erb/dll/preload.js');
 }
+
+export function getPluginsPath() {
+  return app.isPackaged
+    ? path.join(__dirname, 'plugins')
+    : path.join(__dirname, '../../.erb/dll/plugins');
+}
