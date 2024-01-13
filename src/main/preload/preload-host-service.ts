@@ -83,3 +83,5 @@ export const hostService = {
     return off;
   },
 };
+
+export type HostService = typeof hostService;

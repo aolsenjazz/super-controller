@@ -105,3 +105,5 @@ export const configService = {
     return off;
   },
 };
+
+export type ConfigService = typeof configService;

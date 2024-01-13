@@ -18,7 +18,3 @@ ipcRenderer.setMaxListeners(1000);
 contextBridge.exposeInMainWorld('ConfigService', configService);
 contextBridge.exposeInMainWorld('HostService', hostService);
 contextBridge.exposeInMainWorld('TranslatorService', translatorService);
-
-export type ConfigService = typeof configService;
-export type HostService = typeof hostService;
-export type TranslatorService = typeof translatorService;

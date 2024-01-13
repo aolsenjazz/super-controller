@@ -50,3 +50,5 @@ export const translatorService = {
     return off;
   },
 };
+
+export type TranslatorService = typeof translatorService;
