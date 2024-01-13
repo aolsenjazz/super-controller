@@ -1,6 +1,7 @@
+import { Input, Output } from '@julisian/midi';
+
 import { PortInfo } from '@shared/port-info';
 import { getDiff } from '@shared/util';
-import { Input, Output } from 'midi';
 
 import { PortInfoPair } from './port-info-pair';
 
