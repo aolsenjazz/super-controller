@@ -1,3 +1,14 @@
+/**
+ * Standard electron preload file. This file exists in a sandboxed context, with the DOM
+ * and a limited subset of Node APIs available to it. This preload file is dynamically
+ * loaded in webpack, however, we still need to do the injection and global window
+ * extension in every individual preload file.
+ *
+ * Do not change this file's name, and do not remove the injection code at bottom of file.
+ *
+ * The main process' IPC listeners exist inside of this respective service's plugin file.
+ */
+
 import { contextBridge, ipcRenderer } from 'electron';
 
 import { MidiArray } from '@shared/midi-array';
