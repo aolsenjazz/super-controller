@@ -7,8 +7,9 @@ import { V1ToV2 } from './v1-to-v2';
 import { V2ToV3 } from './v2-to-v3';
 import { V3ToV4 } from './v3-to-v4';
 import { V4ToV5 } from './v4-to-v5';
+import { V5ToV6 } from './v5-to-v6';
 
-const upgradeConstructors = [V0ToV1, V1ToV2, V2ToV3, V3ToV4, V4ToV5];
+const upgradeConstructors = [V0ToV1, V1ToV2, V2ToV3, V3ToV4, V4ToV5, V5ToV6];
 
 export function upgradeProject(projectString: string): Project {
   const asObj = JSON.parse(projectString);

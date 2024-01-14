@@ -3,7 +3,7 @@ import {
   AnonymousDeviceConfig,
   BaseInputConfig,
   SupportedDeviceConfig,
-} from '@shared/hardware-config';
+} from './legacy/v5/shared/hardware-config';
 
 import {
   KnobConfig,
@@ -12,9 +12,9 @@ import {
   SliderConfig,
   SwitchConfig,
   XYConfig,
-} from '@shared/hardware-config/input-config';
+} from './legacy/v5/shared/hardware-config/input-config';
 
-import { create, MidiArray } from '@shared/midi-array';
+import { create, MidiArray } from './legacy/v5/shared/midi-array';
 
 import {
   ColorConfigPropagator,
@@ -24,10 +24,10 @@ import {
   NonsequentialStepPropagator,
   OverrideablePropagator,
   PitchbendPropagator,
-} from '@shared/propagators';
-import { TogglePropagator } from '@shared/propagators/toggle-propagator';
+} from './legacy/v5/shared/propagators';
+import { TogglePropagator } from './legacy/v5/shared/propagators/toggle-propagator';
 
-import { Project } from '@shared/project';
+import { Project } from './legacy/v5/shared/project';
 
 import { BaseUpgrade } from './common/base-upgrade';
 

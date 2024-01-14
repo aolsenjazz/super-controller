@@ -1,5 +1,3 @@
-import { BasePlugin } from '@plugins/base-plugin';
-
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
 
@@ -9,6 +7,7 @@ export type DeviceConfigStub = {
   siblingIndex: number;
   driverName: string;
   nickname: string;
+  isAdapter: boolean;
   isAnonymous: boolean;
   shareSustain: string[];
   child?: DeviceConfigStub;
@@ -27,16 +26,18 @@ export abstract class DeviceConfig {
    * Used to bind this config to the given port.
    *
    */
-  public readonly portName: string;
+  readonly portName: string;
 
   /**
    * Name of the driver to bind this config to. E.g. APC Key 25 | iRig BlueBoard. The value
    * of this field should match the name field of one of the driver files in src/shared/drivers
    */
-  public readonly driverName: string;
+  readonly driverName: string;
 
   /* nth-occurence of this device. applicable if > 1 device of same model is connected/configured */
-  public readonly siblingIndex: number;
+  readonly siblingIndex: number;
+
+  abstract readonly isAdapter: boolean;
 
   /**
    * List of devices with which sustain events are shared.
@@ -45,14 +46,12 @@ export abstract class DeviceConfig {
    * on this device, a sustain event will also be sent to clients from the shared
    * devices, on the same channel as their respective keyboards.
    */
-  public shareSustain: string[];
-
-  public keyboardDriver?: KeyboardDriver;
+  shareSustain: string[];
 
   /* User-defined nickname */
-  private _nickname?: string;
+  #nickname?: string;
 
-  private plugins: BasePlugin[] = [];
+  keyboardDriver?: KeyboardDriver;
 
   constructor(
     portName: string,
@@ -65,57 +64,19 @@ export abstract class DeviceConfig {
     this.driverName = driverName;
     this.siblingIndex = siblingIndex;
     this.shareSustain = shareSustain;
-    this._nickname = nickname;
+    this.#nickname = nickname;
   }
 
-  /**
-   * Adds a plugin to this `DeviceConfig`s `plugins` array at the end of the arr.
-   * `plugin` may be an instance of the plugin, or the plugin's id.
-   */
-  public addPlugin(plugin: BasePlugin) {
-    this.plugins.push(plugin);
+  get nickname() {
+    return this.#nickname !== undefined ? this.#nickname : this.portName;
   }
 
-  /**
-   * Removes the plugin from this `DeviceConfig`s `plugins` array. `plugin` may be
-   * an instance of the plugin, or the plugin's id.
-   */
-  public removePlugin(plugin: BasePlugin | string) {
-    const id = plugin instanceof BasePlugin ? plugin.id : plugin;
-    const pluginIdx = this.plugins
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .filter((p, _i) => p.id === id)
-      .map((_p, i) => i)[0];
-
-    this.plugins.splice(pluginIdx, 1);
-  }
-
-  /**
-   * Moves the `plugin` to the specified index of the array. `plugin` may be
-   * an instance of the plugin, or the plugin's id.
-   */
-  public movePlugin(plugin: BasePlugin | string, newIdx: number) {
-    const id = plugin instanceof BasePlugin ? plugin.id : plugin;
-    const oldIdx = this.plugins
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .filter((p, _i) => p.id === id)
-      .map((_p, i) => i)[0];
-
-    const element = this.plugins[oldIdx];
-    this.plugins.splice(oldIdx, 1);
-    this.plugins.splice(newIdx, 0, element);
+  set nickname(nickname: string) {
+    this.#nickname = nickname;
   }
 
   get id() {
     return `${this.portName} ${this.siblingIndex}`;
-  }
-
-  get nickname() {
-    return this._nickname !== undefined ? this._nickname : this.portName;
-  }
-
-  set nickname(nickname: string) {
-    this._nickname = nickname;
   }
 
   /**
