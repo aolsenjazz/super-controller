@@ -13,7 +13,6 @@ import { idForConfigStub } from '@shared/util';
 
 import { CONFIG } from '../../main/ipc-channels';
 import { BasePlugin } from '../base-plugin';
-import { generateId } from '../plugin-utils';
 
 import { wp } from '../../main/window-provider';
 import { ProjectProvider } from '../../main/project-provider';
@@ -24,13 +23,6 @@ const { MainWindow } = wp;
 type TranslatorIcicle = {};
 
 export class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
-  private _id: string;
-
-  constructor() {
-    super();
-    this._id = generateId(this.title);
-  }
-
   public process(msg: MidiArray | NumberArrayWithStatus) {
     // eslint-disable-next-line no-console
     console.log(msg);
@@ -107,15 +99,11 @@ export class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
     );
   }
 
-  public get id() {
-    return this._id;
-  }
-
-  public get title() {
+  public title() {
     return 'Translator';
   }
 
-  public get description() {
+  public description() {
     return 'Temp Description';
   }
 

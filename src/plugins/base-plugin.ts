@@ -1,5 +1,7 @@
 import { MidiArray } from '@shared/midi-array';
+import { generateId } from './plugin-utils';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface PluginIcicle {}
 
 /**
@@ -21,14 +23,19 @@ export interface PluginIcicle {}
  * contexts which these files run in.
  */
 export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
+  public readonly id: string;
+
+  constructor() {
+    this.id = generateId(this.title());
+  }
+
   public abstract process(msg: MidiArray | NumberArrayWithStatus): void;
   public abstract freeze(): T;
 
   protected abstract initIpcListeners(): void;
 
-  public abstract get id(): string;
-  public abstract get title(): string;
-  public abstract get description(): string;
+  public abstract title(): string;
+  public abstract description(): string;
 
   public abstract get applicableDeviceTypes(): (
     | 'supported'

@@ -1,20 +1,78 @@
 import { Project as V6Project } from '@shared/project';
 import { parse as v6Parse, stringify as v6Stringify } from '@shared/util';
-import { DeviceConfig } from '@shared/hardware-config';
-
 import {
-  stringify as v5Stringify,
-  parse as v5Parse,
-} from './legacy/v5/shared/util';
+  AdapterDeviceConfig,
+  AnonymousDeviceConfig,
+  DeviceConfig,
+  SupportedDeviceConfig,
+} from '@shared/hardware-config';
+import { ShareSustainPlugin } from '@plugins/share-sustain';
+import { BasePlugin } from '@plugins/base-plugin';
+
+import { parse as v5Parse } from './legacy/v5/shared/util';
 import { Project as V5Project } from './legacy/v5/shared/project';
 
 import { BaseUpgrade } from './common/base-upgrade';
+import {
+  AdapterDeviceConfig as V5AdapterDeviceConfig,
+  SupportedDeviceConfig as V5SupportedDeviceConfig,
+  AnonymousDeviceConfig as V5AnonymousDeviceConfig,
+  DeviceConfig as V5DeviceConfig,
+} from './legacy/v5/shared/hardware-config';
+
+function upgradeDeviceConfig(d: V5DeviceConfig, plugins: BasePlugin[]) {
+  let newDev: DeviceConfig;
+  if (d instanceof V5AnonymousDeviceConfig) {
+    newDev = new AnonymousDeviceConfig(
+      d.portName,
+      d.siblingIndex,
+      d.nickname,
+      plugins
+    );
+  } else if (d instanceof V5SupportedDeviceConfig) {
+    // TODO: add plugins to constructor
+    newDev = new SupportedDeviceConfig(
+      d.portName,
+      d.driverName,
+      d.siblingIndex,
+      d.inputs,
+      d.nickname,
+      d.keyboardDriver
+    );
+  } else {
+    const asAdapt = d as V5AdapterDeviceConfig;
+    const oldChild = asAdapt.child!;
+    // TODO: add plugins to this contructor
+    const newChild = new SupportedDeviceConfig(
+      oldChild.portName,
+      oldChild.driverName,
+      oldChild.siblingIndex,
+      oldChild.inputs,
+      oldChild.nickname,
+      oldChild.keyboardDriver
+    );
+
+    // TODO: add plugins to contructor
+    newDev = new AdapterDeviceConfig(
+      asAdapt.portName,
+      asAdapt.driverName,
+      asAdapt.siblingIndex,
+      newChild
+    );
+  }
+
+  return newDev;
+}
 
 function upgradeToV6(projString: string) {
   const oldProj = v5Parse<V5Project>(projString);
 
   const newDevices = oldProj.devices
-    .map((d) => v5Stringify(d))
+    .map((d) => {
+      const shareSustain = new ShareSustainPlugin(d.shareSustain);
+      const newDevice = upgradeDeviceConfig(d, [shareSustain]);
+      return v6Stringify(newDevice);
+    })
     .map((s) => v6Parse<DeviceConfig>(s));
 
   const newProj = new V6Project(newDevices, 6);

@@ -2,8 +2,6 @@ import React, { useCallback, useState } from 'react';
 
 import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 
-import ShareSustain from './ShareSustain';
-
 const { ConfigService } = window;
 
 type PropTypes = {
@@ -46,7 +44,6 @@ export default function DeviceConfigPanel(props: PropTypes) {
       <h3>Device Settings</h3>
       <p className="label">Nickname:</p>
       <input id="nickname" value={config.nickname} onChange={onNameChange} />
-      <ShareSustain config={config} />
       <h4>Delete Configuration:</h4>
       <div id="remove-device">
         <p>
