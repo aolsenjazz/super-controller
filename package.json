@@ -91,6 +91,7 @@
     "react": "^18.2.0",
     "react-compound-slider": "^3.4.0",
     "react-dom": "^18.2.0",
+    "react-resizable-panels": "^0.0.55",
     "react-router-dom": "^6.4.0",
     "react-tooltip": "^5.7.5",
     "regenerator-runtime": "^0.13.9"

@@ -1,10 +1,13 @@
 #config-panel {
-  flex: 0 0 280px;
-  background-color: #f2eeef;
+  background-color: #f4f0f1;
+  z-index: 1000;
+  overflow-x: hidden;
+  width: calc(100% - 16px);
+  padding-left: 8px;
+  padding-right: 8px;
+  justify-content: center;
+  position: relative;
   overflow-y: overlay;
-  box-shadow: -1px 0 1px #dbd7d8;
-  max-height: calc(100vh - 54px);
-  padding: 12px;
 }
 
 #config-panel h3 {

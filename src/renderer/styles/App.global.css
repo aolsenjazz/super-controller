@@ -75,9 +75,8 @@ h1 {
 }
 
 #main-content {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
+  height: calc(100% - 30px);
+  max-width: 100%;
 }
 
 .top-level {

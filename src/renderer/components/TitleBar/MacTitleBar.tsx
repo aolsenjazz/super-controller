@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import DrawerToggles from './DrawerToggles';
 
 const { ConfigService } = window;
 
@@ -17,9 +18,12 @@ export default function TitleBar() {
 
   return (
     <div id="title-bar">
-      <div id="no-shadow" />
-      <h1 id="title">{title}</h1>
-      <div id="shadow" />
+      <div id="drag-region">
+        <div id="no-shadow" />
+        <h1 id="title">{title}</h1>
+        <div id="shadow" />
+      </div>
+      <DrawerToggles />
     </div>
   );
 }

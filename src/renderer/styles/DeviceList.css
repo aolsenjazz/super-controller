@@ -1,22 +1,24 @@
 #device-list {
-  flex: 0 0 230px;
   background-color: #f4f0f1;
-  float: left;
-  text-align: right;
-  box-shadow: 1px 0 1px #dbd7d8;
+  text-align: left;
   overflow-y: overlay;
+  z-index: 1000;
   max-height: calc(100vh - 30px);
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
 }
 
 .device-list-item {
-  width: 220px;
+  min-width: 220px;
   position: relative;
+  margin-left: 10px;
   display: inline-block;
-  height: 49px;
   text-align: left;
   border-bottom: 1px solid #e6e6e6;
   padding-bottom: 4px;
   margin-top: 10px;
+  width: calc(100% - 15px);
 }
 
 .device-list-item:last-of-type {

@@ -40,3 +40,10 @@ export const TRANSLATOR = {
   GET_TRANSLATOR_OVERRIDE: 'get-translator-override',
   REQUEST_OVERRIDES: 'request-overrides',
 };
+
+export const LAYOUT = {
+  GET_LAYOUT: 'get-layout',
+  SET_LAYOUT: 'set-layout',
+  GET_LAYOUT_ITEM: 'get-layout-item',
+  SET_LAYOUT_ITEM: 'set-layout-item',
+};

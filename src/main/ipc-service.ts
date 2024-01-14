@@ -12,7 +12,8 @@ import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 import { ProjectProvider as pp } from './project-provider';
 import { wp } from './window-provider';
-import { HOST, CONFIG } from './ipc-channels';
+import { HOST, CONFIG, LAYOUT } from './ipc-channels';
+import { LayoutParams, Store } from './store';
 
 const { MainWindow } = wp;
 
@@ -52,3 +53,19 @@ ipcMain.on(
     }
   }
 );
+
+ipcMain.on(LAYOUT.GET_LAYOUT, (e: Event) => {
+  e.returnValue = Store.getLayoutParams();
+});
+
+ipcMain.on(LAYOUT.SET_LAYOUT, (e: Event, lp: LayoutParams) => {
+  e.returnValue = Store.setLayoutParams(lp);
+});
+
+ipcMain.on(LAYOUT.GET_LAYOUT_ITEM, (e: Event, s: string) => {
+  e.returnValue = Store.getLayoutItem(s);
+});
+
+ipcMain.on(LAYOUT.SET_LAYOUT_ITEM, (e: Event, s: string, v: string) => {
+  e.returnValue = Store.setLayoutItem(s, v);
+});
