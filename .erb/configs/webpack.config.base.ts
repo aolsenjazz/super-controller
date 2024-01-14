@@ -51,6 +51,8 @@ const configuration: webpack.Configuration = {
       '@assets': path.resolve(__dirname, '..', '..', 'src/renderer/assets/'),
       '@context': path.resolve(__dirname, '..', '..', 'src/renderer/context/'),
       '@hooks': path.resolve(__dirname, '..', '..', 'src/renderer/hooks/'),
+      '@plugins': path.resolve(__dirname, '..', '..', 'src/plugins/'),
+      '@main': path.resolve(__dirname, '..', '..', 'src/main/'),
     },
   },
 

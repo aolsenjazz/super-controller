@@ -10,8 +10,6 @@ export interface ImmutableMidiArrayMap {
 export class AnonymousDeviceConfig extends DeviceConfig {
   #overrides: Map<string, MidiArray>;
 
-  isAdapter = false;
-
   constructor(
     portName: string,
     siblingIndex: number,
@@ -86,7 +84,6 @@ export class AnonymousDeviceConfig extends DeviceConfig {
       driverName: this.driverName,
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
-      isAdapter: false,
       isAnonymous: true,
       shareSustain: this.shareSustain,
     };

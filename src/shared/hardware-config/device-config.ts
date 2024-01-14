@@ -1,3 +1,5 @@
+import { BasePlugin } from '@plugins/base-plugin';
+
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
 
@@ -7,7 +9,6 @@ export type DeviceConfigStub = {
   siblingIndex: number;
   driverName: string;
   nickname: string;
-  isAdapter: boolean;
   isAnonymous: boolean;
   shareSustain: string[];
   child?: DeviceConfigStub;
@@ -37,7 +38,7 @@ export abstract class DeviceConfig {
   /* nth-occurence of this device. applicable if > 1 device of same model is connected/configured */
   readonly siblingIndex: number;
 
-  abstract readonly isAdapter: boolean;
+  public plugins: BasePlugin[] = [];
 
   /**
    * List of devices with which sustain events are shared.
@@ -46,12 +47,12 @@ export abstract class DeviceConfig {
    * on this device, a sustain event will also be sent to clients from the shared
    * devices, on the same channel as their respective keyboards.
    */
-  shareSustain: string[];
+  public shareSustain: string[];
 
   /* User-defined nickname */
   #nickname?: string;
 
-  keyboardDriver?: KeyboardDriver;
+  public keyboardDriver?: KeyboardDriver;
 
   constructor(
     portName: string,

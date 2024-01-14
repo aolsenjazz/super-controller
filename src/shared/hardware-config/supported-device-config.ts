@@ -20,8 +20,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
   /* See `KeyboardDriver` */
   keyboardDriver?: KeyboardDriver;
 
-  isAdapter = false;
-
   static fromDriver(
     portName: string,
     siblingIndex: number,
@@ -147,7 +145,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
       driverName: this.driverName,
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
-      isAdapter: false,
       isAnonymous: false,
       shareSustain: this.shareSustain,
     };

@@ -6,8 +6,6 @@ import { SupportedDeviceConfig } from './supported-device-config';
 export class AdapterDeviceConfig implements SupportedDeviceConfig {
   portName: string;
 
-  isAdapter = true;
-
   nickname: string;
 
   siblingIndex: number;
@@ -136,7 +134,6 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
       driverName: this.driverName,
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
-      isAdapter: true,
       isAnonymous: false,
       shareSustain: this.shareSustain,
       child: this.child?.stub,

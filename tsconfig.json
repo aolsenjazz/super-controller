@@ -24,7 +24,9 @@
       "@shared/*": ["shared/*"],
       "@assets/*": ["renderer/assets/*"],
       "@context/*": ["renderer/context/*"],
-      "@hooks/*": ["renderer/hooks/*"]
+      "@hooks/*": ["renderer/hooks/*"],
+      "@plugins/*": ["plugins/*"],
+      "@main/*": ["main/*"]
     },
     "outDir": ".erb/dll"
   },
