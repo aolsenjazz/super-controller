@@ -26,7 +26,7 @@ import {
   LightCapableInputConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
-import { create, MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
+import { create, MidiArray } from '@shared/midi-array';
 
 import { PortScanResult, PortManager } from './port-manager';
 import { ProjectProvider } from '../project-provider';
@@ -277,10 +277,6 @@ export class HardwarePortServiceSingleton {
     const toDevice = config.getResponse(msg);
 
     if (toPropagate) {
-      // send sustain events thru all virtual ports in config
-      if (toPropagate.isSustain)
-        this.handleSustain(toPropagate, config.shareSustain);
-
       VirtualPortService.send(toPropagate, config.id);
     }
 
@@ -299,21 +295,6 @@ export class HardwarePortServiceSingleton {
     } else if (config instanceof AnonymousDeviceConfig) {
       MainWindow.sendRecentMsg(pair.id, msg.array);
     }
-  }
-
-  private handleSustain(msg: MidiArray, shareWith: string[]) {
-    shareWith.forEach((devId) => {
-      const device = ProjectProvider.project.getDevice(devId);
-      let newMsg = msg;
-
-      if (device?.keyboardDriver !== undefined) {
-        const c = device.keyboardDriver.channel;
-        const asThree = msg as ThreeByteMidiArray;
-        newMsg = create('controlchange', c, asThree.number, asThree.value);
-      }
-
-      VirtualPortService.send(newMsg, devId);
-    });
   }
 
   /**

@@ -5,7 +5,6 @@ import fs from 'fs';
 
 import {
   AdapterDeviceConfig,
-  AnonymousDeviceConfig,
   configFromDriver,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
@@ -13,18 +12,14 @@ import { Project } from '@shared/project';
 import { stringify } from '@shared/util';
 import { Anonymous, getDriver } from '@shared/drivers';
 import { DeviceConfigStub } from '@shared/hardware-config/device-config';
-import { create } from '@shared/midi-array';
 
-import { CONFIG, TRANSLATOR } from '../ipc-channels';
+import { CONFIG } from '../ipc-channels';
 import { projectFromFile } from '../util-main';
 import { dialogs } from '../dialogs';
 import {
   ProjectEventEmitter,
   ProjectProviderEvent,
 } from './project-event-emitter';
-import { wp } from '../window-provider';
-
-const { MainWindow } = wp;
 
 const SAVE_DIR = 'dir';
 const store = new Store();
@@ -48,7 +43,6 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
   private constructor() {
     super();
     this.initIpc();
-    this.initTranslatorIpc();
   }
 
   public static getInstance(): ProjectProviderSingleton {
@@ -186,80 +180,12 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         const config = this.project.getDevice(updates.id)!;
 
         config.nickname = updates.nickname;
-        config.shareSustain = updates.shareSustain;
 
         this.emit(ProjectProviderEvent.DevicesChanged, {
           changed: [config],
           project: this.project,
           action: 'update',
         });
-      }
-    );
-  }
-
-  /**
-   * IPC channels for updating translator overrides
-   *
-   * TODO: this will go in its own plugin file/dir at some point
-   */
-  private initTranslatorIpc() {
-    ipcMain.on(
-      TRANSLATOR.REMOVE_TRANSLATOR_OVERRIDE,
-      (_e: IpcMainEvent, deviceId: string, action: NumberArrayWithStatus) => {
-        const conf = this.project.getDevice(deviceId);
-
-        MainWindow.edited = true;
-        if (conf instanceof AnonymousDeviceConfig) {
-          conf.deleteOverride(action);
-        }
-      }
-    );
-
-    ipcMain.on(
-      TRANSLATOR.ADD_TRANSLATOR_OVERRIDE,
-      (
-        _e: IpcMainEvent,
-        deviceId: string,
-        action: NumberArrayWithStatus,
-        statusString: StatusString,
-        channel: Channel,
-        number: MidiNumber,
-        value: MidiNumber
-      ) => {
-        const conf = this.project.getDevice(deviceId);
-
-        MainWindow.edited = true;
-        if (conf instanceof AnonymousDeviceConfig) {
-          const ma = create(action);
-          conf.overrideInput(ma, statusString, channel, number, value);
-
-          MainWindow.sendOverrides(deviceId, conf.overrides);
-        }
-      }
-    );
-
-    ipcMain.on(
-      TRANSLATOR.GET_TRANSLATOR_OVERRIDE,
-      (e: IpcMainEvent, deviceId: string, action: NumberArrayWithStatus) => {
-        const conf = this.project.getDevice(deviceId);
-
-        if (conf instanceof AnonymousDeviceConfig) {
-          const ma = create(action);
-          e.returnValue = conf.getOverride(ma);
-        } else {
-          e.returnValue = undefined;
-        }
-      }
-    );
-
-    ipcMain.on(
-      TRANSLATOR.REQUEST_OVERRIDES,
-      (_e: IpcMainEvent, deviceId: string) => {
-        const conf = this.project.getDevice(deviceId);
-
-        if (conf instanceof AnonymousDeviceConfig) {
-          MainWindow.sendOverrides(deviceId, conf.overrides);
-        }
       }
     );
   }

@@ -10,7 +10,6 @@ describe('toJSON', () => {
       'supported',
       'supported',
       0,
-      [],
       []
     );
     const conf = new AdapterDeviceConfig('test', 'test', 0, supported);

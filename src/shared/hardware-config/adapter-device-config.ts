@@ -1,17 +1,17 @@
 import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { SupportedDeviceConfig } from './supported-device-config';
+import { DeviceConfig } from './device-config';
 
+/**
+ * TODO: I am once again confronted by the the problem of "why am I implementing
+ * supporteddeviceconfig" when devce instanceof SupportedDevice returns false
+ */
 @Revivable.register
-export class AdapterDeviceConfig implements SupportedDeviceConfig {
-  portName: string;
-
-  nickname: string;
-
-  siblingIndex: number;
-
-  driverName: string;
-
+export class AdapterDeviceConfig
+  extends DeviceConfig
+  implements SupportedDeviceConfig
+{
   child?: SupportedDeviceConfig;
 
   constructor(
@@ -20,10 +20,7 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
     siblingIndex: number,
     child?: SupportedDeviceConfig
   ) {
-    this.portName = portName;
-    this.driverName = driverName;
-    this.nickname = portName;
-    this.siblingIndex = siblingIndex;
+    super(portName, driverName, siblingIndex, portName);
     this.child = child;
   }
 
@@ -60,25 +57,6 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
     return msg;
   }
 
-  shareWith(id: string) {
-    if (this.child) {
-      this.child!.shareWith(id);
-    }
-  }
-
-  stopSharing(id: string) {
-    if (this.child) {
-      this.child!.stopSharing(id);
-    }
-  }
-
-  sharingWith(id: string) {
-    if (this.child) {
-      return this.child!.sharingWith(id);
-    }
-    return false;
-  }
-
   /**
    * Returns the `BaseInputConfig` for given id
    */
@@ -110,19 +88,6 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
     return [];
   }
 
-  get shareSustain() {
-    if (this.child) {
-      return this.child.shareSustain;
-    }
-    return [];
-  }
-
-  set shareSustain(shareSustain: string[]) {
-    if (this.child) {
-      this.child.shareSustain = shareSustain;
-    }
-  }
-
   get id() {
     return `${this.portName} ${this.siblingIndex}`;
   }
@@ -134,8 +99,6 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
       driverName: this.driverName,
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
-      isAnonymous: false,
-      shareSustain: this.shareSustain,
       child: this.child?.stub,
     };
   }

@@ -21,7 +21,7 @@ export function configFromDriver(
   driver: DeviceDriver
 ) {
   if (driver.anonymous) {
-    return new AnonymousDeviceConfig(portName, siblingIndex, new Map(), []);
+    return new AnonymousDeviceConfig(portName, siblingIndex);
   }
 
   if (driver.type === 'adapter') {

@@ -38,10 +38,8 @@ export class SupportedDeviceConfig extends DeviceConfig {
       portName,
       driver.name,
       siblingIndex,
-      [],
       inputs,
-      undefined,
-      driver.keyboard
+      undefined
     );
 
     return newConfig;
@@ -51,12 +49,11 @@ export class SupportedDeviceConfig extends DeviceConfig {
     name: string,
     driverName: string,
     siblingIndex: number,
-    shareSustain: string[],
     inputs: BaseInputConfig[],
     nickname?: string,
     keyboardDriver?: KeyboardDriver
   ) {
-    super(name, driverName, siblingIndex, shareSustain, nickname);
+    super(name, driverName, siblingIndex, nickname);
     this.inputs = inputs;
     this.keyboardDriver = keyboardDriver;
   }
@@ -69,7 +66,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
         this.portName,
         this.driverName,
         this.siblingIndex,
-        this.shareSustain,
         this.inputs,
         this.nickname,
         this.keyboardDriver,
@@ -145,8 +141,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
       driverName: this.driverName,
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
-      isAnonymous: false,
-      shareSustain: this.shareSustain,
     };
   }
 }

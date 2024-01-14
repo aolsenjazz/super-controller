@@ -31,20 +31,12 @@ function BasicInputConfig() {
 
 function BasicSupportedDevice() {
   const name = 'SomeName';
-  const shareSustain: string[] = [];
   const inputConfigs: PadConfig[] = [];
   const nickname = 'SomeNickname';
 
   inputConfigs.push(BasicInputConfig());
 
-  return new SupportedDeviceConfig(
-    name,
-    name,
-    0,
-    shareSustain,
-    inputConfigs,
-    nickname
-  );
+  return new SupportedDeviceConfig(name, name, 0, inputConfigs, nickname);
 }
 
 test('getInput throws for bad id', () => {
@@ -56,7 +48,6 @@ test('getInput throws for bad id', () => {
   };
 
   const name = 'SomeName';
-  const shareSustain: string[] = [];
   const nickname = 'SomeNickname';
 
   const prop = new ContinuousPropagator(
@@ -68,14 +59,7 @@ test('getInput throws for bad id', () => {
 
   const input = new PadConfig(d, [], [], prop);
 
-  const config = new SupportedDeviceConfig(
-    name,
-    name,
-    0,
-    shareSustain,
-    [input],
-    nickname
-  );
+  const config = new SupportedDeviceConfig(name, name, 0, [input], nickname);
 
   expect(config.getOriginatorInput([144, 42, 32])).toBe(undefined);
 });
@@ -89,7 +73,6 @@ test('handleMessage() passes to correct input for processing', () => {
   };
 
   const name = 'SomeName';
-  const shareSustain: string[] = [];
   const inputConfigs = [];
   const nickname = 'SomeNickname';
 
@@ -108,7 +91,6 @@ test('handleMessage() passes to correct input for processing', () => {
     name,
     name,
     0,
-    shareSustain,
     inputConfigs,
     nickname
   );
@@ -154,7 +136,6 @@ test('toJSON and fromParsedJSON correctly serializes + deserializes', () => {
   expect(conf.driverName).toBe(other.driverName);
   expect(conf.siblingIndex).toBe(other.siblingIndex);
   expect(conf.nickname).toBe(other.nickname);
-  expect(conf.shareSustain).toEqual(other.shareSustain);
   expect(conf.keyboardDriver).toEqual(other.keyboardDriver);
   expect(JSON.stringify(conf.inputs)).toBe(JSON.stringify(other.inputs));
 });
