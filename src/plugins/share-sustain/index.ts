@@ -3,7 +3,7 @@ import { ipcMain, IpcMainEvent } from 'electron';
 import { MidiArray } from '@shared/midi-array';
 import { Registry } from '@plugins/registry';
 
-import { BasePlugin } from '../base-plugin';
+import { BasePlugin, PluginIcicle } from '../base-plugin';
 import { ADD_SUSTAIN_TARGET, REMOVE_SUSTAIN_TARGET } from './ipc-channels';
 
 // IPC event to be received in the main process
@@ -26,8 +26,9 @@ ipcMain.on(
   }
 );
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type ShareSustainIcicle = {};
+interface ShareSustainIcicle extends PluginIcicle {
+  sustainTargets: string[];
+}
 
 export class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
   public sustainTargets: string[] = [];
@@ -42,8 +43,12 @@ export class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
     console.log(msg);
   }
 
-  public freeze() {
-    return {};
+  public freeze(): ShareSustainIcicle {
+    return {
+      id: this.id,
+      title: this.title(),
+      sustainTargets: this.sustainTargets,
+    };
   }
 
   public addSustainTarget(targetConfigId: string) {

@@ -12,15 +12,15 @@ import {
 import { idForConfigStub } from '@shared/util';
 
 import { CONFIG } from '../../main/ipc-channels';
-import { BasePlugin } from '../base-plugin';
+import { BasePlugin, PluginIcicle } from '../base-plugin';
 
 import { wp } from '../../main/window-provider';
 import { ProjectProvider } from '../../main/project-provider';
 
 const { MainWindow } = wp;
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type TranslatorIcicle = {};
+// eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-empty-interface
+interface TranslatorIcicle extends PluginIcicle {}
 
 export class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
   public process(msg: MidiArray | NumberArrayWithStatus) {
@@ -29,7 +29,10 @@ export class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
   }
 
   public freeze() {
-    return {};
+    return {
+      id: this.id,
+      title: this.title(),
+    };
   }
 
   protected initIpcListeners(): void {

@@ -15,7 +15,6 @@ export default function BasicNotConfigured() {
 
   return (
     <div className="message not-configured">
-      <p>Device is not yet configured.</p>
       <button onClick={onClick} type="button">
         Add Device
       </button>

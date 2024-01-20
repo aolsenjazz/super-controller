@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { useSelectedDevice } from '@context/selected-device-context';
-
-import { useConnectedDevices } from '@hooks/use-connected-devices';
 import { useConfiguredDevices } from '@hooks/use-configured-devices';
+import { useConnectedDevices } from '@hooks/use-connected-devices';
 
 import DeviceListItem from './DeviceListItem';
-import SectionHeader from '../SectionHeader';
 
 type DeviceListItemData = {
   id: string;
@@ -30,7 +28,7 @@ const sortDevices = (a: DeviceListItemData, b: DeviceListItemData) => {
   return a.name.localeCompare(b.name);
 };
 
-export default function DeviceList() {
+export default function DeviceListPanel() {
   const { selectedDevice, setSelectedDevice } = useSelectedDevice();
 
   const { connectedDevices } = useConnectedDevices();
@@ -70,9 +68,7 @@ export default function DeviceList() {
   }, [connectedDevices, configStubs]);
 
   return (
-    <div id="device-list" className="top-level">
-      <SectionHeader title="DEVICE SETTINGS" size="large" />
-
+    <div className="device-list-panel">
       {data.map((d) => {
         return (
           <DeviceListItem

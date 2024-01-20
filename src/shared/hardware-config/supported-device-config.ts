@@ -50,12 +50,10 @@ export class SupportedDeviceConfig extends DeviceConfig {
     driverName: string,
     siblingIndex: number,
     inputs: BaseInputConfig[],
-    nickname?: string,
-    keyboardDriver?: KeyboardDriver
+    nickname?: string
   ) {
     super(name, driverName, siblingIndex, nickname);
     this.inputs = inputs;
-    this.keyboardDriver = keyboardDriver;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -68,7 +66,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
         this.siblingIndex,
         this.inputs,
         this.nickname,
-        this.keyboardDriver,
       ],
     };
   }
@@ -132,15 +129,5 @@ export class SupportedDeviceConfig extends DeviceConfig {
     return input instanceof LightCapableInputConfig
       ? input.currentColorArray
       : undefined;
-  }
-
-  get stub() {
-    return {
-      id: this.id,
-      portName: this.portName,
-      driverName: this.driverName,
-      nickname: this.nickname,
-      siblingIndex: this.siblingIndex,
-    };
   }
 }

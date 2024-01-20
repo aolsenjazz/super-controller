@@ -5,7 +5,6 @@ import { useInputConfigs } from '@hooks/use-input-configs';
 
 import Translator from './Translator';
 import BasicMessage from './BasicMessage';
-import NotConfigured from './NotConfigured';
 import DeviceConfigPanel from './DeviceConfigPanel';
 import InputConfigSubpanel from './InputConfigSubpanel';
 
@@ -23,16 +22,20 @@ export default function ConfigPanel() {
 
   if (selectedDevice === undefined) {
     Element = <BasicMessage msg="No connected devices." />;
-  } else if (configStub === undefined) {
-    Element = <NotConfigured />;
-  } else if (configStub.driverName === 'Anonymous') {
+  }
+  // else if (configStub === undefined) {
+  // Element = <NotConfigured />;
+  // }
+  else if (configStub && configStub.driverName === 'Anonymous') {
     Element = <Translator config={configStub} />;
   } else if (inputConfigs.length === 0) {
     Element = <BasicMessage msg="No inputs selected." />;
-  } else {
+  } else if (configStub) {
     Element = (
       <InputConfigSubpanel config={configStub} inputConfigs={inputConfigs} />
     );
+  } else {
+    return null;
   }
 
   return (

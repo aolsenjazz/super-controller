@@ -1,0 +1,59 @@
+.device-details-panel > div > .section-header {
+  margin: 10px 0 10px 0;
+}
+
+.device-details-panel > div > .nickname-subpanel {
+  margin-bottom: 10px;
+}
+
+.device-details-panel .plugin-subpanel {
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.device-details-panel > .deactivated {
+  pointer-events: none;
+  filter: grayscale(100%);
+  opacity: 50%;
+}
+
+.device-details-panel .not-configured {
+  margin: 0 auto;
+  display: table;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.device-details-panel #remove-device {
+  padding: 0 5px 0 5px;
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.device-details-panel #remove-device button.disabled {
+  border-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.device-details-panel #remove-device input {
+  margin-top: 4px;
+  padding: 2px;
+  padding-left: 4px;
+  color: #262626;
+  border: 1px solid #dbd7d8;
+  border-bottom: 1px solid #b8b6b7;
+  border-radius: 4px;
+  vertical-align: top;
+  flex-grow: 1;
+}
+
+.device-details-panel #remove-device button {
+  cursor: auto;
+  margin-top: 4px;
+  width: 60px;
+  margin-left: 4px;
+}
+
+.device-details-panel #remove-device p {
+  width: calc(100% - 20px);
+}

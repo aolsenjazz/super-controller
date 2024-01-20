@@ -1,7 +1,7 @@
 @import './ConfigPanel.css';
 @import './IosSelect.css';
 @import './IosButton.css';
-@import './DeviceList.css';
+@import './DeviceDrawer.css';
 @import './TitleBar.css';
 @import './DeviceView.css';
 @import './DevicePanel.css';
@@ -13,6 +13,11 @@
 @import './DriverRequestButton.css';
 @import './WarningIcon.css';
 @import './SwitchPanel.css';
+@import './SectionHeader.css';
+@import './NicknameSubpanel.css';
+@import './DeviceListPanel.css';
+@import './PluginSubpanel.css';
+@import './DeviceDetailsPanel.css';
 
 * {
   margin: 0;
@@ -57,13 +62,20 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+label,
+strong {
   color: #272727;
   font-family: Arial;
   user-select: none;
 }
 
 h1 {
+  font-size: 0.8em;
+  color: #4a4848;
+}
+
+label {
   font-size: 0.8em;
   color: #4a4848;
 }

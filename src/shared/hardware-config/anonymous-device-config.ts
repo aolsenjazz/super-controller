@@ -33,14 +33,4 @@ export class AnonymousDeviceConfig extends DeviceConfig {
   getResponse() {
     return undefined;
   }
-
-  get stub() {
-    return {
-      id: this.id,
-      portName: this.portName,
-      driverName: this.driverName,
-      nickname: this.nickname,
-      siblingIndex: this.siblingIndex,
-    };
-  }
 }

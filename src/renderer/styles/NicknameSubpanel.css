@@ -1,0 +1,25 @@
+.nickname-subpanel {
+  display: flex;
+  flex-direction: column;
+  padding: 0 5px 0 5px;
+}
+
+.nickname-subpanel label {
+  line-height: 20px;
+  display: inline-flex;
+}
+
+.nickname-subpanel input {
+  padding: 2px;
+  padding-left: 4px;
+  color: #262626;
+  border: 1px solid #dbd7d8;
+  border-bottom: 1px solid #b8b6b7;
+  border-radius: 4px;
+  vertical-align: top;
+  flex-grow: 1;
+}
+
+.nickname-subpanel h1 {
+  margin: 2px 0 8px 0;
+}

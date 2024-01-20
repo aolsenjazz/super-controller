@@ -3,7 +3,7 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 
 import { PanelState, usePanels } from '@context/panel-context';
 
-import DeviceList from './DeviceList';
+import DeviceDrawer from './DeviceDrawer';
 import ConfigPanel from './ConfigPanel';
 import DevicePanel from './DevicePanel';
 
@@ -52,11 +52,11 @@ export default function MainContent() {
           defaultSize={25}
           maxSize={50}
           ref={deviceListPanelRef}
-          id="device-list"
+          id="device-drawer"
           onCollapse={(collapsed) => setPanel1(collapsed, false)}
           collapsible
         >
-          <DeviceList />
+          <DeviceDrawer />
         </Panel>
         <PanelResizeHandle
           className="drag-handle"
@@ -80,7 +80,7 @@ export default function MainContent() {
           ref={configPanelRef}
           maxSize={50}
           defaultSize={25}
-          id="history"
+          id="config-drawer"
           order={2}
           onCollapse={(collapsed) => setPanel2(collapsed, false)}
           collapsible

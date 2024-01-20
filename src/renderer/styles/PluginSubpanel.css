@@ -1,0 +1,30 @@
+.plugin-subpanel {
+  margin: 0 5px 0 5px;
+  padding: 5px;
+  background-color: #d9d8df;
+  border: 1px solid #c6c8d4;
+  border-radius: 4px;
+}
+
+.plugin-slot {
+  width: 100%;
+  background-color: #c6c8d4;
+  border-radius: 4px;
+  height: 20px;
+  margin: 5px 0 5px 0;
+  cursor: pointer;
+}
+
+.plugin-slot.empty {
+  background-color: #cfcfd8;
+}
+
+.plugin-slot.empty > h4 {
+  color: #777;
+  text-align: center;
+}
+
+.plugin-slot:hover,
+.plugin-slot.empty:hover {
+  -webkit-filter: brightness(96%);
+}

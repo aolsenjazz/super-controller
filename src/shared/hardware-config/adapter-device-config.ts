@@ -88,17 +88,9 @@ export class AdapterDeviceConfig
     return [];
   }
 
-  get id() {
-    return `${this.portName} ${this.siblingIndex}`;
-  }
-
   get stub() {
     return {
-      id: this.id,
-      portName: this.portName,
-      driverName: this.driverName,
-      nickname: this.nickname,
-      siblingIndex: this.siblingIndex,
+      ...super.stub,
       child: this.child?.stub,
     };
   }

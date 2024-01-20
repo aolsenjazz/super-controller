@@ -1,4 +1,4 @@
-import { BasePlugin } from '@plugins/base-plugin';
+import { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
 import { Anonymous, getDriver } from '@shared/drivers';
 
 import { MidiArray } from '../midi-array';
@@ -10,6 +10,7 @@ export type DeviceConfigStub = {
   siblingIndex: number;
   driverName: string;
   nickname: string;
+  plugins: PluginIcicle[];
   child?: DeviceConfigStub;
 };
 
@@ -45,7 +46,7 @@ export abstract class DeviceConfig {
   /* User-defined nickname */
   private _nickname?: string;
 
-  private plugins: BasePlugin[] = [];
+  private _plugins: BasePlugin[] = [];
 
   constructor(
     portName: string,
@@ -57,7 +58,7 @@ export abstract class DeviceConfig {
     this.portName = portName;
     this.driverName = driverName;
     this.siblingIndex = siblingIndex;
-    this.plugins = plugins;
+    this._plugins = plugins;
     this._nickname = nickname;
   }
 
@@ -66,7 +67,7 @@ export abstract class DeviceConfig {
    * `plugin` may be an instance of the plugin, or the plugin's id.
    */
   public addPlugin(plugin: BasePlugin) {
-    this.plugins.push(plugin);
+    this._plugins.push(plugin);
   }
 
   /**
@@ -75,12 +76,12 @@ export abstract class DeviceConfig {
    */
   public removePlugin(plugin: BasePlugin | string) {
     const id = plugin instanceof BasePlugin ? plugin.id : plugin;
-    const pluginIdx = this.plugins
+    const pluginIdx = this._plugins
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .filter((p, _i) => p.id === id)
       .map((_p, i) => i)[0];
 
-    this.plugins.splice(pluginIdx, 1);
+    this._plugins.splice(pluginIdx, 1);
   }
 
   /**
@@ -89,18 +90,22 @@ export abstract class DeviceConfig {
    */
   public movePlugin(plugin: BasePlugin | string, newIdx: number) {
     const id = plugin instanceof BasePlugin ? plugin.id : plugin;
-    const oldIdx = this.plugins
+    const oldIdx = this._plugins
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .filter((p, _i) => p.id === id)
       .map((_p, i) => i)[0];
 
-    const element = this.plugins[oldIdx];
-    this.plugins.splice(oldIdx, 1);
-    this.plugins.splice(newIdx, 0, element);
+    const element = this._plugins[oldIdx];
+    this._plugins.splice(oldIdx, 1);
+    this._plugins.splice(newIdx, 0, element);
   }
 
-  get id() {
+  public get id() {
     return `${this.portName} ${this.siblingIndex}`;
+  }
+
+  public get plugins(): ReadonlyArray<BasePlugin> {
+    return this.plugins;
   }
 
   /**
@@ -118,7 +123,17 @@ export abstract class DeviceConfig {
     return getDriver(this.driverName) || Anonymous;
   }
 
-  public abstract get stub(): DeviceConfigStub;
+  public get stub(): DeviceConfigStub {
+    return {
+      id: this.id,
+      portName: this.portName,
+      driverName: this.driverName,
+      nickname: this.nickname,
+      siblingIndex: this.siblingIndex,
+      plugins: [],
+    };
+  }
+
   public abstract applyOverrides(msg: MidiArray): MidiArray | undefined;
   public abstract getResponse(msg: MidiArray): MidiArray | undefined;
 }

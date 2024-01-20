@@ -1,9 +1,9 @@
 import { DRIVERS } from '@shared/drivers';
 import { DeviceStub } from '@shared/device-stub';
 
-import HelpTip from '../../../HelpTip';
-import DriverRequestButton from '../../../DriverRequestButton';
-import BasicSelect from '../../../BasicSelect';
+import HelpTip from '../../../../HelpTip';
+import DriverRequestButton from '../../../../DriverRequestButton';
+import BasicSelect from '../../../../BasicSelect';
 
 const fivePins = Array.from(DRIVERS.entries())
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

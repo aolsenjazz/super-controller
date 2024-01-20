@@ -1,24 +1,11 @@
-#device-list {
-  background-color: #f4f0f1;
-  text-align: left;
-  overflow-y: overlay;
-  z-index: 1000;
-  max-height: calc(100vh - 30px);
-  overflow-x: hidden;
-  position: relative;
-  width: 100%;
-}
-
 .device-list-item {
   min-width: 220px;
   position: relative;
-  margin-left: 10px;
   display: inline-block;
   text-align: left;
-  border-bottom: 1px solid #e6e6e6;
   padding-bottom: 4px;
-  margin-top: 10px;
-  width: calc(100% - 15px);
+  margin-top: 5px;
+  width: 100%;
 }
 
 .device-list-item:last-of-type {
@@ -70,21 +57,23 @@
 
 .device-list-item .device-icon-container {
   width: 36px;
-  height: 36px;
+  height: 100%;
   left: 0;
   top: 0;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
 }
 
 .device-list-item .device-list-item-label {
-  left: 46px;
-  position: absolute;
-  top: 0;
   font-weight: bold;
   cursor: pointer;
   text-overflow: ellipsis;
   overflow: hidden;
+  display: inline-block;
   white-space: nowrap;
-  width: calc(100% - 48px);
+  width: calc(100% - 41px);
+  margin-left: 5px;
 }
 
 .device-list-item .connection-color {

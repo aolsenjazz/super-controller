@@ -1,8 +1,10 @@
 import { MidiArray } from '@shared/midi-array';
 import { generateId } from './plugin-utils';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface PluginIcicle {}
+export interface PluginIcicle {
+  id: string;
+  title: string;
+}
 
 /**
  * Classes overriding `BasePlugin` live inside the main process and are responsible for their own:
