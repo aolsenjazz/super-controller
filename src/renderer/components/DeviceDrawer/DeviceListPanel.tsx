@@ -67,6 +67,22 @@ export default function DeviceListPanel() {
     setData(sorted);
   }, [connectedDevices, configStubs]);
 
+  useEffect(() => {
+    const isCurrentDevicePresent = data.filter(
+      (d) => d.id === selectedDevice
+    ).length;
+
+    if (selectedDevice === undefined && data.length > 0) {
+      setSelectedDevice(data[0].id);
+    } else {
+      const newDevice = data.length > 0 ? data[0].id : undefined;
+
+      if (!isCurrentDevicePresent) {
+        setSelectedDevice(newDevice);
+      }
+    }
+  }, [data, selectedDevice, setSelectedDevice]);
+
   return (
     <div className="device-list-panel">
       {data.map((d) => {

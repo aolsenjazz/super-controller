@@ -1,6 +1,7 @@
+import { useMemo } from 'react';
+
 import { useConfiguredDevices } from '@hooks/use-configured-devices';
 import { DeviceConfigStub } from '@shared/hardware-config/device-config';
-import { useMemo } from 'react';
 
 import ShareSustainLine from './ShareSustainLine';
 
