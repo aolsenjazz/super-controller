@@ -36,8 +36,7 @@ function upgradeDeviceConfig(d: V5DeviceConfig, plugins: BasePlugin[]) {
       d.driverName,
       d.siblingIndex,
       d.inputs,
-      d.nickname,
-      d.keyboardDriver
+      d.nickname
     );
   } else {
     const asAdapt = d as V5AdapterDeviceConfig;
@@ -48,8 +47,7 @@ function upgradeDeviceConfig(d: V5DeviceConfig, plugins: BasePlugin[]) {
       oldChild.driverName,
       oldChild.siblingIndex,
       oldChild.inputs,
-      oldChild.nickname,
-      oldChild.keyboardDriver
+      oldChild.nickname
     );
 
     // TODO: add plugins to contructor

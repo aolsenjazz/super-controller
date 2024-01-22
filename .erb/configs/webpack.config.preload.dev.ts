@@ -21,20 +21,19 @@ const configuration: webpack.Configuration = {
 
   target: 'electron-preload',
 
-  entry: {
-    app: path.join(webpackPaths.srcMainPath, 'preload', 'preload.ts'),
-    // Dynamically load the preload files for all of the plugins
-    vendor: fs
+  entry: [
+    path.join(webpackPaths.srcMainPath, 'preload', 'preload.ts'),
+    ...fs
       .readdirSync(webpackPaths.pluginsPath, { withFileTypes: true })
       .filter((dirent) => dirent.isDirectory())
       .map((dirent) =>
         path.join(webpackPaths.pluginsPath, dirent.name, 'preload.ts')
       ),
-  },
+  ],
 
   output: {
     path: webpackPaths.dllPath,
-    filename: '[name].js',
+    filename: 'preload.js',
     library: {
       type: 'umd',
     },

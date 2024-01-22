@@ -19,6 +19,7 @@ class DeviceConfigWrapper extends DeviceConfig {
       siblingIndex: 0,
       driverName: '',
       nickname: '',
+      plugins: [],
     };
   }
 }

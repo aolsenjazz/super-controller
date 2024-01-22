@@ -1,7 +1,9 @@
+import { useCallback } from 'react';
+
 import { useSelectedDevice } from '@context/selected-device-context';
 import { useConfigStub } from '@hooks/use-config-stub';
 import { useDeviceStub } from '@hooks/use-device-stub';
-import { useCallback } from 'react';
+
 import NicknameSubpanel from '../NicknameSubpanel';
 import PluginSubpanel from '../PluginSubpanel';
 import SectionHeader from '../SectionHeader';
@@ -13,7 +15,7 @@ export default function DeviceDetailsPanel() {
   const { deviceStub } = useDeviceStub(selectedDevice || '');
   const { configStub } = useConfigStub(selectedDevice || '');
 
-  const onChange = useCallback((n) => {
+  const onChange = useCallback((n: string) => {
     return n;
   }, []);
 
