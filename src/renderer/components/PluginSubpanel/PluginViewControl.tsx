@@ -16,9 +16,9 @@ export default function PluginViewControl(props: PropTypes) {
     setOpen(!open);
   }, [open, setOpen]);
 
-  // useEffect(() => {
-  //   setOpen(false);
-  // }, [icicle, setOpen]);
+  useEffect(() => {
+    setOpen(false);
+  }, [icicle.id, setOpen]);
 
   return (
     <div onClick={onClick} role="presentation" className="view-control">

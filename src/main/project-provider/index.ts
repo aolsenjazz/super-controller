@@ -180,7 +180,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
       (_e: IpcMainEvent, updates: DeviceConfigStub) => {
         const config = this.project.getDevice(updates.id)!;
 
-        config.nickname = updates.nickname;
+        config.applyStub(updates);
 
         this.emit(ProjectProviderEvent.DevicesChanged, {
           changed: [config],

@@ -1,5 +1,7 @@
 import { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
 import { Anonymous, getDriver } from '@shared/drivers';
+import { allDevicePlugins } from '@plugins/plugin-utils';
+import { Registry } from '@plugins/registry';
 
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
@@ -98,6 +100,34 @@ export abstract class DeviceConfig {
     const element = this._plugins[oldIdx];
     this._plugins.splice(oldIdx, 1);
     this._plugins.splice(newIdx, 0, element);
+  }
+
+  public applyStub(stub: DeviceConfigStub) {
+    this.nickname = stub.nickname;
+
+    // take note of what plugins we already have on this device
+    const currentPluginIds = this._plugins.map((p) => p.id);
+    const newPluginIds = stub.plugins.map((p) => p.id);
+
+    // determine which need to be created + registered/removed + deregistered
+    const toAdd = stub.plugins.filter((p) => !currentPluginIds.includes(p.id));
+    const toRemove = currentPluginIds.filter(
+      (id) => !newPluginIds.includes(id)
+    );
+
+    // create, registry, add plugins to config as necessary
+    toAdd.forEach((p) => {
+      const PluginClass = allDevicePlugins().filter(
+        (plugin) => plugin.TITLE() === p.title
+      )[0];
+      const plugin = new PluginClass();
+      Registry.register(plugin);
+      this._plugins.push(plugin);
+    });
+
+    // deregister and remove as necessary
+    toRemove.forEach((p) => Registry.deregister(p));
+    this._plugins = this._plugins.filter((p) => !toRemove.includes(p.id));
   }
 
   public get id() {
