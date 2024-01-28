@@ -1,7 +1,7 @@
 import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 
-import { DeviceDriver, KeyboardDriver } from '../driver-types';
+import { DeviceDriver } from '../driver-types';
 
 import { DeviceConfig } from './device-config';
 import {
@@ -14,11 +14,7 @@ import { BaseInputConfig } from './input-config/base-input-config';
 /* Contains device-specific configurations and managed `InputConfig`s */
 @Revivable.register
 export class SupportedDeviceConfig extends DeviceConfig {
-  /* See `InputConfig` */
   inputs: BaseInputConfig[];
-
-  /* See `KeyboardDriver` */
-  keyboardDriver?: KeyboardDriver;
 
   static fromDriver(
     portName: string,

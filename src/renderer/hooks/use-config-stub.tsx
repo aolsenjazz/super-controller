@@ -9,14 +9,13 @@ export const useConfigStub = (configId: string) => {
 
   const { configStubs } = useConfiguredDevices();
 
+  // TODO: memory leak
   useEffect(() => {
     const cb = (stub: DeviceConfigStub | undefined) => {
       setConfigStub(stub);
     };
 
-    const off = ConfigService.onConfigChange(configId, cb);
-
-    return () => off();
+    ConfigService.onConfigChange(configId, cb);
   }, [configId, configStubs]);
 
   return { configStub };

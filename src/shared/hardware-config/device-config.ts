@@ -130,7 +130,7 @@ export abstract class DeviceConfig {
       driverName: this.driverName,
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
-      plugins: [],
+      plugins: this._plugins.map((p) => p.freeze()),
     };
   }
 

@@ -5,6 +5,7 @@ import { Registry } from '@plugins/registry';
 
 import { BasePlugin, PluginIcicle } from '../base-plugin';
 import { ADD_SUSTAIN_TARGET, REMOVE_SUSTAIN_TARGET } from './ipc-channels';
+import { ImplementsBasePluginStatic } from '../base-plugin-static';
 
 // IPC event to be received in the main process
 ipcMain.on(
@@ -30,7 +31,16 @@ interface ShareSustainIcicle extends PluginIcicle {
   sustainTargets: string[];
 }
 
-export class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
+@ImplementsBasePluginStatic()
+export default class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
+  static TITLE() {
+    return 'Share Sustain';
+  }
+
+  static DESCRIPTION() {
+    return 'Whenever a sustain event is received from the controller, send an identical sustain event through other selected controllers.';
+  }
+
   public sustainTargets: string[] = [];
 
   constructor(sustainTargets: string[] = []) {
@@ -62,11 +72,11 @@ export class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
   protected initIpcListeners(): void {}
 
   public title() {
-    return 'Share Sustain';
+    return ShareSustainPlugin.TITLE();
   }
 
   public description() {
-    return 'Whenever a sustain event is received from the controller, send an identical sustain event through other selected controllers.';
+    return ShareSustainPlugin.DESCRIPTION();
   }
 
   public get applicableDeviceTypes(): (

@@ -28,7 +28,10 @@ export default function DeviceDetailsPanel() {
           nickname={configStub?.nickname || ''}
           onNicknameChange={onChange}
         />
-        <PluginSubpanel plugins={configStub?.plugins || []} />
+        <PluginSubpanel
+          plugins={configStub?.plugins || []}
+          deviceId={configStub?.id || ''}
+        />
       </div>
       <AddOrRemoveDevice
         nickname={configStub?.nickname || ''}

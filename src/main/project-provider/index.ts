@@ -14,12 +14,12 @@ import { Anonymous, getDriver } from '@shared/drivers';
 import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 
 import { CONFIG } from '../ipc-channels';
-import { projectFromFile } from '../util-main';
 import { dialogs } from '../dialogs';
 import {
   ProjectEventEmitter,
   ProjectProviderEvent,
 } from './project-event-emitter';
+import { upgradeProject } from 'helper/project-upgrader';
 
 const SAVE_DIR = 'dir';
 const store = new Store();
@@ -64,7 +64,8 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
   public async loadProject(filePath: string) {
     app.addRecentDocument(filePath);
 
-    this.project = projectFromFile(filePath);
+    const jsonString = fs.readFileSync(filePath, 'utf8');
+    this.project = upgradeProject(jsonString);
     this.currentPath = filePath;
 
     this.emit(ProjectProviderEvent.NewProject, {

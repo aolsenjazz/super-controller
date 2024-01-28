@@ -49,10 +49,7 @@ export class Project {
    * @returns device config
    */
   getDevice(id: string | undefined) {
-    for (let i = 0; i < this.devices.length; i++) {
-      if (this.devices[i].id === id) return this.devices[i];
-    }
-    return undefined;
+    return this.devices.filter((d) => d.id === id)[0];
   }
 
   toJSON() {

@@ -8,9 +8,12 @@ import EmptyPluginSlot from './EmptyPluginSlot';
 
 type PluginSubpanelProps = {
   plugins: PluginIcicle[];
+  deviceId: string;
 };
 
-export default function PluginSubpanel({ plugins }: PluginSubpanelProps) {
+export default function PluginSubpanel(props: PluginSubpanelProps) {
+  const { plugins, deviceId } = props;
+
   const minPluginSlots = useMemo(() => {
     return plugins.length > 3 ? plugins.length + 1 : 3;
   }, [plugins]);
@@ -20,10 +23,10 @@ export default function PluginSubpanel({ plugins }: PluginSubpanelProps) {
       return plugins.length > i ? (
         <PluginSlot key={`plugin${x}`} />
       ) : (
-        <EmptyPluginSlot key={`plugin${x}`} />
+        <EmptyPluginSlot key={`plugin${x}`} deviceId={deviceId} />
       );
     });
-  }, [minPluginSlots, plugins.length]);
+  }, [minPluginSlots, plugins.length, deviceId]);
 
   // const handleAddPlugin = useCallback(() => {
   //   // Logic to add a plugin

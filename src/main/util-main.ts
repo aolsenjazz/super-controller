@@ -4,8 +4,6 @@ import path from 'path';
 import { URL } from 'url';
 import { app } from 'electron';
 
-import { upgradeProject } from '../helper/project-upgrader';
-
 export let resolveHtmlPath: (htmlFileName: string) => string;
 
 if (process.env.NODE_ENV === 'development') {
@@ -31,17 +29,6 @@ export function loadJSON(filePath: string) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
-/**
- * Loads the file at given path.
- *
- * @param filePath The path to the file
- * @returns the project
- */
-export function projectFromFile(filePath: string) {
-  const jsonString = fs.readFileSync(filePath, 'utf8');
-  return upgradeProject(jsonString);
-}
-
 export function getAssetPath(...paths: string[]) {
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
@@ -58,6 +45,6 @@ export function getPreloadPath() {
 
 export function getPluginsPath() {
   return app.isPackaged
-    ? path.join(__dirname, 'plugins')
-    : path.join(__dirname, '../../.erb/dll/plugins');
+    ? path.join(__dirname, '../../.erb/dll/plugins')
+    : path.join(__dirname, '..', 'plugins');
 }

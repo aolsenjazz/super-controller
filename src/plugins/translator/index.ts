@@ -16,13 +16,23 @@ import { BasePlugin, PluginIcicle } from '../base-plugin';
 
 import { wp } from '../../main/window-provider';
 import { ProjectProvider } from '../../main/project-provider';
+import { ImplementsBasePluginStatic } from '../base-plugin-static';
 
 const { MainWindow } = wp;
 
 // eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-empty-interface
 interface TranslatorIcicle extends PluginIcicle {}
 
-export class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
+@ImplementsBasePluginStatic()
+export default class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
+  static TITLE() {
+    return 'Translator';
+  }
+
+  static DESCRIPTION() {
+    return 'Temp Description';
+  }
+
   public process(msg: MidiArray | NumberArrayWithStatus) {
     // eslint-disable-next-line no-console
     console.log(msg);
@@ -103,11 +113,11 @@ export class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
   }
 
   public title() {
-    return 'Translator';
+    return TranslatorPlugin.TITLE();
   }
 
   public description() {
-    return 'Temp Description';
+    return TranslatorPlugin.DESCRIPTION();
   }
 
   public get applicableDeviceTypes(): (
