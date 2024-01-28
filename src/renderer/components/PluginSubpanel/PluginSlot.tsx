@@ -20,7 +20,6 @@ export default function PluginSlot(props: PropTypes) {
     setSelectedId(icicle.id);
   }, [icicle.id, setSelectedId]);
 
-  // Function to handle backspace event
   const handleBackspace = useCallback(
     (event: KeyboardEvent) => {
       if (event.keyCode === 8 && selected === true) {
@@ -30,7 +29,6 @@ export default function PluginSlot(props: PropTypes) {
     [removePlugin, icicle, selected]
   );
 
-  // Use useEffect to attach and clean up the event listener
   useEffect(() => {
     document.addEventListener('keydown', handleBackspace);
     return () => {

@@ -91,11 +91,13 @@
   width: 100%;
   text-align: center;
   left: 0;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
 }
 
 #config-panel .message p {
-  width: 100%;
-  line-height: 50px;
 }
 
 #config-panel .color-sample {
