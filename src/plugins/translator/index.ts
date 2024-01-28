@@ -38,13 +38,6 @@ export default class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
     console.log(msg);
   }
 
-  public freeze() {
-    return {
-      id: this.id,
-      title: this.title(),
-    };
-  }
-
   protected initIpcListeners(): void {
     ipcMain.on(
       CONFIG.UPDATE_INPUT,

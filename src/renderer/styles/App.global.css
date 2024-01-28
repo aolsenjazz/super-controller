@@ -75,6 +75,10 @@ h1 {
   color: #4a4848;
 }
 
+h5 {
+  font-size: 12px;
+}
+
 label {
   font-size: 0.8em;
   color: #4a4848;

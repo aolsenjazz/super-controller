@@ -1,12 +1,13 @@
 import { BrowserWindow, ipcMain, IpcMainEvent, Menu, MenuItem } from 'electron';
 
 import { allDevicePlugins } from '@plugins/plugin-utils';
+import { ProjectProvider } from '@main/project-provider';
+import { Registry } from '@plugins/registry';
 
 import { build as buildDarwin } from './darwin-menu';
 import { build as buildDefault } from './default-menu';
 
 import { wp } from '../window-provider';
-import { ProjectProvider } from '@main/project-provider';
 
 /**
  * Provides functions for creating an app menu, and binds a listener to Window focus
@@ -37,6 +38,7 @@ class AppMenuSingleton {
   }
 
   private initIpcListeners() {
+    // TODO: this will go in a dedicated menu file
     function createMenu(deviceId: string) {
       return allDevicePlugins().map((Plugin) => {
         return new MenuItem({
@@ -44,9 +46,9 @@ class AppMenuSingleton {
           toolTip: Plugin.DESCRIPTION(),
           click: () => {
             const dev = ProjectProvider.project.getDevice(deviceId);
-            console.log(deviceId);
-            dev.addPlugin(new Plugin());
-
+            const plug = new Plugin();
+            dev.addPlugin(plug);
+            Registry.register(plug);
             wp.MainWindow.sendConfigStub(dev.id, dev.stub);
           },
         });

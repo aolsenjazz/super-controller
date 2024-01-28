@@ -1,4 +1,4 @@
-import { BasePlugin } from './base-plugin';
+import type { BasePlugin } from './base-plugin';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const _Registry = new Map<string, BasePlugin>();

@@ -55,10 +55,14 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
 
   public freeze(): ShareSustainIcicle {
     return {
-      id: this.id,
-      title: this.title(),
+      ...super.freeze(),
       sustainTargets: this.sustainTargets,
     };
+  }
+
+  public applyIcicle(icicle: ShareSustainIcicle): void {
+    super.applyIcicle(icicle);
+    this.sustainTargets = icicle.sustainTargets;
   }
 
   public addSustainTarget(targetConfigId: string) {

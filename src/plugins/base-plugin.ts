@@ -1,9 +1,11 @@
 import { MidiArray } from '@shared/midi-array';
+
 import { generateId } from './plugin-utils';
 
 export interface PluginIcicle {
   id: string;
   title: string;
+  on: boolean;
 }
 
 /**
@@ -27,12 +29,25 @@ export interface PluginIcicle {
 export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
   public readonly id: string;
 
+  public on = true;
+
   constructor() {
     this.id = generateId(this.title());
   }
 
+  public applyIcicle(icicle: T) {
+    this.on = icicle.on;
+  }
+
+  public freeze(): T {
+    return {
+      on: this.on,
+      id: this.id,
+      title: this.title(),
+    } as T;
+  }
+
   public abstract process(msg: MidiArray | NumberArrayWithStatus): void;
-  public abstract freeze(): T;
 
   protected abstract initIpcListeners(): void;
 

@@ -19,7 +19,7 @@ import {
   ProjectEventEmitter,
   ProjectProviderEvent,
 } from './project-event-emitter';
-import { upgradeProject } from 'helper/project-upgrader';
+import { upgradeProject } from '../../helper/project-upgrader';
 
 const SAVE_DIR = 'dir';
 const store = new Store();
