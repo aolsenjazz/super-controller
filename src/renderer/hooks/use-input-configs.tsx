@@ -10,13 +10,19 @@ export function useInputConfigs<T extends InputConfigStub = InputConfigStub>(
   const [inputConfigs, setInputConfigs] = useState<T[]>([]);
 
   useEffect(() => {
-    const cb = (configs: T[]) => {
-      setInputConfigs(configs);
+    const cb = () => {};
+
+    const offs = inputIds.map((id) => {
+      return ConfigService.onInputConfigChange(
+        deviceId,
+        id,
+        (conf: InputConfigStub) => {}
+      );
+    });
+
+    return () => {
+      offs.forEach((off) => off());
     };
-
-    const off = ConfigService.onInputConfigsChange<T>(cb);
-
-    return () => off();
   }, [deviceId, inputIds]);
 
   return { inputConfigs };

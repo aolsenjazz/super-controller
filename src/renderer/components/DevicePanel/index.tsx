@@ -1,7 +1,6 @@
 import { useSelectedDevice } from '@context/selected-device-context';
-import { useConfigStub } from '@hooks/use-config-stub';
+import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
 import { useDeviceStub } from '@hooks/use-device-stub';
-
 import { DRIVERS, getDriver } from '@shared/drivers';
 
 import DeviceLayoutWrapper from './DeviceLayoutWrapper';
@@ -14,28 +13,28 @@ export default function DevicePanel() {
   const { selectedDevice } = useSelectedDevice();
 
   const { deviceStub } = useDeviceStub(selectedDevice || '');
-  const { configStub } = useConfigStub(selectedDevice || '');
+  const { deviceConfig } = useSelectedDeviceConfig();
 
-  const driverName = configStub?.driverName || deviceStub?.name || '';
+  const driverName = deviceConfig?.driverName || deviceStub?.name || '';
   const isSupported =
-    configStub !== undefined || getDriver(driverName) !== undefined;
+    deviceConfig !== undefined || getDriver(driverName) !== undefined;
   const driver = DRIVERS.get(driverName);
 
   let Element: React.ReactElement;
 
-  if (selectedDevice === undefined || (!deviceStub && !configStub)) {
+  if (selectedDevice === undefined || (!deviceStub && !deviceConfig)) {
     Element = <NoDevicesView />;
   } else if (driverName === 'Anonymous' || driver === undefined) {
     Element = <NoMatchingDriverView deviceName={deviceStub!.name} />;
-  } else if (isSupported === true && !configStub) {
+  } else if (isSupported === true && !deviceConfig) {
     Element =
       driver.type === 'adapter' ? (
         <UsbView />
       ) : (
         <DeviceLayoutWrapper driver={driver} />
       );
-  } else if (driver.type === 'adapter' && configStub!.child) {
-    const childDriver = getDriver(configStub!.child.driverName!)!;
+  } else if (driver.type === 'adapter' && deviceConfig!.child) {
+    const childDriver = getDriver(deviceConfig!.child.driverName!)!;
     Element = <DeviceLayoutWrapper driver={childDriver} />;
   } else if (driver.type === 'adapter') {
     Element = <SelectAdapterChild />;
@@ -45,7 +44,7 @@ export default function DevicePanel() {
 
   return (
     <div id="device-panel" className="top-level">
-      <div className={`device-container ${configStub ? 'configured' : ''}`}>
+      <div className={`device-container ${deviceConfig ? 'configured' : ''}`}>
         {Element || null}
       </div>
     </div>

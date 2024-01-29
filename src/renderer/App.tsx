@@ -6,6 +6,7 @@ import TitleBar from './components/TitleBar';
 
 import './styles/App.global.css';
 import MainContent from './components/MainContent';
+import { SelectedDeviceConfigProvider } from '@context/selected-device-config-context';
 
 /**
  * When dragging a file over a chrome window, normally the cursor will change to indicate
@@ -21,10 +22,12 @@ export default function App() {
   return (
     <PanelProvider>
       <DeviceProvider>
-        <SelectedInputsProvider>
-          <TitleBar />
-          <MainContent />
-        </SelectedInputsProvider>
+        <SelectedDeviceConfigProvider>
+          <SelectedInputsProvider>
+            <TitleBar />
+            <MainContent />
+          </SelectedInputsProvider>
+        </SelectedDeviceConfigProvider>
       </DeviceProvider>
     </PanelProvider>
   );

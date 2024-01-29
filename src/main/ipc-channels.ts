@@ -29,6 +29,7 @@ export const CONFIG = {
 
   INPUT_CONFIG_CHANGE: 'input-config-change',
   REQUEST_INPUT_CONFIG_STUB: 'request-input-config-stub',
+  GET_INPUT_CONFIGS: 'get-input-configs',
 };
 
 /**

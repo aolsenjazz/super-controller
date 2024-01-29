@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 
 import { useSelectedDevice } from '@context/selected-device-context';
-import { useConfigStub } from '@hooks/use-config-stub';
-import { useDeviceStub } from '@hooks/use-device-stub';
 import type { PluginIcicle } from '@plugins/base-plugin';
+import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
+import { useDeviceStub } from '@hooks/use-device-stub';
 
 import NicknameSubpanel from '../NicknameSubpanel';
 import PluginSubpanel from '../PluginSubpanel';
@@ -16,7 +16,7 @@ export default function DeviceDetailsPanel() {
   const { selectedDevice } = useSelectedDevice();
 
   const { deviceStub } = useDeviceStub(selectedDevice || '');
-  const { configStub } = useConfigStub(selectedDevice || '');
+  const { deviceConfig } = useSelectedDeviceConfig();
 
   const onChange = useCallback((n: string) => {
     return n;
@@ -24,41 +24,41 @@ export default function DeviceDetailsPanel() {
 
   const removePlugin = useCallback(
     (icicle: PluginIcicle) => {
-      configStub!.plugins = configStub!.plugins.filter(
+      deviceConfig!.plugins = deviceConfig!.plugins.filter(
         (p) => p.id !== icicle.id
       );
-      ConfigService.updateDevice(configStub!);
+      ConfigService.updateDevice(deviceConfig!);
     },
-    [configStub]
+    [deviceConfig]
   );
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
-      MenuService.showDevicePluginMenu(x, y, configStub!.id);
+      MenuService.showDevicePluginMenu(x, y, deviceConfig!.id);
     },
-    [configStub]
+    [deviceConfig]
   );
 
   return (
     <div className="device-details-panel">
-      <div className={`${configStub ? '' : 'deactivated'}`}>
+      <div className={`${deviceConfig ? '' : 'deactivated'}`}>
         <SectionHeader title="DEVICE SETTINGS" size="large" />
         <NicknameSubpanel
-          name={deviceStub?.name || configStub?.portName || ''}
-          nickname={configStub?.nickname || ''}
+          name={deviceStub?.name || deviceConfig?.portName || ''}
+          nickname={deviceConfig?.nickname || ''}
           onNicknameChange={onChange}
         />
         <PluginSubpanel
-          plugins={configStub?.plugins || []}
+          plugins={deviceConfig?.plugins || []}
           removePlugin={removePlugin}
-          deviceId={configStub?.id || ''}
+          deviceId={deviceConfig?.id || ''}
           showPluginMenu={showPluginMenu}
         />
       </div>
       <AddOrRemoveDevice
-        nickname={configStub?.nickname || ''}
-        id={configStub?.id || ''}
-        configured={configStub !== undefined}
+        nickname={deviceConfig?.nickname || ''}
+        id={deviceConfig?.id || ''}
+        configured={deviceConfig !== undefined}
       />
     </div>
   );

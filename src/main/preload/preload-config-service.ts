@@ -68,7 +68,8 @@ export const configService = {
   onInputConfigsChange<T extends InputConfigStub = InputConfigStub>(
     func: (configs: T[]) => void
   ) {
-    return addOnChangeListener(CONFIG.INPUT_CONFIG_CHANGE, func);
+    // const off = addOnChangeListener(CONFIG.INPUT_CONFIG_CHANGE, func);
+    // this.requestInputConfigs(deviceId, inputIds);
   },
 
   requestInputConfigs(deviceId: string, inputIds: string[]) {

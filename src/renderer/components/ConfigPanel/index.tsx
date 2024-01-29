@@ -1,6 +1,6 @@
+import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
 import { useSelectedDevice } from '@context/selected-device-context';
 import { useSelectedInputs } from '@context/selected-inputs-context';
-import { useConfigStub } from '@hooks/use-config-stub';
 import { useInputConfigs } from '@hooks/use-input-configs';
 
 import BasicMessage from './BasicMessage';
@@ -10,7 +10,7 @@ export default function ConfigPanel() {
   const { selectedDevice } = useSelectedDevice();
   const { selectedInputs } = useSelectedInputs();
 
-  const { configStub } = useConfigStub(selectedDevice || '');
+  const { deviceConfig } = useSelectedDeviceConfig();
   const { inputConfigs } = useInputConfigs(
     selectedDevice || '',
     selectedInputs
@@ -20,15 +20,15 @@ export default function ConfigPanel() {
 
   if (selectedDevice === undefined) {
     Element = <BasicMessage msg="No connected devices." />;
-  } else if (configStub && configStub.driverName === 'Anonymous') {
+  } else if (deviceConfig && deviceConfig.driverName === 'Anonymous') {
     Element = (
       <BasicMessage msg="This device isn't supported yet, so you can't customize individual knob and buttons. However, you can still get a lot done by adding Device Plugins in the left panel." />
     );
-  } else if (inputConfigs.length === 0) {
+  } else if (selectedInputs.length === 0) {
     Element = <BasicMessage msg="No inputs selected." />;
-  } else if (configStub) {
+  } else if (deviceConfig && inputConfigs.length > 0) {
     Element = (
-      <InputConfigSubpanel config={configStub} inputConfigs={inputConfigs} />
+      <InputConfigSubpanel config={deviceConfig} inputConfigs={inputConfigs} />
     );
   } else {
     return null;
