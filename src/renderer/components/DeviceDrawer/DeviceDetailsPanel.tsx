@@ -40,7 +40,7 @@ export default function DeviceDetailsPanel() {
   );
 
   return (
-    <div className="device-details-panel">
+    <div className="details-panel device-details-panel">
       <div className={`${deviceConfig ? '' : 'deactivated'}`}>
         <SectionHeader title="DEVICE SETTINGS" size="large" />
         <NicknameSubpanel

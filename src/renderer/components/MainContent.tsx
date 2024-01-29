@@ -6,6 +6,7 @@ import { PanelState, usePanels } from '@context/panel-context';
 import DeviceDrawer from './DeviceDrawer';
 import ConfigPanel from './ConfigPanel';
 import DevicePanel from './DevicePanel';
+import InputConfigDrawer from './InputConfigDrawer';
 
 type ImperativePanelActions = {
   collapse: () => void;
@@ -85,7 +86,7 @@ export default function MainContent() {
           onCollapse={(collapsed) => setPanel2(collapsed, false)}
           collapsible
         >
-          <ConfigPanel />
+          <InputConfigDrawer />
         </Panel>
       </PanelGroup>
     </div>

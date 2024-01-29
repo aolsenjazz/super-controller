@@ -18,6 +18,7 @@
 @import './DeviceListPanel.css';
 @import './PluginSubpanel.css';
 @import './DeviceDetailsPanel.css';
+@import './DetailsPanel.css';
 
 * {
   margin: 0;

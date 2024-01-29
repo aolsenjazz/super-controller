@@ -1,0 +1,25 @@
+.details-panel > div > .section-header {
+  margin: 10px 0 10px 0;
+}
+
+.details-panel > div > .nickname-subpanel {
+  margin-bottom: 10px;
+}
+
+.details-panel .plugin-subpanel {
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.details-panel > .deactivated {
+  pointer-events: none;
+  filter: grayscale(100%);
+  opacity: 50%;
+}
+
+.details-panel .not-configured {
+  margin: 0 auto;
+  display: table;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}

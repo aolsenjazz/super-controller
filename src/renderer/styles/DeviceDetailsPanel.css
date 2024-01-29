@@ -1,29 +1,3 @@
-.device-details-panel > div > .section-header {
-  margin: 10px 0 10px 0;
-}
-
-.device-details-panel > div > .nickname-subpanel {
-  margin-bottom: 10px;
-}
-
-.device-details-panel .plugin-subpanel {
-  margin-top: 8px;
-  margin-bottom: 4px;
-}
-
-.device-details-panel > .deactivated {
-  pointer-events: none;
-  filter: grayscale(100%);
-  opacity: 50%;
-}
-
-.device-details-panel .not-configured {
-  margin: 0 auto;
-  display: table;
-  margin-bottom: 8px;
-  margin-top: 8px;
-}
-
 .device-details-panel #remove-device {
   padding: 0 5px 0 5px;
   display: flex;
