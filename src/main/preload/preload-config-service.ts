@@ -65,11 +65,11 @@ export const configService = {
     return off;
   },
 
-  onInputConfigsChange<T extends InputConfigStub = InputConfigStub>(
-    func: (configs: T[]) => void
-  ) {
-    // const off = addOnChangeListener(CONFIG.INPUT_CONFIG_CHANGE, func);
-    // this.requestInputConfigs(deviceId, inputIds);
+  getInputConfigs<T extends InputConfigStub = InputConfigStub>(
+    deviceId: string,
+    inputIds: string[]
+  ): T[] {
+    return ipcRenderer.sendSync('get-input-configs', deviceId, inputIds);
   },
 
   requestInputConfigs(deviceId: string, inputIds: string[]) {

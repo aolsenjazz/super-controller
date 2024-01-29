@@ -124,6 +124,22 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
   private initIpc() {
     ipcMain.on(
+      'get-input-configs',
+      (e: IpcMainEvent, deviceId: string, inputIds: string[]) => {
+        const dev = this.project.getDevice(deviceId);
+
+        if (
+          dev instanceof SupportedDeviceConfig ||
+          dev instanceof AdapterDeviceConfig
+        ) {
+          e.returnValue = inputIds.map((id) => dev.getInputById(id)!.config);
+        } else {
+          e.returnValue = [];
+        }
+      }
+    );
+
+    ipcMain.on(
       CONFIG.ADD_DEVICE,
       (
         _e: IpcMainEvent,

@@ -1,4 +1,11 @@
-import { useState, useContext, createContext, ReactNode } from 'react';
+import {
+  useState,
+  useContext,
+  createContext,
+  ReactNode,
+  useEffect,
+} from 'react';
+import { useSelectedDevice } from './selected-device-context';
 
 interface SelectedInputsContextType {
   selectedInputs: string[];
@@ -16,6 +23,12 @@ type PropTypes = {
 
 export const SelectedInputsProvider = ({ children }: PropTypes) => {
   const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
+
+  const { selectedDevice } = useSelectedDevice();
+
+  useEffect(() => {
+    setSelectedInputs([]);
+  }, [selectedDevice]);
 
   return (
     <SelectedInputsContext.Provider

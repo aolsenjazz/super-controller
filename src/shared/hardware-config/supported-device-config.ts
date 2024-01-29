@@ -130,7 +130,6 @@ export class SupportedDeviceConfig extends DeviceConfig {
   public get stub() {
     return {
       ...super.stub,
-      inputs: this.inputs.map((i) => i.config),
     };
   }
 }

@@ -11,6 +11,8 @@ import type { InputConfigStub } from '@shared/hardware-config/input-config/base-
 import { useSelectedInputs } from './selected-inputs-context';
 import { useSelectedDeviceConfig } from './selected-device-config-context';
 
+const { ConfigService } = window;
+
 interface SelectedInputConfigsType {
   inputConfigs: InputConfigStub[];
 }
@@ -31,10 +33,11 @@ export const SelectedInputConfigsProvider = ({ children }: PropTypes) => {
 
   useEffect(() => {
     if (deviceConfig) {
-      const inputStubs = selectedInputs.map((id) => {
-        return deviceConfig.inputs.filter((i) => i.id === id)[0];
-      });
-      setInputConfigs(inputStubs);
+      const ins = ConfigService.getInputConfigs(
+        deviceConfig.id,
+        selectedInputs
+      );
+      setInputConfigs(ins);
     }
   }, [selectedInputs, deviceConfig]);
 

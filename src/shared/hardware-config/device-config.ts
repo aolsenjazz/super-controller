@@ -14,7 +14,6 @@ export type DeviceConfigStub = {
   driverName: string;
   nickname: string;
   plugins: PluginIcicle[];
-  inputs: InputConfigStub[];
   child?: DeviceConfigStub;
 };
 
@@ -162,7 +161,6 @@ export abstract class DeviceConfig {
       driverName: this.driverName,
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
-      inputs: [],
       plugins: this._plugins.map((p) => p.freeze()),
     };
   }

@@ -1,12 +1,13 @@
 import { DeviceProvider } from '@context/selected-device-context';
 import { SelectedInputsProvider } from '@context/selected-inputs-context';
 import { PanelProvider } from '@context/panel-context';
+import { SelectedDeviceConfigProvider } from '@context/selected-device-config-context';
+import { SelectedInputConfigsProvider } from '@context/selected-input-configs-context';
 
 import TitleBar from './components/TitleBar';
 
 import './styles/App.global.css';
 import MainContent from './components/MainContent';
-import { SelectedDeviceConfigProvider } from '@context/selected-device-config-context';
 
 /**
  * When dragging a file over a chrome window, normally the cursor will change to indicate
@@ -24,8 +25,10 @@ export default function App() {
       <DeviceProvider>
         <SelectedDeviceConfigProvider>
           <SelectedInputsProvider>
-            <TitleBar />
-            <MainContent />
+            <SelectedInputConfigsProvider>
+              <TitleBar />
+              <MainContent />
+            </SelectedInputConfigsProvider>
           </SelectedInputsProvider>
         </SelectedDeviceConfigProvider>
       </DeviceProvider>
