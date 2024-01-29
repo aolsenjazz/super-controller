@@ -126,4 +126,11 @@ export class SupportedDeviceConfig extends DeviceConfig {
       ? input.currentColorArray
       : undefined;
   }
+
+  public get stub() {
+    return {
+      ...super.stub,
+      inputs: this.inputs.map((i) => i.config),
+    };
+  }
 }

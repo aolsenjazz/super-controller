@@ -5,11 +5,14 @@ import {
   ReactNode,
   useEffect,
 } from 'react';
-import type { BaseInputConfig } from '@shared/hardware-config';
+
+import type { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
+
 import { useSelectedInputs } from './selected-inputs-context';
+import { useSelectedDeviceConfig } from './selected-device-config-context';
 
 interface SelectedInputConfigsType {
-  inputConfigs: BaseInputConfig[];
+  inputConfigs: InputConfigStub[];
 }
 
 const SelectedInputConfigsContext = createContext<SelectedInputConfigsType>({
@@ -21,17 +24,19 @@ type PropTypes = {
 };
 
 export const SelectedInputConfigsProvider = ({ children }: PropTypes) => {
-  const [inputConfigs, setInputConfigs] = useState<BaseInputConfig[]>([]);
+  const [inputConfigs, setInputConfigs] = useState<InputConfigStub[]>([]);
 
-  const [selectedInputs] = useSelectedInputs();
-  // const [selected]
+  const { selectedInputs } = useSelectedInputs();
+  const { deviceConfig } = useSelectedDeviceConfig();
 
   useEffect(() => {
-    if (selectedInputs.length === 0) {
-      setInputConfigs([]);
-      return;
+    if (deviceConfig) {
+      const inputStubs = selectedInputs.map((id) => {
+        return deviceConfig.inputs.filter((i) => i.id === id)[0];
+      });
+      setInputConfigs(inputStubs);
     }
-  }, [selectedInputs]);
+  }, [selectedInputs, deviceConfig]);
 
   return (
     <SelectedInputConfigsContext.Provider value={{ inputConfigs }}>

@@ -5,6 +5,7 @@ import { Registry } from '@plugins/registry';
 
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
+import { InputConfigStub } from './input-config/base-input-config';
 
 export type DeviceConfigStub = {
   id: string;
@@ -13,6 +14,7 @@ export type DeviceConfigStub = {
   driverName: string;
   nickname: string;
   plugins: PluginIcicle[];
+  inputs: InputConfigStub[];
   child?: DeviceConfigStub;
 };
 
@@ -160,6 +162,7 @@ export abstract class DeviceConfig {
       driverName: this.driverName,
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
+      inputs: [],
       plugins: this._plugins.map((p) => p.freeze()),
     };
   }

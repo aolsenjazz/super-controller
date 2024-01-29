@@ -1,7 +1,7 @@
 import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
 import { useSelectedDevice } from '@context/selected-device-context';
+import { useSelectedInputConfigs } from '@context/selected-input-configs-context';
 import { useSelectedInputs } from '@context/selected-inputs-context';
-import { useInputConfigs } from '@hooks/use-input-configs';
 
 import BasicMessage from './BasicMessage';
 import InputConfigSubpanel from './InputConfigSubpanel';
@@ -11,10 +11,7 @@ export default function ConfigPanel() {
   const { selectedInputs } = useSelectedInputs();
 
   const { deviceConfig } = useSelectedDeviceConfig();
-  const { inputConfigs } = useInputConfigs(
-    selectedDevice || '',
-    selectedInputs
-  );
+  const { inputConfigs } = useSelectedInputConfigs();
 
   let Element: JSX.Element | null = null;
 
