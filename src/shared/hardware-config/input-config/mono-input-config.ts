@@ -65,8 +65,7 @@ export abstract class MonoInputConfig<
   }
 
   applyStub(s: MonoInputIcicle) {
-    // super.applyStub(s);
-    // TODO:
+    super.applyStub(s);
   }
 
   public innerFreeze() {

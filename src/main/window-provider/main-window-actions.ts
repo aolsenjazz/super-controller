@@ -53,7 +53,10 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(`device-stub-${id}`, desc);
   }
 
-  public sendConfigStub(id: string, desc: Omit<DeviceIcicle, 'className'>) {
+  public sendConfigStub(
+    id: string,
+    desc: Omit<DeviceIcicle, 'className'> | undefined
+  ) {
     this.send(`device-config-stub-${id}`, desc);
   }
 

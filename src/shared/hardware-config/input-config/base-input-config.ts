@@ -31,7 +31,7 @@ export abstract class BaseInputConfig<T extends InputIcicle = InputIcicle>
 
   public abstract freeze(): T;
 
-  public applyStub(s: T) {
+  public applyStub(s: InputIcicle) {
     this.nickname = s.nickname;
   }
 
