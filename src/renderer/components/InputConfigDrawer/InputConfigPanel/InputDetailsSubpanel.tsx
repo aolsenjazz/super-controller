@@ -17,7 +17,7 @@ export default function InputDetailsSubpanel(props: PropTypes) {
   const name = useMemo(() => {
     return configs.length > 1
       ? `${configs.length} Inputs Selected`
-      : `Input: ${configs[0].id}`;
+      : `Input: ${configs[0].nickname || configs[0].id}`;
   }, [configs]);
 
   const nickname = useMemo(() => {

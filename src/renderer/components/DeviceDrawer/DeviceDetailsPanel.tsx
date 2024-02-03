@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 
 import { useSelectedDevice } from '@context/selected-device-context';
 import type { PluginIcicle } from '@plugins/base-plugin';
+import type { DeviceConfigStub } from '@shared/hardware-config/device-config';
 import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
 import { useDeviceStub } from '@hooks/use-device-stub';
 
@@ -18,9 +19,17 @@ export default function DeviceDetailsPanel() {
   const { deviceStub } = useDeviceStub(selectedDevice || '');
   const { deviceConfig } = useSelectedDeviceConfig();
 
-  const onChange = useCallback((n: string) => {
-    return n;
-  }, []);
+  const onChange = useCallback(
+    (n: string) => {
+      const newConfig: DeviceConfigStub = {
+        ...deviceConfig!,
+        nickname: n,
+      };
+
+      ConfigService.updateDevice(newConfig);
+    },
+    [deviceConfig]
+  );
 
   const removePlugin = useCallback(
     (icicle: PluginIcicle) => {

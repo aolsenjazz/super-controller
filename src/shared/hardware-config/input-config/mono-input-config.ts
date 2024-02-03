@@ -75,6 +75,7 @@ export abstract class MonoInputConfig<
 
   applyStub(s: MonoInputConfigStub) {
     this.response = s.outputResponse;
+    this.nickname = s.nickname;
     this.statusString = s.statusString;
     this.channel = s.channel;
     this.number = s.number;
@@ -130,7 +131,7 @@ export abstract class MonoInputConfig<
   }
 
   get nickname() {
-    return this.#nickname || `Input ${this.number}`;
+    return this.#nickname || '';
   }
 
   set nickname(nickname: string) {

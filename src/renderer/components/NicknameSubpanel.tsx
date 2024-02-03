@@ -20,7 +20,7 @@ export default function NicknameSubpanel({
   return (
     <div className={`nickname-subpanel ${deactivated ? 'deactivated' : ''}`}>
       <div className="nickname-display">
-        <h1>{nickname || name}</h1>
+        <h1>{name}</h1>
       </div>
       <label htmlFor="nickname-input">
         Nickname:
