@@ -9,9 +9,8 @@ import {
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
-import { stringify } from '@shared/util';
 import { Anonymous, getDriver } from '@shared/drivers';
-import { DeviceConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceIcicle } from '@shared/hardware-config/device-config';
 
 import { CONFIG } from '../ipc-channels';
 import { dialogs } from '../dialogs';
@@ -81,7 +80,8 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
   public async save() {
     if (this.currentPath === undefined) await this.saveAs();
 
-    fs.writeFileSync(this.currentPath!, stringify(this.project), {});
+    const asString = JSON.stringify(this.project.freeze());
+    fs.writeFileSync(this.currentPath!, asString, {});
 
     app.addRecentDocument(this.currentPath!);
     this.emit(ProjectProviderEvent.Save, {
@@ -132,7 +132,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
           dev instanceof SupportedDeviceConfig ||
           dev instanceof AdapterDeviceConfig
         ) {
-          e.returnValue = inputIds.map((id) => dev.getInputById(id)!.config);
+          e.returnValue = inputIds.map((id) => dev.getInputById(id)!.freeze());
         } else {
           e.returnValue = [];
         }
@@ -188,12 +188,12 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     /* When a device is removed from project, remove it here and re-init all devices */
     ipcMain.on(CONFIG.GET_CONFIGURED_DEVICES, (e: IpcMainEvent) => {
-      e.returnValue = this.project.devices.map((d) => d.stub);
+      e.returnValue = this.project.devices.map((d) => d.freeze());
     });
 
     ipcMain.on(
       CONFIG.UPDATE_DEVICE,
-      (_e: IpcMainEvent, updates: DeviceConfigStub) => {
+      (_e: IpcMainEvent, updates: DeviceIcicle) => {
         const config = this.project.getDevice(updates.id)!;
 
         config.applyStub(updates);

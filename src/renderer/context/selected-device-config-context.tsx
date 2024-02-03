@@ -6,14 +6,14 @@ import {
   useEffect,
 } from 'react';
 
-import type { DeviceConfigStub } from '@shared/hardware-config/device-config';
+import type { DeviceIcicle } from '@shared/hardware-config/device-config';
 
 import { useSelectedDevice } from './selected-device-context';
 
 const { ConfigService } = window;
 
 interface SelectedDeviceConfigContextType {
-  deviceConfig: DeviceConfigStub | undefined;
+  deviceConfig: DeviceIcicle | undefined;
 }
 
 const SelectedDeviceConfigContext =
@@ -26,13 +26,13 @@ type PropTypes = {
 };
 
 export const SelectedDeviceConfigProvider = ({ children }: PropTypes) => {
-  const [deviceConfig, setDeviceConfig] = useState<DeviceConfigStub>();
+  const [deviceConfig, setDeviceConfig] = useState<DeviceIcicle>();
   const { selectedDevice } = useSelectedDevice();
 
   useEffect(() => {
     setDeviceConfig(ConfigService.getDeviceConfig(selectedDevice || ''));
 
-    const cb = (stub?: DeviceConfigStub) => {
+    const cb = (stub?: DeviceIcicle) => {
       setDeviceConfig(stub);
     };
 

@@ -6,7 +6,7 @@ import {
   useEffect,
 } from 'react';
 
-import type { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
+import type { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
 
 import { useSelectedInputs } from './selected-inputs-context';
 import { useSelectedDeviceConfig } from './selected-device-config-context';
@@ -14,7 +14,7 @@ import { useSelectedDeviceConfig } from './selected-device-config-context';
 const { ConfigService } = window;
 
 interface SelectedInputConfigsType {
-  inputConfigs: InputConfigStub[];
+  inputConfigs: InputIcicle[];
 }
 
 const SelectedInputConfigsContext = createContext<SelectedInputConfigsType>({
@@ -26,7 +26,7 @@ type PropTypes = {
 };
 
 export const SelectedInputConfigsProvider = ({ children }: PropTypes) => {
-  const [inputConfigs, setInputConfigs] = useState<InputConfigStub[]>([]);
+  const [inputConfigs, setInputConfigs] = useState<InputIcicle[]>([]);
 
   const { selectedInputs } = useSelectedInputs();
   const { deviceConfig } = useSelectedDeviceConfig();

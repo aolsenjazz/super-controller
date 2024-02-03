@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
-import { DeviceConfigStub } from '@shared/hardware-config/device-config';
-import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
+import { DeviceIcicle } from '@shared/hardware-config/device-config';
+import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
 
 import InputDetailsSubpanel from './InputDetailsSubpanel';
 import PluginSubpanel from '../../PluginSubpanel';
@@ -9,8 +9,8 @@ import PluginSubpanel from '../../PluginSubpanel';
 const { MenuService } = window;
 
 type InputConfigurationProps = {
-  config: DeviceConfigStub;
-  inputConfigs: InputConfigStub[];
+  config: DeviceIcicle;
+  inputConfigs: InputIcicle[];
 };
 
 export default function InputConfigSubpanel(props: InputConfigurationProps) {

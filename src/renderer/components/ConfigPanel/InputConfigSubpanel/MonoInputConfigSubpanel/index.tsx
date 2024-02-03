@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { KnobConfigStub } from '@shared/hardware-config/input-config/knob-config';
+import { KnobIcicle } from '@shared/hardware-config/input-config/knob-config';
 
 import BacklightSettings from './BacklightSettings';
 import StatusStringDropdown from './dropdowns/StatusStringDropdown';
@@ -34,7 +34,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
       i.number = i.defaults.number;
 
       if (i.type === 'knob') {
-        const asKnob = i as KnobConfigStub;
+        const asKnob = i as KnobIcicle;
         asKnob.valueType = asKnob.defaults.knobType;
       }
     });

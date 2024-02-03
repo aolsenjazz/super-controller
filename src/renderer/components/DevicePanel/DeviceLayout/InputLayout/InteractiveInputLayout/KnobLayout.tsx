@@ -2,7 +2,7 @@ import { useSelectedDevice } from '@context/selected-device-context';
 import { useInputConfig } from '@hooks/use-input-config';
 import { useInputState } from '@hooks/use-input-state';
 import {
-  KnobConfigStub,
+  KnobIcicle,
   KnobState,
 } from '@shared/hardware-config/input-config/knob-config';
 import { useEffect, useState } from 'react';
@@ -41,10 +41,7 @@ export function Knob(props: PropTypes) {
   const { selectedDevice } = useSelectedDevice();
   const [curDeg, setCurDeg] = useState(0);
 
-  const { inputConfig } = useInputConfig<KnobConfigStub>(
-    selectedDevice || '',
-    id
-  );
+  const { inputConfig } = useInputConfig<KnobIcicle>(selectedDevice || '', id);
 
   const [isEndless, setEndless] = useState(endless);
 

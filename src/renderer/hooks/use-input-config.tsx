@@ -1,9 +1,9 @@
-import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
+import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
 import { useState, useEffect } from 'react';
 
 const { ConfigService } = window;
 
-export function useInputConfig<T extends InputConfigStub = InputConfigStub>(
+export function useInputConfig<T extends InputIcicle = InputIcicle>(
   deviceId: string,
   inputId: string
 ) {

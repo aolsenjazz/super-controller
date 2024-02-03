@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 import { MidiArray } from '@shared/midi-array';
-import { DeviceConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceIcicle } from '@shared/hardware-config/device-config';
 import { useOverrides } from '@hooks/use-overrides';
 
 import RecentMessageRow from './RecentMessageRow';
@@ -11,7 +11,7 @@ import OverrideRow from './OverrideRow';
 const { TranslatorService } = window;
 
 type PropTypes = {
-  config: DeviceConfigStub;
+  config: DeviceIcicle;
 };
 
 export default function Translator(props: PropTypes) {

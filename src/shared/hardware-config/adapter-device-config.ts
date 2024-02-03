@@ -82,7 +82,7 @@ export class AdapterDeviceConfig
   public freeze() {
     return {
       ...super.innerFreeze(),
-      classNae: this.constructor.name,
+      className: this.constructor.name,
       child: this.child?.freeze(),
     };
   }

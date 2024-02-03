@@ -1,11 +1,11 @@
-import { MonoInputConfigStub } from '@shared/hardware-config/input-config/mono-input-config';
+import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-config';
 
 import MonoInputConfigPanel from './MonoInputConfigSubpanel';
 import { createInputGroup } from './input-group';
 
 type PropTypes = {
-  x: MonoInputConfigStub;
-  y: MonoInputConfigStub;
+  x: MonoInputIcicle;
+  y: MonoInputIcicle;
   deviceId: string;
 };
 

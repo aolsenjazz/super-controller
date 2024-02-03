@@ -1,7 +1,6 @@
+import { DeviceIcicle } from '@shared/hardware-config/device-config';
+import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
 import { ipcRenderer } from 'electron';
-
-import { DeviceConfigStub } from '@shared/hardware-config/device-config';
-import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
 
 import { CONFIG, HOST } from '../ipc-channels';
 import { addOnChangeListener } from './common';
@@ -44,7 +43,7 @@ export const configService = {
   /**
    * Send an updated copy of a device config to the backend.
    */
-  updateDevice(config: DeviceConfigStub) {
+  updateDevice(config: DeviceIcicle) {
     ipcRenderer.send(CONFIG.UPDATE_DEVICE, config);
   },
 
@@ -52,7 +51,7 @@ export const configService = {
    * Subscribe to changes made to input config for given `deviceId` and
    * `inputId`
    */
-  onInputConfigChange<T extends InputConfigStub = InputConfigStub>(
+  onInputConfigChange<T extends InputIcicle = InputIcicle>(
     deviceId: string,
     inputId: string,
     func: (config: T) => void
@@ -65,7 +64,7 @@ export const configService = {
     return off;
   },
 
-  getInputConfigs<T extends InputConfigStub = InputConfigStub>(
+  getInputConfigs<T extends InputIcicle = InputIcicle>(
     deviceId: string,
     inputIds: string[]
   ): T[] {
@@ -76,7 +75,7 @@ export const configService = {
     ipcRenderer.send(CONFIG.REQUEST_INPUT_CONFIG_STUB, deviceId, inputIds);
   },
 
-  updateInputs(deviceId: string, configs: InputConfigStub[]) {
+  updateInputs(deviceId: string, configs: InputIcicle[]) {
     ipcRenderer.send(CONFIG.UPDATE_INPUT, deviceId, configs);
   },
 
@@ -89,7 +88,7 @@ export const configService = {
    * when a new project is loaded for a given device is connected. Also immediately
    * invokes `func` with currently-configured devices
    */
-  onConfiguredDevicesChange: (func: (stubs: DeviceConfigStub[]) => void) => {
+  onConfiguredDevicesChange: (func: (stubs: DeviceIcicle[]) => void) => {
     return addOnChangeListener(CONFIG.CONFIGURED_DEVICES, func);
   },
 
@@ -99,7 +98,7 @@ export const configService = {
    */
   onDeviceConfigChange(
     deviceId: string,
-    func: (desc: DeviceConfigStub | undefined) => void
+    func: (desc: DeviceIcicle | undefined) => void
   ) {
     return addOnChangeListener(`device-config-stub-${deviceId}`, func);
   },

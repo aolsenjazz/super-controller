@@ -8,9 +8,9 @@ import {
   MonoInteractiveDriver,
   SwitchDriver,
 } from './driver-types/input-drivers';
-import { InputConfigStub } from './hardware-config/input-config/base-input-config';
-import { MonoInputConfigStub } from './hardware-config/input-config/mono-input-config';
-import { XYConfigStub } from './hardware-config/input-config/xy-config';
+import { InputIcicle } from './hardware-config/input-config/base-input-config';
+import { MonoInputIcicle } from './hardware-config/input-config/mono-input-config';
+import { XYIcicle } from './hardware-config/input-config/xy-config';
 
 export function colorDisplayName(c: ColorDescriptor) {
   return `${c.name}${c.modifier ? ` (${c.modifier})` : ''}`;
@@ -34,13 +34,14 @@ export function id(driver: InteractiveInputDriver): string {
     : `${mono.status}.${mono.channel}.${mono.number}`;
 }
 
-export function idForConfigStub(c: InputConfigStub): string {
+// TODO: really not sure why this would exist...
+export function idForConfigStub(c: InputIcicle): string {
   if (c.type === 'xy') {
-    const xy = c as XYConfigStub;
+    const xy = c as XYIcicle;
     return `${idForConfigStub(xy.x)}${idForConfigStub(xy.y)}`;
   }
 
-  const mono = c as MonoInputConfigStub;
+  const mono = c as MonoInputIcicle;
   return mono.defaults.statusString === 'pitchbend'
     ? `${mono.defaults.statusString}.${mono.defaults.channel}`
     : `${mono.defaults.statusString}.${mono.defaults.channel}.${mono.defaults.number}`;

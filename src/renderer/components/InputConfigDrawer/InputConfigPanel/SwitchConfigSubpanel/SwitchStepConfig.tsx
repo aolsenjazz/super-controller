@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { byteToStatusString } from '@shared/midi-util';
-import { SwitchConfigStub } from '@shared/hardware-config/input-config/switch-config';
+import { SwitchIcicle } from '@shared/hardware-config/input-config/switch-config';
 
 import ChannelDropdown from './ChannelDropdown';
 import StatusStringDropdown from './StatusStringDropdown';
@@ -13,7 +13,7 @@ const { ConfigService } = window;
 type PropTypes = {
   defaultMsg: NumberArrayWithStatus;
   override: NumberArrayWithStatus;
-  config: SwitchConfigStub;
+  config: SwitchIcicle;
   deviceId: string;
 };
 

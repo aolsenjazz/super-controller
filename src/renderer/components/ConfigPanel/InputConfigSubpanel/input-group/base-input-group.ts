@@ -1,5 +1,5 @@
 import { InputResponse } from '@shared/driver-types';
-import { MonoInputConfigStub } from '@shared/hardware-config/input-config/mono-input-config';
+import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-config';
 import { CC_BINDINGS, stringVal } from '@shared/util';
 
 /**
@@ -7,7 +7,7 @@ import { CC_BINDINGS, stringVal } from '@shared/util';
  * This is determined both by its hardware response, and its currently-configured
  * status string.
  */
-function eligibleResponsesForPad(stub: MonoInputConfigStub): InputResponse[] {
+function eligibleResponsesForPad(stub: MonoInputIcicle): InputResponse[] {
   const defaultResponse = stub.defaults.response;
   switch (defaultResponse) {
     case 'toggle':
@@ -29,7 +29,7 @@ function eligibleResponsesForPad(stub: MonoInputConfigStub): InputResponse[] {
  * output response.
  */
 function getEligibleStatusStrings(
-  stub: MonoInputConfigStub
+  stub: MonoInputIcicle
 ): (StatusString | 'noteon/noteoff')[] {
   switch (stub.type) {
     case 'pad':
@@ -47,7 +47,7 @@ function getEligibleStatusStrings(
  * Returns a list of output responses the given `MonoInputConfigStub` is capable of.
  * Determined by both `stub.type` and `stub.statusString`
  */
-function getEligibleResponses(stub: MonoInputConfigStub): InputResponse[] {
+function getEligibleResponses(stub: MonoInputIcicle): InputResponse[] {
   switch (stub.type) {
     case 'pad':
       return eligibleResponsesForPad(stub);
@@ -67,9 +67,7 @@ function getEligibleResponses(stub: MonoInputConfigStub): InputResponse[] {
  * 'noteon'. If one input in the group has a different value, `InputGroup.statusString`
  * would be '<multiple values>'.
  */
-export class BaseInputGroup<
-  K extends MonoInputConfigStub = MonoInputConfigStub
-> {
+export class BaseInputGroup<K extends MonoInputIcicle = MonoInputIcicle> {
   inputs: K[];
 
   constructor(inputs: K[]) {

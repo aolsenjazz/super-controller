@@ -1,9 +1,9 @@
 import { MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
-import { DeviceConfigStub } from '@shared/hardware-config/device-config';
+import { DeviceIcicle } from '@shared/hardware-config/device-config';
 import { useRecentMessage } from '@hooks/use-recent-message';
 
 type RecentMessageRowPropTypes = {
-  config: DeviceConfigStub;
+  config: DeviceIcicle;
   setCurrentAction: (msg: MidiArray) => void;
   currentAction: MidiArray | undefined;
 };

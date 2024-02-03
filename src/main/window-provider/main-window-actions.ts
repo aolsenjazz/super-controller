@@ -1,17 +1,16 @@
 import { BrowserWindow } from 'electron';
 import os from 'os';
 
-import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 import { DeviceStub } from '@shared/device-stub';
 import {
-  InputConfigStub,
+  InputIcicle,
   InputState,
 } from '@shared/hardware-config/input-config/base-input-config';
-import { ImmutableMidiArrayMap } from '@shared/hardware-config/anonymous-device-config';
 
 import { HOST, CONFIG } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';
+import { DeviceIcicle } from '@shared/hardware-config/device-config';
 
 /**
  * Provides a number of frequently-used functions targetting the main window.
@@ -46,7 +45,7 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(HOST.CONNECTED_DEVICES, stubs);
   }
 
-  public sendConfiguredDevices(stubs: DeviceConfigStub[]) {
+  public sendConfiguredDevices(stubs: DeviceIcicle[]) {
     this.send(CONFIG.CONFIGURED_DEVICES, stubs);
   }
 
@@ -54,15 +53,16 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(`device-stub-${id}`, desc);
   }
 
-  public sendConfigStub(id: string, desc: DeviceConfigStub | undefined) {
+  public sendConfigStub(id: string, desc: DeviceIcicle | undefined) {
     this.send(`device-config-stub-${id}`, desc);
   }
 
-  public sendOverrides(id: string, overrides: ImmutableMidiArrayMap) {
-    this.send(`${id}-overrides`, overrides);
-  }
+  // TODO: trnaslator
+  // public sendOverrides(id: string, overrides: ImmutableMidiArrayMap) {
+  //   this.send(`${id}-overrides`, overrides);
+  // }
 
-  public sendInputConfigs(configs: InputConfigStub[]) {
+  public sendInputConfigs(configs: InputIcicle[]) {
     this.send(CONFIG.INPUT_CONFIG_CHANGE, configs);
   }
 
@@ -74,7 +74,7 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(`device-${deviceId}-input-${inputId}-state`, state);
   }
 
-  public sendInputConfig<T extends InputConfigStub>(
+  public sendInputConfig<T extends InputIcicle>(
     deviceId: string,
     inputId: string,
     config: T

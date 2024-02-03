@@ -12,8 +12,7 @@ import {
   BaseInputConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
-import { idForConfigStub } from '@shared/util';
-import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
+import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
 
 import { ProjectProvider as pp, ProjectProvider } from './project-provider';
 import { wp } from './window-provider';
@@ -40,7 +39,7 @@ ipcMain.on(HOST.REQUEST, (_e: Event, deviceName: string) => {
 ipcMain.on(CONFIG.REQUEST_DEVICE_CONFIG_STUB, (_e: Event, id: string) => {
   const p = pp.project;
   const conf = p.getDevice(id);
-  const desc = conf ? conf.stub : undefined;
+  const desc = conf ? conf.freeze() : undefined;
 
   MainWindow.sendConfigStub(id, desc);
 });
@@ -77,27 +76,26 @@ ipcMain.on(LAYOUT.SET_LAYOUT_ITEM, (e: Event, s: string, v: string) => {
 
 ipcMain.on(
   CONFIG.UPDATE_INPUT,
-  (_e: IpcMainEvent, deviceId: string, configs: InputConfigStub[]) => {
+  (_e: IpcMainEvent, deviceId: string, configs: InputIcicle[]) => {
     const { project } = ProjectProvider;
     const deviceConfig = project.getDevice(deviceId) as SupportedDeviceConfig;
 
     const updatedConfigs: BaseInputConfig[] = [];
     configs.forEach((c) => {
-      const id = idForConfigStub(c);
-      const input = deviceConfig.getInputById(id);
+      const input = deviceConfig.getInputById(c.id);
 
       if (input) {
         input.applyStub(c);
         updatedConfigs.push(input);
-        MainWindow.sendInputState(deviceId, id, input.state);
+        MainWindow.sendInputState(deviceId, c.id, input.state);
       }
     });
 
     MainWindow.edited = true;
-    MainWindow.sendConfigStub(deviceConfig.id, deviceConfig.stub);
+    MainWindow.sendConfigStub(deviceConfig.id, deviceConfig.freeze());
   }
 );
 
 ipcMain.on(CONFIG.GET_DEVICE_CONFIG, (e: IpcMainEvent, deviceId: string) => {
-  e.returnValue = ProjectProvider.project.getDevice(deviceId)?.stub;
+  e.returnValue = ProjectProvider.project.getDevice(deviceId)?.freeze();
 });

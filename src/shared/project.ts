@@ -61,6 +61,7 @@ export class Project implements Freezable<ProjectIcicle> {
     return {
       version: this.version || Project.CURRENT_VERSION,
       devices: this.devices.map((d) => d.freeze()),
+      className: this.constructor.name,
     };
   }
 }
