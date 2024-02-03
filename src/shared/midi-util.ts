@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 const NOTE_OFF = 0x80; // 128
 const NOTE_ON = 0x90; // 144
 const KEY_PRESSURE = 0xa0; // 160

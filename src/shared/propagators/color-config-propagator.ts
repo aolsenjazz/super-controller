@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import { create } from '../midi-array';
 import {
   Color,

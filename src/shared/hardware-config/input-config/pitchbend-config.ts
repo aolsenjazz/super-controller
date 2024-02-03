@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import { create, MidiArray, ThreeByteMidiArray } from '../../midi-array';
 
 import { MonoInteractiveDriver } from '../../driver-types';

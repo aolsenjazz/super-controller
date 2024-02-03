@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import { PadDriver, FxDriver, ColorDescriptor } from '../../driver-types';
 import { InputState } from './base-input-config';
 import { MonoInputConfig } from './mono-input-config';

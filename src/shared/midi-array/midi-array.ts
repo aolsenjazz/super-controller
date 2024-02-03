@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import { byteToStatusString } from '../midi-util';
 
 export abstract class MidiArray extends Array<number> {

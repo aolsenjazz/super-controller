@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import { useCallback } from 'react';
 
 import { byteToStatusString } from '@shared/midi-util';

@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import { MidiArray } from './midi-array';
 import { statusStringToByte, byteToStatusString } from '../midi-util';
 

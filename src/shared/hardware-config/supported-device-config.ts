@@ -1,4 +1,3 @@
-import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 
 import { DeviceDriver } from '../driver-types';

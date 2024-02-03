@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import { MonoInputConfig } from './mono-input-config';
 import { InputDriverWithHandle } from '../../driver-types';
 import { InputState } from './base-input-config';
