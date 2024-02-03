@@ -23,6 +23,7 @@ const configuration: webpack.Configuration = {
 
   entry: [
     path.join(webpackPaths.srcMainPath, 'preload', 'preload.ts'),
+    // load device plugins (yeah this is ugly)
     ...fs
       .readdirSync(path.join(webpackPaths.pluginsPath, 'device-plugins'), {
         withFileTypes: true,
@@ -32,6 +33,20 @@ const configuration: webpack.Configuration = {
         path.join(
           webpackPaths.pluginsPath,
           'device-plugins',
+          dirent.name,
+          'preload.ts'
+        )
+      ),
+    // load input plugins (yeah also ugly)
+    ...fs
+      .readdirSync(path.join(webpackPaths.pluginsPath, 'input-plugins'), {
+        withFileTypes: true,
+      })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) =>
+        path.join(
+          webpackPaths.pluginsPath,
+          'input-plugins',
           dirent.name,
           'preload.ts'
         )

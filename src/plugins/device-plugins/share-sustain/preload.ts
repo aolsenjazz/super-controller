@@ -14,7 +14,7 @@ import { ShareSustainIcicle } from '.';
 import { UPDATE_SHARE_SUSTAIN } from './ipc-channels';
 
 /**
- * Exposes a means for the renderer process to communicate with the main process.
+ * Exposes a service for the renderer process to communicate with the main process.
  */
 const ShareSustainService = {
   update(icicle: ShareSustainIcicle) {

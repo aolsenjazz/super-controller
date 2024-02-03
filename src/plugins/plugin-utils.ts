@@ -36,8 +36,35 @@ export function allDevicePlugins() {
 }
 
 /**
+ * Returns all available device plugins, sorted alphabetically
+ */
+export function allInputPlugins() {
+  const pluginsPath = getPluginsPath();
+  return (
+    fs
+      .readdirSync(path.join(pluginsPath, 'input-plugins'), {
+        withFileTypes: true,
+      })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) =>
+        path.join(pluginsPath, 'input-plugins', dirent.name, 'index.ts')
+      )
+      // eslint-disable-next-line global-require, import/no-dynamic-require
+      .map((p) => require(p).default as BasePlugin & BasePluginStatic)
+      .sort((a, b) => a.TITLE().localeCompare(b.TITLE()))
+  );
+}
+
+/**
  * Returns the `BasePlugin` superclass for given `title`
  */
-export function getPlugin(title: string) {
+export function getDevicePlugin(title: string) {
   return allDevicePlugins().filter((p) => p.TITLE() === title)[0];
+}
+
+/**
+ * Returns the `BasePlugin` superclass for given `title`
+ */
+export function getInputPlugin(title: string) {
+  return allInputPlugins().filter((p) => p.TITLE() === title)[0];
 }

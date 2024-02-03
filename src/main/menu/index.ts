@@ -1,13 +1,12 @@
-import { BrowserWindow, ipcMain, IpcMainEvent, Menu, MenuItem } from 'electron';
-
-import { allDevicePlugins } from '@plugins/plugin-utils';
-import { ProjectProvider } from '@main/project-provider';
-import { Registry } from '@plugins/registry';
+import { BrowserWindow, ipcMain, IpcMainEvent, Menu } from 'electron';
 
 import { build as buildDarwin } from './darwin-menu';
 import { build as buildDefault } from './default-menu';
+import { MENU } from '@main/ipc-channels';
 
 import { wp } from '../window-provider';
+import { createDevicePluginMenu } from './device-plugin-menu';
+import { createInputPluginMenu } from './input-plugin-menu';
 
 /**
  * Provides functions for creating an app menu, and binds a listener to Window focus
@@ -38,31 +37,26 @@ class AppMenuSingleton {
   }
 
   private initIpcListeners() {
-    // TODO: this will go in a dedicated menu file
-    function createMenu(deviceId: string) {
-      return allDevicePlugins().map((Plugin) => {
-        return new MenuItem({
-          label: Plugin.TITLE(),
-          toolTip: Plugin.DESCRIPTION(),
-          click: () => {
-            const dev = ProjectProvider.project.getDevice(deviceId);
-            const plug = new Plugin();
-            dev.addPlugin(plug);
-            Registry.register(plug);
-            wp.MainWindow.sendConfigStub(dev.id, dev.stub);
-          },
-        });
-      });
-    }
+    ipcMain.on(
+      MENU.DEVICE_PLUGIN_MENU,
+      (e: IpcMainEvent, x: number, y: number, deviceId: string) => {
+        const template = createDevicePluginMenu(deviceId);
+        const menu = Menu.buildFromTemplate(template);
+        const win = BrowserWindow.fromWebContents(e.sender) || undefined;
+        menu.popup({ window: win, x, y });
+      }
+    );
 
     ipcMain.on(
-      'show-device-plugin-menu',
-      (e: IpcMainEvent, x: number, y: number, deviceId: string) => {
-        const template = [
-          ...createMenu(deviceId),
-          // { type: 'separator' },
-          // { label: 'Menu Item 2', type: 'checkbox', checked: true },
-        ];
+      MENU.INPUT_PLUGIN_MENU,
+      (
+        e: IpcMainEvent,
+        x: number,
+        y: number,
+        deviceId: string,
+        inputId: string
+      ) => {
+        const template = createInputPluginMenu(deviceId, inputId);
         const menu = Menu.buildFromTemplate(template);
         const win = BrowserWindow.fromWebContents(e.sender) || undefined;
         menu.popup({ window: win, x, y });

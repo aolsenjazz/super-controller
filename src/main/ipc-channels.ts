@@ -49,3 +49,8 @@ export const LAYOUT = {
   GET_LAYOUT_ITEM: 'get-layout-item',
   SET_LAYOUT_ITEM: 'set-layout-item',
 };
+
+export const MENU = {
+  DEVICE_PLUGIN_MENU: 'device-plugin-menu',
+  INPUT_PLUGIN_MENU: 'input-plugin-menu',
+};
