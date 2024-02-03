@@ -115,6 +115,7 @@ export class PadConfig extends LightCapableInputConfig {
       lightResponse: this.lightResponse,
       availableColors: this.availableColors,
       availableFx: this.availableFx,
+      nickname: this.nickname,
       colorConfig: new Map<number, ColorConfigStub>(stateColorConfig),
     };
   }

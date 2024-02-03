@@ -47,6 +47,7 @@ export default function DeviceDetailsPanel() {
           name={deviceStub?.name || deviceConfig?.portName || ''}
           nickname={deviceConfig?.nickname || ''}
           onNicknameChange={onChange}
+          deactivated={false}
         />
         <PluginSubpanel
           plugins={deviceConfig?.plugins || []}

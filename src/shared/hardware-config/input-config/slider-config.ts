@@ -46,6 +46,7 @@ export class SliderConfig extends MonoInputConfig {
       channel: this.channel,
       number: this.number,
       type: 'slider',
+      nickname: this.nickname,
     };
   }
 

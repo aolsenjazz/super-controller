@@ -5,7 +5,6 @@ import { Registry } from '@plugins/registry';
 
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
-import { InputConfigStub } from './input-config/base-input-config';
 
 export type DeviceConfigStub = {
   id: string;

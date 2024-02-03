@@ -87,6 +87,7 @@ export class SwitchConfig extends BaseInputConfig {
       id: this.id,
       steps: this.outputPropagator.steps,
       type: 'switch',
+      nickname: this.nickname,
     };
   }
 

@@ -57,6 +57,7 @@ export class PitchbendConfig extends MonoInputConfig {
       channel: this.channel,
       number: this.number,
       type: 'pitchbend',
+      nickname: this.nickname,
     };
   }
 

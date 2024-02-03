@@ -82,6 +82,7 @@ export class XYConfig extends BaseInputConfig {
       type: 'xy',
       x: this.x.config,
       y: this.y.config,
+      nickname: this.nickname,
     };
   }
 

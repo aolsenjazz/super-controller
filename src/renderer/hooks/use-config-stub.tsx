@@ -14,7 +14,7 @@ export const useConfigStub = (configId: string) => {
       setConfigStub(stub);
     };
 
-    ConfigService.onConfigChange(configId, cb);
+    ConfigService.onDeviceConfigChange(configId, cb);
   }, [configId, configStubs]);
 
   return { configStub };

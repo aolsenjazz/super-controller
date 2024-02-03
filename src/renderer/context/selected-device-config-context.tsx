@@ -30,11 +30,13 @@ export const SelectedDeviceConfigProvider = ({ children }: PropTypes) => {
   const { selectedDevice } = useSelectedDevice();
 
   useEffect(() => {
+    setDeviceConfig(ConfigService.getDeviceConfig(selectedDevice || ''));
+
     const cb = (stub?: DeviceConfigStub) => {
       setDeviceConfig(stub);
     };
 
-    const off = ConfigService.onConfigChange(selectedDevice || '', cb);
+    const off = ConfigService.onDeviceConfigChange(selectedDevice || '', cb);
 
     return () => off();
   }, [selectedDevice, setDeviceConfig]);

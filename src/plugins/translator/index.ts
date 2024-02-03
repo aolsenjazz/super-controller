@@ -40,36 +40,6 @@ export default class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
 
   protected initIpcListeners(): void {
     ipcMain.on(
-      CONFIG.UPDATE_INPUT,
-      (_e: IpcMainEvent, deviceId: string, configs: InputConfigStub[]) => {
-        const { project } = ProjectProvider;
-        const deviceConfig = project.getDevice(
-          deviceId
-        ) as SupportedDeviceConfig;
-
-        const updatedConfigs: BaseInputConfig[] = [];
-        configs.forEach((c) => {
-          const id = idForConfigStub(c);
-          const input = deviceConfig.getInputById(id);
-
-          if (input) {
-            input.applyStub(c);
-            updatedConfigs.push(input);
-            MainWindow.sendInputState(deviceId, id, input.state);
-          }
-        });
-
-        MainWindow.edited = true;
-        MainWindow.sendInputConfigs(updatedConfigs.map((c) => c.config));
-        // this.emit(
-        //   ProjectProviderEvent.UpdateInput,
-        //   deviceConfig,
-        //   updatedConfigs
-        // );
-      }
-    );
-
-    ipcMain.on(
       CONFIG.GET_INPUT_CONFIG,
       (_e: IpcMainEvent, deviceId: string, inputId: string) => {
         const { project } = ProjectProvider;

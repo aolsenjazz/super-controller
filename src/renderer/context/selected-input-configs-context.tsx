@@ -31,15 +31,24 @@ export const SelectedInputConfigsProvider = ({ children }: PropTypes) => {
   const { selectedInputs } = useSelectedInputs();
   const { deviceConfig } = useSelectedDeviceConfig();
 
+  // whenever the selected device changes, register for callbacks to device config
+  // changes so that we can update input configs as needed
   useEffect(() => {
-    if (deviceConfig) {
-      const ins = ConfigService.getInputConfigs(
-        deviceConfig.id,
-        selectedInputs
-      );
-      setInputConfigs(ins);
-    }
-  }, [selectedInputs, deviceConfig]);
+    const cb = () => {
+      if (deviceConfig) {
+        const ins = ConfigService.getInputConfigs(
+          deviceConfig.id,
+          selectedInputs
+        );
+        setInputConfigs(ins);
+      }
+    };
+    cb();
+
+    const off = ConfigService.onDeviceConfigChange(deviceConfig?.id || '', cb);
+
+    return () => off();
+  }, [deviceConfig, selectedInputs]);
 
   return (
     <SelectedInputConfigsContext.Provider value={{ inputConfigs }}>

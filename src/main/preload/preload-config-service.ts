@@ -97,13 +97,15 @@ export const configService = {
    * Subscribe to changes to a config for the given id. A new channel named
    * `device-descriptor-{deviceId}` will be created to which the renderer can listen.
    */
-  onConfigChange(
+  onDeviceConfigChange(
     deviceId: string,
     func: (desc: DeviceConfigStub | undefined) => void
   ) {
-    const off = addOnChangeListener(`device-config-stub-${deviceId}`, func);
-    ipcRenderer.send(CONFIG.REQUEST_DEVICE_CONFIG_STUB, deviceId);
-    return off;
+    return addOnChangeListener(`device-config-stub-${deviceId}`, func);
+  },
+
+  getDeviceConfig(deviceId: string) {
+    return ipcRenderer.sendSync(CONFIG.GET_DEVICE_CONFIG, deviceId);
   },
 };
 

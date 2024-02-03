@@ -1,24 +1,39 @@
-import { useCallback } from 'react';
+import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
+import { useCallback, useMemo } from 'react';
 
 import NicknameSubpanel from '../../NicknameSubpanel';
 import SectionHeader from '../../SectionHeader';
-import { BaseInputGroup } from './input-group/base-input-group';
 
 type PropTypes = {
-  group: BaseInputGroup;
+  configs: InputConfigStub[];
+  deviceId: string;
 };
 
+const { ConfigService } = window;
+
 export default function InputDetailsSubpanel(props: PropTypes) {
-  const { group } = props;
+  const { configs, deviceId } = props;
 
-  const name =
-    group.inputs.length > 1
-      ? `${group.inputs.length} Input Selected`
-      : group.inputs[0].id;
+  const name = useMemo(() => {
+    return configs.length > 1
+      ? `${configs.length} Inputs Selected`
+      : `Input: ${configs[0].id}`;
+  }, [configs]);
 
-  const onChange = useCallback((n: string) => {
-    return n;
-  }, []);
+  const nickname = useMemo(() => {
+    return configs.length > 1 ? '' : configs[0].nickname;
+  }, [configs]);
+
+  const onChange = useCallback(
+    (n: string) => {
+      const newConf = {
+        ...configs[0],
+        nickname: n,
+      };
+      ConfigService.updateInputs(deviceId, [newConf]);
+    },
+    [configs, deviceId]
+  );
 
   return (
     <div className="details-panel input-details-panel">
@@ -26,8 +41,9 @@ export default function InputDetailsSubpanel(props: PropTypes) {
         <SectionHeader title="INPUT SETTINGS" size="large" />
         <NicknameSubpanel
           name={name}
-          nickname={name}
+          nickname={nickname || ''}
           onNicknameChange={onChange}
+          deactivated={configs.length !== 1}
         />
       </div>
     </div>

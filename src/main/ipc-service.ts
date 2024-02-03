@@ -5,12 +5,17 @@
  */
 
 import os from 'os';
-import { ipcMain, Event, shell } from 'electron';
+import { ipcMain, Event, shell, IpcMainEvent } from 'electron';
 
 import { controllerRequest, fivePinRequest } from '@shared/email-templates';
-import { SupportedDeviceConfig } from '@shared/hardware-config';
+import {
+  BaseInputConfig,
+  SupportedDeviceConfig,
+} from '@shared/hardware-config';
+import { idForConfigStub } from '@shared/util';
+import { InputConfigStub } from '@shared/hardware-config/input-config/base-input-config';
 
-import { ProjectProvider as pp } from './project-provider';
+import { ProjectProvider as pp, ProjectProvider } from './project-provider';
 import { wp } from './window-provider';
 import { HOST, CONFIG, LAYOUT } from './ipc-channels';
 import { LayoutParams, Store } from './store';
@@ -68,4 +73,31 @@ ipcMain.on(LAYOUT.GET_LAYOUT_ITEM, (e: Event, s: string) => {
 
 ipcMain.on(LAYOUT.SET_LAYOUT_ITEM, (e: Event, s: string, v: string) => {
   e.returnValue = Store.setLayoutItem(s, v);
+});
+
+ipcMain.on(
+  CONFIG.UPDATE_INPUT,
+  (_e: IpcMainEvent, deviceId: string, configs: InputConfigStub[]) => {
+    const { project } = ProjectProvider;
+    const deviceConfig = project.getDevice(deviceId) as SupportedDeviceConfig;
+
+    const updatedConfigs: BaseInputConfig[] = [];
+    configs.forEach((c) => {
+      const id = idForConfigStub(c);
+      const input = deviceConfig.getInputById(id);
+
+      if (input) {
+        input.applyStub(c);
+        updatedConfigs.push(input);
+        MainWindow.sendInputState(deviceId, id, input.state);
+      }
+    });
+
+    MainWindow.edited = true;
+    MainWindow.sendConfigStub(deviceConfig.id, deviceConfig.stub);
+  }
+);
+
+ipcMain.on(CONFIG.GET_DEVICE_CONFIG, (e: IpcMainEvent, deviceId: string) => {
+  e.returnValue = ProjectProvider.project.getDevice(deviceId)?.stub;
 });

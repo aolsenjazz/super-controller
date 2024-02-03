@@ -80,6 +80,7 @@ export class KnobConfig extends MonoInputConfig<KnobDefaults> {
       value: this.value,
       valueType: this.valueType,
       type: 'knob',
+      nickname: this.nickname,
     };
   }
 

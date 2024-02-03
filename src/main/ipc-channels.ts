@@ -20,6 +20,7 @@ export const CONFIG = {
   ADD_DEVICE: 'add-device',
   REMOVE_DEVICE: 'remove-device',
   UPDATE_DEVICE: 'update-device',
+  GET_DEVICE_CONFIG: 'get-device-config',
   UPDATE_INPUT: 'update-input',
   GET_INPUT_CONFIG: 'get-input-config',
 

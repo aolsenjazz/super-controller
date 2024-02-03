@@ -8,6 +8,7 @@ export interface InputState {}
 export interface InputConfigStub {
   type: 'pad' | 'knob' | 'xy' | 'switch' | 'slider' | 'pitchbend';
   id: string;
+  nickname: string;
 }
 
 export abstract class BaseInputConfig {

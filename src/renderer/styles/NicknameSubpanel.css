@@ -4,6 +4,14 @@
   padding: 0 5px 0 5px;
 }
 
+.nickname-subpanel.deactivated label,
+.nickname-subpanel.deactivated input {
+  pointer-events: none;
+  cursor: default;
+  filter: grayscale(50%);
+  opacity: 50%;
+}
+
 .nickname-subpanel label {
   line-height: 20px;
   display: inline-flex;
