@@ -6,6 +6,7 @@ import { allInputPlugins } from '@plugins/plugin-utils';
 import { Registry } from '@plugins/registry';
 import {
   AdapterDeviceConfig,
+  MonoInputConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
 
@@ -23,12 +24,16 @@ export function createInputPluginMenu(deviceId: string, inputId: string) {
         ) {
           const input = dev.getInputById(inputId);
 
-          if (input) {
+          if (input instanceof MonoInputConfig) {
             const plug = new Plugin();
             input.addPlugin(plug);
             Registry.register(plug);
             wp.MainWindow.sendConfigStub(dev.id, dev.stub());
+          } else {
+            console.log('Ignoring for now....');
           }
+
+          wp.MainWindow.sendInputConfig(deviceId, inputId, input);
         }
       },
     });
