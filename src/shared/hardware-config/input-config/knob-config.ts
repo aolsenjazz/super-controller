@@ -1,4 +1,3 @@
-import * as Revivable from '../../revivable';
 import { KnobDriver } from '../../driver-types';
 import {
   MonoInputConfig,
@@ -20,7 +19,6 @@ interface KnobDefaults extends InputDefault {
   knobType: 'endless' | 'absolute';
 }
 
-@Revivable.register
 export class KnobConfig extends MonoInputConfig<KnobDefaults> {
   static fromDriver(d: KnobDriver) {
     const def = {
@@ -36,13 +34,6 @@ export class KnobConfig extends MonoInputConfig<KnobDefaults> {
 
   applyStub(s: KnobConfigStub) {
     super.applyStub(s);
-  }
-
-  toJSON() {
-    return {
-      name: this.constructor.name,
-      args: [this.nickname, this.plugins.map((p) => p.freeze()), this.defaults],
-    };
   }
 
   get config(): KnobConfigStub {

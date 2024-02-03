@@ -1,4 +1,3 @@
-import * as Revivable from '../revivable';
 import { MidiArray, create } from '../midi-array';
 import { Propagator } from './propagator';
 
@@ -14,7 +13,6 @@ import { Propagator } from './propagator';
  * key is a JSON.stringify'd representation of the hardware-generated message for
  * a given message, and the value is its override.
  */
-@Revivable.register
 export class NonsequentialStepPropagator extends Propagator<
   'enumerated',
   'enumerated'
@@ -34,13 +32,6 @@ export class NonsequentialStepPropagator extends Propagator<
     this.steps = steps;
     this.defaultStep = defaultStep;
     this.lastStep = defaultStep;
-  }
-
-  toJSON() {
-    return {
-      name: this.constructor.name,
-      args: [this.steps, this.defaultStep],
-    };
   }
 
   protected getResponse(arr: MidiArray) {

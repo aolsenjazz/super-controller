@@ -11,40 +11,6 @@ import {
 import { InputConfigStub } from './hardware-config/input-config/base-input-config';
 import { MonoInputConfigStub } from './hardware-config/input-config/mono-input-config';
 import { XYConfigStub } from './hardware-config/input-config/xy-config';
-import * as Revivable from './revivable';
-
-function replacer(_key: any, value: any) {
-  if (value instanceof Map) {
-    return {
-      dataType: 'Map',
-      value: Array.from(value.entries()),
-    };
-  }
-
-  return value;
-}
-
-function reviver(_key: any, value: any) {
-  let obj;
-  if (typeof value === 'object' && value !== null) {
-    if (value.dataType === 'Map') {
-      return new Map(value.value);
-    }
-
-    Revivable.GetImplementations().forEach(
-      (Clazz: new (...args: any[]) => any) => {
-        if (Clazz.name === value.name) {
-          const parsed = value.args.map((a: any) =>
-            a === null ? undefined : a
-          );
-          obj = new Clazz(...parsed);
-        }
-      }
-    );
-  }
-
-  return obj || value;
-}
 
 export function colorDisplayName(c: ColorDescriptor) {
   return `${c.name}${c.modifier ? ` (${c.modifier})` : ''}`;
@@ -78,21 +44,6 @@ export function idForConfigStub(c: InputConfigStub): string {
   return mono.defaults.statusString === 'pitchbend'
     ? `${mono.defaults.statusString}.${mono.defaults.channel}`
     : `${mono.defaults.statusString}.${mono.defaults.channel}.${mono.defaults.number}`;
-}
-
-/**
- * Wrapper around JSON.parse to ensure that reviver is used and
- * type is automatically set
- */
-export function parse<T>(json: string): T {
-  return JSON.parse(json, reviver) as T;
-}
-
-/**
- * Wrapper around JSON.stringify used to ensure replacer is used
- */
-export function stringify<T>(obj: T) {
-  return JSON.stringify(obj, replacer);
 }
 
 /**

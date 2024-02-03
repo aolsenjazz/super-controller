@@ -1,8 +1,6 @@
 /* eslint-disable no-bitwise */
-import * as Revivable from '../revivable';
 import { MidiArray } from './midi-array';
 
-@Revivable.register
 export class SysexMidiArray extends MidiArray {
   asString() {
     let id = 'sysex';

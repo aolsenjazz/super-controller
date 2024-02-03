@@ -1,5 +1,4 @@
 /* eslint-disable no-bitwise */
-import * as Revivable from '../../revivable';
 import { PadDriver, FxDriver, ColorDescriptor } from '../../driver-types';
 import { InputState } from './base-input-config';
 import { MonoInputConfig } from './mono-input-config';
@@ -8,8 +7,6 @@ export interface PadState extends InputState {
   color: ColorDescriptor | undefined;
   fx: FxDriver | undefined;
 }
-
-@Revivable.register
 export class PadConfig extends MonoInputConfig {
   defaultValue?: MidiNumber;
 
@@ -22,13 +19,6 @@ export class PadConfig extends MonoInputConfig {
     };
 
     return new PadConfig('', [], def);
-  }
-
-  toJSON() {
-    return {
-      name: this.constructor.name,
-      args: [this.nickname, this.plugins.map((p) => p.freeze()), this.defaults],
-    };
   }
 
   get state() {

@@ -1,7 +1,5 @@
-import { Skeleton } from '@shared/revivable';
 import { MidiArray } from '@shared/midi-array';
 import { XYDriver } from '@shared/driver-types';
-import * as Revivable from '@shared/revivable';
 
 import { PitchbendConfig } from './pitchbend-config';
 import { SliderConfig } from './slider-config';
@@ -26,7 +24,6 @@ export interface XYConfigStub extends InputConfigStub {
   y: MonoInputConfigStub;
 }
 
-@Revivable.register
 export class XYConfig extends BaseInputConfig {
   x: SliderConfig | PitchbendConfig;
 
@@ -51,13 +48,6 @@ export class XYConfig extends BaseInputConfig {
 
     this.x = x;
     this.y = y;
-  }
-
-  toJSON(): Skeleton {
-    return {
-      name: this.constructor.name,
-      args: [this.x, this.y, this.nickname],
-    };
   }
 
   handleMessage(msg: MidiArray) {

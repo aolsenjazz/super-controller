@@ -10,11 +10,6 @@ export abstract class MidiArray extends Array<number> {
     super(...items);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  toJSON(): { name: string; args: any[] } {
-    return { name: this.constructor.name, args: [this.array] };
-  }
-
   get statusString() {
     return byteToStatusString(this.status, true);
   }

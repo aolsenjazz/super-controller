@@ -1,6 +1,5 @@
 /* eslint @typescript-eslint/no-empty-interface: 0 */
 import { MidiArray } from '@shared/midi-array';
-import { Skeleton } from '@shared/revivable';
 
 type InputType = 'pad' | 'knob' | 'xy' | 'switch' | 'slider' | 'pitchbend';
 
@@ -44,6 +43,4 @@ export abstract class BaseInputConfig {
   abstract isOriginator(msg: MidiArray | NumberArrayWithStatus): boolean;
 
   abstract handleMessage(msg: MidiArray): MidiArray | undefined;
-
-  abstract toJSON(): Skeleton;
 }

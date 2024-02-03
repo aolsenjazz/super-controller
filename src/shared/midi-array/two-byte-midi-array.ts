@@ -1,7 +1,6 @@
 /* eslint-disable no-bitwise */
 import { MidiArray } from './midi-array';
 import { statusStringToByte, byteToStatusString } from '../midi-util';
-import * as Revivable from '../revivable';
 
 const PROGRAM_CHANGE = 0xc0; // 192
 const CHANNEL_PRESSURE = 0xd0; // 208
@@ -13,7 +12,6 @@ interface TwoByteNumberArrayWithStatus extends NumberArrayWithStatus {
   length: 2;
 }
 
-@Revivable.register
 export class TwoByteMidiArray extends MidiArray {
   length = 2;
 

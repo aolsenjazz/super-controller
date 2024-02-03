@@ -1,7 +1,5 @@
-import * as Revivable from './revivable';
 import { DeviceConfig } from './hardware-config';
 
-@Revivable.register
 export class Project {
   static CURRENT_VERSION = 6;
 
@@ -50,13 +48,5 @@ export class Project {
    */
   getDevice(id: string | undefined) {
     return this.devices.filter((d) => d.id === id)[0];
-  }
-
-  toJSON() {
-    return {
-      name: this.constructor.name,
-      version: Project.CURRENT_VERSION,
-      args: [this.devices, Project.CURRENT_VERSION],
-    };
   }
 }

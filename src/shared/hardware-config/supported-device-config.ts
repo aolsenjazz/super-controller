@@ -4,15 +4,10 @@ import { MidiArray } from '../midi-array';
 import { DeviceDriver } from '../driver-types';
 
 import { DeviceConfig } from './device-config';
-import {
-  MonoInputConfig,
-  create,
-  LightCapableInputConfig,
-} from './input-config';
+import { create } from './input-config';
 import { BaseInputConfig } from './input-config/base-input-config';
 
 /* Contains device-specific configurations and managed `InputConfig`s */
-@Revivable.register
 export class SupportedDeviceConfig extends DeviceConfig {
   inputs: BaseInputConfig[];
 
@@ -52,43 +47,31 @@ export class SupportedDeviceConfig extends DeviceConfig {
     this.inputs = inputs;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  toJSON(): { name: string; args: any[] } {
-    return {
-      name: this.constructor.name,
-      args: [
-        this.portName,
-        this.driverName,
-        this.siblingIndex,
-        this.inputs,
-        this.nickname,
-      ],
-    };
-  }
-
   /**
    * Are the statusString, number, and channel currently in use? Returns true if an input
    * uses all three params. Useful for avoiding inputs sending the same events
+   *
+   * TODO:
    */
-  bindingAvailable(
-    statusString: StatusString | 'noteon/noteoff',
-    number: number,
-    channel: Channel
-  ) {
-    let available = true;
+  // bindingAvailable(
+  //   statusString: StatusString | 'noteon/noteoff',
+  //   number: number,
+  //   channel: Channel
+  // ) {
+  //   let available = true;
 
-    this.inputs.forEach((input) => {
-      if (
-        input instanceof MonoInputConfig &&
-        input.statusString === statusString &&
-        input.number === number &&
-        input.channel === channel
-      ) {
-        available = false;
-      }
-    });
-    return available;
-  }
+  //   this.inputs.forEach((input) => {
+  //     if (
+  //       input instanceof MonoInputConfig &&
+  //       input.statusString === statusString &&
+  //       input.number === number &&
+  //       input.channel === channel
+  //     ) {
+  //       available = false;
+  //     }
+  //   });
+  //   return available;
+  // }
 
   /**
    * Returns the `BaseInputConfig` for given id
@@ -120,11 +103,8 @@ export class SupportedDeviceConfig extends DeviceConfig {
   }
 
   getResponse(msg: MidiArray) {
-    const input = this.getOriginatorInput(msg);
-
-    return input instanceof LightCapableInputConfig
-      ? input.currentColorArray
-      : undefined;
+    // TODO:
+    return msg;
   }
 
   public get stub() {

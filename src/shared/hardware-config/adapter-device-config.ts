@@ -1,4 +1,3 @@
-import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { SupportedDeviceConfig } from './supported-device-config';
 import { DeviceConfig } from './device-config';
@@ -7,7 +6,6 @@ import { DeviceConfig } from './device-config';
  * TODO: I am once again confronted by the the problem of "why am I implementing
  * supporteddeviceconfig" when devce instanceof SupportedDevice returns false
  */
-@Revivable.register
 export class AdapterDeviceConfig
   extends DeviceConfig
   implements SupportedDeviceConfig
@@ -22,13 +20,6 @@ export class AdapterDeviceConfig
   ) {
     super(portName, driverName, siblingIndex, portName);
     this.child = child;
-  }
-
-  toJSON() {
-    return {
-      name: this.constructor.name,
-      args: [this.portName, this.driverName, this.siblingIndex, this.child],
-    };
   }
 
   setChild(config: SupportedDeviceConfig) {

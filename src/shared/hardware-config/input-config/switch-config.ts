@@ -1,5 +1,4 @@
 /* eslint-disable no-bitwise */
-import * as Revivable from '../../revivable';
 import { MidiArray } from '../../midi-array';
 import { SwitchDriver } from '../../driver-types';
 import {
@@ -16,7 +15,6 @@ export interface SwitchConfigStub extends InputConfigStub {
   steps: Map<string, NumberArrayWithStatus>;
 }
 
-@Revivable.register
 export class SwitchConfig extends BaseInputConfig {
   static fromDriver(d: SwitchDriver) {
     // TODO: interesting change of API here acutally - probably make ssense to rewrite this like an xy config, but just as a list of constant configs
@@ -27,13 +25,6 @@ export class SwitchConfig extends BaseInputConfig {
     // );
 
     return new SwitchConfig('', []);
-  }
-
-  toJSON() {
-    return {
-      name: this.constructor.name,
-      args: [this.nickname],
-    };
   }
 
   handleMessage(msg: MidiArray): MidiArray | undefined {

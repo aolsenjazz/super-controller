@@ -1,7 +1,6 @@
 /* eslint-disable no-bitwise */
 import { create, MidiArray, ThreeByteMidiArray } from '../../midi-array';
 
-import * as Revivable from '../../revivable';
 import { MonoInteractiveDriver } from '../../driver-types';
 import { MonoInputConfig } from './mono-input-config';
 import { SliderState } from './slider-config';
@@ -13,7 +12,6 @@ import { SliderState } from './slider-config';
  * pitchbend MIDI message array would be the MSB of the pitchbend value, but because of how
  * create configs from drivers, `config.number` is instead just assigned a meaningless number.
  */
-@Revivable.register
 export class PitchbendConfig extends MonoInputConfig {
   static fromDriver(d: MonoInteractiveDriver) {
     const def = {
@@ -53,13 +51,6 @@ export class PitchbendConfig extends MonoInputConfig {
   get state(): SliderState {
     return {
       value: 0, // TODO:
-    };
-  }
-
-  toJSON() {
-    return {
-      name: this.constructor.name,
-      args: [this.nickname, this.plugins.map((p) => p.freeze()), this.defaults],
     };
   }
 }
