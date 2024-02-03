@@ -24,10 +24,17 @@ const configuration: webpack.Configuration = {
   entry: [
     path.join(webpackPaths.srcMainPath, 'preload', 'preload.ts'),
     ...fs
-      .readdirSync(webpackPaths.pluginsPath, { withFileTypes: true })
+      .readdirSync(path.join(webpackPaths.pluginsPath, 'device-plugins'), {
+        withFileTypes: true,
+      })
       .filter((dirent) => dirent.isDirectory())
       .map((dirent) =>
-        path.join(webpackPaths.pluginsPath, dirent.name, 'preload.ts')
+        path.join(
+          webpackPaths.pluginsPath,
+          'device-plugins',
+          dirent.name,
+          'preload.ts'
+        )
       ),
   ],
 

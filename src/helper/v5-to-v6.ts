@@ -6,7 +6,7 @@ import {
   DeviceConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
-import { ShareSustainPlugin } from '@plugins/share-sustain';
+import { ShareSustainPlugin } from '@plugins/device-plugins/share-sustain';
 import { BasePlugin } from '@plugins/base-plugin';
 
 import { parse as v5Parse } from './legacy/v5/shared/util';

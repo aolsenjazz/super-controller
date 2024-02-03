@@ -22,7 +22,9 @@ export function allDevicePlugins() {
   const pluginsPath = getPluginsPath();
   return (
     fs
-      .readdirSync(pluginsPath, { withFileTypes: true })
+      .readdirSync(path.join(pluginsPath, 'device-plugins'), {
+        withFileTypes: true,
+      })
       .filter((dirent) => dirent.isDirectory())
       .map((dirent) =>
         path.join(pluginsPath, 'device-plugins', dirent.name, 'index.ts')
