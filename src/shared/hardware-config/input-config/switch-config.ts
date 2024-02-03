@@ -21,8 +21,6 @@ export interface SwitchConfigStub extends InputConfigStub {
 export class SwitchConfig extends BaseInputConfig {
   private outputPropagator: NonsequentialStepPropagator;
 
-  #nickname?: string;
-
   static fromDriver(d: SwitchDriver) {
     const steps = new Map<string, MidiArray>(
       d.steps.map((step) => {
@@ -45,7 +43,7 @@ export class SwitchConfig extends BaseInputConfig {
     super();
 
     this.outputPropagator = outputPropagator;
-    this.#nickname = nickname;
+    this.nickname = nickname || '';
   }
 
   toJSON() {
@@ -84,11 +82,13 @@ export class SwitchConfig extends BaseInputConfig {
 
   get config(): SwitchConfigStub {
     return {
-      id: this.id,
+      ...super.config,
       steps: this.outputPropagator.steps,
-      type: 'switch',
-      nickname: this.nickname,
     };
+  }
+
+  get type() {
+    return 'switch' as const;
   }
 
   get state() {
@@ -99,14 +99,6 @@ export class SwitchConfig extends BaseInputConfig {
 
   get response(): InputResponse {
     return this.outputPropagator.outputResponse;
-  }
-
-  set nickname(nickname: string) {
-    this.#nickname = nickname;
-  }
-
-  get nickname() {
-    return this.#nickname || `Switch ${this.state.step[1]}`;
   }
 
   get id() {

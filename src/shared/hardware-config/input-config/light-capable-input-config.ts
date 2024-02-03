@@ -94,6 +94,28 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
     }
   }
 
+  get config() {
+    const stateColorConfig: [number, ColorConfigStub][] = [0, 1].map((s) => {
+      return [
+        s,
+        {
+          color: this.getColor(s),
+          fx: this.getFx(s),
+          fxVal: this.getFxVal(s),
+        },
+      ];
+    });
+
+    return {
+      ...super.config,
+      colorCapable: true,
+      lightResponse: this.lightResponse,
+      availableColors: this.availableColors,
+      availableFx: this.availableFx,
+      colorConfig: new Map<number, ColorConfigStub>(stateColorConfig),
+    };
+  }
+
   handleMessage(msg: MidiArray): MidiArray | undefined {
     this.devicePropagator.handleMessage(msg);
     return super.handleMessage(msg);

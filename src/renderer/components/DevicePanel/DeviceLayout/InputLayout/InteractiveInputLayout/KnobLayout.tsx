@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from 'react';
 
 const defaultState = {
-  value: 0,
+  value: 0 as MidiNumber,
 };
 
 /**

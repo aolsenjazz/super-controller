@@ -4,7 +4,6 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { PanelState, usePanels } from '@context/panel-context';
 
 import DeviceDrawer from './DeviceDrawer';
-import ConfigPanel from './ConfigPanel';
 import DevicePanel from './DevicePanel';
 import InputConfigDrawer from './InputConfigDrawer';
 

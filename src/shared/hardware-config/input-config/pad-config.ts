@@ -6,10 +6,7 @@ import {
   ColorConfigPropagator,
   createPropagator,
 } from '../../propagators';
-import {
-  ColorConfigStub,
-  LightCapableInputConfig,
-} from './light-capable-input-config';
+import { LightCapableInputConfig } from './light-capable-input-config';
 import {
   InputResponse,
   PadDriver,
@@ -90,41 +87,15 @@ export class PadConfig extends LightCapableInputConfig {
     };
   }
 
-  get config() {
-    const stateColorConfig: [number, ColorConfigStub][] = [0, 1].map((s) => {
-      return [
-        s,
-        {
-          color: this.getColor(s),
-          fx: this.getFx(s),
-          fxVal: this.getFxVal(s),
-        },
-      ];
-    });
-
-    return {
-      id: this.id,
-      defaults: this.defaults,
-      colorCapable: true,
-      statusString: this.statusString,
-      outputResponse: this.response,
-      channel: this.channel,
-      number: this.number,
-      value: this.value,
-      type: 'pad' as const,
-      lightResponse: this.lightResponse,
-      availableColors: this.availableColors,
-      availableFx: this.availableFx,
-      nickname: this.nickname,
-      colorConfig: new Map<number, ColorConfigStub>(stateColorConfig),
-    };
-  }
-
   get state() {
     return {
       color: this.currentColor,
       fx: this.currentFx,
     };
+  }
+
+  get type() {
+    return 'pad' as const;
   }
 
   get value(): MidiNumber {

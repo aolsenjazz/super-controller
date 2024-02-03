@@ -2,14 +2,9 @@ import { ipcMain, IpcMainEvent } from 'electron';
 
 import { MidiArray } from '@shared/midi-array';
 import {
-  BaseInputConfig,
-  InputConfigStub,
-} from '@shared/hardware-config/input-config/base-input-config';
-import {
   AdapterDeviceConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
-import { idForConfigStub } from '@shared/util';
 
 import { CONFIG } from '../../main/ipc-channels';
 import { BasePlugin, PluginIcicle } from '../base-plugin';

@@ -14,7 +14,7 @@ export interface KnobConfigStub extends MonoInputConfigStub<KnobDefaults> {
 }
 
 export interface KnobState extends InputState {
-  value: number;
+  value: MidiNumber;
 }
 
 interface KnobDefaults extends InputDefault {
@@ -70,18 +70,14 @@ export class KnobConfig extends MonoInputConfig<KnobDefaults> {
 
   get config(): KnobConfigStub {
     return {
-      id: this.id,
-      defaults: this.defaults,
-      colorCapable: false,
-      statusString: this.statusString,
-      outputResponse: this.response,
-      channel: this.channel,
-      number: this.number,
-      value: this.value,
+      ...super.config,
       valueType: this.valueType,
-      type: 'knob',
-      nickname: this.nickname,
+      type: this.type,
     };
+  }
+
+  get type() {
+    return 'knob' as const;
   }
 
   get state(): KnobState {

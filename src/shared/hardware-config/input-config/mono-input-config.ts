@@ -16,7 +16,7 @@ export interface MonoInputConfigStub<T extends InputDefault = InputDefault>
   outputResponse: InputResponse;
   channel: Channel;
   number: MidiNumber;
-  value?: MidiNumber;
+  value: MidiNumber;
 }
 
 /* Default values for the input loaded in from a driver */
@@ -41,8 +41,6 @@ export abstract class MonoInputConfig<
 
   outputPropagator: OverrideablePropagator<InputResponse, InputResponse>;
 
-  #nickname?: string;
-
   constructor(
     defaultVals: T,
     outputPropagator: OverrideablePropagator<InputResponse, InputResponse>,
@@ -52,7 +50,7 @@ export abstract class MonoInputConfig<
 
     this.defaults = defaultVals;
     this.outputPropagator = outputPropagator;
-    this.#nickname = nickname;
+    this.nickname = nickname || '';
   }
 
   isOriginator(msg: MidiArray | NumberArrayWithStatus) {
@@ -74,8 +72,9 @@ export abstract class MonoInputConfig<
   }
 
   applyStub(s: MonoInputConfigStub) {
+    super.applyStub(s);
+
     this.response = s.outputResponse;
-    this.nickname = s.nickname;
     this.statusString = s.statusString;
     this.channel = s.channel;
     this.number = s.number;
@@ -84,6 +83,19 @@ export abstract class MonoInputConfig<
     if (s.statusString === 'programchange') {
       this.response = 'constant';
     }
+  }
+
+  get config() {
+    return {
+      ...super.config,
+      defaults: this.defaults,
+      colorCapable: false,
+      statusString: this.statusString,
+      outputResponse: this.response,
+      channel: this.channel,
+      number: this.number,
+      value: this.value,
+    };
   }
 
   handleMessage(msg: MidiArray): MidiArray | undefined {
@@ -128,14 +140,6 @@ export abstract class MonoInputConfig<
     const n = this.defaults.number;
 
     return `${ss}.${c}.${n}`;
-  }
-
-  get nickname() {
-    return this.#nickname || '';
-  }
-
-  set nickname(nickname: string) {
-    this.#nickname = nickname;
   }
 
   abstract get response(): InputResponse;

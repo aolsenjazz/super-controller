@@ -4,7 +4,7 @@ import { create, MidiArray, ThreeByteMidiArray } from '../../midi-array';
 import * as Revivable from '../../revivable';
 import { PitchbendPropagator } from '../../propagators';
 import { InputResponse, MonoInteractiveDriver } from '../../driver-types';
-import { MonoInputConfig, MonoInputConfigStub } from './mono-input-config';
+import { MonoInputConfig } from './mono-input-config';
 import { SliderState } from './slider-config';
 
 /**
@@ -47,18 +47,8 @@ export class PitchbendConfig extends MonoInputConfig {
     return false;
   }
 
-  get config(): MonoInputConfigStub {
-    return {
-      id: this.id,
-      defaults: this.defaults,
-      colorCapable: false,
-      statusString: this.statusString,
-      outputResponse: this.response,
-      channel: this.channel,
-      number: this.number,
-      type: 'pitchbend',
-      nickname: this.nickname,
-    };
+  get type() {
+    return 'pitchbend' as const;
   }
 
   get id() {

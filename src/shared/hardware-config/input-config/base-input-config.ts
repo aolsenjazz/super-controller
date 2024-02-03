@@ -3,32 +3,42 @@
 import { MidiArray } from '@shared/midi-array';
 import { Skeleton } from '@shared/revivable';
 
+type InputType = 'pad' | 'knob' | 'xy' | 'switch' | 'slider' | 'pitchbend';
+
 export interface InputState {}
 
 export interface InputConfigStub {
-  type: 'pad' | 'knob' | 'xy' | 'switch' | 'slider' | 'pitchbend';
   id: string;
   nickname: string;
+  type: InputType;
 }
 
 export abstract class BaseInputConfig {
-  abstract get nickname(): string;
+  protected nickname: string = '';
 
-  abstract set nickname(nickname: string);
+  public get config(): InputConfigStub {
+    return {
+      id: this.id,
+      nickname: this.nickname,
+      type: this.type,
+    };
+  }
+
+  public applyStub(s: InputConfigStub) {
+    this.nickname = s.nickname;
+  }
 
   abstract get id(): string;
 
   abstract get state(): InputState;
 
-  abstract get config(): InputConfigStub;
+  abstract get type(): InputType;
 
   /**
    * Returns true if the input this config represents is responsible for generating
    * `msg`. Used to associate message from devices with its config.
    */
   abstract isOriginator(msg: MidiArray | NumberArrayWithStatus): boolean;
-
-  abstract applyStub(s: InputConfigStub): void;
 
   abstract handleMessage(msg: MidiArray): MidiArray | undefined;
 
