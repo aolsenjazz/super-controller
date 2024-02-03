@@ -1,6 +1,6 @@
 /* eslint @typescript-eslint/no-empty-interface: 0 */
-import { BaseIcicle, Freezable } from '@shared/freezable';
-import { MidiArray } from '@shared/midi-array';
+import { BaseIcicle, Freezable } from '../../freezable';
+import { MidiArray } from '../../midi-array';
 
 type InputType = 'pad' | 'knob' | 'xy' | 'switch' | 'slider' | 'pitchbend';
 

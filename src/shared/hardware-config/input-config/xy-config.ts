@@ -1,5 +1,5 @@
-import { MidiArray } from '@shared/midi-array';
-import { XYDriver } from '@shared/driver-types';
+import { MidiArray } from '../../midi-array';
+import { XYDriver } from '../../driver-types';
 
 import { PitchbendConfig } from './pitchbend-config';
 import { SliderConfig } from './slider-config';

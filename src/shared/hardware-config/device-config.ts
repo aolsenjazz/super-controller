@@ -1,8 +1,9 @@
-import { BaseIcicle, Freezable } from '@shared/freezable';
-import { Anonymous, getDriver } from '@shared/drivers';
 import { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
 import { allDevicePlugins } from '@plugins/plugin-utils';
 import { Registry } from '@plugins/registry';
+
+import { BaseIcicle, Freezable } from '../freezable';
+import { Anonymous, getDriver } from '../drivers';
 
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
