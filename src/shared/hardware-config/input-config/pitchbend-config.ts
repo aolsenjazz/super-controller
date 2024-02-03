@@ -23,6 +23,13 @@ export class PitchbendConfig extends MonoInputConfig {
     return new PitchbendConfig('', [], def);
   }
 
+  public freeze() {
+    return {
+      ...this.innerFreeze(),
+      className: this.constructor.name,
+    };
+  }
+
   isOriginator(msg: MidiArray | NumberArrayWithStatus) {
     const ma = msg instanceof MidiArray ? msg : create(msg);
 

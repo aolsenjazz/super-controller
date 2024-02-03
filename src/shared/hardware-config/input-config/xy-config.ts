@@ -3,12 +3,8 @@ import { XYDriver } from '@shared/driver-types';
 
 import { PitchbendConfig } from './pitchbend-config';
 import { SliderConfig } from './slider-config';
-import {
-  BaseInputConfig,
-  InputConfigStub,
-  InputState,
-} from './base-input-config';
-import { MonoInputConfigStub } from './mono-input-config';
+import { BaseInputConfig, InputIcicle, InputState } from './base-input-config';
+import { MonoInputIcicle } from './mono-input-config';
 
 export interface XYState extends InputState {
   x: {
@@ -19,12 +15,12 @@ export interface XYState extends InputState {
   };
 }
 
-export interface XYConfigStub extends InputConfigStub {
-  x: MonoInputConfigStub;
-  y: MonoInputConfigStub;
+export interface XYIcicle extends InputIcicle {
+  x: MonoInputIcicle;
+  y: MonoInputIcicle;
 }
 
-export class XYConfig extends BaseInputConfig {
+export class XYConfig extends BaseInputConfig<XYIcicle> {
   x: SliderConfig | PitchbendConfig;
 
   y: SliderConfig | PitchbendConfig;
@@ -58,7 +54,7 @@ export class XYConfig extends BaseInputConfig {
     return this.y.handleMessage(msg);
   }
 
-  applyStub(s: XYConfigStub): void {
+  applyStub(s: XYIcicle): void {
     this.x.applyStub(s.x);
     this.y.applyStub(s.y);
   }
@@ -71,11 +67,12 @@ export class XYConfig extends BaseInputConfig {
     return 'xy' as const;
   }
 
-  get config(): XYConfigStub {
+  public freeze() {
     return {
-      ...super.config,
-      x: this.x.config,
-      y: this.y.config,
+      ...this.innerFreeze(),
+      className: this.constructor.name,
+      x: this.x.freeze(),
+      y: this.y.freeze(),
     };
   }
 

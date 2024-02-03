@@ -18,6 +18,13 @@ export class SliderConfig extends MonoInputConfig {
     return new SliderConfig('', [], def);
   }
 
+  public freeze() {
+    return {
+      ...this.innerFreeze(),
+      className: this.constructor.name,
+    };
+  }
+
   get type() {
     return 'slider' as const;
   }

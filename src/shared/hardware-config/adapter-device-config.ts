@@ -26,13 +26,13 @@ export class AdapterDeviceConfig
     this.child = config;
   }
 
-  bindingAvailable(
-    statusString: StatusString | 'noteon/noteoff',
-    number: number,
-    channel: Channel
-  ) {
-    return this.child!.bindingAvailable(statusString, number, channel);
-  }
+  // bindingAvailable(
+  //   statusString: StatusString | 'noteon/noteoff',
+  //   number: number,
+  //   channel: Channel
+  // ) {
+  //   return this.child!.bindingAvailable(statusString, number, channel);
+  // }
 
   applyOverrides(msg: MidiArray) {
     if (this.child) {
@@ -79,10 +79,11 @@ export class AdapterDeviceConfig
     return [];
   }
 
-  get stub() {
+  public freeze() {
     return {
-      ...super.stub,
-      child: this.child?.stub,
+      ...super.innerFreeze(),
+      classNae: this.constructor.name,
+      child: this.child?.freeze(),
     };
   }
 }

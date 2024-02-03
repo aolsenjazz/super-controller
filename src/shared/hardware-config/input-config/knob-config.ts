@@ -2,11 +2,11 @@ import { KnobDriver } from '../../driver-types';
 import {
   MonoInputConfig,
   InputDefault,
-  MonoInputConfigStub,
+  MonoInputIcicle,
 } from './mono-input-config';
 import { InputState } from './base-input-config';
 
-export interface KnobConfigStub extends MonoInputConfigStub<KnobDefaults> {
+export interface KnobIcicle extends MonoInputIcicle<KnobDefaults> {
   valueType: 'absolute' | 'endless';
   type: 'knob';
 }
@@ -32,13 +32,14 @@ export class KnobConfig extends MonoInputConfig<KnobDefaults> {
     return new KnobConfig('', [], def);
   }
 
-  applyStub(s: KnobConfigStub) {
+  applyStub(s: KnobIcicle) {
     super.applyStub(s);
   }
 
-  get config(): KnobConfigStub {
+  public freeze(): KnobIcicle {
     return {
-      ...super.config,
+      ...super.innerFreeze(),
+      className: this.constructor.name,
       valueType: this.defaults.knobType, // TODO: this will be buggy
       type: this.type,
     };

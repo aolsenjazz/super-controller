@@ -1,6 +1,13 @@
+import { BaseIcicle, Freezable } from './freezable';
 import { DeviceConfig } from './hardware-config';
+import { DeviceIcicle } from './hardware-config/device-config';
 
-export class Project {
+interface ProjectIcicle extends BaseIcicle {
+  devices: DeviceIcicle[];
+  version: number;
+}
+
+export class Project implements Freezable<ProjectIcicle> {
   static CURRENT_VERSION = 6;
 
   version?: number;
@@ -48,5 +55,12 @@ export class Project {
    */
   getDevice(id: string | undefined) {
     return this.devices.filter((d) => d.id === id)[0];
+  }
+
+  freeze() {
+    return {
+      version: this.version || Project.CURRENT_VERSION,
+      devices: this.devices.map((d) => d.freeze()),
+    };
   }
 }

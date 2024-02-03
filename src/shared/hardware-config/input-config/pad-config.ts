@@ -20,6 +20,13 @@ export class PadConfig extends MonoInputConfig {
     return new PadConfig('', [], def);
   }
 
+  public freeze() {
+    return {
+      ...this.innerFreeze(),
+      className: this.constructor.name,
+    };
+  }
+
   get state() {
     return {}; // TODO
   }

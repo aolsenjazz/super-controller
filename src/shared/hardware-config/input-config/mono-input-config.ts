@@ -7,10 +7,10 @@ import {
   TwoByteMidiArray,
 } from '../../midi-array';
 import { InputResponse } from '../../driver-types';
-import { BaseInputConfig, InputConfigStub } from './base-input-config';
+import { BaseInputConfig, InputIcicle } from './base-input-config';
 
-export interface MonoInputConfigStub<T extends InputDefault = InputDefault>
-  extends InputConfigStub {
+export interface MonoInputIcicle<T extends InputDefault = InputDefault>
+  extends InputIcicle {
   defaults: T;
   colorCapable: boolean;
   plugins: PluginIcicle[];
@@ -32,8 +32,9 @@ export type InputDefault = {
 };
 
 export abstract class MonoInputConfig<
-  T extends InputDefault = InputDefault
-> extends BaseInputConfig {
+  T extends InputDefault = InputDefault,
+  K extends MonoInputIcicle = MonoInputIcicle
+> extends BaseInputConfig<K> {
   defaults: T;
 
   protected plugins: BasePlugin[] = [];
@@ -63,13 +64,14 @@ export abstract class MonoInputConfig<
     return this.id === ma.asString(true);
   }
 
-  applyStub(s: MonoInputConfigStub) {
-    super.applyStub(s);
+  applyStub(s: MonoInputIcicle) {
+    // super.applyStub(s);
+    // TODO:
   }
 
-  get config() {
+  public innerFreeze() {
     return {
-      ...super.config,
+      ...super.innerFreeze(),
       defaults: this.defaults,
       colorCapable: false,
       plugins: this.plugins.map((p) => p.freeze()),

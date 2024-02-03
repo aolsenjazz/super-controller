@@ -2,15 +2,19 @@ import { MidiArray } from '../midi-array';
 
 import { DeviceDriver } from '../driver-types';
 
-import { DeviceConfig } from './device-config';
+import { DeviceConfig, DeviceIcicle } from './device-config';
 import { create } from './input-config';
-import { BaseInputConfig } from './input-config/base-input-config';
+import { BaseInputConfig, InputIcicle } from './input-config/base-input-config';
+
+interface SupportedDeviceIcicle extends DeviceIcicle {
+  inputs: InputIcicle[];
+}
 
 /* Contains device-specific configurations and managed `InputConfig`s */
-export class SupportedDeviceConfig extends DeviceConfig {
-  inputs: BaseInputConfig[];
+export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceIcicle> {
+  public inputs: BaseInputConfig[];
 
-  static fromDriver(
+  public static fromDriver(
     portName: string,
     siblingIndex: number,
     driver: DeviceDriver
@@ -46,6 +50,14 @@ export class SupportedDeviceConfig extends DeviceConfig {
     this.inputs = inputs;
   }
 
+  public freeze() {
+    return {
+      ...this.innerFreeze(),
+      className: this.constructor.name,
+      inputs: this.inputs.map((i) => i.freeze()),
+    };
+  }
+
   /**
    * Are the statusString, number, and channel currently in use? Returns true if an input
    * uses all three params. Useful for avoiding inputs sending the same events
@@ -75,7 +87,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
   /**
    * Returns the `BaseInputConfig` for given id
    */
-  getInputById(id: string) {
+  public getInputById(id: string) {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i];
       if (input.id === id) return input;
@@ -88,7 +100,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
    * input with number 32 and channel 2 is the originator of the message [178, 32, 127]
    * but not [144, 32, 127] nor [178, 31, 127]
    */
-  getOriginatorInput(msg: MidiArray | NumberArrayWithStatus) {
+  public getOriginatorInput(msg: MidiArray | NumberArrayWithStatus) {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i];
       if (input.isOriginator(msg)) return input;
@@ -96,19 +108,13 @@ export class SupportedDeviceConfig extends DeviceConfig {
     return undefined;
   }
 
-  applyOverrides(msg: MidiArray) {
+  public applyOverrides(msg: MidiArray) {
     const input = this.getOriginatorInput(msg);
     return input !== undefined ? input.handleMessage(msg) : msg;
   }
 
-  getResponse(msg: MidiArray) {
+  public getResponse(msg: MidiArray) {
     // TODO:
     return msg;
-  }
-
-  public get stub() {
-    return {
-      ...super.stub,
-    };
   }
 }

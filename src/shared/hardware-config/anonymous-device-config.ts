@@ -3,10 +3,6 @@ import { BasePlugin } from '@plugins/base-plugin';
 import { MidiArray } from '../midi-array';
 import { DeviceConfig } from './device-config';
 
-export interface ImmutableMidiArrayMap {
-  get(key: string): MidiArray | undefined;
-}
-
 export class AnonymousDeviceConfig extends DeviceConfig {
   constructor(
     portName: string,
@@ -23,5 +19,12 @@ export class AnonymousDeviceConfig extends DeviceConfig {
 
   getResponse() {
     return undefined;
+  }
+
+  freeze() {
+    return {
+      ...this.innerFreeze(),
+      className: this.constructor.name,
+    };
   }
 }

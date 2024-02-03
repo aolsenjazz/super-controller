@@ -1,20 +1,16 @@
 import { MidiArray } from '../../midi-array';
 import { SwitchDriver } from '../../driver-types';
-import {
-  BaseInputConfig,
-  InputConfigStub,
-  InputState,
-} from './base-input-config';
+import { BaseInputConfig, InputIcicle, InputState } from './base-input-config';
 
 export interface SwitchState extends InputState {
   step: NumberArrayWithStatus;
 }
 
-export interface SwitchConfigStub extends InputConfigStub {
+export interface SwitchIcicle extends InputIcicle {
   steps: Map<string, NumberArrayWithStatus>;
 }
 
-export class SwitchConfig extends BaseInputConfig {
+export class SwitchConfig extends BaseInputConfig<SwitchIcicle> {
   static fromDriver(d: SwitchDriver) {
     // TODO: interesting change of API here acutally - probably make ssense to rewrite this like an xy config, but just as a list of constant configs
     // const steps = new Map<string, MidiArray>(
@@ -26,13 +22,21 @@ export class SwitchConfig extends BaseInputConfig {
     return new SwitchConfig('', []);
   }
 
+  public freeze() {
+    return {
+      ...this.innerFreeze(),
+      className: this.constructor.name,
+      steps: new Map(), // TODO:
+    };
+  }
+
   handleMessage(msg: MidiArray): MidiArray | undefined {
     // TODO:
     return msg;
   }
 
-  applyStub(stub: SwitchConfigStub) {
-    Array.from(stub.steps.keys()).forEach((k) => {
+  applyStub(icicle: SwitchIcicle) {
+    Array.from(icicle.steps.keys()).forEach((k) => {
       // const asArr = JSON.parse(k);
       // const ma = create(stub.steps.get(k)!);
       // this.outputPropagator.setStep(asArr, ma);

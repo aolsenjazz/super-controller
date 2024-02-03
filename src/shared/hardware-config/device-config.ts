@@ -1,25 +1,28 @@
-import { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
+import { BaseIcicle, Freezable } from '@shared/freezable';
 import { Anonymous, getDriver } from '@shared/drivers';
+import { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
 import { allDevicePlugins } from '@plugins/plugin-utils';
 import { Registry } from '@plugins/registry';
 
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
 
-export type DeviceConfigStub = {
+export interface DeviceIcicle extends BaseIcicle {
   id: string;
   portName: string;
-  siblingIndex: number;
   driverName: string;
+  siblingIndex: number;
   nickname: string;
   plugins: PluginIcicle[];
-  child?: DeviceConfigStub;
-};
+  child?: DeviceIcicle;
+}
 
 /**
  * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.
  */
-export abstract class DeviceConfig {
+export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
+  implements Freezable<T>
+{
   /**
    * MIDI-driver-reported name. E.g. for Launchkey Mini MK3:
    *
@@ -102,7 +105,7 @@ export abstract class DeviceConfig {
     this._plugins.splice(newIdx, 0, element);
   }
 
-  public applyStub(stub: DeviceConfigStub) {
+  public applyStub(stub: DeviceIcicle) {
     this.nickname = stub.nickname;
 
     // take note of what plugins we already have on this device
@@ -153,7 +156,7 @@ export abstract class DeviceConfig {
     return getDriver(this.driverName) || Anonymous;
   }
 
-  public get stub(): DeviceConfigStub {
+  protected innerFreeze(): Omit<DeviceIcicle, 'className'> {
     return {
       id: this.id,
       portName: this.portName,
@@ -164,6 +167,7 @@ export abstract class DeviceConfig {
     };
   }
 
+  public abstract freeze(): T;
   public abstract applyOverrides(msg: MidiArray): MidiArray | undefined;
   public abstract getResponse(msg: MidiArray): MidiArray | undefined;
 }
