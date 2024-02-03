@@ -1,7 +1,7 @@
 /* eslint @typescript-eslint/no-empty-interface: 0 */
 
-import { MidiArray } from '@shared/midi-array';
-import { Skeleton } from '@shared/revivable';
+import { MidiArray } from '../../midi-array';
+import { Skeleton } from '../../revivable';
 
 export interface InputState {}
 
