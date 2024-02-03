@@ -1,5 +1,4 @@
 import * as Revivable from '../../revivable';
-import { ContinuousPropagator } from '../../propagators';
 import { KnobDriver } from '../../driver-types';
 import {
   MonoInputConfig,
@@ -23,8 +22,6 @@ interface KnobDefaults extends InputDefault {
 
 @Revivable.register
 export class KnobConfig extends MonoInputConfig<KnobDefaults> {
-  outputPropagator: ContinuousPropagator;
-
   static fromDriver(d: KnobDriver) {
     const def = {
       number: d.number,
@@ -34,71 +31,33 @@ export class KnobConfig extends MonoInputConfig<KnobDefaults> {
       knobType: d.knobType,
     };
 
-    const prop = new ContinuousPropagator(
-      'continuous',
-      d.status,
-      d.number,
-      d.channel,
-      undefined,
-      d.knobType
-    );
-
-    return new KnobConfig(def, prop, d.knobType);
-  }
-
-  constructor(
-    defaultVals: KnobDefaults,
-    outputPropagator: ContinuousPropagator,
-    nickname?: string
-  ) {
-    super(defaultVals, outputPropagator, nickname);
-    this.outputPropagator = outputPropagator;
+    return new KnobConfig('', [], def);
   }
 
   applyStub(s: KnobConfigStub) {
     super.applyStub(s);
-
-    this.valueType = s.valueType;
   }
 
   toJSON() {
     return {
       name: this.constructor.name,
-      args: [this.defaults, this.outputPropagator, this.nickname],
+      args: [this.nickname, this.plugins.map((p) => p.freeze()), this.defaults],
     };
   }
 
   get config(): KnobConfigStub {
     return {
       ...super.config,
-      valueType: this.valueType,
+      valueType: this.defaults.knobType, // TODO: this will be buggy
       type: this.type,
     };
   }
 
+  get state() {
+    return { value: 0 };
+  }
+
   get type() {
     return 'knob' as const;
-  }
-
-  get state(): KnobState {
-    return {
-      value: this.outputPropagator.value,
-    };
-  }
-
-  get valueType() {
-    return this.outputPropagator.valueType;
-  }
-
-  set valueType(type: 'endless' | 'absolute') {
-    this.outputPropagator.valueType = type;
-  }
-
-  get response(): 'continuous' | 'constant' {
-    return this.outputPropagator.outputResponse;
-  }
-
-  set response(response: 'continuous' | 'constant') {
-    this.outputPropagator.outputResponse = response;
   }
 }

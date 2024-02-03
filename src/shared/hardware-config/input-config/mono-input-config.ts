@@ -1,10 +1,11 @@
+import type { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
+
 import {
   create,
   MidiArray,
   ThreeByteMidiArray,
   TwoByteMidiArray,
 } from '../../midi-array';
-import { OverrideablePropagator } from '../../propagators';
 import { InputResponse } from '../../driver-types';
 import { BaseInputConfig, InputConfigStub } from './base-input-config';
 
@@ -12,11 +13,7 @@ export interface MonoInputConfigStub<T extends InputDefault = InputDefault>
   extends InputConfigStub {
   defaults: T;
   colorCapable: boolean;
-  statusString: StatusString | 'noteon/noteoff';
-  outputResponse: InputResponse;
-  channel: Channel;
-  number: MidiNumber;
-  value: MidiNumber;
+  plugins: PluginIcicle[];
 }
 
 /* Default values for the input loaded in from a driver */
@@ -39,18 +36,13 @@ export abstract class MonoInputConfig<
 > extends BaseInputConfig {
   defaults: T;
 
-  outputPropagator: OverrideablePropagator<InputResponse, InputResponse>;
+  protected plugins: BasePlugin[] = [];
 
-  constructor(
-    defaultVals: T,
-    outputPropagator: OverrideablePropagator<InputResponse, InputResponse>,
-    nickname?: string
-  ) {
-    super();
+  constructor(nickname: string, plugins: BasePlugin[], defaultVals: T) {
+    super(nickname);
 
+    this.plugins = plugins;
     this.defaults = defaultVals;
-    this.outputPropagator = outputPropagator;
-    this.nickname = nickname || '';
   }
 
   isOriginator(msg: MidiArray | NumberArrayWithStatus) {
@@ -73,16 +65,6 @@ export abstract class MonoInputConfig<
 
   applyStub(s: MonoInputConfigStub) {
     super.applyStub(s);
-
-    this.response = s.outputResponse;
-    this.statusString = s.statusString;
-    this.channel = s.channel;
-    this.number = s.number;
-    this.value = s.value || 0;
-
-    if (s.statusString === 'programchange') {
-      this.response = 'constant';
-    }
   }
 
   get config() {
@@ -90,48 +72,13 @@ export abstract class MonoInputConfig<
       ...super.config,
       defaults: this.defaults,
       colorCapable: false,
-      statusString: this.statusString,
-      outputResponse: this.response,
-      channel: this.channel,
-      number: this.number,
-      value: this.value,
+      plugins: this.plugins.map((p) => p.freeze()),
     };
   }
 
   handleMessage(msg: MidiArray): MidiArray | undefined {
-    return this.outputPropagator.handleMessage(msg);
-  }
-
-  get statusString(): StatusString | 'noteon/noteoff' {
-    return this.outputPropagator.statusString;
-  }
-
-  set statusString(statusString: StatusString | 'noteon/noteoff') {
-    this.outputPropagator.statusString = statusString;
-  }
-
-  get channel() {
-    return this.outputPropagator.channel;
-  }
-
-  set channel(channel: Channel) {
-    this.outputPropagator.channel = channel;
-  }
-
-  get number() {
-    return this.outputPropagator.number;
-  }
-
-  set number(number: MidiNumber) {
-    this.outputPropagator.number = number;
-  }
-
-  get value(): MidiNumber {
-    return this.outputPropagator.value;
-  }
-
-  set value(value: MidiNumber) {
-    this.outputPropagator.value = value;
+    // TODO:
+    return msg;
   }
 
   get id() {
@@ -141,7 +88,4 @@ export abstract class MonoInputConfig<
 
     return `${ss}.${c}.${n}`;
   }
-
-  abstract get response(): InputResponse;
-  abstract set response(response: InputResponse);
 }

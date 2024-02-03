@@ -1,5 +1,4 @@
 /* eslint @typescript-eslint/no-empty-interface: 0 */
-
 import { MidiArray } from '@shared/midi-array';
 import { Skeleton } from '@shared/revivable';
 
@@ -15,6 +14,10 @@ export interface InputConfigStub {
 
 export abstract class BaseInputConfig {
   protected nickname: string = '';
+
+  constructor(nickname: string) {
+    this.nickname = nickname;
+  }
 
   public get config(): InputConfigStub {
     return {

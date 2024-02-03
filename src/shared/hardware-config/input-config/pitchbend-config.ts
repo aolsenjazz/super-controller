@@ -2,8 +2,7 @@
 import { create, MidiArray, ThreeByteMidiArray } from '../../midi-array';
 
 import * as Revivable from '../../revivable';
-import { PitchbendPropagator } from '../../propagators';
-import { InputResponse, MonoInteractiveDriver } from '../../driver-types';
+import { MonoInteractiveDriver } from '../../driver-types';
 import { MonoInputConfig } from './mono-input-config';
 import { SliderState } from './slider-config';
 
@@ -24,14 +23,7 @@ export class PitchbendConfig extends MonoInputConfig {
       response: d.response,
     };
 
-    const prop = new PitchbendPropagator(
-      'continuous',
-      d.status,
-      d.number,
-      d.channel
-    );
-
-    return new PitchbendConfig(def, prop);
+    return new PitchbendConfig('', [], def);
   }
 
   isOriginator(msg: MidiArray | NumberArrayWithStatus) {
@@ -60,22 +52,14 @@ export class PitchbendConfig extends MonoInputConfig {
 
   get state(): SliderState {
     return {
-      value: this.outputPropagator.value,
+      value: 0, // TODO:
     };
-  }
-
-  get response(): InputResponse {
-    return this.outputPropagator.outputResponse;
-  }
-
-  set response(response: InputResponse) {
-    this.outputPropagator.outputResponse = response;
   }
 
   toJSON() {
     return {
       name: this.constructor.name,
-      args: [this.defaults, this.outputPropagator, this.nickname],
+      args: [this.nickname, this.plugins.map((p) => p.freeze()), this.defaults],
     };
   }
 }

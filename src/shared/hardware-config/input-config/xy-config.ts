@@ -39,19 +39,18 @@ export class XYConfig extends BaseInputConfig {
         : SliderConfig.fromDriver(driver);
     });
 
-    return new XYConfig(confs[0], confs[1]);
+    return new XYConfig('', confs[0], confs[1]);
   }
 
   constructor(
+    nickname: string,
     x: SliderConfig | PitchbendConfig,
-    y: SliderConfig | PitchbendConfig,
-    nickname?: string
+    y: SliderConfig | PitchbendConfig
   ) {
-    super();
+    super(nickname);
 
     this.x = x;
     this.y = y;
-    this.nickname = nickname || '';
   }
 
   toJSON(): Skeleton {
@@ -93,10 +92,12 @@ export class XYConfig extends BaseInputConfig {
   get state(): XYState {
     return {
       x: {
-        value: this.x.value,
+        // value: this.x.value,
+        value: 0, // TODO:
       },
       y: {
-        value: this.y.value,
+        // value: this.y.value,
+        value: 0, // TOOD:
       },
     };
   }
