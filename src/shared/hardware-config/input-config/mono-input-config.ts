@@ -8,8 +8,7 @@ import {
 } from '../../midi-array';
 import { InputResponse } from '../../driver-types';
 import { BaseInputConfig, InputIcicle } from './base-input-config';
-import { allInputPlugins } from '@plugins/plugin-utils';
-import { Registry } from '@plugins/registry';
+import { InputPluginChain } from '../plugin-chain/input-plugin-chain';
 
 export interface MonoInputIcicle<T extends InputDefault = InputDefault>
   extends InputIcicle {
@@ -39,12 +38,12 @@ export abstract class MonoInputConfig<
 > extends BaseInputConfig<K> {
   defaults: T;
 
-  protected _plugins: BasePlugin[] = [];
+  protected _plugins: InputPluginChain;
 
   constructor(nickname: string, plugins: BasePlugin[], defaultVals: T) {
     super(nickname);
 
-    this._plugins = plugins;
+    this._plugins = new InputPluginChain(plugins);
     this.defaults = defaultVals;
   }
 
@@ -69,29 +68,31 @@ export abstract class MonoInputConfig<
   public applyStub(s: MonoInputIcicle) {
     super.applyStub(s);
 
-    // take note of what plugins we already have on this device
-    const currentPluginIds = this._plugins.map((p) => p.id);
-    const newPluginIds = s.plugins.map((p) => p.id);
+    this._plugins.reconcile(s.plugins);
+  }
 
-    // determine which need to be created + registered/removed + deregistered
-    const toAdd = s.plugins.filter((p) => !currentPluginIds.includes(p.id));
-    const toRemove = currentPluginIds.filter(
-      (id) => !newPluginIds.includes(id)
-    );
+  /**
+   * Adds a plugin to this `DeviceConfig`s `plugins` array at the end of the arr.
+   * `plugin` may be an instance of the plugin, or the plugin's id.
+   */
+  public addPlugin(plugin: BasePlugin) {
+    this._plugins.addPlugin(plugin);
+  }
 
-    // create, registry, add plugins to config as necessary
-    toAdd.forEach((p) => {
-      const PluginClass = allInputPlugins().filter(
-        (plugin) => plugin.TITLE() === p.title
-      )[0];
-      const plugin = new PluginClass();
-      Registry.register(plugin);
-      this._plugins.push(plugin);
-    });
+  /**
+   * Removes the plugin from this `DeviceConfig`s `plugins` array. `plugin` may be
+   * an instance of the plugin, or the plugin's id.
+   */
+  public removePlugin(plugin: BasePlugin | string) {
+    this._plugins.removePlugin(plugin);
+  }
 
-    // deregister and remove as necessary
-    toRemove.forEach((p) => Registry.deregister(p));
-    this._plugins = this._plugins.filter((p) => !toRemove.includes(p.id));
+  /**
+   * Moves the `plugin` to the specified index of the array. `plugin` may be
+   * an instance of the plugin, or the plugin's id.
+   */
+  public movePlugin(plugin: BasePlugin | string, newIdx: number) {
+    this._plugins.movePlugin(plugin, newIdx);
   }
 
   public innerFreeze() {
@@ -99,7 +100,7 @@ export abstract class MonoInputConfig<
       ...super.innerFreeze(),
       defaults: this.defaults,
       colorCapable: false,
-      plugins: this._plugins.map((p) => p.freeze()),
+      plugins: this._plugins.plugins.map((p) => p.freeze()),
     };
   }
 
@@ -114,45 +115,5 @@ export abstract class MonoInputConfig<
     const n = this.defaults.number;
 
     return `${ss}.${c}.${n}`;
-  }
-
-  /**
-   * Adds a plugin to this `DeviceConfig`s `plugins` array at the end of the arr.
-   * `plugin` may be an instance of the plugin, or the plugin's id.
-   *
-   * TODO: mayyyybbbeeeeee move _plugins to a PluginChain class so we don't need to reuse add,remove,move logic?
-   */
-  public addPlugin(plugin: BasePlugin) {
-    this._plugins.push(plugin);
-  }
-
-  /**
-   * Removes the plugin from this `DeviceConfig`s `plugins` array. `plugin` may be
-   * an instance of the plugin, or the plugin's id.
-   */
-  public removePlugin(plugin: BasePlugin | string) {
-    const id = plugin instanceof BasePlugin ? plugin.id : plugin;
-    const pluginIdx = this._plugins
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .filter((p, _i) => p.id === id)
-      .map((_p, i) => i)[0];
-
-    this._plugins.splice(pluginIdx, 1);
-  }
-
-  /**
-   * Moves the `plugin` to the specified index of the array. `plugin` may be
-   * an instance of the plugin, or the plugin's id.
-   */
-  public movePlugin(plugin: BasePlugin | string, newIdx: number) {
-    const id = plugin instanceof BasePlugin ? plugin.id : plugin;
-    const oldIdx = this._plugins
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .filter((p, _i) => p.id === id)
-      .map((_p, i) => i)[0];
-
-    const element = this._plugins[oldIdx];
-    this._plugins.splice(oldIdx, 1);
-    this._plugins.splice(newIdx, 0, element);
   }
 }

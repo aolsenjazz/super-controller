@@ -1,12 +1,11 @@
 import { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
-import { allDevicePlugins } from '@plugins/plugin-utils';
-import { Registry } from '@plugins/registry';
 
 import { BaseIcicle, Freezable } from '../freezable';
 import { Anonymous, getDriver } from '../drivers';
 
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
+import { DevicePluginChain } from './plugin-chain/device-plugin-chain';
 
 export interface DeviceIcicle extends BaseIcicle {
   id: string;
@@ -52,7 +51,7 @@ export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
   /* User-defined nickname */
   private _nickname?: string;
 
-  private _plugins: BasePlugin[] = [];
+  private _plugins: DevicePluginChain;
 
   constructor(
     portName: string,
@@ -64,8 +63,14 @@ export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
     this.portName = portName;
     this.driverName = driverName;
     this.siblingIndex = siblingIndex;
-    this._plugins = plugins;
+    this._plugins = new DevicePluginChain(plugins);
     this._nickname = nickname;
+  }
+
+  public applyStub(stub: DeviceIcicle) {
+    this.nickname = stub.nickname;
+
+    this._plugins.reconcile(s.plugins);
   }
 
   /**
@@ -73,7 +78,7 @@ export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
    * `plugin` may be an instance of the plugin, or the plugin's id.
    */
   public addPlugin(plugin: BasePlugin) {
-    this._plugins.push(plugin);
+    this._plugins.addPlugin(plugin);
   }
 
   /**
@@ -81,13 +86,7 @@ export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
    * an instance of the plugin, or the plugin's id.
    */
   public removePlugin(plugin: BasePlugin | string) {
-    const id = plugin instanceof BasePlugin ? plugin.id : plugin;
-    const pluginIdx = this._plugins
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .filter((p, _i) => p.id === id)
-      .map((_p, i) => i)[0];
-
-    this._plugins.splice(pluginIdx, 1);
+    this._plugins.removePlugin(plugin);
   }
 
   /**
@@ -95,43 +94,7 @@ export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
    * an instance of the plugin, or the plugin's id.
    */
   public movePlugin(plugin: BasePlugin | string, newIdx: number) {
-    const id = plugin instanceof BasePlugin ? plugin.id : plugin;
-    const oldIdx = this._plugins
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .filter((p, _i) => p.id === id)
-      .map((_p, i) => i)[0];
-
-    const element = this._plugins[oldIdx];
-    this._plugins.splice(oldIdx, 1);
-    this._plugins.splice(newIdx, 0, element);
-  }
-
-  public applyStub(stub: DeviceIcicle) {
-    this.nickname = stub.nickname;
-
-    // take note of what plugins we already have on this device
-    const currentPluginIds = this._plugins.map((p) => p.id);
-    const newPluginIds = stub.plugins.map((p) => p.id);
-
-    // determine which need to be created + registered/removed + deregistered
-    const toAdd = stub.plugins.filter((p) => !currentPluginIds.includes(p.id));
-    const toRemove = currentPluginIds.filter(
-      (id) => !newPluginIds.includes(id)
-    );
-
-    // create, registry, add plugins to config as necessary
-    toAdd.forEach((p) => {
-      const PluginClass = allDevicePlugins().filter(
-        (plugin) => plugin.TITLE() === p.title
-      )[0];
-      const plugin = new PluginClass();
-      Registry.register(plugin);
-      this._plugins.push(plugin);
-    });
-
-    // deregister and remove as necessary
-    toRemove.forEach((p) => Registry.deregister(p));
-    this._plugins = this._plugins.filter((p) => !toRemove.includes(p.id));
+    this._plugins.movePlugin(plugin, newIdx);
   }
 
   public get id() {
@@ -168,7 +131,7 @@ export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
       driverName: this.driverName,
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
-      plugins: this._plugins.map((p) => p.freeze()),
+      plugins: this._plugins.plugins.map((p) => p.freeze()),
     };
   }
 
