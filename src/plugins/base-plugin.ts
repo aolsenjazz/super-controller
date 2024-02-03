@@ -29,7 +29,7 @@ export interface PluginIcicle {
 export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
   public readonly id: string;
 
-  public on = true;
+  protected on = true;
 
   constructor() {
     this.id = generateId(this.title());
@@ -41,22 +41,19 @@ export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
 
   public freeze(): T {
     return {
-      on: this.on,
       id: this.id,
       title: this.title(),
+      on: this.on,
     } as T;
   }
 
   public abstract process(msg: MidiArray | NumberArrayWithStatus): void;
-
-  protected abstract initIpcListeners(): void;
-
-  public abstract title(): string;
-  public abstract description(): string;
-
   public abstract get applicableDeviceTypes(): (
     | 'supported'
     | 'anonymous'
     | 'adapter'
   )[];
+
+  protected abstract title(): string;
+  protected abstract description(): string;
 }

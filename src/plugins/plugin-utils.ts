@@ -24,7 +24,9 @@ export function allDevicePlugins() {
     fs
       .readdirSync(pluginsPath, { withFileTypes: true })
       .filter((dirent) => dirent.isDirectory())
-      .map((dirent) => path.join(pluginsPath, dirent.name, 'index.ts'))
+      .map((dirent) =>
+        path.join(pluginsPath, 'device-plugins', dirent.name, 'index.ts')
+      )
       // eslint-disable-next-line global-require, import/no-dynamic-require
       .map((p) => require(p).default as BasePlugin & BasePluginStatic)
       .sort((a, b) => a.TITLE().localeCompare(b.TITLE()))
