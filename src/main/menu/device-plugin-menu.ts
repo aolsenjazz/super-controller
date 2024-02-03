@@ -15,7 +15,7 @@ export function createDevicePluginMenu(deviceId: string) {
         const plug = new Plugin();
         dev.addPlugin(plug);
         Registry.register(plug);
-        wp.MainWindow.sendConfigStub(dev.id, dev.stub);
+        wp.MainWindow.sendConfigStub(dev.id, dev.stub());
       },
     });
   });

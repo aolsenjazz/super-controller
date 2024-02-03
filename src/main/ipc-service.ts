@@ -39,7 +39,7 @@ ipcMain.on(HOST.REQUEST, (_e: Event, deviceName: string) => {
 ipcMain.on(CONFIG.REQUEST_DEVICE_CONFIG_STUB, (_e: Event, id: string) => {
   const p = pp.project;
   const conf = p.getDevice(id);
-  const desc = conf ? conf.freeze() : undefined;
+  const desc = conf ? conf.stub() : undefined;
 
   MainWindow.sendConfigStub(id, desc);
 });
@@ -92,7 +92,7 @@ ipcMain.on(
     });
 
     MainWindow.edited = true;
-    MainWindow.sendConfigStub(deviceConfig.id, deviceConfig.freeze());
+    MainWindow.sendConfigStub(deviceConfig.id, deviceConfig.stub());
   }
 );
 

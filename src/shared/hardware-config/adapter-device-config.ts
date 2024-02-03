@@ -2,14 +2,7 @@ import { MidiArray } from '../midi-array';
 import { SupportedDeviceConfig } from './supported-device-config';
 import { DeviceConfig } from './device-config';
 
-/**
- * TODO: I am once again confronted by the the problem of "why am I implementing
- * supporteddeviceconfig" when devce instanceof SupportedDevice returns false
- */
-export class AdapterDeviceConfig
-  extends DeviceConfig
-  implements SupportedDeviceConfig
-{
+export class AdapterDeviceConfig extends DeviceConfig {
   child?: SupportedDeviceConfig;
 
   constructor(
@@ -81,7 +74,7 @@ export class AdapterDeviceConfig
 
   public freeze() {
     return {
-      ...super.innerFreeze(),
+      ...super.stub(),
       className: this.constructor.name,
       child: this.child?.freeze(),
     };

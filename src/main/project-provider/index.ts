@@ -188,7 +188,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     /* When a device is removed from project, remove it here and re-init all devices */
     ipcMain.on(CONFIG.GET_CONFIGURED_DEVICES, (e: IpcMainEvent) => {
-      e.returnValue = this.project.devices.map((d) => d.freeze());
+      e.returnValue = this.project.devices.map((d) => d.stub());
     });
 
     ipcMain.on(

@@ -23,7 +23,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
 
   freeze() {
     return {
-      ...this.innerFreeze(),
+      ...this.stub(),
       className: this.constructor.name,
     };
   }

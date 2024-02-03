@@ -45,7 +45,7 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(HOST.CONNECTED_DEVICES, stubs);
   }
 
-  public sendConfiguredDevices(stubs: DeviceIcicle[]) {
+  public sendConfiguredDevices(stubs: Omit<DeviceIcicle, 'className'>[]) {
     this.send(CONFIG.CONFIGURED_DEVICES, stubs);
   }
 
@@ -53,7 +53,7 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(`device-stub-${id}`, desc);
   }
 
-  public sendConfigStub(id: string, desc: DeviceIcicle | undefined) {
+  public sendConfigStub(id: string, desc: Omit<DeviceIcicle, 'className'>) {
     this.send(`device-config-stub-${id}`, desc);
   }
 

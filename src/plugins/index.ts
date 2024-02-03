@@ -18,7 +18,7 @@ ipcMain.on(
       plugin.applyIcicle(icicle);
 
       const dev = ProjectProvider.project.getDevice(deviceId);
-      wp.MainWindow.sendConfigStub(deviceId, dev.stub);
+      wp.MainWindow.sendConfigStub(deviceId, dev.stub());
     }
   }
 );

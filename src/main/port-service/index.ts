@@ -23,7 +23,6 @@ import {
   AdapterDeviceConfig,
   AnonymousDeviceConfig,
   DeviceConfig,
-  LightCapableInputConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
 import { create, MidiArray } from '@shared/midi-array';
@@ -129,20 +128,20 @@ export class HardwarePortServiceSingleton {
       }
     );
 
-    ProjectProvider.on(
-      ProjectProviderEvent.UpdateInput,
-      (deviceConfig, inputConfigs) => {
-        const pair = this.ports.get(deviceConfig.id);
+    // ProjectProvider.on(
+    //   ProjectProviderEvent.UpdateInput,
+    //   (deviceConfig, inputConfigs) => {
+    //     const pair = this.ports.get(deviceConfig.id);
 
-        if (pair !== undefined) {
-          inputConfigs.forEach((i) => {
-            if (i instanceof LightCapableInputConfig && i.currentColorArray) {
-              pair.send(i.currentColorArray);
-            }
-          });
-        }
-      }
-    );
+    //     if (pair !== undefined) {
+    //       inputConfigs.forEach((i) => {
+    //         if (i instanceof LightCapableInputConfig && i.currentColorArray) {
+    //           pair.send(i.currentColorArray);
+    //         }
+    //       });
+    //     }
+    //   }
+    // );
   }
 
   /**
@@ -258,14 +257,15 @@ export class HardwarePortServiceSingleton {
         if (msg.length >= 2) this.onMessage(config, pair, msg);
       });
 
-      // load current color config
-      if (config instanceof SupportedDeviceConfig) {
-        config.inputs.forEach((i) => {
-          if (i instanceof LightCapableInputConfig && i.currentColorArray) {
-            pair.send(i.currentColorArray);
-          }
-        });
-      }
+      // TODO:
+      // // load current color config
+      // if (config instanceof SupportedDeviceConfig) {
+      //   config.inputs.forEach((i) => {
+      //     if (i instanceof LightCapableInputConfig && i.currentColorArray) {
+      //       pair.send(i.currentColorArray);
+      //     }
+      //   });
+      // }
     }
   }
 

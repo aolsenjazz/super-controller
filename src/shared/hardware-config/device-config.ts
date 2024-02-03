@@ -157,7 +157,11 @@ export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
     return getDriver(this.driverName) || Anonymous;
   }
 
-  protected innerFreeze(): Omit<DeviceIcicle, 'className'> {
+  /**
+   * Similar to `freeze()` except it doesn't recurse though children, significantly
+   * reducing serialized size and processing speed.
+   */
+  public stub(): Omit<DeviceIcicle, 'className'> {
     return {
       id: this.id,
       portName: this.portName,

@@ -52,7 +52,7 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceIcicle> {
 
   public freeze() {
     return {
-      ...this.innerFreeze(),
+      ...this.stub(),
       className: this.constructor.name,
       inputs: this.inputs.map((i) => i.freeze()),
     };
