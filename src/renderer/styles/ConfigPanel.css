@@ -5,7 +5,8 @@
   width: calc(100% - 16px);
   padding-left: 8px;
   padding-right: 8px;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
   position: relative;
   overflow-y: overlay;
 }
@@ -21,7 +22,6 @@
 }
 
 #config-panel p {
-  font-size: 13px;
   font-family: Arial;
 }
 

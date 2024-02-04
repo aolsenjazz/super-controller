@@ -15,38 +15,39 @@ type PropTypes = {
 };
 
 export default function SwitchConfigSubpanel(props: PropTypes) {
-  const { deviceConfig, inputConfigStub } = props;
+  return null;
+  // const { deviceConfig, inputConfigStub } = props;
 
-  const { driver } = useDeviceDriver(deviceConfig.id);
-  const [inputDriver, setInputDriver] = useState<SwitchDriver>();
+  // const { driver } = useDeviceDriver(deviceConfig.id);
+  // const [inputDriver, setInputDriver] = useState<SwitchDriver>();
 
-  useEffect(() => {
-    if (driver === undefined) return;
-    driver.inputGrids.forEach((ig) => {
-      ig.inputs.forEach((i) => {
-        if (i.interactive && id(i) === inputConfigStub.id) {
-          setInputDriver(i as SwitchDriver);
-        }
-      });
-    });
-  }, [driver, inputConfigStub]);
+  // useEffect(() => {
+  //   if (driver === undefined) return;
+  //   driver.inputGrids.forEach((ig) => {
+  //     ig.inputs.forEach((i) => {
+  //       if (i.interactive && id(i) === inputConfigStub.id) {
+  //         setInputDriver(i as SwitchDriver);
+  //       }
+  //     });
+  //   });
+  // }, [driver, inputConfigStub]);
 
-  if (inputDriver === undefined) return null;
+  // if (inputDriver === undefined) return null;
 
-  const labels = inputDriver.stepLabels;
-  const bodies = inputDriver.steps.map((msg) => {
-    return (
-      <SwitchStepConfig
-        override={inputConfigStub.steps.get(JSON.stringify(msg))!}
-        config={inputConfigStub}
-        defaultMsg={msg}
-        deviceId={deviceConfig.id}
-      />
-    );
-  });
-  return (
-    <div id="switch-panel">
-      <OsxTabs tabBodies={bodies} tabLabels={labels} />
-    </div>
-  );
+  // const labels = inputDriver.stepLabels;
+  // const bodies = inputDriver.steps.map((msg) => {
+  //   return (
+  //     <SwitchStepConfig
+  //       override={inputConfigStub.steps.get(JSON.stringify(msg))!}
+  //       config={inputConfigStub}
+  //       defaultMsg={msg}
+  //       deviceId={deviceConfig.id}
+  //     />
+  //   );
+  // });
+  // return (
+  //   <div id="switch-panel">
+  //     <OsxTabs tabBodies={bodies} tabLabels={labels} />
+  //   </div>
+  // );
 }

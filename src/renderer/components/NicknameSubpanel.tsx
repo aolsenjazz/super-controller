@@ -18,7 +18,11 @@ export default function NicknameSubpanel({
   };
 
   return (
-    <div className={`nickname-subpanel ${deactivated ? 'deactivated' : ''}`}>
+    <div
+      className={`subpanel nickname-subpanel ${
+        deactivated ? 'deactivated' : ''
+      }`}
+    >
       <div className="nickname-display">
         <h1>{name}</h1>
       </div>

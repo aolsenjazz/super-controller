@@ -10,22 +10,23 @@ type PropTypes = {
 };
 
 export default function XYConfigPanel(props: PropTypes) {
-  const { x, y, deviceId } = props;
+  // const { x, y, deviceId } = props;
+  return null;
 
-  return (
-    <>
-      <MonoInputConfigPanel
-        key="x"
-        title="MIDI Settings - X Axis"
-        group={createInputGroup([x])}
-        deviceId={deviceId}
-      />
-      <MonoInputConfigPanel
-        key="y"
-        title="MIDI Settings - Y Axis"
-        group={createInputGroup([y])}
-        deviceId={deviceId}
-      />
-    </>
-  );
+  // return (
+  //   <>
+  //     <MonoInputConfigPanel
+  //       key="x"
+  //       title="MIDI Settings - X Axis"
+  //       group={createInputGroup([x])}
+  //       deviceId={deviceId}
+  //     />
+  //     <MonoInputConfigPanel
+  //       key="y"
+  //       title="MIDI Settings - Y Axis"
+  //       group={createInputGroup([y])}
+  //       deviceId={deviceId}
+  //     />
+  //   </>
+  // );
 }

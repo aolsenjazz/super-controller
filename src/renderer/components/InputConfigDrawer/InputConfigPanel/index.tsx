@@ -1,13 +1,18 @@
-import { useCallback } from 'react';
-
+import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-config';
 import { DeviceIcicle } from '@shared/hardware-config/device-config';
 import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
-import { PluginIcicle } from '@plugins/base-plugin';
 
 import InputDetailsSubpanel from './InputDetailsSubpanel';
-import PluginSubpanel from '../../PluginSubpanel';
+import BasicMessage from '../BasicMessage';
+import { InputAggregate } from './input-aggregate';
+import XYConfigPanel from './XYConfigPanel';
+import SwitchConfigSubpanel from './SwitchConfigSubpanel';
+import MonoInputConfigPanel from './MonoInputConfigSubpanel';
 
-const { MenuService, ConfigService } = window;
+function areInputsHomogenous(i: InputIcicle[]) {
+  if (i.length === 1) return true;
+  return i.filter((c) => ['xy', 'switch'].includes(c.type)).length === 0;
+}
 
 type InputConfigurationProps = {
   config: DeviceIcicle;
@@ -17,35 +22,31 @@ type InputConfigurationProps = {
 export default function InputConfigSubpanel(props: InputConfigurationProps) {
   const { config, inputConfigs } = props;
 
-  const showPluginMenu = useCallback(
-    (x: number, y: number) => {
-      MenuService.showInputPluginMenu(x, y, config!.id, inputConfigs[0].id);
-    },
-    [config, inputConfigs]
-  );
+  const homogenous = areInputsHomogenous(inputConfigs);
+  const aggregate = new InputAggregate(inputConfigs);
 
-  const removePlugin = useCallback(
-    (icicle: PluginIcicle) => {
-      inputConfigs.forEach((c) => {
-        c.plugins = c.plugins.filter((plug) => {
-          return plug.id !== icicle.id;
-        });
-      });
-
-      ConfigService.updateInputs(config.id, inputConfigs);
-    },
-    [config, inputConfigs]
-  );
+  let Element = null;
+  switch (aggregate.type) {
+    case 'xy':
+      Element = <XYConfigPanel />;
+      break;
+    case 'switch':
+      Element = <SwitchConfigSubpanel />;
+      break;
+    default:
+      Element = (
+        <MonoInputConfigPanel inputs={inputConfigs as MonoInputIcicle[]} />
+      );
+  }
 
   return (
     <>
       <InputDetailsSubpanel configs={inputConfigs} deviceId={config.id} />
-      <PluginSubpanel
-        deviceId={config.id}
-        plugins={inputConfigs[0].plugins}
-        removePlugin={removePlugin}
-        showPluginMenu={showPluginMenu}
-      />
+      {homogenous ? (
+        Element
+      ) : (
+        <BasicMessage msg="The selected inputs have no overlap." />
+      )}
     </>
   );
 }

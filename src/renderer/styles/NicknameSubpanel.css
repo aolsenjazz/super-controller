@@ -1,7 +1,6 @@
 .nickname-subpanel {
   display: flex;
   flex-direction: column;
-  padding: 0 5px 0 5px;
 }
 
 .nickname-subpanel.deactivated label,
