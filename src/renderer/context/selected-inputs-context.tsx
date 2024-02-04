@@ -1,3 +1,4 @@
+import { useConfiguredDevices } from '@hooks/use-configured-devices';
 import {
   useState,
   useContext,
@@ -25,10 +26,11 @@ export const SelectedInputsProvider = ({ children }: PropTypes) => {
   const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
 
   const { selectedDevice } = useSelectedDevice();
+  const { configStubs } = useConfiguredDevices();
 
   useEffect(() => {
     setSelectedInputs([]);
-  }, [selectedDevice]);
+  }, [selectedDevice, configStubs]);
 
   return (
     <SelectedInputsContext.Provider

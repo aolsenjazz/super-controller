@@ -7,6 +7,7 @@ import {
 } from 'react';
 
 import type { DeviceIcicle } from '@shared/hardware-config/device-config';
+import { useConfiguredDevices } from '@hooks/use-configured-devices';
 
 import { useSelectedDevice } from './selected-device-context';
 
@@ -28,6 +29,7 @@ type PropTypes = {
 export const SelectedDeviceConfigProvider = ({ children }: PropTypes) => {
   const [deviceConfig, setDeviceConfig] = useState<DeviceIcicle>();
   const { selectedDevice } = useSelectedDevice();
+  const { configStubs } = useConfiguredDevices();
 
   useEffect(() => {
     setDeviceConfig(ConfigService.getDeviceConfig(selectedDevice || ''));
@@ -39,7 +41,7 @@ export const SelectedDeviceConfigProvider = ({ children }: PropTypes) => {
     const off = ConfigService.onDeviceConfigChange(selectedDevice || '', cb);
 
     return () => off();
-  }, [selectedDevice, setDeviceConfig]);
+  }, [selectedDevice, setDeviceConfig, configStubs]);
 
   return (
     <SelectedDeviceConfigContext.Provider value={{ deviceConfig }}>

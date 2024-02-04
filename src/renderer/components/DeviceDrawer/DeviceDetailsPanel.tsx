@@ -31,10 +31,10 @@ export default function DeviceDetailsPanel() {
     [deviceConfig]
   );
 
-  const removePlugin = useCallback(
-    (icicle: PluginIcicle) => {
+  const removePlugins = useCallback(
+    (plugins: PluginIcicle[]) => {
       deviceConfig!.plugins = deviceConfig!.plugins.filter(
-        (p) => p.id !== icicle.id
+        (p) => p.id !== plugins[0].id
       );
       ConfigService.updateDevice(deviceConfig!);
     },
@@ -60,7 +60,7 @@ export default function DeviceDetailsPanel() {
         />
         <PluginSubpanel
           plugins={deviceConfig?.plugins.map((p) => [p]) || []}
-          removePlugin={removePlugin}
+          removePlugins={removePlugins}
           deviceId={deviceConfig?.id || ''}
           showPluginMenu={showPluginMenu}
           showAddPlugin

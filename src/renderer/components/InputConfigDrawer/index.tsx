@@ -19,7 +19,7 @@ export default function InputConfigDrawer() {
     Element = <BasicMessage msg="No connected devices." />;
   } else if (deviceConfig && deviceConfig.driverName === 'Anonymous') {
     Element = (
-      <BasicMessage msg="This device isn't supported yet, so you can't customize individual knob and buttons. However, you can still get a lot done by adding Device Plugins in the left panel." />
+      <BasicMessage msg="This device isn't supported yet, so you can't customize individual knob and buttons. However, you can still add Device Plugins in the left panel." />
     );
   } else if (selectedInputs.length === 0) {
     Element = <BasicMessage msg="No inputs selected." />;
