@@ -1,13 +1,16 @@
 import { PluginIcicle } from '@plugins/base-plugin';
 import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-config';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PluginSubpanel from 'renderer/components/PluginSubpanel';
+import { PluginAggregate } from 'renderer/components/PluginSubpanel/plugin-aggregate';
 import InputDefaultsSubpanel from '../InputDefaultsSubpanel';
 
 type PropTypes = {
   inputs: MonoInputIcicle[];
   deviceId: string;
 };
+
+const { MenuService } = window;
 
 export default function MonoInputConfigPanel(props: PropTypes) {
   const { inputs, deviceId } = props;
@@ -18,10 +21,10 @@ export default function MonoInputConfigPanel(props: PropTypes) {
     const minPlugins = Math.min(...inputs.map((i) => i.plugins.length));
     const pluginSlotInts = Array.from(Array(minPlugins).keys());
     const aggregateCapablePluginSlots = pluginSlotInts.filter((n) => {
+      const aggregate = new PluginAggregate(inputs.map((i) => i.plugins[n]));
       return (
-        inputs
-          .map((i) => i.plugins[n])
-          .filter((p) => p.aggregateCapable !== true).length > 0
+        inputs.length === 1 ||
+        (aggregate.aggregateCapable && aggregate.title !== '<multiple values>')
       );
     });
     const aggregateCapablePlugins = aggregateCapablePluginSlots.map((n) => {
@@ -31,6 +34,18 @@ export default function MonoInputConfigPanel(props: PropTypes) {
     setPlugins(aggregateCapablePlugins);
   }, [inputs]);
 
+  const showPluginMenu = useCallback(
+    (x: number, y: number) => {
+      MenuService.showInputPluginMenu(
+        x,
+        y,
+        deviceId,
+        inputs.map((i) => i.id)
+      );
+    },
+    [inputs, deviceId]
+  );
+
   return (
     <div>
       <InputDefaultsSubpanel inputs={inputs} />
@@ -38,7 +53,8 @@ export default function MonoInputConfigPanel(props: PropTypes) {
         deviceId={deviceId}
         plugins={plugins}
         removePlugin={() => {}}
-        showPluginMenu={() => {}}
+        showPluginMenu={showPluginMenu}
+        showAddPlugin={inputs.length === 1}
       />
     </div>
   );

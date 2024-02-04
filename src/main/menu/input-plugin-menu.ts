@@ -10,7 +10,7 @@ import {
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
 
-export function createInputPluginMenu(deviceId: string, inputId: string) {
+export function createInputPluginMenu(deviceId: string, inputIds: string[]) {
   return allInputPlugins().map((Plugin) => {
     return new MenuItem({
       label: Plugin.TITLE(),
@@ -22,18 +22,19 @@ export function createInputPluginMenu(deviceId: string, inputId: string) {
           dev instanceof SupportedDeviceConfig ||
           dev instanceof AdapterDeviceConfig
         ) {
-          const input = dev.getInputById(inputId);
+          inputIds.forEach((id) => {
+            const input = dev.getInputById(id);
 
-          if (input instanceof MonoInputConfig) {
-            const plug = new Plugin();
-            input.addPlugin(plug);
-            Registry.register(plug);
-            wp.MainWindow.sendConfigStub(dev.id, dev.stub());
-          } else {
-            console.log('Ignoring for now....');
-          }
+            if (input instanceof MonoInputConfig) {
+              const plug = new Plugin();
+              input.addPlugin(plug);
+              Registry.register(plug);
+            } else {
+              console.log('Ignoring for now....');
+            }
+          });
 
-          wp.MainWindow.sendInputConfig(deviceId, inputId, input);
+          wp.MainWindow.sendConfigStub(dev.id, dev.stub());
         }
       },
     });

@@ -11,10 +11,12 @@ type PluginSubpanelProps = {
   showPluginMenu: (x: number, y: number) => void;
   removePlugin: (icicle: PluginIcicle) => void;
   deviceId: string;
+  showAddPlugin: boolean;
 };
 
 export default function PluginSubpanel(props: PluginSubpanelProps) {
-  const { plugins, showPluginMenu, removePlugin, deviceId } = props;
+  const { plugins, showPluginMenu, removePlugin, deviceId, showAddPlugin } =
+    props;
 
   const [selectedId, setSelectedId] = useState('');
 
@@ -37,7 +39,7 @@ export default function PluginSubpanel(props: PluginSubpanelProps) {
     <div className="plugin-subpanel">
       <SectionHeader size="small" title="PLUGINS" />
       {pluginSlots}
-      <EmptyPluginSlot showPluginMenu={showPluginMenu} />
+      {showAddPlugin && <EmptyPluginSlot showPluginMenu={showPluginMenu} />}
     </div>
   );
 }

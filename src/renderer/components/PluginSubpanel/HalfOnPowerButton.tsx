@@ -27,7 +27,7 @@ export default function HalfOnPowerButton(props: PropTypes) {
         style={{
           height: '200%',
           width: '200%',
-          backgroundColor: 'red',
+          backgroundColor: '#ff5e57',
           transform: 'rotate(135deg)',
           position: 'absolute',
           left: 4,

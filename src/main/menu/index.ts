@@ -54,9 +54,9 @@ class AppMenuSingleton {
         x: number,
         y: number,
         deviceId: string,
-        inputId: string
+        inputIds: string[]
       ) => {
-        const template = createInputPluginMenu(deviceId, inputId);
+        const template = createInputPluginMenu(deviceId, inputIds);
         const menu = Menu.buildFromTemplate(template);
         const win = BrowserWindow.fromWebContents(e.sender) || undefined;
         menu.popup({ window: win, x, y });

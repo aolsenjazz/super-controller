@@ -9,4 +9,8 @@ export class PluginAggregate extends Aggregate<PluginIcicle> {
   get title() {
     return this.groupValue((p) => p.title);
   }
+
+  get aggregateCapable() {
+    return this.groupValue((p) => p.aggregateCapable);
+  }
 }
