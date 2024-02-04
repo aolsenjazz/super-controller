@@ -1,8 +1,7 @@
 /* eslint @typescript-eslint/no-empty-interface: 0 */
+import { InputType } from '@shared/driver-types';
 import { BaseIcicle, Freezable } from '../../freezable';
 import { MidiArray } from '../../midi-array';
-
-type InputType = 'pad' | 'knob' | 'xy' | 'switch' | 'slider' | 'pitchbend';
 
 export interface InputState {}
 
