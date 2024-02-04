@@ -35,7 +35,10 @@ export default function InputConfigSubpanel(props: InputConfigurationProps) {
       break;
     default:
       Element = (
-        <MonoInputConfigPanel inputs={inputConfigs as MonoInputIcicle[]} />
+        <MonoInputConfigPanel
+          inputs={inputConfigs as MonoInputIcicle[]}
+          deviceId={config.id}
+        />
       );
   }
 

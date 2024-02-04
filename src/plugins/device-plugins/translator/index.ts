@@ -76,6 +76,10 @@ export default class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
     return ['anonymous'];
   }
 
+  public get aggregateCapable() {
+    return false;
+  }
+
   protected title() {
     return TranslatorPlugin.TITLE();
   }

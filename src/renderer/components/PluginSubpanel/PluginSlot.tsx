@@ -1,10 +1,11 @@
 import type { PluginIcicle } from '@plugins/base-plugin';
 import { useCallback, useEffect, useState } from 'react';
+import { PluginAggregate } from './plugin-aggregate';
 import PluginViewControl from './PluginViewControl';
 import PowerButton from './PowerButton';
 
 type PropTypes = {
-  icicle: PluginIcicle;
+  plugins: PluginIcicle[];
   removePlugin: (icicle: PluginIcicle) => void;
   deviceId: string;
   selected: boolean;
@@ -12,21 +13,22 @@ type PropTypes = {
 };
 
 export default function PluginSlot(props: PropTypes) {
-  const { icicle, removePlugin, selected, setSelectedId, deviceId } = props;
+  const { plugins, removePlugin, selected, setSelectedId, deviceId } = props;
 
   const [open, setOpen] = useState(false);
+  const aggregate = new PluginAggregate(plugins);
 
   const onClick = useCallback(() => {
-    setSelectedId(icicle.id);
-  }, [icicle.id, setSelectedId]);
+    setSelectedId(plugins[0].id);
+  }, [plugins, setSelectedId]);
 
   const handleBackspace = useCallback(
     (event: KeyboardEvent) => {
       if (event.keyCode === 8 && selected === true) {
-        removePlugin(icicle);
+        plugins.forEach((p) => removePlugin(p));
       }
     },
-    [removePlugin, icicle, selected]
+    [removePlugin, plugins, selected]
   );
 
   useEffect(() => {
@@ -43,9 +45,9 @@ export default function PluginSlot(props: PropTypes) {
       role="presentation"
     >
       <div className="plugin-header">
-        <PowerButton icicle={icicle} deviceId={deviceId} />
-        <PluginViewControl icicle={icicle} open={open} setOpen={setOpen} />
-        <h5>{icicle.title}</h5>
+        <PowerButton plugins={plugins} deviceId={deviceId} />
+        <PluginViewControl id={plugins[0].id} open={open} setOpen={setOpen} />
+        <h5>{aggregate.title}</h5>
       </div>
       {open && <div className="plugin-body" />}
     </div>

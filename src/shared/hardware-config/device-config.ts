@@ -70,7 +70,7 @@ export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
   public applyStub(stub: DeviceIcicle) {
     this.nickname = stub.nickname;
 
-    this._plugins.reconcile(s.plugins);
+    this._plugins.reconcile(stub.plugins);
   }
 
   /**

@@ -63,6 +63,10 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
     return ['anonymous'];
   }
 
+  public get aggregateCapable() {
+    return false;
+  }
+
   protected title() {
     return ShareSustainPlugin.TITLE();
   }

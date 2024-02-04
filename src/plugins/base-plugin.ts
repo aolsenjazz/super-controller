@@ -6,6 +6,7 @@ export interface PluginIcicle {
   id: string;
   title: string;
   on: boolean;
+  aggregateCapable: boolean;
 }
 
 /**
@@ -44,6 +45,7 @@ export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
       id: this.id,
       title: this.title(),
       on: this.on,
+      aggregateCapable: this.aggregateCapable,
     } as T;
   }
 
@@ -53,6 +55,7 @@ export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
     | 'anonymous'
     | 'adapter'
   )[];
+  public abstract get aggregateCapable(): boolean;
 
   protected abstract title(): string;
   protected abstract description(): string;

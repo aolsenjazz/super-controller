@@ -1,16 +1,15 @@
-import type { PluginIcicle } from '@plugins/base-plugin';
 import ViewClosed from '@assets/plugin_closed.svg';
 import ViewOpen from '@assets/plugin_open.svg';
 import { useCallback, useEffect } from 'react';
 
 type PropTypes = {
-  icicle: PluginIcicle;
+  id: string;
   open: boolean;
   setOpen: (o: boolean) => void;
 };
 
 export default function PluginViewControl(props: PropTypes) {
-  const { icicle, open, setOpen } = props;
+  const { id, open, setOpen } = props;
 
   const onClick = useCallback(() => {
     setOpen(!open);
@@ -18,7 +17,7 @@ export default function PluginViewControl(props: PropTypes) {
 
   useEffect(() => {
     setOpen(false);
-  }, [icicle.id, setOpen]);
+  }, [id, setOpen]);
 
   return (
     <div onClick={onClick} role="presentation" className="view-control">

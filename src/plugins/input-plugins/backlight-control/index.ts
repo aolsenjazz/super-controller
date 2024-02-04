@@ -39,6 +39,10 @@ export default class BacklightControlPlugin extends BasePlugin<BacklightControlI
     return ['anonymous'];
   }
 
+  public get aggregateCapable() {
+    return true;
+  }
+
   protected title() {
     return BacklightControlPlugin.TITLE();
   }

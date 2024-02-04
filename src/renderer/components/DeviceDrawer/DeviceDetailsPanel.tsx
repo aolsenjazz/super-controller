@@ -59,7 +59,7 @@ export default function DeviceDetailsPanel() {
           deactivated={false}
         />
         <PluginSubpanel
-          plugins={deviceConfig?.plugins || []}
+          plugins={deviceConfig?.plugins.map((p) => [p]) || []}
           removePlugin={removePlugin}
           deviceId={deviceConfig?.id || ''}
           showPluginMenu={showPluginMenu}

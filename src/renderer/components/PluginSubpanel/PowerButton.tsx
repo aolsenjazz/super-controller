@@ -1,30 +1,46 @@
 import { useCallback } from 'react';
 
 import type { PluginIcicle } from '@plugins/base-plugin';
+import { PluginAggregate } from './plugin-aggregate';
+import HalfOnPowerButton from './HalfOnPowerButton';
 
 const { PluginService } = window;
 
 type PropTypes = {
-  icicle: PluginIcicle;
+  plugins: PluginIcicle[];
   deviceId: string;
 };
 
 export default function PowerButton(props: PropTypes) {
-  const { icicle, deviceId } = props;
+  const { plugins, deviceId } = props;
 
-  const onClick = useCallback(() => {
-    const newIcicle = {
-      ...icicle,
-      on: !icicle.on,
-    };
-    PluginService.updatePlugin(deviceId, newIcicle);
-  }, [icicle, deviceId]);
+  const aggregate = new PluginAggregate(plugins);
+
+  const onClick = useCallback(
+    (on: boolean) => {
+      const newPlugins = plugins.map((p) => {
+        return {
+          ...p,
+          on,
+        };
+      });
+
+      newPlugins.forEach((p) => PluginService.updatePlugin(deviceId, p));
+    },
+    [plugins, deviceId]
+  );
 
   return (
-    <div
-      className={`power-button ${icicle.on ? 'on' : 'off'}`}
-      onClick={onClick}
-      role="presentation"
-    />
+    <>
+      {aggregate.on === '<multiple values>' ? (
+        <HalfOnPowerButton onClick={onClick} />
+      ) : (
+        <div
+          className={`power-button ${aggregate.on ? 'on' : 'off'}`}
+          onClick={() => onClick(!aggregate.on)}
+          role="presentation"
+        />
+      )}
+    </>
   );
 }
