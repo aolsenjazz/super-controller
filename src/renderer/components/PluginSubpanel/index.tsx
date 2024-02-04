@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import type { PluginIcicle } from '@plugins/base-plugin';
 
@@ -9,16 +9,14 @@ import EmptyPluginSlot from './EmptyPluginSlot';
 type PluginSubpanelProps = {
   plugins: PluginIcicle[][];
   showPluginMenu: (x: number, y: number) => void;
-  removePlugin: (icicle: PluginIcicle) => void;
+  removePlugins: (icicles: PluginIcicle[]) => void;
   deviceId: string;
   showAddPlugin: boolean;
 };
 
 export default function PluginSubpanel(props: PluginSubpanelProps) {
-  const { plugins, showPluginMenu, removePlugin, deviceId, showAddPlugin } =
+  const { plugins, showPluginMenu, removePlugins, deviceId, showAddPlugin } =
     props;
-
-  const [selectedId, setSelectedId] = useState('');
 
   const pluginSlots = useMemo(() => {
     return plugins.map((x) => {
@@ -26,14 +24,12 @@ export default function PluginSubpanel(props: PluginSubpanelProps) {
         <PluginSlot
           key={`plugin${x[0].id}`}
           plugins={x}
-          removePlugin={removePlugin}
+          removePlugins={removePlugins}
           deviceId={deviceId}
-          setSelectedId={setSelectedId}
-          selected={selectedId === x[0].id}
         />
       );
     });
-  }, [plugins, removePlugin, selectedId, setSelectedId, deviceId]);
+  }, [plugins, removePlugins, deviceId]);
 
   return (
     <div className="plugin-subpanel">

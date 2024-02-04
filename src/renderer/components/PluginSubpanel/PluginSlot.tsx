@@ -1,3 +1,4 @@
+import { useSelectedPlugin } from '@context/selected-plugin-context';
 import type { PluginIcicle } from '@plugins/base-plugin';
 import { useCallback, useEffect, useState } from 'react';
 import { PluginAggregate } from './plugin-aggregate';
@@ -6,29 +7,29 @@ import PowerButton from './PowerButton';
 
 type PropTypes = {
   plugins: PluginIcicle[];
-  removePlugin: (icicle: PluginIcicle) => void;
+  removePlugins: (plugins: PluginIcicle[]) => void;
   deviceId: string;
-  selected: boolean;
-  setSelectedId: (id: string) => void;
 };
 
 export default function PluginSlot(props: PropTypes) {
-  const { plugins, removePlugin, selected, setSelectedId, deviceId } = props;
+  const { plugins, removePlugins, deviceId } = props;
 
+  const { selectedPlugin, setSelectedPlugin } = useSelectedPlugin();
   const [open, setOpen] = useState(false);
   const aggregate = new PluginAggregate(plugins);
+  const selected = selectedPlugin === plugins[0].id;
 
   const onClick = useCallback(() => {
-    setSelectedId(plugins[0].id);
-  }, [plugins, setSelectedId]);
+    setSelectedPlugin(plugins[0].id);
+  }, [plugins, setSelectedPlugin]);
 
   const handleBackspace = useCallback(
     (event: KeyboardEvent) => {
       if (event.keyCode === 8 && selected === true) {
-        plugins.forEach((p) => removePlugin(p));
+        removePlugins(plugins);
       }
     },
-    [removePlugin, plugins, selected]
+    [removePlugins, plugins, selected]
   );
 
   useEffect(() => {

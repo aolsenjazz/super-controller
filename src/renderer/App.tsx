@@ -3,6 +3,7 @@ import { SelectedInputsProvider } from '@context/selected-inputs-context';
 import { PanelProvider } from '@context/panel-context';
 import { SelectedDeviceConfigProvider } from '@context/selected-device-config-context';
 import { SelectedInputConfigsProvider } from '@context/selected-input-configs-context';
+import { SelectedPluginProvider } from '@context/selected-plugin-context';
 
 import TitleBar from './components/TitleBar';
 
@@ -26,8 +27,10 @@ export default function App() {
         <SelectedDeviceConfigProvider>
           <SelectedInputsProvider>
             <SelectedInputConfigsProvider>
-              <TitleBar />
-              <MainContent />
+              <SelectedPluginProvider>
+                <TitleBar />
+                <MainContent />
+              </SelectedPluginProvider>
             </SelectedInputConfigsProvider>
           </SelectedInputsProvider>
         </SelectedDeviceConfigProvider>

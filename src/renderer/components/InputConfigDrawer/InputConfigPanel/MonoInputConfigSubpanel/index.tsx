@@ -10,7 +10,7 @@ type PropTypes = {
   deviceId: string;
 };
 
-const { MenuService } = window;
+const { MenuService, ConfigService } = window;
 
 export default function MonoInputConfigPanel(props: PropTypes) {
   const { inputs, deviceId } = props;
@@ -27,6 +27,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
         (aggregate.aggregateCapable && aggregate.title !== '<multiple values>')
       );
     });
+
     const aggregateCapablePlugins = aggregateCapablePluginSlots.map((n) => {
       return inputs.map((i) => i.plugins[n]);
     });
@@ -46,13 +47,27 @@ export default function MonoInputConfigPanel(props: PropTypes) {
     [inputs, deviceId]
   );
 
+  const removePlugins = useCallback(
+    (plugs: PluginIcicle[]) => {
+      const newIcicles = inputs.map((i, idx) => {
+        return {
+          ...i,
+          plugins: i.plugins.filter((p) => p !== plugs[idx]),
+        };
+      });
+
+      ConfigService.updateInputs(deviceId, newIcicles);
+    },
+    [inputs, deviceId]
+  );
+
   return (
     <div>
       <InputDefaultsSubpanel inputs={inputs} />
       <PluginSubpanel
         deviceId={deviceId}
         plugins={plugins}
-        removePlugin={() => {}}
+        removePlugins={removePlugins}
         showPluginMenu={showPluginMenu}
         showAddPlugin={inputs.length === 1}
       />

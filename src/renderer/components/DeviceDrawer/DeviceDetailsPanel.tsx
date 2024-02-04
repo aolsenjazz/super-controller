@@ -63,7 +63,7 @@ export default function DeviceDetailsPanel() {
           removePlugin={removePlugin}
           deviceId={deviceConfig?.id || ''}
           showPluginMenu={showPluginMenu}
-          showAddPlugin={true}
+          showAddPlugin
         />
       </div>
       <AddOrRemoveDevice
