@@ -1,3 +1,3 @@
-export default function BacklightControlGUI() {
+export default function GUI() {
   return <></>;
 }

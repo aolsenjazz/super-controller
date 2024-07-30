@@ -1,5 +1,7 @@
 import { MidiArray } from '@shared/midi-array';
 
+import GUI from './gui';
+
 import { BasePlugin, PluginIcicle } from '../../base-plugin';
 import { ImplementsBasePluginStatic } from '../../base-plugin-static';
 
@@ -41,6 +43,10 @@ export default class BacklightControlPlugin extends BasePlugin<BacklightControlI
 
   public get aggregateCapable() {
     return true;
+  }
+
+  public get GUI() {
+    return GUI;
   }
 
   protected title() {

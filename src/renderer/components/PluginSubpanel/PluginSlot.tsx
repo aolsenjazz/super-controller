@@ -2,6 +2,7 @@ import { useSelectedPlugin } from '@context/selected-plugin-context';
 import type { PluginIcicle } from '@plugins/base-plugin';
 import { useCallback, useEffect, useState } from 'react';
 import { PluginAggregate } from './plugin-aggregate';
+import PluginBody from './PluginBody';
 import PluginViewControl from './PluginViewControl';
 import PowerButton from './PowerButton';
 
@@ -50,7 +51,7 @@ export default function PluginSlot(props: PropTypes) {
         <PluginViewControl id={plugins[0].id} open={open} setOpen={setOpen} />
         <h5>{aggregate.title}</h5>
       </div>
-      {open && <div className="plugin-body" />}
+      {open && <PluginBody plugins={plugins} />}
     </div>
   );
 }

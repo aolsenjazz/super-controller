@@ -1,3 +1,3 @@
-export default function BasicControlGUI() {
-  return <></>;
+export default function GUI() {
+  return <p>TEST</p>;
 }

@@ -56,6 +56,7 @@ export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
     | 'adapter'
   )[];
   public abstract get aggregateCapable(): boolean;
+  public abstract get GUI(): () => JSX.Element;
 
   protected abstract title(): string;
   protected abstract description(): string;

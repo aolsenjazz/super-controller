@@ -3,6 +3,8 @@ import { ipcMain, IpcMainEvent } from 'electron';
 import { MidiArray } from '@shared/midi-array';
 import { Registry } from '@plugins/registry';
 
+import GUI from './gui';
+
 import { BasePlugin, PluginIcicle } from '../../base-plugin';
 import { UPDATE_SHARE_SUSTAIN } from './ipc-channels';
 import { ImplementsBasePluginStatic } from '../../base-plugin-static';
@@ -65,6 +67,10 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
 
   public get aggregateCapable() {
     return false;
+  }
+
+  public get GUI() {
+    return GUI;
   }
 
   protected title() {

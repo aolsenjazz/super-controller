@@ -6,6 +6,8 @@ import {
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
 
+import GUI from './gui';
+
 import { CONFIG } from '../../../main/ipc-channels';
 import { BasePlugin, PluginIcicle } from '../../base-plugin';
 
@@ -78,6 +80,10 @@ export default class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
 
   public get aggregateCapable() {
     return false;
+  }
+
+  public get GUI() {
+    return GUI;
   }
 
   protected title() {
