@@ -4,41 +4,13 @@ import {
   XYDriver,
   ColorDescriptor,
 } from './driver-types';
-import { MonoInteractiveDriver } from './driver-types/input-drivers';
-import * as Revivable from './revivable';
-
-function replacer(_key: any, value: any) {
-  if (value instanceof Map) {
-    return {
-      dataType: 'Map',
-      value: Array.from(value.entries()),
-    };
-  }
-
-  return value;
-}
-
-function reviver(_key: any, value: any) {
-  let obj;
-  if (typeof value === 'object' && value !== null) {
-    if (value.dataType === 'Map') {
-      return new Map(value.value);
-    }
-
-    Revivable.GetImplementations().forEach(
-      (Clazz: new (...args: any[]) => any) => {
-        if (Clazz.name === value.name) {
-          const parsed = value.args.map((a: any) =>
-            a === null ? undefined : a
-          );
-          obj = new Clazz(...parsed);
-        }
-      }
-    );
-  }
-
-  return obj || value;
-}
+import {
+  MonoInteractiveDriver,
+  SwitchDriver,
+} from './driver-types/input-drivers';
+import { InputIcicle } from './hardware-config/input-config/base-input-config';
+import { MonoInputIcicle } from './hardware-config/input-config/mono-input-config';
+import { XYIcicle } from './hardware-config/input-config/xy-config';
 
 export function colorDisplayName(c: ColorDescriptor) {
   return `${c.name}${c.modifier ? ` (${c.modifier})` : ''}`;
@@ -50,30 +22,45 @@ export function id(driver: InteractiveInputDriver): string {
     return `${id(xy.x)}${id(xy.y)}`;
   }
 
+  if (driver.type === 'switch') {
+    const sw = driver as SwitchDriver;
+
+    return `switch.${sw.steps[sw.initialStep][1]}`;
+  }
+
   const mono = driver as MonoInteractiveDriver;
   return mono.status === 'pitchbend'
     ? `${mono.status}.${mono.channel}`
     : `${mono.status}.${mono.channel}.${mono.number}`;
 }
 
-/**
- * Wrapper around JSON.parse to ensure that reviver is used and
- * type is automatically set
- */
-export function parse<T>(json: string): T {
-  return JSON.parse(json, reviver) as T;
+// TODO: really not sure why this would exist...
+export function idForConfigStub(c: InputIcicle): string {
+  if (c.type === 'xy') {
+    const xy = c as XYIcicle;
+    return `${idForConfigStub(xy.x)}${idForConfigStub(xy.y)}`;
+  }
+
+  const mono = c as MonoInputIcicle;
+  return mono.defaults.statusString === 'pitchbend'
+    ? `${mono.defaults.statusString}.${mono.defaults.channel}`
+    : `${mono.defaults.statusString}.${mono.defaults.channel}.${mono.defaults.number}`;
 }
 
 /**
- * Wrapper around JSON.stringify used to ensure replacer is used
+ * Returns [itemsPresentInL1ButNotL2, itemsPresentInL2ButNotL1]. Optionally, you may
+ * provide `keyFn`, which should be an accessor to a unique key representing the object.
  */
-export function stringify<T>(obj: T) {
-  return JSON.stringify(obj, replacer);
-}
+export function getDiff<T>(
+  l1: T[],
+  l2: T[],
+  keyFn: (a: T) => any = (a: T) => a
+) {
+  const l1Ids = l1.map((a) => keyFn(a));
+  const l2Ids = l2.map((b) => keyFn(b));
 
-export function getDiff(l1: string[], l2: string[]) {
-  const ex1 = l1.filter((str) => !l2.includes(str));
-  const ex2 = l2.filter((str) => !l1.includes(str));
+  const ex1 = l1.filter((a) => !l2Ids.includes(keyFn(a)));
+  const ex2 = l2.filter((b) => !l1Ids.includes(keyFn(b)));
   return [ex1, ex2];
 }
 

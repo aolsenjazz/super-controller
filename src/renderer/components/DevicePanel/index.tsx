@@ -1,56 +1,51 @@
-import {
-  DeviceConfig,
-  SupportedDeviceConfig,
-  AdapterDeviceConfig,
-} from '@shared/hardware-config';
-import { DeviceDriver } from '@shared/driver-types';
-import { DRIVERS } from '@shared/drivers';
+import { useSelectedDevice } from '@context/selected-device-context';
+import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
+import { useDeviceStub } from '@hooks/use-device-stub';
+import { DRIVERS, getDriver } from '@shared/drivers';
 
 import DeviceLayoutWrapper from './DeviceLayoutWrapper';
-import UnsupportedView from './UnsupportedView';
+import NoMatchingDriverView from './NoMatchingDriverView';
 import NoDevicesView from './NoDevicesView';
 import UsbView from './UsbView';
+import SelectAdapterChild from './SelectAdapterChild';
 
-type PropTypes = {
-  config: DeviceConfig | undefined;
-  configured: boolean;
-  selectedInputs: string[];
-  setSelectedInputs: (inputs: string[]) => void;
-};
+export default function DevicePanel() {
+  const { selectedDevice } = useSelectedDevice();
 
-export default function DevicePanel(props: PropTypes) {
-  const { config, configured, selectedInputs, setSelectedInputs } = props;
+  const { deviceStub } = useDeviceStub(selectedDevice || '');
+  const { deviceConfig } = useSelectedDeviceConfig();
+
+  const driverName = deviceConfig?.driverName || deviceStub?.name || '';
+  const isSupported =
+    deviceConfig !== undefined || getDriver(driverName) !== undefined;
+  const driver = DRIVERS.get(driverName);
 
   let Element: React.ReactElement;
 
-  if (config === undefined) {
+  if (selectedDevice === undefined || (!deviceStub && !deviceConfig)) {
     Element = <NoDevicesView />;
-  } else if (config.supported === false) {
-    Element = <UnsupportedView deviceName={config.name} />;
-  } else if (config instanceof AdapterDeviceConfig && !config.isSet) {
-    Element = <UsbView />;
+  } else if (driverName === 'Anonymous' || driver === undefined) {
+    Element = <NoMatchingDriverView deviceName={deviceStub!.name} />;
+  } else if (isSupported === true && !deviceConfig) {
+    Element =
+      driver.type === 'adapter' ? (
+        <UsbView />
+      ) : (
+        <DeviceLayoutWrapper driver={driver} />
+      );
+  } else if (driver.type === 'adapter' && deviceConfig!.child) {
+    const childDriver = getDriver(deviceConfig!.child.driverName!)!;
+    Element = <DeviceLayoutWrapper driver={childDriver} />;
+  } else if (driver.type === 'adapter') {
+    Element = <SelectAdapterChild />;
   } else {
-    const targetConfig =
-      config instanceof AdapterDeviceConfig
-        ? config.child!
-        : (config as SupportedDeviceConfig);
-
-    const driver = DRIVERS.get(targetConfig.name);
-
-    Element = (
-      <DeviceLayoutWrapper
-        driver={driver as DeviceDriver}
-        config={targetConfig}
-        selectedInputs={selectedInputs}
-        setSelectedInputs={setSelectedInputs}
-      />
-    );
+    Element = <DeviceLayoutWrapper driver={driver} />;
   }
 
   return (
     <div id="device-panel" className="top-level">
-      <div className={`device-container ${configured ? 'configured' : ''}`}>
-        {Element}
+      <div className={`device-container ${deviceConfig ? 'configured' : ''}`}>
+        {Element || null}
       </div>
     </div>
   );

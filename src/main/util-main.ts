@@ -2,8 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import { URL } from 'url';
-
-import { upgradeProject } from '../helper/project-upgrader';
+import { app } from 'electron';
 
 export let resolveHtmlPath: (htmlFileName: string) => string;
 
@@ -30,13 +29,22 @@ export function loadJSON(filePath: string) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
-/**
- * Loads the file at given path.
- *
- * @param filePath The path to the file
- * @returns the project
- */
-export function projectFromFile(filePath: string) {
-  const jsonString = fs.readFileSync(filePath, 'utf8');
-  return upgradeProject(jsonString);
+export function getAssetPath(...paths: string[]) {
+  const RESOURCES_PATH = app.isPackaged
+    ? path.join(process.resourcesPath, 'assets')
+    : path.join(__dirname, '../../assets');
+
+  return path.join(RESOURCES_PATH, ...paths);
+}
+
+export function getPreloadPath() {
+  return app.isPackaged
+    ? path.join(__dirname, 'preload', 'preload.ts')
+    : path.join(__dirname, '../../.erb/dll/preload.js');
+}
+
+export function getPluginsPath() {
+  return app.isPackaged
+    ? path.join(__dirname, '../../.erb/dll/plugins')
+    : path.join(__dirname, '..', 'plugins');
 }

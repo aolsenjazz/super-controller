@@ -87,17 +87,6 @@ describe('handleMessage()', () => {
   });
 });
 
-describe('restoreDefaults()', () => {
-  test('invokes x and y restoreDefaults()', () => {
-    const conf = XYConfig.fromDriver(DRIVER);
-    conf.x.number = 100;
-    conf.y.number = 101;
-    conf.restoreDefaults();
-    expect(conf.x.number).toBe(X.number);
-    expect(conf.y.number).toBe(Y.number);
-  });
-});
-
 describe('id()', () => {
   test('returns correctly-formatted id', () => {
     const conf = XYConfig.fromDriver(DRIVER);

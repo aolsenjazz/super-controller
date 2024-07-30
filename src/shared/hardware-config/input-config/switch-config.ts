@@ -1,61 +1,72 @@
-/* eslint-disable no-bitwise */
-import * as Revivable from '../../revivable';
-import { MidiArray, create } from '../../midi-array';
-import { NonsequentialStepPropagator } from '../../propagators';
-import { InputResponse, SwitchDriver } from '../../driver-types';
-import { MonoInputConfig } from './mono-input-config';
+import { MidiArray } from '../../midi-array';
+import { SwitchDriver } from '../../driver-types';
+import { BaseInputConfig, InputIcicle, InputState } from './base-input-config';
 
-@Revivable.register
-export class SwitchConfig extends MonoInputConfig {
+export interface SwitchState extends InputState {
+  step: NumberArrayWithStatus;
+}
+
+export interface SwitchIcicle extends InputIcicle {
+  steps: Map<string, NumberArrayWithStatus>;
+}
+
+export class SwitchConfig extends BaseInputConfig<SwitchIcicle> {
   static fromDriver(d: SwitchDriver) {
-    const def = {
-      number: d.number,
-      channel: d.channel,
-      statusString: d.status,
-      response: d.response,
-    };
+    // TODO: interesting change of API here acutally - probably make ssense to rewrite this like an xy config, but just as a list of constant configs
+    // const steps = new Map<string, MidiArray>(
+    //   d.steps.map((step) => {
+    //     return [JSON.stringify(step), create(step)];
+    //   })
+    // );
 
-    const steps = new Map<string, MidiArray>(
-      d.steps.map((step) => {
-        return [JSON.stringify(step), create(step)];
-      })
-    );
-    const outputPropagator = new NonsequentialStepPropagator(
-      d.status,
-      d.channel,
-      d.number,
-      steps,
-      d.steps[d.initialStep]
-    );
-
-    return new SwitchConfig(def, outputPropagator);
+    return new SwitchConfig('', []);
   }
 
-  toJSON() {
+  public freeze() {
     return {
-      name: this.constructor.name,
-      args: [this.defaults, this.outputPropagator, this.nickname],
+      ...this.innerFreeze(),
+      className: this.constructor.name,
+      steps: new Map(), // TODO:
     };
   }
 
-  restoreDefaults() {
-    (this.outputPropagator as NonsequentialStepPropagator).restoreDefaults();
+  handleMessage(msg: MidiArray): MidiArray | undefined {
+    // TODO:
+    return msg;
   }
 
-  get eligibleResponses() {
-    return ['enumerated' as const];
+  applyStub(icicle: SwitchIcicle) {
+    Array.from(icicle.steps.keys()).forEach((k) => {
+      // const asArr = JSON.parse(k);
+      // const ma = create(stub.steps.get(k)!);
+      // this.outputPropagator.setStep(asArr, ma);
+      // TODO:
+    });
   }
 
-  get eligibleStatusStrings() {
-    return [
-      'noteon',
-      'noteoff',
-      'controlchange',
-      'programchange',
-    ] as StatusString[];
+  isOriginator(msg: MidiArray | NumberArrayWithStatus) {
+    // const ma = msg instanceof MidiArray ? msg : create(msg);
+
+    // return Array.from(this.outputPropagator.steps.keys()).includes(
+    //   JSON.stringify(ma.array)
+    // ); TODO:
+    return false;
   }
 
-  get response(): InputResponse {
-    return this.outputPropagator.outputResponse;
+  get type() {
+    return 'switch' as const;
+  }
+
+  get state() {
+    return {
+      step: [144, 0, 0] as NumberArrayWithStatus,
+    };
+  }
+
+  get id() {
+    // const def = this.outputPropagator.defaultStep;
+    // return `switch.${def[1]}`;
+    // TODO:
+    return 'Switch';
   }
 }

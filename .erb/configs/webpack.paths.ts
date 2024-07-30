@@ -20,6 +20,8 @@ const distRendererPath = path.join(distPath, 'renderer');
 
 const buildPath = path.join(releasePath, 'build');
 
+const pluginsPath = path.join(srcPath, 'plugins');
+
 export default {
   rootPath,
   dllPath,
@@ -35,4 +37,5 @@ export default {
   distMainPath,
   distRendererPath,
   buildPath,
+  pluginsPath,
 };

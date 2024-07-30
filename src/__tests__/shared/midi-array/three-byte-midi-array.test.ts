@@ -25,7 +25,7 @@ describe('id', () => {
     const mm = TB.create(status, channel, number, value);
 
     const expected = 'noteoff.2.3';
-    expect(mm.id(false)).toBe(expected);
+    expect(mm.asString(false)).toBe(expected);
   });
 
   test('modifies status to noteon/notoeff', () => {
@@ -36,7 +36,7 @@ describe('id', () => {
     const mm = TB.create(status, channel, number, value);
 
     const expected = 'noteon/noteoff.2.3';
-    expect(mm.id(true)).toBe(expected);
+    expect(mm.asString(true)).toBe(expected);
   });
 });
 

@@ -21,9 +21,7 @@
   margin-left: 50%;
   position: relative;
   top: 50%;
-  aspect-ratio: var(--r);
   transform: translate(-50%, -50%);
-  width: min(90%, min(calc(100vh - 32px), calc(100vh - 32px) * (var(--r))));
   border: solid 1px #bcbec0;
   max-height: 90%;
 }
@@ -212,6 +210,9 @@
 .device-layout .xy {
   position: relative;
   border: 1px solid;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
 }
 
 .device-layout .xy .inner {

@@ -31,19 +31,12 @@ function BasicInputConfig() {
 
 function BasicSupportedDevice() {
   const name = 'SomeName';
-  const shareSustain: string[] = [];
   const inputConfigs: PadConfig[] = [];
   const nickname = 'SomeNickname';
 
   inputConfigs.push(BasicInputConfig());
 
-  return new SupportedDeviceConfig(
-    name,
-    0,
-    shareSustain,
-    inputConfigs,
-    nickname
-  );
+  return new SupportedDeviceConfig(name, name, 0, inputConfigs, nickname);
 }
 
 test('getInput throws for bad id', () => {
@@ -55,7 +48,6 @@ test('getInput throws for bad id', () => {
   };
 
   const name = 'SomeName';
-  const shareSustain: string[] = [];
   const nickname = 'SomeNickname';
 
   const prop = new ContinuousPropagator(
@@ -67,51 +59,9 @@ test('getInput throws for bad id', () => {
 
   const input = new PadConfig(d, [], [], prop);
 
-  const config = new SupportedDeviceConfig(
-    name,
-    0,
-    shareSustain,
-    [input],
-    nickname
-  );
+  const config = new SupportedDeviceConfig(name, name, 0, [input], nickname);
 
-  expect(config.getInput('badid!')).toBe(undefined);
-});
-
-test('getInput returns correct input for id', () => {
-  const d = {
-    channel: 0 as Channel,
-    statusString: 'controlchange' as const,
-    number: 0 as MidiNumber,
-    response: 'continuous' as const,
-  };
-
-  const name = 'SomeName';
-  const shareSustain: string[] = [];
-  const inputConfigs = [];
-  const nickname = 'SomeNickname';
-
-  const prop = new ContinuousPropagator(
-    d.response,
-    d.statusString,
-    d.number,
-    d.channel
-  );
-
-  const input = new SliderConfig(d, prop);
-
-  inputConfigs.push(input);
-
-  const config = new SupportedDeviceConfig(
-    name,
-    0,
-    shareSustain,
-    inputConfigs,
-    nickname
-  );
-
-  const result = config.getInput(input.id);
-  expect(result!.id).toBe(input.id);
+  expect(config.getOriginatorInput([144, 42, 32])).toBe(undefined);
 });
 
 test('handleMessage() passes to correct input for processing', () => {
@@ -123,7 +73,6 @@ test('handleMessage() passes to correct input for processing', () => {
   };
 
   const name = 'SomeName';
-  const shareSustain: string[] = [];
   const inputConfigs = [];
   const nickname = 'SomeNickname';
 
@@ -140,8 +89,8 @@ test('handleMessage() passes to correct input for processing', () => {
 
   const config = new SupportedDeviceConfig(
     name,
+    name,
     0,
-    shareSustain,
     inputConfigs,
     nickname
   );
@@ -183,11 +132,10 @@ test('toJSON and fromParsedJSON correctly serializes + deserializes', () => {
   const other = parse<SupportedDeviceConfig>(json);
 
   expect(conf.id).toBe(other.id);
-  expect(conf.name).toBe(other.name);
+  expect(conf.portName).toBe(other.portName);
+  expect(conf.driverName).toBe(other.driverName);
   expect(conf.siblingIndex).toBe(other.siblingIndex);
   expect(conf.nickname).toBe(other.nickname);
-  expect(conf.supported).toBe(other.supported);
-  expect(conf.shareSustain).toEqual(other.shareSustain);
   expect(conf.keyboardDriver).toEqual(other.keyboardDriver);
   expect(JSON.stringify(conf.inputs)).toBe(JSON.stringify(other.inputs));
 });

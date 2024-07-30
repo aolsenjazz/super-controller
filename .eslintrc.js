@@ -9,6 +9,9 @@ module.exports = {
     'class-methods-use-this': 'off',
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
+    'no-bitwise': 'off',
+    'no-underscore-dangle': 'off',
+    '@typescript-eslint/naming-convention': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

@@ -1,5 +1,3 @@
-/* eslint-disable no-bitwise */
-import * as Revivable from '../revivable';
 import { MidiArray } from './midi-array';
 import { statusStringToByte, byteToStatusString } from '../midi-util';
 
@@ -21,7 +19,6 @@ interface ThreeByteNumberArrayWithStatus extends NumberArrayWithStatus {
   length: 3;
 }
 
-@Revivable.register
 export class ThreeByteMidiArray extends MidiArray {
   length = 3;
 
@@ -49,7 +46,7 @@ export class ThreeByteMidiArray extends MidiArray {
     super(items);
   }
 
-  id(mergeNoteEvents: boolean) {
+  asString(mergeNoteEvents: boolean) {
     const status =
       (this.isNoteOn || this.isNoteOff) && mergeNoteEvents
         ? 'noteon/noteoff'

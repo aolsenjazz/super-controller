@@ -1,0 +1,88 @@
+.plugin-subpanel {
+  margin: 0 5px 0 5px;
+  padding: 5px;
+  background-color: #d9d8df;
+  border: 1px solid #c6c8d4;
+  border-radius: 4px;
+}
+
+.plugin-slot {
+  width: 100%;
+  border-radius: 4px;
+  margin: 5px 0 5px 0;
+  background-color: #cfcfd8;
+  min-height: 20px;
+}
+
+.plugin-slot.selected {
+  background-color: #c6c8d4;
+}
+
+.plugin-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 20px;
+  gap: 6px;
+}
+
+.plugin-slot.empty {
+  cursor: pointer;
+}
+
+.plugin-slot.empty > h4 {
+  color: #777;
+  text-align: center;
+}
+
+.plugin-slot.empty:hover,
+.plugin-slot.empty:hover {
+  -webkit-filter: brightness(96%);
+}
+
+.plugin-slot.filled {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.plugin-slot .power-button {
+  width: 11px;
+  overflow: hidden;
+  height: 11px;
+  border-radius: 100%;
+  margin-left: 6px;
+  cursor: pointer;
+  border: 1px solid #818391;
+}
+
+.plugin-slot .power-button.on {
+  background-color: #39aa4a;
+}
+
+.plugin-slot .power-button.off {
+  background-color: #ff5e57;
+}
+
+.plugin-slot h5 {
+  color: #333333;
+  flex: 1;
+}
+
+.plugin-slot .view-control {
+  cursor: pointer;
+  display: flex;
+  justify-items: center;
+}
+
+.plugin-slot .view-control img {
+  height: 14px;
+  width: 14px;
+}
+
+.plugin-body {
+  height: 200px;
+  background-color: #d9d8df;
+  margin: 0 5px 5px 5px;
+  border-radius: 0 0 3px 3px;
+}

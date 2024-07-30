@@ -1,7 +1,21 @@
-import { MidiArray } from '../../midi-array';
-import { OverrideablePropagator } from '../../propagators';
+import { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
+
+import {
+  create,
+  MidiArray,
+  ThreeByteMidiArray,
+  TwoByteMidiArray,
+} from '../../midi-array';
 import { InputResponse } from '../../driver-types';
-import { BaseInputConfig } from './base-input-config';
+import { BaseInputConfig, InputIcicle } from './base-input-config';
+import { InputPluginChain } from '../plugin-chain/input-plugin-chain';
+
+export interface MonoInputIcicle<T extends InputDefault = InputDefault>
+  extends InputIcicle {
+  defaults: T;
+  colorCapable: boolean;
+  plugins: PluginIcicle[];
+}
 
 /* Default values for the input loaded in from a driver */
 export type InputDefault = {
@@ -18,86 +32,88 @@ export type InputDefault = {
   readonly response: InputResponse;
 };
 
-export abstract class MonoInputConfig extends BaseInputConfig {
-  defaults: InputDefault;
+export abstract class MonoInputConfig<
+  T extends InputDefault = InputDefault,
+  K extends MonoInputIcicle = MonoInputIcicle
+> extends BaseInputConfig<K> {
+  defaults: T;
 
-  outputPropagator: OverrideablePropagator<InputResponse, InputResponse>;
+  protected _plugins: InputPluginChain;
 
-  #nickname?: string;
+  constructor(nickname: string, plugins: BasePlugin[], defaultVals: T) {
+    super(nickname);
 
-  constructor(
-    defaultVals: InputDefault,
-    outputPropagator: OverrideablePropagator<InputResponse, InputResponse>,
-    nickname?: string
-  ) {
-    super();
-
+    this._plugins = new InputPluginChain(plugins);
     this.defaults = defaultVals;
-    this.outputPropagator = outputPropagator;
-    this.#nickname = nickname;
   }
 
-  handleMessage(msg: MidiArray): MidiArray | undefined {
-    return this.outputPropagator.handleMessage(msg);
+  public isOriginator(msg: MidiArray | NumberArrayWithStatus) {
+    const ma = msg instanceof MidiArray ? msg : create(msg);
+
+    if (ma instanceof TwoByteMidiArray || ma instanceof ThreeByteMidiArray) {
+      const noteOnOffMatch =
+        this.defaults.statusString === 'noteon/noteoff' &&
+        ma.statusString.includes('note');
+
+      return (
+        (noteOnOffMatch || ma.statusString === this.defaults.statusString) &&
+        ma.channel === this.defaults.channel &&
+        ma.number === this.defaults.number
+      );
+    }
+
+    return this.id === ma.asString(true);
   }
 
-  restoreDefaults() {
-    this.response = this.defaults.response;
-    this.statusString = this.defaults.statusString;
-    this.channel = this.defaults.channel;
-    this.number = this.defaults.number;
+  public applyStub(s: MonoInputIcicle) {
+    super.applyStub(s);
+
+    this._plugins.reconcile(s.plugins);
   }
 
-  get statusString(): StatusString | 'noteon/noteoff' {
-    return this.outputPropagator.statusString;
+  /**
+   * Adds a plugin to this `DeviceConfig`s `plugins` array at the end of the arr.
+   * `plugin` may be an instance of the plugin, or the plugin's id.
+   */
+  public addPlugin(plugin: BasePlugin) {
+    this._plugins.addPlugin(plugin);
   }
 
-  set statusString(statusString: StatusString | 'noteon/noteoff') {
-    this.outputPropagator.statusString = statusString;
+  /**
+   * Removes the plugin from this `DeviceConfig`s `plugins` array. `plugin` may be
+   * an instance of the plugin, or the plugin's id.
+   */
+  public removePlugin(plugin: BasePlugin | string) {
+    this._plugins.removePlugin(plugin);
   }
 
-  get channel() {
-    return this.outputPropagator.channel;
+  /**
+   * Moves the `plugin` to the specified index of the array. `plugin` may be
+   * an instance of the plugin, or the plugin's id.
+   */
+  public movePlugin(plugin: BasePlugin | string, newIdx: number) {
+    this._plugins.movePlugin(plugin, newIdx);
   }
 
-  set channel(channel: Channel) {
-    this.outputPropagator.channel = channel;
+  public innerFreeze() {
+    return {
+      ...super.innerFreeze(),
+      defaults: this.defaults,
+      colorCapable: false,
+      plugins: this._plugins.plugins.map((p) => p.freeze()),
+    };
   }
 
-  get number() {
-    return this.outputPropagator.number;
+  public handleMessage(msg: MidiArray): MidiArray | undefined {
+    // TODO:
+    return msg;
   }
 
-  set number(number: MidiNumber) {
-    this.outputPropagator.number = number;
-  }
-
-  get value(): MidiNumber {
-    return this.outputPropagator.value;
-  }
-
-  set value(value: MidiNumber) {
-    this.outputPropagator.value = value;
-  }
-
-  get id() {
+  public get id() {
     const ss = this.defaults.statusString;
     const c = this.defaults.channel;
     const n = this.defaults.number;
 
     return `${ss}.${c}.${n}`;
   }
-
-  get nickname() {
-    return this.#nickname || `Input ${this.number}`;
-  }
-
-  set nickname(nickname: string) {
-    this.#nickname = nickname;
-  }
-
-  abstract get response(): InputResponse;
-  abstract set response(response: InputResponse);
-  abstract get eligibleResponses(): InputResponse[];
-  abstract get eligibleStatusStrings(): StatusString[];
 }

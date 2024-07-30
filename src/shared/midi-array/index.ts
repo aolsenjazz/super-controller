@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import { MidiArray } from './midi-array';
 import {
   TwoByteMidiArray,

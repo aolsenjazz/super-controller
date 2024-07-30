@@ -1,60 +1,31 @@
-import midi from '@julusian/midi';
+import { Input, Output } from '@julusian/midi';
+import { PortInfo } from '@shared/port-info';
 
-export class Port {
-  index: number;
-
-  siblingIndex: number;
-
-  type: 'input' | 'output';
-
-  name: string;
-
-  port: midi.Input | midi.Output | null;
+/**
+ * Base class for `InputPort` and `OutputPort`s. Upon instantiation, open a connection
+ * to the input or output port using the `this.index`
+ */
+export abstract class Port<
+  T extends Input | Output = Input | Output
+> extends PortInfo {
+  port: T;
 
   constructor(
     index: number,
-    siblingIndex: number,
     type: 'input' | 'output',
+    siblingIndex: number,
     name: string
   ) {
-    this.index = index;
-    this.siblingIndex = siblingIndex;
-    this.type = type;
-    this.name = name;
-    this.port = null;
+    super(index, type, name, siblingIndex);
+
+    this.port = this.createPort();
+    this.open();
   }
 
-  open() {
-    if (this.port === null) {
-      this.port = this.type === 'input' ? new midi.Input() : new midi.Output();
-    }
-    this.port.openPort(this.index);
-  }
-
-  close() {
-    if (this.port === null) {
-      // closing unopened port
-      return;
-    }
+  public close() {
     this.port.closePort();
   }
 
-  send(msg: number[]) {
-    if (this.port instanceof midi.Output) {
-      this.port.sendMessage(msg as midi.MidiMessage);
-    }
-  }
-
-  onMessage(cb: (deltaTime: number, msg: MidiTuple) => void) {
-    if (this.port instanceof midi.Input) {
-      this.port.on('message', cb as (a: number, b: midi.MidiMessage) => void);
-    }
-  }
-
-  isPortOpen() {
-    if (this.port === null) {
-      return false;
-    }
-    return this.port.isPortOpen();
-  }
+  protected abstract createPort(): T;
+  protected abstract open(): void;
 }

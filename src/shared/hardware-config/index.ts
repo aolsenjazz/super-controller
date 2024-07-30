@@ -4,25 +4,24 @@ import { AdapterDeviceConfig } from './adapter-device-config';
 import { DeviceConfig } from './device-config';
 import { DeviceDriver } from '../driver-types';
 
-export {
-  MonoInputConfig,
-  LightCapableInputConfig,
-  BaseInputConfig,
-  SwitchConfig,
-} from './input-config';
+export { MonoInputConfig, BaseInputConfig, SwitchConfig } from './input-config';
 export { AdapterDeviceConfig };
 export { DeviceConfig };
 export { AnonymousDeviceConfig };
 export { SupportedDeviceConfig };
 
-export function configFromDriver(siblingIndex: number, driver: DeviceDriver) {
+export function configFromDriver(
+  portName: string,
+  siblingIndex: number,
+  driver: DeviceDriver
+) {
   if (driver.anonymous) {
-    return new AnonymousDeviceConfig(driver.name, siblingIndex, new Map(), []);
+    return new AnonymousDeviceConfig(portName, siblingIndex);
   }
 
   if (driver.type === 'adapter') {
-    return new AdapterDeviceConfig(driver.name, siblingIndex);
+    return new AdapterDeviceConfig(portName, driver.name, siblingIndex);
   }
 
-  return SupportedDeviceConfig.fromDriver(siblingIndex, driver);
+  return SupportedDeviceConfig.fromDriver(portName, siblingIndex, driver);
 }

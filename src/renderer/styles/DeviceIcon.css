@@ -1,11 +1,12 @@
 .device-icon {
-  width: 100% !important;
+  width: 100%;
   border: 1px solid #808080;
   position: relative;
+  box-sizing: border-box;
 }
 
 .device-icon .input-grid {
-  position: absolute !important;
+  position: absolute;
 }
 
 .device-icon .input-container {

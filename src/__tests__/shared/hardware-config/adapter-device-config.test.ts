@@ -6,8 +6,13 @@ import { parse } from '@shared/util';
 
 describe('toJSON', () => {
   test('de/serializes correctly', () => {
-    const supported = new SupportedDeviceConfig('supported', 0, [], []);
-    const conf = new AdapterDeviceConfig('test', 0, supported);
+    const supported = new SupportedDeviceConfig(
+      'supported',
+      'supported',
+      0,
+      []
+    );
+    const conf = new AdapterDeviceConfig('test', 'test', 0, supported);
     const json = JSON.stringify(conf);
     const result = parse<AdapterDeviceConfig>(json);
 

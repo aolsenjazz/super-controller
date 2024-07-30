@@ -1,89 +1,55 @@
-import * as Revivable from '../../revivable';
-import { ContinuousPropagator } from '../../propagators';
-import { InputResponse, KnobDriver } from '../../driver-types';
-import { MonoInputConfig, InputDefault } from './mono-input-config';
+import { KnobDriver } from '../../driver-types';
+import {
+  MonoInputConfig,
+  InputDefault,
+  MonoInputIcicle,
+} from './mono-input-config';
+import { InputState } from './base-input-config';
 
-@Revivable.register
-export class KnobConfig extends MonoInputConfig {
-  readonly knobType: 'endless' | 'absolute';
+export interface KnobIcicle extends MonoInputIcicle<KnobDefaults> {
+  valueType: 'absolute' | 'endless';
+  type: 'knob';
+}
 
-  outputPropagator: ContinuousPropagator;
+export interface KnobState extends InputState {
+  value: MidiNumber;
+}
 
+interface KnobDefaults extends InputDefault {
+  knobType: 'endless' | 'absolute';
+}
+
+export class KnobConfig extends MonoInputConfig<KnobDefaults> {
   static fromDriver(d: KnobDriver) {
     const def = {
       number: d.number,
       channel: d.channel,
       statusString: d.status,
       response: d.response,
+      knobType: d.knobType,
     };
 
-    const prop = new ContinuousPropagator(
-      'continuous',
-      d.status,
-      d.number,
-      d.channel,
-      undefined,
-      d.knobType
-    );
-
-    return new KnobConfig(def, prop, d.knobType);
+    return new KnobConfig('', [], def);
   }
 
-  constructor(
-    defaultVals: InputDefault,
-    outputPropagator: ContinuousPropagator,
-    knobType: 'endless' | 'absolute',
-    nickname?: string
-  ) {
-    super(defaultVals, outputPropagator, nickname);
-    this.outputPropagator = outputPropagator;
-    this.knobType = knobType;
+  applyStub(s: KnobIcicle) {
+    super.applyStub(s);
   }
 
-  toJSON() {
+  public freeze(): KnobIcicle {
     return {
-      name: this.constructor.name,
-      args: [
-        this.defaults,
-        this.outputPropagator,
-        this.knobType,
-        this.nickname,
-      ],
+      ...super.innerFreeze(),
+      className: this.constructor.name,
+      valueType: this.defaults.knobType, // TODO: this will be buggy
+      type: this.type,
     };
   }
 
-  restoreDefaults() {
-    super.restoreDefaults();
-
-    this.valueType = this.knobType;
+  get state() {
+    return { value: 0 };
   }
 
-  get eligibleResponses() {
-    return ['continuous', 'constant'] as InputResponse[];
-  }
-
-  get valueType() {
-    return this.outputPropagator.valueType;
-  }
-
-  set valueType(type: 'endless' | 'absolute') {
-    this.outputPropagator.valueType = type;
-  }
-
-  get eligibleStatusStrings() {
-    return [
-      'noteon',
-      'noteoff',
-      'controlchange',
-      'programchange',
-    ] as StatusString[];
-  }
-
-  get response(): 'continuous' | 'constant' {
-    return this.outputPropagator.outputResponse;
-  }
-
-  set response(response: 'continuous' | 'constant') {
-    this.outputPropagator.outputResponse = response;
+  get type() {
+    return 'knob' as const;
   }
 }

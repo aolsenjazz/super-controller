@@ -1,102 +1,82 @@
-import * as Revivable from '../revivable';
 import { MidiArray } from '../midi-array';
 import { SupportedDeviceConfig } from './supported-device-config';
+import { DeviceConfig } from './device-config';
 
-// TODO: Unclear if we really want to implement SupportedDeviceConfig or
-// extends DeviceConfig. Gut says extend DeviceConfig but needs research
-// TODO: yeah definitely don't want to implemenet Supported. Messes up instanceof checks downstream
-@Revivable.register
-export class AdapterDeviceConfig implements SupportedDeviceConfig {
-  isAdapter = true;
-
-  name: string;
-
-  supported = true;
-
-  siblingIndex: number;
-
+export class AdapterDeviceConfig extends DeviceConfig {
   child?: SupportedDeviceConfig;
 
   constructor(
-    name: string,
+    portName: string,
+    driverName: string,
     siblingIndex: number,
     child?: SupportedDeviceConfig
   ) {
-    this.name = name;
-    this.siblingIndex = siblingIndex;
+    super(portName, driverName, siblingIndex, portName);
     this.child = child;
-  }
-
-  toJSON() {
-    return {
-      name: this.constructor.name,
-      args: [this.name, this.siblingIndex, this.child],
-    };
   }
 
   setChild(config: SupportedDeviceConfig) {
     this.child = config;
   }
 
-  get isSet() {
-    return this.child !== undefined;
-  }
-
-  bindingAvailable(
-    statusString: StatusString | 'noteon/noteoff',
-    number: number,
-    channel: Channel
-  ) {
-    return this.child!.bindingAvailable(statusString, number, channel);
-  }
+  // bindingAvailable(
+  //   statusString: StatusString | 'noteon/noteoff',
+  //   number: number,
+  //   channel: Channel
+  // ) {
+  //   return this.child!.bindingAvailable(statusString, number, channel);
+  // }
 
   applyOverrides(msg: MidiArray) {
-    return this.child!.applyOverrides(msg);
+    if (this.child) {
+      return this.child!.applyOverrides(msg);
+    }
+    return msg;
   }
 
   getResponse(msg: MidiArray) {
-    return this.child!.getResponse(msg);
-  }
-
-  get inputs() {
-    return this.child!.inputs;
-  }
-
-  get shareSustain() {
-    return this.child!.shareSustain;
-  }
-
-  get nickname() {
-    return this.child!.nickname;
-  }
-
-  set nickname(nickname: string) {
-    this.child!.nickname = nickname;
-  }
-
-  get id() {
-    return `${this.name} ${this.siblingIndex}`;
-  }
-
-  shareWith(id: string) {
-    return this.child!.shareWith(id);
-  }
-
-  stopSharing(id: string) {
-    return this.child!.stopSharing(id);
-  }
-
-  sharingWith(id: string) {
-    return this.child!.sharingWith(id);
+    if (this.child) {
+      return this.child!.getResponse(msg);
+    }
+    return msg;
   }
 
   /**
-   * Get an input by id
-   *
-   * @param id The ID of the requested input
-   * @returns
+   * Returns the `BaseInputConfig` for given id
    */
-  getInput(id: string) {
-    return this.child!.getInput(id);
+  getInputById(id: string) {
+    for (let i = 0; i < this.inputs.length; i++) {
+      const input = this.inputs[i];
+      if (input.id === id) return input;
+    }
+    return undefined;
+  }
+
+  /**
+   * Returns the `BaseInputConfig` which is the originator of `msg`. E.g. a CC pad
+   * input with number 32 and channel 2 is the originator of the message [178, 32, 127]
+   * but not [144, 32, 127] nor [178, 31, 127]
+   */
+  getOriginatorInput(msg: MidiArray | NumberArrayWithStatus) {
+    for (let i = 0; i < this.inputs.length; i++) {
+      const input = this.inputs[i];
+      if (input.isOriginator(msg)) return input;
+    }
+    return undefined;
+  }
+
+  get inputs() {
+    if (this.child) {
+      return this.child!.inputs;
+    }
+    return [];
+  }
+
+  public freeze() {
+    return {
+      ...super.stub(),
+      className: this.constructor.name,
+      child: this.child?.freeze(),
+    };
   }
 }

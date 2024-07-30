@@ -1,10 +1,11 @@
-/* eslint-disable no-bitwise */
-import * as Revivable from '../../revivable';
 import { MonoInputConfig } from './mono-input-config';
-import { InputResponse, InputDriverWithHandle } from '../../driver-types';
-import { ContinuousPropagator } from '../../propagators';
+import { InputDriverWithHandle } from '../../driver-types';
+import { InputState } from './base-input-config';
 
-@Revivable.register
+export interface SliderState extends InputState {
+  value: MidiNumber;
+}
+
 export class SliderConfig extends MonoInputConfig {
   static fromDriver(d: InputDriverWithHandle) {
     const def = {
@@ -14,41 +15,23 @@ export class SliderConfig extends MonoInputConfig {
       response: d.response,
     };
 
-    const prop = new ContinuousPropagator(
-      'continuous',
-      d.status,
-      d.number,
-      d.channel
-    );
-
-    return new SliderConfig(def, prop);
+    return new SliderConfig('', [], def);
   }
 
-  toJSON() {
+  public freeze() {
     return {
-      name: this.constructor.name,
-      args: [this.defaults, this.outputPropagator, this.nickname],
+      ...this.innerFreeze(),
+      className: this.constructor.name,
     };
   }
 
-  get eligibleResponses() {
-    return ['continuous', 'constant'] as InputResponse[];
+  get type() {
+    return 'slider' as const;
   }
 
-  get eligibleStatusStrings() {
-    return [
-      'noteon',
-      'noteoff',
-      'controlchange',
-      'programchange',
-    ] as StatusString[];
-  }
-
-  get response(): InputResponse {
-    return this.outputPropagator.outputResponse;
-  }
-
-  set response(response: InputResponse) {
-    this.outputPropagator.outputResponse = response;
+  get state() {
+    return {
+      value: 0, // TODO:
+    };
   }
 }

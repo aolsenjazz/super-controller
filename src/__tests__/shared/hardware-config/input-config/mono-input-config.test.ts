@@ -35,6 +35,17 @@ class InputConfig extends IC {
       args: [this.defaults, this.outputPropagator, this.nickname],
     };
   }
+
+  get config() {
+    return {
+      type: 'pad' as const,
+      id: this.id,
+    };
+  }
+
+  get state() {
+    return {};
+  }
 }
 
 describe('handleMessage', () => {
@@ -43,22 +54,6 @@ describe('handleMessage', () => {
     const spy = jest.spyOn(ic.outputPropagator, 'handleMessage');
     ic.handleMessage(create([144, 0, 0]));
     expect(spy).toHaveBeenCalled();
-  });
-});
-
-describe('restoreDefaults', () => {
-  test('restores defaults', () => {
-    const ic = new InputConfig(D, PROP);
-    ic.statusString = 'controlchange';
-    ic.channel = 9;
-    ic.number = 100;
-    ic.response = 'toggle';
-    ic.restoreDefaults();
-
-    expect(ic.statusString).toBe(D.statusString);
-    expect(ic.channel).toBe(D.channel);
-    expect(ic.number).toBe(D.number);
-    expect(ic.response).toBe(D.response);
   });
 });
 

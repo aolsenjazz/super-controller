@@ -1,0 +1,27 @@
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.section-header .circle {
+  background-color: #999;
+  border-radius: 50%;
+}
+
+.section-header.large .circle {
+  width: 10px;
+  height: 10px;
+}
+
+.section-header.small .circle {
+  width: 8px;
+  height: 8px;
+}
+
+.section-header h2 {
+  font-size: 0.8em;
+  text-align: center;
+  color: #999;
+}

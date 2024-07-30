@@ -9,7 +9,7 @@ import {
 } from '@shared/midi-array';
 
 class MidiArray extends WrapMe {
-  id() {
+  asString() {
     return 'array';
   }
 

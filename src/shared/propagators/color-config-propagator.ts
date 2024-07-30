@@ -1,5 +1,3 @@
-/* eslint-disable no-bitwise */
-import * as Revivable from '../revivable';
 import { create } from '../midi-array';
 import {
   Color,
@@ -9,7 +7,6 @@ import {
 } from '../driver-types';
 import { Propagator } from './propagator';
 
-@Revivable.register
 export class ColorConfigPropagator extends Propagator<
   InputResponse,
   InputResponse
@@ -51,21 +48,6 @@ export class ColorConfigPropagator extends Propagator<
     this.colorBindings = colorBindings || new Map();
     this.fxBindings = fxBindings || new Map();
     this.currentStep = currentStep || 0;
-  }
-
-  toJSON() {
-    return {
-      name: this.constructor.name,
-      args: [
-        this.hardwareResponse,
-        this.outputResponse,
-        this.defaultColor,
-        this.defaultFx,
-        this.colorBindings,
-        this.fxBindings,
-        this.currentStep,
-      ],
-    };
   }
 
   /* Progresses currentStep && returns array to be sent to device */

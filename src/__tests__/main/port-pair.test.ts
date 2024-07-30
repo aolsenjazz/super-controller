@@ -1,54 +1,48 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Port } from '../../main/port-service/port';
+/* eslint-disable max-classes-per-file */
+
+import { InputPort } from '../../main/port-service/input-port';
+import { OutputPort } from '../../main/port-service/output-port';
+
 import { PortPair } from '../../main/port-service/port-pair';
 
-class MockPort implements Port {
-  index: number;
+jest.mock('@julusian/midi', () => {
+  class MockMidiPort {}
 
-  siblingIndex: number;
+  return {
+    Output: MockMidiPort,
+    Input: MockMidiPort,
+  };
+});
 
-  type: 'input' | 'output';
-
-  name: string;
-
-  /* eslint-disable-next-line */
-  port: any;
-
+class MockInput extends InputPort {
   open() {}
 
   close() {}
 
-  /* eslint-disable-next-line */
-  send(_msg: number[]) {}
-
-  onMessage() {}
-
-  isPortOpen() {
+  isOpen() {
     return true;
   }
 
-  constructor(index: number, name: string, type: 'input' | 'output') {
-    this.index = index;
-    this.siblingIndex = index;
-    this.name = name;
-    this.type = type;
+  onMessage(): void {}
+}
+class MockOutput extends OutputPort {
+  open() {}
+
+  close() {}
+
+  isOpen() {
+    return true;
   }
+
+  send(): void {}
 }
 
 function makePortPair(index: number, name: string) {
-  const iPort = new MockPort(index, name, 'input');
-  const oPort = new MockPort(index, name, 'output');
+  const iPort = new MockInput(index, index, name);
+  const oPort = new MockOutput(index, index, name);
   return new PortPair(iPort, oPort);
 }
-
-test('open() calls open on child ports', () => {
-  const pair = makePortPair(0, 'test');
-  const iPortSpy = jest.spyOn(pair.iPort!, 'open');
-  const oPortSpy = jest.spyOn(pair.oPort!, 'open');
-  pair.open();
-  expect(iPortSpy).toHaveBeenCalled();
-  expect(oPortSpy).toHaveBeenCalled();
-});
 
 test('close() calls close on child ports', () => {
   const pair = makePortPair(0, 'test');
@@ -64,11 +58,6 @@ test('send() invokes oPort.send', () => {
   const spy = jest.spyOn(pair.oPort!, 'send');
   pair.send([0, 0, 0]);
   expect(spy).toHaveBeenCalled();
-});
-
-test('isPortOpen() returns true', () => {
-  const pair = makePortPair(0, 'test');
-  expect(pair.isPortOpen()).toBe(true);
 });
 
 test('name getter returns port name', () => {

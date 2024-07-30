@@ -16,7 +16,7 @@ describe('id', () => {
     const mm = new SysexMidiArray(arr);
 
     const expected = 'sysex.1.2.3.4.5.247';
-    expect(mm.id()).toBe(expected);
+    expect(mm.asString()).toBe(expected);
   });
 });
 

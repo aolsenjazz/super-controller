@@ -45,6 +45,29 @@ class LightCapableInputConfig extends WrapMe {
       ],
     };
   }
+
+  get config() {
+    return {
+      type: 'pad' as const,
+      id: this.id,
+    };
+  }
+
+  get state() {
+    return {};
+  }
+
+  setFx(step: number, fx: FxDriver | string) {
+    super.setFx(step, fx);
+  }
+
+  setColor(step: number, c: Color | string) {
+    super.setColor(step, c);
+  }
+
+  setFxVal(step: number, val: MidiNumber[]) {
+    super.setFxVal(step, val);
+  }
 }
 
 const D = {
@@ -116,13 +139,6 @@ const FULL_PROP = new ColorConfigPropagator(
   F[0],
   fullMap
 );
-const EMPTY_PROP = new ColorConfigPropagator(
-  D.response,
-  D.response,
-  undefined,
-  undefined,
-  new Map()
-);
 
 describe('handleMessage', () => {
   test('invokes devicePropagator.handleMessage', () => {
@@ -166,7 +182,7 @@ describe('setFx', () => {
 
   test('sets fx using MidiNumber[]', () => {
     const ic = new LightCapableInputConfig(D, C, F, OUT_PROP, FULL_PROP);
-    ic.setFx(1, [3, 0, 0]);
+    ic.setFxVal(1, [3, 0, 0]);
     expect(ic.getFxVal(1)).toEqual(F[1].defaultVal);
   });
   test('throws for nonexistent fx', () => {
@@ -196,22 +212,5 @@ describe('setColor', () => {
     const spy = jest.spyOn(ic.deviceProp, 'setColor');
     ic.setColor(0, C[1]);
     expect(spy).toHaveBeenCalled();
-  });
-});
-
-describe('restoreDefaults', () => {
-  test('invokes deviceProp.restoreDefaults', () => {
-    const ic = new LightCapableInputConfig(D, C, F, OUT_PROP, EMPTY_PROP);
-    const spy = jest.spyOn(ic.deviceProp, 'restoreDefaults');
-    ic.restoreDefaults();
-    expect(spy).toHaveBeenCalled();
-  });
-
-  test('calls super.restoreDefaults()', () => {
-    const ic = new LightCapableInputConfig(D, C, F, OUT_PROP, FULL_PROP);
-    const correctResult = ic.number;
-    ic.number = 50;
-    ic.restoreDefaults();
-    expect(ic.number).toBe(correctResult);
   });
 });

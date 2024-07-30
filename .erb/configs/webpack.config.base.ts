@@ -49,6 +49,10 @@ const configuration: webpack.Configuration = {
     alias: {
       '@shared': path.resolve(__dirname, '..', '..', 'src/shared/'),
       '@assets': path.resolve(__dirname, '..', '..', 'src/renderer/assets/'),
+      '@context': path.resolve(__dirname, '..', '..', 'src/renderer/context/'),
+      '@hooks': path.resolve(__dirname, '..', '..', 'src/renderer/hooks/'),
+      '@plugins': path.resolve(__dirname, '..', '..', 'src/plugins/'),
+      '@main': path.resolve(__dirname, '..', '..', 'src/main/'),
     },
   },
 

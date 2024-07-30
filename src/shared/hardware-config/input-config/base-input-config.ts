@@ -1,16 +1,50 @@
-import { MidiArray } from '@shared/midi-array';
-import { Skeleton } from '@shared/revivable';
+/* eslint @typescript-eslint/no-empty-interface: 0 */
+import { InputType } from '@shared/driver-types';
+import { BaseIcicle, Freezable } from '../../freezable';
+import { MidiArray } from '../../midi-array';
 
-export abstract class BaseInputConfig {
-  abstract get nickname(): string;
+export interface InputState {}
 
-  abstract set nickname(nickname: string);
+export interface InputIcicle extends BaseIcicle {
+  id: string;
+  nickname: string;
+  type: InputType;
+}
 
-  abstract get id(): string;
+export abstract class BaseInputConfig<T extends InputIcicle = InputIcicle>
+  implements Freezable<T>
+{
+  protected nickname: string = '';
 
-  abstract handleMessage(msg: MidiArray): MidiArray | undefined;
+  constructor(nickname: string) {
+    this.nickname = nickname;
+  }
 
-  abstract restoreDefaults(): void;
+  protected innerFreeze(): Omit<InputIcicle, 'className'> {
+    return {
+      id: this.id,
+      nickname: this.nickname,
+      type: this.type,
+    };
+  }
 
-  abstract toJSON(): Skeleton;
+  public abstract freeze(): T;
+
+  public applyStub(s: InputIcicle) {
+    this.nickname = s.nickname;
+  }
+
+  public abstract get id(): string;
+
+  public abstract get state(): InputState;
+
+  public abstract get type(): InputType;
+
+  /**
+   * Returns true if the input this config represents is responsible for generating
+   * `msg`. Used to associate message from devices with its config.
+   */
+  public abstract isOriginator(msg: MidiArray | NumberArrayWithStatus): boolean;
+
+  public abstract handleMessage(msg: MidiArray): MidiArray | undefined;
 }

@@ -1,8 +1,6 @@
-import * as Revivable from '../revivable';
 import { MidiArray, create } from '../midi-array';
 import { StatelessPropagator } from './stateless-propagator';
 
-@Revivable.register
 export class ContinuousPropagator extends StatelessPropagator<
   'continuous',
   'continuous' | 'constant'
@@ -24,21 +22,6 @@ export class ContinuousPropagator extends StatelessPropagator<
 
     this.knobType = knobType || this.knobType;
     this.valueType = valueType || knobType || this.valueType;
-  }
-
-  toJSON() {
-    return {
-      name: this.constructor.name,
-      args: [
-        this.outputResponse,
-        this.statusString,
-        this.number,
-        this.channel,
-        this.value,
-        this.knobType,
-        this.valueType,
-      ],
-    };
   }
 
   /**

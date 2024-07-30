@@ -1,8 +1,6 @@
-import * as Revivable from '../revivable';
 import { MidiArray, create } from '../midi-array';
 import { OverrideablePropagator } from './overrideable-propagator';
 
-@Revivable.register
 export class PitchbendPropagator extends OverrideablePropagator<
   'continuous',
   'continuous' | 'constant'
@@ -14,13 +12,6 @@ export class PitchbendPropagator extends OverrideablePropagator<
     channel: Channel
   ) {
     super('continuous', outputResponse, statusString, number, channel, 64);
-  }
-
-  toJSON() {
-    return {
-      name: this.constructor.name,
-      args: [this.outputResponse, this.statusString, this.number, this.channel],
-    };
   }
 
   protected nextEventType() {

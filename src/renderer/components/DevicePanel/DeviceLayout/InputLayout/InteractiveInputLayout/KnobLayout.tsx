@@ -1,3 +1,16 @@
+import { useSelectedDevice } from '@context/selected-device-context';
+import { useInputConfig } from '@hooks/use-input-config';
+import { useInputState } from '@hooks/use-input-state';
+import {
+  KnobIcicle,
+  KnobState,
+} from '@shared/hardware-config/input-config/knob-config';
+import { useEffect, useState } from 'react';
+
+const defaultState = {
+  value: 0 as MidiNumber,
+};
+
 /**
  * Converts a value in given range to the equivalent value in a new range
  *
@@ -18,23 +31,41 @@ const convertRange = (
 };
 
 type PropTypes = {
-  value: number;
+  id: string;
   shape: string;
   endless: boolean;
 };
 
 export function Knob(props: PropTypes) {
-  const { value, shape, endless } = props;
+  const { shape, endless, id } = props;
+  const { selectedDevice } = useSelectedDevice();
+  const [curDeg, setCurDeg] = useState(0);
 
-  const degrees = 270;
-  const min = 0;
-  const max = 127;
-  const startAngle = (360 - degrees) / 2;
-  const endAngle = startAngle + degrees;
+  const { inputConfig } = useInputConfig<KnobIcicle>(selectedDevice || '', id);
 
-  const curDeg = Math.floor(
-    convertRange(min, max, startAngle, endAngle, value)
+  const [isEndless, setEndless] = useState(endless);
+
+  useEffect(() => {
+    if (inputConfig) setEndless(inputConfig.valueType === 'endless');
+  }, [inputConfig]);
+
+  const { state } = useInputState<KnobState>(
+    selectedDevice || '',
+    id,
+    defaultState
   );
+
+  useEffect(() => {
+    const degrees = 270;
+    const min = 0;
+    const max = 127;
+    const startAngle = (360 - degrees) / 2;
+    const endAngle = startAngle + degrees;
+
+    setCurDeg(
+      Math.floor(convertRange(min, max, startAngle, endAngle, state.value))
+    );
+  }, [state]);
 
   return (
     <div className="knob" role="button">
@@ -45,7 +76,7 @@ export function Knob(props: PropTypes) {
         }}
       >
         <div className="inner" style={{ transform: `rotate(${curDeg}deg)` }}>
-          {endless ? null : <div className="grip" />}
+          {isEndless ? null : <div className="grip" />}
         </div>
       </div>
     </div>

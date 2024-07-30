@@ -1,4 +1,3 @@
-import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { DeviceDriver } from '@shared/driver-types';
 
 import Keyboard from './KeyboardLayout';
@@ -6,19 +5,16 @@ import InputGridLayout from './InputGridLayout';
 
 type PropTypes = {
   driver: DeviceDriver;
-  deviceConfig: SupportedDeviceConfig;
   onClick: (e: React.MouseEvent, ids: string[]) => void;
-  selectedInputs: string[];
 };
 
 export default function DeviceLayout(props: PropTypes) {
-  const { driver, onClick, selectedInputs, deviceConfig } = props;
-
+  const { driver, onClick } = props;
   return (
     <div
       style={{
-        '--r': `${driver.width}/${driver.height}`, // TODO: really should document this
         ...driver.style,
+        aspectRatio: `${driver.width / driver.height}`,
       }}
       className="device-layout"
     >
@@ -44,8 +40,6 @@ export default function DeviceLayout(props: PropTypes) {
               deviceWidth={driver.width}
               deviceHeight={driver.height}
               onClick={onClick}
-              selectedInputs={selectedInputs}
-              deviceConfig={deviceConfig}
             />
           );
         })}

@@ -1,90 +1,141 @@
+import { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
+
+import { BaseIcicle, Freezable } from '../freezable';
+import { Anonymous, getDriver } from '../drivers';
+
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
+import { DevicePluginChain } from './plugin-chain/device-plugin-chain';
+
+export interface DeviceIcicle extends BaseIcicle {
+  id: string;
+  portName: string;
+  driverName: string;
+  siblingIndex: number;
+  nickname: string;
+  plugins: PluginIcicle[];
+  child?: DeviceIcicle;
+}
 
 /**
  * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.
  */
-export abstract class DeviceConfig {
-  /* True if a driver exists for the given name */
-  readonly supported: boolean;
+export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
+  implements Freezable<T>
+{
+  /**
+   * MIDI-driver-reported name. E.g. for Launchkey Mini MK3:
+   *
+   * OSX: Launchkey Mini MK3 MIDI
+   * Linux: Launchkey Mini MK3:Launchkey Mini MK3 Launchkey Mi 20:0
+   *
+   * Used to bind this config to the given port.
+   *
+   */
+  public readonly portName: string;
 
-  /* Device-reported name */
-  readonly name: string;
+  /**
+   * Name of the driver to bind this config to. E.g. APC Key 25 | iRig BlueBoard. The value
+   * of this field should match the name field of one of the driver files in src/shared/drivers
+   */
+  public readonly driverName: string;
 
   /* nth-occurence of this device. applicable if > 1 device of same model is connected/configured */
-  readonly siblingIndex: number;
-
-  abstract readonly isAdapter: boolean;
+  public readonly siblingIndex: number;
 
   /**
-   * List of devices with which sustain events are shared.
-   *
-   * Sharing a sustain event means that whenever a sustain message is received
-   * on this device, a sustain event will also be sent to clients from the shared
-   * devices, on the same channel as their respective keyboards.
+   * TODO: this is the only subset of a driver that I'm storing with this config. why.....?
    */
-  shareSustain: string[];
+  public keyboardDriver?: KeyboardDriver;
 
   /* User-defined nickname */
-  #nickname?: string;
+  private _nickname?: string;
 
-  keyboardDriver?: KeyboardDriver;
+  private _plugins: DevicePluginChain;
 
   constructor(
-    name: string,
+    portName: string,
+    driverName: string,
     siblingIndex: number,
-    supported: boolean,
-    shareSustain: string[],
-    nickname?: string
+    nickname?: string,
+    plugins: BasePlugin[] = []
   ) {
-    this.name = name;
+    this.portName = portName;
+    this.driverName = driverName;
     this.siblingIndex = siblingIndex;
-    this.supported = supported;
-    this.shareSustain = shareSustain;
-    this.#nickname = nickname;
+    this._plugins = new DevicePluginChain(plugins);
+    this._nickname = nickname;
   }
 
-  get nickname() {
-    return this.#nickname !== undefined ? this.#nickname : this.name;
-  }
+  public applyStub(stub: DeviceIcicle) {
+    this.nickname = stub.nickname;
 
-  set nickname(nickname: string) {
-    this.#nickname = nickname;
-  }
-
-  get id() {
-    return `${this.name} ${this.siblingIndex}`;
+    this._plugins.reconcile(stub.plugins);
   }
 
   /**
-   * Is this device currently sharing sustain events with the given device?
-   *
-   * @param id The id of the other device
-   * @returns You know
+   * Adds a plugin to this `DeviceConfig`s `plugins` array at the end of the arr.
+   * `plugin` may be an instance of the plugin, or the plugin's id.
    */
-  sharingWith(id: string) {
-    return this.shareSustain.includes(id);
+  public addPlugin(plugin: BasePlugin) {
+    this._plugins.addPlugin(plugin);
   }
 
   /**
-   * Shares sustain events with the given device
-   *
-   * @param id The id of the other device
+   * Removes the plugin from this `DeviceConfig`s `plugins` array. `plugin` may be
+   * an instance of the plugin, or the plugin's id.
    */
-  shareWith(id: string) {
-    this.shareSustain.push(id);
+  public removePlugin(plugin: BasePlugin | string) {
+    this._plugins.removePlugin(plugin);
   }
 
   /**
-   * Stops sharing sustain events with the given device
-   *
-   * @param id The id of the other device
+   * Moves the `plugin` to the specified index of the array. `plugin` may be
+   * an instance of the plugin, or the plugin's id.
    */
-  stopSharing(id: string) {
-    const idx = this.shareSustain.indexOf(id);
-    this.shareSustain.splice(idx, 1);
+  public movePlugin(plugin: BasePlugin | string, newIdx: number) {
+    this._plugins.movePlugin(plugin, newIdx);
   }
 
-  abstract applyOverrides(msg: MidiArray): MidiArray | undefined;
-  abstract getResponse(msg: MidiArray): MidiArray | undefined;
+  public get id() {
+    return `${this.portName} ${this.siblingIndex}`;
+  }
+
+  public get plugins(): ReadonlyArray<BasePlugin> {
+    return this.plugins;
+  }
+
+  /**
+   * TODO: is this really how I want to implement this?
+   */
+  public get nickname() {
+    return this._nickname !== undefined ? this._nickname : this.portName;
+  }
+
+  public set nickname(nickname: string) {
+    this._nickname = nickname;
+  }
+
+  public get driver() {
+    return getDriver(this.driverName) || Anonymous;
+  }
+
+  /**
+   * Similar to `freeze()` except it doesn't recurse though children, significantly
+   * reducing serialized size and processing speed.
+   */
+  public stub(): Omit<DeviceIcicle, 'className'> {
+    return {
+      id: this.id,
+      portName: this.portName,
+      driverName: this.driverName,
+      nickname: this.nickname,
+      siblingIndex: this.siblingIndex,
+      plugins: this._plugins.plugins.map((p) => p.freeze()),
+    };
+  }
+
+  public abstract freeze(): T;
+  public abstract applyOverrides(msg: MidiArray): MidiArray | undefined;
+  public abstract getResponse(msg: MidiArray): MidiArray | undefined;
 }

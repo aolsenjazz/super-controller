@@ -22,7 +22,7 @@ describe('id', () => {
     const mm = TB.create(status, channel, number);
 
     const expected = 'programchange.2.3';
-    expect(mm.id()).toBe(expected);
+    expect(mm.asString()).toBe(expected);
   });
 });
 

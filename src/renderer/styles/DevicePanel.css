@@ -1,7 +1,8 @@
 #device-panel {
-  flex: 1;
   background-color: #e6e2e3;
   opacity: 0.95;
+  width: 100%;
+  height: 100%;
 }
 
 #device-panel .device-container .interactive-indicator {

@@ -2,6 +2,8 @@ import path from 'path';
 import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import fs from 'fs';
+
 import baseConfig from './webpack.config.base';
 import webpackPaths from './webpack.paths';
 import checkNodeEnv from '../scripts/check-node-env';
@@ -19,7 +21,37 @@ const configuration: webpack.Configuration = {
 
   target: 'electron-preload',
 
-  entry: path.join(webpackPaths.srcMainPath, 'preload.ts'),
+  entry: [
+    path.join(webpackPaths.srcMainPath, 'preload', 'preload.ts'),
+    // load device plugins (yeah this is ugly)
+    ...fs
+      .readdirSync(path.join(webpackPaths.pluginsPath, 'device-plugins'), {
+        withFileTypes: true,
+      })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) =>
+        path.join(
+          webpackPaths.pluginsPath,
+          'device-plugins',
+          dirent.name,
+          'preload.ts'
+        )
+      ),
+    // load input plugins (yeah also ugly)
+    ...fs
+      .readdirSync(path.join(webpackPaths.pluginsPath, 'input-plugins'), {
+        withFileTypes: true,
+      })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) =>
+        path.join(
+          webpackPaths.pluginsPath,
+          'input-plugins',
+          dirent.name,
+          'preload.ts'
+        )
+      ),
+  ],
 
   output: {
     path: webpackPaths.dllPath,

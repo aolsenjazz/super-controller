@@ -3,8 +3,15 @@
   min-height: 30px;
   width: 100%;
   position: relative;
-  -webkit-app-region: drag;
   z-index: 1000;
+  box-shadow: 1px 1px 2px #dbd7d8;
+  z-index: 1;
+}
+
+#title-bar #drag-region {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  width: 90%;
 }
 
 #title-bar div {
@@ -20,14 +27,20 @@
   text-align: center;
 }
 
-#title-bar #shadow {
-  box-shadow: 1px 1px 2px #dbd7d8;
-  width: calc(100% - 230px);
-  z-index: 0;
+#title-bar #drag-region {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  width: 90%;
 }
 
-#title-bar #no-shadow {
-  width: 230px;
-  z-index: 9999;
-  position: relative;
+.drawer-toggles {
+  right: 0;
+  position: absolute;
+  height: 100%;
+  width: 60px;
+  top: 6px;
+}
+.drawer-toggles img {
+  margin-right: 8px;
+  cursor: pointer;
 }

@@ -1,13 +1,17 @@
-/* eslint-disable no-bitwise */
-import * as Revivable from '../../revivable';
-import { SliderConfig } from './slider-config';
-import { PitchbendPropagator } from '../../propagators';
-import { InputResponse, MonoInteractiveDriver } from '../../driver-types';
+import { create, MidiArray, ThreeByteMidiArray } from '../../midi-array';
 
-@Revivable.register
-export class PitchbendConfig extends SliderConfig {
-  // TODO: not immediate, but pitchbend events don't have a notion of `number`.
-  // for correctness' sake, change this
+import { MonoInteractiveDriver } from '../../driver-types';
+import { MonoInputConfig } from './mono-input-config';
+import { SliderState } from './slider-config';
+
+/**
+ * It should be noted that while `PitchbendConfig` extends `MonoInputConfig`, pitchbend
+ * messages do not have a notion of `number` and therefore `config.number` and
+ * `config.defaults.number` are a misnomer. Normally, the value at the number-index of a
+ * pitchbend MIDI message array would be the MSB of the pitchbend value, but because of how
+ * create configs from drivers, `config.number` is instead just assigned a meaningless number.
+ */
+export class PitchbendConfig extends MonoInputConfig {
   static fromDriver(d: MonoInteractiveDriver) {
     const def = {
       number: d.number,
@@ -16,14 +20,31 @@ export class PitchbendConfig extends SliderConfig {
       response: d.response,
     };
 
-    const prop = new PitchbendPropagator(
-      'continuous',
-      d.status,
-      d.number,
-      d.channel
-    );
+    return new PitchbendConfig('', [], def);
+  }
 
-    return new PitchbendConfig(def, prop);
+  public freeze() {
+    return {
+      ...this.innerFreeze(),
+      className: this.constructor.name,
+    };
+  }
+
+  isOriginator(msg: MidiArray | NumberArrayWithStatus) {
+    const ma = msg instanceof MidiArray ? msg : create(msg);
+
+    if (ma instanceof ThreeByteMidiArray) {
+      return (
+        ma.statusString === this.defaults.statusString &&
+        ma.channel === this.defaults.channel
+      );
+    }
+
+    return false;
+  }
+
+  get type() {
+    return 'pitchbend' as const;
   }
 
   get id() {
@@ -33,11 +54,9 @@ export class PitchbendConfig extends SliderConfig {
     return `${ss}.${c}`;
   }
 
-  get eligibleResponses() {
-    return ['continuous'] as InputResponse[];
-  }
-
-  get eligibleStatusStrings() {
-    return ['pitchbend'] as StatusString[];
+  get state(): SliderState {
+    return {
+      value: 0, // TODO:
+    };
   }
 }

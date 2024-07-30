@@ -1,9 +1,14 @@
-import * as Revivable from './revivable';
+import { BaseIcicle, Freezable } from './freezable';
 import { DeviceConfig } from './hardware-config';
+import { DeviceIcicle } from './hardware-config/device-config';
 
-@Revivable.register
-export class Project {
-  static CURRENT_VERSION = 4;
+interface ProjectIcicle extends BaseIcicle {
+  devices: DeviceIcicle[];
+  version: number;
+}
+
+export class Project implements Freezable<ProjectIcicle> {
+  static CURRENT_VERSION = 6;
 
   version?: number;
 
@@ -49,17 +54,14 @@ export class Project {
    * @returns device config
    */
   getDevice(id: string | undefined) {
-    for (let i = 0; i < this.devices.length; i++) {
-      if (this.devices[i].id === id) return this.devices[i];
-    }
-    return undefined;
+    return this.devices.filter((d) => d.id === id)[0];
   }
 
-  toJSON() {
+  freeze() {
     return {
-      name: this.constructor.name,
-      version: Project.CURRENT_VERSION,
-      args: [this.devices, Project.CURRENT_VERSION],
+      version: this.version || Project.CURRENT_VERSION,
+      devices: this.devices.map((d) => d.freeze()),
+      className: this.constructor.name,
     };
   }
 }

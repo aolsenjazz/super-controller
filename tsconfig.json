@@ -22,7 +22,11 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@shared/*": ["shared/*"],
-      "@assets/*": ["renderer/assets/*"]
+      "@assets/*": ["renderer/assets/*"],
+      "@context/*": ["renderer/context/*"],
+      "@hooks/*": ["renderer/hooks/*"],
+      "@plugins/*": ["plugins/*"],
+      "@main/*": ["main/*"]
     },
     "outDir": ".erb/dll"
   },

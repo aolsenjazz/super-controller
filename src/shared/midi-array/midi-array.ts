@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import { byteToStatusString } from '../midi-util';
 
 export abstract class MidiArray extends Array<number> {
@@ -10,11 +9,6 @@ export abstract class MidiArray extends Array<number> {
     super(...items);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  toJSON(): { name: string; args: any[] } {
-    return { name: this.constructor.name, args: [this.array] };
-  }
-
   get statusString() {
     return byteToStatusString(this.status, true);
   }
@@ -23,7 +17,7 @@ export abstract class MidiArray extends Array<number> {
     return [...this];
   }
 
-  abstract id(mergeNoteEvents: boolean): string;
+  abstract asString(mergeNoteEvents: boolean): string;
   abstract get status(): StatusByte;
   abstract get isNoteOff(): boolean;
   abstract get isNoteOn(): boolean;
