@@ -1,6 +1,6 @@
 import { create, MidiArray, ThreeByteMidiArray } from '../../midi-array';
 
-import { MonoInteractiveDriver } from '../../driver-types';
+import { InputType, MonoInteractiveDriver } from '../../driver-types';
 import { MonoInputConfig } from './mono-input-config';
 import { SliderState } from './slider-config';
 
@@ -43,8 +43,8 @@ export class PitchbendConfig extends MonoInputConfig {
     return false;
   }
 
-  get type() {
-    return 'pitchbend' as const;
+  get type(): InputType {
+    return 'wheel';
   }
 
   get id() {
