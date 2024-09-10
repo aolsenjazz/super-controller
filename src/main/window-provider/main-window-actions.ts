@@ -6,11 +6,11 @@ import {
   InputIcicle,
   InputState,
 } from '@shared/hardware-config/input-config/base-input-config';
+import { DeviceIcicle } from '@shared/hardware-config/device-config';
 
 import { HOST, CONFIG } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';
-import { DeviceIcicle } from '@shared/hardware-config/device-config';
 
 /**
  * Provides a number of frequently-used functions targetting the main window.

@@ -30,6 +30,8 @@ export function createInputPluginMenu(deviceId: string, inputIds: string[]) {
               input.addPlugin(plug);
               Registry.register(plug);
             } else {
+              // TODO: How do we handle adding plugin to multi-input configs?
+              // eslint-disable-next-line no-console
               console.log('Ignoring for now....');
             }
           });

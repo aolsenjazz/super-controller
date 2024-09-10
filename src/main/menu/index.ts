@@ -1,8 +1,9 @@
 import { BrowserWindow, ipcMain, IpcMainEvent, Menu } from 'electron';
 
+import { MENU } from '@main/ipc-channels';
+
 import { build as buildDarwin } from './darwin-menu';
 import { build as buildDefault } from './default-menu';
-import { MENU } from '@main/ipc-channels';
 
 import { wp } from '../window-provider';
 import { createDevicePluginMenu } from './device-plugin-menu';
