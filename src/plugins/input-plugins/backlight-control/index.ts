@@ -9,7 +9,7 @@ import { ImplementsBasePluginStatic } from '../../base-plugin-static';
 export interface BacklightControlIcicle extends PluginIcicle {}
 
 @ImplementsBasePluginStatic()
-export default class BacklightControlPlugin extends BasePlugin<BacklightControlIcicle> {
+export default class BacklightControlPlugin extends BasePlugin<PluginIcicle> {
   static TITLE() {
     return 'Backlight Control';
   }
@@ -23,13 +23,13 @@ export default class BacklightControlPlugin extends BasePlugin<BacklightControlI
     console.log(msg);
   }
 
-  public freeze(): BacklightControlIcicle {
+  public freeze(): PluginIcicle {
     return {
       ...super.freeze(),
     };
   }
 
-  public applyIcicle(icicle: BacklightControlIcicle): void {
+  public applyIcicle(icicle: PluginIcicle): void {
     super.applyIcicle(icicle);
   }
 

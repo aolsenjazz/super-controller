@@ -1,5 +1,5 @@
 import { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
-import { BasePluginStatic } from '@plugins/base-plugin-static';
+import { INPUT_PLUGINS } from '@plugins/input-plugins';
 import { Registry } from '@plugins/registry';
 
 interface ReadonlyArray<T> {
@@ -37,7 +37,7 @@ export abstract class PluginChain {
 
     // create, registry, add plugins to config as necessary
     toAdd.forEach((p) => {
-      const PluginClass = this.getAllPlugins().filter(
+      const PluginClass = Object.values(INPUT_PLUGINS).filter(
         (plugin) => plugin.TITLE() === p.title
       )[0];
       const plugin = new PluginClass();
@@ -89,6 +89,4 @@ export abstract class PluginChain {
     this._plugins.splice(oldIdx, 1);
     this._plugins.splice(newIdx, 0, element);
   }
-
-  protected abstract getAllPlugins(): (BasePlugin & BasePluginStatic)[];
 }
