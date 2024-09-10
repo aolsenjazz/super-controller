@@ -4,6 +4,10 @@ type PropTypes = {
   showPluginMenu: (x: number, y: number) => void;
 };
 
+/**
+ * Represents an unused plugin slot. Handles showing available plugins on-click
+ * via a received showPluginMenu to support both device and input plugins
+ */
 export default function EmptyPluginSlot(props: PropTypes) {
   const { showPluginMenu } = props;
 
