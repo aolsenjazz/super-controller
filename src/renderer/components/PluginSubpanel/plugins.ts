@@ -23,13 +23,11 @@ deviceContext.keys().forEach((path) =>
 );
 
 export async function importDeviceGUI(pluginTitle: string) {
-  console.log('sanity');
   // if for some reason manifests haven't yet been loaded, wait
   let retries = 0;
   await new Promise((resolve, reject) => {
     function checkArr() {
       if (retries === 3) {
-        console.error('yo');
         reject(new Error('Unable to load plugin manifests'));
       }
 
@@ -43,11 +41,11 @@ export async function importDeviceGUI(pluginTitle: string) {
 
     checkArr();
   });
-  console.log(deviceManifests);
 
   const manifest = deviceManifests.find((m) => m.title === pluginTitle);
   if (manifest !== undefined) {
-    // const guiPat = 'share-sustain/manifest.json';
     return import(`../../../plugins/device-plugins/${manifest.gui}`);
   }
+
+  throw new Error('unable to import device plugin GUI');
 }

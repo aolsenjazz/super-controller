@@ -60,6 +60,7 @@ const configuration: webpack.Configuration = {
     },
   },
 
+  // Dynamic imports in the renderer requires removing all of these resolves :)
   resolve: {
     fallback: {
       os: false,
