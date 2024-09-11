@@ -1,3 +1,5 @@
+import type { PluginManifest } from '@plugins/plugin-manifest';
+
 /**
  * Webpack context with which we search for device plugins
  */
@@ -9,22 +11,11 @@ const deviceContext = require.context(
 );
 
 /**
- * TODO: this will very soon move into the plugins folder
- */
-type DeviceManifest = {
-  gui: string;
-  plugin: string;
-  ipc: string;
-  title: string;
-  description: string;
-};
-
-/**
  * List of available device plugin manifests, used for subcomponent discovery + import
  */
-const deviceManifests: DeviceManifest[] = [];
+const deviceManifests: PluginManifest[] = [];
 deviceContext.keys().forEach((path) =>
-  deviceContext(path).then((m: DeviceManifest) => {
+  deviceContext(path).then((m: PluginManifest) => {
     deviceManifests.push(m);
     return null;
   })
