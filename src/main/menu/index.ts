@@ -40,8 +40,8 @@ class AppMenuSingleton {
   private initIpcListeners() {
     ipcMain.on(
       MENU.DEVICE_PLUGIN_MENU,
-      (e: IpcMainEvent, x: number, y: number, deviceId: string) => {
-        const template = createDevicePluginMenu(deviceId);
+      async (e: IpcMainEvent, x: number, y: number, deviceId: string) => {
+        const template = await createDevicePluginMenu(deviceId);
         const menu = Menu.buildFromTemplate(template);
         const win = BrowserWindow.fromWebContents(e.sender) || undefined;
         menu.popup({ window: win, x, y });
@@ -50,14 +50,14 @@ class AppMenuSingleton {
 
     ipcMain.on(
       MENU.INPUT_PLUGIN_MENU,
-      (
+      async (
         e: IpcMainEvent,
         x: number,
         y: number,
         deviceId: string,
         inputIds: string[]
       ) => {
-        const template = createInputPluginMenu(deviceId, inputIds);
+        const template = await createInputPluginMenu(deviceId, inputIds);
         const menu = Menu.buildFromTemplate(template);
         const win = BrowserWindow.fromWebContents(e.sender) || undefined;
         menu.popup({ window: win, x, y });

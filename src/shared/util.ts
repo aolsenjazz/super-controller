@@ -48,6 +48,31 @@ export function idForConfigStub(c: InputIcicle): string {
 }
 
 /**
+ * Waits for an array to be non-empty. Useful for making sure that we have discovered all
+ * plugin manifests before we try to access them.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function waitForArray(arr: any[], interval = 100, retries = 3) {
+  let r = 0;
+  await new Promise((resolve, reject) => {
+    function checkArr() {
+      if (r === retries) {
+        reject(new Error('Unable to load plugin manifests'));
+      }
+
+      if (arr.length > 0) {
+        resolve(null);
+      } else {
+        r++;
+        setTimeout(checkArr, interval);
+      }
+    }
+
+    checkArr();
+  });
+}
+
+/**
  * Returns [itemsPresentInL1ButNotL2, itemsPresentInL2ButNotL1]. Optionally, you may
  * provide `keyFn`, which should be an accessor to a unique key representing the object.
  */

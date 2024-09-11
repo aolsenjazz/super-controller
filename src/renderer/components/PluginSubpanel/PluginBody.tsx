@@ -1,6 +1,6 @@
+import { importDeviceSubcomponent } from '@plugins/index';
 import { PluginIcicle } from '@plugins/base-plugin';
 import { useEffect, useState } from 'react';
-import { importDeviceGUI } from './plugins';
 
 type PropTypes = {
   plugins: PluginIcicle[];
@@ -12,7 +12,7 @@ export default function PluginBody(props: PropTypes) {
   const [UI, setUI] = useState<JSX.Element>();
 
   useEffect(() => {
-    importDeviceGUI(plugins[0].title)
+    importDeviceSubcomponent(plugins[0].title, 'gui')
       .then((m) => {
         const elem: JSX.Element = m.default;
         setUI(elem);

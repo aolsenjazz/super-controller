@@ -2,19 +2,26 @@ import { MenuItem } from 'electron';
 
 import { ProjectProvider } from '@main/project-provider';
 import { wp } from '@main/window-provider';
-import { DEVICE_PLUGINS } from '@plugins/device-plugins';
 import { Registry } from '@plugins/registry';
+import { getDeviceManifests, importDeviceSubcomponent } from '@plugins/index';
 
-export function createDevicePluginMenu(deviceId: string) {
-  return Object.values(DEVICE_PLUGINS).map((Plugin) => {
+export async function createDevicePluginMenu(deviceId: string) {
+  const manifests = await getDeviceManifests();
+
+  return manifests.map((m) => {
     return new MenuItem({
-      label: Plugin.TITLE(),
-      toolTip: Plugin.DESCRIPTION(),
-      click: () => {
+      label: m.title,
+      toolTip: m.description,
+      click: async () => {
+        /**
+         * TODO: this is pretty ugly
+         */
         const dev = ProjectProvider.project.getDevice(deviceId);
-        const plug = new Plugin();
-        dev.addPlugin(plug);
-        Registry.register(plug);
+        const Plugin = await importDeviceSubcomponent(m.title, 'plugin');
+        const Constructor = Plugin.default;
+        const plugin = new Constructor(m.title, m.description);
+        dev.addPlugin(plugin);
+        Registry.register(plugin);
         wp.MainWindow.sendConfigStub(dev.id, dev.stub());
       },
     });

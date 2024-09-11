@@ -16,24 +16,24 @@ export interface PluginIcicle {
  * - ipc communications
  * - de/serialization
  *
- * Every plugin is stored in a subfolder of the plugins directory, which must have the following
- * file structure:
+ * Every plugin is stored in a subfolder of the plugins directory, which must contain a manifest.json
+ * file, used to identify plugin subcomponents (UI, BasePlugin, IPC).
  *
- * - index.ts: Core plugin logic. Export an object subclassing `BasePlugin`
- * - preload.ts: Contains the IPC service which is injected into the renderer process
- * - gui.tsx: Contains the user interface
- *
- * These files are automatically detected and must adhere to this naming convention.
- * Any number of files may be used, so long as plugin authors keep in mind the different
- * contexts which these files run in.
+ * Plugin manifests are dynamically loaded and then used futher to dynamically load subcomponents.
  */
 export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
   public readonly id: string;
 
+  public readonly title: string;
+
+  public readonly description: string;
+
   protected on = true;
 
-  constructor() {
-    this.id = generateId(this.title());
+  constructor(title: string, description: string) {
+    this.title = title;
+    this.description = description;
+    this.id = generateId(this.title);
   }
 
   public applyIcicle(icicle: T) {
@@ -43,7 +43,7 @@ export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
   public freeze(): T {
     return {
       id: this.id,
-      title: this.title(),
+      title: this.title,
       on: this.on,
       aggregateCapable: this.aggregateCapable,
     } as T;
@@ -56,8 +56,4 @@ export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
     | 'adapter'
   )[];
   public abstract get aggregateCapable(): boolean;
-  public abstract get GUI(): () => JSX.Element;
-
-  protected abstract title(): string;
-  protected abstract description(): string;
 }
