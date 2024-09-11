@@ -11,6 +11,10 @@ const deviceManifests: PluginManifest[] = [];
  */
 const inputManifests: PluginManifest[] = [];
 
+/**
+ * Manifests need to be loaded different depending on the environment. When code is running
+ * on Node, loads manifests appropriately.
+ */
 async function loadManifestsNode() {
   const path = await import('path');
   const fs = await import('fs');
@@ -34,6 +38,10 @@ async function loadManifestsNode() {
   loadManifests('device');
 }
 
+/**
+ * Manifests need to be loaded different depending on the environment. When code is running
+ * in Browser, loads manifests appropriately.
+ */
 async function loadManifestsBrowser() {
   const deviceContext = require.context(
     '@plugins/device-plugins',
