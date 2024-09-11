@@ -1,5 +1,4 @@
 import { Project } from '@shared/project';
-import { parse } from '@shared/util';
 
 import { BaseUpgrade } from './common/base-upgrade';
 import { V0ToV1 } from './v0-to-v1';
@@ -21,7 +20,7 @@ export function upgradeProject(projectString: string): Project {
 
   // Early return if the project is already at the current version
   if (asObj.version === Project.CURRENT_VERSION) {
-    return parse<Project>(projectString);
+    return JSON.parse(projectString);
   }
 
   let upgradedProjectString = projectString;
@@ -34,5 +33,5 @@ export function upgradeProject(projectString: string): Project {
   }
 
   // Parse the final upgraded project string into a Project object
-  return parse<Project>(upgradedProjectString);
+  return JSON.parse(upgradedProjectString);
 }

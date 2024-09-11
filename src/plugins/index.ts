@@ -1,5 +1,7 @@
 import type { PluginManifest } from '@plugins/plugin-manifest';
 import { waitForArray } from '@shared/util';
+import { BasePlugin } from './base-plugin';
+import { PluginUIProps } from './plugin-ui-props';
 
 /**
  * List of available device plugin manifests, used for subcomponent discovery + import
@@ -88,15 +90,25 @@ export async function getInputManifests() {
   return inputManifests;
 }
 
-export async function importDeviceSubcomponent(
-  pluginTitle: string,
-  subcomponent: 'gui' | 'plugin' | 'ipc'
-) {
+type ComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'
+  ? React.FC<PluginUIProps>
+  : T extends 'plugin'
+  ? BasePlugin
+  : T extends 'ipc'
+  ? any
+  : never;
+
+export async function importDeviceSubcomponent<
+  T extends 'gui' | 'ipc' | 'plugin'
+>(pluginTitle: string, subcomponent: T) {
   const manifests = await getDeviceManifests();
 
   const manifest = manifests.find((m) => m.title === pluginTitle);
   if (manifest !== undefined) {
-    return import(`./device-plugins/${manifest[subcomponent]}`);
+    const { default: Import } = await import(
+      `./device-plugins/${manifest[subcomponent]}`
+    );
+    return Import as ComponentType<T>;
   }
 
   throw new Error(

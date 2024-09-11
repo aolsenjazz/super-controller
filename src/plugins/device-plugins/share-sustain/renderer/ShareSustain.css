@@ -1,0 +1,16 @@
+.share-sustain {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9em;
+}
+
+.share-sustain-line {
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+}
+
+.share-sustain-line input {
+  margin-right: 5px;
+  cursor: pointer;
+}

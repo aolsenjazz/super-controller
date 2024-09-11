@@ -17,7 +17,7 @@ export default function ShareSustainLine(props: PropTypes) {
   );
 
   return (
-    <div className="share-sustain">
+    <div className="share-sustain-line">
       <input type="checkbox" checked={value} onChange={change} />
       <p>{name}</p>
     </div>

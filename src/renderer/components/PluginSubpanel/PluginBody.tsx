@@ -1,6 +1,9 @@
 import { importDeviceSubcomponent } from '@plugins/index';
 import { PluginIcicle } from '@plugins/base-plugin';
 import { useEffect, useState } from 'react';
+import { PluginUIProps } from '@plugins/plugin-ui-props';
+import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
+import { useConnectedDevices } from '@hooks/use-connected-devices';
 
 type PropTypes = {
   plugins: PluginIcicle[];
@@ -9,13 +12,15 @@ type PropTypes = {
 export default function PluginBody(props: PropTypes) {
   const { plugins } = props;
 
-  const [UI, setUI] = useState<JSX.Element>();
+  const { deviceConfig } = useSelectedDeviceConfig();
+  const { connectedDevices } = useConnectedDevices();
+
+  const [UI, setUI] = useState<React.FC<PluginUIProps>>();
 
   useEffect(() => {
     importDeviceSubcomponent(plugins[0].title, 'gui')
-      .then((m) => {
-        const elem: JSX.Element = m.default;
-        setUI(elem);
+      .then((Element) => {
+        setUI(() => Element);
         return null;
       })
       .catch((e) => {
@@ -23,5 +28,15 @@ export default function PluginBody(props: PropTypes) {
       });
   }, [plugins]);
 
-  return <div className="plugin-body">{UI}</div>;
+  return (
+    <div className="plugin-body">
+      {UI && (
+        <UI
+          plugins={plugins}
+          selectedDevice={deviceConfig!}
+          connectedDevices={connectedDevices!}
+        />
+      )}
+    </div>
+  );
 }
