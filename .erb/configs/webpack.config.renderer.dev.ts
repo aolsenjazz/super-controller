@@ -60,6 +60,18 @@ const configuration: webpack.Configuration = {
     },
   },
 
+  resolve: {
+    fallback: {
+      os: false,
+      url: false,
+      path: false,
+      fs: false,
+      assert: false,
+      crypto: false,
+      util: false,
+    },
+  },
+
   module: {
     rules: [
       {
