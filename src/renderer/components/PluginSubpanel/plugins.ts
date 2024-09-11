@@ -11,11 +11,32 @@ const deviceContext = require.context(
 );
 
 /**
+ * Webpack context with which we search for input plugins
+ */
+const inputContext = require.context(
+  '@plugins/input-plugins',
+  true,
+  /manifest.json/,
+  'lazy'
+);
+
+/**
  * List of available device plugin manifests, used for subcomponent discovery + import
  */
 const deviceManifests: PluginManifest[] = [];
 deviceContext.keys().forEach((path) =>
   deviceContext(path).then((m: PluginManifest) => {
+    deviceManifests.push(m);
+    return null;
+  })
+);
+
+/**
+ * List of available input plugin manifests, used for subcomponent discovery + import
+ */
+const inputManifests: PluginManifest[] = [];
+inputContext.keys().forEach((path) =>
+  inputContext(path).then((m: PluginManifest) => {
     deviceManifests.push(m);
     return null;
   })
@@ -59,4 +80,19 @@ export async function importDeviceGUI(pluginTitle: string) {
   }
 
   throw new Error('unable to import device plugin GUI');
+}
+
+/**
+ * Dynamically import an input plugin GUI based on the title of the plugin. Throws if unable
+ * to find manifests or the plugin GUI
+ */
+export async function importInputGUI(pluginTitle: string) {
+  await waitForArray(inputManifests);
+
+  const manifest = inputManifests.find((m) => m.title === pluginTitle);
+  if (manifest !== undefined) {
+    return import(`../../../plugins/input-plugins/${manifest.gui}`);
+  }
+
+  throw new Error('unable to import input plugin GUI');
 }
