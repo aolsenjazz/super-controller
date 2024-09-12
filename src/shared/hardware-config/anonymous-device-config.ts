@@ -1,4 +1,4 @@
-import { BasePlugin } from '@plugins/base-plugin';
+import type { BasePlugin } from '../plugin-core/base-plugin';
 
 import { MidiArray } from '../midi-array';
 import { DeviceConfig } from './device-config';

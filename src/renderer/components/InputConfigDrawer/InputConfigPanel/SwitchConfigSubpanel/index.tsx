@@ -1,20 +1,12 @@
-import { useEffect, useState } from 'react';
-
-import { useDeviceDriver } from '@hooks/use-driver';
 import { DeviceIcicle } from '@shared/hardware-config/device-config';
-import { SwitchDriver } from '@shared/driver-types';
-import { id } from '@shared/util';
 import { SwitchIcicle } from '@shared/hardware-config/input-config/switch-config';
-
-import SwitchStepConfig from './SwitchStepConfig';
-import OsxTabs from '../../../OsxTabs';
 
 type PropTypes = {
   deviceConfig: DeviceIcicle;
   inputConfigStub: SwitchIcicle;
 };
 
-export default function SwitchConfigSubpanel(props: PropTypes) {
+export default function SwitchConfigSubpanel(_props: PropTypes) {
   return null;
   // const { deviceConfig, inputConfigStub } = props;
 

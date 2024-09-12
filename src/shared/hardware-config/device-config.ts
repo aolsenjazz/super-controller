@@ -1,11 +1,11 @@
-import { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
+import { BasePlugin, PluginIcicle } from '../plugin-core/base-plugin';
 
 import { BaseIcicle, Freezable } from '../freezable';
 import { Anonymous, getDriver } from '../drivers';
 
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
-import { DevicePluginChain } from './plugin-chain/device-plugin-chain';
+import { DevicePluginChain } from '../plugin-core/plugin-chain/device-plugin-chain';
 
 export interface DeviceIcicle extends BaseIcicle {
   id: string;

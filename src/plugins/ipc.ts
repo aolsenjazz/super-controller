@@ -3,7 +3,7 @@ import { ipcMain, IpcMainEvent } from 'electron';
 import { ProjectProvider } from '@main/project-provider';
 import { wp } from '@main/window-provider';
 
-import { PluginIcicle } from './base-plugin';
+import { PluginIcicle } from '@shared/plugin-core/base-plugin';
 import { Registry } from './registry';
 
 /**

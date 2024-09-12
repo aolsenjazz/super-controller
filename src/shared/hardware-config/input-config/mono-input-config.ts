@@ -1,4 +1,4 @@
-import { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
+import { BasePlugin } from '../../plugin-core/base-plugin';
 
 import {
   create,
@@ -6,16 +6,10 @@ import {
   ThreeByteMidiArray,
   TwoByteMidiArray,
 } from '../../midi-array';
-import { InputResponse } from '../../driver-types';
-import { BaseInputConfig, InputIcicle } from './base-input-config';
-import { InputPluginChain } from '../plugin-chain/input-plugin-chain';
-
-export interface MonoInputIcicle<T extends InputDefault = InputDefault>
-  extends InputIcicle {
-  defaults: T;
-  colorCapable: boolean;
-  plugins: PluginIcicle[];
-}
+import type { InputResponse } from '../../driver-types';
+import { BaseInputConfig } from './base-input-config';
+import { InputPluginChain } from '../../plugin-core/plugin-chain/input-plugin-chain';
+import { MonoInputIcicle } from './mono-input-icicle';
 
 /* Default values for the input loaded in from a driver */
 export type InputDefault = {

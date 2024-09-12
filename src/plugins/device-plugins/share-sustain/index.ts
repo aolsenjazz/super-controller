@@ -1,10 +1,7 @@
 import { MidiArray } from '@shared/midi-array';
 
-import { BasePlugin, PluginIcicle } from '../../base-plugin';
-
-export interface ShareSustainIcicle extends PluginIcicle {
-  sustainTargets: string[];
-}
+import { BasePlugin } from '@shared/plugin-core/base-plugin';
+import { ShareSustainIcicle } from './share-sustain-icicle';
 
 export default class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
   private sustainTargets: string[] = [];

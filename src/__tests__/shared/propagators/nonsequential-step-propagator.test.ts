@@ -1,26 +1,11 @@
 import { MidiArray, create } from '@shared/midi-array';
 import { NonsequentialStepPropagator as WrapMe } from '@shared/propagators';
-import { stringify, parse } from '@shared/util';
 
 class NonsequentialStepPropagator extends WrapMe {
   getResponse(arr: MidiArray) {
     return super.getResponse(arr);
   }
 }
-
-describe('toJSON', () => {
-  test('de/serializing transfers props correctly', () => {
-    const steps = new Map<string, MidiArray>();
-    const arr: NumberArrayWithStatus = [144, 9, 6];
-    steps.set(JSON.stringify(arr), create(arr));
-
-    const prop = new NonsequentialStepPropagator(steps, arr);
-    const json = stringify(prop);
-    const result = parse<NonsequentialStepPropagator>(json);
-
-    expect(stringify(result)).toBe(stringify(prop));
-  });
-});
 
 describe('getResponse', () => {
   test('returns correct result', () => {

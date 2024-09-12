@@ -1,5 +1,4 @@
-import { PluginIcicle } from '@plugins/base-plugin';
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-config';
+import { PluginIcicle } from '@shared/plugin-core/base-plugin';
 import { useCallback, useEffect, useState } from 'react';
 import PluginSubpanel from 'renderer/components/PluginSubpanel';
 import { PluginAggregate } from 'renderer/components/PluginSubpanel/plugin-aggregate';

@@ -1,15 +1,12 @@
 import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-config';
 
-import MonoInputConfigPanel from './MonoInputConfigSubpanel';
-import { createInputGroup } from './input-group';
-
 type PropTypes = {
   x: MonoInputIcicle;
   y: MonoInputIcicle;
   deviceId: string;
 };
 
-export default function XYConfigPanel(props: PropTypes) {
+export default function XYConfigPanel(_props: PropTypes) {
   // const { x, y, deviceId } = props;
   return null;
 

@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 
-import { PluginUIProps } from '@plugins/plugin-ui-props';
+import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 import { DeviceStub } from '@shared/device-stub';
 
-import { ShareSustainIcicle } from '..';
 import ShareSustainLine from './ShareSustainLine';
 import AddADevice from './AddADevice';
+import type { ShareSustainIcicle } from '../share-sustain-icicle';
 
 import './ShareSustain.css';
 
-interface ShareSustainProps extends PluginUIProps {
+interface ShareSustainProps extends PluginUIProps<ShareSustainIcicle> {
   plugins: ShareSustainIcicle[];
 }
 
@@ -18,7 +18,7 @@ export default function GUI(props: ShareSustainProps) {
 
   const [DeviceList, setDeviceList] = useState<JSX.Element[]>([]);
 
-  const onChange = (checked: boolean) => {};
+  const onChange = (_checked: boolean) => {};
 
   useEffect(() => {
     const devicesMap = new Map<string, DeviceStub>(

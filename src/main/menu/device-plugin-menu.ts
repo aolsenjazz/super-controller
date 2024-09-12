@@ -3,8 +3,11 @@ import { MenuItem } from 'electron';
 import { ProjectProvider } from '@main/project-provider';
 import { wp } from '@main/window-provider';
 import { Registry } from '@plugins/registry';
-import { getDeviceManifests, importDeviceSubcomponent } from '@plugins/index';
-import { BasePlugin } from '@plugins/base-plugin';
+import {
+  getDeviceManifests,
+  importDeviceSubcomponent,
+} from '@plugins/plugin-loader';
+import type { BasePlugin } from '@shared/plugin-core/base-plugin';
 
 export async function createDevicePluginMenu(deviceId: string) {
   const manifests = await getDeviceManifests();

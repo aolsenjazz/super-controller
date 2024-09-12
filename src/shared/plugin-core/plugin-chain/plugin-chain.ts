@@ -1,6 +1,8 @@
-import { BasePlugin, PluginIcicle } from '@plugins/base-plugin';
-import { INPUT_PLUGINS } from '@plugins/input-plugins';
-import { Registry } from '@plugins/registry';
+// TODO: very smelly to be importing external deps into shared folder
+import { importDeviceSubcomponent } from '../../../plugins/plugin-loader';
+import { Registry } from '../../../plugins/registry';
+
+import type { BasePlugin, PluginIcicle } from '../base-plugin';
 
 interface ReadonlyArray<T> {
   readonly [n: number]: T;
@@ -24,7 +26,7 @@ export abstract class PluginChain {
     return this._plugins;
   }
 
-  public reconcile(newPluginList: PluginIcicle[]) {
+  public async reconcile(newPluginList: PluginIcicle[]) {
     // take note of what plugins we already have on this device
     const currentPluginIds = this._plugins.map((p) => p.id);
     const newPluginIds = newPluginList.map((p) => p.id);
@@ -36,11 +38,9 @@ export abstract class PluginChain {
     );
 
     // create, registry, add plugins to config as necessary
-    toAdd.forEach((p) => {
-      const PluginClass = Object.values(INPUT_PLUGINS).filter(
-        (plugin) => plugin.TITLE() === p.title
-      )[0];
-      const plugin = new PluginClass();
+    toAdd.forEach(async (p) => {
+      const Plugin = await importDeviceSubcomponent(p.title, 'plugin');
+      const plugin = new Plugin(p.title, p.description);
       Registry.register(plugin);
       this._plugins.push(plugin);
     });
@@ -65,7 +65,7 @@ export abstract class PluginChain {
    * an instance of the plugin, or the plugin's id.
    */
   public removePlugin(plugin: BasePlugin | string) {
-    const id = plugin instanceof BasePlugin ? plugin.id : plugin;
+    const id = typeof plugin === 'string' ? plugin : plugin.id;
     const pluginIdx = this._plugins
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .filter((p, _i) => p.id === id)
@@ -79,7 +79,7 @@ export abstract class PluginChain {
    * an instance of the plugin, or the plugin's id.
    */
   public movePlugin(plugin: BasePlugin | string, newIdx: number) {
-    const id = plugin instanceof BasePlugin ? plugin.id : plugin;
+    const id = typeof plugin === 'string' ? plugin : plugin.id;
     const oldIdx = this._plugins
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .filter((p, _i) => p.id === id)

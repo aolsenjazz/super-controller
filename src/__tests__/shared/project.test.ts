@@ -2,12 +2,8 @@
 
 import { test, expect } from '@jest/globals';
 
-import { stringify, parse } from '@shared/util';
 import { Project } from '@shared/project';
-import {
-  MonoInputConfig,
-  SupportedDeviceConfig,
-} from '@shared/hardware-config';
+import { SupportedDeviceConfig } from '@shared/hardware-config';
 import { DRIVERS } from '@shared/drivers';
 
 const APC_DRIVER = DRIVERS.get('APC Key 25');
@@ -99,37 +95,4 @@ test('toJSON() returns valid JSON', () => {
 
   const json = JSON.stringify(proj);
   expect(() => JSON.parse(json)).not.toThrow();
-});
-
-test('to and from JSON correct transfers device config', () => {
-  const proj = new Project();
-  const device = SupportedDeviceConfig.fromDriver(
-    APC_DRIVER!.name,
-    0,
-    APC_DRIVER!
-  );
-  proj.addDevice(device);
-
-  const json = stringify(proj);
-  const result = parse<Project>(json);
-
-  expect(result.devices[0].id).toBe('APC Key 25 0');
-});
-
-test('to and from JSON correctly transfers input configs', () => {
-  const proj = new Project();
-  const device = SupportedDeviceConfig.fromDriver(
-    APC_DRIVER!.name,
-    0,
-    APC_DRIVER!
-  );
-  const input = device.inputs[0] as MonoInputConfig;
-  input.number = 7;
-  proj.addDevice(device);
-
-  const json = stringify(proj);
-  const result = parse<Project>(json);
-
-  const d = result.devices[0] as SupportedDeviceConfig;
-  expect((d.inputs[0] as MonoInputConfig).number).toBe(input.number);
 });

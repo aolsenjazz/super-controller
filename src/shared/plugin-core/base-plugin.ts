@@ -1,10 +1,11 @@
-import { MidiArray } from '@shared/midi-array';
+import { MidiArray } from '../midi-array';
 
 import { generateId } from './plugin-utils';
 
 export interface PluginIcicle {
   id: string;
   title: string;
+  description: string;
   on: boolean;
   aggregateCapable: boolean;
 }
@@ -44,6 +45,7 @@ export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
     return {
       id: this.id,
       title: this.title,
+      description: this.description,
       on: this.on,
       aggregateCapable: this.aggregateCapable,
     } as T;

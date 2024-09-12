@@ -1,9 +1,10 @@
 import { ipcMain, IpcMainEvent } from 'electron';
 
-import { Registry } from '@plugins/registry';
+import { Registry } from '../../registry';
 
-import ShareSustainPlugin, { ShareSustainIcicle } from './index';
+import ShareSustainPlugin from './index';
 import { UPDATE_SHARE_SUSTAIN } from './ipc-channels';
+import type { ShareSustainIcicle } from './share-sustain-icicle';
 
 // Applies updates
 ipcMain.on(

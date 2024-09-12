@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import type { PluginIcicle } from '@plugins/base-plugin';
+import type { PluginIcicle } from '@shared/plugin-core/base-plugin';
 
 import SectionHeader from '../SectionHeader';
 import PluginSlot from './PluginSlot';

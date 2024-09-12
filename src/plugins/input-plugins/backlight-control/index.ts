@@ -1,6 +1,6 @@
 import { MidiArray } from '@shared/midi-array';
 
-import { BasePlugin, PluginIcicle } from '../../base-plugin';
+import { BasePlugin, PluginIcicle } from '@shared/plugin-core/base-plugin';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface BacklightControlIcicle extends PluginIcicle {}

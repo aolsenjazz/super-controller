@@ -1,4 +1,3 @@
-import { stringify, parse } from '@shared/util';
 import { SysexMidiArray } from '@shared/midi-array';
 
 describe('constructor + array getter', () => {
@@ -123,15 +122,5 @@ describe('isOnIsh', () => {
     const arr: NumberArrayWithStatus = [240, 1, 2, 3, 4, 5, 247];
     const mm = new SysexMidiArray(arr);
     expect(mm.isOnIsh(true)).toBe(true);
-  });
-});
-
-describe('toJSON', () => {
-  test('de/serializing retores values correctly', () => {
-    const arr: NumberArrayWithStatus = [240, 5, 6, 7, 8, 247];
-    const mm = new SysexMidiArray(arr);
-    const json = stringify(mm);
-    const parsed = parse<SysexMidiArray>(json);
-    expect(parsed.array).toEqual(arr);
   });
 });

@@ -1,7 +1,7 @@
-import { importDeviceSubcomponent } from '@plugins/index';
-import { PluginIcicle } from '@plugins/base-plugin';
+import { importDeviceSubcomponent } from '@plugins/plugin-loader';
+import { PluginIcicle } from '@shared/plugin-core/base-plugin';
 import { useEffect, useState } from 'react';
-import { PluginUIProps } from '@plugins/plugin-ui-props';
+import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
 import { useConnectedDevices } from '@hooks/use-connected-devices';
 
