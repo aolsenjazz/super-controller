@@ -93,7 +93,7 @@ export async function getInputManifests() {
 type ComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'
   ? React.FC<PluginUIProps>
   : T extends 'plugin'
-  ? BasePlugin
+  ? new (...args: any[]) => BasePlugin
   : T extends 'ipc'
   ? any
   : never;

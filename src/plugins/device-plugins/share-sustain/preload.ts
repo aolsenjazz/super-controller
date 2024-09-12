@@ -10,7 +10,7 @@
 
 import { contextBridge, ipcRenderer } from 'electron';
 import { ShareSustainIcicle } from './index';
-import { UPDATE_SHARE_SUSTAIN } from './ipc';
+import { UPDATE_SHARE_SUSTAIN } from './ipc-channels';
 
 /**
  * Exposes a service for the renderer process to communicate with the main process.

@@ -15,10 +15,7 @@ export async function createDevicePluginMenu(deviceId: string) {
       toolTip: m.description,
       click: async () => {
         const dev = ProjectProvider.project.getDevice(deviceId);
-        const { default: Plugin } = await importDeviceSubcomponent(
-          m.title,
-          'plugin'
-        );
+        const Plugin = await importDeviceSubcomponent(m.title, 'plugin');
         const plugin: BasePlugin = new Plugin(m.title, m.description);
         dev.addPlugin(plugin);
         Registry.register(plugin);
