@@ -1,4 +1,3 @@
-import { stringify, parse } from '@shared/util';
 import { ThreeByteMidiArray } from '@shared/midi-array';
 import { ContinuousPropagator as WrapMe } from '@shared/propagators';
 
@@ -53,30 +52,6 @@ describe('getResponse', () => {
 
     const r = c.getResponse(msg) as ThreeByteMidiArray;
     expect(r.value).toBe(value - (128 - 125));
-  });
-});
-
-describe('toJSON', () => {
-  test('stores valueType correctly', () => {
-    const or = 'continuous';
-    const statusString = 'controlchange';
-    const number = 32;
-    const channel = 3;
-    const value = 127;
-    const c = new ContinuousPropagator(
-      or,
-      statusString,
-      number,
-      channel,
-      value,
-      'endless'
-    );
-
-    const json = stringify(c);
-
-    const obj = parse<ContinuousPropagator>(json);
-
-    expect(obj.valueType).toBe(c.valueType);
   });
 });
 

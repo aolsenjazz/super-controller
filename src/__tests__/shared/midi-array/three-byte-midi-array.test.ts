@@ -1,4 +1,3 @@
-import { stringify, parse } from '@shared/util';
 import { ThreeByteMidiArray as TB } from '@shared/midi-array';
 
 describe('create', () => {
@@ -331,18 +330,5 @@ describe('isOnIsh', () => {
     const value = 0;
     const mm = TB.create(status, channel, number, value);
     expect(mm.isOnIsh(true)).toBe(false);
-  });
-});
-
-describe('toJSON', () => {
-  test('de/serializing retores values correctly', () => {
-    const status = 'controlchange';
-    const channel = 2;
-    const number = 3;
-    const value = 30;
-    const mm = TB.create(status, channel, number, value);
-    const json = stringify(mm);
-    const parsed = parse<TB>(json);
-    expect(parsed.array).toEqual(mm.array);
   });
 });

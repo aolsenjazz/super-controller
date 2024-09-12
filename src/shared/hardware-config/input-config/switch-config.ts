@@ -11,7 +11,7 @@ export interface SwitchIcicle extends InputIcicle {
 }
 
 export class SwitchConfig extends BaseInputConfig<SwitchIcicle> {
-  static fromDriver(d: SwitchDriver) {
+  static fromDriver(_d: SwitchDriver) {
     // TODO: interesting change of API here acutally - probably make ssense to rewrite this like an xy config, but just as a list of constant configs
     // const steps = new Map<string, MidiArray>(
     //   d.steps.map((step) => {
@@ -19,7 +19,7 @@ export class SwitchConfig extends BaseInputConfig<SwitchIcicle> {
     //   })
     // );
 
-    return new SwitchConfig('', []);
+    return new SwitchConfig('');
   }
 
   public freeze() {
@@ -36,7 +36,7 @@ export class SwitchConfig extends BaseInputConfig<SwitchIcicle> {
   }
 
   applyStub(icicle: SwitchIcicle) {
-    Array.from(icicle.steps.keys()).forEach((k) => {
+    Array.from(icicle.steps.keys()).forEach((_k) => {
       // const asArr = JSON.parse(k);
       // const ma = create(stub.steps.get(k)!);
       // this.outputPropagator.setStep(asArr, ma);
@@ -44,7 +44,7 @@ export class SwitchConfig extends BaseInputConfig<SwitchIcicle> {
     });
   }
 
-  isOriginator(msg: MidiArray | NumberArrayWithStatus) {
+  isOriginator(_msg: MidiArray | NumberArrayWithStatus) {
     // const ma = msg instanceof MidiArray ? msg : create(msg);
 
     // return Array.from(this.outputPropagator.steps.keys()).includes(

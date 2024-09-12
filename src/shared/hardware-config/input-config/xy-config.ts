@@ -4,7 +4,7 @@ import { XYDriver } from '../../driver-types';
 import { PitchbendConfig } from './pitchbend-config';
 import { SliderConfig } from './slider-config';
 import { BaseInputConfig, InputIcicle, InputState } from './base-input-config';
-import { MonoInputIcicle } from './mono-input-config';
+import type { MonoInputIcicle } from './mono-input-icicle';
 
 export interface XYState extends InputState {
   x: {

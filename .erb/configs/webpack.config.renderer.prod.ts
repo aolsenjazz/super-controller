@@ -91,6 +91,19 @@ const configuration: webpack.Configuration = {
     ],
   },
 
+  // Dynamic imports in the renderer requires removing all of these resolves :)
+  resolve: {
+    fallback: {
+      os: false,
+      url: false,
+      path: false,
+      fs: false,
+      assert: false,
+      crypto: false,
+      util: false,
+    },
+  },
+
   optimization: {
     minimize: true,
     minimizer: [

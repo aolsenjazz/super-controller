@@ -1,12 +1,12 @@
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-config';
 import { DeviceIcicle } from '@shared/hardware-config/device-config';
 import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
+import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
 
 import InputDetailsSubpanel from './InputDetailsSubpanel';
 import BasicMessage from '../BasicMessage';
 import { InputAggregate } from './input-aggregate';
-import XYConfigPanel from './XYConfigPanel';
-import SwitchConfigSubpanel from './SwitchConfigSubpanel';
+// import XYConfigPanel from './XYConfigPanel';
+// import SwitchConfigSubpanel from './SwitchConfigSubpanel';
 import MonoInputConfigPanel from './MonoInputConfigSubpanel';
 
 function areInputsHomogenous(i: InputIcicle[]) {
@@ -28,10 +28,10 @@ export default function InputConfigSubpanel(props: InputConfigurationProps) {
   let Element = null;
   switch (aggregate.type) {
     case 'xy':
-      Element = <XYConfigPanel />;
+      // Element = <XYConfigPanel />;
       break;
     case 'switch':
-      Element = <SwitchConfigSubpanel />;
+      // Element = <SwitchConfigSubpanel />;
       break;
     default:
       Element = (

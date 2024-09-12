@@ -27,7 +27,8 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   const { statusString, type } = group;
 
   const restoreDefaults = useCallback(() => {
-    group.inputs.forEach((i) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    group.inputs.forEach((i: any) => {
       i.statusString = i.defaults.statusString;
       i.channel = i.defaults.channel;
       i.outputResponse = i.defaults.response;

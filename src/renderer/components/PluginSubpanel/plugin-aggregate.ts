@@ -1,4 +1,4 @@
-import { PluginIcicle } from '@plugins/base-plugin';
+import { PluginIcicle } from '@shared/plugin-core/base-plugin';
 import { Aggregate } from '@shared/aggregate';
 
 export class PluginAggregate extends Aggregate<PluginIcicle> {

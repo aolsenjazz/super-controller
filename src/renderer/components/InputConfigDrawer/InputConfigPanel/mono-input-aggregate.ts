@@ -1,5 +1,5 @@
 import { Aggregate } from '@shared/aggregate';
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-config';
+import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
 
 export class MonoInputAggregate extends Aggregate<MonoInputIcicle> {
   public get type() {

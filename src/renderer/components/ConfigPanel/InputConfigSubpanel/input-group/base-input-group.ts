@@ -1,64 +1,64 @@
 import { InputResponse } from '@shared/driver-types';
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-config';
+import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
 import { CC_BINDINGS, stringVal } from '@shared/util';
 
-/**
- * Returns the output responses the given `MonoInputConfigStub` is capable of.
- * This is determined both by its hardware response, and its currently-configured
- * status string.
- */
-function eligibleResponsesForPad(stub: MonoInputIcicle): InputResponse[] {
-  const defaultResponse = stub.defaults.response;
-  switch (defaultResponse) {
-    case 'toggle':
-      return ['toggle', 'constant'];
-    case 'constant':
-      return ['noteon/noteoff', 'controlchange'].includes(stub.statusString)
-        ? ['toggle', 'constant']
-        : ['constant'];
-    default:
-      return stub.statusString === 'programchange'
-        ? ['constant']
-        : ['gate', 'toggle', 'constant']; // basically case 'gate'
-  }
-}
+// /**
+//  * Returns the output responses the given `MonoInputConfigStub` is capable of.
+//  * This is determined both by its hardware response, and its currently-configured
+//  * status string.
+//  */
+// function eligibleResponsesForPad(stub: MonoInputIcicle): InputResponse[] {
+//   const defaultResponse = stub.defaults.response;
+//   switch (defaultResponse) {
+//     case 'toggle':
+//       return ['toggle', 'constant'];
+//     case 'constant':
+//       return ['noteon/noteoff', 'controlchange'].includes(stub.statusString)
+//         ? ['toggle', 'constant']
+//         : ['constant'];
+//     default:
+//       return stub.statusString === 'programchange'
+//         ? ['constant']
+//         : ['gate', 'toggle', 'constant']; // basically case 'gate'
+//   }
+// }
 
-/**
- * Returns which status strings the given `MonoInputConfigStub` is capable of.
- * This list is determined both the `stub.type` and the currently-configured
- * output response.
- */
-function getEligibleStatusStrings(
-  stub: MonoInputIcicle
-): (StatusString | 'noteon/noteoff')[] {
-  switch (stub.type) {
-    case 'pad':
-      return stub.outputResponse === 'constant'
-        ? ['noteon', 'noteoff', 'controlchange', 'programchange']
-        : ['noteon/noteoff', 'controlchange', 'programchange'];
-    case 'pitchbend':
-      return ['pitchbend'];
-    default:
-      return ['noteon', 'noteoff', 'controlchange', 'programchange'];
-  }
-}
+// /**
+//  * Returns which status strings the given `MonoInputConfigStub` is capable of.
+//  * This list is determined both the `stub.type` and the currently-configured
+//  * output response.
+//  */
+// function getEligibleStatusStrings(
+//   stub: MonoInputIcicle
+// ): (StatusString | 'noteon/noteoff')[] {
+//   switch (stub.type) {
+//     case 'pad':
+//       return stub.outputResponse === 'constant'
+//         ? ['noteon', 'noteoff', 'controlchange', 'programchange']
+//         : ['noteon/noteoff', 'controlchange', 'programchange'];
+//     case 'pitchbend':
+//       return ['pitchbend'];
+//     default:
+//       return ['noteon', 'noteoff', 'controlchange', 'programchange'];
+//   }
+// }
 
-/**
- * Returns a list of output responses the given `MonoInputConfigStub` is capable of.
- * Determined by both `stub.type` and `stub.statusString`
- */
-function getEligibleResponses(stub: MonoInputIcicle): InputResponse[] {
-  switch (stub.type) {
-    case 'pad':
-      return eligibleResponsesForPad(stub);
-    case 'pitchbend':
-      return ['continuous'];
-    default:
-      return stub.statusString === 'programchange'
-        ? ['constant']
-        : ['constant', 'continuous'];
-  }
-}
+// /**
+//  * Returns a list of output responses the given `MonoInputConfigStub` is capable of.
+//  * Determined by both `stub.type` and `stub.statusString`
+//  */
+// function getEligibleResponses(stub: MonoInputIcicle): InputResponse[] {
+//   switch (stub.type) {
+//     case 'pad':
+//       return eligibleResponsesForPad(stub);
+//     case 'pitchbend':
+//       return ['continuous'];
+//     default:
+//       return stub.statusString === 'programchange'
+//         ? ['constant']
+//         : ['constant', 'continuous'];
+//   }
+// }
 
 /**
  * A pseudo-`InputConfig` used to show the values of multiple inputs in a group.
@@ -68,7 +68,8 @@ function getEligibleResponses(stub: MonoInputIcicle): InputResponse[] {
  * would be '<multiple values>'.
  */
 export class BaseInputGroup<K extends MonoInputIcicle = MonoInputIcicle> {
-  inputs: K[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  inputs: any[];
 
   constructor(inputs: K[]) {
     this.inputs = inputs;
@@ -200,10 +201,11 @@ export class BaseInputGroup<K extends MonoInputIcicle = MonoInputIcicle> {
    * no for pitchbend, programchange messages, non-constant-response messages
    */
   public get isValueCapable() {
-    return (
-      this.response === 'constant' &&
-      this.inputs.filter((i) => i.statusString === 'programchange').length === 0
-    );
+    // return (
+    //   this.response === 'constant' &&
+    //   this.inputs.filter((i) => i.statusString === 'programchange').length === 0
+    // );
+    return false;
   }
 
   public get type() {
@@ -211,7 +213,8 @@ export class BaseInputGroup<K extends MonoInputIcicle = MonoInputIcicle> {
   }
 
   public get number() {
-    return this.groupValue<number>((c) => c.number);
+    // return this.groupValue<number>((c) => c.number);
+    return 0;
   }
 
   /**
@@ -224,44 +227,50 @@ export class BaseInputGroup<K extends MonoInputIcicle = MonoInputIcicle> {
         'tried to request value of non-value-capable input group'
       );
 
-    return this.groupValue<number>((c) => c.value!);
+    // return this.groupValue<number>((c) => c.value!);
+    return 127;
   }
 
   public get channel() {
-    return this.groupValue<Channel>((c) => c.channel);
+    // return this.groupValue<Channel>((c) => c.channel);
+    return 0;
   }
 
   public get statusString() {
-    return this.groupValue<StatusString | 'noteon/noteoff'>(
-      (c) => c.statusString
-    );
+    // return this.groupValue<StatusString | 'noteon/noteoff'>(
+    //   (c) => c.statusString
+    // );
+    return 'controlchange';
   }
 
   public get response() {
-    return this.groupValue((c) => c.outputResponse);
+    // return this.groupValue((c) => c.outputResponse);
+    return 'constant';
   }
 
   /**
    * Returns an intersection of all of the eligible status string lists
    */
   public get eligibleStatusStrings() {
-    const eligibleLists = this.inputs.map((i) => getEligibleStatusStrings(i));
-    return [...new Set([...eligibleLists.flat()])].filter(
-      (i) =>
-        eligibleLists.filter((i2) => i2.includes(i)).length ===
-        eligibleLists.length
-    );
+    // const eligibleLists = this.inputs.map((i) => getEligibleStatusStrings(i));
+    // return [...new Set([...eligibleLists.flat()])].filter(
+    //   (i) =>
+    //     eligibleLists.filter((i2) => i2.includes(i)).length ===
+    //     eligibleLists.length
+    // );
+    return ['controlchange'];
   }
 
   /**
    * Returns an intersection of all of the eligible response lists
    */
   public get eligibleResponses(): InputResponse[] {
-    const eligibleLists = this.inputs.map((i) => getEligibleResponses(i));
-    return [...new Set([...eligibleLists.flat()])].filter(
-      (i) =>
-        eligibleLists.filter((i2) => i2.includes(i)).length ===
-        eligibleLists.length
-    );
+    //   const eligibleLists = this.inputs.map((i) => getEligibleResponses(i));
+    //   return [...new Set([...eligibleLists.flat()])].filter(
+    //     (i) =>
+    //       eligibleLists.filter((i2) => i2.includes(i)).length ===
+    //       eligibleLists.length
+    //   );
+    return ['constant'];
   }
 }

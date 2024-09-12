@@ -1,10 +1,7 @@
 import { KnobDriver } from '../../driver-types';
-import {
-  MonoInputConfig,
-  InputDefault,
-  MonoInputIcicle,
-} from './mono-input-config';
+import { MonoInputConfig, InputDefault } from './mono-input-config';
 import { InputState } from './base-input-config';
+import type { MonoInputIcicle } from './mono-input-icicle';
 
 export interface KnobIcicle extends MonoInputIcicle<KnobDefaults> {
   valueType: 'absolute' | 'endless';

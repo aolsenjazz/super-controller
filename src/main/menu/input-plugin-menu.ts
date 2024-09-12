@@ -2,33 +2,43 @@ import { MenuItem } from 'electron';
 
 import { ProjectProvider } from '@main/project-provider';
 import { wp } from '@main/window-provider';
-import { INPUT_PLUGINS } from '@plugins/input-plugins';
 import { Registry } from '@plugins/registry';
+import {
+  getInputManifests,
+  importInputSubcomponent,
+} from '@plugins/plugin-loader';
 import {
   AdapterDeviceConfig,
   MonoInputConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
+import { BasePlugin } from '@shared/plugin-core/base-plugin';
 
-export function createInputPluginMenu(deviceId: string, inputIds: string[]) {
-  return Object.values(INPUT_PLUGINS).map((Plugin) => {
+export async function createInputPluginMenu(
+  deviceId: string,
+  inputIds: string[]
+) {
+  const manifests = await getInputManifests();
+
+  return manifests.map((m) => {
     return new MenuItem({
-      label: Plugin.TITLE(),
-      toolTip: Plugin.DESCRIPTION(),
-      click: () => {
+      label: m.title,
+      toolTip: m.description,
+      click: async () => {
         const dev = ProjectProvider.project.getDevice(deviceId);
 
         if (
           dev instanceof SupportedDeviceConfig ||
           dev instanceof AdapterDeviceConfig
         ) {
-          inputIds.forEach((id) => {
+          inputIds.forEach(async (id) => {
             const input = dev.getInputById(id);
 
             if (input instanceof MonoInputConfig) {
-              const plug = new Plugin();
-              input.addPlugin(plug);
-              Registry.register(plug);
+              const Plugin = await importInputSubcomponent(m.title, 'plugin');
+              const plugin: BasePlugin = new Plugin(m.title, m.description);
+              input.addPlugin(plugin);
+              Registry.register(plugin);
             } else {
               // TODO: How do we handle adding plugin to multi-input configs?
               // eslint-disable-next-line no-console

@@ -1,5 +1,5 @@
 import { useSelectedPlugin } from '@context/selected-plugin-context';
-import type { PluginIcicle } from '@plugins/base-plugin';
+import type { PluginIcicle } from '@shared/plugin-core/base-plugin';
 import { useCallback, useEffect, useState } from 'react';
 import { PluginAggregate } from './plugin-aggregate';
 import PluginBody from './PluginBody';

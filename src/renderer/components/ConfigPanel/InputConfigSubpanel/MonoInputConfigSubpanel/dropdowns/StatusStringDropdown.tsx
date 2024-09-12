@@ -12,7 +12,8 @@ type PropTypes = {
 export default function StatusStringDropdown(props: PropTypes) {
   const { group, deviceId } = props;
   const { eligibleStatusStrings, statusString } = group;
-  const statusStringLabels = eligibleStatusStrings.map((v) =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const statusStringLabels = eligibleStatusStrings.map((v: any) =>
     group.labelForStatusString(v)
   );
 
@@ -31,7 +32,7 @@ export default function StatusStringDropdown(props: PropTypes) {
     <SettingsLineItem
       label="Status:"
       value={statusString}
-      valueList={eligibleStatusStrings}
+      valueList={eligibleStatusStrings as 'noteon/noteoff'[]}
       labelList={statusStringLabels}
       onChange={onChange}
     />

@@ -1,4 +1,3 @@
-import { KnobConfigStub } from '@shared/hardware-config/input-config/knob-config';
 import { BaseInputGroup } from './base-input-group';
 
 /**
@@ -10,9 +9,10 @@ import { BaseInputGroup } from './base-input-group';
  *
  * Extends `BaseInputGroup`, adding support for additional knob fields
  */
-export class KnobInputGroup extends BaseInputGroup<KnobConfigStub> {
+export class KnobInputGroup extends BaseInputGroup {
   get isEndlessCapable() {
-    const getter = (c: KnobConfigStub) => c.defaults.knobType === 'endless';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const getter = (c: any) => c.defaults.knobType === 'endless';
     const equality = (a: boolean, b: boolean) => {
       return a === true && b === true;
     };
@@ -20,7 +20,8 @@ export class KnobInputGroup extends BaseInputGroup<KnobConfigStub> {
   }
 
   get isEndlessMode() {
-    const getter = (c: KnobConfigStub) => c.valueType === 'endless';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const getter = (c: any) => c.valueType === 'endless';
     return this.groupValue(getter)!;
   }
 }

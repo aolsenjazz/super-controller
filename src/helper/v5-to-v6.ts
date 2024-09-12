@@ -5,9 +5,9 @@ import {
   DeviceConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
-import ShareSustainPlugin from '@plugins/device-plugins/share-sustain';
-import { BasePlugin } from '@plugins/base-plugin';
+import { BasePlugin } from '@shared/plugin-core/base-plugin';
 
+import ShareSustainPlugin from '../plugins/device-plugins/share-sustain';
 import { parse as v5Parse } from './legacy/v5/shared/util';
 import { Project as V5Project } from './legacy/v5/shared/project';
 
@@ -34,7 +34,8 @@ function upgradeDeviceConfig(d: V5DeviceConfig, plugins: BasePlugin[]) {
       d.portName,
       d.driverName,
       d.siblingIndex,
-      d.inputs,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      d.inputs as any,
       d.nickname
     );
   } else {
@@ -45,7 +46,8 @@ function upgradeDeviceConfig(d: V5DeviceConfig, plugins: BasePlugin[]) {
       oldChild.portName,
       oldChild.driverName,
       oldChild.siblingIndex,
-      oldChild.inputs,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      oldChild.inputs as any,
       oldChild.nickname
     );
 
@@ -66,14 +68,18 @@ function upgradeToV6(projString: string) {
 
   const newDevices = oldProj.devices
     .map((d) => {
-      const shareSustain = new ShareSustainPlugin(d.shareSustain);
+      const shareSustain = new ShareSustainPlugin(
+        'Share Sustain',
+        'Temp description',
+        d.shareSustain
+      );
       const newDevice = upgradeDeviceConfig(d, [shareSustain]);
-      return v6Stringify(newDevice);
+      return JSON.stringify(newDevice);
     })
-    .map((s) => v6Parse<DeviceConfig>(s));
+    .map((s) => JSON.parse(s));
 
   const newProj = new V6Project(newDevices, 6);
-  return v6Stringify(newProj);
+  return JSON.stringify(newProj);
 }
 
 export class V5ToV6 extends BaseUpgrade {

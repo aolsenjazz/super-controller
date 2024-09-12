@@ -1,16 +1,16 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
-import {
+import type {
   InteractiveInputDriver,
   XYDriver,
   ColorDescriptor,
 } from './driver-types';
-import {
+import type {
   MonoInteractiveDriver,
   SwitchDriver,
 } from './driver-types/input-drivers';
-import { InputIcicle } from './hardware-config/input-config/base-input-config';
-import { MonoInputIcicle } from './hardware-config/input-config/mono-input-config';
-import { XYIcicle } from './hardware-config/input-config/xy-config';
+import type { InputIcicle } from './hardware-config/input-config/base-input-config';
+import type { MonoInputIcicle } from './hardware-config/input-config/mono-input-icicle';
+import type { XYIcicle } from './hardware-config/input-config/xy-config';
 
 export function colorDisplayName(c: ColorDescriptor) {
   return `${c.name}${c.modifier ? ` (${c.modifier})` : ''}`;

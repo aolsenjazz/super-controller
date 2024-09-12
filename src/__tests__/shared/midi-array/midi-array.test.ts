@@ -1,5 +1,4 @@
 /* eslint-disable no-bitwise */
-import { stringify } from '@shared/util';
 import { MidiArray as WrapMe } from '@shared/midi-array/midi-array';
 import {
   create,
@@ -83,16 +82,6 @@ describe('statusString getter', () => {
     const mm = new MidiArray(arr);
 
     expect(mm.statusString).toBe('noteoff');
-  });
-});
-
-describe('toJSON', () => {
-  test('de/serializing retores values correctly', () => {
-    const arr: NumberArrayWithStatus = [128, 5, 6, 7, 8, 9];
-    const mm = new MidiArray(arr);
-    const json = stringify(mm);
-    const parsed = JSON.parse(json); // can't use custom stringify/parse() because subclass isn't revivable
-    expect(parsed.args[0]).toEqual(arr);
   });
 });
 

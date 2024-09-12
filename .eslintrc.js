@@ -12,6 +12,12 @@ module.exports = {
     'no-bitwise': 'off',
     'no-underscore-dangle': 'off',
     '@typescript-eslint/naming-convention': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        argsIgnorePattern: '^_',
+      },
+    ],
   },
   parserOptions: {
     ecmaVersion: 2020,

@@ -1,7 +1,8 @@
-import type { PluginManifest } from '@plugins/plugin-manifest';
+import type { PluginManifest } from '@shared/plugin-core/plugin-manifest';
 import { waitForArray } from '@shared/util';
-import { BasePlugin } from './base-plugin';
-import { PluginUIProps } from './plugin-ui-props';
+
+import type { BasePlugin } from '@shared/plugin-core/base-plugin';
+import type { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 
 /**
  * List of available device plugin manifests, used for subcomponent discovery + import
@@ -23,7 +24,7 @@ async function loadManifestsNode() {
 
   function loadManifests(type: 'device' | 'input') {
     const target = type === 'device' ? deviceManifests : inputManifests;
-    const pluginsDir = path.resolve(__dirname, `${type}-plugins`);
+    const pluginsDir = path.resolve(__dirname, `./${type}-plugins`);
     const pluginDirs = fs.readdirSync(pluginsDir, { withFileTypes: true });
 
     pluginDirs
@@ -74,7 +75,10 @@ async function loadManifestsBrowser() {
 }
 
 // if loading in Node, use Node APIs. otherwise, renderer APIs
-if (globalThis.window !== undefined) {
+if (
+  globalThis.window !== undefined &&
+  typeof globalThis.afterAll !== 'function'
+) {
   loadManifestsBrowser();
 } else {
   loadManifestsNode();
@@ -93,9 +97,11 @@ export async function getInputManifests() {
 type ComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'
   ? React.FC<PluginUIProps>
   : T extends 'plugin'
-  ? new (...args: any[]) => BasePlugin
+  ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    new (...args: any[]) => BasePlugin
   : T extends 'ipc'
-  ? any
+  ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    any
   : never;
 
 export async function importDeviceSubcomponent<

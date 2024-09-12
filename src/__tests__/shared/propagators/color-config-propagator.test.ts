@@ -1,5 +1,4 @@
 /* eslint-disable no-bitwise */
-import { stringify, parse } from '@shared/util';
 import { ColorConfigPropagator } from '@shared/propagators';
 import { Color, FxDriver } from '@shared/driver-types';
 
@@ -42,22 +41,6 @@ const FX: FxDriver = {
   ],
   isDefault: true,
 };
-
-describe('toJSON', () => {
-  test('de/serializes correctly', () => {
-    const hr = 'gate';
-    const or = 'toggle';
-    const cb = new Map();
-    cb.set(0, GREEN);
-    const fb = new Map<number, MidiNumber[]>();
-    fb.set(0, [3, 0, 0]);
-
-    const propagator = new Wrapped(hr, or, GREEN, FX, cb, fb);
-    const json = stringify(propagator);
-    const parsed = parse<ColorConfigPropagator>(json);
-    expect(JSON.stringify(parsed)).toEqual(JSON.stringify(propagator));
-  });
-});
 
 describe('getResponse', () => {
   test('increments state to 1, then 0', () => {

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { byteToStatusString } from '@shared/midi-util';
-import { SwitchConfigStub } from '@shared/hardware-config/input-config/switch-config';
+// import { SwitchConfigStub } from '@shared/hardware-config/input-config/switch-config';
 
 import ChannelDropdown from './ChannelDropdown';
 import StatusStringDropdown from './StatusStringDropdown';
@@ -13,7 +13,8 @@ const { ConfigService } = window;
 type PropTypes = {
   defaultMsg: NumberArrayWithStatus;
   override: NumberArrayWithStatus;
-  config: SwitchConfigStub;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  config: any;
   deviceId: string;
 };
 
