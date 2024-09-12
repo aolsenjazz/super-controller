@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 
 import { useDeviceDriver } from '@hooks/use-driver';
-import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 import { SwitchDriver } from '@shared/driver-types';
 import { id } from '@shared/util';
-import { SwitchConfigStub } from '@shared/hardware-config/input-config/switch-config';
 
 import SwitchStepConfig from './SwitchStepConfig';
 import OsxTabs from '../../../OsxTabs';
 
 type PropTypes = {
-  deviceConfig: DeviceConfigStub;
-  inputConfigStub: SwitchConfigStub;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  deviceConfig: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  inputConfigStub: any;
 };
 
 export default function SwitchConfigSubpanel(props: PropTypes) {

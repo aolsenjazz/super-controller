@@ -1,5 +1,5 @@
 import { InputResponse } from '@shared/driver-types';
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-config';
+import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
 import { CC_BINDINGS, stringVal } from '@shared/util';
 
 // /**
@@ -68,7 +68,8 @@ import { CC_BINDINGS, stringVal } from '@shared/util';
  * would be '<multiple values>'.
  */
 export class BaseInputGroup<K extends MonoInputIcicle = MonoInputIcicle> {
-  inputs: K[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  inputs: any[];
 
   constructor(inputs: K[]) {
     this.inputs = inputs;
@@ -257,7 +258,7 @@ export class BaseInputGroup<K extends MonoInputIcicle = MonoInputIcicle> {
     //     eligibleLists.filter((i2) => i2.includes(i)).length ===
     //     eligibleLists.length
     // );
-    return 'controlchange';
+    return ['controlchange'];
   }
 
   /**

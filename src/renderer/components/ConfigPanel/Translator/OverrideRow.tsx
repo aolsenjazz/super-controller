@@ -1,5 +1,4 @@
 import { MidiArray, TwoByteMidiArray } from '@shared/midi-array';
-import { parse } from '@shared/util';
 
 type PropTypes = {
   currentAction: MidiArray | undefined;
@@ -11,7 +10,7 @@ export default function OverrideRow(props: PropTypes) {
   const { currentAction, setCurrentAction, overrideKey } = props;
 
   const selected = JSON.stringify(currentAction) === overrideKey;
-  const asMsg = parse<MidiArray>(overrideKey);
+  const asMsg = JSON.parse(overrideKey);
 
   const onClick = () => {
     setCurrentAction(asMsg);

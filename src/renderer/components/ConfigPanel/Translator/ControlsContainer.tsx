@@ -1,12 +1,12 @@
 import { create, MidiArray, ThreeByteMidiArray } from '@shared/midi-array';
-import { DeviceConfigStub } from '@shared/hardware-config/device-config';
 
 import SettingsLineItem from '../SettingsLineItem';
 
 const { TranslatorService } = window;
 
 type ControlsContainerPropTypes = {
-  config: DeviceConfigStub;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  config: any;
   currentAction: MidiArray;
   remove: () => void;
   onChange: (

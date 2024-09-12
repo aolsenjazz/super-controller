@@ -1,4 +1,4 @@
-import type { PluginIcicle } from '@plugins/base-plugin';
+import type { PluginIcicle } from '../../plugin-core/base-plugin';
 import type { InputIcicle } from './base-input-config';
 import type { InputDefault } from './mono-input-config';
 

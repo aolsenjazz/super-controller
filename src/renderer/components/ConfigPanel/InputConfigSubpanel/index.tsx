@@ -2,7 +2,7 @@ import { InputIcicle } from '@shared/hardware-config/input-config/base-input-con
 import { DeviceIcicle } from '@shared/hardware-config/device-config';
 import { XYIcicle } from '@shared/hardware-config/input-config/xy-config';
 import { SwitchIcicle } from '@shared/hardware-config/input-config/switch-config';
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-config';
+import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
 
 import { createInputGroup } from './input-group';
 import BasicMessage from '../BasicMessage';

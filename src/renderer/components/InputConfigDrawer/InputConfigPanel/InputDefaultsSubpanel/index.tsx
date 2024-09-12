@@ -1,4 +1,4 @@
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-config';
+import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
 import { MonoInputAggregate } from '../mono-input-aggregate';
 
 type PropTypes = {

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import type { PluginIcicle } from '@plugins/base-plugin';
+import type { PluginIcicle } from '@shared/plugin-core/base-plugin';
 import { PluginAggregate } from './plugin-aggregate';
 import HalfOnPowerButton from './HalfOnPowerButton';
 
