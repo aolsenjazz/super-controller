@@ -17,7 +17,7 @@ jobs:
       - name: Install Node.js and NPM
         uses: actions/setup-node@v1
         with:
-          node-version: 16
+          node-version: 21
 
       - name: install Linux dependencies
         if: runner.os == 'Linux'
