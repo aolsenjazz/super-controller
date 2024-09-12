@@ -1,8 +1,11 @@
+import { useEffect, useState } from 'react';
+
 import { PluginUIProps } from '@plugins/plugin-ui-props';
 import { DeviceStub } from '@shared/device-stub';
-import { useEffect, useState } from 'react';
+
 import { ShareSustainIcicle } from '..';
 import ShareSustainLine from './ShareSustainLine';
+import AddADevice from './AddADevice';
 
 import './ShareSustain.css';
 
@@ -37,5 +40,9 @@ export default function GUI(props: ShareSustainProps) {
     setDeviceList(settingsLines);
   }, [connectedDevices, plugins, selectedDevice]);
 
-  return <div className="share-sustain">{DeviceList}</div>;
+  return (
+    <div className="share-sustain">
+      {DeviceList.length > 0 ? DeviceList : <AddADevice />}
+    </div>
+  );
 }

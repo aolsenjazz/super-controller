@@ -5,6 +5,8 @@ import { PluginUIProps } from '@plugins/plugin-ui-props';
 import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
 import { useConnectedDevices } from '@hooks/use-connected-devices';
 
+import './PluginBody.css';
+
 type PropTypes = {
   plugins: PluginIcicle[];
 };
