@@ -1,3 +1,4 @@
+import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
 import { PluginIcicle } from '@shared/plugin-core/base-plugin';
 import { useCallback, useEffect, useState } from 'react';
 import PluginSubpanel from 'renderer/components/PluginSubpanel';
