@@ -1,8 +1,7 @@
 /**
  * Standard electron preload file. This file exists in a sandboxed context, with the DOM
  * and a limited subset of Node APIs available to it. This preload file is automagically
- * packaged with webpack, however, we still need to do the injection and global window
- * extension in every individual preload file.
+ * packaged with webpack.
  *
  * Do not change this file's name, and do not remove the injection code at bottom of file.
  *
@@ -10,7 +9,7 @@
  */
 
 import { contextBridge, ipcRenderer } from 'electron';
-import { ShareSustainIcicle } from '.';
+import { ShareSustainIcicle } from './index';
 import { UPDATE_SHARE_SUSTAIN } from './ipc-channels';
 
 /**

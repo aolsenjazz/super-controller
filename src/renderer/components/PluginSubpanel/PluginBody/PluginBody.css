@@ -1,0 +1,10 @@
+.plugin-body {
+  background-color: #d9d8df;
+  margin: 0 5px 5px 5px;
+  border-radius: 0 0 3px 3px;
+}
+
+.plugin-body p {
+  color: #666;
+  font-size: 0.88em;
+}

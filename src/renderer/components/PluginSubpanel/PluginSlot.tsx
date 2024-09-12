@@ -12,6 +12,13 @@ type PropTypes = {
   deviceId: string;
 };
 
+/**
+ * Each plugin slot represents an array of plugins, where selecting n inputs/devices
+ * can cause a single plugin slot to represent n plugins, if all homogenous.
+ *
+ * TODO: It feels like we should use PluginAggregates rather than an array of plugins
+ * TODO: we're currently lazily passing the plugin at index-0 to display plugin data. need to use aggregate
+ */
 export default function PluginSlot(props: PropTypes) {
   const { plugins, removePlugins, deviceId } = props;
 

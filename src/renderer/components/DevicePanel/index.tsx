@@ -24,6 +24,8 @@ export default function DevicePanel() {
 
   if (selectedDevice === undefined || (!deviceStub && !deviceConfig)) {
     Element = <NoDevicesView />;
+  } else if (deviceStub === undefined) {
+    Element = <NoDevicesView />;
   } else if (driverName === 'Anonymous' || driver === undefined) {
     Element = <NoMatchingDriverView deviceName={deviceStub!.name} />;
   } else if (isSupported === true && !deviceConfig) {

@@ -1,0 +1,7 @@
+{
+  "title": "Backlight Control",
+  "description": "Controls the color of the lights for this input.",
+  "gui": "backlight-control/gui.tsx",
+  "plugin": "backlight-control/index.tsx",
+  "ipc": "backlight-control/ipc.tsx"
+}

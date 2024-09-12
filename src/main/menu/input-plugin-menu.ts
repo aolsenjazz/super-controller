@@ -2,7 +2,7 @@ import { MenuItem } from 'electron';
 
 import { ProjectProvider } from '@main/project-provider';
 import { wp } from '@main/window-provider';
-import { allInputPlugins } from '@plugins/plugin-utils';
+import { INPUT_PLUGINS } from '@plugins/input-plugins';
 import { Registry } from '@plugins/registry';
 import {
   AdapterDeviceConfig,
@@ -11,7 +11,7 @@ import {
 } from '@shared/hardware-config';
 
 export function createInputPluginMenu(deviceId: string, inputIds: string[]) {
-  return allInputPlugins().map((Plugin) => {
+  return Object.values(INPUT_PLUGINS).map((Plugin) => {
     return new MenuItem({
       label: Plugin.TITLE(),
       toolTip: Plugin.DESCRIPTION(),
@@ -30,6 +30,8 @@ export function createInputPluginMenu(deviceId: string, inputIds: string[]) {
               input.addPlugin(plug);
               Registry.register(plug);
             } else {
+              // TODO: How do we handle adding plugin to multi-input configs?
+              // eslint-disable-next-line no-console
               console.log('Ignoring for now....');
             }
           });

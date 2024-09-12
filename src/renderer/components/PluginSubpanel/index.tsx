@@ -14,10 +14,15 @@ type PluginSubpanelProps = {
   showAddPlugin: boolean;
 };
 
+/**
+ * Shows a list of plugins and/or plugin slots. Supports both device and input
+ * plugins, so most functions to manage these plugins are received via props.
+ */
 export default function PluginSubpanel(props: PluginSubpanelProps) {
   const { plugins, showPluginMenu, removePlugins, deviceId, showAddPlugin } =
     props;
 
+  // TODO: really should just pass a PluginAggregate to plugin slots
   const pluginSlots = useMemo(() => {
     return plugins.map((x) => {
       return (
