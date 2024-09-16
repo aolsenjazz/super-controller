@@ -28,8 +28,4 @@ export default class BasicOverridePlugin extends BasePlugin<BasicOverrideIcicle>
   )[] {
     return ['anonymous'];
   }
-
-  public get aggregateCapable() {
-    return true;
-  }
 }

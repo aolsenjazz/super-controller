@@ -6,15 +6,15 @@ import {
   useEffect,
 } from 'react';
 
-import type { DeviceIcicle } from '@shared/hardware-config/device-config';
+import type { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { useConfiguredDevices } from '@hooks/use-configured-devices';
 
 import { useSelectedDevice } from './selected-device-context';
 
-const { ConfigService } = window;
+const { DeviceConfigService } = window;
 
 interface SelectedDeviceConfigContextType {
-  deviceConfig: DeviceIcicle | undefined;
+  deviceConfig: DeviceConfigDTO | undefined;
 }
 
 const SelectedDeviceConfigContext =
@@ -27,18 +27,21 @@ type PropTypes = {
 };
 
 export const SelectedDeviceConfigProvider = ({ children }: PropTypes) => {
-  const [deviceConfig, setDeviceConfig] = useState<DeviceIcicle>();
+  const [deviceConfig, setDeviceConfig] = useState<DeviceConfigDTO>();
   const { selectedDevice } = useSelectedDevice();
   const { configStubs } = useConfiguredDevices();
 
   useEffect(() => {
-    setDeviceConfig(ConfigService.getDeviceConfig(selectedDevice || ''));
+    setDeviceConfig(DeviceConfigService.getDeviceConfig(selectedDevice || ''));
 
-    const cb = (stub?: DeviceIcicle) => {
+    const cb = (stub?: DeviceConfigDTO) => {
       setDeviceConfig(stub);
     };
 
-    const off = ConfigService.onDeviceConfigChange(selectedDevice || '', cb);
+    const off = DeviceConfigService.onDeviceConfigChange(
+      selectedDevice || '',
+      cb
+    );
 
     return () => off();
   }, [selectedDevice, setDeviceConfig, configStubs]);

@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
-import { DeviceIcicle } from '@shared/hardware-config/device-config';
+import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 
-const { ConfigService } = window;
+const { DeviceConfigService } = window;
 
 export const useConfiguredDevices = () => {
-  const [configStubs, setConfigStubs] = useState<DeviceIcicle[]>(
-    ConfigService.getConfiguredDevices()
+  const [configStubs, setConfigStubs] = useState<DeviceConfigDTO[]>(
+    DeviceConfigService.getConfiguredDevices()
   );
 
   useEffect(() => {
-    const cb = (stubs: DeviceIcicle[]) => {
+    const cb = (stubs: DeviceConfigDTO[]) => {
       setConfigStubs(stubs);
     };
 
-    const off = ConfigService.onConfiguredDevicesChange(cb);
+    const off = DeviceConfigService.onConfiguredDevicesChange(cb);
 
     return () => off();
   }, []);

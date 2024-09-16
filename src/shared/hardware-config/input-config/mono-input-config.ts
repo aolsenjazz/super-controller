@@ -8,7 +8,6 @@ import {
 } from '../../midi-array';
 import type { InputResponse } from '../../driver-types';
 import { BaseInputConfig } from './base-input-config';
-import { InputPluginChain } from '../../plugin-core/plugin-chain/input-plugin-chain';
 import { MonoInputIcicle } from './mono-input-icicle';
 
 /* Default values for the input loaded in from a driver */
@@ -32,12 +31,12 @@ export abstract class MonoInputConfig<
 > extends BaseInputConfig<K> {
   defaults: T;
 
-  protected _plugins: InputPluginChain;
+  public plugins: string[];
 
   constructor(nickname: string, plugins: BasePlugin[], defaultVals: T) {
     super(nickname);
 
-    this._plugins = new InputPluginChain(plugins);
+    this.plugins = [];
     this.defaults = defaultVals;
   }
 
@@ -61,32 +60,6 @@ export abstract class MonoInputConfig<
 
   public applyStub(s: MonoInputIcicle) {
     super.applyStub(s);
-
-    this._plugins.reconcile(s.plugins);
-  }
-
-  /**
-   * Adds a plugin to this `DeviceConfig`s `plugins` array at the end of the arr.
-   * `plugin` may be an instance of the plugin, or the plugin's id.
-   */
-  public addPlugin(plugin: BasePlugin) {
-    this._plugins.addPlugin(plugin);
-  }
-
-  /**
-   * Removes the plugin from this `DeviceConfig`s `plugins` array. `plugin` may be
-   * an instance of the plugin, or the plugin's id.
-   */
-  public removePlugin(plugin: BasePlugin | string) {
-    this._plugins.removePlugin(plugin);
-  }
-
-  /**
-   * Moves the `plugin` to the specified index of the array. `plugin` may be
-   * an instance of the plugin, or the plugin's id.
-   */
-  public movePlugin(plugin: BasePlugin | string, newIdx: number) {
-    this._plugins.movePlugin(plugin, newIdx);
   }
 
   public innerFreeze() {
@@ -94,7 +67,7 @@ export abstract class MonoInputConfig<
       ...super.innerFreeze(),
       defaults: this.defaults,
       colorCapable: false,
-      plugins: this._plugins.plugins.map((p) => p.toDTO()),
+      plugins: this.plugins,
     };
   }
 

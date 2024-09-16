@@ -6,7 +6,7 @@ import {
   InputIcicle,
   InputState,
 } from '@shared/hardware-config/input-config/base-input-config';
-import { DeviceIcicle } from '@shared/hardware-config/device-config';
+import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 
 import { HOST, CONFIG } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
@@ -45,7 +45,7 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(HOST.CONNECTED_DEVICES, stubs);
   }
 
-  public sendConfiguredDevices(stubs: Omit<DeviceIcicle, 'className'>[]) {
+  public sendConfiguredDevices(stubs: Omit<DeviceConfigDTO, 'className'>[]) {
     this.send(CONFIG.CONFIGURED_DEVICES, stubs);
   }
 
@@ -55,7 +55,7 @@ export class MainWindowActions extends StatefulWindowActions {
 
   public sendConfigStub(
     id: string,
-    desc: Omit<DeviceIcicle, 'className'> | undefined
+    desc: Omit<DeviceConfigDTO, 'className'> | undefined
   ) {
     this.send(`device-config-stub-${id}`, desc);
   }

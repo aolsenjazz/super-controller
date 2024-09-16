@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import { DeviceIcicle } from '@shared/hardware-config/device-config';
+import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { useConfiguredDevices } from './use-configured-devices';
 
 const { ConfigService } = window;
 
 export const useConfigStub = (configId: string) => {
-  const [configStub, setConfigStub] = useState<DeviceIcicle | undefined>();
+  const [configStub, setConfigStub] = useState<DeviceConfigDTO | undefined>();
 
   const { configStubs } = useConfiguredDevices();
 
   useEffect(() => {
-    const cb = (stub: DeviceIcicle | undefined) => {
+    const cb = (stub: DeviceConfigDTO | undefined) => {
       setConfigStub(stub);
     };
 

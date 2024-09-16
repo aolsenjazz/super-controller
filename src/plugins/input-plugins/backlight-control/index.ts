@@ -28,8 +28,4 @@ export default class BacklightControlPlugin extends BasePlugin<PluginDTO> {
   )[] {
     return ['anonymous'];
   }
-
-  public get aggregateCapable() {
-    return true;
-  }
 }

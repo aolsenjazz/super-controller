@@ -1,5 +1,3 @@
-import type { BasePlugin } from '../plugin-core/base-plugin';
-
 import { MidiArray } from '../midi-array';
 import { DeviceConfig } from './device-config';
 
@@ -8,7 +6,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     portName: string,
     siblingIndex: number,
     nickname?: string,
-    plugins: BasePlugin[] = []
+    plugins: string[] = []
   ) {
     super(portName, 'Anonymous', siblingIndex, nickname, plugins);
   }

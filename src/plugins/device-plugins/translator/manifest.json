@@ -2,6 +2,6 @@
   "title": "Translator",
   "description": "Temp description",
   "gui": "translator/gui.tsx",
-  "plugin": "translator/index.tsx",
-  "ipc": "translator/ipc.tsx"
+  "plugin": "translator/index.ts",
+  "ipc": "translator/ipc.ts"
 }

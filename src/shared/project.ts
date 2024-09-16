@@ -1,9 +1,9 @@
 import { BaseIcicle, Freezable } from './freezable';
 import { DeviceConfig } from './hardware-config';
-import { DeviceIcicle } from './hardware-config/device-config';
+import { DeviceConfigDTO } from './hardware-config/device-config';
 
 interface ProjectIcicle extends BaseIcicle {
-  devices: DeviceIcicle[];
+  devices: DeviceConfigDTO[];
   version: number;
 }
 

@@ -18,6 +18,10 @@ type Host =
  * Expose data re. the host (usually the OS + hardware) to the renderer process
  */
 export const hostService = {
+  onTitleChange: (func: (title: string) => void) => {
+    return addOnChangeListener(HOST.TITLE, func);
+  },
+
   /**
    * Returns a string representation of the current operating system
    */

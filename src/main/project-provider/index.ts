@@ -5,12 +5,9 @@ import fs from 'fs';
 
 import {
   AdapterDeviceConfig,
-  configFromDriver,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
-import { Anonymous, getDriver } from '@shared/drivers';
-import { DeviceIcicle } from '@shared/hardware-config/device-config';
 
 import { CONFIG } from '../ipc-channels';
 import { dialogs } from '../dialogs';
@@ -122,6 +119,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     this.loadProject(filePath);
   }
 
+  // TODO: soon, this function will be gone
   private initIpc() {
     ipcMain.on(
       'get-input-configs',
@@ -139,72 +137,10 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
       }
     );
 
-    ipcMain.on(
-      CONFIG.ADD_DEVICE,
-      (
-        _e: IpcMainEvent,
-        deviceName: string,
-        siblingIdx: number,
-        driverName?: string,
-        childName?: string
-      ) => {
-        const driver = getDriver(driverName || deviceName) || Anonymous;
-        const conf = configFromDriver(deviceName, siblingIdx, driver);
-
-        if (conf instanceof AdapterDeviceConfig) {
-          if (childName === undefined)
-            throw new Error('must provide child name');
-
-          const childDriver = getDriver(childName)!;
-          const childConf = configFromDriver(
-            childName!,
-            siblingIdx,
-            childDriver
-          );
-          conf.setChild(childConf as SupportedDeviceConfig);
-        }
-
-        this.project.addDevice(conf);
-
-        this.emit(ProjectProviderEvent.DevicesChanged, {
-          changed: [conf],
-          project: this.project,
-          action: 'add',
-        });
-      }
-    );
-
-    /* When a device is removed from project, remove it here and re-init all devices */
-    ipcMain.on(CONFIG.REMOVE_DEVICE, (_e: IpcMainEvent, deviceId: string) => {
-      const config = this.project.getDevice(deviceId)!;
-      this.project.removeDevice(config);
-
-      this.emit(ProjectProviderEvent.DevicesChanged, {
-        changed: [config],
-        project: this.project,
-        action: 'remove',
-      });
-    });
-
     /* When a device is removed from project, remove it here and re-init all devices */
     ipcMain.on(CONFIG.GET_CONFIGURED_DEVICES, (e: IpcMainEvent) => {
       e.returnValue = this.project.devices.map((d) => d.stub());
     });
-
-    ipcMain.on(
-      CONFIG.UPDATE_DEVICE,
-      (_e: IpcMainEvent, updates: DeviceIcicle) => {
-        const config = this.project.getDevice(updates.id)!;
-
-        config.applyStub(updates);
-
-        this.emit(ProjectProviderEvent.DevicesChanged, {
-          changed: [config],
-          project: this.project,
-          action: 'update',
-        });
-      }
-    );
   }
 }
 

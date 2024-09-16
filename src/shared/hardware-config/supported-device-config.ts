@@ -2,16 +2,16 @@ import { MidiArray } from '../midi-array';
 
 import { DeviceDriver } from '../driver-types';
 
-import { DeviceConfig, DeviceIcicle } from './device-config';
+import { DeviceConfig, DeviceConfigDTO } from './device-config';
 import { create } from './input-config';
 import { BaseInputConfig, InputIcicle } from './input-config/base-input-config';
 
-interface SupportedDeviceIcicle extends DeviceIcicle {
+interface SupportedDeviceConfigDTO extends DeviceConfigDTO {
   inputs: InputIcicle[];
 }
 
 /* Contains device-specific configurations and managed `InputConfig`s */
-export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceIcicle> {
+export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO> {
   public inputs: BaseInputConfig[];
 
   public static fromDriver(

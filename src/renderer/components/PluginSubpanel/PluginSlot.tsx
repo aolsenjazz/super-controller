@@ -1,43 +1,59 @@
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+
 import { useSelectedPlugin } from '@context/selected-plugin-context';
-import type { PluginDTO } from '@shared/plugin-core/base-plugin';
-import { useCallback, useEffect, useState } from 'react';
-import { PluginAggregate } from './plugin-aggregate';
+
 import PluginBody from './PluginBody';
 import PluginViewControl from './PluginViewControl';
 import PowerButton from './PowerButton';
 
+const { PluginService } = window;
+
 type PropTypes = {
-  plugins: PluginDTO[];
-  removePlugins: (plugins: PluginDTO[]) => void;
-  deviceId: string;
+  pluginId: string;
+  removePlugin: (pluginId: string) => void;
 };
 
 /**
  * Each plugin slot represents an array of plugins, where selecting n inputs/devices
  * can cause a single plugin slot to represent n plugins, if all homogenous.
- *
- * TODO: It feels like we should use PluginAggregates rather than an array of plugins
- * TODO: we're currently lazily passing the plugin at index-0 to display plugin data. need to use aggregate
  */
 export default function PluginSlot(props: PropTypes) {
-  const { plugins, removePlugins, deviceId } = props;
+  const { pluginId, removePlugin } = props;
 
   const { selectedPlugin, setSelectedPlugin } = useSelectedPlugin();
+  const [on, setOn] = useState(true);
+  const [title, setTitle] = useState('');
   const [open, setOpen] = useState(false);
-  const aggregate = new PluginAggregate(plugins);
-  const selected = selectedPlugin === plugins[0].id;
+  const selected = selectedPlugin === pluginId;
+
+  useLayoutEffect(() => {
+    const plugin = PluginService.getPlugin(pluginId);
+    if (plugin) {
+      setOn(plugin.on);
+      setTitle(plugin.title);
+    }
+  }, [pluginId]);
+
+  // write a snippet of code to handle automatically opening a channel for plugin-${id}
+  useEffect(() => {
+    const remove = PluginService.addPluginListener(pluginId, (dto) => {
+      setOn(dto.on);
+      setTitle(dto.title);
+    });
+    return () => remove();
+  }, [pluginId]);
 
   const onClick = useCallback(() => {
-    setSelectedPlugin(plugins[0].id);
-  }, [plugins, setSelectedPlugin]);
+    setSelectedPlugin(pluginId);
+  }, [pluginId, setSelectedPlugin]);
 
   const handleBackspace = useCallback(
     (event: KeyboardEvent) => {
       if (event.keyCode === 8 && selected === true) {
-        removePlugins(plugins);
+        removePlugin(pluginId);
       }
     },
-    [removePlugins, plugins, selected]
+    [removePlugin, pluginId, selected]
   );
 
   useEffect(() => {
@@ -47,6 +63,10 @@ export default function PluginSlot(props: PropTypes) {
     };
   }, [handleBackspace, selected]);
 
+  const onPowerButtonClick = () => {
+    PluginService.togglePower(pluginId);
+  };
+
   return (
     <div
       className={`plugin-slot filled ${selected ? 'selected' : ''}`}
@@ -54,11 +74,11 @@ export default function PluginSlot(props: PropTypes) {
       role="presentation"
     >
       <div className="plugin-header">
-        <PowerButton plugins={plugins} deviceId={deviceId} />
-        <PluginViewControl id={plugins[0].id} open={open} setOpen={setOpen} />
-        <h5>{aggregate.title}</h5>
+        <PowerButton on={on} onClick={onPowerButtonClick} />
+        <PluginViewControl id={pluginId} open={open} setOpen={setOpen} />
+        <h5>{title}</h5>
       </div>
-      {open && <PluginBody plugins={plugins} />}
+      {open && <PluginBody pluginId={pluginId} title={title} />}
     </div>
   );
 }

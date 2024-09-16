@@ -1,5 +1,5 @@
 import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
-import { DeviceIcicle } from '@shared/hardware-config/device-config';
+import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { XYIcicle } from '@shared/hardware-config/input-config/xy-config';
 import { SwitchIcicle } from '@shared/hardware-config/input-config/switch-config';
 import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
@@ -18,7 +18,7 @@ function areInputsHomogenous(inputConfigs: InputIcicle[]) {
 }
 
 type InputConfigurationProps = {
-  config: DeviceIcicle;
+  config: DeviceConfigDTO;
   inputConfigs: InputIcicle[];
 };
 

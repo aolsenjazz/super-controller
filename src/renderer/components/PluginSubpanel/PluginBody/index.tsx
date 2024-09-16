@@ -1,5 +1,4 @@
 import { importDeviceSubcomponent } from '@plugins/plugin-loader';
-import { PluginDTO } from '@shared/plugin-core/base-plugin';
 import { useEffect, useState } from 'react';
 import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
@@ -8,11 +7,12 @@ import { useConnectedDevices } from '@hooks/use-connected-devices';
 import './PluginBody.css';
 
 type PropTypes = {
-  plugins: PluginDTO[];
+  pluginId: string;
+  title: string;
 };
 
 export default function PluginBody(props: PropTypes) {
-  const { plugins } = props;
+  const { pluginId, title } = props;
 
   const { deviceConfig } = useSelectedDeviceConfig();
   const { connectedDevices } = useConnectedDevices();
@@ -20,7 +20,7 @@ export default function PluginBody(props: PropTypes) {
   const [UI, setUI] = useState<React.FC<PluginUIProps>>();
 
   useEffect(() => {
-    importDeviceSubcomponent(plugins[0].title, 'gui')
+    importDeviceSubcomponent(title, 'gui')
       .then((Element) => {
         setUI(() => Element);
         return null;
@@ -28,13 +28,13 @@ export default function PluginBody(props: PropTypes) {
       .catch((e) => {
         throw e;
       });
-  }, [plugins]);
+  }, [title]);
 
   return (
     <div className="plugin-body">
       {UI && (
         <UI
-          plugins={plugins}
+          pluginId={pluginId}
           selectedDevice={deviceConfig!}
           connectedDevices={connectedDevices!}
         />

@@ -1,24 +1,50 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
-import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
+import type { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 import { DeviceStub } from '@shared/device-stub';
 
 import ShareSustainLine from './ShareSustainLine';
 import AddADevice from './AddADevice';
-import type { ShareSustainIcicle } from '../share-sustain-icicle';
 
 import './ShareSustain.css';
+import { ShareSustainDTO } from '../share-sustain-dto';
 
-interface ShareSustainProps extends PluginUIProps<ShareSustainIcicle> {
-  plugins: ShareSustainIcicle[];
-}
+const { ShareSustainService, PluginService } = window;
 
-export default function GUI(props: ShareSustainProps) {
-  const { connectedDevices, plugins, selectedDevice } = props;
+export default function GUI(props: PluginUIProps) {
+  const { connectedDevices, pluginId, selectedDevice } = props;
 
-  const [DeviceList, setDeviceList] = useState<JSX.Element[]>([]);
+  const [sharingWith, setSharingWith] = useState<string[]>([]);
+  const [SustainTargets, setSustainTargets] = useState<JSX.Element[]>([]);
 
-  const onChange = (_checked: boolean) => {};
+  // set intialize state from plugin config
+  useLayoutEffect(() => {
+    const plugin = PluginService.getPlugin<ShareSustainDTO>(pluginId);
+    setSharingWith(plugin!.sustainTargets);
+  }, [pluginId]);
+
+  // listen for updates to the plugin
+  useEffect(() => {
+    const cancel = PluginService.addPluginListener<ShareSustainDTO>(
+      pluginId,
+      (dto) => {
+        setSharingWith(dto.sustainTargets);
+      }
+    );
+
+    return () => cancel();
+  }, [pluginId]);
+
+  const onChange = useCallback(
+    (checked: boolean, id: string) => {
+      const shareWith = checked
+        ? sharingWith.concat(id)
+        : sharingWith.filter((p) => p !== id);
+
+      ShareSustainService.update(pluginId, shareWith);
+    },
+    [pluginId, sharingWith]
+  );
 
   useEffect(() => {
     const devicesMap = new Map<string, DeviceStub>(
@@ -31,18 +57,19 @@ export default function GUI(props: ShareSustainProps) {
       return (
         <ShareSustainLine
           name={d.name}
-          onChange={onChange}
-          value={plugins[0].sustainTargets.includes(d.id)}
+          key={d.id}
+          onChange={(checked) => onChange(checked, d.id)}
+          value={sharingWith.includes(d.id)}
         />
       );
     });
 
-    setDeviceList(settingsLines);
-  }, [connectedDevices, plugins, selectedDevice]);
+    setSustainTargets(settingsLines);
+  }, [connectedDevices, sharingWith, selectedDevice, onChange]);
 
   return (
     <div className="share-sustain">
-      {DeviceList.length > 0 ? DeviceList : <AddADevice />}
+      {SustainTargets.length > 0 ? SustainTargets : <AddADevice />}
     </div>
   );
 }

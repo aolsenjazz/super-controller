@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
 
 import { useSelectedDevice } from '@context/selected-device-context';
-import type { PluginDTO } from '@shared/plugin-core/base-plugin';
-import type { DeviceIcicle } from '@shared/hardware-config/device-config';
+import type { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
 import { useDeviceStub } from '@hooks/use-device-stub';
 
@@ -11,7 +10,7 @@ import PluginSubpanel from '../PluginSubpanel';
 import SectionHeader from '../SectionHeader';
 import AddOrRemoveDevice from './AddOrRemoveDevice';
 
-const { ConfigService, MenuService } = window;
+const { DeviceConfigService, MenuService } = window;
 
 export default function DeviceDetailsPanel() {
   const { selectedDevice } = useSelectedDevice();
@@ -21,24 +20,21 @@ export default function DeviceDetailsPanel() {
 
   const onChange = useCallback(
     (n: string) => {
-      const newConfig: DeviceIcicle = {
+      const newConfig: DeviceConfigDTO = {
         ...deviceConfig!,
         nickname: n,
       };
 
-      ConfigService.updateDevice(newConfig);
+      DeviceConfigService.updateDevice(newConfig);
     },
     [deviceConfig]
   );
 
-  const removePlugins = useCallback(
-    (plugins: PluginDTO[]) => {
-      deviceConfig!.plugins = deviceConfig!.plugins.filter(
-        (p) => p.id !== plugins[0].id
-      );
-      ConfigService.updateDevice(deviceConfig!);
+  const removePlugin = useCallback(
+    (pluginId: string) => {
+      DeviceConfigService.removePlugin(pluginId, deviceStub!.id);
     },
-    [deviceConfig]
+    [deviceStub]
   );
 
   const showPluginMenu = useCallback(
@@ -59,9 +55,8 @@ export default function DeviceDetailsPanel() {
           deactivated={false}
         />
         <PluginSubpanel
-          plugins={deviceConfig?.plugins.map((p) => [p]) || []}
-          removePlugins={removePlugins}
-          deviceId={deviceConfig?.id || ''}
+          plugins={deviceConfig?.plugins || []}
+          removePlugin={removePlugin}
           showPluginMenu={showPluginMenu}
           showAddPlugin
         />

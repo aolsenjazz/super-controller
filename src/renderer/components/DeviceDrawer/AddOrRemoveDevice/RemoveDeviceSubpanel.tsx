@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-const { ConfigService } = window;
+const { ProjectConfigService } = window;
 
 type PropTypes = {
   nickname: string;
@@ -23,7 +23,7 @@ export default function RemoveDeviceSubpanel({ nickname, id }: PropTypes) {
   };
 
   const onDelete = useCallback(() => {
-    ConfigService.removeDevice(id);
+    ProjectConfigService.removeDevice(id);
   }, [id]);
 
   const confirmEquals = confirm === nickname;

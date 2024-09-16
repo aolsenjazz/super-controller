@@ -1,52 +1,15 @@
-import { DeviceIcicle } from '@shared/hardware-config/device-config';
+import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
 import { ipcRenderer } from 'electron';
 
-import { CONFIG, HOST } from '../ipc-channels';
+import { CONFIG, DEVICE_CONFIG } from '../ipc-channels';
 import { addOnChangeListener } from './common';
 
 /**
  * Provides data related to the current `Project` and exposes methods to modify
  * the current `Project`
  */
-export const configService = {
-  onTitleChange: (func: (title: string) => void) => {
-    return addOnChangeListener(HOST.TITLE, func);
-  },
-
-  /**
-   * Creates a `SupportedDeviceConfig`, `AdapterDeviceConfig`, or `AnonymousDeviceConfig`
-   * and adds it to the current project
-   */
-  addDevice(
-    deviceName: string,
-    siblingIndex: number,
-    driverName?: string,
-    childName?: string
-  ) {
-    ipcRenderer.send(
-      CONFIG.ADD_DEVICE,
-      deviceName,
-      siblingIndex,
-      driverName,
-      childName
-    );
-  },
-
-  /**
-   * Inform that backend that the given device was removed
-   */
-  removeDevice(deviceId: string) {
-    ipcRenderer.send(CONFIG.REMOVE_DEVICE, deviceId);
-  },
-
-  /**
-   * Send an updated copy of a device config to the backend.
-   */
-  updateDevice(config: DeviceIcicle) {
-    ipcRenderer.send(CONFIG.UPDATE_DEVICE, config);
-  },
-
+export const deviceConfigService = {
   /**
    * Subscribe to changes made to input config for given `deviceId` and
    * `inputId`
@@ -79,16 +42,21 @@ export const configService = {
     ipcRenderer.send(CONFIG.UPDATE_INPUT, deviceId, configs);
   },
 
+  removePlugin: (pluginId: string, deviceConfigId: string) => {
+    ipcRenderer.send(DEVICE_CONFIG.REMOVE_PLUGIN, pluginId, deviceConfigId);
+  },
+
   getConfiguredDevices: () => {
-    return ipcRenderer.sendSync(CONFIG.GET_CONFIGURED_DEVICES);
+    return ipcRenderer.sendSync(
+      CONFIG.GET_CONFIGURED_DEVICES
+    ) as DeviceConfigDTO[];
   },
 
   /**
    * Invokes `func` whenever the list of configured devices changes, e.g.
-   * when a new project is loaded for a given device is connected. Also immediately
-   * invokes `func` with currently-configured devices
+   * when a new project is loaded for a given device is connected.
    */
-  onConfiguredDevicesChange: (func: (stubs: DeviceIcicle[]) => void) => {
+  onConfiguredDevicesChange: (func: (stubs: DeviceConfigDTO[]) => void) => {
     return addOnChangeListener(CONFIG.CONFIGURED_DEVICES, func);
   },
 
@@ -98,7 +66,7 @@ export const configService = {
    */
   onDeviceConfigChange(
     deviceId: string,
-    func: (desc: DeviceIcicle | undefined) => void
+    func: (desc: DeviceConfigDTO | undefined) => void
   ) {
     return addOnChangeListener(`device-config-stub-${deviceId}`, func);
   },
@@ -108,4 +76,4 @@ export const configService = {
   },
 };
 
-export type ConfigService = typeof configService;
+export type DeviceConfigService = typeof deviceConfigService;

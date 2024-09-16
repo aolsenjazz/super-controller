@@ -7,7 +7,6 @@ export interface PluginDTO {
   title: string;
   description: string;
   on: boolean;
-  aggregateCapable: boolean;
 }
 
 /**
@@ -29,7 +28,7 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO> {
 
   public readonly description: string;
 
-  protected on = true;
+  public on = true;
 
   constructor(title: string, description: string) {
     this.title = title;
@@ -47,7 +46,6 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO> {
       title: this.title,
       description: this.description,
       on: this.on,
-      aggregateCapable: this.aggregateCapable,
     } as T;
   }
 
@@ -57,5 +55,4 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO> {
     | 'anonymous'
     | 'adapter'
   )[];
-  public abstract get aggregateCapable(): boolean;
 }

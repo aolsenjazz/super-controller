@@ -33,6 +33,10 @@ export const CONFIG = {
   GET_INPUT_CONFIGS: 'get-input-configs',
 };
 
+export const DEVICE_CONFIG = {
+  REMOVE_PLUGIN: 'remove-plugin',
+};
+
 /**
  * IPC channel names used to transmit data pertaining to translators
  */

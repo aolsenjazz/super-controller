@@ -11,7 +11,7 @@ import type { InputIcicle } from '@shared/hardware-config/input-config/base-inpu
 import { useSelectedInputs } from './selected-inputs-context';
 import { useSelectedDeviceConfig } from './selected-device-config-context';
 
-const { ConfigService } = window;
+const { DeviceConfigService } = window;
 
 interface SelectedInputConfigsType {
   inputConfigs: InputIcicle[];
@@ -36,7 +36,7 @@ export const SelectedInputConfigsProvider = ({ children }: PropTypes) => {
   useEffect(() => {
     const cb = () => {
       if (deviceConfig) {
-        const ins = ConfigService.getInputConfigs(
+        const ins = DeviceConfigService.getInputConfigs(
           deviceConfig.id,
           selectedInputs
         );
@@ -45,7 +45,10 @@ export const SelectedInputConfigsProvider = ({ children }: PropTypes) => {
     };
     cb();
 
-    const off = ConfigService.onDeviceConfigChange(deviceConfig?.id || '', cb);
+    const off = DeviceConfigService.onDeviceConfigChange(
+      deviceConfig?.id || '',
+      cb
+    );
 
     return () => off();
   }, [deviceConfig, selectedInputs]);

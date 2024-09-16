@@ -14,6 +14,10 @@ import { AppMenu as am } from './menu';
 
 import './port-service';
 import './ipc-service';
+import './project-provider/ipc';
+import './initialize-plugin-ipc';
+import './initialize-device-config-ipc';
+import './initialize-input-config-ipc';
 import {
   DevicesChangedEvent,
   ProjectChangedEvent,

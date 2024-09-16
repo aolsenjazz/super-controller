@@ -1,8 +1,8 @@
-import { DeviceIcicle } from '@shared/hardware-config/device-config';
+import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { SwitchIcicle } from '@shared/hardware-config/input-config/switch-config';
 
 type PropTypes = {
-  deviceConfig: DeviceIcicle;
+  deviceConfig: DeviceConfigDTO;
   inputConfigStub: SwitchIcicle;
 };
 

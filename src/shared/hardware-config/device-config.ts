@@ -1,26 +1,23 @@
-import { BasePlugin, PluginDTO } from '../plugin-core/base-plugin';
-
 import { BaseIcicle, Freezable } from '../freezable';
 import { Anonymous, getDriver } from '../drivers';
 
 import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
-import { DevicePluginChain } from '../plugin-core/plugin-chain/device-plugin-chain';
 
-export interface DeviceIcicle extends BaseIcicle {
+export interface DeviceConfigDTO extends BaseIcicle {
   id: string;
   portName: string;
   driverName: string;
   siblingIndex: number;
   nickname: string;
-  plugins: PluginDTO[];
-  child?: DeviceIcicle;
+  plugins: string[];
+  child?: DeviceConfigDTO;
 }
 
 /**
  * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.
  */
-export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
+export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
   implements Freezable<T>
 {
   /**
@@ -51,58 +48,28 @@ export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
   /* User-defined nickname */
   private _nickname?: string;
 
-  private _plugins: DevicePluginChain;
+  public plugins: string[];
 
   constructor(
     portName: string,
     driverName: string,
     siblingIndex: number,
     nickname?: string,
-    plugins: BasePlugin[] = []
+    plugins: string[] = []
   ) {
     this.portName = portName;
     this.driverName = driverName;
     this.siblingIndex = siblingIndex;
-    this._plugins = new DevicePluginChain(plugins);
+    this.plugins = plugins;
     this._nickname = nickname;
   }
 
-  public applyStub(stub: DeviceIcicle) {
+  public applyStub(stub: DeviceConfigDTO) {
     this.nickname = stub.nickname;
-
-    this._plugins.reconcile(stub.plugins);
-  }
-
-  /**
-   * Adds a plugin to this `DeviceConfig`s `plugins` array at the end of the arr.
-   * `plugin` may be an instance of the plugin, or the plugin's id.
-   */
-  public addPlugin(plugin: BasePlugin) {
-    this._plugins.addPlugin(plugin);
-  }
-
-  /**
-   * Removes the plugin from this `DeviceConfig`s `plugins` array. `plugin` may be
-   * an instance of the plugin, or the plugin's id.
-   */
-  public removePlugin(plugin: BasePlugin | string) {
-    this._plugins.removePlugin(plugin);
-  }
-
-  /**
-   * Moves the `plugin` to the specified index of the array. `plugin` may be
-   * an instance of the plugin, or the plugin's id.
-   */
-  public movePlugin(plugin: BasePlugin | string, newIdx: number) {
-    this._plugins.movePlugin(plugin, newIdx);
   }
 
   public get id() {
     return `${this.portName} ${this.siblingIndex}`;
-  }
-
-  public get plugins(): ReadonlyArray<BasePlugin> {
-    return this.plugins;
   }
 
   /**
@@ -124,14 +91,14 @@ export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
    * Similar to `freeze()` except it doesn't recurse though children, significantly
    * reducing serialized size and processing speed.
    */
-  public stub(): Omit<DeviceIcicle, 'className'> {
+  public stub(): Omit<DeviceConfigDTO, 'className'> {
     return {
       id: this.id,
       portName: this.portName,
       driverName: this.driverName,
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
-      plugins: this._plugins.plugins.map((p) => p.toDTO()),
+      plugins: this.plugins,
     };
   }
 

@@ -1,10 +1,10 @@
 import { MidiArray } from '@shared/midi-array';
 
 import { BasePlugin } from '@shared/plugin-core/base-plugin';
-import { ShareSustainIcicle } from './share-sustain-icicle';
+import { ShareSustainDTO } from './share-sustain-dto';
 
-export default class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
-  private sustainTargets: string[] = [];
+export default class ShareSustainPlugin extends BasePlugin<ShareSustainDTO> {
+  public sustainTargets: string[] = [];
 
   constructor(
     title: string,
@@ -20,16 +20,16 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
     console.log(msg);
   }
 
-  public toDTO(): ShareSustainIcicle {
+  public toDTO(): ShareSustainDTO {
     return {
       ...super.toDTO(),
       sustainTargets: this.sustainTargets,
     };
   }
 
-  public applyDTO(icicle: ShareSustainIcicle): void {
-    super.applyDTO(icicle);
-    this.sustainTargets = icicle.sustainTargets;
+  public applyDTO(dto: ShareSustainDTO): void {
+    super.applyDTO(dto);
+    this.sustainTargets = dto.sustainTargets;
   }
 
   public get applicableDeviceTypes(): (
@@ -38,9 +38,5 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
     | 'adapter'
   )[] {
     return ['anonymous'];
-  }
-
-  public get aggregateCapable() {
-    return false;
   }
 }

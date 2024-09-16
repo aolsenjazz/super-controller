@@ -1,9 +1,8 @@
 import { DeviceStub } from '../device-stub';
-import { DeviceIcicle } from '../hardware-config/device-config';
-import type { PluginDTO } from './base-plugin';
+import { DeviceConfigDTO } from '../hardware-config/device-config';
 
-export interface PluginUIProps<T extends PluginDTO = PluginDTO> {
-  plugins: T[];
+export interface PluginUIProps {
+  pluginId: string;
   connectedDevices: DeviceStub[];
-  selectedDevice: DeviceIcicle;
+  selectedDevice: DeviceConfigDTO;
 }
