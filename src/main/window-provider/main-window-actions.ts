@@ -3,7 +3,7 @@ import os from 'os';
 
 import { DeviceStub } from '@shared/device-stub';
 import {
-  InputIcicle,
+  InputDTO,
   InputState,
 } from '@shared/hardware-config/input-config/base-input-config';
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
@@ -65,7 +65,7 @@ export class MainWindowActions extends StatefulWindowActions {
   //   this.send(`${id}-overrides`, overrides);
   // }
 
-  public sendInputConfigs(configs: InputIcicle[]) {
+  public sendInputConfigs(configs: InputDTO[]) {
     this.send(CONFIG.INPUT_CONFIG_CHANGE, configs);
   }
 
@@ -77,7 +77,7 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(`device-${deviceId}-input-${inputId}-state`, state);
   }
 
-  public sendInputConfig<T extends InputIcicle>(
+  public sendInputConfig<T extends InputDTO>(
     deviceId: string,
     inputId: string,
     config: T

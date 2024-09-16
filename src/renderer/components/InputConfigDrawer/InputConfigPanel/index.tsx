@@ -1,6 +1,6 @@
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
-import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
+import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
+import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 
 import InputDetailsSubpanel from './InputDetailsSubpanel';
 import BasicMessage from '../BasicMessage';
@@ -9,14 +9,14 @@ import { InputAggregate } from './input-aggregate';
 // import SwitchConfigSubpanel from './SwitchConfigSubpanel';
 import MonoInputConfigPanel from './MonoInputConfigSubpanel';
 
-function areInputsHomogenous(i: InputIcicle[]) {
+function areInputsHomogenous(i: InputDTO[]) {
   if (i.length === 1) return true;
   return i.filter((c) => ['xy', 'switch'].includes(c.type)).length === 0;
 }
 
 type InputConfigurationProps = {
   config: DeviceConfigDTO;
-  inputConfigs: InputIcicle[];
+  inputConfigs: InputDTO[];
 };
 
 export default function InputConfigSubpanel(props: InputConfigurationProps) {
@@ -36,7 +36,7 @@ export default function InputConfigSubpanel(props: InputConfigurationProps) {
     default:
       Element = (
         <MonoInputConfigPanel
-          inputs={inputConfigs as MonoInputIcicle[]}
+          inputs={inputConfigs as MonoInputDTO[]}
           deviceId={config.id}
         />
       );

@@ -19,7 +19,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     return undefined;
   }
 
-  freeze() {
+  toDTO() {
     return {
       ...this.stub(),
       className: this.constructor.name,

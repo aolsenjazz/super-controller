@@ -1,36 +1,33 @@
 /* eslint @typescript-eslint/no-empty-interface: 0 */
 import { InputType } from '@shared/driver-types';
-import { BaseIcicle, Freezable } from '../../freezable';
+import { BaseIcicle } from '../../freezable';
 import { MidiArray } from '../../midi-array';
 
 export interface InputState {}
 
-export interface InputIcicle extends BaseIcicle {
+export interface InputDTO extends BaseIcicle {
   id: string;
   nickname: string;
   type: InputType;
 }
 
-export abstract class BaseInputConfig<T extends InputIcicle = InputIcicle>
-  implements Freezable<T>
-{
+export abstract class BaseInputConfig<T extends InputDTO = InputDTO> {
   protected nickname: string = '';
 
   constructor(nickname: string) {
     this.nickname = nickname;
   }
 
-  protected innerFreeze(): Omit<InputIcicle, 'className'> {
+  public toDTO(): T {
     return {
       id: this.id,
       nickname: this.nickname,
       type: this.type,
-    };
+      className: 'BaseInputConfig',
+    } as T;
   }
 
-  public abstract freeze(): T;
-
-  public applyStub(s: InputIcicle) {
+  public applyStub(s: T) {
     this.nickname = s.nickname;
   }
 

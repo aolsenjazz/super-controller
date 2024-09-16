@@ -3,8 +3,8 @@ import { XYDriver } from '../../driver-types';
 
 import { PitchbendConfig } from './pitchbend-config';
 import { SliderConfig } from './slider-config';
-import { BaseInputConfig, InputIcicle, InputState } from './base-input-config';
-import type { MonoInputIcicle } from './mono-input-icicle';
+import { BaseInputConfig, InputDTO, InputState } from './base-input-config';
+import type { MonoInputDTO } from './mono-input-dto';
 
 export interface XYState extends InputState {
   x: {
@@ -15,12 +15,12 @@ export interface XYState extends InputState {
   };
 }
 
-export interface XYIcicle extends InputIcicle {
-  x: MonoInputIcicle;
-  y: MonoInputIcicle;
+export interface XYDTO extends InputDTO {
+  x: MonoInputDTO;
+  y: MonoInputDTO;
 }
 
-export class XYConfig extends BaseInputConfig<XYIcicle> {
+export class XYConfig extends BaseInputConfig<XYDTO> {
   x: SliderConfig | PitchbendConfig;
 
   y: SliderConfig | PitchbendConfig;
@@ -54,7 +54,7 @@ export class XYConfig extends BaseInputConfig<XYIcicle> {
     return this.y.handleMessage(msg);
   }
 
-  applyStub(s: XYIcicle): void {
+  applyStub(s: XYDTO): void {
     this.x.applyStub(s.x);
     this.y.applyStub(s.y);
   }
@@ -67,12 +67,12 @@ export class XYConfig extends BaseInputConfig<XYIcicle> {
     return 'xy' as const;
   }
 
-  public freeze() {
+  public toDTO(): XYDTO {
     return {
-      ...this.innerFreeze(),
+      ...this.toDTO(),
       className: this.constructor.name,
-      x: this.x.freeze(),
-      y: this.y.freeze(),
+      x: this.x.toDTO(),
+      y: this.y.toDTO(),
     };
   }
 

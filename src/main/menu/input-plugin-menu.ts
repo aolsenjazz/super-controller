@@ -37,7 +37,7 @@ export async function createInputPluginMenu(
             if (input instanceof MonoInputConfig) {
               const Plugin = await importInputSubcomponent(m.title, 'plugin');
               const plugin: BasePlugin = new Plugin(m.title, m.description);
-              input.addPlugin(plugin);
+              input.plugins.push(plugin.id);
               Registry.register(plugin);
             } else {
               // TODO: How do we handle adding plugin to multi-input configs?

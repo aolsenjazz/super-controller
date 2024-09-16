@@ -1,5 +1,5 @@
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
-import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
+import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 import { ipcRenderer } from 'electron';
 
 import { CONFIG, DEVICE_CONFIG } from '../ipc-channels';
@@ -14,7 +14,7 @@ export const deviceConfigService = {
    * Subscribe to changes made to input config for given `deviceId` and
    * `inputId`
    */
-  onInputConfigChange<T extends InputIcicle = InputIcicle>(
+  onInputConfigChange<T extends InputDTO = InputDTO>(
     deviceId: string,
     inputId: string,
     func: (config: T) => void
@@ -27,7 +27,7 @@ export const deviceConfigService = {
     return off;
   },
 
-  getInputConfigs<T extends InputIcicle = InputIcicle>(
+  getInputConfigs<T extends InputDTO = InputDTO>(
     deviceId: string,
     inputIds: string[]
   ): T[] {
@@ -38,7 +38,7 @@ export const deviceConfigService = {
     ipcRenderer.send(CONFIG.REQUEST_INPUT_CONFIG_STUB, deviceId, inputIds);
   },
 
-  updateInputs(deviceId: string, configs: InputIcicle[]) {
+  updateInputs(deviceId: string, configs: InputDTO[]) {
     ipcRenderer.send(CONFIG.UPDATE_INPUT, deviceId, configs);
   },
 

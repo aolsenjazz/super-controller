@@ -1,16 +1,16 @@
 import { MidiArray } from '../../midi-array';
 import { SwitchDriver } from '../../driver-types';
-import { BaseInputConfig, InputIcicle, InputState } from './base-input-config';
+import { BaseInputConfig, InputDTO, InputState } from './base-input-config';
 
 export interface SwitchState extends InputState {
   step: NumberArrayWithStatus;
 }
 
-export interface SwitchIcicle extends InputIcicle {
+export interface SwitchDTO extends InputDTO {
   steps: Map<string, NumberArrayWithStatus>;
 }
 
-export class SwitchConfig extends BaseInputConfig<SwitchIcicle> {
+export class SwitchConfig extends BaseInputConfig<SwitchDTO> {
   static fromDriver(_d: SwitchDriver) {
     // TODO: interesting change of API here acutally - probably make ssense to rewrite this like an xy config, but just as a list of constant configs
     // const steps = new Map<string, MidiArray>(
@@ -22,9 +22,9 @@ export class SwitchConfig extends BaseInputConfig<SwitchIcicle> {
     return new SwitchConfig('');
   }
 
-  public freeze() {
+  public toDTO(): SwitchDTO {
     return {
-      ...this.innerFreeze(),
+      ...this.toDTO(),
       className: this.constructor.name,
       steps: new Map(), // TODO:
     };
@@ -35,7 +35,7 @@ export class SwitchConfig extends BaseInputConfig<SwitchIcicle> {
     return msg;
   }
 
-  applyStub(icicle: SwitchIcicle) {
+  applyStub(icicle: SwitchDTO) {
     Array.from(icicle.steps.keys()).forEach((_k) => {
       // const asArr = JSON.parse(k);
       // const ma = create(stub.steps.get(k)!);

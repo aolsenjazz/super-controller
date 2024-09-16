@@ -1,5 +1,3 @@
-import { BasePlugin } from '../../plugin-core/base-plugin';
-
 import {
   create,
   MidiArray,
@@ -8,7 +6,7 @@ import {
 } from '../../midi-array';
 import type { InputResponse } from '../../driver-types';
 import { BaseInputConfig } from './base-input-config';
-import { MonoInputIcicle } from './mono-input-icicle';
+import { MonoInputDTO } from './mono-input-dto';
 
 /* Default values for the input loaded in from a driver */
 export type InputDefault = {
@@ -27,16 +25,16 @@ export type InputDefault = {
 
 export abstract class MonoInputConfig<
   T extends InputDefault = InputDefault,
-  K extends MonoInputIcicle = MonoInputIcicle
+  K extends MonoInputDTO = MonoInputDTO
 > extends BaseInputConfig<K> {
   defaults: T;
 
   public plugins: string[];
 
-  constructor(nickname: string, plugins: BasePlugin[], defaultVals: T) {
+  constructor(nickname: string, plugins: string[], defaultVals: T) {
     super(nickname);
 
-    this.plugins = [];
+    this.plugins = plugins;
     this.defaults = defaultVals;
   }
 
@@ -58,13 +56,13 @@ export abstract class MonoInputConfig<
     return this.id === ma.asString(true);
   }
 
-  public applyStub(s: MonoInputIcicle) {
+  public applyStub(s: K) {
     super.applyStub(s);
   }
 
-  public innerFreeze() {
+  public toDTO() {
     return {
-      ...super.innerFreeze(),
+      ...super.toDTO(),
       defaults: this.defaults,
       colorCapable: false,
       plugins: this.plugins,

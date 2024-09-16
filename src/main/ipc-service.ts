@@ -12,7 +12,7 @@ import {
   BaseInputConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
-import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
+import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 
 import { ProjectProvider as pp, ProjectProvider } from './project-provider';
 import { wp } from './window-provider';
@@ -76,7 +76,7 @@ ipcMain.on(LAYOUT.SET_LAYOUT_ITEM, (e: Event, s: string, v: string) => {
 
 ipcMain.on(
   CONFIG.UPDATE_INPUT,
-  (_e: IpcMainEvent, deviceId: string, configs: InputIcicle[]) => {
+  (_e: IpcMainEvent, deviceId: string, configs: InputDTO[]) => {
     const { project } = ProjectProvider;
     const deviceConfig = project.getDevice(deviceId) as SupportedDeviceConfig;
 
@@ -97,5 +97,5 @@ ipcMain.on(
 );
 
 ipcMain.on(CONFIG.GET_DEVICE_CONFIG, (e: IpcMainEvent, deviceId: string) => {
-  e.returnValue = ProjectProvider.project.getDevice(deviceId)?.freeze();
+  e.returnValue = ProjectProvider.project.getDevice(deviceId)?.toDTO();
 });

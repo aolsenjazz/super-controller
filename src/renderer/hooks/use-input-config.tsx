@@ -1,9 +1,9 @@
-import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
+import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 import { useState, useEffect } from 'react';
 
 const { DeviceConfigService } = window;
 
-export function useInputConfig<T extends InputIcicle = InputIcicle>(
+export function useInputConfig<T extends InputDTO = InputDTO>(
   deviceId: string,
   inputId: string
 ) {

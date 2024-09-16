@@ -77,7 +77,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
   public async save() {
     if (this.currentPath === undefined) await this.saveAs();
 
-    const asString = JSON.stringify(this.project.freeze());
+    const asString = JSON.stringify(this.project.toDTO());
     fs.writeFileSync(this.currentPath!, asString, {});
 
     app.addRecentDocument(this.currentPath!);
@@ -130,7 +130,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
           dev instanceof SupportedDeviceConfig ||
           dev instanceof AdapterDeviceConfig
         ) {
-          e.returnValue = inputIds.map((id) => dev.getInputById(id)!.freeze());
+          e.returnValue = inputIds.map((id) => dev.getInputById(id)!.toDTO());
         } else {
           e.returnValue = [];
         }

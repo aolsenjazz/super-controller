@@ -1,11 +1,11 @@
-import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
+import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 import { useCallback, useMemo } from 'react';
 
 import NicknameSubpanel from '../../NicknameSubpanel';
 import SectionHeader from '../../SectionHeader';
 
 type PropTypes = {
-  configs: InputIcicle[];
+  configs: InputDTO[];
   deviceId: string;
 };
 

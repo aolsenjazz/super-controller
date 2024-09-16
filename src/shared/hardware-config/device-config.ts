@@ -1,4 +1,4 @@
-import { BaseIcicle, Freezable } from '../freezable';
+import { BaseIcicle } from '../freezable';
 import { Anonymous, getDriver } from '../drivers';
 
 import { MidiArray } from '../midi-array';
@@ -17,9 +17,9 @@ export interface DeviceConfigDTO extends BaseIcicle {
 /**
  * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.
  */
-export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
-  implements Freezable<T>
-{
+export abstract class DeviceConfig<
+  T extends DeviceConfigDTO = DeviceConfigDTO
+> {
   /**
    * MIDI-driver-reported name. E.g. for Launchkey Mini MK3:
    *
@@ -102,7 +102,7 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
     };
   }
 
-  public abstract freeze(): T;
+  public abstract toDTO(): T;
   public abstract applyOverrides(msg: MidiArray): MidiArray | undefined;
   public abstract getResponse(msg: MidiArray): MidiArray | undefined;
 }

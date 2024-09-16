@@ -3,6 +3,7 @@ import { create, MidiArray, ThreeByteMidiArray } from '../../midi-array';
 import { InputType, MonoInteractiveDriver } from '../../driver-types';
 import { MonoInputConfig } from './mono-input-config';
 import { SliderState } from './slider-config';
+import type { MonoInputDTO } from './mono-input-dto';
 
 /**
  * It should be noted that while `PitchbendConfig` extends `MonoInputConfig`, pitchbend
@@ -23,9 +24,9 @@ export class PitchbendConfig extends MonoInputConfig {
     return new PitchbendConfig('', [], def);
   }
 
-  public freeze() {
+  public toDTO(): MonoInputDTO {
     return {
-      ...this.innerFreeze(),
+      ...this.toDTO(),
       className: this.constructor.name,
     };
   }

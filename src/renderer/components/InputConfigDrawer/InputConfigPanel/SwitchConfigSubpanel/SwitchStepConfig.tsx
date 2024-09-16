@@ -1,19 +1,19 @@
 import { useCallback } from 'react';
 
 import { byteToStatusString } from '@shared/midi-util';
-import { SwitchIcicle } from '@shared/hardware-config/input-config/switch-config';
 
 import ChannelDropdown from './ChannelDropdown';
 import StatusStringDropdown from './StatusStringDropdown';
 import NumberDropdown from './NumberDropdown';
 import ValueDropdown from './ValueDropdown';
+import { SwitchDTO } from '@shared/hardware-config/input-config/switch-config';
 
 const { ConfigService } = window;
 
 type PropTypes = {
   defaultMsg: NumberArrayWithStatus;
   override: NumberArrayWithStatus;
-  config: SwitchIcicle;
+  config: SwitchDTO;
   deviceId: string;
 };
 

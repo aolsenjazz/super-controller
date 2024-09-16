@@ -1,9 +1,9 @@
 import { KnobDriver } from '../../driver-types';
 import { MonoInputConfig, InputDefault } from './mono-input-config';
 import { InputState } from './base-input-config';
-import type { MonoInputIcicle } from './mono-input-icicle';
+import type { MonoInputDTO } from './mono-input-dto';
 
-export interface KnobIcicle extends MonoInputIcicle<KnobDefaults> {
+export interface KnobDTO extends MonoInputDTO<KnobDefaults> {
   valueType: 'absolute' | 'endless';
   type: 'knob';
 }
@@ -29,13 +29,13 @@ export class KnobConfig extends MonoInputConfig<KnobDefaults> {
     return new KnobConfig('', [], def);
   }
 
-  applyStub(s: KnobIcicle) {
+  applyStub(s: KnobDTO) {
     super.applyStub(s);
   }
 
-  public freeze(): KnobIcicle {
+  public toDTO(): KnobDTO {
     return {
-      ...super.innerFreeze(),
+      ...super.toDTO(),
       className: this.constructor.name,
       valueType: this.defaults.knobType, // TODO: this will be buggy
       type: this.type,

@@ -1,11 +1,13 @@
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
-import { PluginDTO } from '@shared/plugin-core/base-plugin';
 import { useCallback } from 'react';
+
+import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
+import { PluginDTO } from '@shared/plugin-core/base-plugin';
+
 import PluginSubpanel from 'renderer/components/PluginSubpanel';
 import InputDefaultsSubpanel from '../InputDefaultsSubpanel';
 
 type PropTypes = {
-  inputs: MonoInputIcicle[];
+  inputs: MonoInputDTO[];
   deviceId: string;
 };
 

@@ -1,8 +1,8 @@
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
+import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 
 type PropTypes = {
-  x: MonoInputIcicle;
-  y: MonoInputIcicle;
+  x: MonoInputDTO;
+  y: MonoInputDTO;
   deviceId: string;
 };
 

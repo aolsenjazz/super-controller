@@ -1,13 +1,13 @@
-import { BaseIcicle, Freezable } from './freezable';
+import { BaseIcicle } from './freezable';
 import { DeviceConfig } from './hardware-config';
 import { DeviceConfigDTO } from './hardware-config/device-config';
 
-interface ProjectIcicle extends BaseIcicle {
+interface ProjectDTO extends BaseIcicle {
   devices: DeviceConfigDTO[];
   version: number;
 }
 
-export class Project implements Freezable<ProjectIcicle> {
+export class Project {
   static CURRENT_VERSION = 6;
 
   version?: number;
@@ -57,10 +57,10 @@ export class Project implements Freezable<ProjectIcicle> {
     return this.devices.filter((d) => d.id === id)[0];
   }
 
-  freeze() {
+  toDTO(): ProjectDTO {
     return {
       version: this.version || Project.CURRENT_VERSION,
-      devices: this.devices.map((d) => d.freeze()),
+      devices: this.devices.map((d) => d.toDTO()),
       className: this.constructor.name,
     };
   }

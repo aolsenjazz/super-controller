@@ -4,10 +4,11 @@ import { DeviceDriver } from '../driver-types';
 
 import { DeviceConfig, DeviceConfigDTO } from './device-config';
 import { create } from './input-config';
-import { BaseInputConfig, InputIcicle } from './input-config/base-input-config';
+import { BaseInputConfig, InputDTO } from './input-config/base-input-config';
 
 interface SupportedDeviceConfigDTO extends DeviceConfigDTO {
-  inputs: InputIcicle[];
+  inputs: InputDTO[];
+  className: 'SupportedDeviceConfig';
 }
 
 /* Contains device-specific configurations and managed `InputConfig`s */
@@ -50,11 +51,11 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
     this.inputs = inputs;
   }
 
-  public freeze() {
+  public toDTO() {
     return {
       ...this.stub(),
-      className: this.constructor.name,
-      inputs: this.inputs.map((i) => i.freeze()),
+      className: 'SupportedDeviceConfig' as const,
+      inputs: this.inputs.map((i) => i.toDTO()),
     };
   }
 

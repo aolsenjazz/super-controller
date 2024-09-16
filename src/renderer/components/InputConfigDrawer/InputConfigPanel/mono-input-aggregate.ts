@@ -1,7 +1,7 @@
 import { Aggregate } from '@shared/aggregate';
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
+import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 
-export class MonoInputAggregate extends Aggregate<MonoInputIcicle> {
+export class MonoInputAggregate extends Aggregate<MonoInputDTO> {
   public get type() {
     return this.groupValue((e) => e.type);
   }

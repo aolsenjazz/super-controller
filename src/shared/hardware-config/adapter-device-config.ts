@@ -72,11 +72,11 @@ export class AdapterDeviceConfig extends DeviceConfig {
     return [];
   }
 
-  public freeze() {
+  public toDTO() {
     return {
       ...super.stub(),
       className: this.constructor.name,
-      child: this.child?.freeze(),
+      child: this.child?.toDTO(),
     };
   }
 }
