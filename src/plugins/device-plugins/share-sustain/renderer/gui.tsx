@@ -5,14 +5,14 @@ import { DeviceStub } from '@shared/device-stub';
 
 import ShareSustainLine from './ShareSustainLine';
 import AddADevice from './AddADevice';
+import { ShareSustainDTO } from '../share-sustain-dto';
 
 import './ShareSustain.css';
-import { ShareSustainDTO } from '../share-sustain-dto';
 
 const { ShareSustainService, PluginService } = window;
 
 export default function GUI(props: PluginUIProps) {
-  const { connectedDevices, pluginId, selectedDevice } = props;
+  const { pluginId, connectedDevices, selectedDevice } = props;
 
   const [sharingWith, setSharingWith] = useState<string[]>([]);
   const [SustainTargets, setSustainTargets] = useState<JSX.Element[]>([]);
@@ -46,6 +46,7 @@ export default function GUI(props: PluginUIProps) {
     [pluginId, sharingWith]
   );
 
+  // when connected devices change, update the list of sustain targets
   useEffect(() => {
     const devicesMap = new Map<string, DeviceStub>(
       connectedDevices
