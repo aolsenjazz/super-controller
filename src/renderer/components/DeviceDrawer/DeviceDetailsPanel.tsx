@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { useSelectedDevice } from '@context/selected-device-context';
-import type { PluginIcicle } from '@shared/plugin-core/base-plugin';
+import type { PluginDTO } from '@shared/plugin-core/base-plugin';
 import type { DeviceIcicle } from '@shared/hardware-config/device-config';
 import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
 import { useDeviceStub } from '@hooks/use-device-stub';
@@ -32,7 +32,7 @@ export default function DeviceDetailsPanel() {
   );
 
   const removePlugins = useCallback(
-    (plugins: PluginIcicle[]) => {
+    (plugins: PluginDTO[]) => {
       deviceConfig!.plugins = deviceConfig!.plugins.filter(
         (p) => p.id !== plugins[0].id
       );

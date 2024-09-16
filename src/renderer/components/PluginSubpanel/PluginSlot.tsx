@@ -1,5 +1,5 @@
 import { useSelectedPlugin } from '@context/selected-plugin-context';
-import type { PluginIcicle } from '@shared/plugin-core/base-plugin';
+import type { PluginDTO } from '@shared/plugin-core/base-plugin';
 import { useCallback, useEffect, useState } from 'react';
 import { PluginAggregate } from './plugin-aggregate';
 import PluginBody from './PluginBody';
@@ -7,8 +7,8 @@ import PluginViewControl from './PluginViewControl';
 import PowerButton from './PowerButton';
 
 type PropTypes = {
-  plugins: PluginIcicle[];
-  removePlugins: (plugins: PluginIcicle[]) => void;
+  plugins: PluginDTO[];
+  removePlugins: (plugins: PluginDTO[]) => void;
   deviceId: string;
 };
 

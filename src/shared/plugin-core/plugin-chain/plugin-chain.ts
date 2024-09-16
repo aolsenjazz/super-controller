@@ -2,15 +2,15 @@
 import { importDeviceSubcomponent } from '../../../plugins/plugin-loader';
 import { Registry } from '../../../plugins/registry';
 
-import type { BasePlugin, PluginIcicle } from '../base-plugin';
+import type { BasePlugin, PluginDTO } from '../base-plugin';
 
 interface ReadonlyArray<T> {
   readonly [n: number]: T;
   map: <U>(
     callbackFn: (
-      value: BasePlugin<PluginIcicle>,
+      value: BasePlugin<PluginDTO>,
       index: number,
-      array: BasePlugin<PluginIcicle>[]
+      array: BasePlugin<PluginDTO>[]
     ) => U
   ) => U[];
 }
@@ -26,7 +26,7 @@ export abstract class PluginChain {
     return this._plugins;
   }
 
-  public async reconcile(newPluginList: PluginIcicle[]) {
+  public async reconcile(newPluginList: PluginDTO[]) {
     // take note of what plugins we already have on this device
     const currentPluginIds = this._plugins.map((p) => p.id);
     const newPluginIds = newPluginList.map((p) => p.id);

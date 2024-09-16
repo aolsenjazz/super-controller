@@ -20,15 +20,15 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainIcicle> {
     console.log(msg);
   }
 
-  public freeze(): ShareSustainIcicle {
+  public toDTO(): ShareSustainIcicle {
     return {
-      ...super.freeze(),
+      ...super.toDTO(),
       sustainTargets: this.sustainTargets,
     };
   }
 
-  public applyIcicle(icicle: ShareSustainIcicle): void {
-    super.applyIcicle(icicle);
+  public applyDTO(icicle: ShareSustainIcicle): void {
+    super.applyDTO(icicle);
     this.sustainTargets = icicle.sustainTargets;
   }
 

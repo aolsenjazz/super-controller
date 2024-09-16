@@ -1,5 +1,5 @@
 import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
-import { PluginIcicle } from '@shared/plugin-core/base-plugin';
+import { PluginDTO } from '@shared/plugin-core/base-plugin';
 import { useCallback, useEffect, useState } from 'react';
 import PluginSubpanel from 'renderer/components/PluginSubpanel';
 import { PluginAggregate } from 'renderer/components/PluginSubpanel/plugin-aggregate';
@@ -15,7 +15,7 @@ const { MenuService, ConfigService } = window;
 export default function MonoInputConfigPanel(props: PropTypes) {
   const { inputs, deviceId } = props;
 
-  const [plugins, setPlugins] = useState<PluginIcicle[][]>([]);
+  const [plugins, setPlugins] = useState<PluginDTO[][]>([]);
 
   useEffect(() => {
     const minPlugins = Math.min(...inputs.map((i) => i.plugins.length));
@@ -48,7 +48,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   );
 
   const removePlugins = useCallback(
-    (plugs: PluginIcicle[]) => {
+    (plugs: PluginDTO[]) => {
       const newIcicles = inputs.map((i, idx) => {
         return {
           ...i,

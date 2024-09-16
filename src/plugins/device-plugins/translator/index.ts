@@ -1,9 +1,9 @@
 import { MidiArray } from '@shared/midi-array';
 
-import { BasePlugin, PluginIcicle } from '@shared/plugin-core/base-plugin';
+import { BasePlugin, PluginDTO } from '@shared/plugin-core/base-plugin';
 
 // eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-empty-interface
-interface TranslatorIcicle extends PluginIcicle {}
+interface TranslatorIcicle extends PluginDTO {}
 
 export default class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
   public process(msg: MidiArray | NumberArrayWithStatus) {

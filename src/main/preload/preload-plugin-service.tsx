@@ -1,9 +1,9 @@
 import { ipcRenderer } from 'electron';
 
-import type { PluginIcicle } from '@shared/plugin-core/base-plugin';
+import type { PluginDTO } from '@shared/plugin-core/base-plugin';
 
 export const pluginService = {
-  updatePlugin(deviceId: string, icicle: PluginIcicle) {
+  updatePlugin(deviceId: string, icicle: PluginDTO) {
     ipcRenderer.send('update-plugin', deviceId, icicle);
   },
 };

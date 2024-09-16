@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 
-import type { PluginIcicle } from '@shared/plugin-core/base-plugin';
+import type { PluginDTO } from '@shared/plugin-core/base-plugin';
 import { PluginAggregate } from './plugin-aggregate';
 import HalfOnPowerButton from './HalfOnPowerButton';
 
 const { PluginService } = window;
 
 type PropTypes = {
-  plugins: PluginIcicle[];
+  plugins: PluginDTO[];
   deviceId: string;
 };
 

@@ -1,5 +1,5 @@
-import { PluginIcicle } from '@shared/plugin-core/base-plugin';
+import { PluginDTO } from '@shared/plugin-core/base-plugin';
 
-export interface ShareSustainIcicle extends PluginIcicle {
+export interface ShareSustainIcicle extends PluginDTO {
   sustainTargets: string[];
 }

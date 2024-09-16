@@ -1,4 +1,4 @@
-import type { BasePlugin, PluginIcicle } from '@shared/plugin-core/base-plugin';
+import type { BasePlugin, PluginDTO } from '@shared/plugin-core/base-plugin';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const _Registry = new Map<string, BasePlugin>();
@@ -7,7 +7,7 @@ function register(plugin: BasePlugin) {
   _Registry.set(plugin.id, plugin);
 }
 
-function deregister(plugin: BasePlugin | PluginIcicle | string) {
+function deregister(plugin: BasePlugin | PluginDTO | string) {
   const id = typeof plugin === 'string' ? plugin : plugin.id;
   _Registry.delete(id);
 }

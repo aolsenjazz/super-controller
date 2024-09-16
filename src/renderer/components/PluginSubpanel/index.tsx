@@ -1,15 +1,15 @@
 import { useMemo } from 'react';
 
-import type { PluginIcicle } from '@shared/plugin-core/base-plugin';
+import type { PluginDTO } from '@shared/plugin-core/base-plugin';
 
 import SectionHeader from '../SectionHeader';
 import PluginSlot from './PluginSlot';
 import EmptyPluginSlot from './EmptyPluginSlot';
 
 type PluginSubpanelProps = {
-  plugins: PluginIcicle[][];
+  plugins: PluginDTO[][];
   showPluginMenu: (x: number, y: number) => void;
-  removePlugins: (icicles: PluginIcicle[]) => void;
+  removePlugins: (icicles: PluginDTO[]) => void;
   deviceId: string;
   showAddPlugin: boolean;
 };

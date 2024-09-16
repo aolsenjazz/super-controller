@@ -94,7 +94,7 @@ export abstract class MonoInputConfig<
       ...super.innerFreeze(),
       defaults: this.defaults,
       colorCapable: false,
-      plugins: this._plugins.plugins.map((p) => p.freeze()),
+      plugins: this._plugins.plugins.map((p) => p.toDTO()),
     };
   }
 

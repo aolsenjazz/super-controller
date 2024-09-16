@@ -1,9 +1,9 @@
 import { MidiArray } from '@shared/midi-array';
 
-import { BasePlugin, PluginIcicle } from '@shared/plugin-core/base-plugin';
+import { BasePlugin, PluginDTO } from '@shared/plugin-core/base-plugin';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface BasicOverrideIcicle extends PluginIcicle {}
+export interface BasicOverrideIcicle extends PluginDTO {}
 
 export default class BasicOverridePlugin extends BasePlugin<BasicOverrideIcicle> {
   public process(msg: MidiArray | NumberArrayWithStatus) {
@@ -13,12 +13,12 @@ export default class BasicOverridePlugin extends BasePlugin<BasicOverrideIcicle>
 
   public freeze(): BasicOverrideIcicle {
     return {
-      ...super.freeze(),
+      ...super.toDTO(),
     };
   }
 
   public applyIcicle(icicle: BasicOverrideIcicle): void {
-    super.applyIcicle(icicle);
+    super.applyDTO(icicle);
   }
 
   public get applicableDeviceTypes(): (

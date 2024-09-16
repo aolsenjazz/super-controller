@@ -12,6 +12,6 @@ ipcMain.on(
   (_e: IpcMainEvent, icicle: ShareSustainIcicle) => {
     const plugin = Registry.get<ShareSustainPlugin>(icicle.id);
 
-    if (plugin) plugin.applyIcicle(icicle);
+    if (plugin) plugin.applyDTO(icicle);
   }
 );

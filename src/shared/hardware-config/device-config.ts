@@ -1,4 +1,4 @@
-import { BasePlugin, PluginIcicle } from '../plugin-core/base-plugin';
+import { BasePlugin, PluginDTO } from '../plugin-core/base-plugin';
 
 import { BaseIcicle, Freezable } from '../freezable';
 import { Anonymous, getDriver } from '../drivers';
@@ -13,7 +13,7 @@ export interface DeviceIcicle extends BaseIcicle {
   driverName: string;
   siblingIndex: number;
   nickname: string;
-  plugins: PluginIcicle[];
+  plugins: PluginDTO[];
   child?: DeviceIcicle;
 }
 
@@ -131,7 +131,7 @@ export abstract class DeviceConfig<T extends DeviceIcicle = DeviceIcicle>
       driverName: this.driverName,
       nickname: this.nickname,
       siblingIndex: this.siblingIndex,
-      plugins: this._plugins.plugins.map((p) => p.freeze()),
+      plugins: this._plugins.plugins.map((p) => p.toDTO()),
     };
   }
 

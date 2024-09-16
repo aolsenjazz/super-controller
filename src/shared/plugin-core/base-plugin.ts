@@ -2,7 +2,7 @@ import { MidiArray } from '../midi-array';
 
 import { generateId } from './plugin-utils';
 
-export interface PluginIcicle {
+export interface PluginDTO {
   id: string;
   title: string;
   description: string;
@@ -22,7 +22,7 @@ export interface PluginIcicle {
  *
  * Plugin manifests are dynamically loaded and then used futher to dynamically load subcomponents.
  */
-export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
+export abstract class BasePlugin<T extends PluginDTO = PluginDTO> {
   public readonly id: string;
 
   public readonly title: string;
@@ -37,11 +37,11 @@ export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
     this.id = generateId(this.title);
   }
 
-  public applyIcicle(icicle: T) {
+  public applyDTO(icicle: T) {
     this.on = icicle.on;
   }
 
-  public freeze(): T {
+  public toDTO(): T {
     return {
       id: this.id,
       title: this.title,
