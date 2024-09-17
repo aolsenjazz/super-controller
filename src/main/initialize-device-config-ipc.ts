@@ -4,7 +4,7 @@ import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { Registry } from '@plugins/registry';
 
 import { CONFIG, DEVICE_CONFIG } from './ipc-channels';
-import { ProjectProvider, ProjectProviderEvent } from './project-provider';
+import { ProjectProvider } from './project-provider';
 
 import { wp } from './window-provider';
 
