@@ -1,22 +1,25 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { useSelectedDevice } from '@context/selected-device-context';
-import type { DeviceConfigDTO } from '@shared/hardware-config/device-config';
-import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
-import { useDeviceStub } from '@hooks/use-device-stub';
+import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
+import { useDeviceConfig } from '@hooks/use-device-config';
 
 import NicknameSubpanel from '../NicknameSubpanel';
 import PluginSubpanel from '../PluginSubpanel';
 import SectionHeader from '../SectionHeader';
 import AddOrRemoveDevice from './AddOrRemoveDevice';
 
-const { DeviceConfigService, MenuService } = window;
+const { DeviceConfigService, MenuService, HostService } = window;
 
 export default function DeviceDetailsPanel() {
   const { selectedDevice } = useSelectedDevice();
+  const { deviceConfig } = useDeviceConfig(selectedDevice || '');
+  const configured = deviceConfig !== undefined;
 
-  const { deviceStub } = useDeviceStub(selectedDevice || '');
-  const { deviceConfig } = useSelectedDeviceConfig();
+  const deviceConnectionDetails = useMemo(
+    () => HostService.getDeviceConnectionDetails(selectedDevice || ''),
+    [selectedDevice]
+  );
 
   const onChange = useCallback(
     (n: string) => {
@@ -32,24 +35,24 @@ export default function DeviceDetailsPanel() {
 
   const removePlugin = useCallback(
     (pluginId: string) => {
-      DeviceConfigService.removePlugin(pluginId, deviceStub!.id);
+      DeviceConfigService.removePlugin(pluginId, deviceConnectionDetails!.id);
     },
-    [deviceStub]
+    [deviceConnectionDetails]
   );
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
-      MenuService.showDevicePluginMenu(x, y, deviceConfig!.id);
+      MenuService.showDevicePluginMenu(x, y, selectedDevice || '');
     },
-    [deviceConfig]
+    [selectedDevice]
   );
 
   return (
     <div className="details-panel device-details-panel">
-      <div className={`${deviceConfig ? '' : 'deactivated'}`}>
+      <div className={`${configured ? '' : 'deactivated'}`}>
         <SectionHeader title="DEVICE SETTINGS" size="large" />
         <NicknameSubpanel
-          name={deviceStub?.name || deviceConfig?.portName || ''}
+          name={deviceConnectionDetails?.name || deviceConfig?.portName || ''}
           nickname={deviceConfig?.nickname || ''}
           onNicknameChange={onChange}
           deactivated={false}
@@ -63,8 +66,8 @@ export default function DeviceDetailsPanel() {
       </div>
       <AddOrRemoveDevice
         nickname={deviceConfig?.nickname || ''}
-        id={deviceConfig?.id || ''}
-        configured={deviceConfig !== undefined}
+        id={selectedDevice || ''}
+        configured={configured}
       />
     </div>
   );

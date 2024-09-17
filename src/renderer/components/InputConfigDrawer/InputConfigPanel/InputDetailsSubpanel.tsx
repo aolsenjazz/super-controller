@@ -9,7 +9,7 @@ type PropTypes = {
   deviceId: string;
 };
 
-const { ConfigService } = window;
+const { InputConfigService } = window;
 
 export default function InputDetailsSubpanel(props: PropTypes) {
   const { configs, deviceId } = props;
@@ -30,7 +30,7 @@ export default function InputDetailsSubpanel(props: PropTypes) {
         ...configs[0],
         nickname: n,
       };
-      ConfigService.updateInputs(deviceId, [newConf]);
+      InputConfigService.updateInputs(deviceId, [newConf]);
     },
     [configs, deviceId]
   );

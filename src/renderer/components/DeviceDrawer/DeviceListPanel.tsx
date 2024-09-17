@@ -8,11 +8,8 @@ import DeviceListItem from './DeviceListItem';
 
 type DeviceListItemData = {
   id: string;
-  name: string;
-  connected: boolean;
   configured: boolean;
-  driverName: string;
-  siblingIndex: number;
+  connected: boolean;
 };
 
 const sortDevices = (a: DeviceListItemData, b: DeviceListItemData) => {
@@ -25,47 +22,32 @@ const sortDevices = (a: DeviceListItemData, b: DeviceListItemData) => {
   if (a.configured && !b.configured) return -1;
   if (b.configured && !a.configured) return 1;
 
-  return a.name.localeCompare(b.name);
+  return 0;
 };
 
 export default function DeviceListPanel() {
   const { selectedDevice, setSelectedDevice } = useSelectedDevice();
 
-  const { connectedDevices } = useConnectedDevices();
-  const { configStubs } = useConfiguredDevices();
+  const { connectedDeviceIds } = useConnectedDevices();
+  const { configuredDeviceIds } = useConfiguredDevices();
 
   const [data, setData] = useState<DeviceListItemData[]>([]);
 
   useEffect(() => {
-    const connectedDevicesIds = connectedDevices.map((d) => d.id);
-    const configuredDeviceIds = configStubs.map((s) => s.id);
-
-    const configuredDevices = configStubs.map((s) => {
-      return {
-        ...s,
-        name: s.nickname || s.portName,
-        connected: connectedDevicesIds.includes(s.id),
-        configured: true,
-      };
-    });
-
-    const nonConfiguredDevices = connectedDevices
-      .filter((d) => !configuredDeviceIds.includes(d.id))
-      .map((d) => {
+    const deviceList = [
+      ...new Set([...connectedDeviceIds, ...configuredDeviceIds]),
+    ]
+      .map((id) => {
         return {
-          ...d,
-          connected: true,
-          configured: false,
-          driverName: d.name,
+          id,
+          configured: configuredDeviceIds.includes(id),
+          connected: connectedDeviceIds.includes(id),
         };
-      });
+      })
+      .sort(sortDevices);
 
-    const sorted = [...configuredDevices, ...nonConfiguredDevices].sort(
-      sortDevices
-    );
-
-    setData(sorted);
-  }, [connectedDevices, configStubs]);
+    setData(deviceList);
+  }, [connectedDeviceIds, configuredDeviceIds]);
 
   useEffect(() => {
     const isCurrentDevicePresent = data.filter(
@@ -94,9 +76,6 @@ export default function DeviceListPanel() {
             onClick={() => setSelectedDevice(d.id)}
             connected={d.connected}
             configured={d.configured}
-            name={d.name}
-            driverName={d.driverName}
-            siblingIndex={d.siblingIndex}
           />
         );
       })}

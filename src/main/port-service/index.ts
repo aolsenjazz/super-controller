@@ -16,7 +16,7 @@
  *                        |  hardware conns   |
  *                        |___________________|
  */
-import { ipcMain } from 'electron';
+import { ipcMain, IpcMainEvent } from 'electron';
 
 import { getDriver } from '@shared/drivers';
 import {
@@ -105,6 +105,14 @@ export class HardwarePortServiceSingleton {
         .filter((p) => p.id === deviceId)
         .forEach((p) => MainWindow.sendDeviceStub(deviceId, p.stub));
     });
+
+    ipcMain.on(
+      HOST.GET_CONNECTION_DETAILS,
+      (e: IpcMainEvent, deviceId: string) => {
+        const p = this.availableHardwarePorts.find((p) => p.id === deviceId);
+        e.returnValue = p?.stub;
+      }
+    );
   }
 
   /**
@@ -196,7 +204,7 @@ export class HardwarePortServiceSingleton {
   }
 
   private sendConnectedDevicesToFrontend() {
-    const devices = this.availableHardwarePorts.map((d) => d.stub);
+    const devices = this.availableHardwarePorts.map((d) => d.id);
     MainWindow.sendConnectedDevices(devices);
   }
 

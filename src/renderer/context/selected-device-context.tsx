@@ -29,7 +29,7 @@ export const DeviceProvider = ({ children }: PropTypes) => {
 export const useSelectedDevice = () => {
   const context = useContext(SelectedDeviceContext);
   if (context === undefined) {
-    throw new Error('useDevice must be used within a DeviceProvider');
+    throw new Error('useSelectedDevice must be used within a DeviceProvider');
   }
   return context;
 };

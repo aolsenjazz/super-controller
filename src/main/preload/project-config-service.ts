@@ -1,5 +1,4 @@
 import { CONFIG } from '@main/ipc-channels';
-import type { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { ipcRenderer } from 'electron';
 
 export const ProjectConfigService = {
@@ -27,12 +26,5 @@ export const ProjectConfigService = {
    */
   removeDevice(deviceId: string) {
     ipcRenderer.send(CONFIG.REMOVE_DEVICE, deviceId);
-  },
-
-  /**
-   * Send an updated copy of a device config to the backend.
-   */
-  updateDevice(config: DeviceConfigDTO) {
-    ipcRenderer.send(CONFIG.UPDATE_DEVICE, config);
   },
 };

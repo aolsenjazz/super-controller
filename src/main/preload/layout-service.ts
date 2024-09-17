@@ -6,7 +6,7 @@ import { LAYOUT } from '../ipc-channels';
 /**
  * Expose functions to store layout parameters in between session
  */
-export const layoutService = {
+export const LayoutService = {
   getLayoutParams(): LayoutParams {
     return ipcRenderer.sendSync(LAYOUT.GET_LAYOUT);
   },
@@ -23,5 +23,3 @@ export const layoutService = {
     return ipcRenderer.sendSync(LAYOUT.SET_LAYOUT_ITEM, s, v);
   },
 };
-
-export type LayoutService = typeof layoutService;

@@ -1,6 +1,5 @@
 import { useSelectedDevice } from '@context/selected-device-context';
-import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
-import { useDeviceStub } from '@hooks/use-device-stub';
+import { useDeviceConnectionDetails } from '@hooks/use-device-connection-details';
 import { DRIVERS, getDriver } from '@shared/drivers';
 
 import DeviceLayoutWrapper from './DeviceLayoutWrapper';
@@ -8,26 +7,35 @@ import NoMatchingDriverView from './NoMatchingDriverView';
 import NoDevicesView from './NoDevicesView';
 import UsbView from './UsbView';
 import SelectAdapterChild from './SelectAdapterChild';
+import { useDeviceConfig } from '@hooks/use-device-config';
 
 export default function DevicePanel() {
   const { selectedDevice } = useSelectedDevice();
 
-  const { deviceStub } = useDeviceStub(selectedDevice || '');
-  const { deviceConfig } = useSelectedDeviceConfig();
+  const { deviceConnectionDetails } = useDeviceConnectionDetails(
+    selectedDevice || ''
+  );
+  const { deviceConfig } = useDeviceConfig(selectedDevice || '');
 
-  const driverName = deviceConfig?.driverName || deviceStub?.name || '';
+  const driverName =
+    deviceConfig?.driverName || deviceConnectionDetails?.name || '';
   const isSupported =
     deviceConfig !== undefined || getDriver(driverName) !== undefined;
   const driver = DRIVERS.get(driverName);
 
   let Element: React.ReactElement;
 
-  if (selectedDevice === undefined || (!deviceStub && !deviceConfig)) {
+  if (
+    selectedDevice === undefined ||
+    (!deviceConnectionDetails && !deviceConfig)
+  ) {
     Element = <NoDevicesView />;
-  } else if (deviceStub === undefined) {
+  } else if (deviceConnectionDetails === undefined) {
     Element = <NoDevicesView />;
   } else if (driverName === 'Anonymous' || driver === undefined) {
-    Element = <NoMatchingDriverView deviceName={deviceStub!.name} />;
+    Element = (
+      <NoMatchingDriverView deviceName={deviceConnectionDetails!.name} />
+    );
   } else if (isSupported === true && !deviceConfig) {
     Element =
       driver.type === 'adapter' ? (

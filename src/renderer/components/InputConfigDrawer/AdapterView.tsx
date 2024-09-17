@@ -10,7 +10,7 @@ const fivePins = Array.from(DRIVERS.entries())
   .filter(([_k, d]) => d.type === '5pin')
   .map(([k]) => k);
 
-const { ConfigService } = window;
+const { ProjectConfigService } = window;
 
 type PropTypes = {
   device: DeviceStub;
@@ -26,7 +26,12 @@ export default function AdapterView(props: PropTypes) {
   const value = '';
 
   const onChange = (v: string) => {
-    ConfigService.addDevice(device.name, device.siblingIndex, device.name, v);
+    ProjectConfigService.addDevice(
+      device.name,
+      device.siblingIndex,
+      device.name,
+      v
+    );
   };
 
   return (

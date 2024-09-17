@@ -5,11 +5,7 @@ import { ipcRenderer } from 'electron';
 import { CONFIG, DEVICE_CONFIG } from '../ipc-channels';
 import { addOnChangeListener } from './common';
 
-/**
- * Provides data related to the current `Project` and exposes methods to modify
- * the current `Project`
- */
-export const deviceConfigService = {
+export const DeviceConfigService = {
   /**
    * Subscribe to changes made to input config for given `deviceId` and
    * `inputId`
@@ -27,6 +23,13 @@ export const deviceConfigService = {
     return off;
   },
 
+  /**
+   * Send an updated copy of a device config to the backend.
+   */
+  updateDevice(config: DeviceConfigDTO) {
+    ipcRenderer.send(CONFIG.UPDATE_DEVICE, config);
+  },
+
   getInputConfigs<T extends InputDTO = InputDTO>(
     deviceId: string,
     inputIds: string[]
@@ -38,25 +41,15 @@ export const deviceConfigService = {
     ipcRenderer.send(CONFIG.REQUEST_INPUT_CONFIG_STUB, deviceId, inputIds);
   },
 
-  updateInputs(deviceId: string, configs: InputDTO[]) {
-    ipcRenderer.send(CONFIG.UPDATE_INPUT, deviceId, configs);
-  },
-
   removePlugin: (pluginId: string, deviceConfigId: string) => {
     ipcRenderer.send(DEVICE_CONFIG.REMOVE_PLUGIN, pluginId, deviceConfigId);
   },
 
   getConfiguredDevices: () => {
-    return ipcRenderer.sendSync(
-      CONFIG.GET_CONFIGURED_DEVICES
-    ) as DeviceConfigDTO[];
+    return ipcRenderer.sendSync(CONFIG.GET_CONFIGURED_DEVICES) as string[];
   },
 
-  /**
-   * Invokes `func` whenever the list of configured devices changes, e.g.
-   * when a new project is loaded for a given device is connected.
-   */
-  onConfiguredDevicesChange: (func: (stubs: DeviceConfigDTO[]) => void) => {
+  onConfiguredDevicesChange: (func: (deviceConfigs: string[]) => void) => {
     return addOnChangeListener(CONFIG.CONFIGURED_DEVICES, func);
   },
 
@@ -72,8 +65,8 @@ export const deviceConfigService = {
   },
 
   getDeviceConfig(deviceId: string) {
-    return ipcRenderer.sendSync(CONFIG.GET_DEVICE_CONFIG, deviceId);
+    return ipcRenderer.sendSync(CONFIG.GET_DEVICE_CONFIG, deviceId) as
+      | DeviceConfigDTO
+      | undefined;
   },
 };
-
-export type DeviceConfigService = typeof deviceConfigService;

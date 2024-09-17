@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
-import { DeviceStub } from '@shared/device-stub';
 
 const { HostService } = window;
 
 export const useConnectedDevices = () => {
-  const [connectedDevices, setConnectedDevices] = useState<DeviceStub[]>([]);
+  const [connectedDeviceIds, setConnectedDeviceIds] = useState<string[]>([]);
 
   useEffect(() => {
-    const cb = (stubs: DeviceStub[]) => {
-      setConnectedDevices(stubs);
+    const cb = (deviceIds: string[]) => {
+      setConnectedDeviceIds(deviceIds);
     };
 
     const off = HostService.onConnectedDevicesChange(cb);
@@ -16,5 +15,5 @@ export const useConnectedDevices = () => {
     return () => off();
   }, []);
 
-  return { connectedDevices };
+  return { connectedDeviceIds };
 };

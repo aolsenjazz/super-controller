@@ -21,7 +21,7 @@ export class SliderConfig extends MonoInputConfig {
 
   public toDTO(): MonoInputDTO {
     return {
-      ...this.toDTO(),
+      ...super.toDTO(),
       className: this.constructor.name,
     };
   }

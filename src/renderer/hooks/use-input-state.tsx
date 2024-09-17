@@ -10,7 +10,7 @@ export function useInputState<T extends InputState>(
   defaultState: T
 ) {
   const [state, setState] = useState<T>(defaultState);
-  const { configStubs } = useConfiguredDevices();
+  const { configuredDeviceIds } = useConfiguredDevices();
 
   useEffect(() => {
     const cb = (s: T) => {
@@ -23,7 +23,7 @@ export function useInputState<T extends InputState>(
       setState(defaultState);
       off();
     };
-  }, [deviceId, inputId, defaultState, configStubs]);
+  }, [deviceId, inputId, defaultState, configuredDeviceIds]);
 
   return { state };
 }

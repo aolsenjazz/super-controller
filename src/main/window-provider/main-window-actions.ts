@@ -41,12 +41,12 @@ export class MainWindowActions extends StatefulWindowActions {
     });
   }
 
-  public sendConnectedDevices(stubs: DeviceStub[]) {
-    this.send(HOST.CONNECTED_DEVICES, stubs);
+  public sendConnectedDevices(connectionIds: string[]) {
+    this.send(HOST.CONNECTED_DEVICES, connectionIds);
   }
 
-  public sendConfiguredDevices(stubs: Omit<DeviceConfigDTO, 'className'>[]) {
-    this.send(CONFIG.CONFIGURED_DEVICES, stubs);
+  public sendConfiguredDevices(deviceConfigIds: string[]) {
+    this.send(CONFIG.CONFIGURED_DEVICES, deviceConfigIds);
   }
 
   public sendDeviceStub(id: string, desc: DeviceStub | undefined) {

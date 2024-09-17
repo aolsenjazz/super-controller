@@ -26,11 +26,11 @@ export const SelectedInputsProvider = ({ children }: PropTypes) => {
   const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
 
   const { selectedDevice } = useSelectedDevice();
-  const { configStubs } = useConfiguredDevices();
+  const { configuredDeviceIds } = useConfiguredDevices();
 
   useEffect(() => {
     setSelectedInputs([]);
-  }, [selectedDevice, configStubs]);
+  }, [selectedDevice, configuredDeviceIds]);
 
   return (
     <SelectedInputsContext.Provider

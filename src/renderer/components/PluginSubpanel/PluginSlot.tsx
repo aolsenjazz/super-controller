@@ -21,9 +21,11 @@ export default function PluginSlot(props: PropTypes) {
   const { pluginId, removePlugin } = props;
 
   const { selectedPlugin, setSelectedPlugin } = useSelectedPlugin();
+
   const [on, setOn] = useState(true);
   const [title, setTitle] = useState('');
   const [open, setOpen] = useState(false);
+
   const selected = selectedPlugin === pluginId;
 
   useLayoutEffect(() => {

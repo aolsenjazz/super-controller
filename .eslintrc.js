@@ -38,6 +38,11 @@ module.exports = {
       },
       typescript: {},
     },
+    'jsx-a11y': {
+      components: {
+        ControlledInput: 'input',
+      },
+    },
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },

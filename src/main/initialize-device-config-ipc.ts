@@ -6,6 +6,10 @@ import { Registry } from '@plugins/registry';
 import { CONFIG, DEVICE_CONFIG } from './ipc-channels';
 import { ProjectProvider, ProjectProviderEvent } from './project-provider';
 
+import { wp } from './window-provider';
+
+const { MainWindow } = wp;
+
 ipcMain.on(
   CONFIG.UPDATE_DEVICE,
   (_e: IpcMainEvent, updates: DeviceConfigDTO) => {
@@ -13,12 +17,7 @@ ipcMain.on(
     const config = project.getDevice(updates.id)!;
 
     config.applyStub(updates);
-
-    ProjectProvider.emit(ProjectProviderEvent.DevicesChanged, {
-      changed: [config],
-      project,
-      action: 'update',
-    });
+    MainWindow.sendConfigStub(config.id, config.toDTO());
   }
 );
 
@@ -32,11 +31,7 @@ ipcMain.on(
       config.plugins = config.plugins.filter((p) => p !== pluginId);
       Registry.deregister(pluginId);
 
-      ProjectProvider.emit(ProjectProviderEvent.DevicesChanged, {
-        changed: [config],
-        project,
-        action: 'update',
-      });
+      wp.MainWindow.sendConfigStub(config.id, config.toDTO());
     }
   }
 );

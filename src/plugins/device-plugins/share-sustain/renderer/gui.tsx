@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
 import type { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
-import { DeviceStub } from '@shared/device-stub';
 
 import ShareSustainLine from './ShareSustainLine';
 import AddADevice from './AddADevice';
@@ -48,19 +47,15 @@ export default function GUI(props: PluginUIProps) {
 
   // when connected devices change, update the list of sustain targets
   useEffect(() => {
-    const devicesMap = new Map<string, DeviceStub>(
-      connectedDevices
-        .filter((d) => d.id !== selectedDevice.id)
-        .map((d) => [d.id, d])
-    );
+    const devicesList = connectedDevices.filter((d) => d !== selectedDevice.id);
 
-    const settingsLines = Array.from(devicesMap.values()).map((d) => {
+    const settingsLines = devicesList.map((d) => {
       return (
         <ShareSustainLine
-          name={d.name}
-          key={d.id}
-          onChange={(checked) => onChange(checked, d.id)}
-          value={sharingWith.includes(d.id)}
+          name={d}
+          key={d}
+          onChange={(checked) => onChange(checked, d)}
+          value={sharingWith.includes(d)}
         />
       );
     });

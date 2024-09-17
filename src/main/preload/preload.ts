@@ -6,11 +6,12 @@
  */
 import { contextBridge, ipcRenderer } from 'electron';
 
-import { deviceConfigService } from './device-config-service';
-import { hostService } from './preload-host-service';
-import { layoutService } from './preload-layout-service';
-import { menuService } from './preload-menu-service';
-import { pluginService } from './preload-plugin-service';
+import { DeviceConfigService } from './device-config-service';
+import { InputConfigService } from './input-config-service';
+import { HostService } from './host-service';
+import { LayoutService } from './layout-service';
+import { MenuService } from './menu-service';
+import { PluginService } from './plugin-service';
 import { ProjectConfigService } from './project-config-service';
 
 // the frontend uses a lot of listeners. because of this, this number gets
@@ -18,9 +19,10 @@ import { ProjectConfigService } from './project-config-service';
 // then increase this number.
 ipcRenderer.setMaxListeners(1000);
 
-contextBridge.exposeInMainWorld('LayoutService', layoutService);
-contextBridge.exposeInMainWorld('MenuService', menuService);
-contextBridge.exposeInMainWorld('DeviceConfigService', deviceConfigService);
-contextBridge.exposeInMainWorld('HostService', hostService);
-contextBridge.exposeInMainWorld('PluginService', pluginService);
+contextBridge.exposeInMainWorld('LayoutService', LayoutService);
+contextBridge.exposeInMainWorld('MenuService', MenuService);
+contextBridge.exposeInMainWorld('DeviceConfigService', DeviceConfigService);
+contextBridge.exposeInMainWorld('HostService', HostService);
+contextBridge.exposeInMainWorld('PluginService', PluginService);
 contextBridge.exposeInMainWorld('ProjectConfigService', ProjectConfigService);
+contextBridge.exposeInMainWorld('InputConfigService', InputConfigService);

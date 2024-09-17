@@ -1,7 +1,8 @@
-import { MENU } from '@main/ipc-channels';
 import { ipcRenderer } from 'electron';
 
-export const menuService = {
+import { MENU } from '../ipc-channels';
+
+export const MenuService = {
   showDevicePluginMenu(x: number, y: number, deviceId: string) {
     ipcRenderer.send(MENU.DEVICE_PLUGIN_MENU, x, y, deviceId);
   },
@@ -15,5 +16,3 @@ export const menuService = {
     ipcRenderer.send(MENU.INPUT_PLUGIN_MENU, x, y, deviceId, inputIds);
   },
 };
-
-export type MenuService = typeof menuService;

@@ -9,7 +9,7 @@ import {
 import type { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 
 import { useSelectedInputs } from './selected-inputs-context';
-import { useSelectedDeviceConfig } from './selected-device-config-context';
+import { useSelectedDevice } from './selected-device-context';
 
 const { DeviceConfigService } = window;
 
@@ -29,15 +29,15 @@ export const SelectedInputConfigsProvider = ({ children }: PropTypes) => {
   const [inputConfigs, setInputConfigs] = useState<InputDTO[]>([]);
 
   const { selectedInputs } = useSelectedInputs();
-  const { deviceConfig } = useSelectedDeviceConfig();
+  const { selectedDevice } = useSelectedDevice();
 
   // whenever the selected device changes, register for callbacks to device config
   // changes so that we can update input configs as needed
   useEffect(() => {
     const cb = () => {
-      if (deviceConfig) {
+      if (selectedDevice) {
         const ins = DeviceConfigService.getInputConfigs(
-          deviceConfig.id,
+          selectedDevice,
           selectedInputs
         );
         setInputConfigs(ins);
@@ -46,12 +46,12 @@ export const SelectedInputConfigsProvider = ({ children }: PropTypes) => {
     cb();
 
     const off = DeviceConfigService.onDeviceConfigChange(
-      deviceConfig?.id || '',
+      selectedDevice || '',
       cb
     );
 
     return () => off();
-  }, [deviceConfig, selectedInputs]);
+  }, [selectedDevice, selectedInputs]);
 
   return (
     <SelectedInputConfigsContext.Provider value={{ inputConfigs }}>

@@ -3,7 +3,7 @@ import { ipcRenderer } from 'electron';
 import type { PluginDTO } from '@shared/plugin-core/base-plugin';
 import { addOnChangeListener } from './common';
 
-export const pluginService = {
+export const PluginService = {
   togglePower(pluginId: string) {
     ipcRenderer.send('toggle-power', pluginId);
   },
@@ -19,5 +19,3 @@ export const pluginService = {
     return ipcRenderer.sendSync(`get-plugin`, pluginId);
   },
 };
-
-export type PluginService = typeof pluginService;

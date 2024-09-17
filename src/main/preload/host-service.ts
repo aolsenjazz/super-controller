@@ -1,6 +1,6 @@
 import { ipcRenderer } from 'electron';
 
-import { DeviceStub } from '@shared/device-stub';
+import { DeviceConnectionDetails } from '@shared/device-connection-details';
 
 import { HOST } from '../ipc-channels';
 import { addOnChangeListener } from './common';
@@ -17,7 +17,7 @@ type Host =
 /**
  * Expose data re. the host (usually the OS + hardware) to the renderer process
  */
-export const hostService = {
+export const HostService = {
   onTitleChange: (func: (title: string) => void) => {
     return addOnChangeListener(HOST.TITLE, func);
   },
@@ -49,7 +49,7 @@ export const hostService = {
    * change. Contains only data available from MIDI connections; without config.
    * Also immediately invokes with current list of devices.
    */
-  onConnectedDevicesChange(func: (stubs: DeviceStub[]) => void) {
+  onConnectedDevicesChange(func: (deviceIds: string[]) => void) {
     const off = addOnChangeListener(HOST.CONNECTED_DEVICES, func);
     ipcRenderer.send(HOST.REQUEST_CONNECTED_DEVICES);
     return off;
@@ -62,11 +62,15 @@ export const hostService = {
    */
   onDeviceChange(
     deviceId: string,
-    func: (desc: DeviceStub | undefined) => void
+    func: (desc: DeviceConnectionDetails | undefined) => void
   ) {
     const off = addOnChangeListener(`device-stub-${deviceId}`, func);
     ipcRenderer.send(HOST.REQUEST_DEVICE_STUB, deviceId);
     return off;
+  },
+
+  getDeviceConnectionDetails(deviceId: string) {
+    return ipcRenderer.sendSync(HOST.GET_CONNECTION_DETAILS, deviceId);
   },
 
   /**
@@ -87,5 +91,3 @@ export const hostService = {
     return off;
   },
 };
-
-export type HostService = typeof hostService;

@@ -122,15 +122,17 @@ export async function importDeviceSubcomponent<
   );
 }
 
-export async function importInputSubcomponent(
-  pluginTitle: string,
-  subcomponent: 'gui' | 'plugin' | 'ipc'
-) {
+export async function importInputSubcomponent<
+  T extends 'gui' | 'ipc' | 'plugin'
+>(pluginTitle: string, subcomponent: 'gui' | 'plugin' | 'ipc') {
   const manifests = await getInputManifests();
 
   const manifest = manifests.find((m) => m.title === pluginTitle);
   if (manifest !== undefined) {
-    return import(`./input-plugins/${manifest[subcomponent]}`);
+    const { default: Import } = await import(
+      `./input-plugins/${manifest[subcomponent]}`
+    );
+    return Import as ComponentType<T>;
   }
 
   throw new Error(

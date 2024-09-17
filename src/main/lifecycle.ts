@@ -111,19 +111,16 @@ class LifecycleSingleton {
       MainWindow.title = name;
       MainWindow.edited = false;
 
-      const stubs = project.devices.map((d) => d.stub());
+      const stubs = project.devices.map((d) => d.id);
       MainWindow.sendConfiguredDevices(stubs);
     };
 
     pp.on(ProjectProviderEvent.NewProject, projChangeCb);
     pp.on(ProjectProviderEvent.Save, projChangeCb);
 
-    const deviceChangeCb = ({ changed, project }: DevicesChangedEvent) => {
+    const deviceChangeCb = ({ project }: DevicesChangedEvent) => {
       MainWindow.edited = true;
-      MainWindow.sendConfiguredDevices(project.devices.map((d) => d.stub()));
-      changed.forEach((d) => {
-        MainWindow.sendConfigStub(d.id, d.stub());
-      });
+      MainWindow.sendConfiguredDevices(project.devices.map((d) => d.id));
     };
 
     pp.on(ProjectProviderEvent.DevicesChanged, deviceChangeCb);

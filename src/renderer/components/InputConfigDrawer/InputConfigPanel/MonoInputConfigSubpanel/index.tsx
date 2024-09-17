@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 
 import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
-import { PluginDTO } from '@shared/plugin-core/base-plugin';
 
 import PluginSubpanel from 'renderer/components/PluginSubpanel';
 import InputDefaultsSubpanel from '../InputDefaultsSubpanel';
@@ -11,43 +10,33 @@ type PropTypes = {
   deviceId: string;
 };
 
-const { MenuService, ConfigService } = window;
+const { MenuService, InputConfigService } = window;
 
 export default function MonoInputConfigPanel(props: PropTypes) {
   const { inputs, deviceId } = props;
 
+  // TODO: only supported selecting 1 input at a time right now.
+  const input = inputs[0];
+
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
-      MenuService.showInputPluginMenu(
-        x,
-        y,
-        deviceId,
-        inputs.map((i) => i.id)
-      );
+      MenuService.showInputPluginMenu(x, y, deviceId, [input.id]);
     },
-    [inputs, deviceId]
+    [input, deviceId]
   );
 
   const removePlugin = useCallback(
-    (plugs: PluginDTO[]) => {
-      const newIcicles = inputs.map((i, idx) => {
-        return {
-          ...i,
-          plugins: i.plugins.filter((p) => p !== plugs[idx]),
-        };
-      });
-
-      ConfigService.updateInputs(deviceId, newIcicles);
+    (pluginId: string) => {
+      InputConfigService.removePlugin(pluginId, deviceId, input.id);
     },
-    [inputs, deviceId]
+    [input, deviceId]
   );
 
   return (
     <div>
       <InputDefaultsSubpanel inputs={inputs} />
       <PluginSubpanel
-        deviceId={deviceId}
-        plugins={plugins}
+        plugins={input.plugins}
         removePlugin={removePlugin}
         showPluginMenu={showPluginMenu}
         showAddPlugin={inputs.length === 1}
