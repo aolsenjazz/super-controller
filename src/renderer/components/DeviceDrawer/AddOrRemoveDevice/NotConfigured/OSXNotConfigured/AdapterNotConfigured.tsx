@@ -1,5 +1,5 @@
 import { DRIVERS } from '@shared/drivers';
-import { DeviceStub } from '@shared/device-stub';
+import { DeviceConnectionDetails } from '@shared/device-connection-details';
 
 import HelpTip from '../../../../HelpTip';
 import DriverRequestButton from '../../../../DriverRequestButton';
@@ -13,7 +13,7 @@ const fivePins = Array.from(DRIVERS.entries())
 const { ProjectConfigService } = window;
 
 type PropTypes = {
-  device: DeviceStub;
+  device: DeviceConnectionDetails;
 };
 
 const tipBody = `When using a 5-pin adapter, only the adapter is visible to SuperController. Select your connected 5-pin device from the dropdown below.

@@ -1,12 +1,12 @@
 import { BrowserWindow } from 'electron';
 import os from 'os';
 
-import { DeviceStub } from '@shared/device-stub';
 import {
   InputDTO,
   InputState,
 } from '@shared/hardware-config/input-config/base-input-config';
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
+import type { DeviceConnectionDetails } from '@shared/device-connection-details';
 
 import { HOST, CONFIG } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
@@ -49,7 +49,7 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(CONFIG.CONFIGURED_DEVICES, deviceConfigIds);
   }
 
-  public sendDeviceStub(id: string, desc: DeviceStub | undefined) {
+  public sendDeviceStub(id: string, desc: DeviceConnectionDetails | undefined) {
     this.send(`device-stub-${id}`, desc);
   }
 
@@ -59,11 +59,6 @@ export class MainWindowActions extends StatefulWindowActions {
   ) {
     this.send(`device-config-stub-${id}`, desc);
   }
-
-  // TODO: trnaslator
-  // public sendOverrides(id: string, overrides: ImmutableMidiArrayMap) {
-  //   this.send(`${id}-overrides`, overrides);
-  // }
 
   public sendInputConfigs(configs: InputDTO[]) {
     this.send(CONFIG.INPUT_CONFIG_CHANGE, configs);

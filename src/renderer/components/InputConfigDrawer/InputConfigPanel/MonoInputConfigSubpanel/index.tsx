@@ -40,6 +40,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
         removePlugin={removePlugin}
         showPluginMenu={showPluginMenu}
         showAddPlugin={inputs.length === 1}
+        selectedDevice={deviceId}
       />
     </div>
   );

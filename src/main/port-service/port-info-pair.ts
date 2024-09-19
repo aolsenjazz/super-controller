@@ -1,5 +1,6 @@
-import { DeviceStub } from '@shared/device-stub';
+import type { DeviceConnectionDetails } from '@shared/device-connection-details';
 import { PortInfo } from '@shared/port-info';
+
 import { InputPort } from './input-port';
 import { OutputPort } from './output-port';
 
@@ -56,7 +57,7 @@ export class PortInfoPair<
     return `${this.name} ${this.siblingIndex}`;
   }
 
-  public get stub(): DeviceStub {
+  public get stub(): DeviceConnectionDetails {
     return {
       id: this.id,
       name: this.name,
