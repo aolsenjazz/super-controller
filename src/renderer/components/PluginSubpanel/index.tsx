@@ -32,7 +32,7 @@ export default function PluginSubpanel(props: PluginSubpanelProps) {
         />
       );
     });
-  }, [plugins, removePlugin]);
+  }, [plugins, removePlugin, selectedDevice]);
 
   return (
     <div className="plugin-subpanel">
