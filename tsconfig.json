@@ -30,6 +30,7 @@
     },
     "outDir": ".erb/dll"
   },
+  "include": ["src/**/*"],
   "exclude": [
     "test",
     "release/build",
