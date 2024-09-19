@@ -19,14 +19,14 @@ import {
   DeviceConfig as V5DeviceConfig,
 } from './legacy/v5/shared/hardware-config';
 
-function upgradeDeviceConfig(d: V5DeviceConfig, plugins: BasePlugin[]) {
+function upgradeDeviceConfig(d: V5DeviceConfig, _plugins: BasePlugin[]) {
   let newDev: DeviceConfig;
   if (d instanceof V5AnonymousDeviceConfig) {
     newDev = new AnonymousDeviceConfig(
       d.portName,
       d.siblingIndex,
       d.nickname,
-      plugins
+      []
     );
   } else if (d instanceof V5SupportedDeviceConfig) {
     // TODO: add plugins to constructor

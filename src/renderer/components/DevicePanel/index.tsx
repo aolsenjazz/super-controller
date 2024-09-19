@@ -1,13 +1,13 @@
 import { useSelectedDevice } from '@context/selected-device-context';
 import { useDeviceConnectionDetails } from '@hooks/use-device-connection-details';
 import { DRIVERS, getDriver } from '@shared/drivers';
+import { useDeviceConfig } from '@hooks/use-device-config';
 
 import DeviceLayoutWrapper from './DeviceLayoutWrapper';
 import NoMatchingDriverView from './NoMatchingDriverView';
 import NoDevicesView from './NoDevicesView';
 import UsbView from './UsbView';
 import SelectAdapterChild from './SelectAdapterChild';
-import { useDeviceConfig } from '@hooks/use-device-config';
 
 export default function DevicePanel() {
   const { selectedDevice } = useSelectedDevice();

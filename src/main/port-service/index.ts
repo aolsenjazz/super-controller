@@ -108,8 +108,8 @@ export class HardwarePortServiceSingleton {
     ipcMain.on(
       HOST.GET_CONNECTION_DETAILS,
       (e: IpcMainEvent, deviceId: string) => {
-        const p = this.availableHardwarePorts.find((p) => p.id === deviceId);
-        e.returnValue = p?.stub;
+        const port = this.availableHardwarePorts.find((p) => p.id === deviceId);
+        e.returnValue = port?.stub;
       }
     );
   }
