@@ -1,110 +1,61 @@
-// OverrideControls.tsx
 import { MidiEventOverride } from '../midi-event-override';
-import { statusByteMap } from './utils';
+import EventSelector from './EventSelector';
+import OverrideFields from './OverrideFields';
 
-function midiArrayToDropdownOption(arr: NumberArrayWithStatus) {
-  const statusByte = arr[0];
-  const status = statusByte & 0xf0;
-
-  const statusString = statusByteMap[status];
-  return `${statusString}: ${JSON.stringify(arr)}`;
-}
+const { TranslatorService } = window;
 
 type OverrideControlsProps = {
   selectedSource: NumberArrayWithStatus | undefined;
-  setSelectedSource: (source: NumberArrayWithStatus) => void;
+  setSelectedSource: (source: NumberArrayWithStatus | undefined) => void;
   overrides: MidiEventOverride[];
-  setOverrides: (overrides: MidiEventOverride[]) => void;
+  pluginId: string;
 };
 
 export function OverrideControls(props: OverrideControlsProps) {
-  const { selectedSource, setSelectedSource, overrides, setOverrides } = props;
+  const { selectedSource, setSelectedSource, overrides, pluginId } = props;
 
-  const options: JSX.Element[] = [];
-  if (selectedSource === undefined) {
-    options.push(<option key="no-overrides">No overrides set.</option>);
-  }
-
-  overrides.forEach(({ source }) => {
-    options.push(
-      <option key={JSON.stringify(source)} value={JSON.stringify(source)}>
-        {midiArrayToDropdownOption(source)}
-      </option>
-    );
-  });
-
-  const onSelectEvent = (value: string) => {
-    console.log(value);
+  const updateOverride = (
+    source: NumberArrayWithStatus,
+    override: NumberArrayWithStatus
+  ) => {
+    TranslatorService.updateOverride(pluginId, source, override);
   };
+
+  const deleteOverride = () => {
+    TranslatorService.deleteOverride(pluginId, selectedSource!);
+    setSelectedSource(undefined);
+  };
+
+  const maybeOverride = overrides.find(
+    (o) => JSON.stringify(o.source) === JSON.stringify(selectedSource)
+  );
+  const o = maybeOverride?.override || selectedSource;
 
   return (
     <div className="override-controls">
-      <div>
-        <select
-          id="event-selector"
-          value={JSON.stringify(selectedSource)}
-          onChange={(e) => onSelectEvent(e.target.value)}
-        >
-          {options}
-        </select>
-      </div>
+      <EventSelector
+        selectedSource={selectedSource}
+        setSelectedSource={setSelectedSource}
+        overrides={overrides}
+      />
+
+      {o && selectedSource && (
+        <>
+          <p className="fields-caption">
+            The following values will be transmitted instead of defaults:
+          </p>
+          <OverrideFields
+            source={selectedSource}
+            updateOverride={updateOverride}
+            override={[...o] as NumberArrayWithStatus}
+          />
+        </>
+      )}
+      {maybeOverride && (
+        <button className="delete" type="button" onClick={deleteOverride}>
+          Delete override
+        </button>
+      )}
     </div>
   );
 }
-
-/*
-<div>
-        <label htmlFor="override-status">
-          Status String:
-          <select
-            id="override-status"
-            value={statusString}
-            onChange={(e) => setStatusString(e.target.value)}
-          >
-            {statusStrings.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-      <div>
-        <label htmlFor="override-channel">
-          Channel:
-          <input
-            id="override-channel"
-            type="number"
-            min="0"
-            max="15"
-            value={channel}
-            onChange={(e) => setChannel(Number(e.target.value))}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="override-number">
-          MIDI Number:
-          <input
-            id="override-number"
-            type="number"
-            min="0"
-            max="127"
-            value={midiNumber}
-            onChange={(e) => setMidiNumber(Number(e.target.value))}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="override-value">
-          Value:
-          <input
-            id="override-value"
-            type="number"
-            min="0"
-            max="127"
-            value={value}
-            onChange={(e) => setValue(Number(e.target.value))}
-          />
-        </label>
-      </div>*/

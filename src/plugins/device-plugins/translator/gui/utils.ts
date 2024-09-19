@@ -30,6 +30,8 @@ export const statusByteMap: { [key: number]: string } = {
   0xc0: 'Program Change',
 };
 
+export const statusBytes = Object.keys(statusByteMap).map(Number);
+
 export const statusStringToByte: { [key: string]: number } = {
   'Note Off': 0x80,
   'Note On': 0x90,

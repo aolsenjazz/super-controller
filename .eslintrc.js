@@ -12,6 +12,14 @@ module.exports = {
     'no-bitwise': 'off',
     'no-underscore-dangle': 'off',
     '@typescript-eslint/naming-convention': 'off',
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {

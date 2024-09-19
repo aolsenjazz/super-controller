@@ -43,16 +43,6 @@ export const DEVICE_CONFIG = {
   REMOVE_PLUGIN: 'remove-device-plugin',
 };
 
-/**
- * IPC channel names used to transmit data pertaining to translators
- */
-export const TRANSLATOR = {
-  REMOVE_TRANSLATOR_OVERRIDE: 'remove-translator-override',
-  ADD_TRANSLATOR_OVERRIDE: 'add-translator-override',
-  GET_TRANSLATOR_OVERRIDE: 'get-translator-override',
-  REQUEST_OVERRIDES: 'request-overrides',
-};
-
 export const LAYOUT = {
   GET_LAYOUT: 'get-layout',
   SET_LAYOUT: 'set-layout',

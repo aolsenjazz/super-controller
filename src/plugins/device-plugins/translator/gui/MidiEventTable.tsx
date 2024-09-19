@@ -4,8 +4,19 @@ import { getStatusString, readableTime, rowId } from './utils';
 
 const { HostService } = window;
 
+function NoRecentMessages({ deviceName }: { deviceName: string }) {
+  return (
+    <div id="no-recent-messages">
+      <p>
+        No recent messages from {deviceName}. Press/move an input on your
+        controller.
+      </p>
+    </div>
+  );
+}
+
 type MidiEventTableProps = {
-  setSelectedSource: (source: NumberArrayWithStatus) => void;
+  setSelectedSource: (source: NumberArrayWithStatus | undefined) => void;
   deviceName: string;
   deviceId: string;
 };
@@ -37,7 +48,9 @@ export function MidiEventTable(props: MidiEventTableProps) {
     const selected = id === selectedRow;
 
     const onClick = () => {
-      setSelectedRow(selected ? '' : id);
+      // setSelectedRow(selected ? '' : id);
+      // setSelectedSource(selected ? undefined : event.msg);
+      setSelectedRow(id);
       setSelectedSource(event.msg);
     };
 
@@ -65,17 +78,6 @@ export function MidiEventTable(props: MidiEventTableProps) {
           {rows.length ? rows : <NoRecentMessages deviceName={deviceName} />}
         </div>
       </div>
-    </div>
-  );
-}
-
-function NoRecentMessages({ deviceName }: { deviceName: string }) {
-  return (
-    <div id="no-recent-messages">
-      <p>
-        No recent messages from {deviceName}. Press/move an input on your
-        controller.
-      </p>
     </div>
   );
 }
