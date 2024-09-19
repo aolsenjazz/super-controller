@@ -1,22 +1,22 @@
-import { importDeviceSubcomponent } from '@plugins/plugin-loader';
 import { useEffect, useState } from 'react';
+
+import { importDeviceSubcomponent } from '@plugins/plugin-loader';
 import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 import { useConnectedDevices } from '@hooks/use-connected-devices';
+import { useDeviceConfig } from '@hooks/use-device-config';
 
 import './PluginBody.css';
-import { useSelectedDevice } from '@context/selected-device-context';
-import { useDeviceConfig } from '@hooks/use-device-config';
 
 type PropTypes = {
   pluginId: string;
   title: string;
+  selectedDevice: string;
 };
 
 export default function PluginBody(props: PropTypes) {
-  const { pluginId, title } = props;
+  const { pluginId, title, selectedDevice } = props;
 
-  const { selectedDevice } = useSelectedDevice();
-  const { deviceConfig } = useDeviceConfig(selectedDevice || '');
+  const { deviceConfig } = useDeviceConfig(selectedDevice);
   const { connectedDeviceIds } = useConnectedDevices();
 
   const [UI, setUI] = useState<React.FC<PluginUIProps>>();
@@ -32,12 +32,18 @@ export default function PluginBody(props: PropTypes) {
       });
   }, [title]);
 
+  if (deviceConfig === undefined) {
+    throw new Error(
+      'deviceConfig must not be undefined when rendering PluginUI'
+    );
+  }
+
   return (
     <div className="plugin-body">
       {UI && (
         <UI
           pluginId={pluginId}
-          selectedDevice={deviceConfig!}
+          selectedDevice={deviceConfig}
           connectedDevices={connectedDeviceIds}
         />
       )}

@@ -1,0 +1,75 @@
+.translator {
+  font-family: arial;
+  display: flex;
+  flex-direction: column;
+}
+
+.translator > h5 {
+  margin: 5px 0 5px 0;
+  width: 100%;
+  text-align: center;
+}
+
+.translator .header {
+  border-bottom: 1px solid #aaa;
+  height: 22px;
+  line-height: 22px;
+  font-size: 0.8em;
+}
+
+.translator .table {
+  background-color: #f4f0f1;
+}
+
+.translator .header,
+.translator .row {
+  display: flex;
+}
+
+.translator .message-cell,
+.translator .message-header {
+  flex: 1;
+}
+
+.translator .row {
+  cursor: pointer;
+}
+
+.translator .row:hover,
+.translator .row.selected:hover {
+  background-color: #ccc;
+}
+
+.translator .row.selected {
+  font-style: italic;
+  background-color: #ddd;
+}
+
+.translator .body {
+  height: 72px;
+  overflow-y: hidden;
+  font-size: 0.8em;
+}
+
+.translator .time-cell,
+.translator .time-header {
+  width: 90px;
+  margin-left: 5px;
+}
+
+.translator .message-cell,
+.translator .message-header {
+  margin-left: 5px;
+}
+
+.translator #no-recent-messages {
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  display: flex;
+}
+
+.translator #no-recent-messages p {
+  flex: 0;
+}

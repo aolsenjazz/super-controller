@@ -14,10 +14,12 @@ ipcMain.on(
   CONFIG.UPDATE_DEVICE,
   (_e: IpcMainEvent, updates: DeviceConfigDTO) => {
     const { project } = ProjectProvider;
-    const config = project.getDevice(updates.id)!;
+    const config = project.getDevice(updates.id);
 
-    config.applyStub(updates);
-    MainWindow.sendConfigStub(config.id, config.toDTO());
+    if (config) {
+      config.applyStub(updates);
+      MainWindow.sendConfigStub(config.id, config.toDTO());
+    }
   }
 );
 

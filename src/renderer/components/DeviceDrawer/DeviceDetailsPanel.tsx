@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from 'react';
 
-import { useSelectedDevice } from '@context/selected-device-context';
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { useDeviceConfig } from '@hooks/use-device-config';
 
@@ -11,13 +10,19 @@ import AddOrRemoveDevice from './AddOrRemoveDevice';
 
 const { DeviceConfigService, MenuService, HostService } = window;
 
-export default function DeviceDetailsPanel() {
-  const { selectedDevice } = useSelectedDevice();
-  const { deviceConfig } = useDeviceConfig(selectedDevice || '');
+type PropTypes = {
+  selectedDevice: string;
+};
+
+export default function DeviceDetailsPanel(props: PropTypes) {
+  const { selectedDevice } = props;
+
+  const { deviceConfig } = useDeviceConfig(selectedDevice);
+
   const configured = deviceConfig !== undefined;
 
   const deviceConnectionDetails = useMemo(
-    () => HostService.getDeviceConnectionDetails(selectedDevice || ''),
+    () => HostService.getDeviceConnectionDetails(selectedDevice),
     [selectedDevice]
   );
 
@@ -42,7 +47,7 @@ export default function DeviceDetailsPanel() {
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
-      MenuService.showDevicePluginMenu(x, y, selectedDevice || '');
+      MenuService.showDevicePluginMenu(x, y, selectedDevice);
     },
     [selectedDevice]
   );
@@ -61,12 +66,13 @@ export default function DeviceDetailsPanel() {
           plugins={deviceConfig?.plugins || []}
           removePlugin={removePlugin}
           showPluginMenu={showPluginMenu}
+          selectedDevice={selectedDevice}
           showAddPlugin
         />
       </div>
       <AddOrRemoveDevice
         nickname={deviceConfig?.nickname || ''}
-        id={selectedDevice || ''}
+        id={selectedDevice}
         configured={configured}
       />
     </div>

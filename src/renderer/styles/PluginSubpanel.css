@@ -1,7 +1,7 @@
 .plugin-subpanel {
   margin: 0 5px 0 5px;
   padding: 5px;
-  background-color: #d9d8df;
+
   border: 1px solid #c6c8d4;
   border-radius: 4px;
 }
@@ -12,10 +12,11 @@
   margin: 5px 0 5px 0;
   background-color: #cfcfd8;
   min-height: 20px;
+  cursor: pointer;
 }
 
 .plugin-slot.selected {
-  background-color: #c6c8d4;
+  background-color: #bab8c2;
 }
 
 .plugin-header {

@@ -9,10 +9,17 @@ type PluginSubpanelProps = {
   showPluginMenu: (x: number, y: number) => void;
   removePlugin: (pluginId: string) => void;
   showAddPlugin: boolean;
+  selectedDevice: string;
 };
 
 export default function PluginSubpanel(props: PluginSubpanelProps) {
-  const { plugins, showPluginMenu, removePlugin, showAddPlugin } = props;
+  const {
+    plugins,
+    showPluginMenu,
+    removePlugin,
+    showAddPlugin,
+    selectedDevice,
+  } = props;
 
   const pluginSlots = useMemo(() => {
     return plugins.map((x) => {
@@ -20,6 +27,7 @@ export default function PluginSubpanel(props: PluginSubpanelProps) {
         <PluginSlot
           key={`plugin${x}`}
           pluginId={x}
+          selectedDevice={selectedDevice}
           removePlugin={removePlugin}
         />
       );

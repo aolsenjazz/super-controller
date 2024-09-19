@@ -10,6 +10,7 @@ const { PluginService } = window;
 
 type PropTypes = {
   pluginId: string;
+  selectedDevice: string;
   removePlugin: (pluginId: string) => void;
 };
 
@@ -18,7 +19,7 @@ type PropTypes = {
  * can cause a single plugin slot to represent n plugins, if all homogenous.
  */
 export default function PluginSlot(props: PropTypes) {
-  const { pluginId, removePlugin } = props;
+  const { pluginId, removePlugin, selectedDevice } = props;
 
   const { selectedPlugin, setSelectedPlugin } = useSelectedPlugin();
 
@@ -80,7 +81,13 @@ export default function PluginSlot(props: PropTypes) {
         <PluginViewControl id={pluginId} open={open} setOpen={setOpen} />
         <h5>{title}</h5>
       </div>
-      {open && <PluginBody pluginId={pluginId} title={title} />}
+      {open && (
+        <PluginBody
+          pluginId={pluginId}
+          title={title}
+          selectedDevice={selectedDevice}
+        />
+      )}
     </div>
   );
 }

@@ -6,7 +6,7 @@ const { DeviceConfigService } = window;
 
 export const useDeviceConfig = (deviceConfigId: string) => {
   const [deviceConfig, setDeviceConfig] = useState<DeviceConfigDTO | undefined>(
-    undefined
+    () => DeviceConfigService.getDeviceConfig(deviceConfigId)
   );
   const { configuredDeviceIds } = useConfiguredDevices();
 
@@ -18,7 +18,7 @@ export const useDeviceConfig = (deviceConfigId: string) => {
     const cb = (c: DeviceConfigDTO | undefined) => {
       setDeviceConfig(c);
     };
-    setDeviceConfig(DeviceConfigService.getDeviceConfig(deviceConfigId));
+    cb(DeviceConfigService.getDeviceConfig(deviceConfigId));
 
     const off = DeviceConfigService.onDeviceConfigChange(deviceConfigId, cb);
 

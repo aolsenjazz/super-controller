@@ -10,6 +10,7 @@ export const HOST = {
   REQUEST_CONNECTED_DEVICES: 'request-connected-devices',
   CONNECTED_DEVICES: 'connected-devices',
   GET_CONNECTION_DETAILS: 'get-connection-details',
+  MIDI_EVENT: 'midi-event',
 
   REQUEST_INPUT_STATE: 'request-input-state',
 };

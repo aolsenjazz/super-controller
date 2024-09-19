@@ -21,7 +21,6 @@ import { ipcMain, IpcMainEvent } from 'electron';
 import { getDriver } from '@shared/drivers';
 import {
   AdapterDeviceConfig,
-  AnonymousDeviceConfig,
   DeviceConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
@@ -300,9 +299,9 @@ export class HardwarePortServiceSingleton {
       if (input) {
         MainWindow.sendInputState(config.id, input.id, input.state);
       }
-    } else if (config instanceof AnonymousDeviceConfig) {
-      MainWindow.sendRecentMsg(pair.id, msg.array);
     }
+
+    MainWindow.sendMidiEvent(pair.id, msg.array);
   }
 
   /**

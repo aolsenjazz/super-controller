@@ -18,6 +18,12 @@ type Host =
  * Expose data re. the host (usually the OS + hardware) to the renderer process
  */
 export const HostService = {
+  addMidiEventListener(
+    func: (deviceId: string, msg: NumberArrayWithStatus) => void
+  ) {
+    return addOnChangeListener(HOST.MIDI_EVENT, func);
+  },
+
   onTitleChange: (func: (title: string) => void) => {
     return addOnChangeListener(HOST.TITLE, func);
   },
@@ -69,7 +75,9 @@ export const HostService = {
     return off;
   },
 
-  getDeviceConnectionDetails(deviceId: string) {
+  getDeviceConnectionDetails(
+    deviceId: string
+  ): DeviceConnectionDetails | undefined {
     return ipcRenderer.sendSync(HOST.GET_CONNECTION_DETAILS, deviceId);
   },
 
