@@ -1,5 +1,7 @@
 import { SupportedDeviceConfig } from './supported-device-config';
 import { DeviceConfig } from './device-config';
+import { MessageTransport } from '../message-transport';
+import { MessageProcessorMeta } from '../message-processor';
 
 export class AdapterDeviceConfig extends DeviceConfig {
   child?: SupportedDeviceConfig;
@@ -26,18 +28,13 @@ export class AdapterDeviceConfig extends DeviceConfig {
   //   return this.child!.bindingAvailable(statusString, number, channel);
   // }
 
-  applyOverrides(msg: NumberArrayWithStatus) {
-    if (this.child) {
-      return this.child!.applyOverrides(msg);
-    }
-    return msg;
-  }
-
-  getResponse(msg: NumberArrayWithStatus) {
-    if (this.child) {
-      return this.child!.getResponse(msg);
-    }
-    return msg;
+  process(
+    msg: NumberArrayWithStatus,
+    loopbackTransport: MessageTransport,
+    remoteTransport: MessageTransport,
+    meta: MessageProcessorMeta
+  ) {
+    this.child?.process(msg, loopbackTransport, remoteTransport, meta);
   }
 
   /**

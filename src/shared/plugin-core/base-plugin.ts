@@ -1,3 +1,8 @@
+import type {
+  MessageProcessor,
+  MessageProcessorMeta,
+} from '@shared/message-processor';
+import type { MessageTransport } from '@shared/message-transport';
 import { generateId } from './plugin-utils';
 
 export interface PluginDTO {
@@ -19,7 +24,9 @@ export interface PluginDTO {
  *
  * Plugin manifests are dynamically loaded and then used futher to dynamically load subcomponents.
  */
-export abstract class BasePlugin<T extends PluginDTO = PluginDTO> {
+export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
+  implements MessageProcessor
+{
   public readonly id: string;
 
   public readonly title: string;
@@ -47,7 +54,13 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO> {
     } as T;
   }
 
-  public abstract process(msg: NumberArrayWithStatus): void;
+  public abstract process(
+    msg: NumberArrayWithStatus,
+    loopbackTransport: MessageTransport,
+    remoteTransport: MessageTransport,
+    meta: MessageProcessorMeta
+  ): void;
+
   public abstract get applicableDeviceTypes(): (
     | 'supported'
     | 'anonymous'

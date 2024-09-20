@@ -1,7 +1,9 @@
-import { BaseIcicle } from '../freezable';
+import type { BaseIcicle } from '../freezable';
 import { Anonymous, getDriver } from '../drivers';
 
-import { KeyboardDriver } from '../driver-types';
+import type { KeyboardDriver } from '../driver-types';
+import { MessageTransport } from '../message-transport';
+import { MessageProcessor, MessageProcessorMeta } from '../message-processor';
 
 export interface DeviceConfigDTO extends BaseIcicle {
   id: string;
@@ -16,9 +18,9 @@ export interface DeviceConfigDTO extends BaseIcicle {
 /**
  * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.
  */
-export abstract class DeviceConfig<
-  T extends DeviceConfigDTO = DeviceConfigDTO
-> {
+export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
+  implements MessageProcessor
+{
   /**
    * MIDI-driver-reported name. E.g. for Launchkey Mini MK3:
    *
@@ -102,10 +104,19 @@ export abstract class DeviceConfig<
   }
 
   public abstract toDTO(): T;
-  public abstract applyOverrides(
-    msg: NumberArrayWithStatus
-  ): NumberArrayWithStatus | undefined;
-  public abstract getResponse(
-    msg: NumberArrayWithStatus
-  ): NumberArrayWithStatus | undefined;
+
+  public process(
+    msg: NumberArrayWithStatus,
+    loopbackTransport: MessageTransport,
+    remoteTransport: MessageTransport,
+    meta: MessageProcessorMeta
+  ) {
+    const { pluginProvider } = meta;
+
+    this.plugins.forEach((pluginId) => {
+      pluginProvider
+        .get(pluginId)
+        ?.process(msg, loopbackTransport, remoteTransport, meta);
+    });
+  }
 }

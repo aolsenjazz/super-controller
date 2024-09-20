@@ -1,3 +1,4 @@
+import { MessageTransport } from '@shared/message-transport';
 import { applyNondestructiveThrottle } from '@shared/util';
 
 import { InputPort } from './input-port';
@@ -12,7 +13,10 @@ import { PortInfoPair } from './port-info-pair';
  * 'Sister' ports would be the Input and Output port for a single MIDI device,
  * however, not all MIDI devices provide both an input and output port.
  */
-export class PortPair extends PortInfoPair<InputPort, OutputPort> {
+export class PortPair
+  extends PortInfoPair<InputPort, OutputPort>
+  implements MessageTransport
+{
   /**
    * Open the input and/or output ports if not null.
    */

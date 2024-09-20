@@ -1,3 +1,5 @@
+import { MessageProcessorMeta } from '@shared/message-processor';
+import { MessageTransport } from '@shared/message-transport';
 import { DeviceDriver } from '../driver-types';
 
 import { DeviceConfig, DeviceConfigDTO } from './device-config';
@@ -57,6 +59,22 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
     };
   }
 
+  public process(
+    msg: NumberArrayWithStatus,
+    loopbackTransport: MessageTransport,
+    remoteTransport: MessageTransport,
+    meta: MessageProcessorMeta
+  ) {
+    super.process(msg, loopbackTransport, remoteTransport, meta);
+
+    this.getOriginatorInput(msg)?.process(
+      msg,
+      loopbackTransport,
+      remoteTransport,
+      meta
+    );
+  }
+
   /**
    * Are the statusString, number, and channel currently in use? Returns true if an input
    * uses all three params. Useful for avoiding inputs sending the same events
@@ -105,15 +123,5 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
       if (input.isOriginator(msg)) return input;
     }
     return undefined;
-  }
-
-  public applyOverrides(msg: NumberArrayWithStatus) {
-    const input = this.getOriginatorInput(msg);
-    return input !== undefined ? input.handleMessage(msg) : msg;
-  }
-
-  public getResponse(msg: NumberArrayWithStatus) {
-    // TODO:
-    return msg;
   }
 }

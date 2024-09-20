@@ -1,5 +1,10 @@
 /* eslint @typescript-eslint/no-empty-interface: 0 */
 import { InputType } from '@shared/driver-types';
+import {
+  MessageProcessor,
+  MessageProcessorMeta,
+} from '@shared/message-processor';
+import { MessageTransport } from '@shared/message-transport';
 import { BaseIcicle } from '../../freezable';
 
 export interface InputState {}
@@ -10,7 +15,9 @@ export interface InputDTO extends BaseIcicle {
   type: InputType;
 }
 
-export abstract class BaseInputConfig<T extends InputDTO = InputDTO> {
+export abstract class BaseInputConfig<T extends InputDTO = InputDTO>
+  implements MessageProcessor
+{
   protected nickname: string = '';
 
   constructor(nickname: string) {
@@ -42,7 +49,13 @@ export abstract class BaseInputConfig<T extends InputDTO = InputDTO> {
    */
   public abstract isOriginator(msg: NumberArrayWithStatus): boolean;
 
-  public abstract handleMessage(
-    msg: NumberArrayWithStatus
-  ): NumberArrayWithStatus | undefined;
+  public process(
+    msg: NumberArrayWithStatus,
+    _loopbackTransport: MessageTransport,
+    _remoteTransport: MessageTransport,
+    _meta: MessageProcessorMeta
+  ) {
+    // eslint-disable-next-line no-console
+    console.log(`${this.id} processing ${msg}`);
+  }
 }

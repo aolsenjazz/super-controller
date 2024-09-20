@@ -1,3 +1,5 @@
+import { MessageProcessorMeta } from '@shared/message-processor';
+import { MessageTransport } from '@shared/message-transport';
 import { BasePlugin } from '@shared/plugin-core/base-plugin';
 import { ShareSustainDTO } from './share-sustain-dto';
 
@@ -13,9 +15,14 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainDTO> {
     this.sustainTargets = sustainTargets;
   }
 
-  public process(msg: NumberArrayWithStatus) {
+  public process(
+    msg: NumberArrayWithStatus,
+    _loopbackTransport: MessageTransport,
+    _remoteTransport: MessageTransport,
+    _meta: MessageProcessorMeta
+  ) {
     // eslint-disable-next-line no-console
-    console.log(msg);
+    console.log(`${this.title} processing ${msg}`);
   }
 
   public toDTO(): ShareSustainDTO {

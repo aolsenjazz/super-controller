@@ -19,11 +19,8 @@
 import { ipcMain, IpcMainEvent } from 'electron';
 
 import { getDriver } from '@shared/drivers';
-import {
-  AdapterDeviceConfig,
-  DeviceConfig,
-  SupportedDeviceConfig,
-} from '@shared/hardware-config';
+import { AdapterDeviceConfig, DeviceConfig } from '@shared/hardware-config';
+import { Registry } from '@plugins/registry';
 
 import { PortScanResult, PortManager } from './port-manager';
 import { ProjectProvider } from '../project-provider';
@@ -282,27 +279,19 @@ export class HardwarePortServiceSingleton {
     pair: PortPair,
     msg: NumberArrayWithStatus
   ) {
-    const toPropagate = config.applyOverrides(msg);
-    const toDevice = config.getResponse(msg);
+    const loopbackTransport = VirtualPortService.ports.get(config.id)!;
+    const remoteTransport = this.ports.get(config.id)!;
 
-    if (toPropagate) {
-      VirtualPortService.send(toPropagate, config.id);
-    }
+    config.process(msg, loopbackTransport, remoteTransport, {
+      loopbackTransports: this.ports,
+      remoteTransports: VirtualPortService.ports,
+      pluginProvider: Registry,
+    });
 
-    if (toDevice) pair.send(toDevice);
-
-    if (
-      config instanceof SupportedDeviceConfig ||
-      config instanceof AdapterDeviceConfig
-    ) {
-      // send new state to frontend
-      const input = config.getOriginatorInput(msg);
-
-      if (input) {
-        MainWindow.sendInputState(config.id, input.id, input.state);
-      }
-    }
-
+    // TODO: rethink sending input state to frontend
+    // do we want to just broadcast on message channel? or will that invoke too
+    // many listeners and be irresponsible usage of cpu cycles?
+    // MainWindow.sendInputState(config.id, input.id, input.state);
     MainWindow.sendMidiEvent(pair.id, msg);
   }
 
