@@ -1,4 +1,3 @@
-import { ThreeByteMidiArray } from '@shared/midi-array';
 import { StatelessPropagator } from '@shared/propagators/stateless-propagator';
 
 class Wrapper extends StatelessPropagator<
@@ -22,8 +21,12 @@ interface NamedCreateCC {
   number: MidiNumber;
   channel: Channel;
 }
-function createCC({ value = 0, number = 0, channel = 0 }: NamedCreateCC) {
-  return ThreeByteMidiArray.create('controlchange', channel, number, value);
+function createCC({
+  value = 0,
+  number = 0,
+  channel = 0,
+}: NamedCreateCC): NumberArrayWithStatus {
+  return [176 | channel, number, value] as NumberArrayWithStatus; // 176 is the base for 'controlchange' messages
 }
 
 test('or=continuous applied overrides correctly', () => {
@@ -42,12 +45,12 @@ test('or=continuous applied overrides correctly', () => {
     69
   );
 
-  const result = propagator.handleMessage(msg1)! as ThreeByteMidiArray;
+  const result = propagator.handleMessage(msg1)! as NumberArrayWithStatus;
 
-  expect(result.statusString).toEqual(status);
-  expect(result.number).toEqual(number);
-  expect(result.channel).toEqual(channel);
-  expect(result.value).toEqual(msg1.value);
+  expect(propagator.statusString).toEqual(status);
+  expect(result[1]).toEqual(number); // number is at index 1
+  expect(result[0] & 0x0f).toEqual(channel); // channel is part of status byte (lower nibble of result[0])
+  expect(result[2]).toEqual(msg1[2]); // value is at index 2
 
   const newNumber = 33;
   const newChannel = 3;
@@ -57,10 +60,10 @@ test('or=continuous applied overrides correctly', () => {
   propagator.channel = newChannel;
   propagator.statusString = newStatus;
 
-  const result2 = propagator.handleMessage(msg2)! as ThreeByteMidiArray;
+  const result2 = propagator.handleMessage(msg2)! as NumberArrayWithStatus;
 
-  expect(result2.statusString).toEqual(newStatus);
-  expect(result2.number).toEqual(newNumber);
-  expect(result2.channel).toEqual(newChannel);
-  expect(result2.value).toEqual(msg2.value);
+  expect(propagator.statusString).toEqual(newStatus);
+  expect(result2[1]).toEqual(newNumber); // new number at index 1
+  expect(result2[0] & 0x0f).toEqual(newChannel); // new channel in the status byte
+  expect(result2[2]).toEqual(msg2[2]); // value is at index 2
 });

@@ -1,4 +1,3 @@
-import { MidiArray } from '../../midi-array';
 import { SwitchDriver } from '../../driver-types';
 import { BaseInputConfig, InputDTO, InputState } from './base-input-config';
 
@@ -30,7 +29,7 @@ export class SwitchConfig extends BaseInputConfig<SwitchDTO> {
     };
   }
 
-  handleMessage(msg: MidiArray): MidiArray | undefined {
+  handleMessage(msg: NumberArrayWithStatus): NumberArrayWithStatus | undefined {
     // TODO:
     return msg;
   }
@@ -44,7 +43,7 @@ export class SwitchConfig extends BaseInputConfig<SwitchDTO> {
     });
   }
 
-  isOriginator(_msg: MidiArray | NumberArrayWithStatus) {
+  isOriginator(_msg: NumberArrayWithStatus) {
     // const ma = msg instanceof MidiArray ? msg : create(msg);
 
     // return Array.from(this.outputPropagator.steps.keys()).includes(

@@ -1,7 +1,6 @@
 import { BaseIcicle } from '../freezable';
 import { Anonymous, getDriver } from '../drivers';
 
-import { MidiArray } from '../midi-array';
 import { KeyboardDriver } from '../driver-types';
 
 export interface DeviceConfigDTO extends BaseIcicle {
@@ -103,6 +102,10 @@ export abstract class DeviceConfig<
   }
 
   public abstract toDTO(): T;
-  public abstract applyOverrides(msg: MidiArray): MidiArray | undefined;
-  public abstract getResponse(msg: MidiArray): MidiArray | undefined;
+  public abstract applyOverrides(
+    msg: NumberArrayWithStatus
+  ): NumberArrayWithStatus | undefined;
+  public abstract getResponse(
+    msg: NumberArrayWithStatus
+  ): NumberArrayWithStatus | undefined;
 }

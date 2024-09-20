@@ -1,4 +1,5 @@
-import { MidiArray } from '../../midi-array';
+import { idForMsg } from '../../midi-util';
+
 import { XYDriver } from '../../driver-types';
 
 import { PitchbendConfig } from './pitchbend-config';
@@ -46,8 +47,8 @@ export class XYConfig extends BaseInputConfig<XYDTO> {
     this.y = y;
   }
 
-  handleMessage(msg: MidiArray) {
-    if (this.x.id === msg.asString(true)) {
+  handleMessage(msg: NumberArrayWithStatus) {
+    if (this.x.id === idForMsg(msg, true)) {
       return this.x.handleMessage(msg);
     }
 
@@ -59,7 +60,7 @@ export class XYConfig extends BaseInputConfig<XYDTO> {
     this.y.applyStub(s.y);
   }
 
-  isOriginator(msg: MidiArray | NumberArrayWithStatus) {
+  isOriginator(msg: NumberArrayWithStatus) {
     return this.x.isOriginator(msg) || this.y.isOriginator(msg);
   }
 

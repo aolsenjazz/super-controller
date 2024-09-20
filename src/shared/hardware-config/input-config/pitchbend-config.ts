@@ -1,4 +1,4 @@
-import { create, MidiArray, ThreeByteMidiArray } from '../../midi-array';
+import { byteToStatusString } from '@shared/midi-util';
 
 import { InputType, MonoInteractiveDriver } from '../../driver-types';
 import { MonoInputConfig } from './mono-input-config';
@@ -31,13 +31,13 @@ export class PitchbendConfig extends MonoInputConfig {
     };
   }
 
-  isOriginator(msg: MidiArray | NumberArrayWithStatus) {
-    const ma = msg instanceof MidiArray ? msg : create(msg);
-
-    if (ma instanceof ThreeByteMidiArray) {
+  isOriginator(msg: NumberArrayWithStatus) {
+    if (msg.length === 3) {
+      const statusString = byteToStatusString(msg[0]);
+      const channel = msg[0] & 0x0f;
       return (
-        ma.statusString === this.defaults.statusString &&
-        ma.channel === this.defaults.channel
+        statusString === this.defaults.statusString &&
+        channel === this.defaults.channel
       );
     }
 

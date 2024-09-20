@@ -24,7 +24,6 @@ import {
   DeviceConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
-import { create, MidiArray } from '@shared/midi-array';
 
 import { PortScanResult, PortManager } from './port-manager';
 import { ProjectProvider } from '../project-provider';
@@ -257,8 +256,7 @@ export class HardwarePortServiceSingleton {
       }
 
       // set onMessage
-      pair.onMessage((_delta, tuple) => {
-        const msg = create(tuple);
+      pair.onMessage((_delta, msg) => {
         // we'll occasionally receive message of length 1. ignore these.
         // reason is unclear, message of lenght 1 don't match midi spec
         if (msg.length >= 2) this.onMessage(config, pair, msg);
@@ -279,7 +277,11 @@ export class HardwarePortServiceSingleton {
   /**
    * Function to be invoked whenever a message is received from a MIDI ports
    */
-  private onMessage(config: DeviceConfig, pair: PortPair, msg: MidiArray) {
+  private onMessage(
+    config: DeviceConfig,
+    pair: PortPair,
+    msg: NumberArrayWithStatus
+  ) {
     const toPropagate = config.applyOverrides(msg);
     const toDevice = config.getResponse(msg);
 
@@ -301,7 +303,7 @@ export class HardwarePortServiceSingleton {
       }
     }
 
-    MainWindow.sendMidiEvent(pair.id, msg.array);
+    MainWindow.sendMidiEvent(pair.id, msg);
   }
 
   /**

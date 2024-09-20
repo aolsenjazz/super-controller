@@ -3,7 +3,6 @@
  */
 
 import { NStepPropagator as WrapMe } from '@shared/propagators';
-import { create } from '@shared/midi-array';
 
 class NStepPropagator extends WrapMe {
   getSteps() {
@@ -72,14 +71,15 @@ test('getResponse returns undefined when called on a valid NStepPropagator with 
 describe('setStep', () => {
   test('setting step with MidiArray works', () => {
     const propagator = new NStepPropagator('gate', 'toggle', new Map());
-    const mm = create('noteon', 4, 4, 4);
+    const mm: NumberArrayWithStatus = [144, 4, 4]; // Manually building the MIDI array for noteon
     propagator.setStep(2, mm);
     expect(propagator.responseForStep(2)).toBe(mm);
   });
+
   test('setting step with non-interactive midi array works', () => {
     const arr: NumberArrayWithStatus = [144, 5, 5];
     const propagator = new NStepPropagator('gate', 'toggle', new Map());
     propagator.setStep(2, arr);
-    expect(propagator.responseForStep(2)!.array).toEqual(arr);
+    expect(propagator.responseForStep(2)!).toEqual(arr);
   });
 });

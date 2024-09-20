@@ -1,4 +1,3 @@
-import { MidiArray } from '@shared/midi-array';
 import { InputResponse } from '@shared/driver-types';
 import { StatefulPropagator } from '@shared/propagators/stateful-propagator';
 
@@ -6,7 +5,7 @@ class Wrapper<
   T extends InputResponse,
   U extends InputResponse
 > extends StatefulPropagator<T, U> {
-  getResponse(msg: MidiArray) {
+  getResponse(msg: NumberArrayWithStatus) {
     return msg;
   }
 

@@ -1,4 +1,3 @@
-import { MidiArray } from '../midi-array';
 import { DeviceConfig } from './device-config';
 
 export class AnonymousDeviceConfig extends DeviceConfig {
@@ -11,7 +10,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     super(portName, 'Anonymous', siblingIndex, nickname, plugins);
   }
 
-  applyOverrides(mArray: MidiArray) {
+  applyOverrides(mArray: NumberArrayWithStatus) {
     return mArray;
   }
 

@@ -1,4 +1,3 @@
-import { MidiArray } from '../midi-array';
 import { SupportedDeviceConfig } from './supported-device-config';
 import { DeviceConfig } from './device-config';
 
@@ -27,14 +26,14 @@ export class AdapterDeviceConfig extends DeviceConfig {
   //   return this.child!.bindingAvailable(statusString, number, channel);
   // }
 
-  applyOverrides(msg: MidiArray) {
+  applyOverrides(msg: NumberArrayWithStatus) {
     if (this.child) {
       return this.child!.applyOverrides(msg);
     }
     return msg;
   }
 
-  getResponse(msg: MidiArray) {
+  getResponse(msg: NumberArrayWithStatus) {
     if (this.child) {
       return this.child!.getResponse(msg);
     }
@@ -57,7 +56,7 @@ export class AdapterDeviceConfig extends DeviceConfig {
    * input with number 32 and channel 2 is the originator of the message [178, 32, 127]
    * but not [144, 32, 127] nor [178, 31, 127]
    */
-  getOriginatorInput(msg: MidiArray | NumberArrayWithStatus) {
+  getOriginatorInput(msg: NumberArrayWithStatus) {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i];
       if (input.isOriginator(msg)) return input;

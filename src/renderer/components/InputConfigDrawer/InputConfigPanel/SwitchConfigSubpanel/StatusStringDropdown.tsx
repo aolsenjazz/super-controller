@@ -1,4 +1,4 @@
-import { byteToStatusString, statusStringToByte } from '@shared/midi-util';
+import { byteToStatusString, statusStringToNibble } from '@shared/midi-util';
 import SettingsLineItem from '../../SettingsLineItem';
 
 type PropTypes = {
@@ -30,7 +30,7 @@ export default function StatusStringDropdown(props: PropTypes) {
       valueList={eligibleStatusStrings}
       labelList={statusLabels}
       onChange={(v) => {
-        const newByte = statusStringToByte(v);
+        const newByte = statusStringToNibble(v);
         const newArr = JSON.parse(JSON.stringify(override));
         newArr[0] = newByte | (newArr[0] & 0x0f);
         onChange(newArr);

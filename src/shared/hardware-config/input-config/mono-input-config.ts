@@ -1,9 +1,9 @@
 import {
-  create,
-  MidiArray,
-  ThreeByteMidiArray,
-  TwoByteMidiArray,
-} from '../../midi-array';
+  byteToStatusString,
+  idForMsg,
+  NOTE_OFF,
+  NOTE_ON,
+} from '@shared/midi-util';
 import type { InputResponse } from '../../driver-types';
 import { BaseInputConfig } from './base-input-config';
 import { MonoInputDTO } from './mono-input-dto';
@@ -38,22 +38,23 @@ export abstract class MonoInputConfig<
     this.defaults = defaultVals;
   }
 
-  public isOriginator(msg: MidiArray | NumberArrayWithStatus) {
-    const ma = msg instanceof MidiArray ? msg : create(msg);
-
-    if (ma instanceof TwoByteMidiArray || ma instanceof ThreeByteMidiArray) {
+  public isOriginator(msg: NumberArrayWithStatus) {
+    if ([2, 3].includes(msg.length)) {
+      const statusNibble = (msg[0] & 0xf0) as StatusByte;
+      const statusString = byteToStatusString(statusNibble);
+      const channel = (msg[0] & 0x0f) as Channel;
       const noteOnOffMatch =
         this.defaults.statusString === 'noteon/noteoff' &&
-        ma.statusString.includes('note');
+        [NOTE_OFF, NOTE_ON].includes(statusNibble);
 
       return (
-        (noteOnOffMatch || ma.statusString === this.defaults.statusString) &&
-        ma.channel === this.defaults.channel &&
-        ma.number === this.defaults.number
+        (noteOnOffMatch || statusString === this.defaults.statusString) &&
+        channel === this.defaults.channel &&
+        msg[1] === this.defaults.number
       );
     }
 
-    return this.id === ma.asString(true);
+    return this.id === idForMsg(msg, true);
   }
 
   public applyStub(s: K) {
@@ -69,7 +70,9 @@ export abstract class MonoInputConfig<
     };
   }
 
-  public handleMessage(msg: MidiArray): MidiArray | undefined {
+  public handleMessage(
+    msg: NumberArrayWithStatus
+  ): NumberArrayWithStatus | undefined {
     // TODO:
     return msg;
   }

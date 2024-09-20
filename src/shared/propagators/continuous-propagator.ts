@@ -1,4 +1,4 @@
-import { MidiArray, create } from '../midi-array';
+import { statusStringToNibble } from '@shared/midi-util';
 import { StatelessPropagator } from './stateless-propagator';
 
 export class ContinuousPropagator extends StatelessPropagator<
@@ -30,23 +30,24 @@ export class ContinuousPropagator extends StatelessPropagator<
    * @param msg The message to respond to
    * @returns The message to propagate
    */
-  protected getResponse(msg: MidiArray) {
-    let response;
+  protected getResponse(msg: NumberArrayWithStatus) {
+    let response: NumberArrayWithStatus;
     if (this.outputResponse === 'constant') {
       response = this.handleAsConstant(msg);
     } else {
-      response = create(
-        this.nextEventType(),
-        this.channel,
+      const nextStatusString = this.nextEventType();
+      const statusNibble = statusStringToNibble(nextStatusString);
+      response = [
+        (statusNibble | this.channel) as StatusByte,
         this.number,
-        this.nextValue(msg)
-      );
+        this.nextValue(msg),
+      ];
     }
 
     return response;
   }
 
-  protected nextValue = (msg: MidiArray) => {
+  protected nextValue = (msg: NumberArrayWithStatus) => {
     let val = msg[2] as MidiNumber;
     if (this.knobType === 'endless' && this.valueType === 'absolute') {
       const shift = (val - 64 * Math.round(val / 64)) as MidiNumber;

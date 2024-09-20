@@ -1,4 +1,4 @@
-import { MidiArray, create } from '../midi-array';
+import { statusStringToNibble } from '@shared/midi-util';
 import { InputResponse } from '../driver-types';
 import { Propagator } from './propagator';
 
@@ -40,14 +40,17 @@ export abstract class OverrideablePropagator<
    *
    * @returns The message to propagate
    */
-  protected handleAsConstant(msg: MidiArray) {
-    return create(
-      this.nextEventType(msg),
-      this.channel,
+  protected handleAsConstant(
+    msg: NumberArrayWithStatus
+  ): NumberArrayWithStatus {
+    const nextStatus = this.nextEventType(msg);
+    const statusNibble = statusStringToNibble(nextStatus);
+    return [
+      (statusNibble | this.channel) as StatusByte,
       this.number,
-      this.value
-    );
+      this.value,
+    ];
   }
 
-  protected abstract nextEventType(msg: MidiArray): StatusString;
+  protected abstract nextEventType(msg: NumberArrayWithStatus): StatusString;
 }

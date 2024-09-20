@@ -1,5 +1,3 @@
-import { MidiArray } from '@shared/midi-array';
-
 import { BasePlugin } from '@shared/plugin-core/base-plugin';
 import { ShareSustainDTO } from './share-sustain-dto';
 
@@ -15,7 +13,7 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainDTO> {
     this.sustainTargets = sustainTargets;
   }
 
-  public process(msg: MidiArray | NumberArrayWithStatus) {
+  public process(msg: NumberArrayWithStatus) {
     // eslint-disable-next-line no-console
     console.log(msg);
   }

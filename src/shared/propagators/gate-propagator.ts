@@ -1,4 +1,4 @@
-import { MidiArray, create } from '../midi-array';
+import { statusStringToNibble } from '@shared/midi-util';
 import { StatefulPropagator } from './stateful-propagator';
 
 /**
@@ -26,8 +26,8 @@ export class GatePropagator extends StatefulPropagator<
    * @param msg The message to respond to
    * @returns The message to propagate
    */
-  protected getResponse(msg: MidiArray) {
-    let response: MidiArray;
+  protected getResponse(msg: NumberArrayWithStatus) {
+    let response: NumberArrayWithStatus;
     switch (this.outputResponse) {
       case 'gate':
         response = this.#handleAsGate(msg);
@@ -54,15 +54,10 @@ export class GatePropagator extends StatefulPropagator<
    *
    * @returns The message to propagate
    */
-  #handleAsGate = (msg: MidiArray) => {
+  #handleAsGate = (msg: NumberArrayWithStatus): NumberArrayWithStatus => {
     const statusString = this.nextEventType();
-
-    return create(
-      statusString,
-      this.channel,
-      this.number,
-      msg[2] as MidiNumber
-    );
+    const statusNibble = statusStringToNibble(statusString);
+    return [(statusNibble | this.channel) as StatusByte, this.number, msg[2]];
   };
 
   /**
@@ -70,10 +65,11 @@ export class GatePropagator extends StatefulPropagator<
    *
    * @returns The message to propagate
    */
-  #handleAsToggle = () => {
+  #handleAsToggle = (): NumberArrayWithStatus => {
     const statusString = this.nextEventType();
+    const statusNibble = statusStringToNibble(statusString);
     const value = this.state === 'on' ? 0 : 127;
 
-    return create(statusString, this.channel, this.number, value);
+    return [(statusNibble | this.channel) as StatusByte, this.number, value];
   };
 }

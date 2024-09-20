@@ -1,11 +1,10 @@
 /* eslint-disable no-new */
 
-import { ThreeByteMidiArray } from '@shared/midi-array';
 import { ConstantPropagator } from '@shared/propagators';
 
 describe('getResponse', () => {
-  const on = ThreeByteMidiArray.create('noteon', 0, 0, 127);
-  const off = ThreeByteMidiArray.create('noteoff', 0, 0, 127);
+  const on = [144, 0, 127] as NumberArrayWithStatus;
+  const off = [128, 0, 127] as NumberArrayWithStatus;
 
   test('state is flipped when or=toggle', () => {
     const or = 'toggle';

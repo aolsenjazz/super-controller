@@ -1,5 +1,3 @@
-import { MidiArray } from '../midi-array';
-
 import { generateId } from './plugin-utils';
 
 export interface PluginDTO {
@@ -49,7 +47,7 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO> {
     } as T;
   }
 
-  public abstract process(msg: MidiArray | NumberArrayWithStatus): void;
+  public abstract process(msg: NumberArrayWithStatus): void;
   public abstract get applicableDeviceTypes(): (
     | 'supported'
     | 'anonymous'

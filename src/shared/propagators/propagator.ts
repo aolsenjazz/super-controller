@@ -1,4 +1,4 @@
-import { MidiArray } from '../midi-array';
+import { isOnIsh } from '@shared/midi-util';
 import { InputResponse } from '../driver-types';
 
 /**
@@ -27,7 +27,7 @@ export abstract class Propagator<
    * @param msg Message from device to respond to
    * @returns The message to propagate
    */
-  handleMessage(msg: MidiArray) {
+  handleMessage(msg: NumberArrayWithStatus) {
     return this.hardwareResponse === 'gate'
       ? this.#handleInputAsGate(msg)
       : this.getResponse(msg);
@@ -41,7 +41,9 @@ export abstract class Propagator<
    * @param msg Them message to respond to
    * @return The  message to propagate
    */
-  protected abstract getResponse(msg: MidiArray): MidiArray | undefined;
+  protected abstract getResponse(
+    msg: NumberArrayWithStatus
+  ): NumberArrayWithStatus | undefined;
 
   /**
    * Returns the message to propagate if hardwareResponse is gate. Used to omit responding
@@ -50,9 +52,9 @@ export abstract class Propagator<
    * @param msg The message from device
    * @returns the message to propagate
    */
-  #handleInputAsGate = (msg: MidiArray) => {
+  #handleInputAsGate = (msg: NumberArrayWithStatus) => {
     // if outputResponse === 'toggle' | 'constant', only respond to 'noteon' messages
-    if (this.outputResponse !== 'gate' && !msg.isOnIsh(true)) {
+    if (this.outputResponse !== 'gate' && !isOnIsh(msg, true)) {
       return undefined;
     }
     return this.getResponse(msg);

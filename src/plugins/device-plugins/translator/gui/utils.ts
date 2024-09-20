@@ -32,14 +32,14 @@ export const statusByteMap: { [key: number]: string } = {
 
 export const statusBytes = Object.keys(statusByteMap).map(Number);
 
-export const statusStringToByte: { [key: string]: number } = {
+export const statusStringToNibble: { [key: string]: number } = {
   'Note Off': 0x80,
   'Note On': 0x90,
   'Control Change': 0xb0,
   'Program Change': 0xc0,
 };
 
-export const statusStrings = Object.keys(statusStringToByte);
+export const statusStrings = Object.keys(statusStringToNibble);
 
 export function parseStatusByte(statusByte: number) {
   const status = statusByte & 0xf0;

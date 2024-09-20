@@ -1,4 +1,4 @@
-import { MidiArray, create } from '../midi-array';
+import { statusStringToNibble } from '@shared/midi-util';
 import { OverrideablePropagator } from './overrideable-propagator';
 
 export class PitchbendPropagator extends OverrideablePropagator<
@@ -24,13 +24,14 @@ export class PitchbendPropagator extends OverrideablePropagator<
    * @param msg The message to respond to
    * @returns The message to propagate
    */
-  protected getResponse(msg: MidiArray) {
-    const response = create(
-      this.nextEventType(),
-      this.channel,
-      msg[1] as MidiNumber,
-      msg[2] as MidiNumber
-    );
+  protected getResponse(msg: NumberArrayWithStatus) {
+    const nextStatus = this.nextEventType();
+    const statusNibble = statusStringToNibble(nextStatus);
+    const response = [
+      (statusNibble | this.channel) as StatusByte,
+      msg[1],
+      msg[2],
+    ] as NumberArrayWithStatus;
 
     // eslint-disable-next-line prefer-destructuring
     this.value = msg[2] as MidiNumber;

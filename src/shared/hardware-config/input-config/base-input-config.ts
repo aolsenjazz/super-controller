@@ -1,7 +1,6 @@
 /* eslint @typescript-eslint/no-empty-interface: 0 */
 import { InputType } from '@shared/driver-types';
 import { BaseIcicle } from '../../freezable';
-import { MidiArray } from '../../midi-array';
 
 export interface InputState {}
 
@@ -41,7 +40,9 @@ export abstract class BaseInputConfig<T extends InputDTO = InputDTO> {
    * Returns true if the input this config represents is responsible for generating
    * `msg`. Used to associate message from devices with its config.
    */
-  public abstract isOriginator(msg: MidiArray | NumberArrayWithStatus): boolean;
+  public abstract isOriginator(msg: NumberArrayWithStatus): boolean;
 
-  public abstract handleMessage(msg: MidiArray): MidiArray | undefined;
+  public abstract handleMessage(
+    msg: NumberArrayWithStatus
+  ): NumberArrayWithStatus | undefined;
 }

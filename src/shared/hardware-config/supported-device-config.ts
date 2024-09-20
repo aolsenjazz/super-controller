@@ -1,5 +1,3 @@
-import { MidiArray } from '../midi-array';
-
 import { DeviceDriver } from '../driver-types';
 
 import { DeviceConfig, DeviceConfigDTO } from './device-config';
@@ -101,7 +99,7 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
    * input with number 32 and channel 2 is the originator of the message [178, 32, 127]
    * but not [144, 32, 127] nor [178, 31, 127]
    */
-  public getOriginatorInput(msg: MidiArray | NumberArrayWithStatus) {
+  public getOriginatorInput(msg: NumberArrayWithStatus) {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i];
       if (input.isOriginator(msg)) return input;
@@ -109,12 +107,12 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
     return undefined;
   }
 
-  public applyOverrides(msg: MidiArray) {
+  public applyOverrides(msg: NumberArrayWithStatus) {
     const input = this.getOriginatorInput(msg);
     return input !== undefined ? input.handleMessage(msg) : msg;
   }
 
-  public getResponse(msg: MidiArray) {
+  public getResponse(msg: NumberArrayWithStatus) {
     // TODO:
     return msg;
   }
