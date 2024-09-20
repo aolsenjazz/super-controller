@@ -62,7 +62,7 @@ export default function DeviceListItem(props: PropTypes) {
       >
         <h2>{deviceConfig?.nickname || deviceConnectionDetails?.name}</h2>
         <p className="id">
-          {reformatId(deviceId, deviceConfig?.siblingIndex || 0)}
+          {reformatId(deviceId, deviceConnectionDetails?.siblingIndex || 0)}
         </p>
         <div
           className={`connection-color ${cssClassFor(connected, configured)}`}
