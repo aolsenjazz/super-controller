@@ -14,6 +14,8 @@ import {
 } from '@shared/hardware-config';
 import { BasePlugin } from '@shared/plugin-core/base-plugin';
 
+const { MainWindow } = wp;
+
 export async function createInputPluginMenu(
   deviceId: string,
   inputIds: string[]
@@ -39,6 +41,8 @@ export async function createInputPluginMenu(
               const plugin: BasePlugin = new Plugin(m.title, m.description);
               input.plugins.push(plugin.id);
               Registry.register(plugin);
+
+              MainWindow.sendInputConfig(deviceId, id, input.toDTO());
             } else {
               // TODO: How do we handle adding plugin to multi-input configs?
               // eslint-disable-next-line no-console

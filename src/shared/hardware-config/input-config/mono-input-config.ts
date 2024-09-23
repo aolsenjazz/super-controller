@@ -59,6 +59,8 @@ export abstract class MonoInputConfig<
 
   public applyStub(s: K) {
     super.applyStub(s);
+
+    this.plugins = s.plugins;
   }
 
   public toDTO() {

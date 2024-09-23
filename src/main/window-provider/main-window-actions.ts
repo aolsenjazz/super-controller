@@ -8,7 +8,7 @@ import {
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import type { DeviceConnectionDetails } from '@shared/device-connection-details';
 
-import { HOST, CONFIG } from '../ipc-channels';
+import { HOST, INPUT_CONFIG, CONFIG } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';
 
@@ -61,7 +61,7 @@ export class MainWindowActions extends StatefulWindowActions {
   }
 
   public sendInputConfigs(configs: InputDTO[]) {
-    this.send(CONFIG.INPUT_CONFIG_CHANGE, configs);
+    this.send(INPUT_CONFIG.INPUT_CONFIG_CHANGE, configs);
   }
 
   public sendInputState<T extends InputState>(

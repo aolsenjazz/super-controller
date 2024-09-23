@@ -23,20 +23,20 @@ export const CONFIG = {
   REMOVE_DEVICE: 'remove-device',
   UPDATE_DEVICE: 'update-device',
   GET_DEVICE_CONFIG: 'get-device-config',
-  GET_INPUT_CONFIG: 'get-input-config',
 
   REQUEST_DEVICE_CONFIG_STUB: 'request-device-config-stub',
   GET_CONFIGURED_DEVICES: 'get-configured-devices',
   CONFIGURED_DEVICES: 'configured-devices',
 
-  INPUT_CONFIG_CHANGE: 'input-config-change',
   REQUEST_INPUT_CONFIG_STUB: 'request-input-config-stub',
-  GET_INPUT_CONFIGS: 'get-input-configs',
 };
 
 export const INPUT_CONFIG = {
   REMOVE_PLUGIN: 'remove-input-plugin',
   UPDATE_INPUT: 'update-input',
+  INPUT_CONFIG_CHANGE: 'input-config-change',
+  GET_INPUT_CONFIGS: 'get-input-configs',
+  GET_INPUT_CONFIG: 'get-input-config',
 };
 
 export const DEVICE_CONFIG = {

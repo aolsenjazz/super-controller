@@ -34,8 +34,33 @@ ipcMain.on(
       if (inputConfig && inputConfig instanceof MonoInputConfig) {
         inputConfig.plugins = inputConfig.plugins.filter((p) => p !== pluginId);
         Registry.deregister(pluginId);
+
+        MainWindow.sendInputConfig(
+          deviceConfigId,
+          inputId,
+          inputConfig.toDTO()
+        );
       }
     }
+  }
+);
+
+ipcMain.on(
+  INPUT_CONFIG.GET_INPUT_CONFIG,
+  (e, deviceId: string, inputId: string) => {
+    let result: InputDTO | undefined;
+    const { project } = ProjectProvider;
+    const deviceConfig = project.getDevice(deviceId);
+
+    if (deviceConfig instanceof SupportedDeviceConfig) {
+      const inputConfig = deviceConfig.getInputById(inputId);
+
+      if (inputConfig) {
+        result = inputConfig.toDTO();
+      }
+    }
+
+    e.returnValue = result;
   }
 );
 
@@ -52,11 +77,13 @@ ipcMain.on(
       if (input) {
         input.applyStub(c);
         updatedConfigs.push(input);
+
+        console.log('sanity');
         MainWindow.sendInputState(deviceId, c.id, input.state);
+        MainWindow.sendInputConfig(deviceId, c.id, c);
       }
     });
 
     MainWindow.edited = true;
-    MainWindow.sendConfigStub(deviceConfig.id, deviceConfig.stub());
   }
 );

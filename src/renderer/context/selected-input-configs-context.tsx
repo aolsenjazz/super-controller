@@ -11,7 +11,7 @@ import type { InputDTO } from '@shared/hardware-config/input-config/base-input-c
 import { useSelectedInputs } from './selected-inputs-context';
 import { useSelectedDevice } from './selected-device-context';
 
-const { DeviceConfigService } = window;
+const { InputConfigService, DeviceConfigService } = window;
 
 interface SelectedInputConfigsType {
   inputConfigs: InputDTO[];
@@ -36,7 +36,7 @@ export const SelectedInputConfigsProvider = ({ children }: PropTypes) => {
   useEffect(() => {
     const cb = () => {
       if (selectedDevice) {
-        const ins = DeviceConfigService.getInputConfigs(
+        const ins = InputConfigService.getInputConfigs(
           selectedDevice,
           selectedInputs
         );

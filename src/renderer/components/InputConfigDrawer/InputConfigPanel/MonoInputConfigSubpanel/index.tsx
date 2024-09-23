@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
+import { useInputConfig } from '@hooks/use-input-config';
 
 import PluginSubpanel from 'renderer/components/PluginSubpanel';
 import InputDefaultsSubpanel from '../InputDefaultsSubpanel';
@@ -15,8 +16,9 @@ const { MenuService, InputConfigService } = window;
 export default function MonoInputConfigPanel(props: PropTypes) {
   const { inputs, deviceId } = props;
 
-  // TODO: only supported selecting 1 input at a time right now.
   const input = inputs[0];
+
+  const { inputConfig } = useInputConfig<MonoInputDTO>(deviceId, input.id);
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
@@ -36,7 +38,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
     <div>
       <InputDefaultsSubpanel inputs={inputs} />
       <PluginSubpanel
-        plugins={input.plugins}
+        plugins={inputConfig.plugins}
         removePlugin={removePlugin}
         showPluginMenu={showPluginMenu}
         showAddPlugin={inputs.length === 1}
