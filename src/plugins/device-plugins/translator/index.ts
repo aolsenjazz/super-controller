@@ -21,11 +21,13 @@ export default class TranslatorPlugin extends BasePlugin<TranslatorDTO> {
   public process(
     msg: NumberArrayWithStatus,
     _loopbackTransport: MessageTransport,
-    _remoteTransport: MessageTransport,
+    remoteTransport: MessageTransport,
     _meta: MessageProcessorMeta
   ) {
-    // eslint-disable-next-line no-console
-    console.log(`${this.title} processing ${msg}`);
+    const override = this.overrides.find(
+      (o) => JSON.stringify(o.source) === JSON.stringify(msg)
+    );
+    remoteTransport.send(override ? override.override : msg);
   }
 
   public toDTO(): TranslatorDTO {

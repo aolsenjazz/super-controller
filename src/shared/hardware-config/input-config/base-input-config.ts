@@ -50,12 +50,9 @@ export abstract class BaseInputConfig<T extends InputDTO = InputDTO>
   public abstract isOriginator(msg: NumberArrayWithStatus): boolean;
 
   public process(
-    msg: NumberArrayWithStatus,
+    _msg: NumberArrayWithStatus,
     _loopbackTransport: MessageTransport,
     _remoteTransport: MessageTransport,
     _meta: MessageProcessorMeta
-  ) {
-    // eslint-disable-next-line no-console
-    console.log(`${this.id} processing ${msg}`);
-  }
+  ) {}
 }

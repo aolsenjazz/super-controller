@@ -279,8 +279,8 @@ export class HardwarePortServiceSingleton {
     pair: PortPair,
     msg: NumberArrayWithStatus
   ) {
-    const loopbackTransport = VirtualPortService.ports.get(config.id)!;
-    const remoteTransport = this.ports.get(config.id)!;
+    const loopbackTransport = this.ports.get(config.id)!;
+    const remoteTransport = VirtualPortService.ports.get(config.id)!;
 
     config.process(msg, loopbackTransport, remoteTransport, {
       loopbackTransports: this.ports,
