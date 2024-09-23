@@ -1,5 +1,4 @@
 import { MessageProcessorMeta } from '@shared/message-processor';
-import { MessageTransport } from '@shared/message-transport';
 import { BasePlugin, PluginDTO } from '@shared/plugin-core/base-plugin';
 import { MidiEventOverride } from './midi-event-override';
 
@@ -18,16 +17,11 @@ export default class TranslatorPlugin extends BasePlugin<TranslatorDTO> {
     return ['anonymous'];
   }
 
-  public process(
-    msg: NumberArrayWithStatus,
-    _loopbackTransport: MessageTransport,
-    remoteTransport: MessageTransport,
-    _meta: MessageProcessorMeta
-  ) {
+  public process(msg: NumberArrayWithStatus, _meta: MessageProcessorMeta) {
     const override = this.overrides.find(
       (o) => JSON.stringify(o.source) === JSON.stringify(msg)
     );
-    remoteTransport.send(override ? override.override : msg);
+    return override ? override.override : msg;
   }
 
   public toDTO(): TranslatorDTO {

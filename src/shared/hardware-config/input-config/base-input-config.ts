@@ -4,7 +4,6 @@ import {
   MessageProcessor,
   MessageProcessorMeta,
 } from '@shared/message-processor';
-import { MessageTransport } from '@shared/message-transport';
 import { BaseIcicle } from '../../freezable';
 
 export interface InputState {}
@@ -51,8 +50,8 @@ export abstract class BaseInputConfig<T extends InputDTO = InputDTO>
 
   public process(
     _msg: NumberArrayWithStatus,
-    _loopbackTransport: MessageTransport,
-    _remoteTransport: MessageTransport,
     _meta: MessageProcessorMeta
-  ) {}
+  ): NumberArrayWithStatus | undefined {
+    return _msg;
+  }
 }

@@ -1,5 +1,4 @@
 import { MessageProcessorMeta } from '@shared/message-processor';
-import { MessageTransport } from '@shared/message-transport';
 import { DeviceDriver } from '../driver-types';
 
 import { DeviceConfig, DeviceConfigDTO } from './device-config';
@@ -59,20 +58,10 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
     };
   }
 
-  public process(
-    msg: NumberArrayWithStatus,
-    loopbackTransport: MessageTransport,
-    remoteTransport: MessageTransport,
-    meta: MessageProcessorMeta
-  ) {
-    super.process(msg, loopbackTransport, remoteTransport, meta);
-
-    this.getOriginatorInput(msg)?.process(
-      msg,
-      loopbackTransport,
-      remoteTransport,
-      meta
-    );
+  public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
+    const message = super.process(msg, meta)!;
+    const originator = this.getOriginatorInput(msg);
+    return originator ? originator.process(message, meta) : msg;
   }
 
   /**

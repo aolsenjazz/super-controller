@@ -2,7 +2,6 @@ import type { BaseIcicle } from '../freezable';
 import { Anonymous, getDriver } from '../drivers';
 
 import type { KeyboardDriver } from '../driver-types';
-import { MessageTransport } from '../message-transport';
 import { MessageProcessor, MessageProcessorMeta } from '../message-processor';
 
 export interface DeviceConfigDTO extends BaseIcicle {
@@ -105,18 +104,29 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
 
   public abstract toDTO(): T;
 
+  /**
+   * Processes a MIDI message through a series of plugins, updating the message as it
+   * passes through each plugin in sequence. If any plugin returns `undefined`, processing
+   * will be short-circuited, and `undefined` will be returned.
+   *
+   * @param {NumberArrayWithStatus} msg - The original MIDI message
+   * @param {MessageProcessorMeta} meta - Metadata required for processing, including transports and plugin providers.
+   */
   public process(
     msg: NumberArrayWithStatus,
-    loopbackTransport: MessageTransport,
-    remoteTransport: MessageTransport,
     meta: MessageProcessorMeta
-  ) {
-    const { pluginProvider } = meta;
+  ): NumberArrayWithStatus | undefined {
+    let message = msg;
 
-    this.plugins.forEach((pluginId) => {
-      pluginProvider
-        .get(pluginId)
-        ?.process(msg, loopbackTransport, remoteTransport, meta);
-    });
+    for (let i = 0; i < this.plugins.length; i++) {
+      const plugin = meta.pluginProvider.get(this.plugins[i]);
+      if (plugin && plugin.on === true) {
+        const toPropagate = plugin.process(message, meta);
+        if (toPropagate === undefined) return undefined;
+        message = toPropagate;
+      }
+    }
+
+    return message;
   }
 }

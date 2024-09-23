@@ -279,14 +279,14 @@ export class HardwarePortServiceSingleton {
     pair: PortPair,
     msg: NumberArrayWithStatus
   ) {
-    const loopbackTransport = this.ports.get(config.id)!;
-    const remoteTransport = VirtualPortService.ports.get(config.id)!;
-
-    config.process(msg, loopbackTransport, remoteTransport, {
+    const message = config.process(msg, {
       loopbackTransports: this.ports,
       remoteTransports: VirtualPortService.ports,
       pluginProvider: Registry,
     });
+
+    const remoteTransport = VirtualPortService.ports.get(config.id);
+    if (remoteTransport && message) remoteTransport.send(message);
 
     // TODO: rethink sending input state to frontend
     // do we want to just broadcast on message channel? or will that invoke too

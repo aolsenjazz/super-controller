@@ -2,7 +2,6 @@ import type {
   MessageProcessor,
   MessageProcessorMeta,
 } from '@shared/message-processor';
-import type { MessageTransport } from '@shared/message-transport';
 import { generateId } from './plugin-utils';
 
 export interface PluginDTO {
@@ -56,10 +55,8 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
 
   public abstract process(
     msg: NumberArrayWithStatus,
-    loopbackTransport: MessageTransport,
-    remoteTransport: MessageTransport,
     meta: MessageProcessorMeta
-  ): void;
+  ): NumberArrayWithStatus | undefined;
 
   public abstract get applicableDeviceTypes(): (
     | 'supported'
