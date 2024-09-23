@@ -3,7 +3,9 @@ import { PluginProvider } from './plugin-provider';
 
 export type MessageProcessorMeta = {
   loopbackTransports: Map<string, MessageTransport>;
+
   remoteTransports: Map<string, MessageTransport>;
+
   pluginProvider: PluginProvider;
 };
 

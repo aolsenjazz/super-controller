@@ -19,10 +19,16 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainDTO> {
     msg: NumberArrayWithStatus,
     _loopbackTransport: MessageTransport,
     _remoteTransport: MessageTransport,
-    _meta: MessageProcessorMeta
+    meta: MessageProcessorMeta
   ) {
-    // eslint-disable-next-line no-console
-    console.log(`${this.title} processing ${msg}`);
+    const { remoteTransports } = meta;
+
+    this.sustainTargets
+      .map((t) => remoteTransports.get(t))
+      .filter((transport) => transport !== undefined)
+      .forEach((transport) => {
+        transport!.send(msg);
+      });
   }
 
   public toDTO(): ShareSustainDTO {
