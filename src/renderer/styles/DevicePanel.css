@@ -5,6 +5,10 @@
   height: 100%;
 }
 
+#device-panel .device-container.disabled {
+  pointer-events: none;
+}
+
 #device-panel .device-container .interactive-indicator {
   border-color: #bcbec0;
   pointer-events: none;

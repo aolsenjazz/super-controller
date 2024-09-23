@@ -54,7 +54,11 @@ export default function DevicePanel() {
 
   return (
     <div id="device-panel" className="top-level">
-      <div className={`device-container ${deviceConfig ? 'configured' : ''}`}>
+      <div
+        className={`device-container ${
+          deviceConfig ? 'configured' : 'disabled'
+        }`}
+      >
         {Element || null}
       </div>
     </div>
