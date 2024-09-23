@@ -1,17 +1,18 @@
-import { MidiArray } from '../midi-array';
-
+import { MessageProcessorMeta } from '@shared/message-processor';
+import { MessageTransport } from '@shared/message-transport';
 import { DeviceDriver } from '../driver-types';
 
-import { DeviceConfig, DeviceIcicle } from './device-config';
+import { DeviceConfig, DeviceConfigDTO } from './device-config';
 import { create } from './input-config';
-import { BaseInputConfig, InputIcicle } from './input-config/base-input-config';
+import { BaseInputConfig, InputDTO } from './input-config/base-input-config';
 
-interface SupportedDeviceIcicle extends DeviceIcicle {
-  inputs: InputIcicle[];
+interface SupportedDeviceConfigDTO extends DeviceConfigDTO {
+  inputs: InputDTO[];
+  className: 'SupportedDeviceConfig';
 }
 
 /* Contains device-specific configurations and managed `InputConfig`s */
-export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceIcicle> {
+export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO> {
   public inputs: BaseInputConfig[];
 
   public static fromDriver(
@@ -50,12 +51,28 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceIcicle> {
     this.inputs = inputs;
   }
 
-  public freeze() {
+  public toDTO() {
     return {
       ...this.stub(),
-      className: this.constructor.name,
-      inputs: this.inputs.map((i) => i.freeze()),
+      className: 'SupportedDeviceConfig' as const,
+      inputs: this.inputs.map((i) => i.toDTO()),
     };
+  }
+
+  public process(
+    msg: NumberArrayWithStatus,
+    loopbackTransport: MessageTransport,
+    remoteTransport: MessageTransport,
+    meta: MessageProcessorMeta
+  ) {
+    super.process(msg, loopbackTransport, remoteTransport, meta);
+
+    this.getOriginatorInput(msg)?.process(
+      msg,
+      loopbackTransport,
+      remoteTransport,
+      meta
+    );
   }
 
   /**
@@ -100,21 +117,11 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceIcicle> {
    * input with number 32 and channel 2 is the originator of the message [178, 32, 127]
    * but not [144, 32, 127] nor [178, 31, 127]
    */
-  public getOriginatorInput(msg: MidiArray | NumberArrayWithStatus) {
+  public getOriginatorInput(msg: NumberArrayWithStatus) {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i];
       if (input.isOriginator(msg)) return input;
     }
     return undefined;
-  }
-
-  public applyOverrides(msg: MidiArray) {
-    const input = this.getOriginatorInput(msg);
-    return input !== undefined ? input.handleMessage(msg) : msg;
-  }
-
-  public getResponse(msg: MidiArray) {
-    // TODO:
-    return msg;
   }
 }

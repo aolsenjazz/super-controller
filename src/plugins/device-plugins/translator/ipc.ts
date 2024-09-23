@@ -1,47 +1,47 @@
 import { ipcMain, IpcMainEvent } from 'electron';
 
-import {
-  AdapterDeviceConfig,
-  SupportedDeviceConfig,
-} from '@shared/hardware-config';
+import { Registry } from '@plugins/registry';
+import { wp } from '@main/window-provider';
 
-import { ProjectProvider } from '../../../main/project-provider';
-// import { wp } from '../../../main/window-provider';
+import { TRANSLATOR } from './ipc-channels';
+import TranslatorPlugin from '.';
 
-import { CONFIG } from '../../../main/ipc-channels';
-
-// const { MainWindow } = wp;
+const { MainWindow } = wp;
 
 ipcMain.on(
-  CONFIG.GET_INPUT_CONFIG,
-  (_e: IpcMainEvent, deviceId: string, _inputId: string) => {
-    const { project } = ProjectProvider;
-    const dConf = project.getDevice(deviceId);
+  TRANSLATOR.UPDATE_OVERRIDE,
+  (
+    _e: IpcMainEvent,
+    pluginId: string,
+    source: NumberArrayWithStatus,
+    override: NumberArrayWithStatus
+  ) => {
+    const plugin = Registry.get<TranslatorPlugin>(pluginId);
 
-    if (
-      dConf instanceof SupportedDeviceConfig ||
-      dConf instanceof AdapterDeviceConfig
-    ) {
-      // const iConf = dConf.getInputById(inputId);
-      // if (iConf) {
-      //   MainWindow.sendInputConfig(deviceId, inputId, iConf.config);
-      // }
-    }
+    if (!plugin) throw new Error(`couldnt find ${pluginId}`);
+
+    const newOverride = { source, override };
+    const newOverrides = plugin.overrides
+      .filter((o) => JSON.stringify(o.source) !== JSON.stringify(source))
+      .concat(newOverride);
+
+    plugin.overrides = newOverrides;
+
+    MainWindow.sendPluginUpdate(pluginId, plugin.toDTO());
   }
 );
 
 ipcMain.on(
-  CONFIG.REQUEST_INPUT_CONFIG_STUB,
-  (_e: IpcMainEvent, deviceId: string, _inputIds: string[]) => {
-    const { project } = ProjectProvider;
-    const conf = project.getDevice(deviceId);
+  TRANSLATOR.DELETE_OVERRIDE,
+  (_e: IpcMainEvent, pluginId: string, source: NumberArrayWithStatus) => {
+    const plugin = Registry.get<TranslatorPlugin>(pluginId);
 
-    if (
-      conf instanceof SupportedDeviceConfig ||
-      conf instanceof AdapterDeviceConfig
-    ) {
-      // const configs = inputIds.map((i) => conf.getInputById(i)!.config);
-      // MainWindow.sendInputConfigs(configs);
-    }
+    if (!plugin) throw new Error(`couldnt find ${pluginId}`);
+
+    plugin.overrides = plugin.overrides.filter(
+      (o) => JSON.stringify(o.source) !== JSON.stringify(source)
+    );
+
+    MainWindow.sendPluginUpdate(pluginId, plugin.toDTO());
   }
 );

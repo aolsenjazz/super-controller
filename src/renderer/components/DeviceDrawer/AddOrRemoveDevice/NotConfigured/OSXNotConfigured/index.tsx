@@ -1,7 +1,7 @@
 /* eslint @typescript-eslint/no-unused-vars: 0 */
 
 import { useSelectedDevice } from '@context/selected-device-context';
-import { useDeviceStub } from '@hooks/use-device-stub';
+import { useDeviceConnectionDetails } from '@hooks/use-device-connection-details';
 import { DRIVERS } from '@shared/drivers';
 import AdapterNotConfigured from './AdapterNotConfigured';
 import BasicNotConfigured from './BasicNotConfigured';
@@ -13,10 +13,12 @@ const adapters = Array.from(drivers.entries())
 
 export default function OSXNotConfigured() {
   const { selectedDevice } = useSelectedDevice();
-  const { deviceStub } = useDeviceStub(selectedDevice || '');
+  const { deviceConnectionDetails } = useDeviceConnectionDetails(
+    selectedDevice || ''
+  );
 
-  return adapters.includes(deviceStub?.name || '') ? (
-    <AdapterNotConfigured device={deviceStub!} />
+  return adapters.includes(deviceConnectionDetails?.name || '') ? (
+    <AdapterNotConfigured device={deviceConnectionDetails!} />
   ) : (
     <BasicNotConfigured />
   );

@@ -1,12 +1,12 @@
 import { BrowserWindow } from 'electron';
 import os from 'os';
 
-import { DeviceStub } from '@shared/device-stub';
 import {
-  InputIcicle,
+  InputDTO,
   InputState,
 } from '@shared/hardware-config/input-config/base-input-config';
-import { DeviceIcicle } from '@shared/hardware-config/device-config';
+import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
+import type { DeviceConnectionDetails } from '@shared/device-connection-details';
 
 import { HOST, CONFIG } from '../ipc-channels';
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
@@ -41,31 +41,26 @@ export class MainWindowActions extends StatefulWindowActions {
     });
   }
 
-  public sendConnectedDevices(stubs: DeviceStub[]) {
-    this.send(HOST.CONNECTED_DEVICES, stubs);
+  public sendConnectedDevices(connectionIds: string[]) {
+    this.send(HOST.CONNECTED_DEVICES, connectionIds);
   }
 
-  public sendConfiguredDevices(stubs: Omit<DeviceIcicle, 'className'>[]) {
-    this.send(CONFIG.CONFIGURED_DEVICES, stubs);
+  public sendConfiguredDevices(deviceConfigIds: string[]) {
+    this.send(CONFIG.CONFIGURED_DEVICES, deviceConfigIds);
   }
 
-  public sendDeviceStub(id: string, desc: DeviceStub | undefined) {
+  public sendDeviceStub(id: string, desc: DeviceConnectionDetails | undefined) {
     this.send(`device-stub-${id}`, desc);
   }
 
   public sendConfigStub(
     id: string,
-    desc: Omit<DeviceIcicle, 'className'> | undefined
+    desc: Omit<DeviceConfigDTO, 'className'> | undefined
   ) {
     this.send(`device-config-stub-${id}`, desc);
   }
 
-  // TODO: trnaslator
-  // public sendOverrides(id: string, overrides: ImmutableMidiArrayMap) {
-  //   this.send(`${id}-overrides`, overrides);
-  // }
-
-  public sendInputConfigs(configs: InputIcicle[]) {
+  public sendInputConfigs(configs: InputDTO[]) {
     this.send(CONFIG.INPUT_CONFIG_CHANGE, configs);
   }
 
@@ -77,7 +72,7 @@ export class MainWindowActions extends StatefulWindowActions {
     this.send(`device-${deviceId}-input-${inputId}-state`, state);
   }
 
-  public sendInputConfig<T extends InputIcicle>(
+  public sendInputConfig<T extends InputDTO>(
     deviceId: string,
     inputId: string,
     config: T

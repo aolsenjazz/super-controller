@@ -1,15 +1,12 @@
-import { BasePlugin } from '../../plugin-core/base-plugin';
-
 import {
-  create,
-  MidiArray,
-  ThreeByteMidiArray,
-  TwoByteMidiArray,
-} from '../../midi-array';
+  byteToStatusString,
+  idForMsg,
+  NOTE_OFF,
+  NOTE_ON,
+} from '@shared/midi-util';
 import type { InputResponse } from '../../driver-types';
 import { BaseInputConfig } from './base-input-config';
-import { InputPluginChain } from '../../plugin-core/plugin-chain/input-plugin-chain';
-import { MonoInputIcicle } from './mono-input-icicle';
+import { MonoInputDTO } from './mono-input-dto';
 
 /* Default values for the input loaded in from a driver */
 export type InputDefault = {
@@ -28,77 +25,54 @@ export type InputDefault = {
 
 export abstract class MonoInputConfig<
   T extends InputDefault = InputDefault,
-  K extends MonoInputIcicle = MonoInputIcicle
+  K extends MonoInputDTO = MonoInputDTO
 > extends BaseInputConfig<K> {
   defaults: T;
 
-  protected _plugins: InputPluginChain;
+  public plugins: string[];
 
-  constructor(nickname: string, plugins: BasePlugin[], defaultVals: T) {
+  constructor(nickname: string, plugins: string[], defaultVals: T) {
     super(nickname);
 
-    this._plugins = new InputPluginChain(plugins);
+    this.plugins = plugins;
     this.defaults = defaultVals;
   }
 
-  public isOriginator(msg: MidiArray | NumberArrayWithStatus) {
-    const ma = msg instanceof MidiArray ? msg : create(msg);
-
-    if (ma instanceof TwoByteMidiArray || ma instanceof ThreeByteMidiArray) {
+  public isOriginator(msg: NumberArrayWithStatus) {
+    if ([2, 3].includes(msg.length)) {
+      const statusNibble = (msg[0] & 0xf0) as StatusByte;
+      const statusString = byteToStatusString(statusNibble);
+      const channel = (msg[0] & 0x0f) as Channel;
       const noteOnOffMatch =
         this.defaults.statusString === 'noteon/noteoff' &&
-        ma.statusString.includes('note');
+        [NOTE_OFF, NOTE_ON].includes(statusNibble);
 
       return (
-        (noteOnOffMatch || ma.statusString === this.defaults.statusString) &&
-        ma.channel === this.defaults.channel &&
-        ma.number === this.defaults.number
+        (noteOnOffMatch || statusString === this.defaults.statusString) &&
+        channel === this.defaults.channel &&
+        msg[1] === this.defaults.number
       );
     }
 
-    return this.id === ma.asString(true);
+    return this.id === idForMsg(msg, true);
   }
 
-  public applyStub(s: MonoInputIcicle) {
+  public applyStub(s: K) {
     super.applyStub(s);
-
-    this._plugins.reconcile(s.plugins);
   }
 
-  /**
-   * Adds a plugin to this `DeviceConfig`s `plugins` array at the end of the arr.
-   * `plugin` may be an instance of the plugin, or the plugin's id.
-   */
-  public addPlugin(plugin: BasePlugin) {
-    this._plugins.addPlugin(plugin);
-  }
-
-  /**
-   * Removes the plugin from this `DeviceConfig`s `plugins` array. `plugin` may be
-   * an instance of the plugin, or the plugin's id.
-   */
-  public removePlugin(plugin: BasePlugin | string) {
-    this._plugins.removePlugin(plugin);
-  }
-
-  /**
-   * Moves the `plugin` to the specified index of the array. `plugin` may be
-   * an instance of the plugin, or the plugin's id.
-   */
-  public movePlugin(plugin: BasePlugin | string, newIdx: number) {
-    this._plugins.movePlugin(plugin, newIdx);
-  }
-
-  public innerFreeze() {
+  public toDTO() {
     return {
-      ...super.innerFreeze(),
+      ...super.toDTO(),
       defaults: this.defaults,
       colorCapable: false,
-      plugins: this._plugins.plugins.map((p) => p.freeze()),
+      plugins: this.plugins,
     };
   }
 
-  public handleMessage(msg: MidiArray): MidiArray | undefined {
+  public handleMessage(
+    msg: NumberArrayWithStatus
+  ): NumberArrayWithStatus | undefined {
     // TODO:
     return msg;
   }

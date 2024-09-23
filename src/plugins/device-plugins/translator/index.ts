@@ -1,15 +1,14 @@
-import { MidiArray } from '@shared/midi-array';
+import { MessageProcessorMeta } from '@shared/message-processor';
+import { MessageTransport } from '@shared/message-transport';
+import { BasePlugin, PluginDTO } from '@shared/plugin-core/base-plugin';
+import { MidiEventOverride } from './midi-event-override';
 
-import { BasePlugin, PluginIcicle } from '@shared/plugin-core/base-plugin';
+export interface TranslatorDTO extends PluginDTO {
+  overrides: MidiEventOverride[];
+}
 
-// eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-empty-interface
-interface TranslatorIcicle extends PluginIcicle {}
-
-export default class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
-  public process(msg: MidiArray | NumberArrayWithStatus) {
-    // eslint-disable-next-line no-console
-    console.log(msg);
-  }
+export default class TranslatorPlugin extends BasePlugin<TranslatorDTO> {
+  overrides: MidiEventOverride[] = [];
 
   public get applicableDeviceTypes(): (
     | 'supported'
@@ -19,7 +18,20 @@ export default class TranslatorPlugin extends BasePlugin<TranslatorIcicle> {
     return ['anonymous'];
   }
 
-  public get aggregateCapable() {
-    return false;
+  public process(
+    msg: NumberArrayWithStatus,
+    _loopbackTransport: MessageTransport,
+    _remoteTransport: MessageTransport,
+    _meta: MessageProcessorMeta
+  ) {
+    // eslint-disable-next-line no-console
+    console.log(`${this.title} processing ${msg}`);
+  }
+
+  public toDTO(): TranslatorDTO {
+    return {
+      ...super.toDTO(),
+      overrides: this.overrides,
+    };
   }
 }

@@ -1,3 +1,5 @@
+import { useDeviceConfig } from '@hooks/use-device-config';
+import { useDeviceConnectionDetails } from '@hooks/use-device-connection-details';
 import { Anonymous, getDriver } from '@shared/drivers';
 
 import DeviceIcon from '../DeviceIcon';
@@ -37,24 +39,14 @@ type PropTypes = {
   onClick: () => void;
   connected: boolean;
   configured: boolean;
-  name: string;
-  driverName: string;
-  siblingIndex: number;
 };
 
 export default function DeviceListItem(props: PropTypes) {
-  const {
-    deviceId,
-    selected,
-    onClick,
-    connected,
-    configured,
-    name,
-    driverName,
-    siblingIndex,
-  } = props;
+  const { deviceId, selected, onClick, connected, configured } = props;
 
-  const driver = getDriver(driverName) || Anonymous;
+  const { deviceConfig } = useDeviceConfig(deviceId);
+  const { deviceConnectionDetails } = useDeviceConnectionDetails(deviceId);
+  const driver = getDriver(deviceConfig?.driverName || '') || Anonymous;
 
   return (
     <div className={`device-list-item ${selected ? 'active' : ''}`}>
@@ -68,8 +60,10 @@ export default function DeviceListItem(props: PropTypes) {
         tabIndex={0}
         onKeyDown={onClick}
       >
-        <h2>{name}</h2>
-        <p className="id">{reformatId(deviceId, siblingIndex)}</p>
+        <h2>{deviceConfig?.nickname || deviceConnectionDetails?.name}</h2>
+        <p className="id">
+          {reformatId(deviceId, deviceConnectionDetails?.siblingIndex || 0)}
+        </p>
         <div
           className={`connection-color ${cssClassFor(connected, configured)}`}
         />

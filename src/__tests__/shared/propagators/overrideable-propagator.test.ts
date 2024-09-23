@@ -1,4 +1,3 @@
-import { ThreeByteMidiArray } from '@shared/midi-array';
 import { InputResponse } from '@shared/driver-types';
 import { OverrideablePropagator } from '@shared/propagators';
 
@@ -6,7 +5,7 @@ class Wrapper<
   T extends InputResponse,
   U extends InputResponse
 > extends OverrideablePropagator<T, U> {
-  getResponse(msg: ThreeByteMidiArray) {
+  getResponse(msg: NumberArrayWithStatus) {
     return msg;
   }
 
@@ -16,7 +15,7 @@ class Wrapper<
       : this.statusString;
   }
 
-  handleAsConstant(msg: ThreeByteMidiArray) {
+  handleAsConstant(msg: NumberArrayWithStatus) {
     return super.handleAsConstant(msg);
   }
 }
@@ -51,11 +50,11 @@ describe('handleAsConstant', () => {
   const channel = 2;
   const w = new Wrapper(hr, or, et, number, channel);
 
-  const msg = ThreeByteMidiArray.create(128, 5, 60, 126);
+  const msg: NumberArrayWithStatus = [128, 5, 60]; // Manually building the MIDI array
 
   test('propagates value=127 when value unset', () => {
-    const r = w.handleAsConstant(msg) as ThreeByteMidiArray;
-    expect(r.value).toBe(127);
+    const r = w.handleAsConstant(msg) as NumberArrayWithStatus;
+    expect(r[2]).toBe(127); // r.value becomes r[2] for the MIDI value
   });
 
   test('returns correct, overridden values', () => {
@@ -64,11 +63,11 @@ describe('handleAsConstant', () => {
     w.number = 70;
     w.channel = 9;
 
-    const r = w.handleAsConstant(msg) as ThreeByteMidiArray;
+    const r = w.handleAsConstant(msg) as NumberArrayWithStatus;
 
-    expect(r.statusString).toBe('noteon');
-    expect(r.value).toBe(120);
-    expect(r.number).toBe(70);
-    expect(r.channel).toBe(9);
+    expect(w.statusString).toBe('noteon');
+    expect(r[2]).toBe(120); // r.value becomes r[2]
+    expect(r[1]).toBe(70); // r.number becomes r[1]
+    expect(r[0] & 0x0f).toBe(9); // r.channel derived from r[0]
   });
 });

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import DrawerToggles from './DrawerToggles';
 
-const { ConfigService } = window;
+const { HostService } = window;
 
 /**
  * On mac, stoplight controls are overlaid over this draggable title bar
@@ -12,7 +12,7 @@ export default function TitleBar() {
   /* Listen to changes to available MIDI ports */
   useEffect(() => {
     const cb = (tit: string) => setTitle(tit);
-    const unsubscribe = ConfigService.onTitleChange(cb);
+    const unsubscribe = HostService.onTitleChange(cb);
     return () => unsubscribe();
   });
 

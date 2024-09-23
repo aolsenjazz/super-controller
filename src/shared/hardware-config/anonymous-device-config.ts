@@ -1,6 +1,3 @@
-import type { BasePlugin } from '../plugin-core/base-plugin';
-
-import { MidiArray } from '../midi-array';
 import { DeviceConfig } from './device-config';
 
 export class AnonymousDeviceConfig extends DeviceConfig {
@@ -8,12 +5,12 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     portName: string,
     siblingIndex: number,
     nickname?: string,
-    plugins: BasePlugin[] = []
+    plugins: string[] = []
   ) {
     super(portName, 'Anonymous', siblingIndex, nickname, plugins);
   }
 
-  applyOverrides(mArray: MidiArray) {
+  applyOverrides(mArray: NumberArrayWithStatus) {
     return mArray;
   }
 
@@ -21,7 +18,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     return undefined;
   }
 
-  freeze() {
+  toDTO() {
     return {
       ...this.stub(),
       className: this.constructor.name,

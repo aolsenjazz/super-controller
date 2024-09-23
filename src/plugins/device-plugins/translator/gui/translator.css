@@ -1,0 +1,34 @@
+@import './MidiEventTable.css';
+@import './OverrideFields.css';
+
+.translator {
+  font-family: arial;
+  display: flex;
+  flex-direction: column;
+}
+
+.translator .overrides .event-selector {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+.translator .overrides .event-selector select {
+  max-width: 100%;
+}
+
+.translator .overrides {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.translator .delete {
+  margin: 5px auto;
+  margin-top: 10px;
+  display: block;
+}
+
+.translator .fields-caption {
+  margin-bottom: 3px;
+  color: #333;
+}

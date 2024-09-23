@@ -8,11 +8,7 @@ import os from 'os';
 import { ipcMain, Event, shell, IpcMainEvent } from 'electron';
 
 import { controllerRequest, fivePinRequest } from '@shared/email-templates';
-import {
-  BaseInputConfig,
-  SupportedDeviceConfig,
-} from '@shared/hardware-config';
-import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
+import { SupportedDeviceConfig } from '@shared/hardware-config';
 
 import { ProjectProvider as pp, ProjectProvider } from './project-provider';
 import { wp } from './window-provider';
@@ -74,28 +70,6 @@ ipcMain.on(LAYOUT.SET_LAYOUT_ITEM, (e: Event, s: string, v: string) => {
   e.returnValue = Store.setLayoutItem(s, v);
 });
 
-ipcMain.on(
-  CONFIG.UPDATE_INPUT,
-  (_e: IpcMainEvent, deviceId: string, configs: InputIcicle[]) => {
-    const { project } = ProjectProvider;
-    const deviceConfig = project.getDevice(deviceId) as SupportedDeviceConfig;
-
-    const updatedConfigs: BaseInputConfig[] = [];
-    configs.forEach((c) => {
-      const input = deviceConfig.getInputById(c.id);
-
-      if (input) {
-        input.applyStub(c);
-        updatedConfigs.push(input);
-        MainWindow.sendInputState(deviceId, c.id, input.state);
-      }
-    });
-
-    MainWindow.edited = true;
-    MainWindow.sendConfigStub(deviceConfig.id, deviceConfig.stub());
-  }
-);
-
 ipcMain.on(CONFIG.GET_DEVICE_CONFIG, (e: IpcMainEvent, deviceId: string) => {
-  e.returnValue = ProjectProvider.project.getDevice(deviceId)?.freeze();
+  e.returnValue = ProjectProvider.project.getDevice(deviceId)?.toDTO();
 });

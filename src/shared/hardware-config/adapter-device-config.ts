@@ -1,6 +1,7 @@
-import { MidiArray } from '../midi-array';
 import { SupportedDeviceConfig } from './supported-device-config';
 import { DeviceConfig } from './device-config';
+import { MessageTransport } from '../message-transport';
+import { MessageProcessorMeta } from '../message-processor';
 
 export class AdapterDeviceConfig extends DeviceConfig {
   child?: SupportedDeviceConfig;
@@ -27,18 +28,13 @@ export class AdapterDeviceConfig extends DeviceConfig {
   //   return this.child!.bindingAvailable(statusString, number, channel);
   // }
 
-  applyOverrides(msg: MidiArray) {
-    if (this.child) {
-      return this.child!.applyOverrides(msg);
-    }
-    return msg;
-  }
-
-  getResponse(msg: MidiArray) {
-    if (this.child) {
-      return this.child!.getResponse(msg);
-    }
-    return msg;
+  process(
+    msg: NumberArrayWithStatus,
+    loopbackTransport: MessageTransport,
+    remoteTransport: MessageTransport,
+    meta: MessageProcessorMeta
+  ) {
+    this.child?.process(msg, loopbackTransport, remoteTransport, meta);
   }
 
   /**
@@ -57,7 +53,7 @@ export class AdapterDeviceConfig extends DeviceConfig {
    * input with number 32 and channel 2 is the originator of the message [178, 32, 127]
    * but not [144, 32, 127] nor [178, 31, 127]
    */
-  getOriginatorInput(msg: MidiArray | NumberArrayWithStatus) {
+  getOriginatorInput(msg: NumberArrayWithStatus) {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i];
       if (input.isOriginator(msg)) return input;
@@ -72,11 +68,11 @@ export class AdapterDeviceConfig extends DeviceConfig {
     return [];
   }
 
-  public freeze() {
+  public toDTO() {
     return {
       ...super.stub(),
       className: this.constructor.name,
-      child: this.child?.freeze(),
+      child: this.child?.toDTO(),
     };
   }
 }

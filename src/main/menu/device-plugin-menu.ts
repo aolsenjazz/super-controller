@@ -20,7 +20,7 @@ export async function createDevicePluginMenu(deviceId: string) {
         const dev = ProjectProvider.project.getDevice(deviceId);
         const Plugin = await importDeviceSubcomponent(m.title, 'plugin');
         const plugin: BasePlugin = new Plugin(m.title, m.description);
-        dev.addPlugin(plugin);
+        dev.plugins.push(plugin.id);
         Registry.register(plugin);
         wp.MainWindow.sendConfigStub(dev.id, dev.stub());
       },

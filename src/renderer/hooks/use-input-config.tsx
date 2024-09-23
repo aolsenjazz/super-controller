@@ -1,9 +1,9 @@
-import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
+import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 import { useState, useEffect } from 'react';
 
-const { ConfigService } = window;
+const { DeviceConfigService } = window;
 
-export function useInputConfig<T extends InputIcicle = InputIcicle>(
+export function useInputConfig<T extends InputDTO = InputDTO>(
   deviceId: string,
   inputId: string
 ) {
@@ -14,7 +14,11 @@ export function useInputConfig<T extends InputIcicle = InputIcicle>(
       setInputConfig(config);
     };
 
-    const off = ConfigService.onInputConfigChange<T>(deviceId, inputId, cb);
+    const off = DeviceConfigService.onInputConfigChange<T>(
+      deviceId,
+      inputId,
+      cb
+    );
 
     return () => off();
   }, [deviceId, inputId]);

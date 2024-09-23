@@ -1,6 +1,7 @@
 import { PadDriver, FxDriver, ColorDescriptor } from '../../driver-types';
 import { InputState } from './base-input-config';
 import { MonoInputConfig } from './mono-input-config';
+import { MonoInputDTO } from './mono-input-dto';
 
 export interface PadState extends InputState {
   color: ColorDescriptor | undefined;
@@ -20,9 +21,9 @@ export class PadConfig extends MonoInputConfig {
     return new PadConfig('', [], def);
   }
 
-  public freeze() {
+  public toDTO(): MonoInputDTO {
     return {
-      ...this.innerFreeze(),
+      ...super.toDTO(),
       className: this.constructor.name,
     };
   }

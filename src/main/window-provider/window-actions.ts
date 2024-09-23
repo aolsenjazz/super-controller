@@ -1,3 +1,4 @@
+import type { PluginDTO } from '@shared/plugin-core/base-plugin';
 import { BrowserWindow, BrowserWindowConstructorOptions, Menu } from 'electron';
 
 /**
@@ -30,8 +31,12 @@ export abstract class WindowActions {
     w.loadURL(this.url);
   }
 
-  public sendRecentMsg(deviceId: string, msg: NumberArrayWithStatus) {
-    this.send(`${deviceId}-message`, msg);
+  public sendMidiEvent(deviceId: string, msg: NumberArrayWithStatus) {
+    this.send(`midi-event`, deviceId, msg);
+  }
+
+  public sendPluginUpdate(id: string, dto: PluginDTO) {
+    this.send(`plugin-${id}`, dto);
   }
 
   /**

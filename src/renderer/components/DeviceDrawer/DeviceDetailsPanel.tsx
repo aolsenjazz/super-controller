@@ -1,75 +1,79 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
-import { useSelectedDevice } from '@context/selected-device-context';
-import type { PluginIcicle } from '@shared/plugin-core/base-plugin';
-import type { DeviceIcicle } from '@shared/hardware-config/device-config';
-import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
-import { useDeviceStub } from '@hooks/use-device-stub';
+import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
+import { useDeviceConfig } from '@hooks/use-device-config';
 
 import NicknameSubpanel from '../NicknameSubpanel';
 import PluginSubpanel from '../PluginSubpanel';
 import SectionHeader from '../SectionHeader';
 import AddOrRemoveDevice from './AddOrRemoveDevice';
 
-const { ConfigService, MenuService } = window;
+const { DeviceConfigService, MenuService, HostService } = window;
 
-export default function DeviceDetailsPanel() {
-  const { selectedDevice } = useSelectedDevice();
+type PropTypes = {
+  selectedDevice: string;
+};
 
-  const { deviceStub } = useDeviceStub(selectedDevice || '');
-  const { deviceConfig } = useSelectedDeviceConfig();
+export default function DeviceDetailsPanel(props: PropTypes) {
+  const { selectedDevice } = props;
+
+  const { deviceConfig } = useDeviceConfig(selectedDevice);
+
+  const configured = deviceConfig !== undefined;
+
+  const deviceConnectionDetails = useMemo(
+    () => HostService.getDeviceConnectionDetails(selectedDevice),
+    [selectedDevice]
+  );
 
   const onChange = useCallback(
     (n: string) => {
-      const newConfig: DeviceIcicle = {
+      const newConfig: DeviceConfigDTO = {
         ...deviceConfig!,
         nickname: n,
       };
 
-      ConfigService.updateDevice(newConfig);
+      DeviceConfigService.updateDevice(newConfig);
     },
     [deviceConfig]
   );
 
-  const removePlugins = useCallback(
-    (plugins: PluginIcicle[]) => {
-      deviceConfig!.plugins = deviceConfig!.plugins.filter(
-        (p) => p.id !== plugins[0].id
-      );
-      ConfigService.updateDevice(deviceConfig!);
+  const removePlugin = useCallback(
+    (pluginId: string) => {
+      DeviceConfigService.removePlugin(pluginId, deviceConnectionDetails!.id);
     },
-    [deviceConfig]
+    [deviceConnectionDetails]
   );
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
-      MenuService.showDevicePluginMenu(x, y, deviceConfig!.id);
+      MenuService.showDevicePluginMenu(x, y, selectedDevice);
     },
-    [deviceConfig]
+    [selectedDevice]
   );
 
   return (
     <div className="details-panel device-details-panel">
-      <div className={`${deviceConfig ? '' : 'deactivated'}`}>
+      <div className={`${configured ? '' : 'deactivated'}`}>
         <SectionHeader title="DEVICE SETTINGS" size="large" />
         <NicknameSubpanel
-          name={deviceStub?.name || deviceConfig?.portName || ''}
+          name={deviceConnectionDetails?.name || deviceConfig?.portName || ''}
           nickname={deviceConfig?.nickname || ''}
           onNicknameChange={onChange}
           deactivated={false}
         />
         <PluginSubpanel
-          plugins={deviceConfig?.plugins.map((p) => [p]) || []}
-          removePlugins={removePlugins}
-          deviceId={deviceConfig?.id || ''}
+          plugins={deviceConfig?.plugins || []}
+          removePlugin={removePlugin}
           showPluginMenu={showPluginMenu}
+          selectedDevice={selectedDevice}
           showAddPlugin
         />
       </div>
       <AddOrRemoveDevice
         nickname={deviceConfig?.nickname || ''}
-        id={deviceConfig?.id || ''}
-        configured={deviceConfig !== undefined}
+        id={selectedDevice}
+        configured={configured}
       />
     </div>
   );

@@ -1,7 +1,7 @@
-import { useSelectedDeviceConfig } from '@context/selected-device-config-context';
 import { useSelectedDevice } from '@context/selected-device-context';
 import { useSelectedInputConfigs } from '@context/selected-input-configs-context';
 import { useSelectedInputs } from '@context/selected-inputs-context';
+import { useDeviceConfig } from '@hooks/use-device-config';
 
 import BasicMessage from './BasicMessage';
 import InputConfigPanel from './InputConfigPanel';
@@ -10,7 +10,7 @@ export default function InputConfigDrawer() {
   const { selectedDevice } = useSelectedDevice();
   const { selectedInputs } = useSelectedInputs();
 
-  const { deviceConfig } = useSelectedDeviceConfig();
+  const { deviceConfig } = useDeviceConfig(selectedDevice || '');
   const { inputConfigs } = useSelectedInputConfigs();
 
   let Element: JSX.Element | null = null;

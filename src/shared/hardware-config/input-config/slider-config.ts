@@ -1,6 +1,7 @@
 import { MonoInputConfig } from './mono-input-config';
 import { InputDriverWithHandle } from '../../driver-types';
 import { InputState } from './base-input-config';
+import type { MonoInputDTO } from './mono-input-dto';
 
 export interface SliderState extends InputState {
   value: MidiNumber;
@@ -18,9 +19,9 @@ export class SliderConfig extends MonoInputConfig {
     return new SliderConfig('', [], def);
   }
 
-  public freeze() {
+  public toDTO(): MonoInputDTO {
     return {
-      ...this.innerFreeze(),
+      ...super.toDTO(),
       className: this.constructor.name,
     };
   }

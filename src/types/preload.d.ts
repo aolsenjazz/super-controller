@@ -1,16 +1,20 @@
-import type { PluginService } from '@main/preload/preload-plugin-service';
-import type { HostService } from '@main/preload/preload-host-service';
-import type { ConfigService } from '@main/preload/preload-config-service';
-import type { LayoutService } from '@main/preload/preload-layout-service';
-import type { MenuService } from '@main/preload/preload-menu-service';
+import type { PluginService } from '@main/preload/plugin-service';
+import type { HostService } from '@main/preload/host-service';
+import type { LayoutService } from '@main/preload/layout-service';
+import type { MenuService } from '@main/preload/menu-service';
+import type { DeviceConfigService } from '@main/preload/device-config-service';
+import type { ProjectConfigService } from '@main/preload/project-config-service';
+import type { InputConfigService } from '@main/preload/input-config-service';
 
 declare global {
   interface Window {
-    HostService: HostService;
-    ConfigService: ConfigService;
-    LayoutService: LayoutService;
-    MenuService: MenuService;
-    PluginService: PluginService;
+    HostService: typeof HostService;
+    LayoutService: typeof LayoutService;
+    MenuService: typeof MenuService;
+    PluginService: typeof PluginService;
+    DeviceConfigService: typeof DeviceConfigService;
+    ProjectConfigService: typeof ProjectConfigService;
+    InputConfigService: typeof InputConfigService;
   }
 }
 

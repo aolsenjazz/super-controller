@@ -1,4 +1,5 @@
 import React from 'react';
+import ControlledInput from './ControlledInput';
 
 type PropTypes = {
   name: string;
@@ -28,7 +29,7 @@ export default function NicknameSubpanel({
       </div>
       <label htmlFor="nickname-input">
         Nickname:
-        <input
+        <ControlledInput
           id="nickname-input"
           type="text"
           value={nickname}

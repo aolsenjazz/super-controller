@@ -1,17 +1,23 @@
 import { ipcMain, IpcMainEvent } from 'electron';
 
+import { wp } from '@main/window-provider';
+
 import { Registry } from '../../registry';
 
 import ShareSustainPlugin from './index';
 import { UPDATE_SHARE_SUSTAIN } from './ipc-channels';
-import type { ShareSustainIcicle } from './share-sustain-icicle';
+
+const { MainWindow } = wp;
 
 // Applies updates
 ipcMain.on(
   UPDATE_SHARE_SUSTAIN,
-  (_e: IpcMainEvent, icicle: ShareSustainIcicle) => {
-    const plugin = Registry.get<ShareSustainPlugin>(icicle.id);
+  (_e: IpcMainEvent, pluginId: string, sustainTargets: string[]) => {
+    const plugin = Registry.get<ShareSustainPlugin>(pluginId);
 
-    if (plugin) plugin.applyIcicle(icicle);
+    if (plugin) {
+      plugin.sustainTargets = sustainTargets;
+      MainWindow.sendPluginUpdate(pluginId, plugin.toDTO());
+    }
   }
 );

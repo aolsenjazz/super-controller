@@ -1,17 +1,22 @@
 import { useCallback } from 'react';
 
 import { useSelectedDevice } from '@context/selected-device-context';
-import { useDeviceStub } from '@hooks/use-device-stub';
+import { useDeviceConnectionDetails } from '@hooks/use-device-connection-details';
 
-const { ConfigService } = window;
+const { ProjectConfigService } = window;
 
 export default function BasicNotConfigured() {
   const { selectedDevice } = useSelectedDevice();
-  const { deviceStub } = useDeviceStub(selectedDevice || '');
+  const { deviceConnectionDetails } = useDeviceConnectionDetails(
+    selectedDevice || ''
+  );
 
   const onClick = useCallback(() => {
-    ConfigService.addDevice(deviceStub!.name, deviceStub!.siblingIndex);
-  }, [deviceStub]);
+    ProjectConfigService.addDevice(
+      deviceConnectionDetails!.name,
+      deviceConnectionDetails!.siblingIndex
+    );
+  }, [deviceConnectionDetails]);
 
   return (
     <div className="message not-configured">

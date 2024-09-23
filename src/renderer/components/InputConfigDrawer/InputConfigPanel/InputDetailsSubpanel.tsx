@@ -1,15 +1,15 @@
-import { InputIcicle } from '@shared/hardware-config/input-config/base-input-config';
+import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 import { useCallback, useMemo } from 'react';
 
 import NicknameSubpanel from '../../NicknameSubpanel';
 import SectionHeader from '../../SectionHeader';
 
 type PropTypes = {
-  configs: InputIcicle[];
+  configs: InputDTO[];
   deviceId: string;
 };
 
-const { ConfigService } = window;
+const { InputConfigService } = window;
 
 export default function InputDetailsSubpanel(props: PropTypes) {
   const { configs, deviceId } = props;
@@ -30,7 +30,7 @@ export default function InputDetailsSubpanel(props: PropTypes) {
         ...configs[0],
         nickname: n,
       };
-      ConfigService.updateInputs(deviceId, [newConf]);
+      InputConfigService.updateInputs(deviceId, [newConf]);
     },
     [configs, deviceId]
   );

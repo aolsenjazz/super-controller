@@ -1,16 +1,15 @@
-import { MidiArray, create } from '../midi-array';
 import { InputResponse } from '../driver-types';
 import { Propagator } from './propagator';
 
 export class NStepPropagator extends Propagator<InputResponse, InputResponse> {
-  protected steps: Map<number, MidiArray>;
+  protected steps: Map<number, NumberArrayWithStatus>;
 
   currentStep: number = 0;
 
   constructor(
     hardwareResponse: InputResponse,
     outputResponse: InputResponse,
-    steps: Map<number, MidiArray>,
+    steps: Map<number, NumberArrayWithStatus>,
     currentStep?: number
   ) {
     super(hardwareResponse, outputResponse);
@@ -28,12 +27,8 @@ export class NStepPropagator extends Propagator<InputResponse, InputResponse> {
     return this.steps.get(this.currentStep);
   }
 
-  setStep(number: number, step: MidiArray | NumberArrayWithStatus) {
-    let s = step;
-    if (step instanceof MidiArray === false) {
-      s = create(s);
-    }
-    this.steps.set(number, s as MidiArray);
+  setStep(number: number, step: NumberArrayWithStatus) {
+    this.steps.set(number, step);
   }
 
   responseForStep(step: number) {

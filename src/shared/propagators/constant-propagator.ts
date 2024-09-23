@@ -1,5 +1,3 @@
-import { MidiArray } from '../midi-array';
-
 import { StatefulPropagator } from './stateful-propagator';
 
 /**
@@ -23,7 +21,7 @@ export class ConstantPropagator extends StatefulPropagator<
     this.state = s || this.state;
   }
 
-  getResponse(msg: MidiArray) {
+  getResponse(msg: NumberArrayWithStatus) {
     if (this.outputResponse === 'toggle') {
       this.state = this.state === 'on' ? 'off' : 'on';
     }

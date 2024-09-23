@@ -1,75 +1,46 @@
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
-import { PluginIcicle } from '@shared/plugin-core/base-plugin';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
+
+import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
+
 import PluginSubpanel from 'renderer/components/PluginSubpanel';
-import { PluginAggregate } from 'renderer/components/PluginSubpanel/plugin-aggregate';
 import InputDefaultsSubpanel from '../InputDefaultsSubpanel';
 
 type PropTypes = {
-  inputs: MonoInputIcicle[];
+  inputs: MonoInputDTO[];
   deviceId: string;
 };
 
-const { MenuService, ConfigService } = window;
+const { MenuService, InputConfigService } = window;
 
 export default function MonoInputConfigPanel(props: PropTypes) {
   const { inputs, deviceId } = props;
 
-  const [plugins, setPlugins] = useState<PluginIcicle[][]>([]);
-
-  useEffect(() => {
-    const minPlugins = Math.min(...inputs.map((i) => i.plugins.length));
-    const pluginSlotInts = Array.from(Array(minPlugins).keys());
-    const aggregateCapablePluginSlots = pluginSlotInts.filter((n) => {
-      const aggregate = new PluginAggregate(inputs.map((i) => i.plugins[n]));
-      return (
-        inputs.length === 1 ||
-        (aggregate.aggregateCapable && aggregate.title !== '<multiple values>')
-      );
-    });
-
-    const aggregateCapablePlugins = aggregateCapablePluginSlots.map((n) => {
-      return inputs.map((i) => i.plugins[n]);
-    });
-
-    setPlugins(aggregateCapablePlugins);
-  }, [inputs]);
+  // TODO: only supported selecting 1 input at a time right now.
+  const input = inputs[0];
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
-      MenuService.showInputPluginMenu(
-        x,
-        y,
-        deviceId,
-        inputs.map((i) => i.id)
-      );
+      MenuService.showInputPluginMenu(x, y, deviceId, [input.id]);
     },
-    [inputs, deviceId]
+    [input, deviceId]
   );
 
-  const removePlugins = useCallback(
-    (plugs: PluginIcicle[]) => {
-      const newIcicles = inputs.map((i, idx) => {
-        return {
-          ...i,
-          plugins: i.plugins.filter((p) => p !== plugs[idx]),
-        };
-      });
-
-      ConfigService.updateInputs(deviceId, newIcicles);
+  const removePlugin = useCallback(
+    (pluginId: string) => {
+      InputConfigService.removePlugin(pluginId, deviceId, input.id);
     },
-    [inputs, deviceId]
+    [input, deviceId]
   );
 
   return (
     <div>
       <InputDefaultsSubpanel inputs={inputs} />
       <PluginSubpanel
-        deviceId={deviceId}
-        plugins={plugins}
-        removePlugins={removePlugins}
+        plugins={input.plugins}
+        removePlugin={removePlugin}
         showPluginMenu={showPluginMenu}
         showAddPlugin={inputs.length === 1}
+        selectedDevice={deviceId}
       />
     </div>
   );

@@ -1,0 +1,18 @@
+.override-field {
+  display: flex;
+  flex-direction: row;
+}
+
+.override-field {
+  margin-bottom: 4px;
+}
+
+.override-field label {
+  flex: 0 0 auto;
+  margin-right: 3px;
+  line-height: 18px;
+}
+
+.override-field select {
+  flex: 1 1 auto;
+}

@@ -12,6 +12,14 @@ module.exports = {
     'no-bitwise': 'off',
     'no-underscore-dangle': 'off',
     '@typescript-eslint/naming-convention': 'off',
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {
@@ -37,6 +45,11 @@ module.exports = {
         config: require.resolve('./.erb/configs/webpack.config.eslint.ts'),
       },
       typescript: {},
+    },
+    'jsx-a11y': {
+      components: {
+        ControlledInput: 'input',
+      },
     },
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],

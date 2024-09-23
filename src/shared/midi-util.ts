@@ -1,13 +1,32 @@
-const NOTE_OFF = 0x80; // 128
-const NOTE_ON = 0x90; // 144
-const KEY_PRESSURE = 0xa0; // 160
-const CONTROL_CHANGE = 0xb0; // 176
-const PROGRAM_CHANGE = 0xc0; // 192
-const CHANNEL_PRESSURE = 0xd0; // 208
-const PITCH_BEND = 0xe0; // 224
-const SYSEX = 0xf0; // 224
+export const NOTE_OFF = 0x80; // 128
+export const NOTE_ON = 0x90; // 144
+export const KEY_PRESSURE = 0xa0; // 160
+export const CONTROL_CHANGE = 0xb0; // 176
+export const PROGRAM_CHANGE = 0xc0; // 192
+export const CHANNEL_PRESSURE = 0xd0; // 208
+export const PITCH_BEND = 0xe0; // 224
+export const SYSEX = 0xf0; // 224
 
-export function statusStringToByte(string: StatusString) {
+export function isOnIsh(arr: NumberArrayWithStatus, def: boolean) {
+  if (arr.length === 3) {
+    const status = arr[0] & 0xf0;
+    const value = arr[2];
+
+    switch (status) {
+      case NOTE_ON:
+      case CONTROL_CHANGE:
+        return value > 0;
+      case NOTE_OFF:
+        return false;
+      default:
+        return def;
+    }
+  } else {
+    return def;
+  }
+}
+
+export function statusStringToNibble(string: StatusString) {
   switch (string) {
     case 'noteon':
       return NOTE_ON;
@@ -30,8 +49,12 @@ export function statusStringToByte(string: StatusString) {
   }
 }
 
-export function byteToStatusString(byte: StatusByte, individualOnOff = false) {
-  switch (byte) {
+export function byteToStatusString(
+  byte: StatusNumber,
+  individualOnOff = false
+) {
+  const statusNibble = byte & 0xf0;
+  switch (statusNibble) {
     case NOTE_OFF:
       if (individualOnOff) return 'noteoff';
       return 'noteon/noteoff';
@@ -53,4 +76,27 @@ export function byteToStatusString(byte: StatusByte, individualOnOff = false) {
     default:
       return 'sysex';
   }
+}
+
+export function idForMsg(arr: NumberArrayWithStatus, mergeNoteEvents = false) {
+  const statusNibble = (arr[0] & 0xf0) as StatusByte;
+  const ss = byteToStatusString(statusNibble, mergeNoteEvents);
+
+  if (arr.length === 3) {
+    const stub = `${ss}.${arr[0] & 0x0f}`;
+    return ss === 'pitchbend' ? stub : `${stub}.${arr[1]}`;
+  }
+
+  if (arr.length === 2) {
+    return `${ss}.${arr[0] & 0x0f}.${arr[1]}`;
+  }
+
+  // otherwise sysex
+  let id = 'sysex';
+  arr
+    .filter((_v, i) => i !== 0)
+    .forEach((v) => {
+      id += `.${v}`;
+    });
+  return id;
 }

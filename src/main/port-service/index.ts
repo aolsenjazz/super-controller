@@ -16,16 +16,11 @@
  *                        |  hardware conns   |
  *                        |___________________|
  */
-import { ipcMain } from 'electron';
+import { ipcMain, IpcMainEvent } from 'electron';
 
 import { getDriver } from '@shared/drivers';
-import {
-  AdapterDeviceConfig,
-  AnonymousDeviceConfig,
-  DeviceConfig,
-  SupportedDeviceConfig,
-} from '@shared/hardware-config';
-import { create, MidiArray } from '@shared/midi-array';
+import { AdapterDeviceConfig, DeviceConfig } from '@shared/hardware-config';
+import { Registry } from '@plugins/registry';
 
 import { PortScanResult, PortManager } from './port-manager';
 import { ProjectProvider } from '../project-provider';
@@ -105,6 +100,14 @@ export class HardwarePortServiceSingleton {
         .filter((p) => p.id === deviceId)
         .forEach((p) => MainWindow.sendDeviceStub(deviceId, p.stub));
     });
+
+    ipcMain.on(
+      HOST.GET_CONNECTION_DETAILS,
+      (e: IpcMainEvent, deviceId: string) => {
+        const port = this.availableHardwarePorts.find((p) => p.id === deviceId);
+        e.returnValue = port?.stub;
+      }
+    );
   }
 
   /**
@@ -196,7 +199,7 @@ export class HardwarePortServiceSingleton {
   }
 
   private sendConnectedDevicesToFrontend() {
-    const devices = this.availableHardwarePorts.map((d) => d.stub);
+    const devices = this.availableHardwarePorts.map((d) => d.id);
     MainWindow.sendConnectedDevices(devices);
   }
 
@@ -250,8 +253,7 @@ export class HardwarePortServiceSingleton {
       }
 
       // set onMessage
-      pair.onMessage((_delta, tuple) => {
-        const msg = create(tuple);
+      pair.onMessage((_delta, msg) => {
         // we'll occasionally receive message of length 1. ignore these.
         // reason is unclear, message of lenght 1 don't match midi spec
         if (msg.length >= 2) this.onMessage(config, pair, msg);
@@ -272,29 +274,25 @@ export class HardwarePortServiceSingleton {
   /**
    * Function to be invoked whenever a message is received from a MIDI ports
    */
-  private onMessage(config: DeviceConfig, pair: PortPair, msg: MidiArray) {
-    const toPropagate = config.applyOverrides(msg);
-    const toDevice = config.getResponse(msg);
+  private onMessage(
+    config: DeviceConfig,
+    pair: PortPair,
+    msg: NumberArrayWithStatus
+  ) {
+    const loopbackTransport = VirtualPortService.ports.get(config.id)!;
+    const remoteTransport = this.ports.get(config.id)!;
 
-    if (toPropagate) {
-      VirtualPortService.send(toPropagate, config.id);
-    }
+    config.process(msg, loopbackTransport, remoteTransport, {
+      loopbackTransports: this.ports,
+      remoteTransports: VirtualPortService.ports,
+      pluginProvider: Registry,
+    });
 
-    if (toDevice) pair.send(toDevice);
-
-    if (
-      config instanceof SupportedDeviceConfig ||
-      config instanceof AdapterDeviceConfig
-    ) {
-      // send new state to frontend
-      const input = config.getOriginatorInput(msg);
-
-      if (input) {
-        MainWindow.sendInputState(config.id, input.id, input.state);
-      }
-    } else if (config instanceof AnonymousDeviceConfig) {
-      MainWindow.sendRecentMsg(pair.id, msg.array);
-    }
+    // TODO: rethink sending input state to frontend
+    // do we want to just broadcast on message channel? or will that invoke too
+    // many listeners and be irresponsible usage of cpu cycles?
+    // MainWindow.sendInputState(config.id, input.id, input.state);
+    MainWindow.sendMidiEvent(pair.id, msg);
   }
 
   /**

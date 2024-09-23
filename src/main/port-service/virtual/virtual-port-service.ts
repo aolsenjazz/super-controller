@@ -1,4 +1,3 @@
-import { MidiArray } from '@shared/midi-array';
 import { DeviceConfig } from '@shared/hardware-config';
 
 import { PortScanResult } from '../port-manager';
@@ -35,13 +34,13 @@ export class VirtualPortServiceSingleton {
    * Send the given message thru the virtual port with the given ID. If no virtual port
    * exists for given ID, does nothing
    */
-  public send(msg: MidiArray, idOrConfig: string | DeviceConfig) {
+  public send(msg: NumberArrayWithStatus, idOrConfig: string | DeviceConfig) {
     let id = idOrConfig;
 
     if (idOrConfig instanceof DeviceConfig) id = idOrConfig.id;
 
     const port = this.ports.get(id as string);
-    if (port) port.send(msg.array);
+    if (port) port.send(msg);
   }
 
   /**

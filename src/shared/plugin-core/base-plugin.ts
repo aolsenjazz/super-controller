@@ -1,13 +1,15 @@
-import { MidiArray } from '../midi-array';
-
+import type {
+  MessageProcessor,
+  MessageProcessorMeta,
+} from '@shared/message-processor';
+import type { MessageTransport } from '@shared/message-transport';
 import { generateId } from './plugin-utils';
 
-export interface PluginIcicle {
+export interface PluginDTO {
   id: string;
   title: string;
   description: string;
   on: boolean;
-  aggregateCapable: boolean;
 }
 
 /**
@@ -22,14 +24,16 @@ export interface PluginIcicle {
  *
  * Plugin manifests are dynamically loaded and then used futher to dynamically load subcomponents.
  */
-export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
+export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
+  implements MessageProcessor
+{
   public readonly id: string;
 
   public readonly title: string;
 
   public readonly description: string;
 
-  protected on = true;
+  public on = true;
 
   constructor(title: string, description: string) {
     this.title = title;
@@ -37,25 +41,29 @@ export abstract class BasePlugin<T extends PluginIcicle = PluginIcicle> {
     this.id = generateId(this.title);
   }
 
-  public applyIcicle(icicle: T) {
+  public applyDTO(icicle: T) {
     this.on = icicle.on;
   }
 
-  public freeze(): T {
+  public toDTO(): T {
     return {
       id: this.id,
       title: this.title,
       description: this.description,
       on: this.on,
-      aggregateCapable: this.aggregateCapable,
     } as T;
   }
 
-  public abstract process(msg: MidiArray | NumberArrayWithStatus): void;
+  public abstract process(
+    msg: NumberArrayWithStatus,
+    loopbackTransport: MessageTransport,
+    remoteTransport: MessageTransport,
+    meta: MessageProcessorMeta
+  ): void;
+
   public abstract get applicableDeviceTypes(): (
     | 'supported'
     | 'anonymous'
     | 'adapter'
   )[];
-  public abstract get aggregateCapable(): boolean;
 }

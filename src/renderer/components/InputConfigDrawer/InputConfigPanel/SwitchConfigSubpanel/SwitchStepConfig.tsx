@@ -1,19 +1,19 @@
 import { useCallback } from 'react';
 
 import { byteToStatusString } from '@shared/midi-util';
-import { SwitchIcicle } from '@shared/hardware-config/input-config/switch-config';
+import { SwitchDTO } from '@shared/hardware-config/input-config/switch-config';
 
 import ChannelDropdown from './ChannelDropdown';
 import StatusStringDropdown from './StatusStringDropdown';
 import NumberDropdown from './NumberDropdown';
 import ValueDropdown from './ValueDropdown';
 
-const { ConfigService } = window;
+const { InputConfigService } = window;
 
 type PropTypes = {
   defaultMsg: NumberArrayWithStatus;
   override: NumberArrayWithStatus;
-  config: SwitchIcicle;
+  config: SwitchDTO;
   deviceId: string;
 };
 
@@ -28,7 +28,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   const onChange = useCallback(
     (m: NumberArrayWithStatus) => {
       config.steps.set(JSON.stringify(defaultMsg), m);
-      ConfigService.updateInputs(deviceId, [config]);
+      InputConfigService.updateInputs(deviceId, [config]);
     },
     [defaultMsg, config, deviceId]
   );

@@ -1,8 +1,8 @@
-import { MonoInputIcicle } from '@shared/hardware-config/input-config/mono-input-icicle';
+import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 import { MonoInputAggregate } from '../mono-input-aggregate';
 
 type PropTypes = {
-  inputs: MonoInputIcicle[];
+  inputs: MonoInputDTO[];
 };
 
 export default function InputDefaultsSubpanel(props: PropTypes) {

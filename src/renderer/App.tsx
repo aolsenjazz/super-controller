@@ -1,7 +1,6 @@
 import { DeviceProvider } from '@context/selected-device-context';
 import { SelectedInputsProvider } from '@context/selected-inputs-context';
 import { PanelProvider } from '@context/panel-context';
-import { SelectedDeviceConfigProvider } from '@context/selected-device-config-context';
 import { SelectedInputConfigsProvider } from '@context/selected-input-configs-context';
 import { SelectedPluginProvider } from '@context/selected-plugin-context';
 
@@ -24,16 +23,14 @@ export default function App() {
   return (
     <PanelProvider>
       <DeviceProvider>
-        <SelectedDeviceConfigProvider>
-          <SelectedInputsProvider>
-            <SelectedInputConfigsProvider>
-              <SelectedPluginProvider>
-                <TitleBar />
-                <MainContent />
-              </SelectedPluginProvider>
-            </SelectedInputConfigsProvider>
-          </SelectedInputsProvider>
-        </SelectedDeviceConfigProvider>
+        <SelectedInputsProvider>
+          <SelectedInputConfigsProvider>
+            <SelectedPluginProvider>
+              <TitleBar />
+              <MainContent />
+            </SelectedPluginProvider>
+          </SelectedInputConfigsProvider>
+        </SelectedInputsProvider>
       </DeviceProvider>
     </PanelProvider>
   );

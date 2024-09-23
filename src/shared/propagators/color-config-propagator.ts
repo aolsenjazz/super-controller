@@ -1,4 +1,3 @@
-import { create } from '../midi-array';
 import {
   Color,
   ColorDescriptor,
@@ -60,7 +59,7 @@ export class ColorConfigPropagator extends Propagator<
   }
 
   /* Returns the message to transmit to device for current state */
-  repeat() {
+  repeat(): NumberArrayWithStatus | undefined {
     // get color for state, or if unset, default color
     const c = this.colorBindings.get(this.currentStep) || this.defaultColor;
 
@@ -75,7 +74,7 @@ export class ColorConfigPropagator extends Propagator<
         arr = arr.map((v, i) => v + fx[i]) as NumberArrayWithStatus;
       }
 
-      return create(arr);
+      return [...arr] as NumberArrayWithStatus;
     }
 
     return undefined;

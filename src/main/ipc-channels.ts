@@ -9,6 +9,8 @@ export const HOST = {
   REQUEST_DEVICE_STUB: 'request-device-stub',
   REQUEST_CONNECTED_DEVICES: 'request-connected-devices',
   CONNECTED_DEVICES: 'connected-devices',
+  GET_CONNECTION_DETAILS: 'get-connection-details',
+  MIDI_EVENT: 'midi-event',
 
   REQUEST_INPUT_STATE: 'request-input-state',
 };
@@ -21,7 +23,6 @@ export const CONFIG = {
   REMOVE_DEVICE: 'remove-device',
   UPDATE_DEVICE: 'update-device',
   GET_DEVICE_CONFIG: 'get-device-config',
-  UPDATE_INPUT: 'update-input',
   GET_INPUT_CONFIG: 'get-input-config',
 
   REQUEST_DEVICE_CONFIG_STUB: 'request-device-config-stub',
@@ -33,14 +34,13 @@ export const CONFIG = {
   GET_INPUT_CONFIGS: 'get-input-configs',
 };
 
-/**
- * IPC channel names used to transmit data pertaining to translators
- */
-export const TRANSLATOR = {
-  REMOVE_TRANSLATOR_OVERRIDE: 'remove-translator-override',
-  ADD_TRANSLATOR_OVERRIDE: 'add-translator-override',
-  GET_TRANSLATOR_OVERRIDE: 'get-translator-override',
-  REQUEST_OVERRIDES: 'request-overrides',
+export const INPUT_CONFIG = {
+  REMOVE_PLUGIN: 'remove-input-plugin',
+  UPDATE_INPUT: 'update-input',
+};
+
+export const DEVICE_CONFIG = {
+  REMOVE_PLUGIN: 'remove-device-plugin',
 };
 
 export const LAYOUT = {

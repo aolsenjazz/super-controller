@@ -1,4 +1,3 @@
-import { MidiArray, create } from '../midi-array';
 import { Propagator } from './propagator';
 
 /**
@@ -19,12 +18,12 @@ export class NonsequentialStepPropagator extends Propagator<
 > {
   defaultStep: NumberArrayWithStatus;
 
-  steps: Map<string, MidiArray>;
+  steps: Map<string, NumberArrayWithStatus>;
 
   lastStep: NumberArrayWithStatus;
 
   constructor(
-    steps: Map<string, MidiArray>,
+    steps: Map<string, NumberArrayWithStatus>,
     defaultStep: NumberArrayWithStatus
   ) {
     super('enumerated', 'enumerated');
@@ -34,9 +33,9 @@ export class NonsequentialStepPropagator extends Propagator<
     this.lastStep = defaultStep;
   }
 
-  protected getResponse(arr: MidiArray) {
-    this.lastStep = arr.array as NumberArrayWithStatus;
-    return this.steps.get(JSON.stringify(arr.array));
+  protected getResponse(arr: NumberArrayWithStatus) {
+    this.lastStep = arr as NumberArrayWithStatus;
+    return this.steps.get(JSON.stringify(arr));
   }
 
   /**
@@ -49,13 +48,13 @@ export class NonsequentialStepPropagator extends Propagator<
   /**
    * Sets the override for `step` equal to `arr`
    */
-  setStep(step: NumberArrayWithStatus, arr: MidiArray) {
+  setStep(step: NumberArrayWithStatus, arr: NumberArrayWithStatus) {
     this.steps.set(JSON.stringify(step), arr);
   }
 
   restoreDefaults() {
     Array.from(this.steps.keys()).forEach((k) => {
-      const reset = create(JSON.parse(k));
+      const reset = JSON.parse(k);
       this.steps.set(k, reset);
     });
   }

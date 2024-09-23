@@ -1,24 +1,29 @@
-import { MidiArray } from '@shared/midi-array';
-
-import { BasePlugin, PluginIcicle } from '@shared/plugin-core/base-plugin';
+import { MessageProcessorMeta } from '@shared/message-processor';
+import { MessageTransport } from '@shared/message-transport';
+import { BasePlugin, PluginDTO } from '@shared/plugin-core/base-plugin';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface BacklightControlIcicle extends PluginIcicle {}
+export interface BacklightControlIcicle extends PluginDTO {}
 
-export default class BacklightControlPlugin extends BasePlugin<PluginIcicle> {
-  public process(msg: MidiArray | NumberArrayWithStatus) {
+export default class BacklightControlPlugin extends BasePlugin<PluginDTO> {
+  public process(
+    msg: NumberArrayWithStatus,
+    _loopbackTransport: MessageTransport,
+    _remoteTransport: MessageTransport,
+    _meta: MessageProcessorMeta
+  ) {
     // eslint-disable-next-line no-console
-    console.log(msg);
+    console.log(`${this.title} processing ${msg}`);
   }
 
-  public freeze(): PluginIcicle {
+  public toDTO(): PluginDTO {
     return {
-      ...super.freeze(),
+      ...super.toDTO(),
     };
   }
 
-  public applyIcicle(icicle: PluginIcicle): void {
-    super.applyIcicle(icicle);
+  public applyIcicle(icicle: PluginDTO): void {
+    super.applyDTO(icicle);
   }
 
   public get applicableDeviceTypes(): (
@@ -27,9 +32,5 @@ export default class BacklightControlPlugin extends BasePlugin<PluginIcicle> {
     | 'adapter'
   )[] {
     return ['anonymous'];
-  }
-
-  public get aggregateCapable() {
-    return true;
   }
 }

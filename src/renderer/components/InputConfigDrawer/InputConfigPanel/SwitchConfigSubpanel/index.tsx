@@ -1,9 +1,9 @@
-import { DeviceIcicle } from '@shared/hardware-config/device-config';
-import { SwitchIcicle } from '@shared/hardware-config/input-config/switch-config';
+import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
+import { SwitchDTO } from '@shared/hardware-config/input-config/switch-config';
 
 type PropTypes = {
-  deviceConfig: DeviceIcicle;
-  inputConfigStub: SwitchIcicle;
+  deviceConfig: DeviceConfigDTO;
+  inputConfigStub: SwitchDTO;
 };
 
 export default function SwitchConfigSubpanel(_props: PropTypes) {

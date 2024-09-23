@@ -1,9 +1,8 @@
 import { Propagator } from '@shared/propagators/propagator';
-import { ThreeByteMidiArray } from '@shared/midi-array';
 import { InputResponse } from '@shared/driver-types';
 
-const noteoff = ThreeByteMidiArray.create(128, 0, 0, 0);
-const noteon = ThreeByteMidiArray.create(144, 0, 0, 127);
+const noteoff: NumberArrayWithStatus = [128, 0, 0]; // Manually building the MIDI array for note off
+const noteon: NumberArrayWithStatus = [144, 0, 127]; // Manually building the MIDI array for note on
 
 class PropagatorWrapper<
   T extends InputResponse,
@@ -13,7 +12,7 @@ class PropagatorWrapper<
     return ['continuous'] as InputResponse[];
   }
 
-  protected getResponse(msg: ThreeByteMidiArray) {
+  protected getResponse(msg: NumberArrayWithStatus) {
     return msg;
   }
 }
