@@ -1,17 +1,3 @@
-#device-action {
-  width: 80%;
-  height: 40px;
-  border-radius: 5px;
-  outline: none;
-  border: none;
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  cursor: pointer;
-  font-family: Arial;
-}
-
 .device-container {
   height: 100%;
   vertical-align: top;
