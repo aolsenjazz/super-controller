@@ -14,6 +14,7 @@
 .nickname-subpanel label {
   line-height: 20px;
   display: inline-flex;
+  margin-top: 6px;
 }
 
 .nickname-subpanel input {
@@ -29,5 +30,32 @@
 }
 
 .nickname-subpanel h1 {
-  margin: 2px 0 8px 0;
+  margin: 2px 0 2px 0;
+}
+
+.nickname-subpanel .adapter-details-subpanel {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+}
+
+.nickname-subpanel .adapter-details-subpanel > p {
+  line-height: 16px;
+  opacity: 0.8;
+}
+
+.nickname-subpanel .help-tip {
+  margin-top: 1px;
+  margin-left: 3px;
+}
+
+.nickname-subpanel #adapter-select {
+  margin-top: 8px;
+}
+
+.nickname-subpanel .ios-select select {
+  margin-left: 4px;
+  height: 20px;
+  min-width: 130px;
+  font-size: 12px;
 }

@@ -41,6 +41,7 @@ export const INPUT_CONFIG = {
 
 export const DEVICE_CONFIG = {
   REMOVE_PLUGIN: 'remove-device-plugin',
+  SET_CHILD: 'set-child',
 };
 
 export const LAYOUT = {

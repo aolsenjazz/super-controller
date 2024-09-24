@@ -1,9 +1,5 @@
 import { Anonymous, getDriver } from '@shared/drivers';
-import {
-  AdapterDeviceConfig,
-  configFromDriver,
-  SupportedDeviceConfig,
-} from '@shared/hardware-config';
+import { configFromDriver } from '@shared/hardware-config';
 import { ipcMain, IpcMainEvent } from 'electron';
 
 import { CONFIG } from '../ipc-channels';
@@ -15,20 +11,11 @@ ipcMain.on(
     _e: IpcMainEvent,
     deviceName: string,
     siblingIdx: number,
-    driverName?: string,
-    childName?: string
+    driverName?: string
   ) => {
     const { project } = ProjectProvider;
     const driver = getDriver(driverName || deviceName) || Anonymous;
     const conf = configFromDriver(deviceName, siblingIdx, driver);
-
-    if (conf instanceof AdapterDeviceConfig) {
-      if (childName === undefined) throw new Error('must provide child name');
-
-      const childDriver = getDriver(childName)!;
-      const childConf = configFromDriver(childName!, siblingIdx, childDriver);
-      conf.setChild(childConf as SupportedDeviceConfig);
-    }
 
     project.addDevice(conf);
 

@@ -22,6 +22,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     return {
       ...this.stub(),
       className: this.constructor.name,
+      type: 'anonymous' as const,
     };
   }
 }

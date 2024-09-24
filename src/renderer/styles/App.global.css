@@ -1,5 +1,4 @@
 @import './ConfigPanel.css';
-@import './IosSelect.css';
 @import './IosButton.css';
 @import './DeviceDrawer.css';
 @import './TitleBar.css';
@@ -7,13 +6,11 @@
 @import './DevicePanel.css';
 @import './DeviceLayout.css';
 @import './DeviceIcon.css';
-@import './HelpTip.css';
 @import './AdapterView.css';
 @import './DriverRequestButton.css';
 @import './WarningIcon.css';
 @import './SwitchPanel.css';
 @import './SectionHeader.css';
-@import './NicknameSubpanel.css';
 @import './DeviceListPanel.css';
 @import './PluginSubpanel.css';
 @import './DeviceDetailsPanel.css';
@@ -94,6 +91,13 @@ label {
 #main-content {
   height: calc(100% - 30px);
   max-width: 100%;
+}
+
+#modal-layer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  pointer-events: none;
 }
 
 .top-level {

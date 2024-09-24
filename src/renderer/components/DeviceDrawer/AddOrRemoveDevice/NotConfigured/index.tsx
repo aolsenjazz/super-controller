@@ -1,10 +1,10 @@
 import LinuxNotConfigured from './LinuxNotConfigured';
-import OSXNotConfigured from './OSXNotConfigured';
+import BasicNotConfigured from './BasicNotConfigured';
 
 const { HostService } = window;
 
 export default function NotConfigured() {
   const host = HostService.getHost();
 
-  return host === 'darwin' ? <OSXNotConfigured /> : <LinuxNotConfigured />;
+  return host === 'darwin' ? <BasicNotConfigured /> : <LinuxNotConfigured />;
 }

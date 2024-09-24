@@ -55,6 +55,7 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
       ...this.stub(),
       className: 'SupportedDeviceConfig' as const,
       inputs: this.inputs.map((i) => i.toDTO()),
+      type: 'supported' as const,
     };
   }
 

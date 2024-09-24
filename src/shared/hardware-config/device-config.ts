@@ -10,6 +10,7 @@ export interface DeviceConfigDTO extends BaseIcicle {
   driverName: string;
   siblingIndex: number;
   nickname: string;
+  type: 'adapter' | 'supported' | 'anonymous';
   plugins: string[];
   child?: DeviceConfigDTO;
 }
@@ -91,7 +92,7 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
    * Similar to `freeze()` except it doesn't recurse though children, significantly
    * reducing serialized size and processing speed.
    */
-  public stub(): Omit<DeviceConfigDTO, 'className'> {
+  public stub(): Omit<DeviceConfigDTO, 'className' | 'type'> {
     return {
       id: this.id,
       portName: this.portName,

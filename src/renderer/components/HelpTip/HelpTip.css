@@ -1,0 +1,50 @@
+/* The circle with the question mark */
+.help-tip {
+  text-align: center;
+  border-radius: 50%;
+  font-size: 12px;
+  cursor: default;
+  font-weight: normal;
+  font-family: Arial;
+  position: relative;
+}
+
+.help-tip span {
+  font-weight: bold;
+  color: #fff;
+  font-size: 0.8em;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Tooltip content */
+.help-tip-body {
+  position: absolute;
+  background-color: #1e2021;
+  padding: 10px;
+  width: 300px;
+  white-space: pre-line;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  font-size: 13px;
+  line-height: 1.4;
+  z-index: 10000;
+}
+
+.help-tip-body p {
+  color: #fff;
+}
+
+/* Tooltip arrow */
+.help-tip-arrow {
+  position: absolute;
+  top: -6px; /* Adjust to be just above the tooltip body */
+  left: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-bottom-color: #1e2021;
+}

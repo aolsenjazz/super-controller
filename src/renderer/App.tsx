@@ -28,6 +28,7 @@ export default function App() {
             <SelectedPluginProvider>
               <TitleBar />
               <MainContent />
+              <div id="modal-layer" />
             </SelectedPluginProvider>
           </SelectedInputConfigsProvider>
         </SelectedInputsProvider>

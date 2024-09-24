@@ -12,6 +12,7 @@ module.exports = {
     'no-bitwise': 'off',
     'no-underscore-dangle': 'off',
     '@typescript-eslint/naming-convention': 'off',
+    'react/require-default-props': 'off',
     'jsx-a11y/label-has-associated-control': [
       'error',
       {

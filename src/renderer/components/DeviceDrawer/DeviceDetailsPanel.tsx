@@ -20,6 +20,7 @@ export default function DeviceDetailsPanel(props: PropTypes) {
   const { deviceConfig } = useDeviceConfig(selectedDevice);
 
   const configured = deviceConfig !== undefined;
+  const isAdapter = deviceConfig?.type === 'adapter';
 
   const deviceConnectionDetails = useMemo(
     () => HostService.getDeviceConnectionDetails(selectedDevice),
@@ -61,6 +62,8 @@ export default function DeviceDetailsPanel(props: PropTypes) {
           nickname={deviceConfig?.nickname || ''}
           onNicknameChange={onChange}
           deactivated={false}
+          isAdapter={isAdapter}
+          device={deviceConfig!}
         />
         <PluginSubpanel
           plugins={deviceConfig?.plugins || []}

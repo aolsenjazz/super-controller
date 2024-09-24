@@ -67,6 +67,7 @@ export class AdapterDeviceConfig extends DeviceConfig {
       ...super.stub(),
       className: this.constructor.name,
       child: this.child?.toDTO(),
+      type: 'adapter' as const,
     };
   }
 }

@@ -24,6 +24,10 @@ export const DeviceConfigService = {
     return addOnChangeListener(CONFIG.CONFIGURED_DEVICES, func);
   },
 
+  setChild: (configId: string, childId: string) => {
+    ipcRenderer.send(DEVICE_CONFIG.SET_CHILD, configId, childId);
+  },
+
   /**
    * Subscribe to changes to a config for the given id. A new channel named
    * `device-descriptor-{deviceId}` will be created to which the renderer can listen.

@@ -9,7 +9,7 @@ import {
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 
-import { CONFIG } from '../ipc-channels';
+import { CONFIG, INPUT_CONFIG } from '../ipc-channels';
 import { dialogs } from '../dialogs';
 import {
   ProjectEventEmitter,
@@ -122,7 +122,7 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
   // TODO: soon, this function will be gone
   private initIpc() {
     ipcMain.on(
-      'get-input-configs',
+      INPUT_CONFIG.GET_INPUT_CONFIGS,
       (e: IpcMainEvent, deviceId: string, inputIds: string[]) => {
         const dev = this.project.getDevice(deviceId);
 
@@ -136,11 +136,6 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
         }
       }
     );
-
-    /* When a device is removed from project, remove it here and re-init all devices */
-    ipcMain.on(CONFIG.GET_CONFIGURED_DEVICES, (e: IpcMainEvent) => {
-      e.returnValue = this.project.devices.map((d) => d.id);
-    });
   }
 }
 
