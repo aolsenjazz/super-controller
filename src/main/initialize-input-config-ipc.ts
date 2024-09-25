@@ -78,7 +78,6 @@ ipcMain.on(
         input.applyStub(c);
         updatedConfigs.push(input);
 
-        console.log('sanity');
         MainWindow.sendInputState(deviceId, c.id, input.state);
         MainWindow.sendInputConfig(deviceId, c.id, c);
       }

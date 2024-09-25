@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 
 import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 
-import ControlledInput from '../../../components/ControlledInput';
+import ControlledInput from '../../ControlledInput';
 import SectionHeader from '../../SectionHeader';
 
 type PropTypes = {

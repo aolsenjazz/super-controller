@@ -35,7 +35,7 @@ ipcMain.on(HOST.REQUEST, (_e: Event, deviceName: string) => {
 ipcMain.on(CONFIG.REQUEST_DEVICE_CONFIG_STUB, (_e: Event, id: string) => {
   const p = pp.project;
   const conf = p.getDevice(id);
-  const desc = conf ? conf.stub() : undefined;
+  const desc = conf ? conf.toDTO() : undefined;
 
   MainWindow.sendConfigStub(id, desc);
 });

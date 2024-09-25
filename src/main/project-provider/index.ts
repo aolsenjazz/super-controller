@@ -9,7 +9,7 @@ import {
 } from '@shared/hardware-config';
 import { Project } from '@shared/project';
 
-import { CONFIG, INPUT_CONFIG } from '../ipc-channels';
+import { INPUT_CONFIG } from '../ipc-channels';
 import { dialogs } from '../dialogs';
 import {
   ProjectEventEmitter,

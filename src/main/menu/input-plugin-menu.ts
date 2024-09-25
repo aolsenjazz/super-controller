@@ -50,7 +50,7 @@ export async function createInputPluginMenu(
             }
           });
 
-          wp.MainWindow.sendConfigStub(dev.id, dev.stub());
+          wp.MainWindow.sendConfigStub(dev.id, dev.toDTO());
         }
       },
     });

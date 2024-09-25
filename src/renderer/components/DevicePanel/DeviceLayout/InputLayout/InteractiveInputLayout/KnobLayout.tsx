@@ -1,11 +1,6 @@
 import { useSelectedDevice } from '@context/selected-device-context';
 import { useInputConfig } from '@hooks/use-input-config';
-import { useInputState } from '@hooks/use-input-state';
-import {
-  KnobDTO,
-  KnobState,
-} from '@shared/hardware-config/input-config/knob-config';
-import { statusStringToNibble } from '@shared/midi-util';
+import { KnobDTO } from '@shared/hardware-config/input-config/knob-config';
 import { useCallback, useEffect, useState } from 'react';
 
 const { InputConfigService } = window;

@@ -22,7 +22,7 @@ export async function createDevicePluginMenu(deviceId: string) {
         const plugin: BasePlugin = new Plugin(m.title, m.description);
         dev.plugins.push(plugin.id);
         Registry.register(plugin);
-        wp.MainWindow.sendConfigStub(dev.id, dev.stub());
+        wp.MainWindow.sendConfigStub(dev.id, dev.toDTO());
       },
     });
   });
