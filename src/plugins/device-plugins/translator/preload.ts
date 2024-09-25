@@ -18,14 +18,19 @@ import { TRANSLATOR } from './ipc-channels';
 const TranslatorService = {
   updateOverride(
     pluginId: string,
-    source: NumberArrayWithStatus,
+    sourceString: string,
     override: NumberArrayWithStatus
   ) {
-    ipcRenderer.send(TRANSLATOR.UPDATE_OVERRIDE, pluginId, source, override);
+    ipcRenderer.send(
+      TRANSLATOR.UPDATE_OVERRIDE,
+      pluginId,
+      sourceString,
+      override
+    );
   },
 
-  deleteOverride(pluginId: string, source: NumberArrayWithStatus) {
-    ipcRenderer.send(TRANSLATOR.DELETE_OVERRIDE, pluginId, source);
+  deleteOverride(pluginId: string, sourceString: string) {
+    ipcRenderer.send(TRANSLATOR.DELETE_OVERRIDE, pluginId, sourceString);
   },
 };
 

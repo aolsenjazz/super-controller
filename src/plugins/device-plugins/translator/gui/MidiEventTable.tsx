@@ -48,8 +48,6 @@ export function MidiEventTable(props: MidiEventTableProps) {
     const selected = id === selectedRow;
 
     const onClick = () => {
-      // setSelectedRow(selected ? '' : id);
-      // setSelectedSource(selected ? undefined : event.msg);
       setSelectedRow(id);
       setSelectedSource(event.msg);
     };

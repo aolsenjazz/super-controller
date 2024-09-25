@@ -288,6 +288,7 @@ export class HardwarePortServiceSingleton {
     const remoteTransport = VirtualPortService.ports.get(config.id);
     if (remoteTransport && message) remoteTransport.send(message);
 
+    MainWindow.sendNarrowInputEvent(pair.id, msg);
     MainWindow.sendInputEvent(pair.id, msg);
   }
 

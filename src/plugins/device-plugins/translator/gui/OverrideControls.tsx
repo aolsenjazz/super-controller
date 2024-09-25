@@ -1,4 +1,4 @@
-import { MidiEventOverride } from '../midi-event-override';
+import { toString } from '../util';
 import EventSelector from './EventSelector';
 import OverrideFields from './OverrideFields';
 
@@ -7,7 +7,7 @@ const { TranslatorService } = window;
 type OverrideControlsProps = {
   selectedSource: NumberArrayWithStatus | undefined;
   setSelectedSource: (source: NumberArrayWithStatus | undefined) => void;
-  overrides: MidiEventOverride[];
+  overrides: Record<string, NumberArrayWithStatus | undefined>;
   pluginId: string;
 };
 
@@ -18,18 +18,16 @@ export function OverrideControls(props: OverrideControlsProps) {
     source: NumberArrayWithStatus,
     override: NumberArrayWithStatus
   ) => {
-    TranslatorService.updateOverride(pluginId, source, override);
+    TranslatorService.updateOverride(pluginId, toString(source), override);
   };
 
   const deleteOverride = () => {
-    TranslatorService.deleteOverride(pluginId, selectedSource!);
+    TranslatorService.deleteOverride(pluginId, toString(selectedSource!));
     setSelectedSource(undefined);
   };
 
-  const maybeOverride = overrides.find(
-    (o) => JSON.stringify(o.source) === JSON.stringify(selectedSource)
-  );
-  const o = maybeOverride?.override || selectedSource;
+  const maybeOverride = selectedSource && overrides[toString(selectedSource)];
+  const o = maybeOverride || selectedSource;
 
   return (
     <div className="override-controls">

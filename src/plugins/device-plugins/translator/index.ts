@@ -1,13 +1,13 @@
 import { MessageProcessorMeta } from '@shared/message-processor';
 import { BasePlugin, PluginDTO } from '@shared/plugin-core/base-plugin';
-import { MidiEventOverride } from './midi-event-override';
+import { toString } from './util';
 
 export interface TranslatorDTO extends PluginDTO {
-  overrides: MidiEventOverride[];
+  overrides: Record<string, NumberArrayWithStatus | undefined>;
 }
 
 export default class TranslatorPlugin extends BasePlugin<TranslatorDTO> {
-  overrides: MidiEventOverride[] = [];
+  overrides: Record<string, NumberArrayWithStatus | undefined> = {};
 
   public get applicableDeviceTypes(): (
     | 'supported'
@@ -18,10 +18,8 @@ export default class TranslatorPlugin extends BasePlugin<TranslatorDTO> {
   }
 
   public process(msg: NumberArrayWithStatus, _meta: MessageProcessorMeta) {
-    const override = this.overrides.find(
-      (o) => JSON.stringify(o.source) === JSON.stringify(msg)
-    );
-    return override ? override.override : msg;
+    const override = this.overrides[toString(msg)];
+    return override || msg;
   }
 
   public toDTO(): TranslatorDTO {

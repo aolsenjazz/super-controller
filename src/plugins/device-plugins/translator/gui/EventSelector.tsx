@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { MidiEventOverride } from '../midi-event-override';
+import { toString } from '../util';
 import { statusByteMap } from './utils';
 
 function midiArrayToDropdownOption(arr: NumberArrayWithStatus) {
@@ -10,26 +10,28 @@ function midiArrayToDropdownOption(arr: NumberArrayWithStatus) {
   return `${statusString}: ${JSON.stringify(arr)}`;
 }
 
+function toNumberArray(msg: string) {
+  return msg.split('.').map((s) => Number(s)) as NumberArrayWithStatus;
+}
+
 type PropTypes = {
   selectedSource: NumberArrayWithStatus | undefined;
   setSelectedSource: (source: NumberArrayWithStatus) => void;
-  overrides: MidiEventOverride[];
+  overrides: Record<string, NumberArrayWithStatus | undefined>;
 };
 
 export default function EventSelector(props: PropTypes) {
   const { selectedSource, setSelectedSource, overrides } = props;
 
   const options: JSX.Element[] = [];
-  const saved = overrides.find(
-    (o) => JSON.stringify(o.source) === JSON.stringify(selectedSource)
-  );
+  const saved = selectedSource && overrides[toString(selectedSource)];
 
   const selectValue = useMemo(() => {
-    return JSON.stringify(selectedSource) || 'header-option';
+    return (selectedSource && toString(selectedSource)) || 'header-option';
   }, [selectedSource]);
 
-  const msg = overrides.length
-    ? `Select an override: (${overrides.length} total)`
+  const msg = Object.keys(overrides)
+    ? `Select an override: (${Object.keys(overrides).length} total)`
     : 'No overrides set.';
   options.push(
     <option disabled key="header-option" value="header-option">
@@ -37,34 +39,30 @@ export default function EventSelector(props: PropTypes) {
     </option>
   );
 
-  if (
-    selectedSource &&
-    !overrides.find(
-      (o) => JSON.stringify(o.source) === JSON.stringify(selectedSource)
-    )
-  ) {
+  if (selectedSource && !saved) {
     options.push(
       <option
-        key={JSON.stringify(selectedSource)}
-        value={JSON.stringify(selectedSource)}
+        key={selectedSource && toString(selectedSource)}
+        value={selectedSource && toString(selectedSource)}
       >
         {`${midiArrayToDropdownOption(selectedSource)}${
-          !saved && ' (unsaved)'
+          saved ? '' : ' (unsaved)'
         }`}
       </option>
     );
   }
 
-  overrides.forEach(({ source }) => {
+  Object.keys(overrides).forEach((source) => {
+    const index = Object.keys(overrides).indexOf(source);
     options.push(
-      <option key={JSON.stringify(source)} value={JSON.stringify(source)}>
-        {midiArrayToDropdownOption(source)}
+      <option key={`${source} ${index}`} value={source}>
+        {midiArrayToDropdownOption(toNumberArray(source))}
       </option>
     );
   });
 
   const onSelectEvent = (value: string) => {
-    setSelectedSource(JSON.parse(value));
+    setSelectedSource(toNumberArray(value));
   };
 
   return (

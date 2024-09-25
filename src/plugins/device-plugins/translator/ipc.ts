@@ -13,19 +13,14 @@ ipcMain.on(
   (
     _e: IpcMainEvent,
     pluginId: string,
-    source: NumberArrayWithStatus,
+    sourceString: string,
     override: NumberArrayWithStatus
   ) => {
     const plugin = Registry.get<TranslatorPlugin>(pluginId);
 
     if (!plugin) throw new Error(`couldnt find ${pluginId}`);
 
-    const newOverride = { source, override };
-    const newOverrides = plugin.overrides
-      .filter((o) => JSON.stringify(o.source) !== JSON.stringify(source))
-      .concat(newOverride);
-
-    plugin.overrides = newOverrides;
+    plugin.overrides[sourceString] = override;
 
     MainWindow.sendPluginUpdate(pluginId, plugin.toDTO());
   }
@@ -33,14 +28,12 @@ ipcMain.on(
 
 ipcMain.on(
   TRANSLATOR.DELETE_OVERRIDE,
-  (_e: IpcMainEvent, pluginId: string, source: NumberArrayWithStatus) => {
+  (_e: IpcMainEvent, pluginId: string, sourceString: string) => {
     const plugin = Registry.get<TranslatorPlugin>(pluginId);
 
     if (!plugin) throw new Error(`couldnt find ${pluginId}`);
 
-    plugin.overrides = plugin.overrides.filter(
-      (o) => JSON.stringify(o.source) !== JSON.stringify(source)
-    );
+    delete plugin.overrides[sourceString];
 
     MainWindow.sendPluginUpdate(pluginId, plugin.toDTO());
   }
