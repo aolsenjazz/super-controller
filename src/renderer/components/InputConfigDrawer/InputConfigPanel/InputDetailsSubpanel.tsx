@@ -1,7 +1,8 @@
-import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 import { useCallback, useMemo } from 'react';
 
-import NicknameSubpanel from '../../NicknameSubpanel';
+import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
+
+import ControlledInput from '../../../components/ControlledInput';
 import SectionHeader from '../../SectionHeader';
 
 type PropTypes = {
@@ -39,12 +40,25 @@ export default function InputDetailsSubpanel(props: PropTypes) {
     <div className="details-panel input-details-panel">
       <div>
         <SectionHeader title="INPUT SETTINGS" size="large" />
-        <NicknameSubpanel
-          name={name}
-          nickname={nickname || ''}
-          onNicknameChange={onChange}
-          deactivated={configs.length !== 1}
-        />
+        <div
+          className={`subpanel nickname-subpanel ${
+            configs.length !== 1 ? 'deactivated' : ''
+          }`}
+        >
+          <div className="nickname-display">
+            <h1>{name}</h1>
+          </div>
+
+          <label htmlFor="nickname-input">
+            Nickname:
+            <ControlledInput
+              id="nickname-input"
+              type="text"
+              value={nickname}
+              onChange={(e) => onChange(e.target.value)}
+            />
+          </label>
+        </div>
       </div>
     </div>
   );

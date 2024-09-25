@@ -288,11 +288,7 @@ export class HardwarePortServiceSingleton {
     const remoteTransport = VirtualPortService.ports.get(config.id);
     if (remoteTransport && message) remoteTransport.send(message);
 
-    // TODO: rethink sending input state to frontend
-    // do we want to just broadcast on message channel? or will that invoke too
-    // many listeners and be irresponsible usage of cpu cycles?
-    // MainWindow.sendInputState(config.id, input.id, input.state);
-    MainWindow.sendMidiEvent(pair.id, msg);
+    MainWindow.sendInputEvent(pair.id, msg);
   }
 
   /**

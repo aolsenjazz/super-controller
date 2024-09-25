@@ -1,5 +1,6 @@
 import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 import { useState, useEffect } from 'react';
+import { useConfiguredDevices } from './use-configured-devices';
 
 const { InputConfigService } = window;
 
@@ -10,6 +11,8 @@ export function useInputConfig<T extends InputDTO = InputDTO>(
   const [inputConfig, setInputConfig] = useState<T>(() => {
     return InputConfigService.getInputConfig(deviceId, inputId);
   });
+
+  const { configuredDeviceIds } = useConfiguredDevices();
 
   useEffect(() => {
     const cb = (config: T) => {
@@ -24,7 +27,7 @@ export function useInputConfig<T extends InputDTO = InputDTO>(
     );
 
     return () => off();
-  }, [deviceId, inputId]);
+  }, [deviceId, inputId, configuredDeviceIds]);
 
   return { inputConfig };
 }

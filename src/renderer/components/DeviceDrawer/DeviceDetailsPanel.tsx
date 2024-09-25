@@ -3,10 +3,12 @@ import { useCallback, useMemo } from 'react';
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { useDeviceConfig } from '@hooks/use-device-config';
 
-import NicknameSubpanel from '../NicknameSubpanel';
 import PluginSubpanel from '../PluginSubpanel';
 import SectionHeader from '../SectionHeader';
 import AddOrRemoveDevice from './AddOrRemoveDevice';
+import AdapterDetailsSubpanel from './AdapterDetailsSubpanel';
+import AdapterSelect from './AdapterSelect';
+import ControlledInput from '../ControlledInput';
 
 const { DeviceConfigService, MenuService, HostService } = window;
 
@@ -26,6 +28,10 @@ export default function DeviceDetailsPanel(props: PropTypes) {
     () => HostService.getDeviceConnectionDetails(selectedDevice),
     [selectedDevice]
   );
+
+  const deviceName =
+    deviceConnectionDetails?.name || deviceConfig?.portName || '';
+  const deviceNickname = deviceConfig?.nickname || '';
 
   const onChange = useCallback(
     (n: string) => {
@@ -57,14 +63,29 @@ export default function DeviceDetailsPanel(props: PropTypes) {
     <div className="details-panel device-details-panel">
       <div className={`${configured ? '' : 'deactivated'}`}>
         <SectionHeader title="DEVICE SETTINGS" size="large" />
-        <NicknameSubpanel
-          name={deviceConnectionDetails?.name || deviceConfig?.portName || ''}
-          nickname={deviceConfig?.nickname || ''}
-          onNicknameChange={onChange}
-          deactivated={false}
-          isAdapter={isAdapter}
-          device={deviceConfig!}
-        />
+        <div
+          className={`subpanel nickname-subpanel ${
+            configured ? '' : 'deactivated'
+          }`}
+        >
+          <div className="nickname-display">
+            <h1>{deviceName}</h1>
+          </div>
+          {isAdapter && (
+            <>
+              <AdapterDetailsSubpanel /> <AdapterSelect device={deviceConfig} />
+            </>
+          )}
+          <label htmlFor="nickname-input">
+            Nickname:
+            <ControlledInput
+              id="nickname-input"
+              type="text"
+              value={deviceNickname}
+              onChange={(event) => onChange(event.target.value)}
+            />
+          </label>
+        </div>
         <PluginSubpanel
           plugins={deviceConfig?.plugins || []}
           removePlugin={removePlugin}

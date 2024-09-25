@@ -1,3 +1,4 @@
+import { byteToStatusString } from '@shared/midi-util';
 import type { PluginDTO } from '@shared/plugin-core/base-plugin';
 import { BrowserWindow, BrowserWindowConstructorOptions, Menu } from 'electron';
 
@@ -31,8 +32,10 @@ export abstract class WindowActions {
     w.loadURL(this.url);
   }
 
-  public sendMidiEvent(deviceId: string, msg: NumberArrayWithStatus) {
-    this.send(`midi-event`, deviceId, msg);
+  public sendInputEvent(deviceId: string, msg: NumberArrayWithStatus) {
+    const statusString = byteToStatusString(msg[0], false);
+
+    this.send(`${deviceId}.${statusString}.${msg[0] & 0x0f}.${msg[1]}`, msg);
   }
 
   public sendPluginUpdate(id: string, dto: PluginDTO) {

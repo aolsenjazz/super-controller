@@ -17,6 +17,8 @@
 @import './DetailsPanel.css';
 @import './Subpanel.css';
 @import './InputDefaultsSubpanel.css';
+@import './NicknameSubpanel.css';
+
 * {
   margin: 0;
   padding: 0;

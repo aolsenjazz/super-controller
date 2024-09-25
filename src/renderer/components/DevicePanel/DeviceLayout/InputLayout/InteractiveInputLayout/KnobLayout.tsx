@@ -5,11 +5,10 @@ import {
   KnobDTO,
   KnobState,
 } from '@shared/hardware-config/input-config/knob-config';
-import { useEffect, useState } from 'react';
+import { statusStringToNibble } from '@shared/midi-util';
+import { useCallback, useEffect, useState } from 'react';
 
-const defaultState = {
-  value: 0 as MidiNumber,
-};
+const { InputConfigService } = window;
 
 /**
  * Converts a value in given range to the equivalent value in a new range
@@ -39,33 +38,38 @@ type PropTypes = {
 export function Knob(props: PropTypes) {
   const { shape, endless, id } = props;
   const { selectedDevice } = useSelectedDevice();
-  const [curDeg, setCurDeg] = useState(0);
-
   const { inputConfig } = useInputConfig<KnobDTO>(selectedDevice || '', id);
 
+  const [curDeg, setCurDeg] = useState(127);
   const [isEndless, setEndless] = useState(endless);
 
-  useEffect(() => {
-    if (inputConfig) setEndless(inputConfig.valueType === 'endless');
-  }, [inputConfig]);
-
-  const { state } = useInputState<KnobState>(
-    selectedDevice || '',
-    id,
-    defaultState
-  );
-
-  useEffect(() => {
+  const updateCurDeg = useCallback((msg: NumberArrayWithStatus) => {
     const degrees = 270;
     const min = 0;
     const max = 127;
     const startAngle = (360 - degrees) / 2;
     const endAngle = startAngle + degrees;
 
-    setCurDeg(
-      Math.floor(convertRange(min, max, startAngle, endAngle, state.value))
+    setCurDeg(Math.floor(convertRange(min, max, startAngle, endAngle, msg[2])));
+  }, []);
+
+  useEffect(() => {
+    if (!selectedDevice || !inputConfig) return () => {};
+    setEndless(inputConfig.valueType === 'endless');
+
+    const def = inputConfig.defaults;
+    const off = InputConfigService.onInputEvent(
+      selectedDevice,
+      def.statusString,
+      def.channel,
+      def.number,
+      updateCurDeg
     );
-  }, [state]);
+
+    return () => off();
+  }, [inputConfig, selectedDevice, updateCurDeg]);
+
+  useEffect(() => {}, []);
 
   return (
     <div className="knob" role="button">

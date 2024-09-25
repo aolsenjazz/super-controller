@@ -1,10 +1,24 @@
+import { ipcRenderer } from 'electron';
+
 import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 import { INPUT_CONFIG } from '@main/ipc-channels';
-import { ipcRenderer } from 'electron';
 
 import { addOnChangeListener } from './common';
 
 export const InputConfigService = {
+  onInputEvent: (
+    deviceId: string,
+    statusString: StatusString | 'noteon/noteoff',
+    channel: Channel,
+    number: MidiNumber,
+    cb: (msg: NumberArrayWithStatus) => void
+  ) => {
+    return addOnChangeListener(
+      `${deviceId}.${statusString}.${channel}.${number}`,
+      cb
+    );
+  },
+
   removePlugin: (pluginId: string, deviceConfigId: string, inputId: string) => {
     ipcRenderer.send(
       INPUT_CONFIG.REMOVE_PLUGIN,
@@ -35,11 +49,10 @@ export const InputConfigService = {
     inputId: string,
     func: (config: T) => void
   ) {
-    const off = addOnChangeListener(
+    return addOnChangeListener(
       `device-${deviceId}-input-${inputId}-config`,
       func
     );
-    return off;
   },
 
   getInputConfigs<T extends InputDTO = InputDTO>(
