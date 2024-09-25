@@ -46,7 +46,9 @@ export default function DeviceListItem(props: PropTypes) {
 
   const { deviceConfig } = useDeviceConfig(deviceId);
   const { deviceConnectionDetails } = useDeviceConnectionDetails(deviceId);
-  const driver = getDriver(deviceConfig?.driverName || '') || Anonymous;
+
+  const deviceName = deviceId.substring(0, deviceId.lastIndexOf(' '));
+  const driver = getDriver(deviceName) || Anonymous;
 
   return (
     <div className={`device-list-item ${selected ? 'active' : ''}`}>
