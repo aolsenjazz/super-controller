@@ -61,7 +61,7 @@ export class MainWindowActions extends StatefulWindowActions {
   }
 
   public sendInputConfigs(configs: InputDTO[]) {
-    this.send(INPUT_CONFIG.INPUT_CONFIG_CHANGE, configs);
+    this.send(INPUT_CONFIG.INPUTS_CHANGE, configs);
   }
 
   public sendInputState<T extends InputState>(

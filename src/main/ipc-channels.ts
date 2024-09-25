@@ -34,9 +34,9 @@ export const CONFIG = {
 export const INPUT_CONFIG = {
   REMOVE_PLUGIN: 'remove-input-plugin',
   UPDATE_INPUT: 'update-input',
-  INPUT_CONFIG_CHANGE: 'input-config-change',
   GET_INPUT_CONFIGS: 'get-input-configs',
   GET_INPUT_CONFIG: 'get-input-config',
+  INPUTS_CHANGE: 'inputs-change',
 };
 
 export const DEVICE_CONFIG = {

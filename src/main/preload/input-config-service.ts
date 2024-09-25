@@ -55,10 +55,23 @@ export const InputConfigService = {
     );
   },
 
+  /**
+   * Subscribe to changes made to any number of input configs
+   */
+  addInputsChangeListener<T extends InputDTO = InputDTO>(
+    func: (inputDTOs: T[]) => void
+  ) {
+    return addOnChangeListener(INPUT_CONFIG.INPUTS_CHANGE, func);
+  },
+
   getInputConfigs<T extends InputDTO = InputDTO>(
     deviceId: string,
     inputIds: string[]
   ): T[] {
-    return ipcRenderer.sendSync('get-input-configs', deviceId, inputIds);
+    return ipcRenderer.sendSync(
+      INPUT_CONFIG.GET_INPUT_CONFIGS,
+      deviceId,
+      inputIds
+    );
   },
 };

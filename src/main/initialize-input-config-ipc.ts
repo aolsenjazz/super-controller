@@ -80,6 +80,7 @@ ipcMain.on(
 
         MainWindow.sendInputState(deviceId, c.id, input.state);
         MainWindow.sendInputConfig(deviceId, c.id, c);
+        MainWindow.sendInputConfigs([input.toDTO()]);
       }
     });
 

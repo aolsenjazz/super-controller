@@ -11,7 +11,7 @@ import type { InputDTO } from '@shared/hardware-config/input-config/base-input-c
 import { useSelectedInputs } from './selected-inputs-context';
 import { useSelectedDevice } from './selected-device-context';
 
-const { InputConfigService, DeviceConfigService } = window;
+const { InputConfigService } = window;
 
 interface SelectedInputConfigsType {
   inputConfigs: InputDTO[];
@@ -31,24 +31,15 @@ export const SelectedInputConfigsProvider = ({ children }: PropTypes) => {
   const { selectedInputs } = useSelectedInputs();
   const { selectedDevice } = useSelectedDevice();
 
-  // whenever the selected device changes, register for callbacks to device config
-  // changes so that we can update input configs as needed
   useEffect(() => {
-    const cb = () => {
-      if (selectedDevice) {
-        const ins = InputConfigService.getInputConfigs(
-          selectedDevice,
-          selectedInputs
-        );
-        setInputConfigs(ins);
-      }
+    const cb = (inputs: InputDTO[]) => {
+      setInputConfigs(inputs);
     };
-    cb();
-
-    const off = DeviceConfigService.onDeviceConfigChange(
-      selectedDevice || '',
-      cb
+    cb(
+      InputConfigService.getInputConfigs(selectedDevice || '', selectedInputs)
     );
+
+    const off = InputConfigService.addInputsChangeListener(cb);
 
     return () => off();
   }, [selectedDevice, selectedInputs]);
