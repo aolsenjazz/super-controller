@@ -279,14 +279,18 @@ export class HardwarePortServiceSingleton {
     pair: PortPair,
     msg: NumberArrayWithStatus
   ) {
+    const loopbackTransport = VirtualPortService.ports.get(config.id)!;
+    const remoteTransport = this.ports.get(config.id)!;
+
     const message = config.process(msg, {
+      loopbackTransport,
+      remoteTransport,
       loopbackTransports: VirtualPortService.ports,
       remoteTransports: this.ports,
       pluginProvider: Registry,
     });
 
-    const remoteTransport = VirtualPortService.ports.get(config.id);
-    if (remoteTransport && message) remoteTransport.send(message);
+    if (message) remoteTransport.send(message);
 
     MainWindow.sendNarrowInputEvent(pair.id, msg);
     MainWindow.sendInputEvent(pair.id, msg);
