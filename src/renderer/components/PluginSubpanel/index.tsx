@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
+
 import SectionHeader from '../SectionHeader';
 import PluginSlot from './PluginSlot';
 import EmptyPluginSlot from './EmptyPluginSlot';
@@ -10,6 +12,7 @@ type PluginSubpanelProps = {
   removePlugin: (pluginId: string) => void;
   showAddPlugin: boolean;
   selectedDevice: string;
+  importPlugin: (title: string) => Promise<React.FC<PluginUIProps>>;
 };
 
 export default function PluginSubpanel(props: PluginSubpanelProps) {
@@ -19,6 +22,7 @@ export default function PluginSubpanel(props: PluginSubpanelProps) {
     removePlugin,
     showAddPlugin,
     selectedDevice,
+    importPlugin,
   } = props;
 
   const pluginSlots = useMemo(() => {
@@ -29,10 +33,11 @@ export default function PluginSubpanel(props: PluginSubpanelProps) {
           pluginId={x}
           selectedDevice={selectedDevice}
           removePlugin={removePlugin}
+          importPlugin={importPlugin}
         />
       );
     });
-  }, [plugins, removePlugin, selectedDevice]);
+  }, [plugins, removePlugin, selectedDevice, importPlugin]);
 
   return (
     <div className="plugin-subpanel">

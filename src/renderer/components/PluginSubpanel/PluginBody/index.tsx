@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import { importDeviceSubcomponent } from '@plugins/plugin-loader';
 import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 import { useConnectedDevices } from '@hooks/use-connected-devices';
 import { useDeviceConfig } from '@hooks/use-device-config';
@@ -11,10 +10,11 @@ type PropTypes = {
   pluginId: string;
   title: string;
   selectedDevice: string;
+  importPlugin: (title: string) => Promise<React.FC<PluginUIProps>>;
 };
 
 export default function PluginBody(props: PropTypes) {
-  const { pluginId, title, selectedDevice } = props;
+  const { pluginId, title, selectedDevice, importPlugin } = props;
 
   const { deviceConfig } = useDeviceConfig(selectedDevice);
   const { connectedDeviceIds } = useConnectedDevices();
@@ -22,7 +22,7 @@ export default function PluginBody(props: PropTypes) {
   const [UI, setUI] = useState<React.FC<PluginUIProps>>();
 
   useEffect(() => {
-    importDeviceSubcomponent(title, 'gui')
+    importPlugin(title)
       .then((Element) => {
         setUI(() => Element);
         return null;
@@ -30,7 +30,7 @@ export default function PluginBody(props: PropTypes) {
       .catch((e) => {
         throw e;
       });
-  }, [title]);
+  }, [title, importPlugin]);
 
   if (deviceConfig === undefined) {
     throw new Error(

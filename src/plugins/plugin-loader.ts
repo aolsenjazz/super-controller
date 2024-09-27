@@ -68,7 +68,7 @@ async function loadManifestsBrowser() {
 
   inputContext.keys().forEach((path) =>
     inputContext(path).then((m: PluginManifest) => {
-      deviceManifests.push(m);
+      inputManifests.push(m);
       return null;
     })
   );

@@ -280,8 +280,8 @@ export class HardwarePortServiceSingleton {
     msg: NumberArrayWithStatus
   ) {
     const message = config.process(msg, {
-      loopbackTransports: this.ports,
-      remoteTransports: VirtualPortService.ports,
+      loopbackTransports: VirtualPortService.ports,
+      remoteTransports: this.ports,
       pluginProvider: Registry,
     });
 

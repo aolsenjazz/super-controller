@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
 import { useSelectedPlugin } from '@context/selected-plugin-context';
+import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 
 import PluginBody from './PluginBody';
 import PluginViewControl from './PluginViewControl';
@@ -12,6 +13,7 @@ type PropTypes = {
   pluginId: string;
   selectedDevice: string;
   removePlugin: (pluginId: string) => void;
+  importPlugin: (title: string) => Promise<React.FC<PluginUIProps>>;
 };
 
 /**
@@ -19,7 +21,7 @@ type PropTypes = {
  * can cause a single plugin slot to represent n plugins, if all homogenous.
  */
 export default function PluginSlot(props: PropTypes) {
-  const { pluginId, removePlugin, selectedDevice } = props;
+  const { pluginId, removePlugin, selectedDevice, importPlugin } = props;
 
   const { selectedPlugin, setSelectedPlugin } = useSelectedPlugin();
 
@@ -86,6 +88,7 @@ export default function PluginSlot(props: PropTypes) {
           pluginId={pluginId}
           title={title}
           selectedDevice={selectedDevice}
+          importPlugin={importPlugin}
         />
       )}
     </div>

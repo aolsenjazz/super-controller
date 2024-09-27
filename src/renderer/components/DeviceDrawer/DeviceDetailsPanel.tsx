@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { useDeviceConfig } from '@hooks/use-device-config';
+import { importDeviceSubcomponent } from '@plugins/plugin-loader';
 
 import PluginSubpanel from '../PluginSubpanel';
 import SectionHeader from '../SectionHeader';
@@ -91,6 +92,7 @@ export default function DeviceDetailsPanel(props: PropTypes) {
           removePlugin={removePlugin}
           showPluginMenu={showPluginMenu}
           selectedDevice={selectedDevice}
+          importPlugin={(title) => importDeviceSubcomponent(title, 'gui')}
           showAddPlugin
         />
       </div>
