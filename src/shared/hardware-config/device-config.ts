@@ -1,7 +1,6 @@
 import type { BaseIcicle } from '../freezable';
 import { Anonymous, getDriver } from '../drivers';
 
-import type { KeyboardDriver } from '../driver-types';
 import { MessageProcessor, MessageProcessorMeta } from '../message-processor';
 
 export interface DeviceConfigDTO extends BaseIcicle {
@@ -40,11 +39,6 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
 
   /* nth-occurence of this device. applicable if > 1 device of same model is connected/configured */
   public readonly siblingIndex: number;
-
-  /**
-   * TODO: this is the only subset of a driver that I'm storing with this config. why.....?
-   */
-  public keyboardDriver?: KeyboardDriver;
 
   /* User-defined nickname */
   private _nickname?: string;

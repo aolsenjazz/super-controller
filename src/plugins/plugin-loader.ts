@@ -124,7 +124,7 @@ export async function importDeviceSubcomponent<
 
 export async function importInputSubcomponent<
   T extends 'gui' | 'ipc' | 'plugin'
->(pluginTitle: string, subcomponent: 'gui' | 'plugin' | 'ipc') {
+>(pluginTitle: string, subcomponent: T) {
   const manifests = await getInputManifests();
 
   const manifest = manifests.find((m) => m.title === pluginTitle);
