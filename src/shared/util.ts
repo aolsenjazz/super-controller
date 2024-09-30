@@ -11,6 +11,74 @@ import type {
 import type { InputDTO } from './hardware-config/input-config/base-input-config';
 import { MonoInputDTO } from './hardware-config/input-config/mono-input-dto';
 import { XYDTO } from './hardware-config/input-config/xy-config';
+import {
+  CONTROL_CHANGE,
+  NOTE_OFF,
+  NOTE_ON,
+  PROGRAM_CHANGE,
+  SYSEX,
+} from './midi-util';
+
+/**
+ * Sum two midi message arrays. Creates a new array and *does not* modify in-place
+ */
+export function sumMidiArrays(a1: number[], a2: number[]) {
+  if (a1.length !== a2.length)
+    throw new Error('cannot sum arrays with different lengths');
+
+  const newArr = [...a1];
+  for (let i = 0; i < newArr.length; i++) {
+    newArr[i] += a2[i];
+  }
+
+  return newArr as NumberArrayWithStatus;
+}
+
+export function msgEquals(a1: number[], a2: number[]) {
+  if (a1.length !== a2.length) return false;
+
+  for (let i = 0; i < a1.length; i++) {
+    if (a1[i] !== a2[i]) return false;
+  }
+
+  return true;
+}
+
+export function msgIdentityEquals(
+  msg1: NumberArrayWithStatus,
+  msg2: NumberArrayWithStatus,
+  compareValueBytes = false
+) {
+  if (msg1.length !== msg2.length) return false;
+
+  const statusNibble1 = msg1[0] & 0xf0;
+  const statusNibble2 = msg2[0] & 0xf0;
+
+  const channel1 = msg1[0] & 0x0f;
+  const channel2 = msg2[0] & 0x0f;
+
+  if (statusNibble1 !== statusNibble2) return false;
+  if (channel1 !== channel2) return false;
+
+  switch (statusNibble1) {
+    case NOTE_ON:
+    case NOTE_OFF:
+      if (msg1[1] !== msg2[1]) return false;
+      if (compareValueBytes && msg1[2] !== msg2[2]) return false;
+      return true;
+
+    case CONTROL_CHANGE:
+    case PROGRAM_CHANGE:
+      if (msg1[1] !== msg2[1]) return false;
+      return true;
+
+    case SYSEX:
+      return msgEquals(msg1, msg2);
+
+    default:
+      return msgEquals(msg1, msg2);
+  }
+}
 
 export function colorDisplayName(c: ColorDescriptor) {
   return `${c.name}${c.modifier ? ` (${c.modifier})` : ''}`;
