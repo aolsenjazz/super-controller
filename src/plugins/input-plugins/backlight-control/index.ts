@@ -37,8 +37,6 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
    */
   fxValueBindings: Record<number, NumberArrayWithStatus> = {};
 
-  lastReceived: string = 'nonactionable';
-
   constructor(
     title: string,
     description: string,
