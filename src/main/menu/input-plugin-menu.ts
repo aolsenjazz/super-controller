@@ -7,12 +7,15 @@ import {
   getInputManifests,
   importInputSubcomponent,
 } from '@plugins/plugin-loader';
+import { id as driverToId } from '@shared/util';
 import {
   AdapterDeviceConfig,
   MonoInputConfig,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
-import { BasePlugin } from '@shared/plugin-core/base-plugin';
+import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
+import { DRIVERS } from '@shared/drivers';
+import { InteractiveInputDriver } from '@shared/driver-types';
 
 const { MainWindow } = wp;
 
@@ -28,6 +31,7 @@ export async function createInputPluginMenu(
       toolTip: m.description,
       click: async () => {
         const dev = ProjectProvider.project.getDevice(deviceId);
+        const devDriver = DRIVERS.get(dev.driverName)!;
 
         if (
           dev instanceof SupportedDeviceConfig ||
@@ -36,9 +40,19 @@ export async function createInputPluginMenu(
           inputIds.forEach(async (id) => {
             const input = dev.getInputById(id);
 
+            const inputDriver = devDriver.inputGrids
+              .flatMap((ig) => ig.inputs)
+              .filter((i) => i.interactive === true)
+              .map((i) => i as InteractiveInputDriver)
+              .find((d) => driverToId(d) === id);
+
             if (input instanceof MonoInputConfig) {
               const Plugin = await importInputSubcomponent(m.title, 'plugin');
-              const plugin: BasePlugin = new Plugin(m.title, m.description);
+              const plugin: BaseInputPlugin = new Plugin(
+                m.title,
+                m.description,
+                inputDriver!
+              );
               input.plugins.push(plugin.id);
               Registry.register(plugin);
 

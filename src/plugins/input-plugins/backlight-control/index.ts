@@ -15,6 +15,12 @@ import { StateManager } from './state-manager/state-manager';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface BacklightControlDTO extends PluginDTO {
   outputResponse: InputResponse;
+  colorBindings: BacklightControlPlugin['colorBindings'];
+  fxBindings: BacklightControlPlugin['fxBindings'];
+  fxValueBindings: BacklightControlPlugin['fxValueBindings'];
+  availableColors: BacklightControlPlugin['availableColors'];
+  availableFx: BacklightControlPlugin['availableFx'];
+  availableStates: number[];
 }
 
 export default class BacklightControlPlugin extends BaseInputPlugin<BacklightControlDTO> {
@@ -37,6 +43,10 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
    */
   fxValueBindings: Record<number, NumberArrayWithStatus> = {};
 
+  availableColors: Color[];
+
+  availableFx: FxDriver[];
+
   constructor(
     title: string,
     description: string,
@@ -46,6 +56,8 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     super(title, description, driver);
 
     this.stateManager = new GateStateManager(driver as PadDriver);
+    this.availableColors = driver.availableColors;
+    this.availableFx = driver.availableFx;
   }
 
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
@@ -67,6 +79,12 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
   public toDTO(): BacklightControlDTO {
     return {
       ...super.toDTO(),
+      colorBindings: this.colorBindings,
+      fxBindings: this.fxBindings,
+      fxValueBindings: this.fxValueBindings,
+      availableColors: this.availableColors,
+      availableFx: this.availableFx,
+      availableStates: Array.from(Array(this.stateManager.totalStates).keys()),
     };
   }
 

@@ -3,6 +3,8 @@ import { waitForArray } from '@shared/util';
 
 import type { BasePlugin } from '@shared/plugin-core/base-plugin';
 import type { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
+import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
+import { InputDriver } from '@shared/driver-types';
 
 /**
  * List of available device plugin manifests, used for subcomponent discovery + import
@@ -94,7 +96,7 @@ export async function getInputManifests() {
   return inputManifests;
 }
 
-type ComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'
+type DeviceComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'
   ? React.FC<PluginUIProps>
   : T extends 'plugin'
   ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -114,13 +116,29 @@ export async function importDeviceSubcomponent<
     const { default: Import } = await import(
       `./device-plugins/${manifest[subcomponent]}`
     );
-    return Import as ComponentType<T>;
+    return Import as DeviceComponentType<T>;
   }
 
   throw new Error(
     `unable to import device plugin subcomponent: ${subcomponent}`
   );
 }
+
+type InputComponentArgs = [
+  title: string,
+  description: string,
+  driver: InputDriver
+];
+
+type InputComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'
+  ? React.FC<PluginUIProps>
+  : T extends 'plugin'
+  ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    new (...args: InputComponentArgs) => BaseInputPlugin
+  : T extends 'ipc'
+  ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    any
+  : never;
 
 export async function importInputSubcomponent<
   T extends 'gui' | 'ipc' | 'plugin'
@@ -132,7 +150,7 @@ export async function importInputSubcomponent<
     const { default: Import } = await import(
       `./input-plugins/${manifest[subcomponent]}`
     );
-    return Import as ComponentType<T>;
+    return Import as InputComponentType<T>;
   }
 
   throw new Error(
