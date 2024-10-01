@@ -58,21 +58,9 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     this.availableColors = driver.availableColors;
     this.availableFx = driver.availableFx;
 
-    // set defaults, if exist
-    const defaultColor = this.availableColors.find((c) => c.default);
-    if (defaultColor) {
-      this.stateManager.availableStates.forEach((n) => {
-        this.colorBindings[n] = defaultColor;
-      });
-    }
-
-    const defaultFx = this.availableFx.find((fx) => fx.isDefault);
-    if (defaultFx) {
-      this.stateManager.availableStates.forEach((n) => {
-        this.fxBindings[n] = defaultFx;
-        this.fxValueBindings[n] = defaultFx.defaultVal;
-      });
-    }
+    // set defaults color, if exist
+    this.stateManager.availableStates.forEach(this.restoreDefaultColor);
+    this.stateManager.availableStates.forEach(this.restoreDefaultFx);
   }
 
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
@@ -103,6 +91,11 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     };
   }
 
+  public restoreDefaultColor(state: number) {
+    const defaultColor = this.availableColors.find((c) => c.default);
+    if (defaultColor) this.colorBindings[state] = defaultColor;
+  }
+
   public restoreDefaultFx(state: number) {
     const defaultFx = this.availableFx.find((fx) => fx.isDefault);
     if (defaultFx) this.fxBindings[state] = defaultFx;
@@ -122,6 +115,6 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     | 'anonymous'
     | 'adapter'
   )[] {
-    return ['anonymous'];
+    return ['supported', 'adapter'];
   }
 }
