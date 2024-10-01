@@ -1,9 +1,22 @@
+import { Color, FxDriver } from '@shared/driver-types';
 import { contextBridge, ipcRenderer } from 'electron';
-import { BacklightControlDTO } from '.';
 
 const BacklightControlService = {
-  updatePlugin: (dto: BacklightControlDTO) => {
-    ipcRenderer.send('backlight-control-update', dto);
+  updateColor: (pluginId: string, state: number, color: Color) => {
+    ipcRenderer.send('backlight-control-update-color', pluginId, state, color);
+  },
+
+  updateFx: (pluginId: string, state: number, fx: FxDriver) => {
+    ipcRenderer.send('backlight-control-update-fx', pluginId, state, fx);
+  },
+
+  updateFxValue: (pluginId: string, state: number, fxArr: MidiNumber[]) => {
+    ipcRenderer.send(
+      'backlight-control-update-fx-value',
+      pluginId,
+      state,
+      fxArr
+    );
   },
 };
 

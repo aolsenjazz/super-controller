@@ -25,7 +25,11 @@ export default function ColorSelect(props: PropTypes) {
     );
 
   availableColors.forEach((c) => {
-    options.push(<option value={c.name}>{colorDisplayName(c)}</option>);
+    options.push(
+      <option value={c.name} key={colorDisplayName(c)}>
+        {colorDisplayName(c)}
+      </option>
+    );
   });
 
   const innerChange = (newColorDisplayName: string) => {

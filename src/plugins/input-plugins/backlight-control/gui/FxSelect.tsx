@@ -1,58 +1,75 @@
 import { FxDriver } from '@shared/driver-types';
+import Slider from './Slider';
 
 type PropTypes = {
   availableFx: FxDriver[];
   activeFx: FxDriver | undefined;
-  fxVal: MidiNumber[] | undefined | '<multiple values>';
-  onFxChange: (id: string) => void;
-  onFxValChange: (val: MidiNumber[]) => void;
+  fxValueArr?: MidiNumber[];
+  onFxChange: (state: number, fx: FxDriver) => void;
+  onFxValueChange: (state: number, arr: MidiNumber[]) => void;
+  state: number;
 };
 
 export default function FxSelect(props: PropTypes) {
-  const { availableFx, activeFx, fxVal } = props;
+  const {
+    availableFx,
+    activeFx,
+    fxValueArr,
+    onFxChange,
+    onFxValueChange,
+    state,
+  } = props;
 
-  const valueList = availableFx.map((fx) => fx.id);
-  const labelList = availableFx.map((fx) => fx.title);
+  const value = activeFx ? activeFx.title : 'unset';
+  const options: JSX.Element[] = [];
 
-  let SliderOrNull = null;
-  if (
-    activeFx &&
-    activeFx.id !== '<multiple values>' &&
-    fxVal &&
-    fxVal !== '<multiple values>'
-  ) {
-    let defaultVal = 0;
-    activeFx.validVals.forEach((arr, i) => {
-      if (JSON.stringify(arr) === JSON.stringify(fxVal)) {
-        defaultVal = i;
-      }
-    });
+  if (value === 'unset') options.push(<option value="unset">Unset</option>);
 
-    SliderOrNull = (
-      <div className="slider-container">
-        <label>{activeFx.lowBoundLabel}</label>
-        <input
-          type="range"
-          min="0"
-          max={activeFx.validVals.length - 1}
-          value={defaultVal}
-          onChange={(e) => innerFxValChange(parseInt(e.target.value, 10))}
-        />
-        <label>{activeFx.highBoundLabel}</label>
-      </div>
+  availableFx.forEach((fx) => {
+    options.push(
+      <option key={fx.title} value={fx.title}>
+        {fx.title}
+      </option>
     );
-  }
+  });
+
+  const innerFxChange = (title: string) => {
+    const fx = availableFx.find((f) => f.title === title);
+
+    if (!fx) throw new Error(`could not locate fx with title ${title}`);
+
+    onFxChange(state, fx);
+  };
+
+  const innerFxValueChange = (val: number) => {
+    const arr = activeFx!.defaultVal.map((n) => {
+      return n === 0 ? 0 : val;
+    }) as MidiNumber[];
+
+    onFxValueChange(state, arr);
+  };
 
   return (
-    <div className="settings-line fx-setting">
+    <div className="fx-setting">
       <p>FX:</p>
-      <BasicSelect
-        value={activeFx?.id || ''}
-        valueList={valueList}
-        labelList={labelList}
-        onChange={innerFxChange}
-      />
-      {SliderOrNull}
+      <select value={value} onChange={(e) => innerFxChange(e.target.value)}>
+        {options}
+      </select>
+      {activeFx &&
+        (() => {
+          const defaultVal = activeFx.defaultVal.filter((n) => n !== 0)[0];
+          const fxValue = fxValueArr?.filter((n) => n !== 0)[0] || 0;
+
+          return (
+            <Slider
+              defaultVal={fxValue !== undefined ? fxValue : defaultVal}
+              domain={[0, activeFx.validVals.length - 1]}
+              highBoundLabel={activeFx.highBoundLabel!}
+              lowBoundLabel={activeFx.lowBoundLabel!}
+              onChange={innerFxValueChange}
+            />
+          );
+        })()}
     </div>
   );
 }

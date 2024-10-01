@@ -12,7 +12,6 @@ import { sumMidiArrays } from '@shared/util';
 import { GateStateManager } from './state-manager/gate-state-manager';
 import { StateManager } from './state-manager/state-manager';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface BacklightControlDTO extends PluginDTO {
   outputResponse: InputResponse;
   colorBindings: BacklightControlPlugin['colorBindings'];
@@ -41,7 +40,7 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
    * the mapped `fxBindings` because fx messages can have different values for each
    * fx style.
    */
-  fxValueBindings: Record<number, NumberArrayWithStatus> = {};
+  fxValueBindings: Record<number, MidiNumber[]> = {};
 
   availableColors: Color[];
 
@@ -58,6 +57,22 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     this.stateManager = new GateStateManager(driver as PadDriver);
     this.availableColors = driver.availableColors;
     this.availableFx = driver.availableFx;
+
+    // set defaults, if exist
+    const defaultColor = this.availableColors.find((c) => c.default);
+    if (defaultColor) {
+      this.stateManager.availableStates.forEach((n) => {
+        this.colorBindings[n] = defaultColor;
+      });
+    }
+
+    const defaultFx = this.availableFx.find((fx) => fx.isDefault);
+    if (defaultFx) {
+      this.stateManager.availableStates.forEach((n) => {
+        this.fxBindings[n] = defaultFx;
+        this.fxValueBindings[n] = defaultFx.defaultVal;
+      });
+    }
   }
 
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
@@ -84,8 +99,18 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
       fxValueBindings: this.fxValueBindings,
       availableColors: this.availableColors,
       availableFx: this.availableFx,
-      availableStates: Array.from(Array(this.stateManager.totalStates).keys()),
+      availableStates: this.stateManager.availableStates,
     };
+  }
+
+  public restoreDefaultFx(state: number) {
+    const defaultFx = this.availableFx.find((fx) => fx.isDefault);
+    if (defaultFx) this.fxBindings[state] = defaultFx;
+  }
+
+  public restoreDefaultFxValue(state: number) {
+    const defaultFx = this.availableFx.find((fx) => fx.isDefault);
+    if (defaultFx) this.fxValueBindings[state] = defaultFx.defaultVal;
   }
 
   public applyIcicle(dto: BacklightControlDTO): void {
