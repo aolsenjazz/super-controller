@@ -29,23 +29,24 @@ export default function BacklightPluginUI(props: PluginUIProps) {
   };
 
   return (
-    <div>
+    <div id="backlight-config">
       {availableStates.map((state: number) => {
         const color: Color = colorBindings[state];
         const stateStr = state === 0 ? 'off' : 'on';
 
         return (
-          <div key={state} id="backlight-config">
-            <div>
-              <h5>State: {stateStr}</h5>
-            </div>
-            <ColorSelect
-              availableColors={availableColors}
-              color={color}
-              state={state}
-              onChange={onColorChange}
-            />
-            {/*{color?.effectable && (
+          <>
+            <div key={state} className="color-config-container">
+              <div>
+                <h5>State: {stateStr}</h5>
+              </div>
+              <ColorSelect
+                availableColors={availableColors}
+                color={color}
+                state={state}
+                onChange={onColorChange}
+              />
+              {/*{color?.effectable && (
               <FxSelect
                 availableFx={availableFx}
                 activeFx={fxBindings[state]}
@@ -54,8 +55,8 @@ export default function BacklightPluginUI(props: PluginUIProps) {
                 onFxValChange={(value) => onFxValChange(value, state)}
               />
             )}*/}
-            <div className="separator" />
-          </div>
+            </div>
+          </>
         );
       })}
     </div>
