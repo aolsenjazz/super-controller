@@ -80,10 +80,6 @@ export function msgIdentityEquals(
   }
 }
 
-export function colorDisplayName(c: ColorDescriptor) {
-  return `${c.name}${c.modifier ? ` (${c.modifier})` : ''}`;
-}
-
 export function id(driver: InteractiveInputDriver): string {
   if (driver.type === 'xy') {
     const xy = driver as XYDriver;

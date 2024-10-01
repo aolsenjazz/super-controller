@@ -84,6 +84,12 @@ label {
   color: #4a4848;
 }
 
+select:invalid,
+select option[value='unset'],
+option:first-child {
+  color: #999999;
+}
+
 #root {
   height: 100%;
   display: flex;
