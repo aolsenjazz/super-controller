@@ -1,9 +1,11 @@
+import { MessageTransport } from '@shared/message-transport';
 import {
   byteToStatusString,
   idForMsg,
   NOTE_OFF,
   NOTE_ON,
 } from '@shared/midi-util';
+import { PluginProvider } from '@shared/plugin-provider';
 import type { InputResponse } from '../../driver-types';
 import { BaseInputConfig } from './base-input-config';
 import { MonoInputDTO } from './mono-input-dto';
@@ -61,6 +63,15 @@ export abstract class MonoInputConfig<
     super.applyStub(s);
 
     this.plugins = s.plugins;
+  }
+
+  public init(
+    loopbackTransport: MessageTransport,
+    pluginProvider: PluginProvider
+  ) {
+    this.plugins
+      .map((id) => pluginProvider.get(id))
+      .forEach((p) => p?.init(loopbackTransport));
   }
 
   public toDTO() {

@@ -18,8 +18,6 @@
  */
 import { ipcMain, IpcMainEvent } from 'electron';
 
-import { getDriver } from '@shared/drivers';
-import { AdapterDeviceConfig, DeviceConfig } from '@shared/hardware-config';
 import { Registry } from '@plugins/registry';
 
 import { PortScanResult, PortManager } from './port-manager';
@@ -87,6 +85,14 @@ export class HardwarePortServiceSingleton {
     return HardwarePortServiceSingleton.instance;
   }
 
+  // TODO: this is a quick-and-dirty fix, and should be replaced
+  public initAllConfiguredPorts() {
+    ProjectProvider.project.devices.forEach((d) => {
+      const port = this.ports.get(d.id);
+      if (port) d.init(port, Registry);
+    });
+  }
+
   /**
    * Listen to IPC comms from frontend
    */
@@ -95,6 +101,7 @@ export class HardwarePortServiceSingleton {
       this.sendConnectedDevicesToFrontend()
     );
 
+    // TODO: shouldn't realize use this name. either change the name or design
     ipcMain.on(HOST.REQUEST_DEVICE_STUB, (_e: Event, deviceId: string) => {
       this.availableHardwarePorts
         .filter((p) => p.id === deviceId)
@@ -130,21 +137,6 @@ export class HardwarePortServiceSingleton {
         }
       }
     );
-
-    // ProjectProvider.on(
-    //   ProjectProviderEvent.UpdateInput,
-    //   (deviceConfig, inputConfigs) => {
-    //     const pair = this.ports.get(deviceConfig.id);
-
-    //     if (pair !== undefined) {
-    //       inputConfigs.forEach((i) => {
-    //         if (i instanceof LightCapableInputConfig && i.currentColorArray) {
-    //           pair.send(i.currentColorArray);
-    //         }
-    //       });
-    //     }
-    //   }
-    // );
   }
 
   /**
@@ -232,68 +224,29 @@ export class HardwarePortServiceSingleton {
     const config = ProjectProvider.project.getDevice(pair.id);
 
     if (config) {
-      const driverName =
-        config instanceof AdapterDeviceConfig
-          ? config.child?.driverName
-          : config.driverName;
-      const driver = driverName ? getDriver(driverName) : undefined;
-
-      if (driver) {
-        pair.applyThrottle(driver.throttle); // apply throttle if exists
-        driver.controlSequence.forEach((msg) => pair.send(msg)); // run control sequence
-        driver.inputGrids // init default colors if they exist
-          .flatMap((ig) => ig.inputs)
-          .forEach((i) => {
-            if (i.interactive && i.type !== 'xy') {
-              i.availableColors
-                .filter((c) => c.default === true)
-                .forEach((c) => pair.send(c.array));
-            }
-          });
-      }
+      // init
+      config.init(pair, Registry);
 
       // set onMessage
       pair.onMessage((_delta, msg) => {
-        // we'll occasionally receive message of length 1. ignore these.
-        // reason is unclear, message of lenght 1 don't match midi spec
-        if (msg.length >= 2) this.onMessage(config, pair, msg);
+        if (msg.length < 2) return;
+
+        const remoteTransport = this.ports.get(config.id)!;
+
+        const message = config.process(msg, {
+          loopbackTransport: pair,
+          remoteTransport,
+          loopbackTransports: VirtualPortService.ports,
+          remoteTransports: this.ports,
+          pluginProvider: Registry,
+        });
+
+        if (message) remoteTransport.send(message);
+
+        MainWindow.sendNarrowInputEvent(pair.id, msg);
+        MainWindow.sendInputEvent(pair.id, msg);
       });
-
-      // TODO:
-      // // load current color config
-      // if (config instanceof SupportedDeviceConfig) {
-      //   config.inputs.forEach((i) => {
-      //     if (i instanceof LightCapableInputConfig && i.currentColorArray) {
-      //       pair.send(i.currentColorArray);
-      //     }
-      //   });
-      // }
     }
-  }
-
-  /**
-   * Function to be invoked whenever a message is received from a MIDI ports
-   */
-  private onMessage(
-    config: DeviceConfig,
-    pair: PortPair,
-    msg: NumberArrayWithStatus
-  ) {
-    const loopbackTransport = VirtualPortService.ports.get(config.id)!;
-    const remoteTransport = this.ports.get(config.id)!;
-
-    const message = config.process(msg, {
-      loopbackTransport,
-      remoteTransport,
-      loopbackTransports: VirtualPortService.ports,
-      remoteTransports: this.ports,
-      pluginProvider: Registry,
-    });
-
-    if (message) remoteTransport.send(message);
-
-    MainWindow.sendNarrowInputEvent(pair.id, msg);
-    MainWindow.sendInputEvent(pair.id, msg);
   }
 
   /**

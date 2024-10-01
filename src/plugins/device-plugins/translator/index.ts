@@ -17,6 +17,10 @@ export default class TranslatorPlugin extends BasePlugin<TranslatorDTO> {
     return ['anonymous'];
   }
 
+  public init() {
+    // noop
+  }
+
   public process(msg: NumberArrayWithStatus, _meta: MessageProcessorMeta) {
     const override = this.overrides[toString(msg)];
     return override || msg;

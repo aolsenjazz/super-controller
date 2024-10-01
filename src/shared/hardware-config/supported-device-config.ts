@@ -1,4 +1,7 @@
+import { DRIVERS } from '@shared/drivers';
 import { MessageProcessorMeta } from '@shared/message-processor';
+import { MessageTransport } from '@shared/message-transport';
+import { PluginProvider } from '@shared/plugin-provider';
 import { DeviceDriver } from '../driver-types';
 
 import { DeviceConfig, DeviceConfigDTO } from './device-config';
@@ -63,6 +66,27 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
     const message = super.process(msg, meta)!;
     const originator = this.getOriginatorInput(msg);
     return originator ? originator.process(message, meta) : msg;
+  }
+
+  public init(
+    loopbackTransport: MessageTransport,
+    pluginProvider: PluginProvider
+  ) {
+    const driver = DRIVERS.get(this.driverName)!;
+
+    if (driver.throttle) loopbackTransport.applyThrottle(driver.throttle);
+    driver.controlSequence.forEach((msg) => loopbackTransport.send(msg)); // run control sequence
+    this.inputs.forEach((i) => i.init(loopbackTransport, pluginProvider));
+
+    // driver.inputGrids // init default colors if they exist
+    //   .flatMap((ig) => ig.inputs)
+    //   .forEach((i) => {
+    //     if (i.interactive && i.type !== 'xy') {
+    //       i.availableColors
+    //         .filter((c) => c.default === true)
+    //         .forEach((c) => pair.send(c.array));
+    //     }
+    //   });
   }
 
   /**

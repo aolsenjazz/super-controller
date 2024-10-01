@@ -19,6 +19,10 @@ export default class BasicOverridePlugin extends BasePlugin<BasicOverrideIcicle>
     super.applyDTO(icicle);
   }
 
+  public init() {
+    // noop
+  }
+
   public get applicableDeviceTypes(): (
     | 'supported'
     | 'anonymous'

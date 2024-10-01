@@ -4,6 +4,8 @@ import {
   MessageProcessor,
   MessageProcessorMeta,
 } from '@shared/message-processor';
+import { MessageTransport } from '@shared/message-transport';
+import { PluginProvider } from '@shared/plugin-provider';
 import { BaseIcicle } from '../../freezable';
 
 export interface InputState {}
@@ -35,6 +37,11 @@ export abstract class BaseInputConfig<T extends InputDTO = InputDTO>
   public applyStub(s: T) {
     this.nickname = s.nickname;
   }
+
+  public abstract init(
+    loopbackTransport: MessageTransport,
+    pluginProvider: PluginProvider
+  ): void;
 
   public abstract get id(): string;
 

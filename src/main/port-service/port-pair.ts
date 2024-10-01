@@ -47,8 +47,8 @@ export class PortPair
    * excess messages. Applying a nondestructive throttle ensures that every message
    * is received.
    */
-  public applyThrottle(throttleMs: number | undefined) {
-    if (!throttleMs || throttleMs === 0) return;
+  public applyThrottle(throttleMs: number) {
+    if (throttleMs === 0) return;
 
     this.send = applyNondestructiveThrottle(this.send.bind(this), throttleMs);
   }

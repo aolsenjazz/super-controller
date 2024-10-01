@@ -1,7 +1,9 @@
 import type { BaseIcicle } from '../freezable';
-import { Anonymous, getDriver } from '../drivers';
+import { Anonymous, DRIVERS, getDriver } from '../drivers';
 
 import { MessageProcessor, MessageProcessorMeta } from '../message-processor';
+import { MessageTransport } from '../message-transport';
+import { PluginProvider } from '@shared/plugin-provider';
 
 export interface DeviceConfigDTO extends BaseIcicle {
   id: string;
@@ -61,6 +63,15 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
 
   public applyStub(stub: DeviceConfigDTO) {
     this.nickname = stub.nickname;
+  }
+
+  public init(
+    loopbackTransport: MessageTransport,
+    pluginProvider: PluginProvider
+  ) {
+    this.plugins
+      .map((id) => pluginProvider.get(id))
+      .forEach((p) => p!.init(loopbackTransport));
   }
 
   public get id() {

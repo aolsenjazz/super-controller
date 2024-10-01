@@ -10,12 +10,16 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     super(portName, 'Anonymous', siblingIndex, nickname, plugins);
   }
 
-  applyOverrides(mArray: NumberArrayWithStatus) {
+  public applyOverrides(mArray: NumberArrayWithStatus) {
     return mArray;
   }
 
-  getResponse() {
+  public getResponse() {
     return undefined;
+  }
+
+  public init() {
+    // no-op
   }
 
   toDTO() {

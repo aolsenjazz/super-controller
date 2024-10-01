@@ -17,6 +17,10 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainDTO> {
     this.sustainTargets = sustainTargets;
   }
 
+  public init() {
+    // noop
+  }
+
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
     const { remoteTransports } = meta;
 

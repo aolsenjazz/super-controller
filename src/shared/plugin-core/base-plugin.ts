@@ -2,6 +2,7 @@ import type {
   MessageProcessor,
   MessageProcessorMeta,
 } from '@shared/message-processor';
+import { MessageTransport } from '@shared/message-transport';
 import { generateId } from './plugin-utils';
 
 export interface PluginDTO {
@@ -24,7 +25,7 @@ export interface PluginDTO {
  * Plugin manifests are dynamically loaded and then used futher to dynamically load subcomponents.
  */
 export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
-  implements MessageProcessor
+  implements MessageProcessor 
 {
   public readonly id: string;
 
@@ -39,6 +40,8 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
     this.description = description;
     this.id = generateId(this.title);
   }
+
+  public abstract init(loopbackTransport: MessageTransport): void;
 
   public applyDTO(icicle: T) {
     this.on = icicle.on;

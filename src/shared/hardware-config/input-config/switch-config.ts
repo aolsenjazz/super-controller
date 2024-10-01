@@ -29,6 +29,10 @@ export class SwitchConfig extends BaseInputConfig<SwitchDTO> {
     };
   }
 
+  public init() {
+    // noop, for now
+  }
+
   handleMessage(msg: NumberArrayWithStatus): NumberArrayWithStatus | undefined {
     // TODO:
     return msg;

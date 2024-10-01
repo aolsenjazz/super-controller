@@ -6,6 +6,7 @@ import type {
   PadDriver,
 } from '@shared/driver-types';
 import { MessageProcessorMeta } from '@shared/message-processor';
+import { MessageTransport } from '@shared/message-transport';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
 import { PluginDTO } from '@shared/plugin-core/base-plugin';
 import { sumMidiArrays } from '@shared/util';
@@ -58,9 +59,28 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     this.availableColors = driver.availableColors;
     this.availableFx = driver.availableFx;
 
-    // set defaults color, if exist
-    this.stateManager.availableStates.forEach(this.restoreDefaultColor);
-    this.stateManager.availableStates.forEach(this.restoreDefaultFx);
+    const { availableStates } = this.stateManager;
+
+    if (this.availableColors) {
+      availableStates.forEach((s) => this.restoreDefaultColor(s));
+    }
+
+    if (this.availableFx) {
+      availableStates.forEach((s) => this.restoreDefaultFx(s));
+    }
+  }
+
+  public init(loopbackTransport: MessageTransport) {
+    const color = this.colorBindings[0]?.array;
+    const fx = this.fxValueBindings[0];
+
+    const lightMsg =
+      color !== undefined && fx !== undefined
+        ? sumMidiArrays(color, fx)
+        : color;
+
+    // Send the color message, if defined, to the source device
+    loopbackTransport.send(lightMsg);
   }
 
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {

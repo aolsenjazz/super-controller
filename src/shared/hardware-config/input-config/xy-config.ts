@@ -47,6 +47,10 @@ export class XYConfig extends BaseInputConfig<XYDTO> {
     this.y = y;
   }
 
+  public init() {
+    // noop, for now
+  }
+
   handleMessage(msg: NumberArrayWithStatus) {
     if (this.x.id === idForMsg(msg, true)) {
       return this.x.handleMessage(msg);

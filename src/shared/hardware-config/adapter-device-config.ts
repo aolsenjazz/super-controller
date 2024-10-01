@@ -1,6 +1,7 @@
 import { SupportedDeviceConfig } from './supported-device-config';
 import { DeviceConfig } from './device-config';
 import { MessageProcessorMeta } from '../message-processor';
+import { MessageTransport } from '../message-transport';
 
 export class AdapterDeviceConfig extends DeviceConfig {
   child?: SupportedDeviceConfig;
@@ -15,7 +16,7 @@ export class AdapterDeviceConfig extends DeviceConfig {
     this.child = child;
   }
 
-  setChild(config: SupportedDeviceConfig) {
+  public setChild(config: SupportedDeviceConfig) {
     this.child = config;
   }
 
@@ -27,14 +28,18 @@ export class AdapterDeviceConfig extends DeviceConfig {
   //   return this.child!.bindingAvailable(statusString, number, channel);
   // }
 
-  process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
+  public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
     return this.child?.process(msg, meta);
+  }
+
+  public init(loopbackTransport: MessageTransport) {
+    if (this.child) this.child.init(loopbackTransport);
   }
 
   /**
    * Returns the `BaseInputConfig` for given id
    */
-  getInputById(id: string) {
+  public getInputById(id: string) {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i];
       if (input.id === id) return input;
@@ -47,7 +52,7 @@ export class AdapterDeviceConfig extends DeviceConfig {
    * input with number 32 and channel 2 is the originator of the message [178, 32, 127]
    * but not [144, 32, 127] nor [178, 31, 127]
    */
-  getOriginatorInput(msg: NumberArrayWithStatus) {
+  public getOriginatorInput(msg: NumberArrayWithStatus) {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i];
       if (input.isOriginator(msg)) return input;
@@ -55,7 +60,7 @@ export class AdapterDeviceConfig extends DeviceConfig {
     return undefined;
   }
 
-  get inputs() {
+  public get inputs() {
     if (this.child) {
       return this.child!.inputs;
     }

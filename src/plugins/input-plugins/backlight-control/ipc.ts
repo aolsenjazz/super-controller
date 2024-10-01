@@ -3,6 +3,7 @@ import { ipcMain, IpcMainEvent } from 'electron';
 import { Registry } from '@plugins/registry';
 import { wp } from '@main/window-provider';
 import { Color, FxDriver } from '@shared/driver-types';
+import { HardwarePortService } from '@main/port-service';
 
 import BacklightControlPlugin from '.';
 
@@ -20,6 +21,9 @@ ipcMain.addListener(
     plugin.restoreDefaultFxValue(state);
 
     MainWindow.sendPluginUpdate(pluginId, plugin.toDTO());
+    // TODO: this is a quick-and-dirty fix that should be replaced with a more nuanced
+    // init of just the relevant input
+    HardwarePortService.initAllConfiguredPorts();
   }
 );
 
