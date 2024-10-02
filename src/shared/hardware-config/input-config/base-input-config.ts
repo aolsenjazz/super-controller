@@ -55,10 +55,8 @@ export abstract class BaseInputConfig<T extends InputDTO = InputDTO>
    */
   public abstract isOriginator(msg: NumberArrayWithStatus): boolean;
 
-  public process(
-    _msg: NumberArrayWithStatus,
-    _meta: MessageProcessorMeta
-  ): NumberArrayWithStatus | undefined {
-    return _msg;
-  }
+  public abstract process(
+    msg: NumberArrayWithStatus,
+    meta: MessageProcessorMeta
+  ): NumberArrayWithStatus | undefined;
 }

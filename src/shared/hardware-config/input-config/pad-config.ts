@@ -1,12 +1,7 @@
-import { PadDriver, FxDriver, ColorDescriptor } from '../../driver-types';
-import { InputState } from './base-input-config';
+import { PadDriver } from '../../driver-types';
 import { MonoInputConfig } from './mono-input-config';
 import { MonoInputDTO } from './mono-input-dto';
 
-export interface PadState extends InputState {
-  color: ColorDescriptor | undefined;
-  fx: FxDriver | undefined;
-}
 export class PadConfig extends MonoInputConfig {
   defaultValue?: MidiNumber;
 
@@ -21,15 +16,15 @@ export class PadConfig extends MonoInputConfig {
     return new PadConfig('', [], def);
   }
 
+  public get state() {
+    return {};
+  }
+
   public toDTO(): MonoInputDTO {
     return {
       ...super.toDTO(),
       className: this.constructor.name,
     };
-  }
-
-  get state() {
-    return {}; // TODO
   }
 
   get type() {

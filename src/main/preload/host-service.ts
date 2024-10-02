@@ -18,6 +18,14 @@ type Host =
  * Expose data re. the host (usually the OS + hardware) to the renderer process
  */
 export const HostService = {
+  listenToLoopbackMessages(
+    deviceId: string,
+    inputId: string,
+    func: (msg: NumberArrayWithStatus) => void
+  ) {
+    return addOnChangeListener(`${deviceId}-${inputId}-loopback`, func);
+  },
+
   addMidiEventListener(
     func: (deviceId: string, msg: NumberArrayWithStatus) => void
   ) {
@@ -40,14 +48,6 @@ export const HostService = {
    */
   sendDeviceRequest: (deviceName?: string) => {
     ipcRenderer.send(HOST.REQUEST, deviceName);
-  },
-
-  /**
-   * Sets a callback function to be invoked when the host receives MIDI data from a
-   * MIDI port
-   */
-  onMessage: (deviceId: string, func: (msg: MidiTuple) => void) => {
-    return addOnChangeListener(`${deviceId}-message`, func);
   },
 
   /**

@@ -26,16 +26,22 @@ export default function BacklightPluginUI(props: PluginUIProps) {
   const onColorChange = (state: number, color: Color) => {
     plugin.colorBindings[state] = color;
     BacklightControlService.updateColor(pluginId, state, color);
+
+    // Hackily change the background color, if necessary
   };
 
   const onFxChange = (state: number, fx: FxDriver) => {
     plugin.fxBindings[state] = fx;
     BacklightControlService.updateFx(pluginId, state, fx);
+
+    // Hackily apply fx, if necessary
   };
 
   const onFxValueChange = (state: number, arr: MidiNumber[]) => {
     plugin.fxValueBindings[state] = arr;
     BacklightControlService.updateFxValue(pluginId, state, arr);
+
+    // Hackily apply fx, if necessary
   };
 
   return (

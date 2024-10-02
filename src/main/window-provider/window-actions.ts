@@ -35,6 +35,23 @@ export abstract class WindowActions {
     w.loadURL(this.url);
   }
 
+  // export const HostService = {
+  // listenToLoopbackMessages(
+  //   deviceId: string,
+  //   inputId: string,
+  //   func: (msg: NumberArrayWithStatus) => void
+  // ) {
+  //   return addOnChangeListener(`${deviceId}-${inputId}-loopback`, func);
+  // },
+
+  public onLoopbackMessage(
+    deviceId: string,
+    inputId: string,
+    msg: NumberArrayWithStatus
+  ) {
+    this.send(`${deviceId}-${inputId}-loopback`, msg);
+  }
+
   /**
    * Sends an update to the frontend containing the last-emitted MIDI message from the
    * device with given `deviceId`. This function is 'narrow' because it is expected that

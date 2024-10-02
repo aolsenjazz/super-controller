@@ -1,16 +1,9 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
-import type {
-  InteractiveInputDriver,
-  XYDriver,
-  ColorDescriptor,
-} from './driver-types';
+import type { InteractiveInputDriver, XYDriver } from './driver-types';
 import type {
   MonoInteractiveDriver,
   SwitchDriver,
 } from './driver-types/input-drivers';
-import type { InputDTO } from './hardware-config/input-config/base-input-config';
-import { MonoInputDTO } from './hardware-config/input-config/mono-input-dto';
-import { XYDTO } from './hardware-config/input-config/xy-config';
 import {
   CONTROL_CHANGE,
   NOTE_OFF,
@@ -18,6 +11,21 @@ import {
   PROGRAM_CHANGE,
   SYSEX,
 } from './midi-util';
+
+/**
+ * Subtract all elements of a2 from all elements of a1 by corresponding index
+ */
+export function subtractMidiArrays(a1: number[], a2: number[]) {
+  if (a1.length !== a2.length)
+    throw new Error('cannot sum arrays with different lengths');
+
+  const newArr = [...a1];
+  for (let i = 0; i < newArr.length; i++) {
+    newArr[i] -= a2[i];
+  }
+
+  return newArr as NumberArrayWithStatus;
+}
 
 /**
  * Sum two midi message arrays. Creates a new array and *does not* modify in-place
@@ -96,19 +104,6 @@ export function id(driver: InteractiveInputDriver): string {
   return mono.status === 'pitchbend'
     ? `${mono.status}.${mono.channel}`
     : `${mono.status}.${mono.channel}.${mono.number}`;
-}
-
-// TODO: really not sure why this would exist...
-export function idForConfigStub(c: InputDTO): string {
-  if (c.type === 'xy') {
-    const xy = c as XYDTO;
-    return `${idForConfigStub(xy.x)}${idForConfigStub(xy.y)}`;
-  }
-
-  const mono = c as MonoInputDTO;
-  return mono.defaults.statusString === 'pitchbend'
-    ? `${mono.defaults.statusString}.${mono.defaults.channel}`
-    : `${mono.defaults.statusString}.${mono.defaults.channel}.${mono.defaults.number}`;
 }
 
 /**

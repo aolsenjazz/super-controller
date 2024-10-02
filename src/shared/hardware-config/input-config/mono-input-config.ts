@@ -1,3 +1,4 @@
+import { MessageProcessorMeta } from '@shared/message-processor';
 import { MessageTransport } from '@shared/message-transport';
 import {
   byteToStatusString,
@@ -57,6 +58,21 @@ export abstract class MonoInputConfig<
     }
 
     return this.id === idForMsg(msg, true);
+  }
+
+  public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
+    let message = msg;
+
+    for (let i = 0; i < this.plugins.length; i++) {
+      const plugin = meta.pluginProvider.get(this.plugins[i]);
+      if (plugin && plugin.on === true) {
+        const toPropagate = plugin.process(message, meta);
+        if (toPropagate === undefined) return undefined;
+        message = toPropagate;
+      }
+    }
+
+    return message;
   }
 
   public applyStub(s: K) {

@@ -4,6 +4,7 @@ import {
   SwitchDriver,
   XYDriver,
   KnobDriver,
+  PadDriver,
 } from '@shared/driver-types';
 import { id as idForInput } from '@shared/util';
 
@@ -22,7 +23,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
   const id = idForInput(driver);
 
   if (driver.type === 'pad') {
-    return <Pad shape={driver.shape} id={id} />;
+    return <Pad driver={driver as PadDriver} id={id} />;
   }
 
   if (driver.type === 'knob') {

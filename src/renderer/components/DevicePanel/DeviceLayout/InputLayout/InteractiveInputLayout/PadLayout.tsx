@@ -1,40 +1,62 @@
-import { PadState } from '@shared/hardware-config/input-config/pad-config';
-import { useSelectedDevice } from '@context/selected-device-context';
-import { useInputState } from '@hooks/use-input-state';
+import { useEffect, useState } from 'react';
 
-/**
- * Define this state out here so that it doesn't change on each rerender
- */
-const defaultState = {
-  color: undefined,
-  fx: undefined,
-};
+import { useSelectedDevice } from '@context/selected-device-context';
+import { Color, PadDriver } from '@shared/driver-types';
+import { subtractMidiArrays } from '@shared/util';
+
+const { HostService } = window;
 
 type PropTypes = {
-  shape: string;
+  driver: PadDriver;
   id: string;
 };
 
 export default function Pad(props: PropTypes) {
-  const { shape, id } = props;
+  const { driver, id } = props;
   const { selectedDevice } = useSelectedDevice();
 
-  const { state } = useInputState<PadState>(
-    selectedDevice || '',
-    id,
-    defaultState
-  );
+  const [color, setColor] = useState<Color>();
 
-  const mod = state?.color?.modifier || state?.fx?.title;
+  // Whenever a loopback message is received, set the pad color and fx if appropriate
+  useEffect(() => {
+    function cb(msg: NumberArrayWithStatus) {
+      // Map available colors to their arrays, which we will use to determine the base
+      // color mapping of a message prior to affecting with FX arrays
+      const unaffectedColorCandidates = driver.availableColors.map(
+        (c) => c.array
+      );
+
+      // sum(sourceMsgParts) - sum(unaffectedColorCandidateArray). The smallest positive
+      // difference between these arrays indicates that the correlating array
+      // represents the relevant color, sans fx
+      const diffsFromMsg = unaffectedColorCandidates
+        .map((arr) => subtractMidiArrays(msg, arr))
+        .map((diffArr) => diffArr.reduce((a, b) => a + b));
+
+      // find the smallest positive difference between arrays, and return the index
+      const relevantIdx = diffsFromMsg.reduce(
+        (lowestIndex, num, index, array) =>
+          num < array[lowestIndex] && num >= 0 ? index : lowestIndex,
+        0
+      );
+
+      const c = driver.availableColors[relevantIdx];
+      setColor(c);
+    }
+
+    const off = HostService.listenToLoopbackMessages(selectedDevice!, id, cb);
+
+    return () => off();
+  }, [driver.availableColors, selectedDevice, id]);
 
   return (
     <div
       className="pad interactive-indicator"
       style={{
-        animationName: mod,
-        backgroundColor: state?.color?.string,
-        animationTimingFunction: mod === 'Pulse' ? 'ease-in-out' : undefined,
-        borderRadius: shape === 'circle' ? '100%' : 0,
+        // animationName: mod,
+        backgroundColor: color?.string,
+        // animationTimingFunction: mod === 'Pulse' ? 'ease-in-out' : undefined,
+        borderRadius: driver.shape === 'circle' ? '100%' : 0,
       }}
     />
   );
