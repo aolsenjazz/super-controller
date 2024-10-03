@@ -1,12 +1,12 @@
 import { ipcMain, IpcMainEvent } from 'electron';
 
-import { Registry } from '@plugins/registry';
-import { wp } from '@main/window-provider';
+import { WindowProvider } from '@main/window-provider';
+import { PluginRegistry } from '@main/plugin-registry';
 
 import { TRANSLATOR } from './ipc-channels';
 import TranslatorPlugin from '.';
 
-const { MainWindow } = wp;
+const { MainWindow } = WindowProvider;
 
 ipcMain.on(
   TRANSLATOR.UPDATE_OVERRIDE,
@@ -16,7 +16,7 @@ ipcMain.on(
     sourceString: string,
     override: NumberArrayWithStatus
   ) => {
-    const plugin = Registry.get<TranslatorPlugin>(pluginId);
+    const plugin = PluginRegistry.get<TranslatorPlugin>(pluginId);
 
     if (!plugin) throw new Error(`couldnt find ${pluginId}`);
 
@@ -29,7 +29,7 @@ ipcMain.on(
 ipcMain.on(
   TRANSLATOR.DELETE_OVERRIDE,
   (_e: IpcMainEvent, pluginId: string, sourceString: string) => {
-    const plugin = Registry.get<TranslatorPlugin>(pluginId);
+    const plugin = PluginRegistry.get<TranslatorPlugin>(pluginId);
 
     if (!plugin) throw new Error(`couldnt find ${pluginId}`);
 

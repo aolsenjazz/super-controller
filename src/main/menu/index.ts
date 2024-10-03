@@ -5,7 +5,7 @@ import { MENU } from '@main/ipc-channels';
 import { build as buildDarwin } from './darwin-menu';
 import { build as buildDefault } from './default-menu';
 
-import { wp } from '../window-provider';
+import { WindowProvider } from '../window-provider';
 import { createDevicePluginMenu } from './device-plugin-menu';
 import { createInputPluginMenu } from './input-plugin-menu';
 
@@ -18,7 +18,7 @@ class AppMenuSingleton {
   private static instance: AppMenuSingleton;
 
   private constructor() {
-    wp.onFocusChange(this.buildMenu);
+    WindowProvider.onFocusChange(this.buildMenu);
     this.initIpcListeners();
   }
 

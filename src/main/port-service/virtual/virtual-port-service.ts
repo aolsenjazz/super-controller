@@ -1,11 +1,10 @@
 import { DeviceConfig } from '@shared/hardware-config';
+import { DeviceRegistry } from '@main/device-registry';
 
 import { PortScanResult } from '../port-manager';
-import { ProjectProvider, ProjectProviderEvent } from '../../project-provider';
 import { PortPair } from '../port-pair';
 import { VirtualInput } from './virtual-input';
 import { VirtualOutput } from './virtual-output';
-import { ProjectChangedEvent } from '../../project-provider/project-event-emitter';
 
 /**
  * Manages connections to SC-created virtual ports, *not* other virtual MIDI
@@ -17,11 +16,6 @@ export class VirtualPortServiceSingleton {
   private availableHardwarePorts: string[] = [];
 
   private static instance: VirtualPortServiceSingleton;
-
-  private constructor() {
-    this.setProjectChangeListener();
-    this.setConfigChangeListener();
-  }
 
   public static getInstance(): VirtualPortServiceSingleton {
     if (!VirtualPortServiceSingleton.instance) {
@@ -54,7 +48,7 @@ export class VirtualPortServiceSingleton {
     removedPorts.forEach((p) => this.close(p.id));
 
     addedPorts.forEach((p) => {
-      const c = ProjectProvider.project.getDevice(p.id);
+      const c = DeviceRegistry.get(p.id);
 
       if (c !== undefined) {
         this.open(c.portName, c.siblingIndex);
@@ -64,48 +58,39 @@ export class VirtualPortServiceSingleton {
     this.availableHardwarePorts = currentPorts.map((p) => p.id);
   }
 
-  /**
-   * Sets listeners to device config change events
-   */
-  private setConfigChangeListener() {
-    // check whether it was added or removed
-    ProjectProvider.on(ProjectProviderEvent.DevicesChanged, (event) => {
-      if (event.action === 'add') {
-        event.changed.forEach((c) => this.open(c.portName, c.siblingIndex));
-      }
+  public onConfigChange(event: {
+    action: 'add' | 'remove';
+    changed: DeviceConfig[];
+  }) {
+    if (event.action === 'add') {
+      event.changed.forEach((c) => this.open(c.portName, c.siblingIndex));
+    }
 
-      if (event.action === 'remove') {
-        event.changed.forEach((c) => this.close(c.id));
-      }
-    });
+    if (event.action === 'remove') {
+      event.changed.forEach((c) => this.close(c.id));
+    }
   }
 
   /**
    * Sets listener to new-project events
    */
-  private setProjectChangeListener() {
-    const listener = (event: ProjectChangedEvent) => {
-      const { project } = event;
+  public onProjectChange() {
+    // close ports for which there is no config
+    const configuredDevices = DeviceRegistry.getAll().map((d) => d.id);
+    Array.from(this.ports.keys())
+      .filter((id) => !configuredDevices.includes(id))
+      .forEach((id) => {
+        this.close(id);
+      });
 
-      // close ports for which there is no config
-      const configuredDevices = project.devices.map((d) => d.id);
-      Array.from(this.ports.keys())
-        .filter((id) => !configuredDevices.includes(id))
-        .forEach((id) => {
-          this.close(id);
-        });
-
-      // open ports for which there is a config and a hardware port avail
-      const openPortIds = Array.from(this.ports.keys());
-      project.devices
-        .filter((d) => !openPortIds.includes(d.id))
-        .filter((d) => this.availableHardwarePorts.includes(d.id)) // make sure that the hardware is avail
-        .forEach((d) => {
-          this.open(d.portName, d.siblingIndex);
-        });
-    };
-
-    ProjectProvider.on(ProjectProviderEvent.NewProject, listener);
+    // open ports for which there is a config and a hardware port avail
+    const openPortIds = Array.from(this.ports.keys());
+    DeviceRegistry.getAll()
+      .filter((d) => !openPortIds.includes(d.id))
+      .filter((d) => this.availableHardwarePorts.includes(d.id)) // make sure that the hardware is avail
+      .forEach((d) => {
+        this.open(d.portName, d.siblingIndex);
+      });
   }
 
   /**

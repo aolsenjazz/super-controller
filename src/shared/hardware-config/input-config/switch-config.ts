@@ -1,3 +1,4 @@
+import { MessageProcessorMeta } from '@shared/message-processor';
 import { SwitchDriver } from '../../driver-types';
 import { BaseInputConfig, InputDTO, InputState } from './base-input-config';
 
@@ -27,6 +28,13 @@ export class SwitchConfig extends BaseInputConfig<SwitchDTO> {
       className: this.constructor.name,
       steps: new Map(), // TODO:
     };
+  }
+
+  public process(
+    msg: NumberArrayWithStatus,
+    _meta: MessageProcessorMeta
+  ): NumberArrayWithStatus | undefined {
+    return msg;
   }
 
   public init() {

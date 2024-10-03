@@ -6,12 +6,12 @@ import { WindowFocusListener } from './window-focus-listener';
 /**
  * Convenience class for accessing windows and window events.
  */
-class WindowProvider {
+class WindowProviderSingleton {
   public MainWindow: MainWindowActions;
 
   private listeners: WindowFocusListener[] = [];
 
-  private static instance: WindowProvider;
+  private static instance: WindowProviderSingleton;
 
   private constructor() {
     this.MainWindow = new MainWindowActions();
@@ -19,11 +19,11 @@ class WindowProvider {
     this.MainWindow.onFocusChange(() => this.notifyListeners());
   }
 
-  public static getInstance(): WindowProvider {
-    if (!WindowProvider.instance) {
-      WindowProvider.instance = new WindowProvider();
+  public static getInstance(): WindowProviderSingleton {
+    if (!WindowProviderSingleton.instance) {
+      WindowProviderSingleton.instance = new WindowProviderSingleton();
     }
-    return WindowProvider.instance;
+    return WindowProviderSingleton.instance;
   }
 
   /**
@@ -49,4 +49,4 @@ class WindowProvider {
   }
 }
 
-export const wp = WindowProvider.getInstance();
+export const WindowProvider = WindowProviderSingleton.getInstance();

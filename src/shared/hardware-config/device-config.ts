@@ -1,9 +1,10 @@
+import { PluginProvider } from '@shared/plugin-provider';
+
 import type { BaseIcicle } from '../freezable';
-import { Anonymous, DRIVERS, getDriver } from '../drivers';
+import { Anonymous, getDriver } from '../drivers';
 
 import { MessageProcessor, MessageProcessorMeta } from '../message-processor';
 import { MessageTransport } from '../message-transport';
-import { PluginProvider } from '@shared/plugin-provider';
 
 export interface DeviceConfigDTO extends BaseIcicle {
   id: string;

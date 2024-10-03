@@ -1,21 +1,19 @@
-import { ipcMain, app, IpcMainEvent } from 'electron';
+import { app } from 'electron';
 import Store from 'electron-store';
 import path from 'path';
 import fs from 'fs';
 
-import {
-  AdapterDeviceConfig,
-  SupportedDeviceConfig,
-} from '@shared/hardware-config';
+import { HardwarePortService } from '@main/port-service';
 import { Project } from '@shared/project';
+import { DeviceRegistry } from '@main/device-registry';
+import { VirtualPortService } from '@main/port-service/virtual/virtual-port-service';
 
-import { INPUT_CONFIG } from '../ipc-channels';
 import { dialogs } from '../dialogs';
-import {
-  ProjectEventEmitter,
-  ProjectProviderEvent,
-} from './project-event-emitter';
 import { upgradeProject } from '../../helper/project-upgrader';
+
+import { WindowProvider } from '../window-provider';
+
+const { MainWindow } = WindowProvider;
 
 const SAVE_DIR = 'dir';
 const store = new Store();
@@ -28,18 +26,13 @@ function recommendedDir() {
  * Manages state of current project for the backend. Emits whenever the
  * project is updated or changed.
  */
-class ProjectProviderSingleton extends ProjectEventEmitter {
+class ProjectProviderSingleton {
   /* The most-recently-used folder path */
   private currentPath?: string;
 
   private static instance: ProjectProviderSingleton;
 
   public project: Project = new Project();
-
-  private constructor() {
-    super();
-    this.initIpc();
-  }
 
   public static getInstance(): ProjectProviderSingleton {
     if (!ProjectProviderSingleton.instance) {
@@ -51,10 +44,14 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
   public async initDefault() {
     this.currentPath = undefined;
     this.project = new Project();
-    this.emit(ProjectProviderEvent.NewProject, {
-      name: 'Untitled project',
-      project: this.project,
-    });
+
+    MainWindow.title = 'Untitle project';
+    MainWindow.edited = false;
+
+    const ids = DeviceRegistry.getAll().map((d) => d.id);
+    MainWindow.sendConfiguredDevices(ids);
+    HardwarePortService.onProjectChange();
+    VirtualPortService.onProjectChange();
   }
 
   public async loadProject(filePath: string) {
@@ -64,10 +61,14 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     this.project = upgradeProject(jsonString);
     this.currentPath = filePath;
 
-    this.emit(ProjectProviderEvent.NewProject, {
-      name: path.basename(filePath, '.controller'),
-      project: this.project,
-    });
+    HardwarePortService.onProjectChange();
+    MainWindow.title = `${filePath}.controller`;
+    MainWindow.edited = false;
+
+    const ids = DeviceRegistry.getAll().map((d) => d.id);
+    MainWindow.sendConfiguredDevices(ids);
+    HardwarePortService.onProjectChange();
+    VirtualPortService.onProjectChange();
   }
 
   /**
@@ -81,10 +82,11 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
     fs.writeFileSync(this.currentPath!, asString, {});
 
     app.addRecentDocument(this.currentPath!);
-    this.emit(ProjectProviderEvent.Save, {
-      name: path.basename(this.currentPath!, '.controller'),
-      project: this.project,
-    });
+    // TODO: might need to invoke some functions here
+    // this.emit(ProjectProviderEvent.Save, {
+    //   name: path.basename(this.currentPath!, '.controller'),
+    //   project: this.project,
+    // });
   }
 
   /**
@@ -118,26 +120,6 @@ class ProjectProviderSingleton extends ProjectEventEmitter {
 
     this.loadProject(filePath);
   }
-
-  // TODO: soon, this function will be gone
-  private initIpc() {
-    ipcMain.on(
-      INPUT_CONFIG.GET_INPUT_CONFIGS,
-      (e: IpcMainEvent, deviceId: string, inputIds: string[]) => {
-        const dev = this.project.getDevice(deviceId);
-
-        if (
-          dev instanceof SupportedDeviceConfig ||
-          dev instanceof AdapterDeviceConfig
-        ) {
-          e.returnValue = inputIds.map((id) => dev.getInputById(id)!.toDTO());
-        } else {
-          e.returnValue = [];
-        }
-      }
-    );
-  }
 }
 
 export const ProjectProvider = ProjectProviderSingleton.getInstance();
-export { ProjectProviderEvent };

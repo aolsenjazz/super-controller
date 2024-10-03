@@ -1,32 +1,64 @@
 import { ipcMain, IpcMainEvent } from 'electron';
 
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
-import { Registry } from '@plugins/registry';
 import {
   AdapterDeviceConfig,
   configFromDriver,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
 
-import { DRIVERS } from '@shared/drivers';
+import { Anonymous, DRIVERS, getDriver } from '@shared/drivers';
 import { CONFIG, DEVICE_CONFIG } from './ipc-channels';
-import { ProjectProvider } from './project-provider';
 
-import { wp } from './window-provider';
+import { WindowProvider } from './window-provider';
+import { PluginRegistry } from './plugin-registry';
+import { DeviceRegistry } from './device-registry';
+import { HardwarePortService } from './port-service';
+import { VirtualPortService } from './port-service/virtual/virtual-port-service';
 
-const { MainWindow } = wp;
+const { MainWindow } = WindowProvider;
+
+ipcMain.on(
+  CONFIG.ADD_DEVICE,
+  (
+    _e: IpcMainEvent,
+    deviceName: string,
+    siblingIdx: number,
+    driverName?: string
+  ) => {
+    const driver = getDriver(driverName || deviceName) || Anonymous;
+    const conf = configFromDriver(deviceName, siblingIdx, driver);
+
+    DeviceRegistry.register(conf);
+    HardwarePortService.onConfigChange({ action: 'add', changed: [conf] });
+    VirtualPortService.onConfigChange({ action: 'add', changed: [conf] });
+
+    MainWindow.edited = true;
+    MainWindow.sendConfiguredDevices(DeviceRegistry.getAll().map((c) => c.id));
+  }
+);
+
+ipcMain.on(CONFIG.REMOVE_DEVICE, (_e: IpcMainEvent, deviceId: string) => {
+  const conf = DeviceRegistry.get(deviceId)!;
+
+  DeviceRegistry.deregister(deviceId);
+
+  HardwarePortService.onConfigChange({ action: 'remove', changed: [conf] });
+  VirtualPortService.onConfigChange({ action: 'remove', changed: [conf] });
+
+  MainWindow.edited = true;
+  MainWindow.sendConfiguredDevices(DeviceRegistry.getAll().map((c) => c.id));
+});
 
 /* When a device is removed from project, remove it here and re-init all devices */
 ipcMain.on(CONFIG.GET_CONFIGURED_DEVICES, (e: IpcMainEvent) => {
-  const { project } = ProjectProvider;
-  e.returnValue = project.devices.map((d) => d.id);
+  e.returnValue = DeviceRegistry.getAll().map((d) => d.toDTO());
 });
 
 ipcMain.on(
   CONFIG.UPDATE_DEVICE,
   (_e: IpcMainEvent, updates: DeviceConfigDTO) => {
-    const { project } = ProjectProvider;
-    const config = project.getDevice(updates.id);
+    const config = DeviceRegistry.get(updates.id);
 
     if (config) {
       config.applyStub(updates);
@@ -38,35 +70,31 @@ ipcMain.on(
 ipcMain.on(
   DEVICE_CONFIG.REMOVE_PLUGIN,
   (_e: IpcMainEvent, pluginId: string, deviceConfigId: string) => {
-    const { project } = ProjectProvider;
-    const config = project.getDevice(deviceConfigId);
+    const config = DeviceRegistry.get(deviceConfigId);
 
     if (config) {
       config.plugins = config.plugins.filter((p) => p !== pluginId);
-      Registry.deregister(pluginId);
+      PluginRegistry.deregister(pluginId);
 
-      wp.MainWindow.sendConfigStub(config.id, config.toDTO());
+      WindowProvider.MainWindow.sendConfigStub(config.id, config.toDTO());
     }
   }
 );
 
 ipcMain.on(
   DEVICE_CONFIG.SET_CHILD,
-  (_e: IpcMainEvent, deviceConfigId: string, childId: string) => {
-    const { project } = ProjectProvider;
-    const config = project.getDevice(deviceConfigId);
+  (_e: IpcMainEvent, deviceConfigId: string, childDriverName: string) => {
+    const config = DeviceRegistry.get<AdapterDeviceConfig>(deviceConfigId);
+    const driver = DRIVERS.get(childDriverName);
 
-    if (!(config instanceof AdapterDeviceConfig)) {
-      throw new Error(
-        `${deviceConfigId} is not an instance of adapterdeviceconfig`
-      );
-    }
+    if (!config) throw new Error(`No config found fr ${deviceConfigId}`);
+    if (!driver) throw new Error(`No driver found for ${childDriverName}`);
 
-    const driver = DRIVERS.get(childId);
-
-    if (!driver) throw new Error(`No driver found for ${childId}`);
-
-    const child = configFromDriver(childId, 0, driver) as SupportedDeviceConfig;
+    const child = configFromDriver(
+      childDriverName,
+      0,
+      driver
+    ) as SupportedDeviceConfig;
     config.setChild(child);
 
     MainWindow.sendConfigStub(config.id, config.toDTO());

@@ -1,23 +1,20 @@
 import { MenuItem } from 'electron';
 
-import { ProjectProvider } from '@main/project-provider';
-import { wp } from '@main/window-provider';
-import { Registry } from '@plugins/registry';
+import { WindowProvider } from '@main/window-provider';
 import {
   getInputManifests,
   importInputSubcomponent,
 } from '@plugins/plugin-loader';
 import { id as driverToId } from '@shared/util';
-import {
-  AdapterDeviceConfig,
-  MonoInputConfig,
-  SupportedDeviceConfig,
-} from '@shared/hardware-config';
+import { MonoInputConfig } from '@shared/hardware-config';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
 import { DRIVERS } from '@shared/drivers';
 import { InteractiveInputDriver } from '@shared/driver-types';
+import { PluginRegistry } from '@main/plugin-registry';
+import { InputRegistry } from '@main/input-registry';
+import { DeviceRegistry } from '@main/device-registry';
 
-const { MainWindow } = wp;
+const { MainWindow } = WindowProvider;
 
 export async function createInputPluginMenu(
   deviceId: string,
@@ -30,42 +27,37 @@ export async function createInputPluginMenu(
       label: m.title,
       toolTip: m.description,
       click: async () => {
-        const dev = ProjectProvider.project.getDevice(deviceId);
+        const dev = DeviceRegistry.get(deviceId)!;
         const devDriver = DRIVERS.get(dev.driverName)!;
 
-        if (
-          dev instanceof SupportedDeviceConfig ||
-          dev instanceof AdapterDeviceConfig
-        ) {
-          inputIds.forEach(async (id) => {
-            const input = dev.getInputById(id);
+        inputIds.forEach(async (id) => {
+          const input = InputRegistry.get(id);
 
-            const inputDriver = devDriver.inputGrids
-              .flatMap((ig) => ig.inputs)
-              .filter((i) => i.interactive === true)
-              .map((i) => i as InteractiveInputDriver)
-              .find((d) => driverToId(d) === id);
+          const inputDriver = devDriver.inputGrids
+            .flatMap((ig) => ig.inputs)
+            .filter((i) => i.interactive === true)
+            .map((i) => i as InteractiveInputDriver)
+            .find((d) => driverToId(d) === id);
 
-            if (input instanceof MonoInputConfig) {
-              const Plugin = await importInputSubcomponent(m.title, 'plugin');
-              const plugin: BaseInputPlugin = new Plugin(
-                m.title,
-                m.description,
-                inputDriver!
-              );
-              input.plugins.push(plugin.id);
-              Registry.register(plugin);
+          if (input instanceof MonoInputConfig) {
+            const Plugin = await importInputSubcomponent(m.title, 'plugin');
+            const plugin: BaseInputPlugin = new Plugin(
+              m.title,
+              m.description,
+              inputDriver!
+            );
+            input.plugins.push(plugin.id);
+            PluginRegistry.register(plugin);
 
-              MainWindow.sendInputConfig(deviceId, id, input.toDTO());
-            } else {
-              // TODO: How do we handle adding plugin to multi-input configs?
-              // eslint-disable-next-line no-console
-              console.log('Ignoring for now....');
-            }
-          });
+            MainWindow.sendInputConfig(deviceId, id, input.toDTO());
+          } else {
+            // TODO: How do we handle adding plugin to multi-input configs?
+            // eslint-disable-next-line no-console
+            console.log('Ignoring for now....');
+          }
+        });
 
-          wp.MainWindow.sendConfigStub(dev.id, dev.toDTO());
-        }
+        WindowProvider.MainWindow.sendConfigStub(dev.id, dev.toDTO());
       },
     });
   });

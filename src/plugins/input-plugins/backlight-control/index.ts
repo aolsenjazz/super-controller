@@ -52,7 +52,7 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     title: string,
     description: string,
     driver: MonoInteractiveDriver,
-    dto?: BacklightControlDTO
+    _dto?: BacklightControlDTO
   ) {
     super(title, description, driver);
 

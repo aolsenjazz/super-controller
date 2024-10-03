@@ -10,9 +10,9 @@ import { BUG_REPORT, FEATURE_REQUEST } from '@shared/email-templates';
 
 import { ProjectProvider as pp } from '../project-provider';
 import { dialogs } from '../dialogs';
-import { wp } from '../window-provider';
+import { WindowProvider } from '../window-provider';
 
-const { MainWindow } = wp;
+const { MainWindow } = WindowProvider;
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;

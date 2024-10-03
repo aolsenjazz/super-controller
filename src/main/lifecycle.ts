@@ -4,26 +4,18 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS,
 } from 'electron-extension-installer';
 
-import { wp } from './window-provider';
-import {
-  ProjectProvider as pp,
-  ProjectProviderEvent,
-} from './project-provider';
+import { WindowProvider } from './window-provider';
+import { ProjectProvider as pp } from './project-provider';
 import { dialogs } from './dialogs';
 import { AppMenu as am } from './menu';
 
 import './port-service';
 import './ipc-service';
-import './project-provider/ipc';
 import './initialize-plugin-ipc';
 import './initialize-device-config-ipc';
 import './initialize-input-config-ipc';
-import {
-  DevicesChangedEvent,
-  ProjectChangedEvent,
-} from './project-provider/project-event-emitter';
 
-const { MainWindow } = wp;
+const { MainWindow } = WindowProvider;
 
 async function installRDT() {
   const isDebug =
@@ -46,7 +38,6 @@ class LifecycleSingleton {
     this.subscribeToOpenFile();
     this.subscribeToBeforeQuit();
     this.subscribeToActivate();
-    this.subscribeToProjectChange();
   }
 
   public static getInstance() {
@@ -104,26 +95,6 @@ class LifecycleSingleton {
         MainWindow.create();
       }
     });
-  }
-
-  private subscribeToProjectChange() {
-    const projChangeCb = ({ name, project }: ProjectChangedEvent) => {
-      MainWindow.title = name;
-      MainWindow.edited = false;
-
-      const stubs = project.devices.map((d) => d.id);
-      MainWindow.sendConfiguredDevices(stubs);
-    };
-
-    pp.on(ProjectProviderEvent.NewProject, projChangeCb);
-    pp.on(ProjectProviderEvent.Save, projChangeCb);
-
-    const deviceChangeCb = ({ project }: DevicesChangedEvent) => {
-      MainWindow.edited = true;
-      MainWindow.sendConfiguredDevices(project.devices.map((d) => d.id));
-    };
-
-    pp.on(ProjectProviderEvent.DevicesChanged, deviceChangeCb);
   }
 }
 

@@ -1,3 +1,5 @@
+import { MessageProcessorMeta } from '@shared/message-processor';
+
 import { idForMsg } from '../../midi-util';
 
 import { XYDriver } from '../../driver-types';
@@ -79,6 +81,13 @@ export class XYConfig extends BaseInputConfig<XYDTO> {
       x: this.x.toDTO(),
       y: this.y.toDTO(),
     };
+  }
+
+  public process(
+    msg: NumberArrayWithStatus,
+    _meta: MessageProcessorMeta
+  ): NumberArrayWithStatus | undefined {
+    return msg;
   }
 
   get state(): XYState {

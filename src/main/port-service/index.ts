@@ -18,26 +18,21 @@
  */
 import { ipcMain, IpcMainEvent } from 'electron';
 
-import { Registry } from '@plugins/registry';
+import { idForMsg } from '@shared/midi-util';
+import { DeviceRegistry } from '@main/device-registry';
+import { PluginRegistry } from '@main/plugin-registry';
+import { DeviceConfig } from '@shared/hardware-config';
 
 import { PortScanResult, PortManager } from './port-manager';
-import { ProjectProvider } from '../project-provider';
 import { PortPair } from './port-pair';
-import {
-  DevicesChangedEvent,
-  ProjectChangedEvent,
-  ProjectProviderEvent,
-} from '../project-provider/project-event-emitter';
 import { InputPort } from './input-port';
 import { OutputPort } from './output-port';
 import { PortInfoPair } from './port-info-pair';
-import { wp } from '../window-provider';
+import { WindowProvider } from '../window-provider';
 import { HOST } from '../ipc-channels';
 import { VirtualPortService } from './virtual/virtual-port-service';
-import { idForMsg } from '@shared/midi-util';
-import { DRIVERS } from '@shared/drivers';
 
-const { MainWindow } = wp;
+const { MainWindow } = WindowProvider;
 
 /**
  * Convenience method for creating an `InputPort`
@@ -74,8 +69,6 @@ export class HardwarePortServiceSingleton {
 
   private constructor() {
     this.setHardwareChangeListener();
-    this.setProjectChangeListener();
-    this.setConfigChangeListener();
     this.setFrontendListeners();
   }
 
@@ -89,9 +82,9 @@ export class HardwarePortServiceSingleton {
 
   // TODO: this is a quick-and-dirty fix, and should be replaced
   public initAllConfiguredPorts() {
-    ProjectProvider.project.devices.forEach((d) => {
+    DeviceRegistry.getAll().forEach((d) => {
       const port = this.ports.get(d.id);
-      if (port) d.init(port, Registry);
+      if (port) d.init(port, PluginRegistry);
     });
   }
 
@@ -119,45 +112,34 @@ export class HardwarePortServiceSingleton {
     );
   }
 
-  /**
-   * When configs are added or removed, open/close port as required
-   */
-  private setConfigChangeListener() {
-    ProjectProvider.on(
-      ProjectProviderEvent.DevicesChanged,
-      (event: DevicesChangedEvent) => {
-        // if the hardware is available, open a connection to it
-        if (event.action === 'add') {
-          const addedIds = event.changed.map((d) => d.id);
-          this.availableHardwarePorts
-            .filter((p) => addedIds.includes(p.id))
-            .forEach((p) => this.open(p));
-        }
+  public onConfigChange(event: {
+    action: 'add' | 'remove';
+    changed: DeviceConfig[];
+  }) {
+    // if the hardware is available, open a connection to it
+    if (event.action === 'add') {
+      const addedIds = event.changed.map((d) => d.id);
+      this.availableHardwarePorts
+        .filter((p) => addedIds.includes(p.id))
+        .forEach((p) => this.open(p));
+    }
 
-        if (event.action === 'remove') {
-          event.changed.forEach((c) => this.close(c.id));
-        }
-      }
-    );
+    if (event.action === 'remove') {
+      event.changed.forEach((c) => this.close(c.id));
+    }
   }
 
   /**
    * When the project changes, reset all ports
    */
-  private setProjectChangeListener() {
-    const listener = (event: ProjectChangedEvent) => {
-      const { project } = event;
+  public onProjectChange() {
+    // close all current hardware connections
+    Array.from(this.ports.keys()).forEach((id) => this.close(id));
 
-      // close all current hardware connections
-      Array.from(this.ports.keys()).forEach((id) => this.close(id));
-
-      // open all new hardware connections if they're available
-      this.availableHardwarePorts
-        .filter((p) => project.getDevice(p.id))
-        .forEach((p) => this.open(p));
-    };
-
-    ProjectProvider.on(ProjectProviderEvent.NewProject, listener);
+    // open all new hardware connections if they're available
+    this.availableHardwarePorts
+      .filter((p) => DeviceRegistry.get(p.id))
+      .forEach((p) => this.open(p));
   }
 
   /**
@@ -179,7 +161,7 @@ export class HardwarePortServiceSingleton {
       // for all addedPorts, if device is configured + if hardware is available, connect
       addedPorts
         .filter((p) => this.ports.get(p.id) === undefined)
-        .filter((p) => ProjectProvider.project.getDevice(p.id) !== undefined)
+        .filter((p) => DeviceRegistry.get(p.id) !== undefined)
         .forEach((p) => {
           this.open(p);
         });
@@ -223,11 +205,11 @@ export class HardwarePortServiceSingleton {
    * - sets all color capable inputs to configured colors
    */
   private initDevice(pair: PortPair) {
-    const config = ProjectProvider.project.getDevice(pair.id);
+    const config = DeviceRegistry.get(pair.id);
 
     if (config) {
       // init
-      config.init(pair, Registry);
+      config.init(pair, PluginRegistry);
 
       // set onMessage
       pair.onMessage((_delta, msg) => {
@@ -249,7 +231,7 @@ export class HardwarePortServiceSingleton {
           remoteTransport,
           loopbackTransports: VirtualPortService.ports,
           remoteTransports: this.ports,
-          pluginProvider: Registry,
+          pluginProvider: PluginRegistry,
         });
 
         if (message) remoteTransport.send(message);

@@ -1,41 +1,37 @@
+import { InputRegistry } from '@main/input-registry';
 import { DRIVERS } from '@shared/drivers';
 import { MessageProcessorMeta } from '@shared/message-processor';
 import { MessageTransport } from '@shared/message-transport';
-import { PluginProvider } from '@shared/plugin-provider';
-import { DeviceDriver } from '../driver-types';
+import { idForMsg } from '@shared/midi-util';
+import {
+  DeviceDriver,
+  InputDriver,
+  InteractiveInputDriver,
+} from '../driver-types';
 
 import { DeviceConfig, DeviceConfigDTO } from './device-config';
 import { create } from './input-config';
-import { BaseInputConfig, InputDTO } from './input-config/base-input-config';
+import { id } from '../util';
 
 interface SupportedDeviceConfigDTO extends DeviceConfigDTO {
-  inputs: InputDTO[];
+  inputs: string[];
   className: 'SupportedDeviceConfig';
 }
 
 /* Contains device-specific configurations and managed `InputConfig`s */
 export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO> {
-  public inputs: BaseInputConfig[];
+  public inputs: string[] = [];
 
   public static fromDriver(
     portName: string,
     siblingIndex: number,
     driver: DeviceDriver
   ) {
-    const inputs: BaseInputConfig[] = [];
-    driver.inputGrids.forEach((ig) => {
-      ig.inputs.forEach((d) => {
-        if (d.interactive) {
-          inputs.push(create(d));
-        }
-      });
-    });
-
     const newConfig = new SupportedDeviceConfig(
       portName,
       driver.name,
       siblingIndex,
-      inputs,
+      driver.inputGrids.flatMap((g) => g.inputs),
       undefined
     );
 
@@ -46,37 +42,41 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
     name: string,
     driverName: string,
     siblingIndex: number,
-    inputs: BaseInputConfig[],
+    inputs: InputDriver[],
     nickname?: string
   ) {
     super(name, driverName, siblingIndex, nickname);
-    this.inputs = inputs;
+
+    // initialize inputs
+    inputs
+      .filter((i) => i.interactive)
+      .map((i) => i as InteractiveInputDriver)
+      .forEach((i) => {
+        InputRegistry.register(create(i));
+        this.inputs.push(`${this.id}-${id(i)}`);
+      });
   }
 
   public toDTO() {
     return {
       ...this.stub(),
       className: 'SupportedDeviceConfig' as const,
-      inputs: this.inputs.map((i) => i.toDTO()),
+      inputs: this.inputs,
       type: 'supported' as const,
     };
   }
 
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
     const message = super.process(msg, meta)!;
-    const originator = this.getOriginatorInput(msg);
-    return originator ? originator.process(message, meta) : msg;
+    const input = InputRegistry.get(`${this.id}-${idForMsg(msg, true)}`);
+    return input ? input.process(message, meta) : message;
   }
 
-  public init(
-    loopbackTransport: MessageTransport,
-    pluginProvider: PluginProvider
-  ) {
+  public init(loopbackTransport: MessageTransport) {
     const driver = DRIVERS.get(this.driverName)!;
 
     if (driver.throttle) loopbackTransport.applyThrottle(driver.throttle);
     driver.controlSequence.forEach((msg) => loopbackTransport.send(msg)); // run control sequence
-    this.inputs.forEach((i) => i.init(loopbackTransport, pluginProvider));
 
     // driver.inputGrids // init default colors if they exist
     //   .flatMap((ig) => ig.inputs)
@@ -114,28 +114,4 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
   //   });
   //   return available;
   // }
-
-  /**
-   * Returns the `BaseInputConfig` for given id
-   */
-  public getInputById(id: string) {
-    for (let i = 0; i < this.inputs.length; i++) {
-      const input = this.inputs[i];
-      if (input.id === id) return input;
-    }
-    return undefined;
-  }
-
-  /**
-   * Returns the `BaseInputConfig` which is the originator of `msg`. E.g. a CC pad
-   * input with number 32 and channel 2 is the originator of the message [178, 32, 127]
-   * but not [144, 32, 127] nor [178, 31, 127]
-   */
-  public getOriginatorInput(msg: NumberArrayWithStatus) {
-    for (let i = 0; i < this.inputs.length; i++) {
-      const input = this.inputs[i];
-      if (input.isOriginator(msg)) return input;
-    }
-    return undefined;
-  }
 }

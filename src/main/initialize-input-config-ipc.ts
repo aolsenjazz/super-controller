@@ -1,20 +1,26 @@
 import { ipcMain, IpcMainEvent } from 'electron';
 
-import {
-  MonoInputConfig,
-  SupportedDeviceConfig,
-} from '@shared/hardware-config';
+import { MonoInputConfig } from '@shared/hardware-config';
 import {
   BaseInputConfig,
   InputDTO,
 } from '@shared/hardware-config/input-config/base-input-config';
-import { Registry } from '@plugins/registry';
 
 import { INPUT_CONFIG } from './ipc-channels';
-import { ProjectProvider } from './project-provider';
-import { wp } from './window-provider';
+import { WindowProvider } from './window-provider';
+import { PluginRegistry } from './plugin-registry';
+import { InputRegistry } from './input-registry';
 
-const { MainWindow } = wp;
+const { MainWindow } = WindowProvider;
+
+ipcMain.on(
+  INPUT_CONFIG.GET_INPUT_CONFIGS,
+  (e: IpcMainEvent, deviceId: string, inputIds: string[]) => {
+    e.returnValue = inputIds.map((id) =>
+      InputRegistry.get(`${deviceId}-${id}`)!.toDTO()
+    );
+  }
+);
 
 ipcMain.on(
   INPUT_CONFIG.REMOVE_PLUGIN,
@@ -24,23 +30,13 @@ ipcMain.on(
     deviceConfigId: string,
     inputId: string
   ) => {
-    const { project } = ProjectProvider;
-    const deviceConfig = project.getDevice(deviceConfigId);
+    const inputConfig = InputRegistry.get(`${deviceConfigId}-${inputId}`);
 
-    if (deviceConfig) {
-      const asSupported = deviceConfig as SupportedDeviceConfig;
-      const inputConfig = asSupported.getInputById(inputId);
+    if (inputConfig instanceof MonoInputConfig) {
+      inputConfig.plugins = inputConfig.plugins.filter((p) => p !== pluginId);
 
-      if (inputConfig && inputConfig instanceof MonoInputConfig) {
-        inputConfig.plugins = inputConfig.plugins.filter((p) => p !== pluginId);
-        Registry.deregister(pluginId);
-
-        MainWindow.sendInputConfig(
-          deviceConfigId,
-          inputId,
-          inputConfig.toDTO()
-        );
-      }
+      PluginRegistry.deregister(pluginId);
+      MainWindow.sendInputConfig(deviceConfigId, inputId, inputConfig.toDTO());
     }
   }
 );
@@ -48,31 +44,18 @@ ipcMain.on(
 ipcMain.on(
   INPUT_CONFIG.GET_INPUT_CONFIG,
   (e, deviceId: string, inputId: string) => {
-    let result: InputDTO | undefined;
-    const { project } = ProjectProvider;
-    const deviceConfig = project.getDevice(deviceId);
+    const inputConfig = InputRegistry.get(`${deviceId}-${inputId}`);
 
-    if (deviceConfig instanceof SupportedDeviceConfig) {
-      const inputConfig = deviceConfig.getInputById(inputId);
-
-      if (inputConfig) {
-        result = inputConfig.toDTO();
-      }
-    }
-
-    e.returnValue = result;
+    e.returnValue = inputConfig ? inputConfig.toDTO() : undefined;
   }
 );
 
 ipcMain.on(
   INPUT_CONFIG.UPDATE_INPUT,
   (_e: IpcMainEvent, deviceId: string, configs: InputDTO[]) => {
-    const { project } = ProjectProvider;
-    const deviceConfig = project.getDevice(deviceId) as SupportedDeviceConfig;
-
     const updatedConfigs: BaseInputConfig[] = [];
     configs.forEach((c) => {
-      const input = deviceConfig.getInputById(c.id);
+      const input = InputRegistry.get(`${deviceId}-${c.id}`);
 
       if (input) {
         input.applyStub(c);
