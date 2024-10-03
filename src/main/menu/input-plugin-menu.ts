@@ -31,7 +31,7 @@ export async function createInputPluginMenu(
         const devDriver = DRIVERS.get(dev.driverName)!;
 
         inputIds.forEach(async (id) => {
-          const input = InputRegistry.get(id);
+          const input = InputRegistry.get(`${deviceId}-${id}`);
 
           const inputDriver = devDriver.inputGrids
             .flatMap((ig) => ig.inputs)
@@ -47,7 +47,7 @@ export async function createInputPluginMenu(
               inputDriver!
             );
             input.plugins.push(plugin.id);
-            PluginRegistry.register(plugin);
+            PluginRegistry.register(plugin.id, plugin);
 
             MainWindow.sendInputConfig(deviceId, id, input.toDTO());
           } else {

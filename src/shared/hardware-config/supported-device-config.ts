@@ -52,7 +52,7 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
       .filter((i) => i.interactive)
       .map((i) => i as InteractiveInputDriver)
       .forEach((i) => {
-        InputRegistry.register(create(i));
+        InputRegistry.register(`${this.id}-${id(i)}`, create(i));
         this.inputs.push(`${this.id}-${id(i)}`);
       });
   }

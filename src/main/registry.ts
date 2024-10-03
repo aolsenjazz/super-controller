@@ -9,8 +9,8 @@ export class Registry<T extends { id: string }> {
     this.items = new Map<string, T>();
   }
 
-  register(item: T): void {
-    this.items.set(item.id, item);
+  register(key: string, item: T): void {
+    this.items.set(key, item);
   }
 
   deregister(item: T | string): void {

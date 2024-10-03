@@ -215,7 +215,7 @@ export class HardwarePortServiceSingleton {
       pair.onMessage((_delta, msg) => {
         if (msg.length < 2) return;
 
-        const inputId = idForMsg(msg);
+        const inputId = idForMsg(msg, true);
 
         const remoteTransport = this.ports.get(config.id)!;
         const frontendInclusiveLoopbackTransport = {

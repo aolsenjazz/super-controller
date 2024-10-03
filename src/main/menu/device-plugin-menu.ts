@@ -21,7 +21,7 @@ export async function createDevicePluginMenu(deviceId: string) {
         const Plugin = await importDeviceSubcomponent(m.title, 'plugin');
         const plugin: BasePlugin = new Plugin(m.title, m.description);
         dev.plugins.push(plugin.id);
-        PluginRegistry.register(plugin);
+        PluginRegistry.register(plugin.id, plugin);
         WindowProvider.MainWindow.sendConfigStub(dev.id, dev.toDTO());
       },
     });
