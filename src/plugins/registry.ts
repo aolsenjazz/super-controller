@@ -1,6 +1,5 @@
 import type { BasePlugin, PluginDTO } from '@shared/plugin-core/base-plugin';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const _Registry = new Map<string, BasePlugin>();
 
 function register(plugin: BasePlugin) {

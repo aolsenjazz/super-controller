@@ -21,6 +21,7 @@ export interface BacklightControlDTO extends PluginDTO {
   availableColors: BacklightControlPlugin['availableColors'];
   availableFx: BacklightControlPlugin['availableFx'];
   availableStates: number[];
+  state: number;
 }
 
 export default class BacklightControlPlugin extends BaseInputPlugin<BacklightControlDTO> {
@@ -108,6 +109,7 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
       availableColors: this.availableColors,
       availableFx: this.availableFx,
       availableStates: this.stateManager.availableStates,
+      state: this.stateManager.state,
     };
   }
 

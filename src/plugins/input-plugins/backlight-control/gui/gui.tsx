@@ -21,6 +21,7 @@ export default function BacklightPluginUI(props: PluginUIProps) {
     availableColors,
     availableFx,
     availableStates,
+    state,
   } = plugin;
 
   const onColorChange = (state: number, color: Color) => {
