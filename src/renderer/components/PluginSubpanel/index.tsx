@@ -11,7 +11,7 @@ type PluginSubpanelProps = {
   showPluginMenu: (x: number, y: number) => void;
   removePlugin: (pluginId: string) => void;
   showAddPlugin: boolean;
-  selectedDevice: string;
+  deviceId: string;
   importPlugin: (title: string) => Promise<React.FC<PluginUIProps>>;
 };
 
@@ -21,7 +21,7 @@ export default function PluginSubpanel(props: PluginSubpanelProps) {
     showPluginMenu,
     removePlugin,
     showAddPlugin,
-    selectedDevice,
+    deviceId,
     importPlugin,
   } = props;
 
@@ -31,13 +31,13 @@ export default function PluginSubpanel(props: PluginSubpanelProps) {
         <PluginSlot
           key={`plugin${x}`}
           pluginId={x}
-          selectedDevice={selectedDevice}
+          selectedDevice={deviceId}
           removePlugin={removePlugin}
           importPlugin={importPlugin}
         />
       );
     });
-  }, [plugins, removePlugin, selectedDevice, importPlugin]);
+  }, [plugins, removePlugin, deviceId, importPlugin]);
 
   return (
     <div className="plugin-subpanel">

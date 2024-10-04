@@ -53,6 +53,18 @@ const configuration: webpack.Configuration = {
       '@hooks': path.resolve(__dirname, '..', '..', 'src/renderer/hooks/'),
       '@plugins': path.resolve(__dirname, '..', '..', 'src/plugins/'),
       '@main': path.resolve(__dirname, '..', '..', 'src/main/'),
+      '@selectors': path.resolve(
+        __dirname,
+        '..',
+        '..',
+        'src/renderer/selectors/'
+      ),
+      '@features': path.resolve(
+        __dirname,
+        '..',
+        '..',
+        'src/renderer/features/'
+      ),
     },
   },
 

@@ -1,7 +1,6 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
-import { useDeviceConfig } from '@hooks/use-device-config';
 import { importDeviceSubcomponent } from '@plugins/plugin-loader';
 
 import PluginSubpanel from '../PluginSubpanel';
@@ -10,54 +9,48 @@ import AddOrRemoveDevice from './AddOrRemoveDevice';
 import AdapterDetailsSubpanel from './AdapterDetailsSubpanel';
 import AdapterSelect from './AdapterSelect';
 import ControlledInput from '../ControlledInput';
+import { UnifiedDevice } from '../../unified-device';
 
-const { DeviceConfigService, MenuService, HostService } = window;
+const { DeviceConfigService, MenuService } = window;
 
 type PropTypes = {
-  selectedDevice: string;
+  selectedDevice: UnifiedDevice;
 };
 
 export default function DeviceDetailsPanel(props: PropTypes) {
   const { selectedDevice } = props;
+  const { id, config, connectionDetails: connDetails } = selectedDevice;
 
-  const { deviceConfig } = useDeviceConfig(selectedDevice);
+  const configured = config !== undefined;
+  const isAdapter = config?.type === 'adapter';
 
-  const configured = deviceConfig !== undefined;
-  const isAdapter = deviceConfig?.type === 'adapter';
-
-  const deviceConnectionDetails = useMemo(
-    () => HostService.getDeviceConnectionDetails(selectedDevice),
-    [selectedDevice]
-  );
-
-  const deviceName =
-    deviceConnectionDetails?.name || deviceConfig?.portName || '';
-  const deviceNickname = deviceConfig?.nickname || '';
+  const deviceName = connDetails?.name || config?.portName || '';
+  const deviceNickname = config?.nickname || '';
 
   const onChange = useCallback(
     (n: string) => {
       const newConfig: DeviceConfigDTO = {
-        ...deviceConfig!,
+        ...config!,
         nickname: n,
       };
 
       DeviceConfigService.updateDevice(newConfig);
     },
-    [deviceConfig]
+    [config]
   );
 
   const removePlugin = useCallback(
     (pluginId: string) => {
-      DeviceConfigService.removePlugin(pluginId, deviceConnectionDetails!.id);
+      DeviceConfigService.removePlugin(pluginId, id);
     },
-    [deviceConnectionDetails]
+    [id]
   );
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
-      MenuService.showDevicePluginMenu(x, y, selectedDevice);
+      MenuService.showDevicePluginMenu(x, y, id);
     },
-    [selectedDevice]
+    [id]
   );
 
   return (
@@ -74,7 +67,7 @@ export default function DeviceDetailsPanel(props: PropTypes) {
           </div>
           {isAdapter && (
             <>
-              <AdapterDetailsSubpanel /> <AdapterSelect device={deviceConfig} />
+              <AdapterDetailsSubpanel /> <AdapterSelect deviceConfig={config} />
             </>
           )}
           <label htmlFor="nickname-input">
@@ -88,17 +81,19 @@ export default function DeviceDetailsPanel(props: PropTypes) {
           </label>
         </div>
         <PluginSubpanel
-          plugins={deviceConfig?.plugins || []}
+          plugins={config?.plugins || []}
           removePlugin={removePlugin}
           showPluginMenu={showPluginMenu}
-          selectedDevice={selectedDevice}
+          deviceId={id}
           importPlugin={(title) => importDeviceSubcomponent(title, 'gui')}
           showAddPlugin
         />
       </div>
       <AddOrRemoveDevice
-        nickname={deviceConfig?.nickname || ''}
-        id={selectedDevice}
+        nickname={config?.nickname || ''}
+        portName={(connDetails?.name || config?.portName)!}
+        siblingIndex={connDetails?.siblingIndex || config?.siblingIndex || 0}
+        id={id}
         configured={configured}
       />
     </div>

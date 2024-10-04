@@ -4,6 +4,7 @@ import { byteToStatusString } from '@shared/midi-util';
 import type { PluginDTO } from '@shared/plugin-core/base-plugin';
 
 import { HOST } from '../ipc-channels';
+import { UnknownAction } from '@reduxjs/toolkit';
 
 /**
  * Assumes that this window is stateless, e.g. no state is saved when the
@@ -34,15 +35,6 @@ export abstract class WindowActions {
     w.on('ready-to-show', () => w.show());
     w.loadURL(this.url);
   }
-
-  // export const HostService = {
-  // listenToLoopbackMessages(
-  //   deviceId: string,
-  //   inputId: string,
-  //   func: (msg: NumberArrayWithStatus) => void
-  // ) {
-  //   return addOnChangeListener(`${deviceId}-${inputId}-loopback`, func);
-  // },
 
   public onLoopbackMessage(
     deviceId: string,
@@ -75,6 +67,10 @@ export abstract class WindowActions {
 
   public sendPluginUpdate(id: string, dto: PluginDTO) {
     this.send(`plugin-${id}`, dto);
+  }
+
+  public sendReduxEvent(action: UnknownAction) {
+    this.send('redux', action);
   }
 
   /**

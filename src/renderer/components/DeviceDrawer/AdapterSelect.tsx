@@ -10,16 +10,16 @@ const fivePins = Array.from(DRIVERS.entries())
 const { DeviceConfigService } = window;
 
 type PropTypes = {
-  device: DeviceConfigDTO;
+  deviceConfig: DeviceConfigDTO;
 };
 
 export default function AdapterSelect(props: PropTypes) {
-  const { device } = props;
+  const { deviceConfig } = props;
 
-  const value = device.child?.driverName || '';
+  const value = deviceConfig.child?.driverName || '';
 
   const onChange = (v: string) => {
-    DeviceConfigService.setChild(device.id, v);
+    DeviceConfigService.setChild(deviceConfig.id, v);
   };
   return (
     <div id="adapter-select">

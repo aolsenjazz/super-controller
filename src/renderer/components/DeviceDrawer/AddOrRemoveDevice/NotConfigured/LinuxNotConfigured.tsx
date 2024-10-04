@@ -1,21 +1,21 @@
 import { useCallback } from 'react';
 
-import { useSelectedDevice } from '@context/selected-device-context';
 import { DRIVERS } from '@shared/drivers';
-import { useDeviceConnectionDetails } from '@hooks/use-device-connection-details';
 
 import DriverRequestButton from '../../../DriverRequestButton';
 import BasicSelect from '../../../BasicSelect';
 
 const drivers = new Map(Array.from(DRIVERS.entries()));
 
-const { ProjectConfigService } = window;
+const { DeviceConfigService } = window;
 
-export default function LinuxNotConfigured() {
-  const { selectedDevice } = useSelectedDevice();
-  const { deviceConnectionDetails } = useDeviceConnectionDetails(
-    selectedDevice || ''
-  );
+type PropTypes = {
+  name: string;
+  siblingIndex: number;
+};
+
+export default function LinuxNotConfigured(props: PropTypes) {
+  const { name, siblingIndex } = props;
 
   const valueList = Array.from(drivers.keys());
   const labelList = Array.from(drivers.keys());
@@ -23,13 +23,9 @@ export default function LinuxNotConfigured() {
 
   const onChange = useCallback(
     (v: string) => {
-      ProjectConfigService.addDevice(
-        deviceConnectionDetails!.name,
-        deviceConnectionDetails!.siblingIndex,
-        v
-      );
+      DeviceConfigService.addDevice(name, siblingIndex, v);
     },
-    [deviceConnectionDetails]
+    [name, siblingIndex]
   );
 
   return (

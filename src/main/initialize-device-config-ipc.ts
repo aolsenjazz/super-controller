@@ -33,8 +33,12 @@ ipcMain.on(
     HardwarePortService.onConfigChange({ action: 'add', changed: [conf] });
     VirtualPortService.onConfigChange({ action: 'add', changed: [conf] });
 
+    MainWindow.sendReduxEvent({
+      type: 'configuredDevices/setAll',
+      payload: DeviceRegistry.getAll().map((c) => c.toDTO()),
+    });
+
     MainWindow.edited = true;
-    MainWindow.sendConfiguredDevices(DeviceRegistry.getAll().map((c) => c.id));
   }
 );
 
@@ -47,7 +51,10 @@ ipcMain.on(CONFIG.REMOVE_DEVICE, (_e: IpcMainEvent, deviceId: string) => {
   VirtualPortService.onConfigChange({ action: 'remove', changed: [conf] });
 
   MainWindow.edited = true;
-  MainWindow.sendConfiguredDevices(DeviceRegistry.getAll().map((c) => c.id));
+  MainWindow.sendReduxEvent({
+    type: 'configuredDevices/setAll',
+    payload: DeviceRegistry.getAll().map((c) => c.toDTO()),
+  });
 });
 
 /* When a device is removed from project, remove it here and re-init all devices */

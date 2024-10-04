@@ -175,8 +175,11 @@ export class HardwarePortServiceSingleton {
   }
 
   private sendConnectedDevicesToFrontend() {
-    const devices = this.availableHardwarePorts.map((d) => d.id);
-    MainWindow.sendConnectedDevices(devices);
+    const devices = this.availableHardwarePorts.map((d) => d.stub);
+    MainWindow.sendReduxEvent({
+      type: 'connectedDevices/setAll',
+      payload: devices,
+    });
   }
 
   /**

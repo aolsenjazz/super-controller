@@ -88,30 +88,4 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
     //     }
     //   });
   }
-
-  /**
-   * Are the statusString, number, and channel currently in use? Returns true if an input
-   * uses all three params. Useful for avoiding inputs sending the same events
-   *
-   * TODO:
-   */
-  // bindingAvailable(
-  //   statusString: StatusString | 'noteon/noteoff',
-  //   number: number,
-  //   channel: Channel
-  // ) {
-  //   let available = true;
-
-  //   this.inputs.forEach((input) => {
-  //     if (
-  //       input instanceof MonoInputConfig &&
-  //       input.statusString === statusString &&
-  //       input.number === number &&
-  //       input.channel === channel
-  //     ) {
-  //       available = false;
-  //     }
-  //   });
-  //   return available;
-  // }
 }

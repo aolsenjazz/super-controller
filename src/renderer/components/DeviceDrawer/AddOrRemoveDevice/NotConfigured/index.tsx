@@ -3,8 +3,19 @@ import BasicNotConfigured from './BasicNotConfigured';
 
 const { HostService } = window;
 
-export default function NotConfigured() {
+type PropTypes = {
+  name: string;
+  siblingIndex: number;
+};
+
+export default function NotConfigured(props: PropTypes) {
+  const { name, siblingIndex } = props;
+
   const host = HostService.getHost();
 
-  return host === 'darwin' ? <BasicNotConfigured /> : <LinuxNotConfigured />;
+  return host === 'darwin' ? (
+    <BasicNotConfigured name={name} siblingIndex={siblingIndex} />
+  ) : (
+    <LinuxNotConfigured name={name} siblingIndex={siblingIndex} />
+  );
 }

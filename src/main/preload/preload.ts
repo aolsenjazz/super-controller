@@ -12,7 +12,7 @@ import { HostService } from './host-service';
 import { LayoutService } from './layout-service';
 import { MenuService } from './menu-service';
 import { PluginService } from './plugin-service';
-import { ProjectConfigService } from './project-config-service';
+import { ReduxService } from './redux-service';
 
 // the frontend uses a lot of listeners. because of this, this number gets
 // pretty high. If it complains, make sure that we're not leaking memory,
@@ -24,5 +24,5 @@ contextBridge.exposeInMainWorld('MenuService', MenuService);
 contextBridge.exposeInMainWorld('DeviceConfigService', DeviceConfigService);
 contextBridge.exposeInMainWorld('HostService', HostService);
 contextBridge.exposeInMainWorld('PluginService', PluginService);
-contextBridge.exposeInMainWorld('ProjectConfigService', ProjectConfigService);
+contextBridge.exposeInMainWorld('ReduxService', ReduxService);
 contextBridge.exposeInMainWorld('InputConfigService', InputConfigService);

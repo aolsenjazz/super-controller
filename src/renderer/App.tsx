@@ -1,8 +1,11 @@
+import { Provider } from 'react-redux';
+
 import { DeviceProvider } from '@context/selected-device-context';
 import { SelectedInputsProvider } from '@context/selected-inputs-context';
 import { PanelProvider } from '@context/panel-context';
 import { SelectedInputConfigsProvider } from '@context/selected-input-configs-context';
 import { SelectedPluginProvider } from '@context/selected-plugin-context';
+import { store } from './store/store';
 
 import TitleBar from './components/TitleBar';
 
@@ -21,18 +24,20 @@ document.body.ondragover = (event) => {
 
 export default function App() {
   return (
-    <PanelProvider>
-      <DeviceProvider>
-        <SelectedInputsProvider>
-          <SelectedInputConfigsProvider>
-            <SelectedPluginProvider>
-              <TitleBar />
-              <MainContent />
-              <div id="modal-layer" />
-            </SelectedPluginProvider>
-          </SelectedInputConfigsProvider>
-        </SelectedInputsProvider>
-      </DeviceProvider>
-    </PanelProvider>
+    <Provider store={store}>
+      <PanelProvider>
+        <DeviceProvider>
+          <SelectedInputsProvider>
+            <SelectedInputConfigsProvider>
+              <SelectedPluginProvider>
+                <TitleBar />
+                <MainContent />
+                <div id="modal-layer" />
+              </SelectedPluginProvider>
+            </SelectedInputConfigsProvider>
+          </SelectedInputsProvider>
+        </DeviceProvider>
+      </PanelProvider>
+    </Provider>
   );
 }
