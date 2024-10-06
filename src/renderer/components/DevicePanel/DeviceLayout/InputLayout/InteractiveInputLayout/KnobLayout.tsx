@@ -1,3 +1,5 @@
+import { selectById } from '@features/input-configs/input-configs-slice';
+import { useAppSelector } from '@hooks/use-app-dispatch';
 import { selectSelectedDevice } from '@selectors/selected-device-selector';
 import { KnobDTO } from '@shared/hardware-config/input-config/knob-config';
 import { useCallback, useEffect, useState } from 'react';
@@ -31,9 +33,8 @@ type PropTypes = {
 };
 
 export function Knob(props: PropTypes) {
-  const { shape, endless } = props;
-  const selectedDevice = useSelector(selectSelectedDevice)!;
-  const config = selectedDevice.config as KnobDTO | undefined;
+  const { shape, endless, id } = props;
+  const config = useAppSelector((state) => selectById(state, id));
 
   const [curDeg, setCurDeg] = useState(127);
   const [isEndless, setEndless] = useState(endless);
@@ -50,9 +51,10 @@ export function Knob(props: PropTypes) {
 
   useEffect(() => {
     if (!config) return () => {};
-    setEndless(config.valueType === 'endless');
+    const asKnob = config as KnobDTO;
+    setEndless(asKnob.valueType === 'endless');
 
-    const def = config.defaults;
+    const def = asKnob.defaults;
     const off = InputConfigService.onInputEvent(
       config.id,
       def.statusString,

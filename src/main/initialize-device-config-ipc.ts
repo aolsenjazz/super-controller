@@ -15,6 +15,7 @@ import { PluginRegistry } from './plugin-registry';
 import { DeviceRegistry } from './device-registry';
 import { HardwarePortService } from './port-service';
 import { VirtualPortService } from './port-service/virtual/virtual-port-service';
+import { InputRegistry } from './input-registry';
 
 const { MainWindow } = WindowProvider;
 
@@ -37,6 +38,15 @@ ipcMain.on(
       type: 'configuredDevices/setAll',
       payload: DeviceRegistry.getAll().map((c) => c.toDTO()),
     });
+
+    if (conf instanceof SupportedDeviceConfig) {
+      const inputs = conf.inputs.map((id) => InputRegistry.get(id)!);
+
+      MainWindow.sendReduxEvent({
+        type: 'inputConfigs/upsertMany',
+        payload: inputs.map((i) => i.toDTO()),
+      });
+    }
 
     MainWindow.edited = true;
   }
