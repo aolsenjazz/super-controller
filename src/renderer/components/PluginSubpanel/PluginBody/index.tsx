@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
-import { useConnectedDevices } from '@hooks/use-connected-devices';
-import { useDeviceConfig } from '@hooks/use-device-config';
 
 import './PluginBody.css';
+import { useSelector } from 'react-redux';
+import { selectUnifiedDevices } from '@selectors/unified-devices-selector';
+import { selectSelectedDevice } from '@selectors/selected-device-selector';
 
 type PropTypes = {
   pluginId: string;
@@ -14,10 +15,13 @@ type PropTypes = {
 };
 
 export default function PluginBody(props: PropTypes) {
-  const { pluginId, title, selectedDevice, importPlugin } = props;
+  const { pluginId, title, importPlugin } = props;
 
-  const { deviceConfig } = useDeviceConfig(selectedDevice);
-  const { connectedDeviceIds } = useConnectedDevices();
+  const selectedDevice = useSelector(selectSelectedDevice)!;
+  const connectedDevices = useSelector(selectUnifiedDevices);
+  const connectedDeviceIds = connectedDevices
+    .filter((c) => c.connectionDetails)
+    .map((c) => c.id);
 
   const [UI, setUI] = useState<React.FC<PluginUIProps>>();
 
@@ -32,7 +36,7 @@ export default function PluginBody(props: PropTypes) {
       });
   }, [title, importPlugin]);
 
-  if (deviceConfig === undefined) {
+  if (selectedDevice.config === undefined) {
     throw new Error(
       'deviceConfig must not be undefined when rendering PluginUI'
     );
@@ -43,7 +47,7 @@ export default function PluginBody(props: PropTypes) {
       {UI && (
         <UI
           pluginId={pluginId}
-          selectedDevice={deviceConfig}
+          selectedDevice={selectedDevice.config}
           connectedDevices={connectedDeviceIds}
         />
       )}
