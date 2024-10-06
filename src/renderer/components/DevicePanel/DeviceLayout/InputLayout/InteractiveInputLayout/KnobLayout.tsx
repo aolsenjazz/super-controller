@@ -1,9 +1,8 @@
+import { useCallback, useEffect, useState } from 'react';
+
 import { selectById } from '@features/input-configs/input-configs-slice';
 import { useAppSelector } from '@hooks/use-app-dispatch';
-import { selectSelectedDevice } from '@selectors/selected-device-selector';
 import { KnobDTO } from '@shared/hardware-config/input-config/knob-config';
-import { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 const { InputConfigService } = window;
 
