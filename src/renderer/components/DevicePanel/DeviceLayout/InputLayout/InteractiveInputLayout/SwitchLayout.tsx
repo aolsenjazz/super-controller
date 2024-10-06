@@ -1,7 +1,8 @@
-import { useSelectedDevice } from '@context/selected-device-context';
 import { useInputState } from '@hooks/use-input-state';
+import { selectSelectedDevice } from '@selectors/selected-device-selector';
 import { SwitchState } from '@shared/hardware-config/input-config/switch-config';
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 type PropTypes = {
   steps: NumberArrayWithStatus[];
@@ -12,7 +13,7 @@ type PropTypes = {
 export function SwitchLayout(props: PropTypes) {
   const { initialStep, steps, id } = props;
 
-  const { selectedDevice } = useSelectedDevice();
+  const selectedDevice = useSelector(selectSelectedDevice);
   const defaultState = useMemo(() => {
     return {
       step: initialStep,
@@ -20,7 +21,7 @@ export function SwitchLayout(props: PropTypes) {
   }, [initialStep]);
 
   const { state } = useInputState<SwitchState>(
-    selectedDevice || '',
+    selectedDevice!.id,
     id,
     defaultState
   );

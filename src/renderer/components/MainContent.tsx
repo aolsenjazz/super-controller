@@ -4,7 +4,7 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { PanelState, usePanels } from '@context/panel-context';
 
 import DeviceDrawer from './DeviceDrawer';
-import DevicePanel from './DevicePanel';
+import DevicePanelContainer from './DevicePanel/DevicePanelContainer';
 import InputConfigDrawer from './InputConfigDrawer';
 
 type ImperativePanelActions = {
@@ -66,7 +66,7 @@ export default function MainContent() {
           }}
         />
         <Panel minSize={25} id="main" order={1}>
-          <DevicePanel />
+          <DevicePanelContainer />
         </Panel>
         <PanelResizeHandle
           className="drag-handle"

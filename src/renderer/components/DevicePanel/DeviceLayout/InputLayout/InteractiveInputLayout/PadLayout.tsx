@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import { useSelectedDevice } from '@context/selected-device-context';
 import { Color, PadDriver } from '@shared/driver-types';
 import { subtractMidiArrays } from '@shared/util';
+import { useSelector } from 'react-redux';
+import { selectSelectedDevice } from '@selectors/selected-device-selector';
 
 const { HostService } = window;
 
@@ -13,7 +14,7 @@ type PropTypes = {
 
 export default function Pad(props: PropTypes) {
   const { driver, id } = props;
-  const { selectedDevice } = useSelectedDevice();
+  const selectedDevice = useSelector(selectSelectedDevice);
 
   const [color, setColor] = useState<Color>();
 
@@ -44,7 +45,11 @@ export default function Pad(props: PropTypes) {
       setColor(c);
     }
 
-    const off = HostService.listenToLoopbackMessages(selectedDevice!, id, cb);
+    const off = HostService.listenToLoopbackMessages(
+      selectedDevice!.id,
+      id,
+      cb
+    );
 
     return () => off();
   }, [driver.availableColors, selectedDevice, id]);

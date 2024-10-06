@@ -5,7 +5,9 @@ import {
   ReactNode,
   useEffect,
 } from 'react';
-import { useSelectedDevice } from './selected-device-context';
+import { useSelector } from 'react-redux';
+
+import { selectSelectedDevice } from '@selectors/selected-device-selector';
 
 interface SelectedPluginContextType {
   selectedPlugin: string;
@@ -24,7 +26,7 @@ type PropTypes = {
 export const SelectedPluginProvider = ({ children }: PropTypes) => {
   const [selectedPlugin, setSelectedPlugin] = useState<string>('');
 
-  const { selectedDevice } = useSelectedDevice();
+  const selectedDevice = useSelector(selectSelectedDevice);
 
   useEffect(() => {
     setSelectedPlugin('');

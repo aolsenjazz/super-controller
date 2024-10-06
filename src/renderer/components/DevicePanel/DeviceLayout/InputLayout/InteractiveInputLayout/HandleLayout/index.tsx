@@ -1,6 +1,7 @@
-import { useSelectedDevice } from '@context/selected-device-context';
 import { useInputState } from '@hooks/use-input-state';
+import { selectSelectedDevice } from '@selectors/selected-device-selector';
 import { SliderState } from '@shared/hardware-config/input-config/slider-config';
+import { useSelector } from 'react-redux';
 
 import { HorizontalHandleLayout } from './HorizontalHandleLayout';
 import { VerticalHandleLayout } from './VerticalHandleLayout';
@@ -20,10 +21,10 @@ type PropTypes = {
 export function HandleLayout(props: PropTypes) {
   const { handleWidth, handleHeight, horizontal, inverted, id } = props;
 
-  const { selectedDevice } = useSelectedDevice();
+  const selectedDevice = useSelector(selectSelectedDevice);
 
   const { state } = useInputState<SliderState>(
-    selectedDevice || '',
+    selectedDevice!.id,
     id,
     defaultState
   );

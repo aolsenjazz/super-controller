@@ -1,7 +1,7 @@
-import { useSelectedDevice } from '@context/selected-device-context';
-import { useInputConfig } from '@hooks/use-input-config';
+import { selectSelectedDevice } from '@selectors/selected-device-selector';
 import { KnobDTO } from '@shared/hardware-config/input-config/knob-config';
 import { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const { InputConfigService } = window;
 
@@ -31,9 +31,9 @@ type PropTypes = {
 };
 
 export function Knob(props: PropTypes) {
-  const { shape, endless, id } = props;
-  const { selectedDevice } = useSelectedDevice();
-  const { inputConfig } = useInputConfig<KnobDTO>(selectedDevice || '', id);
+  const { shape, endless } = props;
+  const selectedDevice = useSelector(selectSelectedDevice)!;
+  const config = selectedDevice.config as KnobDTO | undefined;
 
   const [curDeg, setCurDeg] = useState(127);
   const [isEndless, setEndless] = useState(endless);
@@ -49,12 +49,12 @@ export function Knob(props: PropTypes) {
   }, []);
 
   useEffect(() => {
-    if (!selectedDevice || !inputConfig) return () => {};
-    setEndless(inputConfig.valueType === 'endless');
+    if (!config) return () => {};
+    setEndless(config.valueType === 'endless');
 
-    const def = inputConfig.defaults;
+    const def = config.defaults;
     const off = InputConfigService.onInputEvent(
-      selectedDevice,
+      config.id,
       def.statusString,
       def.channel,
       def.number,
@@ -62,7 +62,7 @@ export function Knob(props: PropTypes) {
     );
 
     return () => off();
-  }, [inputConfig, selectedDevice, updateCurDeg]);
+  }, [config, updateCurDeg]);
 
   useEffect(() => {}, []);
 

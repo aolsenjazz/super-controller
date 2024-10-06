@@ -1,4 +1,3 @@
-import { useConfiguredDevices } from '@hooks/use-configured-devices';
 import {
   useState,
   useContext,
@@ -6,7 +5,10 @@ import {
   ReactNode,
   useEffect,
 } from 'react';
-import { useSelectedDevice } from './selected-device-context';
+import { useSelector } from 'react-redux';
+
+import { useConfiguredDevices } from '@hooks/use-configured-devices';
+import { selectSelectedDevice } from '@selectors/selected-device-selector';
 
 interface SelectedInputsContextType {
   selectedInputs: string[];
@@ -25,7 +27,7 @@ type PropTypes = {
 export const SelectedInputsProvider = ({ children }: PropTypes) => {
   const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
 
-  const { selectedDevice } = useSelectedDevice();
+  const selectedDevice = useSelector(selectSelectedDevice);
   const { configuredDeviceIds } = useConfiguredDevices();
 
   useEffect(() => {
