@@ -110,6 +110,10 @@ export class HardwarePortServiceSingleton {
         e.returnValue = port?.stub;
       }
     );
+
+    ipcMain.on(HOST.GET_CONNECTED_DEVICES, (e: IpcMainEvent) => {
+      e.returnValue = this.availableHardwarePorts.map((p) => p.stub);
+    });
   }
 
   public onConfigChange(event: {

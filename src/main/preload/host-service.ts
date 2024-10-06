@@ -61,6 +61,10 @@ export const HostService = {
     return off;
   },
 
+  getConnectedDevices(): DeviceConnectionDetails[] {
+    return ipcRenderer.sendSync(HOST.GET_CONNECTED_DEVICES);
+  },
+
   /**
    * Invokes `func` whenever this device changes. As this data is received from the OS,
    * this information is very unlikely to change for any given session. Also immediately
