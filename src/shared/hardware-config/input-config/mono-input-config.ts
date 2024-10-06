@@ -34,8 +34,13 @@ export abstract class MonoInputConfig<
 
   public plugins: string[];
 
-  constructor(nickname: string, plugins: string[], defaultVals: T) {
-    super(nickname);
+  constructor(
+    deviceId: string,
+    nickname: string,
+    plugins: string[],
+    defaultVals: T
+  ) {
+    super(deviceId, nickname);
 
     this.plugins = plugins;
     this.defaults = defaultVals;
@@ -111,6 +116,6 @@ export abstract class MonoInputConfig<
     const c = this.defaults.channel;
     const n = this.defaults.number;
 
-    return `${ss}.${c}.${n}`;
+    return `${this.deviceId}-${ss}.${c}.${n}`;
   }
 }

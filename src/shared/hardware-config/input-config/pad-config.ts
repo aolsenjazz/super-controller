@@ -5,7 +5,7 @@ import { MonoInputDTO } from './mono-input-dto';
 export class PadConfig extends MonoInputConfig {
   defaultValue?: MidiNumber;
 
-  static fromDriver(d: PadDriver) {
+  static fromDriver(deviceId: string, d: PadDriver) {
     const def = {
       number: d.number,
       channel: d.channel,
@@ -13,7 +13,7 @@ export class PadConfig extends MonoInputConfig {
       response: d.response,
     };
 
-    return new PadConfig('', [], def);
+    return new PadConfig(deviceId, '', [], def);
   }
 
   public get state() {

@@ -93,7 +93,10 @@ ipcMain.on(
       config.plugins = config.plugins.filter((p) => p !== pluginId);
       PluginRegistry.deregister(pluginId);
 
-      WindowProvider.MainWindow.sendConfigStub(config.id, config.toDTO());
+      MainWindow.sendReduxEvent({
+        type: 'configuredDevices/setAll',
+        payload: DeviceRegistry.getAll().map((c) => c.toDTO()),
+      });
     }
   }
 );

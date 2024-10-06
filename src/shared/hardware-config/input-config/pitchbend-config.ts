@@ -13,7 +13,7 @@ import type { MonoInputDTO } from './mono-input-dto';
  * create configs from drivers, `config.number` is instead just assigned a meaningless number.
  */
 export class PitchbendConfig extends MonoInputConfig {
-  static fromDriver(d: MonoInteractiveDriver) {
+  static fromDriver(deviceId: string, d: MonoInteractiveDriver) {
     const def = {
       number: d.number,
       channel: d.channel,
@@ -21,7 +21,7 @@ export class PitchbendConfig extends MonoInputConfig {
       response: d.response,
     };
 
-    return new PitchbendConfig('', [], def);
+    return new PitchbendConfig(deviceId, '', [], def);
   }
 
   public toDTO(): MonoInputDTO {

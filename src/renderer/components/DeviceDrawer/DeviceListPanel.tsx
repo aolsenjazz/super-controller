@@ -27,8 +27,8 @@ export default function DeviceListPanel(props: PropTypes) {
             deviceId={d.id}
             selected={selectedDevice.id === d.id}
             onClick={() => dispatch(setId(d.id))}
-            connected={d.connectionDetails !== undefined}
-            configured={d.config !== undefined}
+            config={d.config}
+            connectionDetails={d.connectionDetails}
           />
         );
       })}

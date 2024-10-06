@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux';
+
+import { selectSelectedInputs } from '@features/selected-inputs/selected-inputs-slice';
 import { InputDriver, InteractiveInputDriver } from '@shared/driver-types';
 import { id } from '@shared/util';
-import { useSelectedInputs } from '../../../../context/selected-inputs-context';
+import { selectSelectedDevice } from '@selectors/selected-device-selector';
 
 import InteractiveInputLayout from './InteractiveInputLayout';
 import NoninteractiveInputLayout from './NoninteractiveInputLayout';
@@ -14,11 +17,13 @@ type InputLayoutPropTypes = {
 
 export default function InputLayout(props: InputLayoutPropTypes) {
   const { driver, width, height, onClick } = props;
-  const { selectedInputs } = useSelectedInputs();
+  const selectedDevice = useSelector(selectSelectedDevice);
+  const selectedInputs = useSelector(selectSelectedInputs);
 
   let Element;
   if (driver.interactive) {
-    const inputId = id(driver as InteractiveInputDriver);
+    const inputIdStub = id(driver as InteractiveInputDriver);
+    const inputId = `${selectedDevice!.id}-${inputIdStub}`;
     const focus = selectedInputs.includes(inputId);
 
     Element = (
@@ -31,7 +36,10 @@ export default function InputLayout(props: InputLayoutPropTypes) {
           height,
         }}
       >
-        <InteractiveInputLayout driver={driver as InteractiveInputDriver} />
+        <InteractiveInputLayout
+          deviceId={selectedDevice!.id}
+          driver={driver as InteractiveInputDriver}
+        />
       </div>
     );
   } else {

@@ -1,10 +1,16 @@
 import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 
 import { DeviceDriver } from '@shared/driver-types';
+import { useAppDispatch } from '@hooks/use-app-dispatch';
+
+import {
+  selectSelectedInputs,
+  setSelectedInputs,
+} from '@features/selected-inputs/selected-inputs-slice';
 
 import DeviceLayout from './DeviceLayout';
 import WarningIcon from '../WarningIcon';
-import { useSelectedInputs } from '../../context/selected-inputs-context';
 
 const throttleWarning =
   "Because this is an older device, it can't process MIDI data as fast. Messages received by this device from SuperController may have a noticeable delay.";
@@ -18,7 +24,8 @@ export default function DeviceLayoutWrapper(
 ): React.ReactElement {
   const { driver } = props;
 
-  const { selectedInputs, setSelectedInputs } = useSelectedInputs();
+  const dispatch = useAppDispatch();
+  const selectedInputs = useSelector(selectSelectedInputs);
 
   // on input click (or ctrl+click) update selectedInputs
   const onInputSelect = useCallback(
@@ -39,9 +46,9 @@ export default function DeviceLayoutWrapper(
           JSON.stringify(selectedInputs) === JSON.stringify(ids) ? [] : ids;
       }
 
-      setSelectedInputs(next);
+      dispatch(setSelectedInputs(next));
     },
-    [selectedInputs, setSelectedInputs]
+    [dispatch, selectedInputs]
   );
 
   return (

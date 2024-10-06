@@ -8,7 +8,7 @@ export interface SliderState extends InputState {
 }
 
 export class SliderConfig extends MonoInputConfig {
-  static fromDriver(d: InputDriverWithHandle) {
+  static fromDriver(deviceId: string, d: InputDriverWithHandle) {
     const def = {
       number: d.number,
       channel: d.channel,
@@ -16,7 +16,7 @@ export class SliderConfig extends MonoInputConfig {
       response: d.response,
     };
 
-    return new SliderConfig('', [], def);
+    return new SliderConfig(deviceId, '', [], def);
   }
 
   public toDTO(): MonoInputDTO {

@@ -15,12 +15,13 @@ import { SwitchLayout } from './SwitchLayout';
 import XYLayout from './XYLayout';
 
 type InputLayoutPropTypes = {
+  deviceId: string;
   driver: InteractiveInputDriver;
 };
 
 export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
-  const { driver } = props;
-  const id = idForInput(driver);
+  const { driver, deviceId } = props;
+  const id = `${deviceId}-${idForInput(driver)}`;
 
   if (driver.type === 'pad') {
     return <Pad driver={driver as PadDriver} id={id} />;

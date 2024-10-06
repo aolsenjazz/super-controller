@@ -1,5 +1,6 @@
-import { useSelectedInputConfigs } from '@context/selected-input-configs-context';
-import { useSelectedInputs } from '@context/selected-inputs-context';
+import { selectMany } from '@features/input-configs/input-configs-slice';
+import { selectSelectedInputs } from '@features/selected-inputs/selected-inputs-slice';
+import { useAppSelector } from '@hooks/use-app-dispatch';
 import { selectSelectedDevice } from '@selectors/selected-device-selector';
 import { useSelector } from 'react-redux';
 
@@ -7,11 +8,12 @@ import BasicMessage from './BasicMessage';
 import InputConfigPanel from './InputConfigPanel';
 
 export default function InputConfigDrawer() {
-  const selectedDevice = useSelector(selectSelectedDevice)!;
-  const { config } = selectedDevice;
-  const { selectedInputs } = useSelectedInputs();
-
-  const { inputConfigs } = useSelectedInputConfigs();
+  const selectedDevice = useSelector(selectSelectedDevice);
+  const config = selectedDevice?.config;
+  const selectedInputs = useSelector(selectSelectedInputs);
+  const inputConfigs = useAppSelector((state) =>
+    selectMany(state, selectedInputs)
+  );
 
   let Element: JSX.Element | null = null;
 

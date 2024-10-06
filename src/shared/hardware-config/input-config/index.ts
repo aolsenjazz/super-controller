@@ -14,23 +14,23 @@ import { SliderConfig } from './slider-config';
 import { SwitchConfig } from './switch-config';
 import { PitchbendConfig } from './pitchbend-config';
 
-export function create(d: InteractiveInputDriver) {
+export function create(deviceId: string, d: InteractiveInputDriver) {
   switch (d.type) {
     case 'knob':
-      return KnobConfig.fromDriver(d as KnobDriver);
+      return KnobConfig.fromDriver(deviceId, d as KnobDriver);
     case 'pad':
-      return PadConfig.fromDriver(d as PadDriver);
+      return PadConfig.fromDriver(deviceId, d as PadDriver);
     case 'wheel':
     case 'slider':
       // eslint-disable-next-line no-case-declarations
       const wheel = d as InputDriverWithHandle;
       return wheel.status === 'pitchbend'
-        ? PitchbendConfig.fromDriver(wheel)
-        : SliderConfig.fromDriver(wheel);
+        ? PitchbendConfig.fromDriver(deviceId, wheel)
+        : SliderConfig.fromDriver(deviceId, wheel);
     case 'xy':
-      return XYConfig.fromDriver(d as XYDriver);
+      return XYConfig.fromDriver(deviceId, d as XYDriver);
     case 'switch':
-      return SwitchConfig.fromDriver(d as SwitchDriver);
+      return SwitchConfig.fromDriver(deviceId, d as SwitchDriver);
     default:
       throw new Error(`unrecognized driver type ${d.type}`);
   }

@@ -6,4 +6,5 @@ export interface MonoInputDTO<T extends InputDefault = InputDefault>
   defaults: T;
   colorCapable: boolean;
   plugins: string[];
+  deviceId: string;
 }

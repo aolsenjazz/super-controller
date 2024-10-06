@@ -21,7 +21,10 @@ export abstract class BaseInputConfig<T extends InputDTO = InputDTO>
 {
   protected nickname: string = '';
 
-  constructor(nickname: string) {
+  readonly deviceId: string;
+
+  constructor(deviceId: string, nickname: string) {
+    this.deviceId = deviceId;
     this.nickname = nickname;
   }
 

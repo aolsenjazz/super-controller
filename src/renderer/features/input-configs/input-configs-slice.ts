@@ -1,10 +1,10 @@
-import { createEntityAdapter } from '@reduxjs/toolkit';
-import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
+import { createEntityAdapter, createSelector } from '@reduxjs/toolkit';
+import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 import type { RootState } from 'renderer/store/store';
 import { createAppSlice } from '../../store/createAppSlice';
 
 const inputConfigsEntityAdapter = createEntityAdapter({
-  selectId: (conf: InputDTO) => conf.id,
+  selectId: (conf: MonoInputDTO) => conf.id,
 });
 
 export const inputConfigsSlice = createAppSlice({
@@ -19,7 +19,12 @@ export const inputConfigsSlice = createAppSlice({
   },
 });
 
-export const { selectById, selectAll } =
+export const { selectById, selectAll, selectEntities, selectIds } =
   inputConfigsEntityAdapter.getSelectors<RootState>(
     (state) => state.inputConfigs
   );
+
+export const selectMany = createSelector(
+  [selectEntities, (_: RootState, ids: string[]) => ids],
+  (entities, ids) => ids.map((id) => entities[id]).filter(Boolean)
+);

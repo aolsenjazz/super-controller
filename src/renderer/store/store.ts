@@ -7,12 +7,14 @@ import { connectedDevicesSlice } from '../features/connected-devices/connected-d
 import { configuredDevicesSlice } from '../features/configured-devices/configured-devices-slice';
 import { selectedDeviceIdSlice } from '../features/selected-device-id/selected-device-id-slice';
 import { inputConfigsSlice } from '../features/input-configs/input-configs-slice';
+import { selectedInputsSlice } from '../features/selected-inputs/selected-inputs-slice';
 
 const rootReducer = combineSlices(
   connectedDevicesSlice,
   configuredDevicesSlice,
   selectedDeviceIdSlice,
-  inputConfigsSlice
+  inputConfigsSlice,
+  selectedInputsSlice
 );
 export type RootState = ReturnType<typeof rootReducer>;
 

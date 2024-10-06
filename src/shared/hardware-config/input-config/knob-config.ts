@@ -17,7 +17,7 @@ interface KnobDefaults extends InputDefault {
 }
 
 export class KnobConfig extends MonoInputConfig<KnobDefaults> {
-  static fromDriver(d: KnobDriver) {
+  static fromDriver(deviceId: string, d: KnobDriver) {
     const def = {
       number: d.number,
       channel: d.channel,
@@ -26,7 +26,7 @@ export class KnobConfig extends MonoInputConfig<KnobDefaults> {
       knobType: d.knobType,
     };
 
-    return new KnobConfig('', [], def);
+    return new KnobConfig(deviceId, '', [], def);
   }
 
   applyStub(s: KnobDTO) {

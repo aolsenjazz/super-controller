@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
-import { useInputState } from '@hooks/use-input-state';
-import { selectSelectedDevice } from '@selectors/selected-device-selector';
+// import { selectSelectedDevice } from '@selectors/selected-device-selector';
 import { XYDriver } from '@shared/driver-types';
-import { XYState } from '@shared/hardware-config/input-config/xy-config';
+// import { XYState } from '@shared/hardware-config/input-config/xy-config';
 
 type PropTypes = {
   handleWidth: string;
@@ -16,7 +15,7 @@ type PropTypes = {
 export default function XYLayout(props: PropTypes) {
   const { handleWidth, handleHeight, id, driver } = props;
 
-  const selectedDevice = useSelector(selectSelectedDevice);
+  // const selectedDevice = useSelector(selectSelectedDevice);
   const initialState = useMemo(() => {
     return {
       x: {
@@ -28,11 +27,12 @@ export default function XYLayout(props: PropTypes) {
     };
   }, []);
 
-  const { state } = useInputState<XYState>(
-    selectedDevice!.id,
-    id,
-    initialState
-  );
+  // const { state } = useInputState<XYState>(
+  //   selectedDevice!.id,
+  //   id,
+  //   initialState
+  // );
+  const state = initialState;
 
   if (state === undefined) return null;
 

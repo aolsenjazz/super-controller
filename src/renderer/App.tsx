@@ -1,8 +1,6 @@
 import { Provider } from 'react-redux';
 
-import { SelectedInputsProvider } from '@context/selected-inputs-context';
 import { PanelProvider } from '@context/panel-context';
-import { SelectedInputConfigsProvider } from '@context/selected-input-configs-context';
 import { SelectedPluginProvider } from '@context/selected-plugin-context';
 import { store } from './store/store';
 
@@ -25,15 +23,11 @@ export default function App() {
   return (
     <Provider store={store}>
       <PanelProvider>
-        <SelectedInputsProvider>
-          <SelectedInputConfigsProvider>
-            <SelectedPluginProvider>
-              <TitleBar />
-              <MainContent />
-              <div id="modal-layer" />
-            </SelectedPluginProvider>
-          </SelectedInputConfigsProvider>
-        </SelectedInputsProvider>
+        <SelectedPluginProvider>
+          <TitleBar />
+          <MainContent />
+          <div id="modal-layer" />
+        </SelectedPluginProvider>
       </PanelProvider>
     </Provider>
   );

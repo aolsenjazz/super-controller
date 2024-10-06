@@ -11,7 +11,7 @@ export interface SwitchDTO extends InputDTO {
 }
 
 export class SwitchConfig extends BaseInputConfig<SwitchDTO> {
-  static fromDriver(_d: SwitchDriver) {
+  static fromDriver(deviceId: string, _d: SwitchDriver) {
     // TODO: interesting change of API here acutally - probably make ssense to rewrite this like an xy config, but just as a list of constant configs
     // const steps = new Map<string, MidiArray>(
     //   d.steps.map((step) => {
@@ -19,7 +19,7 @@ export class SwitchConfig extends BaseInputConfig<SwitchDTO> {
     //   })
     // );
 
-    return new SwitchConfig('');
+    return new SwitchConfig(deviceId, '');
   }
 
   public toDTO(): SwitchDTO {
