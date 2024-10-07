@@ -28,8 +28,8 @@ export const InputConfigService = {
     );
   },
 
-  updateInputs(deviceId: string, configs: InputDTO[]) {
-    ipcRenderer.send(INPUT_CONFIG.UPDATE_INPUT, deviceId, configs);
+  updateInputs(configs: InputDTO[]) {
+    ipcRenderer.send(INPUT_CONFIG.UPDATE_INPUT, configs);
   },
 
   getInputConfig(deviceId: string, inputId: string) {

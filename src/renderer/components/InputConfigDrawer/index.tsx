@@ -1,7 +1,4 @@
-import {
-  selectAllInputConfigs,
-  selectManyInputConfigs,
-} from '@features/input-configs/input-configs-slice';
+import { selectManyInputConfigs } from '@features/input-configs/input-configs-slice';
 import { selectSelectedInputs } from '@features/selected-inputs/selected-inputs-slice';
 import { useAppSelector } from '@hooks/use-app-dispatch';
 import { selectSelectedDevice } from '@selectors/selected-device-selector';

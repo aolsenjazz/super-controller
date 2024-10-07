@@ -44,7 +44,7 @@ export default function InputConfigSubpanel(props: InputConfigurationProps) {
 
   return (
     <>
-      <InputDetailsSubpanel configs={inputConfigs} deviceId={config.id} />
+      <InputDetailsSubpanel configs={inputConfigs} />
       {homogenous ? (
         Element
       ) : (

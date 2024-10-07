@@ -7,13 +7,12 @@ import SectionHeader from '../../SectionHeader';
 
 type PropTypes = {
   configs: InputDTO[];
-  deviceId: string;
 };
 
 const { InputConfigService } = window;
 
 export default function InputDetailsSubpanel(props: PropTypes) {
-  const { configs, deviceId } = props;
+  const { configs } = props;
 
   const name = useMemo(() => {
     return configs.length > 1
@@ -31,9 +30,9 @@ export default function InputDetailsSubpanel(props: PropTypes) {
         ...configs[0],
         nickname: n,
       };
-      InputConfigService.updateInputs(deviceId, [newConf]);
+      InputConfigService.updateInputs([newConf]);
     },
-    [configs, deviceId]
+    [configs]
   );
 
   return (
