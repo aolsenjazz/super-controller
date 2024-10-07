@@ -2,6 +2,7 @@ import { app, Event } from 'electron';
 import os from 'os';
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS,
 } from 'electron-extension-installer';
 
 import { WindowProvider } from './window-provider';
@@ -22,6 +23,7 @@ async function installRDT() {
     process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
   if (isDebug) {
+    await installExtension(REDUX_DEVTOOLS);
     await installExtension(REACT_DEVELOPER_TOOLS, {
       loadExtensionOptions: {
         allowFileAccess: true,

@@ -49,7 +49,10 @@ export async function createInputPluginMenu(
             input.plugins.push(plugin.id);
             PluginRegistry.register(plugin.id, plugin);
 
-            MainWindow.sendInputConfig(deviceId, id, input.toDTO());
+            MainWindow.sendReduxEvent({
+              type: 'inputConfigs/upsertOne',
+              payload: input.toDTO(),
+            });
           } else {
             // TODO: How do we handle adding plugin to multi-input configs?
             // eslint-disable-next-line no-console
