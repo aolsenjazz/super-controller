@@ -83,7 +83,11 @@ ipcMain.on(
 
     if (config) {
       config.applyStub(updates);
-      MainWindow.sendConfigStub(config.id, config.toDTO());
+
+      MainWindow.sendReduxEvent({
+        type: 'configuredDevices/upsertOne',
+        payload: config.toDTO(),
+      });
     }
   }
 );

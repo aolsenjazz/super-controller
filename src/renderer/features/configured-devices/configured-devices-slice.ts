@@ -17,6 +17,7 @@ export const configuredDevicesSlice = createAppSlice({
 
   reducers: {
     setAll: configuredDevicesAdapter.setAll,
+    upsertOne: configuredDevicesAdapter.upsertOne,
   },
 });
 
