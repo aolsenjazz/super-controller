@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import { HorizontalHandleLayout } from './HorizontalHandleLayout';
 import { VerticalHandleLayout } from './VerticalHandleLayout';
 
-const defaultState = {
-  value: 127 as MidiNumber,
-};
+// const defaultState = {
+//   value: 127 as MidiNumber,
+// };
 
 type PropTypes = {
   handleWidth: string;

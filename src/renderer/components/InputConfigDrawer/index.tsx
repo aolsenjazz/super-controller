@@ -1,4 +1,7 @@
-import { selectMany } from '@features/input-configs/input-configs-slice';
+import {
+  selectAllInputConfigs,
+  selectManyInputConfigs,
+} from '@features/input-configs/input-configs-slice';
 import { selectSelectedInputs } from '@features/selected-inputs/selected-inputs-slice';
 import { useAppSelector } from '@hooks/use-app-dispatch';
 import { selectSelectedDevice } from '@selectors/selected-device-selector';
@@ -12,7 +15,7 @@ export default function InputConfigDrawer() {
   const config = selectedDevice?.config;
   const selectedInputs = useSelector(selectSelectedInputs);
   const inputConfigs = useAppSelector((state) =>
-    selectMany(state, selectedInputs)
+    selectManyInputConfigs(state, selectedInputs)
   );
 
   let Element: JSX.Element | null = null;

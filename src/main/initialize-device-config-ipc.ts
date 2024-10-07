@@ -6,6 +6,7 @@ import {
   configFromDriver,
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
+import { getQualifiedInputId } from '@shared/util';
 
 import { Anonymous, DRIVERS, getDriver } from '@shared/drivers';
 import { CONFIG, DEVICE_CONFIG } from './ipc-channels';
@@ -40,11 +41,14 @@ ipcMain.on(
     });
 
     if (conf instanceof SupportedDeviceConfig) {
-      const inputs = conf.inputs.map((id) => InputRegistry.get(id)!);
+      const inputDTOs = conf.inputs
+        .map((id) => getQualifiedInputId(conf.id, id))
+        .map((qid) => InputRegistry.get(qid)!)
+        .map((i) => i.toDTO());
 
       MainWindow.sendReduxEvent({
         type: 'inputConfigs/upsertMany',
-        payload: inputs.map((i) => i.toDTO()),
+        payload: inputDTOs,
       });
     }
 

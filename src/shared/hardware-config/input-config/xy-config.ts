@@ -1,7 +1,7 @@
 import { MessageProcessorMeta } from '@shared/message-processor';
+import { getQualifiedInputId } from '@shared/util';
 
 import { idForMsg } from '../../midi-util';
-
 import { XYDriver } from '../../driver-types';
 
 import { PitchbendConfig } from './pitchbend-config';
@@ -105,6 +105,10 @@ export class XYConfig extends BaseInputConfig<XYDTO> {
   }
 
   get id() {
-    return `${this.deviceId}-${this.x.id}-${this.y.id}`;
+    return `${this.x.id}/${this.y.id}`;
+  }
+
+  get qualifiedId() {
+    return getQualifiedInputId(this.deviceId, this.id);
   }
 }

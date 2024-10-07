@@ -7,6 +7,7 @@ import {
   NOTE_ON,
 } from '@shared/midi-util';
 import { PluginProvider } from '@shared/plugin-provider';
+import { getQualifiedInputId } from '@shared/util';
 import type { InputResponse } from '../../driver-types';
 import { BaseInputConfig } from './base-input-config';
 import { MonoInputDTO } from './mono-input-dto';
@@ -116,6 +117,10 @@ export abstract class MonoInputConfig<
     const c = this.defaults.channel;
     const n = this.defaults.number;
 
-    return `${this.deviceId}-${ss}.${c}.${n}`;
+    return `${ss}.${c}.${n}`;
+  }
+
+  public get qualifiedId() {
+    return getQualifiedInputId(this.deviceId, this.id);
   }
 }

@@ -6,7 +6,6 @@ import {
   KnobDriver,
   PadDriver,
 } from '@shared/driver-types';
-import { id as idForInput } from '@shared/util';
 
 import Pad from './PadLayout';
 import { Knob } from './KnobLayout';
@@ -15,23 +14,22 @@ import { SwitchLayout } from './SwitchLayout';
 import XYLayout from './XYLayout';
 
 type InputLayoutPropTypes = {
-  deviceId: string;
+  qualifiedInputId: string;
   driver: InteractiveInputDriver;
 };
 
 export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
-  const { driver, deviceId } = props;
-  const id = `${deviceId}-${idForInput(driver)}`;
+  const { driver, qualifiedInputId } = props;
 
   if (driver.type === 'pad') {
-    return <Pad driver={driver as PadDriver} id={id} />;
+    return <Pad driver={driver as PadDriver} id={qualifiedInputId} />;
   }
 
   if (driver.type === 'knob') {
     const asKnob = driver as KnobDriver;
     return (
       <Knob
-        id={id}
+        id={qualifiedInputId}
         shape={driver.shape}
         endless={asKnob.knobType === 'endless'}
       />
@@ -45,7 +43,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
     return (
       <SwitchLayout
         steps={steps}
-        id={id}
+        id={qualifiedInputId}
         initialStep={steps[asSwitch.initialStep]}
       />
     );
@@ -57,7 +55,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
 
     return (
       <XYLayout
-        id={id}
+        id={qualifiedInputId}
         driver={driver as XYDriver}
         handleHeight={`${(handleWidth / driver.height) * 100}%`}
         handleWidth={`${(handleWidth / driver.width) * 100}%`}
@@ -70,7 +68,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
 
   return (
     <HandleLayout
-      id={id}
+      id={qualifiedInputId}
       handleWidth={`${(handleWidth / driver.width) * 100}%`}
       handleHeight={`${(handleHeight / driver.height) * 100}%`}
       horizontal={horizontal}

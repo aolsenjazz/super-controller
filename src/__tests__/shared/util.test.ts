@@ -3,7 +3,7 @@ import {
   PadDriver,
   InputDriverWithHandle,
 } from '@shared/driver-types';
-import { getDiff, id } from '@shared/util';
+import { getDiff, inputIdFromDriver } from '@shared/util';
 
 const TwoByteDriver: PadDriver = {
   shape: 'circle',
@@ -106,17 +106,17 @@ test('getDiff returns 1 pair at second index', () => {
 
 describe('id', () => {
   test('returns expected ID for xy driver', () => {
-    const result = id(TwoByteDriver);
+    const result = inputIdFromDriver(TwoByteDriver);
     expect(result).toBe('programchange.11.10');
   });
 
   test('returns expected ID for two-byte driver', () => {
-    const result = id(ThreeByteDriver);
+    const result = inputIdFromDriver(ThreeByteDriver);
     expect(result).toBe('controlchange.11.10');
   });
 
   test('returns expected ID for three-byte driver', () => {
-    const result = id(XYDrive);
+    const result = inputIdFromDriver(XYDrive);
     expect(result).toBe('controlchange.11.10pitchbend.12');
   });
 });

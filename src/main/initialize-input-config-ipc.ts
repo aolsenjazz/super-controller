@@ -17,20 +17,15 @@ ipcMain.on(
   INPUT_CONFIG.GET_INPUT_CONFIGS,
   (e: IpcMainEvent, deviceId: string, inputIds: string[]) => {
     e.returnValue = inputIds.map((id) =>
-      InputRegistry.get(`${deviceId}-${id}`)!.toDTO()
+      InputRegistry.get(`${deviceId}::${id}`)!.toDTO()
     );
   }
 );
 
 ipcMain.on(
   INPUT_CONFIG.REMOVE_PLUGIN,
-  (
-    _e: IpcMainEvent,
-    pluginId: string,
-    deviceConfigId: string,
-    inputId: string
-  ) => {
-    const inputConfig = InputRegistry.get(`${inputId}`);
+  (_e: IpcMainEvent, pluginId: string, deviceId: string, inputId: string) => {
+    const inputConfig = InputRegistry.get(`${deviceId}::${inputId}`);
 
     if (inputConfig instanceof MonoInputConfig) {
       inputConfig.plugins = inputConfig.plugins.filter((p) => p !== pluginId);

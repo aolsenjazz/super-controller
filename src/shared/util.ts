@@ -88,10 +88,14 @@ export function msgIdentityEquals(
   }
 }
 
-export function id(driver: InteractiveInputDriver): string {
+export function getQualifiedInputId(deviceId: string, inputId: string) {
+  return `${deviceId}::${inputId}`;
+}
+
+export function inputIdFromDriver(driver: InteractiveInputDriver): string {
   if (driver.type === 'xy') {
     const xy = driver as XYDriver;
-    return `${id(xy.x)}${id(xy.y)}`;
+    return `${inputIdFromDriver(xy.x)}/${inputIdFromDriver(xy.y)}`;
   }
 
   if (driver.type === 'switch') {

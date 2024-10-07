@@ -1,4 +1,5 @@
 import { MessageProcessorMeta } from '@shared/message-processor';
+import { getQualifiedInputId } from '@shared/util';
 import { SwitchDriver } from '../../driver-types';
 import { BaseInputConfig, InputDTO, InputState } from './base-input-config';
 
@@ -74,10 +75,14 @@ export class SwitchConfig extends BaseInputConfig<SwitchDTO> {
     };
   }
 
-  get id() {
+  public get id(): string {
     // const def = this.outputPropagator.defaultStep;
     // return `switch.${def[1]}`;
     // TODO:
     return 'Switch';
+  }
+
+  public get qualifiedId(): string {
+    return getQualifiedInputId(this.deviceId, this.id);
   }
 }

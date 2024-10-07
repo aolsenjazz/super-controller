@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { selectById } from '@features/input-configs/input-configs-slice';
+import { selectInputConfigById } from '@features/input-configs/input-configs-slice';
 import { useAppSelector } from '@hooks/use-app-dispatch';
 import { KnobDTO } from '@shared/hardware-config/input-config/knob-config';
 
@@ -33,7 +33,7 @@ type PropTypes = {
 
 export function Knob(props: PropTypes) {
   const { shape, endless, id } = props;
-  const config = useAppSelector((state) => selectById(state, id));
+  const config = useAppSelector((state) => selectInputConfigById(state, id));
 
   const [curDeg, setCurDeg] = useState(127);
   const [isEndless, setEndless] = useState(endless);

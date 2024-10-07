@@ -11,7 +11,7 @@ import {
 
 import { DeviceConfig, DeviceConfigDTO } from './device-config';
 import { create } from './input-config';
-import { id } from '../util';
+import { inputIdFromDriver, getQualifiedInputId } from '../util';
 
 interface SupportedDeviceConfigDTO extends DeviceConfigDTO {
   inputs: string[];
@@ -52,8 +52,9 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
       .filter((i) => i.interactive)
       .map((i) => i as InteractiveInputDriver)
       .forEach((i) => {
-        InputRegistry.register(`${this.id}-${id(i)}`, create(this.id, i));
-        this.inputs.push(`${this.id}-${id(i)}`);
+        const input = create(this.id, i);
+        InputRegistry.register(input.qualifiedId, input);
+        this.inputs.push(`${inputIdFromDriver(i)}`);
       });
   }
 
@@ -68,7 +69,10 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
 
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
     const message = super.process(msg, meta)!;
-    const input = InputRegistry.get(`${this.id}-${idForMsg(msg, true)}`);
+    const messageIdentifier = idForMsg(msg, true);
+    const input = InputRegistry.get(
+      getQualifiedInputId(this.id, messageIdentifier)
+    );
     return input ? input.process(message, meta) : message;
   }
 

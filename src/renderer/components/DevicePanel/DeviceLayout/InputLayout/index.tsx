@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import { selectSelectedInputs } from '@features/selected-inputs/selected-inputs-slice';
 import { InputDriver, InteractiveInputDriver } from '@shared/driver-types';
-import { id } from '@shared/util';
+import { inputIdFromDriver, getQualifiedInputId } from '@shared/util';
 import { selectSelectedDevice } from '@selectors/selected-device-selector';
 
 import InteractiveInputLayout from './InteractiveInputLayout';
@@ -22,14 +22,14 @@ export default function InputLayout(props: InputLayoutPropTypes) {
 
   let Element;
   if (driver.interactive) {
-    const inputIdStub = id(driver as InteractiveInputDriver);
-    const inputId = `${selectedDevice!.id}-${inputIdStub}`;
-    const focus = selectedInputs.includes(inputId);
+    const inputId = inputIdFromDriver(driver as InteractiveInputDriver);
+    const qualifiedInputId = getQualifiedInputId(selectedDevice!.id, inputId);
+    const focus = selectedInputs.includes(qualifiedInputId);
 
     Element = (
       <div
         className={`input-wrapper ${focus ? 'focus' : ''}`}
-        onClick={(e: React.MouseEvent) => onClick(e, [inputId])}
+        onClick={(e: React.MouseEvent) => onClick(e, [qualifiedInputId])}
         role="presentation"
         style={{
           width,
@@ -37,7 +37,7 @@ export default function InputLayout(props: InputLayoutPropTypes) {
         }}
       >
         <InteractiveInputLayout
-          deviceId={selectedDevice!.id}
+          qualifiedInputId={qualifiedInputId}
           driver={driver as InteractiveInputDriver}
         />
       </div>

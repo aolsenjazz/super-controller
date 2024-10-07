@@ -5,7 +5,7 @@ import {
   getInputManifests,
   importInputSubcomponent,
 } from '@plugins/plugin-loader';
-import { id as driverToId } from '@shared/util';
+import { inputIdFromDriver } from '@shared/util';
 import { MonoInputConfig } from '@shared/hardware-config';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
 import { DRIVERS } from '@shared/drivers';
@@ -32,13 +32,13 @@ export async function createInputPluginMenu(
 
         inputIds.forEach(async (id) => {
           const input = InputRegistry.get(id);
-          const idStub = id.split('-')[1];
+          const idStub = id.split('::')[1];
 
           const inputDriver = devDriver.inputGrids
             .flatMap((ig) => ig.inputs)
             .filter((i) => i.interactive === true)
             .map((i) => i as InteractiveInputDriver)
-            .find((d) => driverToId(d) === idStub);
+            .find((d) => inputIdFromDriver(d) === idStub);
 
           if (input instanceof MonoInputConfig) {
             const Plugin = await importInputSubcomponent(m.title, 'plugin');

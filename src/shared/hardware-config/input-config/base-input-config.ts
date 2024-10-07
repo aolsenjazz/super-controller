@@ -12,6 +12,7 @@ export interface InputState {}
 
 export interface InputDTO extends BaseIcicle {
   id: string;
+  deviceId: string;
   nickname: string;
   type: InputType;
 }
@@ -30,6 +31,7 @@ export abstract class BaseInputConfig<T extends InputDTO = InputDTO>
 
   public toDTO(): T {
     return {
+      deviceId: this.deviceId,
       id: this.id,
       nickname: this.nickname,
       type: this.type,
@@ -46,7 +48,18 @@ export abstract class BaseInputConfig<T extends InputDTO = InputDTO>
     pluginProvider: PluginProvider
   ): void;
 
+  /**
+   * Identifier for this input config, determiend by the messages it sends. This identifier
+   * alone isn't enough to differentiate between configuration of similar inputs on
+   * different, devices of the same model; use `qualifiedId` to disambiguate
+   */
   public abstract get id(): string;
+
+  /**
+   * Identifier for this input config, with appended device ID to differentiate between
+   * configs set for different devices of the same model.
+   */
+  public abstract get qualifiedId(): string;
 
   public abstract get state(): InputState;
 
