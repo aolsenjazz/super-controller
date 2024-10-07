@@ -31,7 +31,8 @@ export async function createInputPluginMenu(
         const devDriver = DRIVERS.get(dev.driverName)!;
 
         inputIds.forEach(async (id) => {
-          const input = InputRegistry.get(`${deviceId}-${id}`);
+          const input = InputRegistry.get(id);
+          console.log('sanity', input);
 
           const inputDriver = devDriver.inputGrids
             .flatMap((ig) => ig.inputs)
