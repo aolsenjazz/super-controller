@@ -5,12 +5,12 @@ import {
   BaseInputConfig,
   InputDTO,
 } from '@shared/hardware-config/input-config/base-input-config';
+import { getQualifiedInputId } from '@shared/util';
 
 import { INPUT_CONFIG } from './ipc-channels';
 import { WindowProvider } from './window-provider';
 import { PluginRegistry } from './plugin-registry';
 import { InputRegistry } from './input-registry';
-import { getQualifiedInputId } from '@shared/util';
 
 const { MainWindow } = WindowProvider;
 
