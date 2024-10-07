@@ -32,13 +32,13 @@ export async function createInputPluginMenu(
 
         inputIds.forEach(async (id) => {
           const input = InputRegistry.get(id);
-          console.log('sanity', input);
+          const idStub = id.split('-')[1];
 
           const inputDriver = devDriver.inputGrids
             .flatMap((ig) => ig.inputs)
             .filter((i) => i.interactive === true)
             .map((i) => i as InteractiveInputDriver)
-            .find((d) => driverToId(d) === id);
+            .find((d) => driverToId(d) === idStub);
 
           if (input instanceof MonoInputConfig) {
             const Plugin = await importInputSubcomponent(m.title, 'plugin');

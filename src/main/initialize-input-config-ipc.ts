@@ -30,13 +30,16 @@ ipcMain.on(
     deviceConfigId: string,
     inputId: string
   ) => {
-    const inputConfig = InputRegistry.get(`${deviceConfigId}-${inputId}`);
+    const inputConfig = InputRegistry.get(`${inputId}`);
 
     if (inputConfig instanceof MonoInputConfig) {
       inputConfig.plugins = inputConfig.plugins.filter((p) => p !== pluginId);
 
       PluginRegistry.deregister(pluginId);
-      MainWindow.sendInputConfig(deviceConfigId, inputId, inputConfig.toDTO());
+      MainWindow.sendReduxEvent({
+        type: 'inputConfigs/upsertOne',
+        payload: inputConfig.toDTO(),
+      });
     }
   }
 );

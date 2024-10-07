@@ -16,6 +16,7 @@ export const inputConfigsSlice = createAppSlice({
     upsertOne: inputConfigsEntityAdapter.upsertOne,
     upsertMany: inputConfigsEntityAdapter.upsertMany,
     removeMany: inputConfigsEntityAdapter.removeMany,
+    removeOne: inputConfigsEntityAdapter.removeOne,
   },
 });
 
