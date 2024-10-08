@@ -21,7 +21,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
-      MenuService.showInputPluginMenu(x, y, deviceId, [input.id]);
+      MenuService.showInputPluginMenu(x, y, deviceId, input.id);
     },
     [input, deviceId]
   );
