@@ -28,7 +28,7 @@ export async function createDevicePluginMenu(deviceId: string) {
     // Tell the frontend
     WindowProvider.MainWindow.sendReduxEvent({
       type: 'configuredDevices/upsertOne',
-      payload: dev,
+      payload: dev.toDTO(),
     });
   };
 

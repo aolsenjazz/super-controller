@@ -7,7 +7,7 @@ import {
 } from '@shared/hardware-config/input-config/base-input-config';
 import { getQualifiedInputId } from '@shared/util';
 
-import { INPUT_CONFIG, MENU } from './ipc-channels';
+import { INPUT_CONFIG } from './ipc-channels';
 import { WindowProvider } from './window-provider';
 import { PluginRegistry } from './plugin-registry';
 import { InputRegistry } from './input-registry';
@@ -16,7 +16,7 @@ import { createInputPluginMenu } from './menu/input-plugin-menu';
 const { MainWindow } = WindowProvider;
 
 ipcMain.on(
-  MENU.INPUT_PLUGIN_MENU,
+  INPUT_CONFIG.INPUT_PLUGIN_MENU,
   async (e: IpcMainEvent, x: number, y: number, inputId: string) => {
     const template = await createInputPluginMenu(inputId);
     const menu = Menu.buildFromTemplate(template);

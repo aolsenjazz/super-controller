@@ -9,7 +9,7 @@ import {
 import { getQualifiedInputId } from '@shared/util';
 import { Anonymous, DRIVERS, getDriver } from '@shared/drivers';
 
-import { CONFIG, DEVICE_CONFIG, MENU } from './ipc-channels';
+import { DEVICE_CONFIG } from './ipc-channels';
 
 import { WindowProvider } from './window-provider';
 import { PluginRegistry } from './plugin-registry';
@@ -22,7 +22,7 @@ import { createDevicePluginMenu } from './menu/device-plugin-menu';
 const { MainWindow } = WindowProvider;
 
 ipcMain.on(
-  CONFIG.ADD_DEVICE,
+  DEVICE_CONFIG.ADD_DEVICE,
   (
     _e: IpcMainEvent,
     deviceName: string,
@@ -57,23 +57,26 @@ ipcMain.on(
   }
 );
 
-ipcMain.on(CONFIG.REMOVE_DEVICE, (_e: IpcMainEvent, deviceId: string) => {
-  const conf = DeviceRegistry.get(deviceId)!;
+ipcMain.on(
+  DEVICE_CONFIG.REMOVE_DEVICE,
+  (_e: IpcMainEvent, deviceId: string) => {
+    const conf = DeviceRegistry.get(deviceId)!;
 
-  DeviceRegistry.deregister(deviceId);
+    DeviceRegistry.deregister(deviceId);
 
-  HardwarePortService.onConfigChange({ action: 'remove', changed: [conf] });
-  VirtualPortService.onConfigChange({ action: 'remove', changed: [conf] });
+    HardwarePortService.onConfigChange({ action: 'remove', changed: [conf] });
+    VirtualPortService.onConfigChange({ action: 'remove', changed: [conf] });
 
-  MainWindow.edited = true;
-  MainWindow.sendReduxEvent({
-    type: 'configuredDevices/setAll',
-    payload: DeviceRegistry.getAll().map((c) => c.toDTO()),
-  });
-});
+    MainWindow.edited = true;
+    MainWindow.sendReduxEvent({
+      type: 'configuredDevices/setAll',
+      payload: DeviceRegistry.getAll().map((c) => c.toDTO()),
+    });
+  }
+);
 
 ipcMain.on(
-  CONFIG.UPDATE_DEVICE,
+  DEVICE_CONFIG.UPDATE_DEVICE,
   (_e: IpcMainEvent, updates: DeviceConfigDTO) => {
     const config = DeviceRegistry.get(updates.id);
 
@@ -89,7 +92,7 @@ ipcMain.on(
 );
 
 ipcMain.on(
-  MENU.DEVICE_PLUGIN_MENU,
+  DEVICE_CONFIG.DEVICE_PLUGIN_MENU,
   async (e: IpcMainEvent, x: number, y: number, deviceId: string) => {
     const template = await createDevicePluginMenu(deviceId);
     const menu = Menu.buildFromTemplate(template);

@@ -10,7 +10,6 @@ import { DeviceConfigService } from './device-config-service';
 import { InputConfigService } from './input-config-service';
 import { HostService } from './host-service';
 import { LayoutService } from './layout-service';
-import { MenuService } from './menu-service';
 import { PluginService } from './plugin-service';
 import { ReduxService } from './redux-service';
 
@@ -20,7 +19,6 @@ import { ReduxService } from './redux-service';
 ipcRenderer.setMaxListeners(1000);
 
 contextBridge.exposeInMainWorld('LayoutService', LayoutService);
-contextBridge.exposeInMainWorld('MenuService', MenuService);
 contextBridge.exposeInMainWorld('DeviceConfigService', DeviceConfigService);
 contextBridge.exposeInMainWorld('HostService', HostService);
 contextBridge.exposeInMainWorld('PluginService', PluginService);

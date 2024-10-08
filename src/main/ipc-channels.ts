@@ -8,21 +8,17 @@ export const HOST = {
   GET_CONNECTED_DEVICES: 'get-connected-devices',
 };
 
-/**
- * IPC channel names used to transmit data pertaining to configurations
- */
-export const CONFIG = {
-  ADD_DEVICE: 'add-device',
-  REMOVE_DEVICE: 'remove-device',
-  UPDATE_DEVICE: 'update-device',
-};
-
 export const INPUT_CONFIG = {
   REMOVE_PLUGIN: 'remove-input-plugin',
   UPDATE_INPUT: 'update-input',
+  INPUT_PLUGIN_MENU: 'input-plugin-menu',
 };
 
 export const DEVICE_CONFIG = {
+  ADD_DEVICE: 'add-device',
+  DEVICE_PLUGIN_MENU: 'device-plugin-menu',
+  REMOVE_DEVICE: 'remove-device',
+  UPDATE_DEVICE: 'update-device',
   REMOVE_PLUGIN: 'remove-device-plugin',
   SET_CHILD: 'set-child',
 };
@@ -32,9 +28,4 @@ export const LAYOUT = {
   SET_LAYOUT: 'set-layout',
   GET_LAYOUT_ITEM: 'get-layout-item',
   SET_LAYOUT_ITEM: 'set-layout-item',
-};
-
-export const MENU = {
-  DEVICE_PLUGIN_MENU: 'device-plugin-menu',
-  INPUT_PLUGIN_MENU: 'input-plugin-menu',
 };

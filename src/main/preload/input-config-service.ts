@@ -19,6 +19,10 @@ export const InputConfigService = {
     );
   },
 
+  showInputPluginMenu(x: number, y: number, inputId: string) {
+    ipcRenderer.send(INPUT_CONFIG.INPUT_PLUGIN_MENU, x, y, inputId);
+  },
+
   removePlugin: (pluginId: string, qualifiedInputId: string) => {
     ipcRenderer.send(INPUT_CONFIG.REMOVE_PLUGIN, pluginId, qualifiedInputId);
   },

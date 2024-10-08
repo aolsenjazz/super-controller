@@ -1,20 +1,31 @@
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { ipcRenderer } from 'electron';
 
-import { CONFIG, DEVICE_CONFIG } from '../ipc-channels';
+import { DEVICE_CONFIG } from '../ipc-channels';
 
 export const DeviceConfigService = {
+  showDevicePluginMenu(x: number, y: number, deviceId: string) {
+    ipcRenderer.send(DEVICE_CONFIG.DEVICE_PLUGIN_MENU, x, y, deviceId);
+  },
+
   /**
    * Send an updated copy of a device config to the backend.
    */
   updateDevice(config: DeviceConfigDTO) {
-    ipcRenderer.send(CONFIG.UPDATE_DEVICE, config);
+    ipcRenderer.send(DEVICE_CONFIG.UPDATE_DEVICE, config);
   },
 
+  /**
+   * Removes the specified plugin from the specified device
+   */
   removePlugin: (pluginId: string, deviceConfigId: string) => {
     ipcRenderer.send(DEVICE_CONFIG.REMOVE_PLUGIN, pluginId, deviceConfigId);
   },
 
+  /**
+   * Tell the main process to intialize a new `SupportedDeviceConfig` and add
+   * it to the specified `AdapterDeviceConfig` as its child
+   */
   setChild: (configId: string, childId: string) => {
     ipcRenderer.send(DEVICE_CONFIG.SET_CHILD, configId, childId);
   },
@@ -23,25 +34,19 @@ export const DeviceConfigService = {
    * Creates a `SupportedDeviceConfig`, `AdapterDeviceConfig`, or `AnonymousDeviceConfig`
    * and adds it to the current project
    */
-  addDevice(
-    deviceName: string,
-    siblingIndex: number,
-    driverName?: string,
-    childName?: string
-  ) {
+  addDevice(deviceName: string, siblingIndex: number, driverName?: string) {
     ipcRenderer.send(
-      CONFIG.ADD_DEVICE,
+      DEVICE_CONFIG.ADD_DEVICE,
       deviceName,
       siblingIndex,
-      driverName,
-      childName
+      driverName
     );
   },
 
   /**
-   * Inform that backend that the given device was removed
+   * Tell the main process to remove this device
    */
   removeDevice(deviceId: string) {
-    ipcRenderer.send(CONFIG.REMOVE_DEVICE, deviceId);
+    ipcRenderer.send(DEVICE_CONFIG.REMOVE_DEVICE, deviceId);
   },
 };
