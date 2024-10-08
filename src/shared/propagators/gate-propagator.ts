@@ -1,4 +1,4 @@
-import { statusStringToNibble } from '@shared/midi-util';
+import { statusStringToNibble } from '../midi-util';
 import { StatefulPropagator } from './stateful-propagator';
 
 /**

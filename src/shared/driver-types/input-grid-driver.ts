@@ -1,12 +1,10 @@
-import {
-  InputDriverWithHandle,
-  KnobDriver,
-  MonoInteractiveDriver,
-  NoninteractiveInputDriver,
-  PadDriver,
-  SwitchDriver,
-  XYDriver,
-} from './input-drivers';
+import { NoninteractiveInputDriver } from './input-drivers';
+import { InputDriverWithHandle } from './input-drivers/input-driver-with-handle';
+import { KnobDriver } from './input-drivers/knob-driver';
+import { MonoInteractiveDriver } from './input-drivers/mono-interactive-driver';
+import { PadDriver } from './input-drivers/pad-driver';
+import { SwitchDriver } from './input-drivers/switch-driver';
+import { XYDriver } from './input-drivers/xy-driver';
 
 export type InputGridDriver = {
   /** Simple identifier, e.g. Main Pads */

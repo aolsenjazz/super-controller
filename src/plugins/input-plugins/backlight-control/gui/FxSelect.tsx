@@ -1,4 +1,4 @@
-import { FxDriver } from '@shared/driver-types';
+import type { FxDriver } from '@shared/driver-types/fx-driver';
 import Slider from './Slider';
 
 type PropTypes = {

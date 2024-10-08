@@ -2,7 +2,7 @@ import { MessageProcessorMeta } from '@shared/message-processor';
 import { getQualifiedInputId } from '@shared/util';
 
 import { idForMsg } from '../../midi-util';
-import { XYDriver } from '../../driver-types';
+import { XYDriver } from '../../driver-types/input-drivers/xy-driver';
 
 import { PitchbendConfig } from './pitchbend-config';
 import { SliderConfig } from './slider-config';

@@ -1,9 +1,10 @@
 import { ipcMain, IpcMainEvent } from 'electron';
 
 import { WindowProvider } from '@main/window-provider';
-import { Color, FxDriver } from '@shared/driver-types';
 import { HardwarePortService } from '@main/port-service';
 import { PluginRegistry } from '@main/plugin-registry';
+import { Color } from '@shared/driver-types/color';
+import { FxDriver } from '@shared/driver-types/fx-driver';
 
 import BacklightControlPlugin from '.';
 

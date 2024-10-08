@@ -1,4 +1,4 @@
-import { DeviceDriver } from '../driver-types';
+import { DeviceDriver } from '../driver-types/device-driver';
 import { NoninteractiveInputDriver } from '../driver-types/input-drivers';
 
 function createNoninteractivePad(

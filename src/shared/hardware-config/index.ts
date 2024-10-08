@@ -2,7 +2,7 @@ import { SupportedDeviceConfig } from './supported-device-config';
 import { AnonymousDeviceConfig } from './anonymous-device-config';
 import { AdapterDeviceConfig } from './adapter-device-config';
 import { DeviceConfig } from './device-config';
-import { DeviceDriver } from '../driver-types';
+import { DeviceDriver } from '@shared/driver-types/device-driver';
 
 export { MonoInputConfig, BaseInputConfig, SwitchConfig } from './input-config';
 export { AdapterDeviceConfig };

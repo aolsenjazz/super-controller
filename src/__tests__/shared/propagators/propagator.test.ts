@@ -1,5 +1,5 @@
 import { Propagator } from '@shared/propagators/propagator';
-import { InputResponse } from '@shared/driver-types';
+import { InputResponse } from '@shared/driver-types/input-drivers/mono-interactive-driver';
 
 const noteoff: NumberArrayWithStatus = [128, 0, 0]; // Manually building the MIDI array for note off
 const noteon: NumberArrayWithStatus = [144, 0, 127]; // Manually building the MIDI array for note on

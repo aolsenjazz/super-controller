@@ -1,5 +1,5 @@
-import { statusStringToNibble } from '@shared/midi-util';
-import { InputResponse } from '../driver-types';
+import { InputResponse } from '../driver-types/input-drivers/mono-interactive-driver';
+import { statusStringToNibble } from '../midi-util';
 import { Propagator } from './propagator';
 
 /**

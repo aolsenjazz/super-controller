@@ -1,5 +1,5 @@
-import { isOnIsh } from '@shared/midi-util';
-import { InputResponse } from '../driver-types';
+import { InputResponse } from '../driver-types/input-drivers/mono-interactive-driver';
+import { isOnIsh } from '../midi-util';
 
 /**
  * Manages propagation of messages to devices and clients. Can be set to propagate

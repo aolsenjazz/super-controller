@@ -1,4 +1,4 @@
-import { InputGridDriver } from '@shared/driver-types';
+import { InputGridDriver } from '@shared/driver-types/input-grid-driver';
 
 type PropTypes = {
   inputGrid: InputGridDriver;

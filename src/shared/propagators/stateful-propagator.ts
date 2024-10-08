@@ -1,4 +1,4 @@
-import { InputResponse } from '../driver-types';
+import { InputResponse } from '../driver-types/input-drivers/mono-interactive-driver';
 import { OverrideablePropagator } from './overrideable-propagator';
 
 type State = 'on' | 'off';

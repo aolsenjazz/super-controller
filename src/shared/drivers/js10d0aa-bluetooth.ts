@@ -1,5 +1,5 @@
-import { DeviceDriver } from '../driver-types';
-import { PadDriver } from '../driver-types/input-drivers';
+import { PadDriver } from '../driver-types/input-drivers/pad-driver';
+import { DeviceDriver } from '../driver-types/device-driver';
 
 function createPad(n: MidiNumber): PadDriver {
   return {

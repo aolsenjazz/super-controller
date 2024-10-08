@@ -1,4 +1,4 @@
-import { Color } from '@shared/driver-types';
+import type { Color } from '@shared/driver-types/color';
 
 function colorDisplayName(c: Color) {
   return `${c.name}${c.modifier ? ` (${c.modifier})` : ''}`;

@@ -224,8 +224,8 @@ export class HardwarePortServiceSingleton {
 
         if (message) remoteTransport.send(message);
 
-        MainWindow.sendNarrowInputEvent(pair.id, msg);
-        MainWindow.sendInputEvent(pair.id, msg);
+        // MainWindow.sendNarrowInputEvent(pair.id, msg);
+        // MainWindow.sendInputEvent(pair.id, msg);
         // TODO somehow, send the "state" to the frontend. we're currently doing this with
         // sendNarrowInputEvent and sendInputEvent, but that's not quite the right
         // implementation for updating backlight colors in the frontend. should likely be

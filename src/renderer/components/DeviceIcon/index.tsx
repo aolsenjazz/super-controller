@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { DeviceDriver } from '@shared/driver-types';
+import { DeviceDriver } from '@shared/driver-types/device-driver';
 
 import { UsbIcon } from '../UsbIcon';
 import KeyboardIcon from './KeyboardIcon';

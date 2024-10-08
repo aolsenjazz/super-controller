@@ -1,9 +1,8 @@
-import { DeviceDriver, Color } from '../driver-types';
-import {
-  PadDriver,
-  NoninteractiveInputDriver,
-  KnobDriver,
-} from '../driver-types/input-drivers';
+import { KnobDriver } from '../driver-types/input-drivers/knob-driver';
+import { PadDriver } from '../driver-types/input-drivers/pad-driver';
+import { Color } from '../driver-types/color';
+import { DeviceDriver } from '../driver-types/device-driver';
+import { NoninteractiveInputDriver } from '../driver-types/input-drivers';
 
 function createNoninteractivePad(
   width: number,

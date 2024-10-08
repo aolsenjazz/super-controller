@@ -1,18 +1,18 @@
-import { MessageProcessorMeta } from '@shared/message-processor';
-import { MessageTransport } from '@shared/message-transport';
+import {
+  InputResponse,
+  MonoInteractiveDriver,
+} from '../../driver-types/input-drivers/mono-interactive-driver';
+import { MessageProcessorMeta } from '../../message-processor';
+import { MessageTransport } from '../../message-transport';
 import {
   byteToStatusString,
   idForMsg,
   NOTE_OFF,
   NOTE_ON,
-} from '@shared/midi-util';
-import { PluginProvider } from '@shared/plugin-provider';
-import { getQualifiedInputId } from '@shared/util';
-import type {
-  InputDriver,
-  InputResponse,
-  MonoInteractiveDriver,
-} from '../../driver-types';
+} from '../../midi-util';
+import { PluginProvider } from '../../plugin-provider';
+import { getQualifiedInputId } from '../../util';
+
 import { BaseInputConfig } from './base-input-config';
 import { MonoInputDTO } from './mono-input-dto';
 
@@ -34,7 +34,7 @@ export type InputDefault = {
 export abstract class MonoInputConfig<
   T extends InputDefault = InputDefault,
   U extends MonoInputDTO = MonoInputDTO,
-  V extends InputDriver = MonoInteractiveDriver
+  V extends MonoInteractiveDriver = MonoInteractiveDriver
 > extends BaseInputConfig<U> {
   public abstract defaults: T;
 

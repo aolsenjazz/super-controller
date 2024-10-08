@@ -1,9 +1,9 @@
 import { byteToStatusString } from '@shared/midi-util';
 
-import { InputType, MonoInteractiveDriver } from '../../driver-types';
 import { InputDefault, MonoInputConfig } from './mono-input-config';
 import { SliderState } from './slider-config';
 import type { MonoInputDTO } from './mono-input-dto';
+import { MonoInteractiveDriver } from '../../driver-types/input-drivers/mono-interactive-driver';
 
 /**
  * It should be noted that while `PitchbendConfig` extends `MonoInputConfig`, pitchbend
@@ -50,8 +50,8 @@ export class PitchbendConfig extends MonoInputConfig {
     return false;
   }
 
-  get type(): InputType {
-    return 'wheel';
+  get type() {
+    return 'wheel' as const;
   }
 
   get id() {

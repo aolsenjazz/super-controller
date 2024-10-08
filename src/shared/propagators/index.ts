@@ -1,4 +1,4 @@
-import { InputResponse } from '../driver-types';
+import { InputResponse } from '../driver-types/input-drivers/mono-interactive-driver';
 import { Propagator } from './propagator';
 import { NStepPropagator } from './n-step-propagator';
 import { GatePropagator } from './gate-propagator';
@@ -8,7 +8,6 @@ import { PitchbendPropagator } from './pitchbend-propagator';
 import { StatelessPropagator } from './stateless-propagator';
 import { ContinuousPropagator } from './continuous-propagator';
 import { TogglePropagator } from './toggle-propagator';
-import { ColorConfigPropagator } from './color-config-propagator';
 import { NonsequentialStepPropagator } from './nonsequential-step-propagator';
 
 export {
@@ -20,7 +19,6 @@ export {
   StatelessPropagator,
   OverrideablePropagator,
   ContinuousPropagator,
-  ColorConfigPropagator,
   NonsequentialStepPropagator,
 };
 

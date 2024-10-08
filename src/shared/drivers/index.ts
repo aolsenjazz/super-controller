@@ -2,7 +2,7 @@
  * Not the most elegant way to load a bunch of drivers, but results in the
  * fastest development cycle
  */
-import { DeviceDriver } from '../driver-types';
+import { DeviceDriver } from '@shared/driver-types/device-driver';
 
 import { Device as Anonymous } from './anonymous';
 import { Device as APCKey25Mk2Control } from './apc-key-25-mk2-control';

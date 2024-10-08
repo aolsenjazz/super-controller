@@ -6,12 +6,12 @@ import installExtension, {
 } from 'electron-extension-installer';
 
 import { WindowProvider } from './window-provider';
-import { ProjectProvider as pp } from './project-provider';
 import { dialogs } from './dialogs';
 import { AppMenu as am } from './menu';
 
 import './port-service';
 import './ipc';
+import { loadProject, save } from './project';
 
 const { MainWindow } = WindowProvider;
 
@@ -70,7 +70,7 @@ class LifecycleSingleton {
    */
   private subscribeToOpenFile() {
     app.on('open-file', (_event: Event, filePath: string) => {
-      pp.loadProject(filePath);
+      loadProject(filePath);
     });
   }
 
@@ -78,7 +78,7 @@ class LifecycleSingleton {
     app.on('before-quit', async () => {
       if (MainWindow.edited === true) {
         const doSave = dialogs.unsavedCheck();
-        if (doSave === true) await pp.save();
+        if (doSave === true) await save();
       }
     });
   }

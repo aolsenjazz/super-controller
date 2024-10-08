@@ -1,11 +1,15 @@
 /* eslint @typescript-eslint/no-empty-interface: 0 */
-import { InputDriver, InputType } from '@shared/driver-types';
 import {
   MessageProcessor,
   MessageProcessorMeta,
-} from '@shared/message-processor';
-import { MessageTransport } from '@shared/message-transport';
-import { PluginProvider } from '@shared/plugin-provider';
+} from '../../message-processor';
+import { MessageTransport } from '../../message-transport';
+import { PluginProvider } from '../../plugin-provider';
+
+import {
+  BaseInputDriver,
+  InputType,
+} from '../../driver-types/input-drivers/base-input-driver';
 import { BaseIcicle } from '../../freezable';
 
 export interface InputState {}
@@ -19,7 +23,7 @@ export interface InputDTO extends BaseIcicle {
 
 export abstract class BaseInputConfig<
   T extends InputDTO = InputDTO,
-  K extends InputDriver = InputDriver
+  K extends BaseInputDriver = BaseInputDriver
 > implements MessageProcessor
 {
   protected nickname: string = '';

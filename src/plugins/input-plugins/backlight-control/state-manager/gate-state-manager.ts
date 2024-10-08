@@ -1,6 +1,7 @@
-import type { PadDriver } from '@shared/driver-types';
+import { PadDriver } from '@shared/driver-types/input-drivers/pad-driver';
 import { statusStringToNibble } from '@shared/midi-util';
 import { msgIdentityEquals } from '@shared/util';
+
 import { StateManager } from './state-manager';
 
 export class GateStateManager extends StateManager {

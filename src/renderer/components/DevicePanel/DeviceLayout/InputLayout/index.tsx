@@ -1,15 +1,16 @@
 import { useSelector } from 'react-redux';
 
 import { selectSelectedInputs } from '@features/selected-inputs/selected-inputs-slice';
-import { InputDriver, InteractiveInputDriver } from '@shared/driver-types';
 import { inputIdFromDriver, getQualifiedInputId } from '@shared/util';
 import { selectSelectedDevice } from '@selectors/selected-device-selector';
+import { BaseInputDriver } from '@shared/driver-types/input-drivers/base-input-driver';
+import { InteractiveInputDriver } from '@shared/driver-types/input-drivers';
 
 import InteractiveInputLayout from './InteractiveInputLayout';
 import NoninteractiveInputLayout from './NoninteractiveInputLayout';
 
 type InputLayoutPropTypes = {
-  driver: InputDriver;
+  driver: BaseInputDriver;
   width: string;
   height: string;
   onClick: (e: React.MouseEvent, ids: string[]) => void;
@@ -38,7 +39,7 @@ export default function InputLayout(props: InputLayoutPropTypes) {
       >
         <InteractiveInputLayout
           qualifiedInputId={qualifiedInputId}
-          driver={driver as InteractiveInputDriver}
+          driver={driver}
         />
       </div>
     );

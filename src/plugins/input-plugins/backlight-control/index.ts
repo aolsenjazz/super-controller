@@ -1,10 +1,10 @@
+import type { Color } from '@shared/driver-types/color';
+import type { FxDriver } from '@shared/driver-types/fx-driver';
 import type {
-  Color,
-  FxDriver,
   InputResponse,
   MonoInteractiveDriver,
-  PadDriver,
-} from '@shared/driver-types';
+} from '@shared/driver-types/input-drivers/mono-interactive-driver';
+import { PadDriver } from '@shared/driver-types/input-drivers/pad-driver';
 import { MessageProcessorMeta } from '@shared/message-processor';
 import { MessageTransport } from '@shared/message-transport';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';

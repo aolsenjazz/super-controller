@@ -1,10 +1,8 @@
-import { DeviceDriver } from '../driver-types';
-import {
-  PadDriver,
-  KnobDriver,
-  NoninteractiveInputDriver,
-  InputDriverWithHandle,
-} from '../driver-types/input-drivers';
+import { KnobDriver } from '../driver-types/input-drivers/knob-driver';
+import { PadDriver } from '../driver-types/input-drivers/pad-driver';
+import { DeviceDriver } from '../driver-types/device-driver';
+import { InputDriverWithHandle } from '../driver-types/input-drivers/input-driver-with-handle';
+import { NoninteractiveInputDriver } from '../driver-types/input-drivers';
 
 function createOctave(): NoninteractiveInputDriver {
   return {

@@ -1,17 +1,9 @@
-import {
-  InteractiveInputDriver,
-  InputDriverWithHandle,
-  SwitchDriver,
-  XYDriver,
-  KnobDriver,
-  PadDriver,
-} from '@shared/driver-types';
-
 import Pad from './PadLayout';
 import { Knob } from './KnobLayout';
 import { HandleLayout } from './HandleLayout';
 import { SwitchLayout } from './SwitchLayout';
 import XYLayout from './XYLayout';
+import { InteractiveInputDriver } from '@shared/driver-types/input-drivers';
 
 type InputLayoutPropTypes = {
   qualifiedInputId: string;
@@ -22,11 +14,11 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
   const { driver, qualifiedInputId } = props;
 
   if (driver.type === 'pad') {
-    return <Pad driver={driver as PadDriver} id={qualifiedInputId} />;
+    return <Pad driver={driver} id={qualifiedInputId} />;
   }
 
   if (driver.type === 'knob') {
-    const asKnob = driver as KnobDriver;
+    const asKnob = driver;
     return (
       <Knob
         id={qualifiedInputId}
@@ -37,7 +29,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
   }
 
   if (driver.type === 'switch') {
-    const asSwitch = driver as SwitchDriver;
+    const asSwitch = driver;
     const { steps } = asSwitch;
 
     return (
@@ -50,21 +42,20 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
   }
 
   if (driver.type === 'xy') {
-    const asXY = driver as XYDriver;
-    const handleWidth = (asXY.x as InputDriverWithHandle).handleWidth as number;
+    const asXY = driver;
+    const handleWidth = asXY.x.handleWidth as number;
 
     return (
       <XYLayout
         id={qualifiedInputId}
-        driver={driver as XYDriver}
+        driver={driver}
         handleHeight={`${(handleWidth / driver.height) * 100}%`}
         handleWidth={`${(handleWidth / driver.width) * 100}%`}
       />
     );
   }
 
-  const { handleWidth, handleHeight, horizontal, inverted } =
-    driver as InputDriverWithHandle;
+  const { handleWidth, handleHeight, horizontal, inverted } = driver;
 
   return (
     <HandleLayout

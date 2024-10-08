@@ -1,4 +1,4 @@
-import { statusStringToNibble } from '@shared/midi-util';
+import { statusStringToNibble } from '../midi-util';
 import { StatelessPropagator } from './stateless-propagator';
 
 export class ContinuousPropagator extends StatelessPropagator<

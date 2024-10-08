@@ -1,4 +1,4 @@
-import { InputResponse } from '@shared/driver-types';
+import { InputResponse } from '@shared/driver-types/input-drivers/mono-interactive-driver';
 
 function msgToString(msg: NumberArrayWithStatus) {
   return `${msg[0]} ${msg[1]} ${msg[2]}`;

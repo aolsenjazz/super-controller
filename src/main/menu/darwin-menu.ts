@@ -8,9 +8,9 @@ import {
 
 import { BUG_REPORT, FEATURE_REQUEST } from '@shared/email-templates';
 
-import { ProjectProvider as pp } from '../project-provider';
 import { dialogs } from '../dialogs';
 import { WindowProvider } from '../window-provider';
+import { initDefault, open, save, saveAs } from '../project';
 
 const { MainWindow } = WindowProvider;
 
@@ -59,23 +59,23 @@ const subMenuFile: DarwinMenuItemConstructorOptions = {
       click: async () => {
         if (MainWindow.edited) {
           const doSave = dialogs.unsavedCheck();
-          if (doSave === true) await pp.save();
+          if (doSave === true) await save();
         }
-        pp.initDefault();
+        initDefault();
       },
     },
     {
       label: 'Save',
       accelerator: 'Command+S',
       click: () => {
-        pp.save();
+        save();
       },
     },
     {
       label: 'Save As',
       accelerator: 'Shift+Command+S',
       click: () => {
-        pp.saveAs();
+        saveAs();
       },
     },
     {
@@ -84,9 +84,9 @@ const subMenuFile: DarwinMenuItemConstructorOptions = {
       click: async () => {
         if (MainWindow.edited) {
           const doSave = dialogs.unsavedCheck();
-          if (doSave === true) await pp.save();
+          if (doSave === true) await save();
         }
-        pp.open();
+        open();
       },
     },
     {

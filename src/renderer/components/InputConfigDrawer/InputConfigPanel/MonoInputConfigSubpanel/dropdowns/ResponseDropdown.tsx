@@ -1,4 +1,4 @@
-// import { InputResponse } from '@shared/driver-types';
+// import { InputResponse } from '@shared/driver-types/input-drivers/mono-interactive-driver';
 // import { useCallback } from 'react';
 
 // import SettingsLineItem from '../../../SettingsLineItem';

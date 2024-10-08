@@ -1,5 +1,7 @@
-import { Color, FxDriver } from '@shared/driver-types';
 import { contextBridge, ipcRenderer } from 'electron';
+
+import { Color } from '@shared/driver-types/color';
+import { FxDriver } from '@shared/driver-types/fx-driver';
 
 const BacklightControlService = {
   updateColor: (pluginId: string, state: number, color: Color) => {

@@ -1,4 +1,4 @@
-import { DeviceDriver } from '@shared/driver-types';
+import { DeviceDriver } from '@shared/driver-types/device-driver';
 
 import Keyboard from './KeyboardLayout';
 import InputGridLayout from './InputGridLayout';

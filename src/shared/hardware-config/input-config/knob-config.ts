@@ -1,7 +1,7 @@
-import { KnobDriver } from '../../driver-types';
 import { MonoInputConfig, InputDefault } from './mono-input-config';
 import { InputState } from './base-input-config';
 import type { MonoInputDTO } from './mono-input-dto';
+import { KnobDriver } from '../../driver-types/input-drivers/knob-driver';
 
 export interface KnobDTO extends MonoInputDTO<KnobDefaults> {
   valueType: 'absolute' | 'endless';

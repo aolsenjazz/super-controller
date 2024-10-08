@@ -1,8 +1,7 @@
-import { DeviceDriver, Color } from '../driver-types';
-import {
-  PadDriver,
-  InputDriverWithHandle,
-} from '../driver-types/input-drivers';
+import { PadDriver } from '../driver-types/input-drivers/pad-driver';
+import { Color } from '../driver-types/color';
+import { DeviceDriver } from '../driver-types/device-driver';
+import { InputDriverWithHandle } from '../driver-types/input-drivers/input-driver-with-handle';
 
 function createSlider(n: MidiNumber): InputDriverWithHandle {
   return {

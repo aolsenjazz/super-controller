@@ -1,4 +1,4 @@
-import { statusStringToNibble } from '@shared/midi-util';
+import { statusStringToNibble } from '../midi-util';
 import { OverrideablePropagator } from './overrideable-propagator';
 
 export class PitchbendPropagator extends OverrideablePropagator<

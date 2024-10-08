@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-
-import { Color, PadDriver } from '@shared/driver-types';
-import { subtractMidiArrays } from '@shared/util';
 import { useSelector } from 'react-redux';
+
+import { subtractMidiArrays } from '@shared/util';
 import { selectSelectedDevice } from '@selectors/selected-device-selector';
+import { Color } from '@shared/driver-types/color';
+import { PadDriver } from '@shared/driver-types/input-drivers/pad-driver';
 
 const { HostService } = window;
 

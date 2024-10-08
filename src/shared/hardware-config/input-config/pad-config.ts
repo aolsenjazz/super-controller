@@ -1,4 +1,4 @@
-import { PadDriver } from '../../driver-types';
+import { PadDriver } from '../../driver-types/input-drivers/pad-driver';
 import { InputDefault, MonoInputConfig } from './mono-input-config';
 import { MonoInputDTO } from './mono-input-dto';
 

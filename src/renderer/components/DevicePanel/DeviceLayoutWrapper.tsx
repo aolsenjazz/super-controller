@@ -1,9 +1,8 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
-import { DeviceDriver } from '@shared/driver-types';
 import { useAppDispatch } from '@hooks/use-app-dispatch';
-
+import { DeviceDriver } from '@shared/driver-types/device-driver';
 import {
   selectSelectedInputs,
   setSelectedInputs,

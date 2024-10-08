@@ -1,7 +1,8 @@
-import { MessageProcessorMeta } from '@shared/message-processor';
-import { getQualifiedInputId } from '@shared/util';
-import { SwitchDriver } from '../../driver-types';
+import { MessageProcessorMeta } from '../../message-processor';
+import { getQualifiedInputId } from '../../util';
 import { BaseInputConfig, InputDTO, InputState } from './base-input-config';
+
+import { SwitchDriver } from '../../driver-types/input-drivers/switch-driver';
 
 export interface SwitchState extends InputState {
   step: NumberArrayWithStatus;

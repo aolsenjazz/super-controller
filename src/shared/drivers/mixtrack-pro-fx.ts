@@ -1,9 +1,9 @@
-import { DeviceDriver, FxDriver, Color } from '../driver-types';
-import {
-  PadDriver,
-  KnobDriver,
-  InputDriverWithHandle,
-} from '../driver-types/input-drivers';
+import { KnobDriver } from '../driver-types/input-drivers/knob-driver';
+import { PadDriver } from '../driver-types/input-drivers/pad-driver';
+import { Color } from '../driver-types/color';
+import { DeviceDriver } from '../driver-types/device-driver';
+import { InputDriverWithHandle } from '../driver-types/input-drivers/input-driver-with-handle';
+import { FxDriver } from '../driver-types/fx-driver';
 
 function defaultColors(channel: Channel, number: MidiNumber): Color[] {
   return [

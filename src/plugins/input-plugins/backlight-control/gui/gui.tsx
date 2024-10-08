@@ -1,4 +1,5 @@
-import type { Color, FxDriver } from '@shared/driver-types';
+import type { Color } from '@shared/driver-types/color';
+import type { FxDriver } from '@shared/driver-types/fx-driver';
 import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 import { usePlugin } from '@hooks/use-plugin';
 

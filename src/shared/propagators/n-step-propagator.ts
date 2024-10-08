@@ -1,4 +1,4 @@
-import { InputResponse } from '../driver-types';
+import { InputResponse } from '../driver-types/input-drivers/mono-interactive-driver';
 import { Propagator } from './propagator';
 
 export class NStepPropagator extends Propagator<InputResponse, InputResponse> {

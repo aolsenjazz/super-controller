@@ -3,11 +3,9 @@ import { DRIVERS } from '@shared/drivers';
 import { MessageProcessorMeta } from '@shared/message-processor';
 import { MessageTransport } from '@shared/message-transport';
 import { idForMsg } from '@shared/midi-util';
-import {
-  DeviceDriver,
-  InputDriver,
-  InteractiveInputDriver,
-} from '../driver-types';
+import { DeviceDriver } from '@shared/driver-types/device-driver';
+import { BaseInputDriver } from '@shared/driver-types/input-drivers/base-input-driver';
+import { InteractiveInputDriver } from '@shared/driver-types/input-drivers';
 
 import { DeviceConfig, DeviceConfigDTO } from './device-config';
 import { create } from './input-config';
@@ -42,7 +40,7 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
     name: string,
     driverName: string,
     siblingIndex: number,
-    inputs: InputDriver[],
+    inputs: BaseInputDriver[],
     nickname?: string
   ) {
     super(name, driverName, siblingIndex, nickname);

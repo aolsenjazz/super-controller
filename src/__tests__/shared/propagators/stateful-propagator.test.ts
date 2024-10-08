@@ -1,4 +1,4 @@
-import { InputResponse } from '@shared/driver-types';
+import { InputResponse } from '@shared/driver-types/input-drivers/mono-interactive-driver';
 import { StatefulPropagator } from '@shared/propagators/stateful-propagator';
 
 class Wrapper<

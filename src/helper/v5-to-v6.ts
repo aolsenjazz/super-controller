@@ -1,4 +1,3 @@
-import { Project as V6Project } from '@shared/project';
 // import {
 //   AdapterDeviceConfig,
 //   AnonymousDeviceConfig,
@@ -74,8 +73,7 @@ function upgradeToV6(_projString: string) {
   //   })
   //   .map((s) => JSON.parse(s));
 
-  const newProj = new V6Project(6);
-  return JSON.stringify(newProj);
+  return '';
 }
 
 export class V5ToV6 extends BaseUpgrade {

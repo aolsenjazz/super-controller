@@ -1,9 +1,7 @@
-import {
-  XYDriver,
-  PadDriver,
-  InputDriverWithHandle,
-} from '@shared/driver-types';
+import { PadDriver } from '@shared/driver-types/input-drivers/pad-driver';
+import { InputDriverWithHandle } from '@shared/driver-types/input-drivers/input-driver-with-handle';
 import { getDiff, inputIdFromDriver } from '@shared/util';
+import { XYDriver } from '@shared/driver-types/input-drivers/xy-driver';
 
 const TwoByteDriver: PadDriver = {
   shape: 'circle',

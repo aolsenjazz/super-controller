@@ -4,7 +4,7 @@ import { waitForArray } from '@shared/util';
 import type { BasePlugin } from '@shared/plugin-core/base-plugin';
 import type { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
-import { InputDriver } from '@shared/driver-types';
+import { BaseInputDriver } from '@shared/driver-types/input-drivers/base-input-driver';
 
 /**
  * List of available device plugin manifests, used for subcomponent discovery + import
@@ -127,7 +127,7 @@ export async function importDeviceSubcomponent<
 type InputComponentArgs = [
   title: string,
   description: string,
-  driver: InputDriver
+  driver: BaseInputDriver
 ];
 
 type InputComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'

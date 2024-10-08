@@ -1,9 +1,8 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
-import type { InteractiveInputDriver, XYDriver } from './driver-types';
-import type {
-  MonoInteractiveDriver,
-  SwitchDriver,
-} from './driver-types/input-drivers';
+import { InteractiveInputDriver } from './driver-types/input-drivers';
+import { MonoInteractiveDriver } from './driver-types/input-drivers/mono-interactive-driver';
+import { SwitchDriver } from './driver-types/input-drivers/switch-driver';
+import { XYDriver } from './driver-types/input-drivers/xy-driver';
 import {
   CONTROL_CHANGE,
   NOTE_OFF,

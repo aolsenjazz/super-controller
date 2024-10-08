@@ -1,4 +1,4 @@
-import { DeviceDriver } from '../driver-types';
+import { DeviceDriver } from '../driver-types/device-driver';
 
 export const Device: DeviceDriver = {
   name: 'Fireface 400 (37) Port 2',

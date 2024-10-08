@@ -1,7 +1,7 @@
 import { InputDefault, MonoInputConfig } from './mono-input-config';
-import { MonoInteractiveDriver } from '../../driver-types';
 import { InputState } from './base-input-config';
 import type { MonoInputDTO } from './mono-input-dto';
+import { MonoInteractiveDriver } from '../../driver-types/input-drivers/mono-interactive-driver';
 
 export interface SliderState extends InputState {
   value: MidiNumber;

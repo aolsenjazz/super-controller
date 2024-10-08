@@ -1,7 +1,7 @@
-import { statusStringToNibble } from '@shared/midi-util';
+import { InputResponse } from '../driver-types/input-drivers/mono-interactive-driver';
+import { statusStringToNibble } from '../midi-util';
 
 import { OverrideablePropagator } from './overrideable-propagator';
-import { InputResponse } from '../driver-types';
 
 export abstract class StatelessPropagator<
   T extends InputResponse,
