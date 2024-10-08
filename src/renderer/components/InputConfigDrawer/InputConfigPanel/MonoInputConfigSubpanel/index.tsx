@@ -13,7 +13,7 @@ type PropTypes = {
   deviceId: string;
 };
 
-const { MenuService, InputConfigService } = window;
+const { InputConfigService } = window;
 
 export default function MonoInputConfigPanel(props: PropTypes) {
   const { inputs, deviceId } = props;
@@ -22,7 +22,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
-      MenuService.showInputPluginMenu(
+      InputConfigService.showInputPluginMenu(
         x,
         y,
         getQualifiedInputId(input.deviceId, input.id)

@@ -1,16 +1,15 @@
-/**
- * Just sets some listeners for misc IPC events.
- *
- * TODO: This really should have a better-designed home at some point. Unclear where right now
- */
-
 import os from 'os';
 import { ipcMain, Event, shell } from 'electron';
 
 import { controllerRequest, fivePinRequest } from '@shared/email-templates';
 
 import { HOST, LAYOUT } from './ipc-channels';
-import { LayoutParams, Store } from './store';
+import { LayoutParams, Store } from '../store';
+
+// Load feature-specific ipc files
+import './initialize-plugin-ipc';
+import './initialize-device-config-ipc';
+import './initialize-input-config-ipc';
 
 // When the frontend as for OS details, send them
 ipcMain.on(HOST.OS, (e: Event) => {

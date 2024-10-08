@@ -11,13 +11,13 @@ import { Anonymous, DRIVERS, getDriver } from '@shared/drivers';
 
 import { DEVICE_CONFIG } from './ipc-channels';
 
-import { WindowProvider } from './window-provider';
-import { PluginRegistry } from './plugin-registry';
-import { DeviceRegistry } from './device-registry';
-import { HardwarePortService } from './port-service';
-import { VirtualPortService } from './port-service/virtual/virtual-port-service';
-import { InputRegistry } from './input-registry';
-import { createDevicePluginMenu } from './menu/device-plugin-menu';
+import { WindowProvider } from '../window-provider';
+import { PluginRegistry } from '../plugin-registry';
+import { DeviceRegistry } from '../device-registry';
+import { HardwarePortService } from '../port-service';
+import { VirtualPortService } from '../port-service/virtual/virtual-port-service';
+import { InputRegistry } from '../input-registry';
+import { createDevicePluginMenu } from '../menu/device-plugin-menu';
 
 const { MainWindow } = WindowProvider;
 

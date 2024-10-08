@@ -1,7 +1,7 @@
 import { ipcRenderer } from 'electron';
 
 import { LayoutParams } from '../store';
-import { LAYOUT } from '../ipc-channels';
+import { LAYOUT } from '../ipc/ipc-channels';
 
 /**
  * Expose functions to store layout parameters in between session

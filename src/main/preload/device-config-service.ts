@@ -1,7 +1,7 @@
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { ipcRenderer } from 'electron';
 
-import { DEVICE_CONFIG } from '../ipc-channels';
+import { DEVICE_CONFIG } from '../ipc/ipc-channels';
 
 export const DeviceConfigService = {
   showDevicePluginMenu(x: number, y: number, deviceId: string) {

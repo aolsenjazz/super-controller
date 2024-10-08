@@ -2,7 +2,7 @@ import { ipcRenderer } from 'electron';
 
 import { DeviceConnectionDetails } from '@shared/device-connection-details';
 
-import { HOST } from '../ipc-channels';
+import { HOST } from '../ipc/ipc-channels';
 import { addOnChangeListener } from './common';
 
 type Host =

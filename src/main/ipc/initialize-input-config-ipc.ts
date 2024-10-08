@@ -8,10 +8,10 @@ import {
 import { getQualifiedInputId } from '@shared/util';
 
 import { INPUT_CONFIG } from './ipc-channels';
-import { WindowProvider } from './window-provider';
-import { PluginRegistry } from './plugin-registry';
-import { InputRegistry } from './input-registry';
-import { createInputPluginMenu } from './menu/input-plugin-menu';
+import { WindowProvider } from '../window-provider';
+import { PluginRegistry } from '../plugin-registry';
+import { InputRegistry } from '../input-registry';
+import { createInputPluginMenu } from '../menu/input-plugin-menu';
 
 const { MainWindow } = WindowProvider;
 

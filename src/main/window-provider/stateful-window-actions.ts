@@ -1,6 +1,6 @@
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron';
 
-import { HOST } from '../ipc-channels';
+import { HOST } from '../ipc/ipc-channels';
 import { WindowActions } from './window-actions';
 import { WindowFocusListener } from './window-focus-listener';
 

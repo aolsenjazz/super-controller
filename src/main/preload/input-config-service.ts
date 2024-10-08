@@ -1,7 +1,7 @@
 import { ipcRenderer } from 'electron';
 
 import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
-import { INPUT_CONFIG } from '@main/ipc-channels';
+import { INPUT_CONFIG } from '@main/ipc/ipc-channels';
 
 import { addOnChangeListener } from './common';
 

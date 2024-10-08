@@ -7,8 +7,8 @@ import {
   importInputSubcomponent,
 } from '@plugins/plugin-loader';
 
-import { WindowProvider } from './window-provider';
-import { PluginRegistry } from './plugin-registry';
+import { WindowProvider } from '../window-provider';
+import { PluginRegistry } from '../plugin-registry';
 
 ipcMain.on('get-plugin', (e: IpcMainEvent, pluginId: string) => {
   const plugin = PluginRegistry.get(pluginId);

@@ -11,10 +11,7 @@ import { dialogs } from './dialogs';
 import { AppMenu as am } from './menu';
 
 import './port-service';
-import './ipc-service';
-import './initialize-plugin-ipc';
-import './initialize-device-config-ipc';
-import './initialize-input-config-ipc';
+import './ipc';
 
 const { MainWindow } = WindowProvider;
 

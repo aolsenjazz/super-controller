@@ -11,7 +11,7 @@ import AdapterSelect from './AdapterSelect';
 import ControlledInput from '../ControlledInput';
 import { UnifiedDevice } from '../../unified-device';
 
-const { DeviceConfigService, MenuService } = window;
+const { DeviceConfigService } = window;
 
 type PropTypes = {
   selectedDevice: UnifiedDevice;
@@ -48,7 +48,7 @@ export default function DeviceDetailsPanel(props: PropTypes) {
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
-      MenuService.showDevicePluginMenu(x, y, id);
+      DeviceConfigService.showDevicePluginMenu(x, y, id);
     },
     [id]
   );

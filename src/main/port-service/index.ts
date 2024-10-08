@@ -29,7 +29,7 @@ import { InputPort } from './input-port';
 import { OutputPort } from './output-port';
 import { PortInfoPair } from './port-info-pair';
 import { WindowProvider } from '../window-provider';
-import { HOST } from '../ipc-channels';
+import { HOST } from '../ipc/ipc-channels';
 import { VirtualPortService } from './virtual/virtual-port-service';
 
 const { MainWindow } = WindowProvider;
