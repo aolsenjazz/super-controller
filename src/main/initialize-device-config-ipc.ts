@@ -1,4 +1,4 @@
-import { ipcMain, IpcMainEvent } from 'electron';
+import { BrowserWindow, ipcMain, IpcMainEvent, Menu } from 'electron';
 
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import {
@@ -9,7 +9,7 @@ import {
 import { getQualifiedInputId } from '@shared/util';
 import { Anonymous, DRIVERS, getDriver } from '@shared/drivers';
 
-import { CONFIG, DEVICE_CONFIG } from './ipc-channels';
+import { CONFIG, DEVICE_CONFIG, MENU } from './ipc-channels';
 
 import { WindowProvider } from './window-provider';
 import { PluginRegistry } from './plugin-registry';
@@ -17,6 +17,7 @@ import { DeviceRegistry } from './device-registry';
 import { HardwarePortService } from './port-service';
 import { VirtualPortService } from './port-service/virtual/virtual-port-service';
 import { InputRegistry } from './input-registry';
+import { createDevicePluginMenu } from './menu/device-plugin-menu';
 
 const { MainWindow } = WindowProvider;
 
@@ -84,6 +85,16 @@ ipcMain.on(
         payload: config.toDTO(),
       });
     }
+  }
+);
+
+ipcMain.on(
+  MENU.DEVICE_PLUGIN_MENU,
+  async (e: IpcMainEvent, x: number, y: number, deviceId: string) => {
+    const template = await createDevicePluginMenu(deviceId);
+    const menu = Menu.buildFromTemplate(template);
+    const win = BrowserWindow.fromWebContents(e.sender) || undefined;
+    menu.popup({ window: win, x, y });
   }
 );
 

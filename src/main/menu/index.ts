@@ -1,13 +1,9 @@
-import { BrowserWindow, ipcMain, IpcMainEvent, Menu } from 'electron';
-
-import { MENU } from '@main/ipc-channels';
+import { BrowserWindow, Menu } from 'electron';
 
 import { build as buildDarwin } from './darwin-menu';
 import { build as buildDefault } from './default-menu';
 
 import { WindowProvider } from '../window-provider';
-import { createDevicePluginMenu } from './device-plugin-menu';
-import { createInputPluginMenu } from './input-plugin-menu';
 
 /**
  * Provides functions for creating an app menu, and binds a listener to Window focus
@@ -19,7 +15,6 @@ class AppMenuSingleton {
 
   private constructor() {
     WindowProvider.onFocusChange(this.buildMenu);
-    this.initIpcListeners();
   }
 
   public static getInstance(): AppMenuSingleton {
@@ -35,34 +30,6 @@ class AppMenuSingleton {
     const menu = Menu.buildFromTemplate(template);
 
     Menu.setApplicationMenu(menu);
-  }
-
-  private initIpcListeners() {
-    ipcMain.on(
-      MENU.DEVICE_PLUGIN_MENU,
-      async (e: IpcMainEvent, x: number, y: number, deviceId: string) => {
-        const template = await createDevicePluginMenu(deviceId);
-        const menu = Menu.buildFromTemplate(template);
-        const win = BrowserWindow.fromWebContents(e.sender) || undefined;
-        menu.popup({ window: win, x, y });
-      }
-    );
-
-    ipcMain.on(
-      MENU.INPUT_PLUGIN_MENU,
-      async (
-        e: IpcMainEvent,
-        x: number,
-        y: number,
-        deviceId: string,
-        inputId: string
-      ) => {
-        const template = await createInputPluginMenu(deviceId, inputId);
-        const menu = Menu.buildFromTemplate(template);
-        const win = BrowserWindow.fromWebContents(e.sender) || undefined;
-        menu.popup({ window: win, x, y });
-      }
-    );
   }
 }
 

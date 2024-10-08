@@ -19,13 +19,8 @@ export const InputConfigService = {
     );
   },
 
-  removePlugin: (pluginId: string, deviceConfigId: string, inputId: string) => {
-    ipcRenderer.send(
-      INPUT_CONFIG.REMOVE_PLUGIN,
-      pluginId,
-      deviceConfigId,
-      inputId
-    );
+  removePlugin: (pluginId: string, qualifiedInputId: string) => {
+    ipcRenderer.send(INPUT_CONFIG.REMOVE_PLUGIN, pluginId, qualifiedInputId);
   },
 
   updateInputs(configs: InputDTO[]) {

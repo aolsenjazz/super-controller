@@ -7,7 +7,7 @@ export const MenuService = {
     ipcRenderer.send(MENU.DEVICE_PLUGIN_MENU, x, y, deviceId);
   },
 
-  showInputPluginMenu(x: number, y: number, deviceId: string, inputId: string) {
-    ipcRenderer.send(MENU.INPUT_PLUGIN_MENU, x, y, deviceId, inputId);
+  showInputPluginMenu(x: number, y: number, inputId: string) {
+    ipcRenderer.send(MENU.INPUT_PLUGIN_MENU, x, y, inputId);
   },
 };

@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 
 import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 import { importInputSubcomponent } from '@plugins/plugin-loader';
+import { getQualifiedInputId } from '@shared/util';
 
 import PluginSubpanel from 'renderer/components/PluginSubpanel';
 
@@ -21,16 +22,23 @@ export default function MonoInputConfigPanel(props: PropTypes) {
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
-      MenuService.showInputPluginMenu(x, y, deviceId, input.id);
+      MenuService.showInputPluginMenu(
+        x,
+        y,
+        getQualifiedInputId(input.deviceId, input.id)
+      );
     },
-    [input, deviceId]
+    [input]
   );
 
   const removePlugin = useCallback(
     (pluginId: string) => {
-      InputConfigService.removePlugin(pluginId, deviceId, input.id);
+      InputConfigService.removePlugin(
+        pluginId,
+        getQualifiedInputId(input.deviceId, input.id)
+      );
     },
-    [input, deviceId]
+    [input]
   );
 
   return (
