@@ -1,19 +1,19 @@
 import { PadDriver } from '../../driver-types';
-import { MonoInputConfig } from './mono-input-config';
+import { InputDefault, MonoInputConfig } from './mono-input-config';
 import { MonoInputDTO } from './mono-input-dto';
 
 export class PadConfig extends MonoInputConfig {
-  defaultValue?: MidiNumber;
+  public defaults: InputDefault;
 
-  static fromDriver(deviceId: string, d: PadDriver) {
-    const def = {
-      number: d.number,
-      channel: d.channel,
-      statusString: d.status,
-      response: d.response,
+  constructor(deviceId: string, nickname: string, driver: PadDriver) {
+    super(deviceId, nickname, [], driver);
+
+    this.defaults = {
+      number: driver.number,
+      channel: driver.channel,
+      statusString: driver.status,
+      response: driver.response,
     };
-
-    return new PadConfig(deviceId, '', [], def);
   }
 
   public get state() {

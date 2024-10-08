@@ -28,26 +28,16 @@ export class XYConfig extends BaseInputConfig<XYDTO> {
 
   y: SliderConfig | PitchbendConfig;
 
-  static fromDriver(deviceId: string, d: XYDriver) {
-    const confs = [d.x, d.y].map((driver) => {
-      return driver.status === 'pitchbend'
-        ? PitchbendConfig.fromDriver(deviceId, driver)
-        : SliderConfig.fromDriver(deviceId, driver);
-    });
+  constructor(deviceId: string, nickname: string, driver: XYDriver) {
+    super(deviceId, nickname, driver);
 
-    return new XYConfig(deviceId, '', confs[0], confs[1]);
-  }
+    const XConfig =
+      driver.x.status === 'pitchbend' ? PitchbendConfig : SliderConfig;
+    const YConfig =
+      driver.y.status === 'pitchbend' ? PitchbendConfig : SliderConfig;
 
-  constructor(
-    deviceId: string,
-    nickname: string,
-    x: SliderConfig | PitchbendConfig,
-    y: SliderConfig | PitchbendConfig
-  ) {
-    super(deviceId, nickname);
-
-    this.x = x;
-    this.y = y;
+    this.x = new XConfig(deviceId, '', driver.x);
+    this.y = new YConfig(deviceId, '', driver.y);
   }
 
   public init() {

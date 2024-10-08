@@ -3,7 +3,7 @@ export type InputType = 'pad' | 'knob' | 'slider' | 'wheel' | 'xy' | 'switch';
 
 export type InputShape = 'circle' | 'rect';
 
-export interface InputDriver {
+export interface BaseInputDriver {
   /* Physical shape of the input. circle + square have 1:1 aspect ratio enforced */
   readonly shape: InputShape;
 

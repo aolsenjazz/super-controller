@@ -1,7 +1,7 @@
 import { byteToStatusString } from '@shared/midi-util';
 
 import { InputType, MonoInteractiveDriver } from '../../driver-types';
-import { MonoInputConfig } from './mono-input-config';
+import { InputDefault, MonoInputConfig } from './mono-input-config';
 import { SliderState } from './slider-config';
 import type { MonoInputDTO } from './mono-input-dto';
 
@@ -13,15 +13,21 @@ import type { MonoInputDTO } from './mono-input-dto';
  * create configs from drivers, `config.number` is instead just assigned a meaningless number.
  */
 export class PitchbendConfig extends MonoInputConfig {
-  static fromDriver(deviceId: string, d: MonoInteractiveDriver) {
-    const def = {
-      number: d.number,
-      channel: d.channel,
-      statusString: d.status,
-      response: d.response,
-    };
+  public defaults: InputDefault;
 
-    return new PitchbendConfig(deviceId, '', [], def);
+  constructor(
+    deviceId: string,
+    nickname: string,
+    driver: MonoInteractiveDriver
+  ) {
+    super(deviceId, nickname, [], driver);
+
+    this.defaults = {
+      number: driver.number,
+      channel: driver.channel,
+      statusString: driver.status,
+      response: driver.response,
+    };
   }
 
   public toDTO(): MonoInputDTO {

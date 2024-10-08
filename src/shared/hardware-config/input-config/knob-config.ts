@@ -16,17 +16,23 @@ interface KnobDefaults extends InputDefault {
   knobType: 'endless' | 'absolute';
 }
 
-export class KnobConfig extends MonoInputConfig<KnobDefaults> {
-  static fromDriver(deviceId: string, d: KnobDriver) {
-    const def = {
-      number: d.number,
-      channel: d.channel,
-      statusString: d.status,
-      response: d.response,
-      knobType: d.knobType,
-    };
+export class KnobConfig extends MonoInputConfig<
+  KnobDefaults,
+  KnobDTO,
+  KnobDriver
+> {
+  defaults: KnobDefaults;
 
-    return new KnobConfig(deviceId, '', [], def);
+  constructor(deviceId: string, nickname: string, driver: KnobDriver) {
+    super(deviceId, nickname, [], driver);
+
+    this.defaults = {
+      number: driver.number,
+      channel: driver.channel,
+      statusString: driver.status,
+      response: driver.response,
+      knobType: driver.knobType,
+    };
   }
 
   applyStub(s: KnobDTO) {

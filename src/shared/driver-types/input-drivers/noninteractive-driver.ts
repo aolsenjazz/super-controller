@@ -1,6 +1,6 @@
-import { InputDriver } from './input-driver';
+import { BaseInputDriver } from './base-input-driver';
 
-export interface NoninteractiveInputDriver extends InputDriver {
+export interface NoninteractiveInputDriver extends BaseInputDriver {
   /* Can the input be overridden? `false` if the input does not transmit data to clients */
   readonly interactive: false;
 

@@ -1,5 +1,5 @@
 /* eslint @typescript-eslint/no-empty-interface: 0 */
-import { InputType } from '@shared/driver-types';
+import { InputDriver, InputType } from '@shared/driver-types';
 import {
   MessageProcessor,
   MessageProcessorMeta,
@@ -17,16 +17,21 @@ export interface InputDTO extends BaseIcicle {
   type: InputType;
 }
 
-export abstract class BaseInputConfig<T extends InputDTO = InputDTO>
-  implements MessageProcessor
+export abstract class BaseInputConfig<
+  T extends InputDTO = InputDTO,
+  K extends InputDriver = InputDriver
+> implements MessageProcessor
 {
   protected nickname: string = '';
 
   readonly deviceId: string;
 
-  constructor(deviceId: string, nickname: string) {
+  readonly driver: K;
+
+  constructor(deviceId: string, nickname: string, driver: K) {
     this.deviceId = deviceId;
     this.nickname = nickname;
+    this.driver = driver;
   }
 
   public toDTO(): T {

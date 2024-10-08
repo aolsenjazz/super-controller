@@ -1,7 +1,7 @@
 import { InputDriverWithHandle } from './input-driver-with-handle';
-import { InteractiveInputDriver } from './interactive-input-driver';
+import { BaseInteractiveInputDriver } from './base-interactive-input-driver';
 
-export interface XYDriver extends InteractiveInputDriver {
+export interface XYDriver extends BaseInteractiveInputDriver {
   type: 'xy';
 
   x: InputDriverWithHandle;

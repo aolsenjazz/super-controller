@@ -8,7 +8,11 @@ import {
 } from '@shared/midi-util';
 import { PluginProvider } from '@shared/plugin-provider';
 import { getQualifiedInputId } from '@shared/util';
-import type { InputResponse } from '../../driver-types';
+import type {
+  InputDriver,
+  InputResponse,
+  MonoInteractiveDriver,
+} from '../../driver-types';
 import { BaseInputConfig } from './base-input-config';
 import { MonoInputDTO } from './mono-input-dto';
 
@@ -29,9 +33,10 @@ export type InputDefault = {
 
 export abstract class MonoInputConfig<
   T extends InputDefault = InputDefault,
-  K extends MonoInputDTO = MonoInputDTO
-> extends BaseInputConfig<K> {
-  defaults: T;
+  U extends MonoInputDTO = MonoInputDTO,
+  V extends InputDriver = MonoInteractiveDriver
+> extends BaseInputConfig<U> {
+  public abstract defaults: T;
 
   public plugins: string[];
 
@@ -39,12 +44,11 @@ export abstract class MonoInputConfig<
     deviceId: string,
     nickname: string,
     plugins: string[],
-    defaultVals: T
+    driver: V
   ) {
-    super(deviceId, nickname);
+    super(deviceId, nickname, driver);
 
     this.plugins = plugins;
-    this.defaults = defaultVals;
   }
 
   public isOriginator(msg: NumberArrayWithStatus) {
@@ -81,7 +85,7 @@ export abstract class MonoInputConfig<
     return message;
   }
 
-  public applyStub(s: K) {
+  public applyStub(s: U) {
     super.applyStub(s);
 
     this.plugins = s.plugins;

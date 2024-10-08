@@ -1,4 +1,4 @@
-import { InteractiveInputDriver } from './interactive-input-driver';
+import { BaseInteractiveInputDriver } from './base-interactive-input-driver';
 import { Color } from '../color';
 import { FxDriver } from '../fx-driver';
 
@@ -19,7 +19,7 @@ export type InputResponse =
   | 'constant'
   | 'enumerated';
 
-export interface MonoInteractiveDriver extends InteractiveInputDriver {
+export interface MonoInteractiveDriver extends BaseInteractiveInputDriver {
   readonly type: 'knob' | 'pad' | 'slider' | 'wheel' | 'switch';
 
   /* See `InputResponse` */

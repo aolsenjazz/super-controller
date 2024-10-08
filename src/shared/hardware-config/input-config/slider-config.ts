@@ -1,5 +1,5 @@
-import { MonoInputConfig } from './mono-input-config';
-import { InputDriverWithHandle } from '../../driver-types';
+import { InputDefault, MonoInputConfig } from './mono-input-config';
+import { MonoInteractiveDriver } from '../../driver-types';
 import { InputState } from './base-input-config';
 import type { MonoInputDTO } from './mono-input-dto';
 
@@ -8,15 +8,21 @@ export interface SliderState extends InputState {
 }
 
 export class SliderConfig extends MonoInputConfig {
-  static fromDriver(deviceId: string, d: InputDriverWithHandle) {
-    const def = {
-      number: d.number,
-      channel: d.channel,
-      statusString: d.status,
-      response: d.response,
-    };
+  public defaults: InputDefault;
 
-    return new SliderConfig(deviceId, '', [], def);
+  constructor(
+    deviceId: string,
+    nickname: string,
+    driver: MonoInteractiveDriver
+  ) {
+    super(deviceId, nickname, [], driver);
+
+    this.defaults = {
+      number: driver.number,
+      channel: driver.channel,
+      statusString: driver.status,
+      response: driver.response,
+    };
   }
 
   public toDTO(): MonoInputDTO {
