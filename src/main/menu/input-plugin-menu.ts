@@ -59,8 +59,6 @@ export async function createInputPluginMenu(
             console.log('Ignoring for now....');
           }
         });
-
-        WindowProvider.MainWindow.sendConfigStub(dev.id, dev.toDTO());
       },
     });
   });

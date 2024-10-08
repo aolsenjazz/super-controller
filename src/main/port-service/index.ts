@@ -92,25 +92,6 @@ export class HardwarePortServiceSingleton {
    * Listen to IPC comms from frontend
    */
   private setFrontendListeners() {
-    ipcMain.on(HOST.REQUEST_CONNECTED_DEVICES, () =>
-      this.sendConnectedDevicesToFrontend()
-    );
-
-    // TODO: shouldn't realize use this name. either change the name or design
-    ipcMain.on(HOST.REQUEST_DEVICE_STUB, (_e: Event, deviceId: string) => {
-      this.availableHardwarePorts
-        .filter((p) => p.id === deviceId)
-        .forEach((p) => MainWindow.sendDeviceStub(deviceId, p.stub));
-    });
-
-    ipcMain.on(
-      HOST.GET_CONNECTION_DETAILS,
-      (e: IpcMainEvent, deviceId: string) => {
-        const port = this.availableHardwarePorts.find((p) => p.id === deviceId);
-        e.returnValue = port?.stub;
-      }
-    );
-
     ipcMain.on(HOST.GET_CONNECTED_DEVICES, (e: IpcMainEvent) => {
       e.returnValue = this.availableHardwarePorts.map((p) => p.stub);
     });

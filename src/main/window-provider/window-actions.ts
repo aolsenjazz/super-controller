@@ -1,10 +1,8 @@
 import { BrowserWindow, BrowserWindowConstructorOptions, Menu } from 'electron';
 
-import { byteToStatusString } from '@shared/midi-util';
-import type { PluginDTO } from '@shared/plugin-core/base-plugin';
-
-import { HOST } from '../ipc-channels';
 import { UnknownAction } from '@reduxjs/toolkit';
+
+import type { PluginDTO } from '@shared/plugin-core/base-plugin';
 
 /**
  * Assumes that this window is stateless, e.g. no state is saved when the
@@ -42,27 +40,6 @@ export abstract class WindowActions {
     msg: NumberArrayWithStatus
   ) {
     this.send(`${deviceId}-${inputId}-loopback`, msg);
-  }
-
-  /**
-   * Sends an update to the frontend containing the last-emitted MIDI message from the
-   * device with given `deviceId`. This function is 'narrow' because it is expected that
-   * very few listeners will be set up for this function's ipc channel.
-   */
-  public sendNarrowInputEvent(deviceId: string, msg: NumberArrayWithStatus) {
-    const statusString = byteToStatusString(msg[0], false);
-
-    this.send(`${deviceId}.${statusString}.${msg[0] & 0x0f}.${msg[1]}`, msg);
-  }
-
-  /**
-   * Sends an update to the frontend containing the last-emitted MIDI message from the
-   * device with the given `deviceId`. This function is different from `sendNarrowInputEvent`
-   * in that it is transmitted on a much broader-usage channel, and therefore should
-   * be used judiciously.
-   */
-  public sendInputEvent(deviceId: string, msg: NumberArrayWithStatus) {
-    this.send(HOST.MIDI_EVENT, deviceId, msg);
   }
 
   public sendPluginUpdate(id: string, dto: PluginDTO) {

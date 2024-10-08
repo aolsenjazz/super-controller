@@ -26,12 +26,6 @@ export const HostService = {
     return addOnChangeListener(`${deviceId}-${inputId}-loopback`, func);
   },
 
-  addMidiEventListener(
-    func: (deviceId: string, msg: NumberArrayWithStatus) => void
-  ) {
-    return addOnChangeListener(HOST.MIDI_EVENT, func);
-  },
-
   onTitleChange: (func: (title: string) => void) => {
     return addOnChangeListener(HOST.TITLE, func);
   },
@@ -50,56 +44,7 @@ export const HostService = {
     ipcRenderer.send(HOST.REQUEST, deviceName);
   },
 
-  /**
-   * Invokes `func` whenever the available MIDI ports (hardware and virtual)
-   * change. Contains only data available from MIDI connections; without config.
-   * Also immediately invokes with current list of devices.
-   */
-  onConnectedDevicesChange(func: (deviceIds: string[]) => void) {
-    const off = addOnChangeListener(HOST.CONNECTED_DEVICES, func);
-    ipcRenderer.send(HOST.REQUEST_CONNECTED_DEVICES);
-    return off;
-  },
-
   getConnectedDevices(): DeviceConnectionDetails[] {
     return ipcRenderer.sendSync(HOST.GET_CONNECTED_DEVICES);
-  },
-
-  /**
-   * Invokes `func` whenever this device changes. As this data is received from the OS,
-   * this information is very unlikely to change for any given session. Also immediately
-   * invokes with current `DeviceStub`
-   */
-  onDeviceChange(
-    deviceId: string,
-    func: (desc: DeviceConnectionDetails | undefined) => void
-  ) {
-    const off = addOnChangeListener(`device-stub-${deviceId}`, func);
-    ipcRenderer.send(HOST.REQUEST_DEVICE_STUB, deviceId);
-    return off;
-  },
-
-  getDeviceConnectionDetails(
-    deviceId: string
-  ): DeviceConnectionDetails | undefined {
-    return ipcRenderer.sendSync(HOST.GET_CONNECTION_DETAILS, deviceId);
-  },
-
-  /**
-   * Invokes `func` whenever this input changes state, usually as a result of somebody
-   * interacting with the physical controls of a device. Also immediately invokes with
-   * the current state.
-   */
-  onInputChange<T>(
-    deviceId: string,
-    inputId: string,
-    func: (state: T) => void
-  ) {
-    const off = addOnChangeListener(
-      `device-${deviceId}-input-${inputId}-state`,
-      func
-    );
-    ipcRenderer.send(HOST.REQUEST_INPUT_STATE, deviceId, inputId);
-    return off;
   },
 };

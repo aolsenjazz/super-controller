@@ -7,8 +7,8 @@ import {
   SupportedDeviceConfig,
 } from '@shared/hardware-config';
 import { getQualifiedInputId } from '@shared/util';
-
 import { Anonymous, DRIVERS, getDriver } from '@shared/drivers';
+
 import { CONFIG, DEVICE_CONFIG } from './ipc-channels';
 
 import { WindowProvider } from './window-provider';
@@ -71,11 +71,6 @@ ipcMain.on(CONFIG.REMOVE_DEVICE, (_e: IpcMainEvent, deviceId: string) => {
   });
 });
 
-/* When a device is removed from project, remove it here and re-init all devices */
-ipcMain.on(CONFIG.GET_CONFIGURED_DEVICES, (e: IpcMainEvent) => {
-  e.returnValue = DeviceRegistry.getAll().map((d) => d.toDTO());
-});
-
 ipcMain.on(
   CONFIG.UPDATE_DEVICE,
   (_e: IpcMainEvent, updates: DeviceConfigDTO) => {
@@ -124,7 +119,5 @@ ipcMain.on(
       driver
     ) as SupportedDeviceConfig;
     config.setChild(child);
-
-    MainWindow.sendConfigStub(config.id, config.toDTO());
   }
 );
