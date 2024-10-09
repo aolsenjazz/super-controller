@@ -8,9 +8,11 @@ import {
 } from '@shared/hardware-config';
 import { getQualifiedInputId } from '@shared/util';
 import { Anonymous, DRIVERS, getDriver } from '@shared/drivers';
+import { PluginManifest } from '@shared/plugin-core/plugin-manifest';
+import { importDeviceSubcomponent } from '@plugins/plugin-loader';
+import { BasePlugin } from '@shared/plugin-core/base-plugin';
 
 import { DEVICE_CONFIG } from './ipc-channels';
-
 import { WindowProvider } from '../window-provider';
 import { PluginRegistry } from '../plugin-registry';
 import { DeviceRegistry } from '../device-registry';
@@ -94,7 +96,34 @@ ipcMain.on(
 ipcMain.on(
   DEVICE_CONFIG.DEVICE_PLUGIN_MENU,
   async (e: IpcMainEvent, x: number, y: number, deviceId: string) => {
-    const template = await createDevicePluginMenu(deviceId);
+    // menu item onClick listener
+    const onClick = async (m: PluginManifest) => {
+      const dev = DeviceRegistry.get(deviceId);
+
+      if (!dev)
+        throw new Error(`No config available for deviceId[${deviceId}]`);
+
+      // Dynamically import plugin module, instantiate, register
+      const Plugin = await importDeviceSubcomponent(m.title, 'plugin');
+      const plugin: BasePlugin = new Plugin(m.title, m.description);
+      dev.plugins.push(plugin.id);
+
+      PluginRegistry.register(plugin.id, plugin);
+
+      // Tell the frontend
+      WindowProvider.MainWindow.sendReduxEvent({
+        type: 'plugins/upsertOne',
+        payload: plugin.toDTO(),
+      });
+
+      WindowProvider.MainWindow.sendReduxEvent({
+        type: 'configuredDevices/upsertOne',
+        payload: dev.toDTO(),
+      });
+    };
+
+    // show the menu
+    const template = await createDevicePluginMenu(onClick);
     const menu = Menu.buildFromTemplate(template);
     const win = BrowserWindow.fromWebContents(e.sender) || undefined;
     menu.popup({ window: win, x, y });

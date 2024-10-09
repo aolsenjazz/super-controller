@@ -1,7 +1,6 @@
 import type { Color } from '@shared/driver-types/color';
 import type { FxDriver } from '@shared/driver-types/fx-driver';
 import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
-import { usePlugin } from '@hooks/use-plugin';
 
 import { BacklightControlDTO } from '..';
 import ColorSelect from './ColorSelect';
@@ -9,11 +8,10 @@ import FxSelect from './FxSelect';
 
 import './BacklightControl.css';
 
-const { BacklightControlService } = window;
-
-export default function BacklightPluginUI(props: PluginUIProps) {
-  const { pluginId } = props;
-  const { plugin } = usePlugin<BacklightControlDTO>(pluginId);
+export default function BacklightPluginUI(
+  props: PluginUIProps<BacklightControlDTO>
+) {
+  const { plugin, applyChanges } = props;
 
   const {
     colorBindings,
@@ -25,18 +23,21 @@ export default function BacklightPluginUI(props: PluginUIProps) {
   } = plugin;
 
   const onColorChange = (state: number, color: Color) => {
-    plugin.colorBindings[state] = color;
-    BacklightControlService.updateColor(pluginId, state, color);
+    const bindings = { ...plugin.colorBindings };
+    bindings[state] = color;
+    applyChanges({ ...plugin, colorBindings: bindings });
   };
 
   const onFxChange = (state: number, fx: FxDriver) => {
-    plugin.fxBindings[state] = fx;
-    BacklightControlService.updateFx(pluginId, state, fx);
+    const bindings = { ...plugin.fxBindings };
+    bindings[state] = fx;
+    applyChanges({ ...plugin, fxBindings: bindings });
   };
 
   const onFxValueChange = (state: number, arr: MidiNumber[]) => {
-    plugin.fxValueBindings[state] = arr;
-    BacklightControlService.updateFxValue(pluginId, state, arr);
+    const bindings = { ...plugin.fxValueBindings };
+    bindings[state] = arr;
+    applyChanges({ ...plugin, fxValueBindings: bindings });
 
     // Hackily apply fx, if necessary
   };

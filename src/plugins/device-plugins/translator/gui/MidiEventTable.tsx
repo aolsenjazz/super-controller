@@ -27,21 +27,21 @@ export function MidiEventTable(props: MidiEventTableProps) {
   const [midiEvents, setMidiEvents] = useState<MidiEvent[]>([]);
   const [selectedRow, setSelectedRow] = useState<string>('');
 
-  useEffect(() => {
-    const off = HostService.addMidiEventListener((devId, msg) => {
-      if (deviceId !== devId) return;
+  // useEffect(() => {
+  //   const off = HostService.addMidiEventListener((devId, msg) => {
+  //     if (deviceId !== devId) return;
 
-      setMidiEvents((prevMidiEvents) => {
-        const newMidiEvents = [
-          { deviceId, msg, time: readableTime() },
-          ...prevMidiEvents,
-        ];
-        return newMidiEvents.slice(0, 10);
-      });
-    });
+  //     setMidiEvents((prevMidiEvents) => {
+  //       const newMidiEvents = [
+  //         { deviceId, msg, time: readableTime() },
+  //         ...prevMidiEvents,
+  //       ];
+  //       return newMidiEvents.slice(0, 10);
+  //     });
+  //   });
 
-    return () => off();
-  }, [setMidiEvents, deviceId]);
+  //   return () => off();
+  // }, [setMidiEvents, deviceId]);
 
   const rows = midiEvents.map((event) => {
     const id = rowId(event);

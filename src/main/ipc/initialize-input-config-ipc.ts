@@ -6,6 +6,9 @@ import {
   InputDTO,
 } from '@shared/hardware-config/input-config/base-input-config';
 import { getQualifiedInputId } from '@shared/util';
+import { PluginManifest } from '@shared/plugin-core/plugin-manifest';
+import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
+import { importInputSubcomponent } from '@plugins/plugin-loader';
 
 import { INPUT_CONFIG } from './ipc-channels';
 import { WindowProvider } from '../window-provider';
@@ -17,8 +20,38 @@ const { MainWindow } = WindowProvider;
 
 ipcMain.on(
   INPUT_CONFIG.INPUT_PLUGIN_MENU,
-  async (e: IpcMainEvent, x: number, y: number, inputId: string) => {
-    const template = await createInputPluginMenu(inputId);
+  async (e: IpcMainEvent, x: number, y: number, qualifiedInputId: string) => {
+    // create onclick listener
+    const onClick = async (m: PluginManifest) => {
+      const input = InputRegistry.get(qualifiedInputId);
+
+      if (!(input instanceof MonoInputConfig))
+        throw new Error(`Adding plugin to ${input} is not defined`);
+
+      const inputDriver = input.driver;
+      const Plugin = await importInputSubcomponent(m.title, 'plugin');
+      const plugin: BaseInputPlugin = new Plugin(
+        m.title,
+        m.description,
+        inputDriver
+      );
+      input.plugins.push(plugin.id);
+
+      PluginRegistry.register(plugin.id, plugin);
+
+      MainWindow.sendReduxEvent({
+        type: 'plugins/upsertOne',
+        payload: plugin.toDTO(),
+      });
+
+      MainWindow.sendReduxEvent({
+        type: 'inputConfigs/upsertOne',
+        payload: input.toDTO(),
+      });
+    };
+
+    // show the add-plugin-menu
+    const template = await createInputPluginMenu(onClick);
     const menu = Menu.buildFromTemplate(template);
     const win = BrowserWindow.fromWebContents(e.sender) || undefined;
     menu.popup({ window: win, x, y });

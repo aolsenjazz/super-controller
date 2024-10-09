@@ -1,7 +1,13 @@
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import { useSelectedPlugin } from '@context/selected-plugin-context';
 import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
+import { useAppDispatch, useAppSelector } from '@hooks/use-app-dispatch';
+import {
+  selectSelectedPluginId,
+  setSelectedPluginId,
+} from '@features/selected-plugin-id/selected-plugin-id-slice';
+import { selectPluginById } from '@features/plugins/plugins-slice';
 
 import PluginBody from './PluginBody';
 import PluginViewControl from './PluginViewControl';
@@ -23,34 +29,17 @@ type PropTypes = {
 export default function PluginSlot(props: PropTypes) {
   const { pluginId, removePlugin, selectedDevice, importPlugin } = props;
 
-  const { selectedPlugin, setSelectedPlugin } = useSelectedPlugin();
+  const dispatch = useAppDispatch();
+  const selectedPlugin = useSelector(selectSelectedPluginId);
+  const plugin = useAppSelector((state) => selectPluginById(state, pluginId));
 
-  const [on, setOn] = useState(true);
-  const [title, setTitle] = useState('');
   const [open, setOpen] = useState(false);
 
   const selected = selectedPlugin === pluginId;
 
-  useLayoutEffect(() => {
-    const plugin = PluginService.getPlugin(pluginId);
-    if (plugin) {
-      setOn(plugin.on);
-      setTitle(plugin.title);
-    }
-  }, [pluginId]);
-
-  // write a snippet of code to handle automatically opening a channel for plugin-${id}
-  useEffect(() => {
-    const remove = PluginService.addPluginListener(pluginId, (dto) => {
-      setOn(dto.on);
-      setTitle(dto.title);
-    });
-    return () => remove();
-  }, [pluginId]);
-
   const onClick = useCallback(() => {
-    setSelectedPlugin(pluginId);
-  }, [pluginId, setSelectedPlugin]);
+    dispatch(setSelectedPluginId(pluginId));
+  }, [pluginId, dispatch]);
 
   const handleBackspace = useCallback(
     (event: KeyboardEvent) => {
@@ -79,14 +68,14 @@ export default function PluginSlot(props: PropTypes) {
       role="presentation"
     >
       <div className="plugin-header">
-        <PowerButton on={on} onClick={onPowerButtonClick} />
+        <PowerButton on={plugin.on} onClick={onPowerButtonClick} />
         <PluginViewControl id={pluginId} open={open} setOpen={setOpen} />
-        <h5>{title}</h5>
+        <h5>{plugin.title}</h5>
       </div>
       {open && (
         <PluginBody
           pluginId={pluginId}
-          title={title}
+          title={plugin.title}
           selectedDevice={selectedDevice}
           importPlugin={importPlugin}
         />

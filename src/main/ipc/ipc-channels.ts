@@ -29,3 +29,8 @@ export const LAYOUT = {
   GET_LAYOUT_ITEM: 'get-layout-item',
   SET_LAYOUT_ITEM: 'set-layout-item',
 };
+
+export const PLUGIN = {
+  UPDATE: 'plugin-update',
+  POWER: 'toggle-power',
+};

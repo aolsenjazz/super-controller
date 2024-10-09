@@ -1,32 +1,37 @@
+import { TranslatorDTO } from '..';
 import { toString } from '../util';
 import EventSelector from './EventSelector';
 import OverrideFields from './OverrideFields';
 
-const { TranslatorService } = window;
-
 type OverrideControlsProps = {
   selectedSource: NumberArrayWithStatus | undefined;
   setSelectedSource: (source: NumberArrayWithStatus | undefined) => void;
-  overrides: Record<string, NumberArrayWithStatus | undefined>;
-  pluginId: string;
+  plugin: Readonly<TranslatorDTO>;
+  applyChanges: (dto: TranslatorDTO) => void;
 };
 
 export function OverrideControls(props: OverrideControlsProps) {
-  const { selectedSource, setSelectedSource, overrides, pluginId } = props;
+  const { selectedSource, setSelectedSource, plugin, applyChanges } = props;
 
   const updateOverride = (
     source: NumberArrayWithStatus,
     override: NumberArrayWithStatus
   ) => {
-    TranslatorService.updateOverride(pluginId, toString(source), override);
+    const overrides = { ...plugin.overrides };
+    overrides[toString(source)] = override;
+    applyChanges({ ...plugin, overrides });
   };
 
   const deleteOverride = () => {
-    TranslatorService.deleteOverride(pluginId, toString(selectedSource!));
+    const overrides = { ...plugin.overrides };
+    delete overrides[toString(selectedSource!)];
+
+    applyChanges({ ...plugin, overrides });
     setSelectedSource(undefined);
   };
 
-  const maybeOverride = selectedSource && overrides[toString(selectedSource)];
+  const maybeOverride =
+    selectedSource && plugin.overrides[toString(selectedSource)];
   const o = maybeOverride || selectedSource;
 
   return (
@@ -34,7 +39,7 @@ export function OverrideControls(props: OverrideControlsProps) {
       <EventSelector
         selectedSource={selectedSource}
         setSelectedSource={setSelectedSource}
-        overrides={overrides}
+        overrides={plugin.overrides}
       />
 
       {o && selectedSource && (

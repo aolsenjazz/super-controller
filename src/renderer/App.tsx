@@ -1,7 +1,6 @@
 import { Provider } from 'react-redux';
 
 import { PanelProvider } from '@context/panel-context';
-import { SelectedPluginProvider } from '@context/selected-plugin-context';
 import { store } from './store/store';
 
 import TitleBar from './components/TitleBar';
@@ -23,11 +22,9 @@ export default function App() {
   return (
     <Provider store={store}>
       <PanelProvider>
-        <SelectedPluginProvider>
-          <TitleBar />
-          <MainContent />
-          <div id="modal-layer" />
-        </SelectedPluginProvider>
+        <TitleBar />
+        <MainContent />
+        <div id="modal-layer" />
       </PanelProvider>
     </Provider>
   );

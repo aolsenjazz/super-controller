@@ -113,6 +113,12 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     };
   }
 
+  public applyDTO(dto: BacklightControlDTO): void {
+    this.colorBindings = dto.colorBindings;
+    this.fxBindings = dto.fxBindings;
+    this.fxValueBindings = dto.fxValueBindings;
+  }
+
   public restoreDefaultColor(state: number) {
     const defaultColor = this.availableColors.find((c) => c.default);
     if (defaultColor) this.colorBindings[state] = defaultColor;

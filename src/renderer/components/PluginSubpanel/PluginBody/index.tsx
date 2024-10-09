@@ -6,6 +6,11 @@ import './PluginBody.css';
 import { useSelector } from 'react-redux';
 import { selectUnifiedDevices } from '@selectors/unified-devices-selector';
 import { selectSelectedDevice } from '@selectors/selected-device-selector';
+import { PluginDTO } from '@shared/plugin-core/base-plugin';
+import { selectPluginById } from '@features/plugins/plugins-slice';
+import { useAppSelector } from '@hooks/use-app-dispatch';
+
+const { PluginService } = window;
 
 type PropTypes = {
   pluginId: string;
@@ -19,6 +24,7 @@ export default function PluginBody(props: PropTypes) {
 
   const selectedDevice = useSelector(selectSelectedDevice)!;
   const connectedDevices = useSelector(selectUnifiedDevices);
+  const plugin = useAppSelector((state) => selectPluginById(state, pluginId));
   const connectedDeviceIds = connectedDevices
     .filter((c) => c.connectionDetails)
     .map((c) => c.id);
@@ -36,6 +42,10 @@ export default function PluginBody(props: PropTypes) {
       });
   }, [title, importPlugin]);
 
+  const updatePlugin = (dto: PluginDTO) => {
+    PluginService.updatePlugin(dto);
+  };
+
   if (selectedDevice.config === undefined) {
     throw new Error(
       'deviceConfig must not be undefined when rendering PluginUI'
@@ -46,9 +56,10 @@ export default function PluginBody(props: PropTypes) {
     <div className="plugin-body">
       {UI && (
         <UI
-          pluginId={pluginId}
+          plugin={plugin}
           selectedDevice={selectedDevice.config}
           connectedDevices={connectedDeviceIds}
+          applyChanges={updatePlugin}
         />
       )}
     </div>
