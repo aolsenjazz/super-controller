@@ -8,6 +8,10 @@ export const PluginService = {
     ipcRenderer.send(PLUGIN.POWER, pluginId);
   },
 
+  toggleCollapsed(pluginId: string) {
+    ipcRenderer.send(PLUGIN.COLLAPSED, pluginId);
+  },
+
   updatePlugin(dto: PluginDTO) {
     ipcRenderer.send(PLUGIN.UPDATE, dto);
   },

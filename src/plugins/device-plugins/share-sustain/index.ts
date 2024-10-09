@@ -47,7 +47,6 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainDTO> {
   }
 
   public applyDTO(dto: ShareSustainDTO): void {
-    super.applyDTO(dto);
     this.sustainTargets = dto.sustainTargets;
   }
 

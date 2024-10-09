@@ -32,4 +32,8 @@ export default class TranslatorPlugin extends BasePlugin<TranslatorDTO> {
       overrides: this.overrides,
     };
   }
+
+  public applyDTO(dto: TranslatorDTO): void {
+    this.overrides = dto.overrides;
+  }
 }

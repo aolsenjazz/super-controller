@@ -1,27 +1,23 @@
 import ViewClosed from '@assets/plugin_closed.svg';
 import ViewOpen from '@assets/plugin_open.svg';
-import { useCallback, useEffect } from 'react';
+import { PluginDTO } from '@shared/plugin-core/base-plugin';
+
+const { PluginService } = window;
 
 type PropTypes = {
-  id: string;
-  open: boolean;
-  setOpen: (o: boolean) => void;
+  plugin: PluginDTO;
 };
 
 export default function PluginViewControl(props: PropTypes) {
-  const { id, open, setOpen } = props;
+  const { plugin } = props;
 
-  const onClick = useCallback(() => {
-    setOpen(!open);
-  }, [open, setOpen]);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [id, setOpen]);
+  const onClick = () => {
+    PluginService.toggleCollapsed(plugin.id);
+  };
 
   return (
     <div onClick={onClick} role="presentation" className="view-control">
-      {open ? (
+      {!plugin.collapsed ? (
         <img src={ViewOpen} alt="open plugin view" />
       ) : (
         <img src={ViewClosed} alt="close plugin view" />

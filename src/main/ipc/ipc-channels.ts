@@ -33,4 +33,5 @@ export const LAYOUT = {
 export const PLUGIN = {
   UPDATE: 'plugin-update',
   POWER: 'toggle-power',
+  COLLAPSED: 'toggle-collapsed',
 };

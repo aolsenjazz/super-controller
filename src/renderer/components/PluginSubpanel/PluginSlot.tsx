@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
@@ -32,8 +32,6 @@ export default function PluginSlot(props: PropTypes) {
   const dispatch = useAppDispatch();
   const selectedPlugin = useSelector(selectSelectedPluginId);
   const plugin = useAppSelector((state) => selectPluginById(state, pluginId));
-
-  const [open, setOpen] = useState(false);
 
   const selected = selectedPlugin === pluginId;
 
@@ -69,10 +67,10 @@ export default function PluginSlot(props: PropTypes) {
     >
       <div className="plugin-header">
         <PowerButton on={plugin.on} onClick={onPowerButtonClick} />
-        <PluginViewControl id={pluginId} open={open} setOpen={setOpen} />
+        <PluginViewControl plugin={plugin} />
         <h5>{plugin.title}</h5>
       </div>
-      {open && (
+      {!plugin.collapsed && (
         <PluginBody
           pluginId={pluginId}
           title={plugin.title}

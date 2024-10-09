@@ -134,10 +134,6 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     if (defaultFx) this.fxValueBindings[state] = defaultFx.defaultVal;
   }
 
-  public applyIcicle(dto: BacklightControlDTO): void {
-    super.applyDTO(dto);
-  }
-
   public get applicableDeviceTypes(): (
     | 'supported'
     | 'anonymous'

@@ -10,6 +10,7 @@ export interface PluginDTO {
   title: string;
   description: string;
   on: boolean;
+  collapsed: boolean;
 }
 
 /**
@@ -25,7 +26,7 @@ export interface PluginDTO {
  * Plugin manifests are dynamically loaded and then used futher to dynamically load subcomponents.
  */
 export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
-  implements MessageProcessor 
+  implements MessageProcessor
 {
   public readonly id: string;
 
@@ -35,6 +36,8 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
 
   public on = true;
 
+  public collapsed = false;
+
   constructor(title: string, description: string) {
     this.title = title;
     this.description = description;
@@ -43,9 +46,7 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
 
   public abstract init(loopbackTransport: MessageTransport): void;
 
-  public applyDTO(icicle: T) {
-    this.on = icicle.on;
-  }
+  public abstract applyDTO(dto: T): void;
 
   public toDTO(): T {
     return {
@@ -53,6 +54,7 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
       title: this.title,
       description: this.description,
       on: this.on,
+      collapsed: this.collapsed,
     } as T;
   }
 
