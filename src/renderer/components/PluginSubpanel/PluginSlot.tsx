@@ -60,12 +60,8 @@ export default function PluginSlot(props: PropTypes) {
   };
 
   return (
-    <div
-      className={`plugin-slot filled ${selected ? 'selected' : ''}`}
-      onClick={onClick}
-      role="presentation"
-    >
-      <div className="plugin-header">
+    <div className={`plugin-slot filled ${selected ? 'selected' : ''}`}>
+      <div className="plugin-header" onClick={onClick} role="presentation">
         <PowerButton on={plugin.on} onClick={onPowerButtonClick} />
         <PluginViewControl plugin={plugin} />
         <h5>{plugin.title}</h5>

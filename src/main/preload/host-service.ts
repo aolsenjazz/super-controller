@@ -18,14 +18,6 @@ type Host =
  * Expose data re. the host (usually the OS + hardware) to the renderer process
  */
 export const HostService = {
-  listenToLoopbackMessages(
-    deviceId: string,
-    inputId: string,
-    func: (msg: NumberArrayWithStatus) => void
-  ) {
-    return addOnChangeListener(`${deviceId}-${inputId}-loopback`, func);
-  },
-
   onTitleChange: (func: (title: string) => void) => {
     return addOnChangeListener(HOST.TITLE, func);
   },

@@ -7,6 +7,7 @@ import { generateId } from './plugin-utils';
 
 export interface PluginDTO {
   id: string;
+  parentId: string;
   title: string;
   description: string;
   on: boolean;
@@ -34,34 +35,38 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
 
   public readonly description: string;
 
+  public readonly parentId: string;
+
   public on = true;
 
   public collapsed = false;
 
-  constructor(title: string, description: string) {
+  constructor(title: string, description: string, parentId: string) {
     this.title = title;
     this.description = description;
+    this.parentId = parentId;
     this.id = generateId(this.title);
   }
 
   public abstract init(loopbackTransport: MessageTransport): void;
+
+  public abstract process(
+    msg: NumberArrayWithStatus,
+    meta: MessageProcessorMeta
+  ): NumberArrayWithStatus | undefined;
 
   public abstract applyDTO(dto: T): void;
 
   public toDTO(): T {
     return {
       id: this.id,
+      parentId: this.parentId,
       title: this.title,
       description: this.description,
       on: this.on,
       collapsed: this.collapsed,
     } as T;
   }
-
-  public abstract process(
-    msg: NumberArrayWithStatus,
-    meta: MessageProcessorMeta
-  ): NumberArrayWithStatus | undefined;
 
   public abstract get applicableDeviceTypes(): (
     | 'supported'

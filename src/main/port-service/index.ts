@@ -203,13 +203,20 @@ export class HardwarePortServiceSingleton {
       pair.onMessage((_delta, msg) => {
         if (msg.length < 2) return;
 
-        const inputId = idForMsg(msg, true);
+        const inputId = idForMsg(msg, false);
 
         const remoteTransport = this.ports.get(config.id)!;
         const frontendInclusiveLoopbackTransport = {
           send: (m: NumberArrayWithStatus) => {
-            pair.send(m);
-            MainWindow.onLoopbackMessage(pair.id, inputId, m);
+            VirtualPortService.send(msg, pair.id);
+            MainWindow.sendReduxEvent({
+              type: 'recentLoopbackMessages/addMessage',
+              payload: {
+                deviceId: config.id,
+                inputId,
+                message: m,
+              },
+            });
           },
           applyThrottle: pair.applyThrottle,
         };
@@ -224,12 +231,14 @@ export class HardwarePortServiceSingleton {
 
         if (message) remoteTransport.send(message);
 
-        // MainWindow.sendNarrowInputEvent(pair.id, msg);
-        // MainWindow.sendInputEvent(pair.id, msg);
-        // TODO somehow, send the "state" to the frontend. we're currently doing this with
-        // sendNarrowInputEvent and sendInputEvent, but that's not quite the right
-        // implementation for updating backlight colors in the frontend. should likely be
-        // sending more specific state objects, maybe part of the DTO? maybe their own object
+        MainWindow.sendReduxEvent({
+          type: 'recentRemoteMessages/addMessage',
+          payload: {
+            deviceId: config.id,
+            inputId,
+            message: msg,
+          },
+        });
       });
     }
   }

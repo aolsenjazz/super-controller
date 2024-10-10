@@ -8,8 +8,10 @@ import { configuredDevicesSlice } from '../features/configured-devices/configure
 import { selectedDeviceIdSlice } from '../features/selected-device-id/selected-device-id-slice';
 import { inputConfigsSlice } from '../features/input-configs/input-configs-slice';
 import { selectedInputsSlice } from '../features/selected-inputs/selected-inputs-slice';
-import { pluginsSlice } from '@features/plugins/plugins-slice';
-import { selectedPluginIdSlice } from '@features/selected-plugin-id/selected-plugin-id-slice';
+import { pluginsSlice } from '../features/plugins/plugins-slice';
+import { selectedPluginIdSlice } from '../features/selected-plugin-id/selected-plugin-id-slice';
+import { recentLoopbackMessagesSlice } from '../features/recent-loopback-messages/recent-loopback-messages-slice';
+import { recentRemoteMessagesSlice } from '../features/recent-remote-messages/recent-remote-messages-slice';
 
 const rootReducer = combineSlices(
   connectedDevicesSlice,
@@ -18,7 +20,9 @@ const rootReducer = combineSlices(
   inputConfigsSlice,
   selectedInputsSlice,
   pluginsSlice,
-  selectedPluginIdSlice
+  selectedPluginIdSlice,
+  recentLoopbackMessagesSlice,
+  recentRemoteMessagesSlice
 );
 export type RootState = ReturnType<typeof rootReducer>;
 

@@ -11,9 +11,10 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainDTO> {
   constructor(
     title: string,
     description: string,
+    parentId: string,
     sustainTargets: string[] = []
   ) {
-    super(title, description);
+    super(title, description, parentId);
     this.sustainTargets = sustainTargets;
   }
 

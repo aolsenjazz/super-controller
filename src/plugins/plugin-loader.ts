@@ -127,6 +127,7 @@ export async function importDeviceSubcomponent<
 type InputComponentArgs = [
   title: string,
   description: string,
+  parentId: string,
   driver: BaseInputDriver
 ];
 

@@ -1,10 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
-import { selectInputConfigById } from '@features/input-configs/input-configs-slice';
 import { useAppSelector } from '@hooks/use-app-dispatch';
-import { KnobDTO } from '@shared/hardware-config/input-config/knob-config';
-
-const { InputConfigService } = window;
+import { selectRecentRemoteMessagesById } from '@features/recent-remote-messages/recent-remote-messages-slice';
 
 /**
  * Converts a value in given range to the equivalent value in a new range
@@ -33,39 +30,19 @@ type PropTypes = {
 
 export function Knob(props: PropTypes) {
   const { shape, endless, id } = props;
-  const config = useAppSelector((state) => selectInputConfigById(state, id));
 
-  const [curDeg, setCurDeg] = useState(127);
-  const [isEndless, setEndless] = useState(endless);
+  const lastMsg = useAppSelector(selectRecentRemoteMessagesById(id, 1));
+  const value = lastMsg.length === 1 ? lastMsg[0][2] : 64;
 
-  const updateCurDeg = useCallback((msg: NumberArrayWithStatus) => {
+  const curDeg = useMemo(() => {
     const degrees = 270;
     const min = 0;
     const max = 127;
     const startAngle = (360 - degrees) / 2;
     const endAngle = startAngle + degrees;
 
-    setCurDeg(Math.floor(convertRange(min, max, startAngle, endAngle, msg[2])));
-  }, []);
-
-  useEffect(() => {
-    if (!config) return () => {};
-    const asKnob = config as KnobDTO;
-    setEndless(asKnob.valueType === 'endless');
-
-    const def = asKnob.defaults;
-    const off = InputConfigService.onInputEvent(
-      config.id,
-      def.statusString,
-      def.channel,
-      def.number,
-      updateCurDeg
-    );
-
-    return () => off();
-  }, [config, updateCurDeg]);
-
-  useEffect(() => {}, []);
+    return Math.floor(convertRange(min, max, startAngle, endAngle, value));
+  }, [value]);
 
   return (
     <div className="knob" role="button">
@@ -76,7 +53,7 @@ export function Knob(props: PropTypes) {
         }}
       >
         <div className="inner" style={{ transform: `rotate(${curDeg}deg)` }}>
-          {isEndless ? null : <div className="grip" />}
+          {endless ? null : <div className="grip" />}
         </div>
       </div>
     </div>

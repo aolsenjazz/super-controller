@@ -6,8 +6,13 @@ export abstract class BaseInputPlugin<
 > extends BasePlugin<T> {
   protected driver: BaseInputDriver;
 
-  constructor(title: string, description: string, driver: BaseInputDriver) {
-    super(title, description);
+  constructor(
+    title: string,
+    description: string,
+    parentId: string,
+    driver: BaseInputDriver
+  ) {
+    super(title, description, parentId);
 
     this.driver = driver;
   }

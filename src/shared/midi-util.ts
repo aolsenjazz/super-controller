@@ -78,9 +78,9 @@ export function byteToStatusString(
   }
 }
 
-export function idForMsg(arr: NumberArrayWithStatus, mergeNoteEvents = false) {
+export function idForMsg(arr: NumberArrayWithStatus, individualOnOff = true) {
   const statusNibble = (arr[0] & 0xf0) as StatusByte;
-  const ss = byteToStatusString(statusNibble, mergeNoteEvents);
+  const ss = byteToStatusString(statusNibble, individualOnOff);
 
   if (arr.length === 3) {
     const stub = `${ss}.${arr[0] & 0x0f}`;

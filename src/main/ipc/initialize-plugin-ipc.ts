@@ -40,6 +40,7 @@ ipcMain.on(PLUGIN.UPDATE, (_e: IpcMainEvent, dto: PluginDTO) => {
   if (!stalePlugin) throw new Error(`Could not locate plugin for id ${dto.id}`);
 
   stalePlugin.applyDTO(dto);
+
   MainWindow.sendReduxEvent({
     type: 'plugins/upsertOne',
     payload: stalePlugin.toDTO(),

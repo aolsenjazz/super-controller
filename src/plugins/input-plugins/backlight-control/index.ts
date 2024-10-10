@@ -1,3 +1,4 @@
+import { HardwarePortService } from '@main/port-service';
 import type { Color } from '@shared/driver-types/color';
 import type { FxDriver } from '@shared/driver-types/fx-driver';
 import type {
@@ -51,10 +52,11 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
   constructor(
     title: string,
     description: string,
+    parentId: string,
     driver: MonoInteractiveDriver,
     _dto?: BacklightControlDTO
   ) {
-    super(title, description, driver);
+    super(title, description, parentId, driver);
 
     this.stateManager = new GateStateManager(driver as PadDriver);
     this.availableColors = driver.availableColors;
@@ -72,8 +74,8 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
   }
 
   public init(loopbackTransport: MessageTransport) {
-    const color = this.colorBindings[0]?.array;
-    const fx = this.fxValueBindings[0];
+    const color = this.colorBindings[this.stateManager.state]?.array;
+    const fx = this.fxValueBindings[this.stateManager.state];
 
     const lightMsg =
       color !== undefined && fx !== undefined
@@ -117,6 +119,13 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     this.colorBindings = dto.colorBindings;
     this.fxBindings = dto.fxBindings;
     this.fxValueBindings = dto.fxValueBindings;
+
+    // presently, there isn't a built-in system to synchronize devices when
+    // a plugin is updated. this is by design, unless a significant and common
+    // use case comes up. so, here's a hacky way to achieve this
+    //
+    // please don't do this in other plugins
+    HardwarePortService.initAllConfiguredPorts();
   }
 
   public restoreDefaultColor(state: number) {

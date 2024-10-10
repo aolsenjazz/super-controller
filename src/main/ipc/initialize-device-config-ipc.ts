@@ -105,7 +105,7 @@ ipcMain.on(
 
       // Dynamically import plugin module, instantiate, register
       const Plugin = await importDeviceSubcomponent(m.title, 'plugin');
-      const plugin: BasePlugin = new Plugin(m.title, m.description);
+      const plugin: BasePlugin = new Plugin(m.title, m.description, deviceId);
       dev.plugins.push(plugin.id);
 
       PluginRegistry.register(plugin.id, plugin);

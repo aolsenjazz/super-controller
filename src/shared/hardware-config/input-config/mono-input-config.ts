@@ -67,7 +67,7 @@ export abstract class MonoInputConfig<
       );
     }
 
-    return this.id === idForMsg(msg, true);
+    return this.id === idForMsg(msg, false);
   }
 
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {

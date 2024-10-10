@@ -2,8 +2,6 @@ import { BrowserWindow, BrowserWindowConstructorOptions, Menu } from 'electron';
 
 import { UnknownAction } from '@reduxjs/toolkit';
 
-import type { PluginDTO } from '@shared/plugin-core/base-plugin';
-
 /**
  * Assumes that this window is stateless, e.g. no state is saved when the
  * window is closed, then loaded when a window is reopened. Therefore, once
@@ -32,18 +30,6 @@ export abstract class WindowActions {
 
     w.on('ready-to-show', () => w.show());
     w.loadURL(this.url);
-  }
-
-  public onLoopbackMessage(
-    deviceId: string,
-    inputId: string,
-    msg: NumberArrayWithStatus
-  ) {
-    this.send(`${deviceId}-${inputId}-loopback`, msg);
-  }
-
-  public sendPluginUpdate(id: string, dto: PluginDTO) {
-    this.send(`plugin-${id}`, dto);
   }
 
   public sendReduxEvent(action: UnknownAction) {

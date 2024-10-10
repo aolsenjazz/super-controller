@@ -33,6 +33,7 @@ ipcMain.on(
       const plugin: BaseInputPlugin = new Plugin(
         m.title,
         m.description,
+        qualifiedInputId,
         inputDriver
       );
       input.plugins.push(plugin.id);

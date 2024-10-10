@@ -45,7 +45,7 @@ export class XYConfig extends BaseInputConfig<XYDTO> {
   }
 
   handleMessage(msg: NumberArrayWithStatus) {
-    if (this.x.id === idForMsg(msg, true)) {
+    if (this.x.id === idForMsg(msg)) {
       return this.x.handleMessage(msg);
     }
 

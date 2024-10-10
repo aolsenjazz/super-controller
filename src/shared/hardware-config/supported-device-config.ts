@@ -6,6 +6,7 @@ import { idForMsg } from '@shared/midi-util';
 import { DeviceDriver } from '@shared/driver-types/device-driver';
 import { BaseInputDriver } from '@shared/driver-types/input-drivers/base-input-driver';
 import { InteractiveInputDriver } from '@shared/driver-types/input-drivers';
+import { PluginProvider } from '@shared/plugin-provider';
 
 import { DeviceConfig, DeviceConfigDTO } from './device-config';
 import { create } from './input-config';
@@ -67,27 +68,26 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
 
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
     const message = super.process(msg, meta)!;
-    const messageIdentifier = idForMsg(msg, true);
+    const messageIdentifier = idForMsg(msg, false);
     const input = InputRegistry.get(
       getQualifiedInputId(this.id, messageIdentifier)
     );
+
     return input ? input.process(message, meta) : message;
   }
 
-  public init(loopbackTransport: MessageTransport) {
+  public init(
+    loopbackTransport: MessageTransport,
+    pluginProvider: PluginProvider
+  ) {
     const driver = DRIVERS.get(this.driverName)!;
 
     if (driver.throttle) loopbackTransport.applyThrottle(driver.throttle);
     driver.controlSequence.forEach((msg) => loopbackTransport.send(msg)); // run control sequence
 
-    // driver.inputGrids // init default colors if they exist
-    //   .flatMap((ig) => ig.inputs)
-    //   .forEach((i) => {
-    //     if (i.interactive && i.type !== 'xy') {
-    //       i.availableColors
-    //         .filter((c) => c.default === true)
-    //         .forEach((c) => pair.send(c.array));
-    //     }
-    //   });
+    this.inputs
+      .map((id) => InputRegistry.get(getQualifiedInputId(this.id, id)))
+      .filter(Boolean)
+      .forEach((i) => i!.init(loopbackTransport, pluginProvider));
   }
 }
