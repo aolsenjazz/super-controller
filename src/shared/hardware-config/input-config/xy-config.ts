@@ -36,8 +36,8 @@ export class XYConfig extends BaseInputConfig<XYDTO> {
     const YConfig =
       driver.y.status === 'pitchbend' ? PitchbendConfig : SliderConfig;
 
-    this.x = new XConfig(deviceId, '', driver.x);
-    this.y = new YConfig(deviceId, '', driver.y);
+    this.x = new XConfig(deviceId, '', [], driver.x);
+    this.y = new YConfig(deviceId, '', [], driver.y);
   }
 
   public init() {

@@ -8,13 +8,12 @@ const SUSTAIN_NUM = 64;
 export default class ShareSustainPlugin extends BasePlugin<ShareSustainDTO> {
   public sustainTargets: string[] = [];
 
-  constructor(
-    title: string,
-    description: string,
-    parentId: string,
-    sustainTargets: string[] = []
-  ) {
-    super(title, description, parentId);
+  constructor(parentId: string, sustainTargets: string[] = []) {
+    super(
+      'Share Sustain',
+      'Whenever a sustain event is received from the controller, send an identical sustain event through other selected controllers.',
+      parentId
+    );
     this.sustainTargets = sustainTargets;
   }
 

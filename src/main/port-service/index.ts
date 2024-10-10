@@ -18,10 +18,12 @@
  */
 import { ipcMain, IpcMainEvent } from 'electron';
 
+import type { DeviceConfig } from '@shared/hardware-config/device-config';
 import { idForMsg } from '@shared/midi-util';
+
 import { DeviceRegistry } from '@main/device-registry';
 import { PluginRegistry } from '@main/plugin-registry';
-import { DeviceConfig } from '@shared/hardware-config';
+import { InputRegistry } from '@main/input-registry';
 
 import { PortScanResult, PortManager } from './port-manager';
 import { PortPair } from './port-pair';
@@ -80,12 +82,19 @@ export class HardwarePortServiceSingleton {
     return HardwarePortServiceSingleton.instance;
   }
 
-  // TODO: this is a quick-and-dirty fix, and should be replaced
-  public initAllConfiguredPorts() {
-    DeviceRegistry.getAll().forEach((d) => {
-      const port = this.ports.get(d.id);
-      if (port) d.init(port, PluginRegistry);
-    });
+  public syncDevice(deviceId: string) {
+    const config = DeviceRegistry.get(deviceId)!;
+    const loopbackTransport = this.ports.get(deviceId)!;
+    config.init(loopbackTransport, PluginRegistry);
+  }
+
+  public syncInput(qualifiedInputId: string) {
+    const pair = this.ports.get(qualifiedInputId.split('::')[0]);
+    const input = InputRegistry.get(qualifiedInputId);
+
+    if (!pair || !input) throw new Error(`one of [pair, input] is undefined`);
+
+    input.init(pair, PluginRegistry);
   }
 
   /**
@@ -183,15 +192,6 @@ export class HardwarePortServiceSingleton {
     this.initDevice(pair);
   }
 
-  /**
-   * Performs the following:
-   *
-   * - applies throttle if exists
-   * - runs control sequence if required
-   * - sets all color capable inputs to default color
-   * - sets onMessage event listener
-   * - sets all color capable inputs to configured colors
-   */
   private initDevice(pair: PortPair) {
     const config = DeviceRegistry.get(pair.id);
 
@@ -204,25 +204,11 @@ export class HardwarePortServiceSingleton {
         if (msg.length < 2) return;
 
         const inputId = idForMsg(msg, false);
-
         const remoteTransport = this.ports.get(config.id)!;
-        const frontendInclusiveLoopbackTransport = {
-          send: (m: NumberArrayWithStatus) => {
-            VirtualPortService.send(msg, pair.id);
-            MainWindow.sendReduxEvent({
-              type: 'recentLoopbackMessages/addMessage',
-              payload: {
-                deviceId: config.id,
-                inputId,
-                message: m,
-              },
-            });
-          },
-          applyThrottle: pair.applyThrottle,
-        };
+        const loopbackTransport = VirtualPortService.ports.get(config.id)!;
 
         const message = config.process(msg, {
-          loopbackTransport: frontendInclusiveLoopbackTransport,
+          loopbackTransport,
           remoteTransport,
           loopbackTransports: VirtualPortService.ports,
           remoteTransports: this.ports,

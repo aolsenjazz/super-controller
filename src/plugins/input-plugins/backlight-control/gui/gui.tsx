@@ -1,8 +1,6 @@
 import type { Color } from '@shared/driver-types/color';
 import type { FxDriver } from '@shared/driver-types/fx-driver';
 import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
-import { useAppDispatch } from '@hooks/use-app-dispatch';
-import { sumMidiArrays } from '@shared/util';
 
 import { BacklightControlDTO } from '..';
 import ColorSelect from './ColorSelect';
@@ -15,9 +13,6 @@ export default function BacklightPluginUI(
 ) {
   const { plugin, applyChanges } = props;
 
-  // Generally, plugins should not dispatching redux events. Please don't do this
-  const dispatch = useAppDispatch();
-
   const {
     colorBindings,
     fxBindings,
@@ -25,34 +20,12 @@ export default function BacklightPluginUI(
     availableColors,
     availableFx,
     availableStates,
-    state,
   } = plugin;
-
-  const updateDeviceRender = (
-    newColorBindings: typeof plugin['colorBindings'],
-    newFxValBindings: typeof plugin['fxValueBindings']
-  ) => {
-    // construct message to send
-    const colorMsg = newColorBindings[state].array;
-    const fxMsg = newFxValBindings[state];
-    const message = fxMsg ? sumMidiArrays(colorMsg, fxMsg) : colorMsg;
-
-    // update the device render
-    dispatch({
-      type: 'recentLoopbackMessages/addMessage',
-      payload: {
-        deviceId: plugin.parentId.split('::')[0],
-        inputId: plugin.parentId.split('::')[1],
-        message,
-      },
-    });
-  };
 
   const onColorChange = (s: number, color: Color) => {
     const bindings = { ...plugin.colorBindings };
     bindings[s] = color;
     applyChanges({ ...plugin, colorBindings: bindings });
-    updateDeviceRender(bindings, fxValueBindings);
   };
 
   const onFxChange = (s: number, fx: FxDriver) => {
@@ -65,7 +38,6 @@ export default function BacklightPluginUI(
     const bindings = { ...plugin.fxValueBindings };
     bindings[s] = arr;
     applyChanges({ ...plugin, fxValueBindings: bindings });
-    updateDeviceRender(colorBindings, bindings);
   };
 
   return (

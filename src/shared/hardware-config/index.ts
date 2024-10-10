@@ -1,14 +1,11 @@
+import { DeviceDriver } from '@shared/driver-types/device-driver';
+import { InteractiveInputDriver } from '@shared/driver-types/input-drivers';
+import { InputRegistry } from '@main/input-registry';
+
 import { SupportedDeviceConfig } from './supported-device-config';
 import { AnonymousDeviceConfig } from './anonymous-device-config';
 import { AdapterDeviceConfig } from './adapter-device-config';
-import { DeviceConfig } from './device-config';
-import { DeviceDriver } from '@shared/driver-types/device-driver';
-
-export { MonoInputConfig, BaseInputConfig, SwitchConfig } from './input-config';
-export { AdapterDeviceConfig };
-export { DeviceConfig };
-export { AnonymousDeviceConfig };
-export { SupportedDeviceConfig };
+import { create } from './input-config';
 
 export function configFromDriver(
   portName: string,
@@ -23,5 +20,21 @@ export function configFromDriver(
     return new AdapterDeviceConfig(portName, driver.name, siblingIndex);
   }
 
-  return SupportedDeviceConfig.fromDriver(portName, siblingIndex, driver);
+  const supported = new SupportedDeviceConfig(
+    portName,
+    driver.name,
+    siblingIndex
+  );
+
+  driver.inputGrids
+    .flatMap((g) => g.inputs)
+    .filter((i) => i.interactive)
+    .map((i) => i as InteractiveInputDriver)
+    .forEach((d) => {
+      const input = create(supported.id, d);
+      supported.inputs.push(input.id);
+      InputRegistry.register(input.qualifiedId, input);
+    });
+
+  return supported;
 }

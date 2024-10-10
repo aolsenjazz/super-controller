@@ -1,16 +1,14 @@
 import { BrowserWindow, ipcMain, IpcMainEvent, Menu } from 'electron';
 
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
-import {
-  AdapterDeviceConfig,
-  configFromDriver,
-  SupportedDeviceConfig,
-} from '@shared/hardware-config';
 import { getQualifiedInputId } from '@shared/util';
 import { Anonymous, DRIVERS, getDriver } from '@shared/drivers';
 import { PluginManifest } from '@shared/plugin-core/plugin-manifest';
 import { importDeviceSubcomponent } from '@plugins/plugin-loader';
 import { BasePlugin } from '@shared/plugin-core/base-plugin';
+import { configFromDriver } from '@shared/hardware-config';
+import { SupportedDeviceConfig } from '@shared/hardware-config/supported-device-config';
+import { AdapterDeviceConfig } from '@shared/hardware-config/adapter-device-config';
 
 import { DEVICE_CONFIG } from './ipc-channels';
 import { WindowProvider } from '../window-provider';
@@ -105,7 +103,7 @@ ipcMain.on(
 
       // Dynamically import plugin module, instantiate, register
       const Plugin = await importDeviceSubcomponent(m.title, 'plugin');
-      const plugin: BasePlugin = new Plugin(m.title, m.description, deviceId);
+      const plugin: BasePlugin = new Plugin(deviceId);
       dev.plugins.push(plugin.id);
 
       PluginRegistry.register(plugin.id, plugin);

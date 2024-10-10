@@ -124,12 +124,7 @@ export async function importDeviceSubcomponent<
   );
 }
 
-type InputComponentArgs = [
-  title: string,
-  description: string,
-  parentId: string,
-  driver: BaseInputDriver
-];
+type InputComponentArgs = [parentId: string, driver: BaseInputDriver];
 
 type InputComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'
   ? React.FC<PluginUIProps>
@@ -151,6 +146,7 @@ export async function importInputSubcomponent<
     const { default: Import } = await import(
       `./input-plugins/${manifest[subcomponent]}`
     );
+
     return Import as InputComponentType<T>;
   }
 

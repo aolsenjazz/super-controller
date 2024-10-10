@@ -1,5 +1,5 @@
-import { DeviceConfig } from '@shared/hardware-config';
 import { DeviceRegistry } from '@main/device-registry';
+import { DeviceConfig } from '@shared/hardware-config/device-config';
 
 import { PortScanResult } from '../port-manager';
 import { PortPair } from '../port-pair';

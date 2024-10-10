@@ -23,8 +23,13 @@ export class KnobConfig extends MonoInputConfig<
 > {
   defaults: KnobDefaults;
 
-  constructor(deviceId: string, nickname: string, driver: KnobDriver) {
-    super(deviceId, nickname, [], driver);
+  constructor(
+    deviceId: string,
+    nickname: string,
+    plugins: string[],
+    driver: KnobDriver
+  ) {
+    super(deviceId, nickname, plugins, driver);
 
     this.defaults = {
       number: driver.number,

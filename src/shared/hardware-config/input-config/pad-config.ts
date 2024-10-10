@@ -5,8 +5,13 @@ import { MonoInputDTO } from './mono-input-dto';
 export class PadConfig extends MonoInputConfig {
   public defaults: InputDefault;
 
-  constructor(deviceId: string, nickname: string, driver: PadDriver) {
-    super(deviceId, nickname, [], driver);
+  constructor(
+    deviceId: string,
+    nickname: string,
+    plugins: string[],
+    driver: PadDriver
+  ) {
+    super(deviceId, nickname, plugins, driver);
 
     this.defaults = {
       number: driver.number,

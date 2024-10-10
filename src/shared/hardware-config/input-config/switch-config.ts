@@ -2,8 +2,6 @@ import { MessageProcessorMeta } from '../../message-processor';
 import { getQualifiedInputId } from '../../util';
 import { BaseInputConfig, InputDTO, InputState } from './base-input-config';
 
-import { SwitchDriver } from '../../driver-types/input-drivers/switch-driver';
-
 export interface SwitchState extends InputState {
   step: NumberArrayWithStatus;
 }
@@ -13,17 +11,6 @@ export interface SwitchDTO extends InputDTO {
 }
 
 export class SwitchConfig extends BaseInputConfig<SwitchDTO> {
-  static fromDriver(deviceId: string, d: SwitchDriver) {
-    // TODO: interesting change of API here acutally - probably make ssense to rewrite this like an xy config, but just as a list of constant configs
-    // const steps = new Map<string, MidiArray>(
-    //   d.steps.map((step) => {
-    //     return [JSON.stringify(step), create(step)];
-    //   })
-    // );
-
-    return new SwitchConfig(deviceId, '', d);
-  }
-
   public toDTO(): SwitchDTO {
     return {
       ...this.toDTO(),

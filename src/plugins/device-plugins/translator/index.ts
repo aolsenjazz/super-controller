@@ -9,6 +9,10 @@ export interface TranslatorDTO extends PluginDTO {
 export default class TranslatorPlugin extends BasePlugin<TranslatorDTO> {
   overrides: Record<string, NumberArrayWithStatus | undefined> = {};
 
+  constructor(parentId: string) {
+    super('Translator', 'Temp description', parentId);
+  }
+
   public get applicableDeviceTypes(): (
     | 'supported'
     | 'anonymous'

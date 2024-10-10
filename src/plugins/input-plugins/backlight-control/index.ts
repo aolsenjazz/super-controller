@@ -1,4 +1,5 @@
 import { HardwarePortService } from '@main/port-service';
+import { WindowProvider } from '@main/window-provider';
 import type { Color } from '@shared/driver-types/color';
 import type { FxDriver } from '@shared/driver-types/fx-driver';
 import type {
@@ -11,8 +12,11 @@ import { MessageTransport } from '@shared/message-transport';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
 import { PluginDTO } from '@shared/plugin-core/base-plugin';
 import { sumMidiArrays } from '@shared/util';
+
 import { GateStateManager } from './state-manager/gate-state-manager';
 import { StateManager } from './state-manager/state-manager';
+
+const { MainWindow } = WindowProvider;
 
 export interface BacklightControlDTO extends PluginDTO {
   outputResponse: InputResponse;
@@ -50,13 +54,16 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
   availableFx: FxDriver[];
 
   constructor(
-    title: string,
-    description: string,
     parentId: string,
     driver: MonoInteractiveDriver,
     _dto?: BacklightControlDTO
   ) {
-    super(title, description, parentId, driver);
+    super(
+      'Backlight Control',
+      'Controls the color of the lights for this input.',
+      parentId,
+      driver
+    );
 
     this.stateManager = new GateStateManager(driver as PadDriver);
     this.availableColors = driver.availableColors;
@@ -84,6 +91,16 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
 
     // Send the color message, if defined, to the source device
     loopbackTransport.send(lightMsg);
+
+    // Send the same to the renderer representation
+    MainWindow.sendReduxEvent({
+      type: 'recentLoopbackMessages/addMessage',
+      payload: {
+        deviceId: this.parentId.split('::')[0],
+        inputId: this.parentId.split('::')[1],
+        message: lightMsg,
+      },
+    });
   }
 
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
@@ -124,8 +141,8 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     // a plugin is updated. this is by design, unless a significant and common
     // use case comes up. so, here's a hacky way to achieve this
     //
-    // please don't do this in other plugins
-    HardwarePortService.initAllConfiguredPorts();
+    // plugin authors: please don't do this
+    HardwarePortService.syncInput(dto.parentId);
   }
 
   public restoreDefaultColor(state: number) {

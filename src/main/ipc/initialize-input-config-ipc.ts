@@ -30,12 +30,7 @@ ipcMain.on(
 
       const inputDriver = input.driver;
       const Plugin = await importInputSubcomponent(m.title, 'plugin');
-      const plugin: BaseInputPlugin = new Plugin(
-        m.title,
-        m.description,
-        qualifiedInputId,
-        inputDriver
-      );
+      const plugin: BaseInputPlugin = new Plugin(qualifiedInputId, inputDriver);
       input.plugins.push(plugin.id);
 
       PluginRegistry.register(plugin.id, plugin);
