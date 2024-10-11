@@ -1,5 +1,14 @@
 import type { FxDriver } from '@shared/driver-types/fx-driver';
+import { msgEquals } from '@shared/util';
 import Slider from './Slider';
+
+function indexOfArr(arr: number[], arrays: number[][]) {
+  for (let i = 0; i < arrays.length; i++) {
+    if (msgEquals(arr, arrays[i])) return i;
+  }
+
+  throw new Error('woops');
+}
 
 type PropTypes = {
   availableFx: FxDriver[];
@@ -42,10 +51,7 @@ export default function FxSelect(props: PropTypes) {
   };
 
   const innerFxValueChange = (val: number) => {
-    const arr = activeFx!.defaultVal.map((n) => {
-      return n === 0 ? 0 : val;
-    }) as MidiNumber[];
-
+    const arr = activeFx!.validVals[val];
     onFxValueChange(state, arr);
   };
 
@@ -57,12 +63,19 @@ export default function FxSelect(props: PropTypes) {
       </select>
       {activeFx &&
         (() => {
-          const defaultVal = activeFx.defaultVal.filter((n) => n !== 0)[0];
-          const fxValue = fxValueArr?.filter((n) => n !== 0)[0] || 0;
+          const defaultIndex = indexOfArr(
+            activeFx.defaultVal,
+            activeFx.validVals
+          );
+          const currentIndex = !fxValueArr
+            ? 0
+            : indexOfArr(fxValueArr, activeFx.validVals);
 
           return (
             <Slider
-              defaultVal={fxValue !== undefined ? fxValue : defaultVal}
+              defaultVal={
+                currentIndex !== undefined ? currentIndex : defaultIndex
+              }
               domain={[0, activeFx.validVals.length - 1]}
               highBoundLabel={activeFx.highBoundLabel!}
               lowBoundLabel={activeFx.lowBoundLabel!}

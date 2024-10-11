@@ -23,15 +23,35 @@ export default function BacklightPluginUI(
   } = plugin;
 
   const onColorChange = (s: number, color: Color) => {
-    const bindings = { ...plugin.colorBindings };
-    bindings[s] = color;
-    applyChanges({ ...plugin, colorBindings: bindings });
+    const newBindings = { ...plugin.colorBindings };
+    newBindings[s] = color;
+
+    const newState = {
+      ...plugin,
+      colorBindings: newBindings,
+      fxBindings: { ...fxBindings },
+      fxValueBindings: { ...fxValueBindings },
+    };
+    newState.fxBindings[s] = availableFx.find((f) => f.isDefault)!;
+    newState.fxValueBindings[s] = availableFx.find(
+      (f) => f.isDefault
+    )!.defaultVal;
+
+    applyChanges(newState);
   };
 
   const onFxChange = (s: number, fx: FxDriver) => {
     const bindings = { ...plugin.fxBindings };
     bindings[s] = fx;
-    applyChanges({ ...plugin, fxBindings: bindings });
+
+    const newState = {
+      ...plugin,
+      fxBindings: bindings,
+      fxValueBindings: { ...fxValueBindings },
+    };
+    newState.fxValueBindings[s] = fx.defaultVal;
+
+    applyChanges(newState);
   };
 
   const onFxValueChange = (s: number, arr: MidiNumber[]) => {

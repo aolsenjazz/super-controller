@@ -3,12 +3,19 @@ import { useMemo } from 'react';
 import { PadDriver } from '@shared/driver-types/input-drivers/pad-driver';
 import { useAppSelector } from '@hooks/use-app-dispatch';
 import { selectRecentLoopbackMessagesById } from '@features/recent-loopback-messages/recent-loopback-messages-slice';
-import { subtractMidiArrays } from '@shared/util';
+import { msgEquals, subtractMidiArrays } from '@shared/util';
 
 type PropTypes = {
   driver: PadDriver;
   id: string;
 };
+
+function removeNegatives(arr: NumberArrayWithStatus) {
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = arr[i] < 0 ? 0 : arr[i];
+  }
+  return arr;
+}
 
 export default function Pad(props: PropTypes) {
   const { driver, id } = props;
@@ -30,6 +37,7 @@ export default function Pad(props: PropTypes) {
     // represents the relevant color, sans fx
     const diffsFromMsg = unaffectedColorCandidates
       .map((arr) => subtractMidiArrays(msg, arr))
+      // .map((arr) => removeNegatives(arr))
       .map((diffArr) => diffArr.reduce((a, b) => a + b));
 
     // find the smallest positive difference between arrays, and return the index
@@ -39,8 +47,26 @@ export default function Pad(props: PropTypes) {
       0
     );
 
+    if (driver.number === 32) {
+      console.log(msg, unaffectedColorCandidates, diffsFromMsg);
+      // console.log(driver.availableColors[relevantIdx]);
+    }
+
     return driver.availableColors[relevantIdx];
-  }, [lastMsgArr, driver.availableColors]);
+  }, [lastMsgArr, driver.availableColors, driver.number]);
+
+  const fx = useMemo(() => {
+    if (lastMsgArr.length !== 1 || !color) return undefined;
+    const msg = lastMsgArr[0];
+
+    const currentFxVal = subtractMidiArrays(msg, color.array);
+    return driver.availableFx.find((f) => {
+      for (let i = 0; i < f.validVals.length; i++) {
+        if (msgEquals(currentFxVal, f.validVals[i])) return true;
+      }
+      return false;
+    });
+  }, [lastMsgArr, color, driver.availableFx]);
 
   return (
     <div

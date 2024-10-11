@@ -84,23 +84,22 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     const color = this.colorBindings[this.stateManager.state]?.array;
     const fx = this.fxValueBindings[this.stateManager.state];
 
-    const lightMsg =
-      color !== undefined && fx !== undefined
-        ? sumMidiArrays(color, fx)
-        : color;
+    if (color) {
+      const lightMsg = fx !== undefined ? sumMidiArrays(color, fx) : color;
 
-    // Send the color message, if defined, to the source device
-    loopbackTransport.send(lightMsg);
+      // Send the color message, if defined, to the source device
+      loopbackTransport.send(lightMsg);
 
-    // Send the same to the renderer representation
-    MainWindow.sendReduxEvent({
-      type: 'recentLoopbackMessages/addMessage',
-      payload: {
-        deviceId: this.parentId.split('::')[0],
-        inputId: this.parentId.split('::')[1],
-        message: lightMsg,
-      },
-    });
+      // Send the same to the renderer representation
+      MainWindow.sendReduxEvent({
+        type: 'recentLoopbackMessages/addMessage',
+        payload: {
+          deviceId: this.parentId.split('::')[0],
+          inputId: this.parentId.split('::')[1],
+          message: lightMsg,
+        },
+      });
+    }
   }
 
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
