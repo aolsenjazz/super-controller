@@ -1,81 +1,56 @@
-import { useMemo } from 'react';
+import { useEffect, useState } from 'react';
 
 import { PadDriver } from '@shared/driver-types/input-drivers/pad-driver';
 import { useAppSelector } from '@hooks/use-app-dispatch';
-import { selectRecentLoopbackMessagesById } from '@features/recent-loopback-messages/recent-loopback-messages-slice';
-import { msgEquals, subtractMidiArrays } from '@shared/util';
+import { testLoopback } from '@features/recent-loopback-messages/recent-loopback-messages-slice';
+import { msgEquals, sumMidiArrays } from '@shared/util';
+import { Color } from '@shared/driver-types/color';
+import { FxDriver } from '@shared/driver-types/fx-driver';
 
 type PropTypes = {
   driver: PadDriver;
   id: string;
 };
 
-function removeNegatives(arr: NumberArrayWithStatus) {
-  for (let i = 0; i < arr.length; i++) {
-    arr[i] = arr[i] < 0 ? 0 : arr[i];
-  }
-  return arr;
-}
-
 export default function Pad(props: PropTypes) {
   const { driver, id } = props;
 
-  const lastMsgArr = useAppSelector(selectRecentLoopbackMessagesById(id, 1));
+  const lastMsgArr = useAppSelector((state) => testLoopback(state, id));
 
-  const color = useMemo(() => {
-    if (lastMsgArr.length !== 1) return undefined;
-    const msg = lastMsgArr[0];
+  const [color, setColor] = useState<Color>();
+  const [fx, setFx] = useState<FxDriver>();
 
-    // Map available colors to their arrays, which we will use to determine the base
-    // color mapping of a message prior to affecting with FX arrays
-    const unaffectedColorCandidates = driver.availableColors.map(
-      (c) => c.array
-    );
+  useEffect(() => {
+    if (!lastMsgArr || lastMsgArr.length === 0) return;
+    const lastMsg = lastMsgArr.at(-1)!;
 
-    // sum(sourceMsgParts) - sum(unaffectedColorCandidateArray). The smallest positive
-    // difference between these arrays indicates that the correlating array
-    // represents the relevant color, sans fx
-    const diffsFromMsg = unaffectedColorCandidates
-      .map((arr) => subtractMidiArrays(msg, arr))
-      // .map((arr) => removeNegatives(arr))
-      .map((diffArr) => diffArr.reduce((a, b) => a + b));
+    driver.availableColors.forEach((c) => {
+      // try to apply fx if they exist
+      driver.availableFx.forEach((fxDriver) => {
+        fxDriver.validVals.forEach((fxArr) => {
+          const affectedColor = sumMidiArrays(c.array, fxArr);
+          if (msgEquals(affectedColor, lastMsg)) {
+            setColor(c);
+            setFx(fxDriver);
+          }
+        });
+      });
 
-    // find the smallest positive difference between arrays, and return the index
-    const relevantIdx = diffsFromMsg.reduce(
-      (lowestIndex, num, index, array) =>
-        num < array[lowestIndex] && num >= 0 ? index : lowestIndex,
-      0
-    );
-
-    if (driver.number === 32) {
-      console.log(msg, unaffectedColorCandidates, diffsFromMsg);
-      // console.log(driver.availableColors[relevantIdx]);
-    }
-
-    return driver.availableColors[relevantIdx];
-  }, [lastMsgArr, driver.availableColors, driver.number]);
-
-  const fx = useMemo(() => {
-    if (lastMsgArr.length !== 1 || !color) return undefined;
-    const msg = lastMsgArr[0];
-
-    const currentFxVal = subtractMidiArrays(msg, color.array);
-    return driver.availableFx.find((f) => {
-      for (let i = 0; i < f.validVals.length; i++) {
-        if (msgEquals(currentFxVal, f.validVals[i])) return true;
+      // set color independent of fx, if necessary
+      if (msgEquals(c.array, lastMsg)) {
+        setColor(c);
       }
-      return false;
     });
-  }, [lastMsgArr, color, driver.availableFx]);
+  }, [lastMsgArr, driver]);
 
   return (
     <div
       className="pad interactive-indicator"
       style={{
-        animationName: color?.modifier,
+        animationName: color?.modifier || fx?.title,
         backgroundColor: color?.string,
         animationTimingFunction:
-          color?.modifier === 'pulse' ? 'ease-in-out' : undefined,
+          fx?.title === 'Pulse' ? 'ease-in-out' : undefined,
         borderRadius: driver.shape === 'circle' ? '100%' : 0,
       }}
     />

@@ -1,12 +1,8 @@
 import { useCallback } from 'react';
-import { useSelector } from 'react-redux';
 
 import { useAppDispatch } from '@hooks/use-app-dispatch';
 import { DeviceDriver } from '@shared/driver-types/device-driver';
-import {
-  selectSelectedInputs,
-  setSelectedInputs,
-} from '@features/selected-inputs/selected-inputs-slice';
+import { setSelectedInputs } from '@features/selected-inputs/selected-inputs-slice';
 
 import DeviceLayout from './DeviceLayout';
 import WarningIcon from '../WarningIcon';
@@ -24,30 +20,13 @@ export default function DeviceLayoutWrapper(
   const { driver } = props;
 
   const dispatch = useAppDispatch();
-  const selectedInputs = useSelector(selectSelectedInputs);
 
   // on input click (or ctrl+click) update selectedInputs
   const onInputSelect = useCallback(
-    (event: React.MouseEvent, ids: string[]) => {
-      let next: string[] = [];
-
-      if (event.ctrlKey || event.metaKey) {
-        ids.forEach((id) => {
-          const idx = selectedInputs.indexOf(id);
-          const spliced = [...selectedInputs];
-          spliced.splice(idx, 1);
-          next = selectedInputs.includes(id)
-            ? spliced
-            : selectedInputs.concat([id]);
-        });
-      } else {
-        next =
-          JSON.stringify(selectedInputs) === JSON.stringify(ids) ? [] : ids;
-      }
-
-      dispatch(setSelectedInputs(next));
+    (_event: React.MouseEvent, ids: string[]) => {
+      dispatch(setSelectedInputs(ids));
     },
-    [dispatch, selectedInputs]
+    [dispatch]
   );
 
   return (

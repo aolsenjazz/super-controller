@@ -1,4 +1,4 @@
-import { createSelector, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction } from '@reduxjs/toolkit';
 import { getQualifiedInputId } from '@shared/util';
 
 import type { RootState } from '../../store/store';
@@ -11,6 +11,8 @@ type AddMessagePayload = {
 };
 
 const initialState: Record<string, NumberArrayWithStatus[]> = {};
+
+// const initialState: Record<string, NumberArrayWithStatus[]> = {};
 
 export const recentLoopbackMessagesSlice = createAppSlice({
   name: 'recentLoopbackMessages',
@@ -39,16 +41,5 @@ export const recentLoopbackMessagesSlice = createAppSlice({
   }),
 });
 
-export const selectRecentLoopbackMessagesById = (
-  id: string,
-  numMessages: number
-) =>
-  createSelector(
-    (state: RootState) => state.recentLoopbackMessages[id],
-    (messages = []) => {
-      if (numMessages >= messages.length) {
-        return messages;
-      }
-      return messages.slice(-numMessages);
-    }
-  );
+export const testLoopback = (state: RootState, id: string) =>
+  state.recentLoopbackMessages[id];

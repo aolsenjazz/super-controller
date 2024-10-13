@@ -24,6 +24,7 @@ import { idForMsg } from '@shared/midi-util';
 import { DeviceRegistry } from '@main/device-registry';
 import { PluginRegistry } from '@main/plugin-registry';
 import { InputRegistry } from '@main/input-registry';
+import { MessageTransport } from '@shared/message-transport';
 
 import { PortScanResult, PortManager } from './port-manager';
 import { PortPair } from './port-pair';
@@ -192,6 +193,34 @@ export class HardwarePortServiceSingleton {
     this.initDevice(pair);
   }
 
+  /**
+   * Loopback messages should be sent both to the connected loopback MIDI port
+   * as well as to the renderer so that the device rendering can accurately reflect
+   * remote device state
+   */
+  private createRendererInclusiveLoopbackTransport(
+    deviceId: string,
+    inputId: string,
+    loopbackTransport: MessageTransport
+  ): MessageTransport {
+    return {
+      send(msg: NumberArrayWithStatus) {
+        loopbackTransport.send(msg);
+
+        MainWindow.sendReduxEvent({
+          type: 'recentLoopbackMessages/addMessage',
+          payload: {
+            deviceId,
+            inputId,
+            message: msg,
+          },
+        });
+      },
+
+      applyThrottle: loopbackTransport.applyThrottle,
+    };
+  }
+
   private initDevice(pair: PortPair) {
     const config = DeviceRegistry.get(pair.id);
 
@@ -206,9 +235,14 @@ export class HardwarePortServiceSingleton {
         const inputId = idForMsg(msg, false);
         const remoteTransport = this.ports.get(config.id)!;
         const loopbackTransport = VirtualPortService.ports.get(config.id)!;
+        const inclusiveLoopback = this.createRendererInclusiveLoopbackTransport(
+          config.id,
+          inputId,
+          loopbackTransport
+        );
 
         const message = config.process(msg, {
-          loopbackTransport,
+          loopbackTransport: inclusiveLoopback,
           remoteTransport,
           loopbackTransports: VirtualPortService.ports,
           remoteTransports: this.ports,

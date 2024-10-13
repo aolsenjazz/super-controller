@@ -39,7 +39,7 @@ export default function InputLayout(props: InputLayoutPropTypes) {
       >
         <InteractiveInputLayout
           qualifiedInputId={qualifiedInputId}
-          driver={driver}
+          driver={driver as InteractiveInputDriver}
         />
       </div>
     );

@@ -1,6 +1,5 @@
 import { BrowserWindow, ipcMain, IpcMainEvent, Menu } from 'electron';
 
-import { MonoInputConfig } from '@shared/hardware-config';
 import {
   BaseInputConfig,
   InputDTO,
@@ -9,6 +8,7 @@ import { getQualifiedInputId } from '@shared/util';
 import { PluginManifest } from '@shared/plugin-core/plugin-manifest';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
 import { importInputSubcomponent } from '@plugins/plugin-loader';
+import { MonoInputConfig } from '@shared/hardware-config/input-config/mono-input-config';
 
 import { INPUT_CONFIG } from './ipc-channels';
 import { WindowProvider } from '../window-provider';
