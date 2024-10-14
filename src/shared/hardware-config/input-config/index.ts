@@ -22,10 +22,7 @@ function initPlugins(qualifiedId: string, d: MonoInteractiveDriver) {
     PluginRegistry.register(backlightPlugin.id, backlightPlugin);
     plugins.push(backlightPlugin.id);
 
-    MainWindow.sendReduxEvent({
-      type: 'plugins/upsertOne',
-      payload: backlightPlugin.toDTO(),
-    });
+    MainWindow.upsertPlugin(backlightPlugin.toDTO());
   }
 
   return plugins;

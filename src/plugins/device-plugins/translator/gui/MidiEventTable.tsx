@@ -1,8 +1,7 @@
+import { selectRecentRemoteMessagesById } from '@features/recent-remote-messages/recent-remote-messages-slice';
+import { useAppSelector } from '@hooks/use-app-dispatch';
 import { useEffect, useState } from 'react';
-import { MidiEvent } from './midi-event';
 import { getStatusString, readableTime, rowId } from './utils';
-
-const { HostService } = window;
 
 function NoRecentMessages({ deviceName }: { deviceName: string }) {
   return (
@@ -24,24 +23,16 @@ type MidiEventTableProps = {
 export function MidiEventTable(props: MidiEventTableProps) {
   const { setSelectedSource, deviceName, deviceId } = props;
 
-  const [midiEvents, setMidiEvents] = useState<MidiEvent[]>([]);
+  const recentMessages = useAppSelector(
+    selectRecentRemoteMessagesById(deviceId, 10)
+  );
+  d;
+  useEffect(() => {}, [recentMessages]);
+
+  const midiEvents = recentMessages.map((m) => {
+    return { msg: m, time: readableTime() };
+  });
   const [selectedRow, setSelectedRow] = useState<string>('');
-
-  // useEffect(() => {
-  //   const off = HostService.addMidiEventListener((devId, msg) => {
-  //     if (deviceId !== devId) return;
-
-  //     setMidiEvents((prevMidiEvents) => {
-  //       const newMidiEvents = [
-  //         { deviceId, msg, time: readableTime() },
-  //         ...prevMidiEvents,
-  //       ];
-  //       return newMidiEvents.slice(0, 10);
-  //     });
-  //   });
-
-  //   return () => off();
-  // }, [setMidiEvents, deviceId]);
 
   const rows = midiEvents.map((event) => {
     const id = rowId(event);

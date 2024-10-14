@@ -15,10 +15,7 @@ ipcMain.on(PLUGIN.POWER, (_e: IpcMainEvent, pluginId: string) => {
 
   plugin.on = !plugin.on;
 
-  MainWindow.sendReduxEvent({
-    type: 'plugins/upsertOne',
-    payload: plugin.toDTO(),
-  });
+  MainWindow.upsertPlugin(plugin.toDTO());
 });
 
 ipcMain.on(PLUGIN.COLLAPSED, (_e: IpcMainEvent, pluginId: string) => {
@@ -28,21 +25,15 @@ ipcMain.on(PLUGIN.COLLAPSED, (_e: IpcMainEvent, pluginId: string) => {
 
   plugin.collapsed = !plugin.collapsed;
 
-  MainWindow.sendReduxEvent({
-    type: 'plugins/upsertOne',
-    payload: plugin.toDTO(),
-  });
+  MainWindow.upsertPlugin(plugin.toDTO());
 });
 
 ipcMain.on(PLUGIN.UPDATE, (_e: IpcMainEvent, dto: PluginDTO) => {
-  const stalePlugin = PluginRegistry.get(dto.id);
+  const plugin = PluginRegistry.get(dto.id);
 
-  if (!stalePlugin) throw new Error(`Could not locate plugin for id ${dto.id}`);
+  if (!plugin) throw new Error(`Could not locate plugin for id ${dto.id}`);
 
-  stalePlugin.applyDTO(dto);
+  plugin.applyDTO(dto);
 
-  MainWindow.sendReduxEvent({
-    type: 'plugins/upsertOne',
-    payload: stalePlugin.toDTO(),
-  });
+  MainWindow.upsertPlugin(plugin.toDTO());
 });

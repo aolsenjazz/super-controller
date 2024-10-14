@@ -162,19 +162,13 @@ export class HardwarePortServiceSingleton {
         });
 
       this.availableHardwarePorts = currentPorts;
-      this.sendConnectedDevicesToFrontend();
+
+      const devices = this.availableHardwarePorts.map((p) => p.stub);
+      MainWindow.setConnectedDevices(devices);
       VirtualPortService.onHardwareChanged(ports);
     };
 
     PortManager.addListener(hardwareChangeListener);
-  }
-
-  private sendConnectedDevicesToFrontend() {
-    const devices = this.availableHardwarePorts.map((d) => d.stub);
-    MainWindow.sendReduxEvent({
-      type: 'connectedDevices/setAll',
-      payload: devices,
-    });
   }
 
   /**
@@ -206,15 +200,7 @@ export class HardwarePortServiceSingleton {
     return {
       send(msg: NumberArrayWithStatus) {
         loopbackTransport.send(msg);
-
-        MainWindow.sendReduxEvent({
-          type: 'recentLoopbackMessages/addMessage',
-          payload: {
-            deviceId,
-            inputId,
-            message: msg,
-          },
-        });
+        MainWindow.sendLoopbackMessage(deviceId, inputId, msg);
       },
 
       applyThrottle: loopbackTransport.applyThrottle,
@@ -251,14 +237,7 @@ export class HardwarePortServiceSingleton {
 
         if (message) remoteTransport.send(message);
 
-        MainWindow.sendReduxEvent({
-          type: 'recentRemoteMessages/addMessage',
-          payload: {
-            deviceId: config.id,
-            inputId,
-            message: msg,
-          },
-        });
+        MainWindow.sendRemoteMessage(config.id, inputId, msg);
       });
     }
   }

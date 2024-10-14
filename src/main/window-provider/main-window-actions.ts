@@ -1,3 +1,7 @@
+import { DeviceConnectionDetails } from '@shared/device-connection-details';
+import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
+import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
+import { PluginDTO } from '@shared/plugin-core/base-plugin';
 import { BrowserWindow } from 'electron';
 import os from 'os';
 
@@ -30,6 +34,48 @@ export class MainWindowActions extends StatefulWindowActions {
       titleBarStyle: os.platform() === 'darwin' ? 'hiddenInset' : 'default',
       icon: getAssetPath('icon.png'),
       webPreferences: { preload: getPreloadPath() },
+    });
+  }
+
+  public setConnectedDevices(devices: DeviceConnectionDetails[]) {
+    this.sendReduxEvent({
+      type: 'connectedDevices/setAll',
+      payload: devices,
+    });
+  }
+
+  public upsertConfiguredDevice(device: DeviceConfigDTO) {
+    this.sendReduxEvent({
+      type: 'configuredDevices/upsertOne',
+      payload: device,
+    });
+  }
+
+  public setConfiguredDevices(devices: DeviceConfigDTO[]) {
+    this.sendReduxEvent({
+      type: 'configuredDevices/setAll',
+      payload: devices,
+    });
+  }
+
+  public upsertInputConfig(config: InputDTO) {
+    this.sendReduxEvent({
+      type: 'inputConfigs/upsertOne',
+      payload: config,
+    });
+  }
+
+  public upsertInputConfigs(configs: InputDTO[]) {
+    this.sendReduxEvent({
+      type: 'inputConfigs/upsertMany',
+      payload: configs,
+    });
+  }
+
+  public upsertPlugin(dto: PluginDTO) {
+    this.sendReduxEvent({
+      type: 'inputConfigs/upsertOne',
+      payload: dto,
     });
   }
 }

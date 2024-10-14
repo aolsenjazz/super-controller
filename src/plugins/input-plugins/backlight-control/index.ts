@@ -87,14 +87,8 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
       loopbackTransport.send(lightMsg);
 
       // Send the same to the renderer representation
-      MainWindow.sendReduxEvent({
-        type: 'recentLoopbackMessages/addMessage',
-        payload: {
-          deviceId: this.parentId.split('::')[0],
-          inputId: this.parentId.split('::')[1],
-          message: lightMsg,
-        },
-      });
+      const ids = this.parentId.split('::');
+      MainWindow.sendLoopbackMessage(ids[0], ids[1], lightMsg);
     }
   }
 

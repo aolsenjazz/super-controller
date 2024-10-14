@@ -36,10 +36,8 @@ ipcMain.on(
     HardwarePortService.onConfigChange({ action: 'add', changed: [conf] });
     VirtualPortService.onConfigChange({ action: 'add', changed: [conf] });
 
-    MainWindow.sendReduxEvent({
-      type: 'configuredDevices/setAll',
-      payload: DeviceRegistry.getAll().map((c) => c.toDTO()),
-    });
+    const allDevices = DeviceRegistry.getAll().map((c) => c.toDTO());
+    MainWindow.setConfiguredDevices(allDevices);
 
     if (conf instanceof SupportedDeviceConfig) {
       const inputDTOs = conf.inputs
@@ -47,10 +45,7 @@ ipcMain.on(
         .map((qid) => InputRegistry.get(qid)!)
         .map((i) => i.toDTO());
 
-      MainWindow.sendReduxEvent({
-        type: 'inputConfigs/upsertMany',
-        payload: inputDTOs,
-      });
+      MainWindow.upsertInputConfigs(inputDTOs);
     }
 
     MainWindow.edited = true;
@@ -68,10 +63,8 @@ ipcMain.on(
     VirtualPortService.onConfigChange({ action: 'remove', changed: [conf] });
 
     MainWindow.edited = true;
-    MainWindow.sendReduxEvent({
-      type: 'configuredDevices/setAll',
-      payload: DeviceRegistry.getAll().map((c) => c.toDTO()),
-    });
+    const devices = DeviceRegistry.getAll().map((c) => c.toDTO());
+    MainWindow.setConfiguredDevices(devices);
   }
 );
 
@@ -83,10 +76,7 @@ ipcMain.on(
     if (config) {
       config.applyStub(updates);
 
-      MainWindow.sendReduxEvent({
-        type: 'configuredDevices/upsertOne',
-        payload: config.toDTO(),
-      });
+      MainWindow.upsertConfiguredDevice(config.toDTO());
     }
   }
 );
@@ -109,15 +99,8 @@ ipcMain.on(
       PluginRegistry.register(plugin.id, plugin);
 
       // Tell the frontend
-      WindowProvider.MainWindow.sendReduxEvent({
-        type: 'plugins/upsertOne',
-        payload: plugin.toDTO(),
-      });
-
-      WindowProvider.MainWindow.sendReduxEvent({
-        type: 'configuredDevices/upsertOne',
-        payload: dev.toDTO(),
-      });
+      MainWindow.upsertPlugin(plugin.toDTO());
+      MainWindow.upsertConfiguredDevice(dev.toDTO());
     };
 
     // show the menu
@@ -137,10 +120,8 @@ ipcMain.on(
       config.plugins = config.plugins.filter((p) => p !== pluginId);
       PluginRegistry.deregister(pluginId);
 
-      MainWindow.sendReduxEvent({
-        type: 'configuredDevices/setAll',
-        payload: DeviceRegistry.getAll().map((c) => c.toDTO()),
-      });
+      const allDevices = DeviceRegistry.getAll().map((c) => c.toDTO());
+      MainWindow.setConfiguredDevices(allDevices);
     }
   }
 );

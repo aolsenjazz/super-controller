@@ -28,7 +28,7 @@ export default function GUI(props: PluginUIProps<TranslatorDTO>) {
           setSelectedSource={setSelectedSource}
           selectedSource={selectedSource}
           plugin={plugin}
-          applyChange={applyChanges}
+          applyChanges={applyChanges}
         />
       </div>
     </div>

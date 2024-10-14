@@ -1,6 +1,7 @@
 import { BrowserWindow, BrowserWindowConstructorOptions, Menu } from 'electron';
 
 import { UnknownAction } from '@reduxjs/toolkit';
+import { TimestampedMidiEvent } from '@shared/timestamped-midi-event';
 
 /**
  * Assumes that this window is stateless, e.g. no state is saved when the
@@ -32,8 +33,34 @@ export abstract class WindowActions {
     w.loadURL(this.url);
   }
 
-  public sendReduxEvent(action: UnknownAction) {
-    this.send('redux', action);
+  public sendLoopbackMessage(
+    deviceId: string,
+    inputId: string,
+    message: NumberArrayWithStatus | TimestampedMidiEvent
+  ) {
+    this.sendReduxEvent({
+      type: 'recentLoopbackMessages/addMessage',
+      payload: {
+        deviceId,
+        inputId,
+        message,
+      },
+    });
+  }
+
+  public sendRemoteMessage(
+    deviceId: string,
+    inputId: string,
+    message: NumberArrayWithStatus | TimestampedMidiEvent
+  ) {
+    this.sendReduxEvent({
+      type: 'recentRemoteMessages/addMessage',
+      payload: {
+        deviceId,
+        inputId,
+        message,
+      },
+    });
   }
 
   /**
@@ -54,6 +81,10 @@ export abstract class WindowActions {
       window.webContents.send(channel, ...args);
     }
   };
+
+  protected sendReduxEvent(action: UnknownAction) {
+    this.send('redux', action);
+  }
 
   /**
    * Creates a menu when HTML elements are right-clicked, consisting of one element:

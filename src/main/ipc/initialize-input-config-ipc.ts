@@ -35,15 +35,8 @@ ipcMain.on(
 
       PluginRegistry.register(plugin.id, plugin);
 
-      MainWindow.sendReduxEvent({
-        type: 'plugins/upsertOne',
-        payload: plugin.toDTO(),
-      });
-
-      MainWindow.sendReduxEvent({
-        type: 'inputConfigs/upsertOne',
-        payload: input.toDTO(),
-      });
+      MainWindow.upsertPlugin(plugin.toDTO());
+      MainWindow.upsertInputConfig(input.toDTO());
     };
 
     // show the add-plugin-menu
@@ -63,10 +56,7 @@ ipcMain.on(
       inputConfig.plugins = inputConfig.plugins.filter((p) => p !== pluginId);
 
       PluginRegistry.deregister(pluginId);
-      MainWindow.sendReduxEvent({
-        type: 'inputConfigs/upsertOne',
-        payload: inputConfig.toDTO(),
-      });
+      MainWindow.upsertInputConfig(inputConfig.toDTO());
     }
   }
 );
@@ -82,10 +72,7 @@ ipcMain.on(
         input.applyStub(c);
         updatedConfigs.push(input);
 
-        MainWindow.sendReduxEvent({
-          type: 'inputConfigs/upsertOne',
-          payload: input.toDTO(),
-        });
+        MainWindow.upsertInputConfig(input.toDTO());
       }
     });
 
