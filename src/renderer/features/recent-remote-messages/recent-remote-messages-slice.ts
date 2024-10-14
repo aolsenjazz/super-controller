@@ -1,5 +1,6 @@
 import { createSelector, PayloadAction } from '@reduxjs/toolkit';
 import { getQualifiedInputId } from '@shared/util';
+import { TimestampedMidiEvent } from '@shared/timestamped-midi-event';
 
 import type { RootState } from '../../store/store';
 import { createAppSlice } from '../../store/createAppSlice';
@@ -7,10 +8,10 @@ import { createAppSlice } from '../../store/createAppSlice';
 type AddMessagePayload = {
   deviceId: string;
   inputId: string;
-  message: NumberArrayWithStatus;
+  message: TimestampedMidiEvent;
 };
 
-const initialState: Record<string, NumberArrayWithStatus[]> = {};
+const initialState: Record<string, TimestampedMidiEvent[]> = {};
 
 export const recentRemoteMessagesSlice = createAppSlice({
   name: 'recentRemoteMessages',

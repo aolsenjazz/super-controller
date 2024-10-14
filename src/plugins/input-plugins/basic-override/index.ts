@@ -1,23 +1,29 @@
+import { BaseInteractiveInputDriver } from '@shared/driver-types/input-drivers/base-interactive-input-driver';
 import { MessageProcessorMeta } from '@shared/message-processor';
-import { BasePlugin, PluginDTO } from '@shared/plugin-core/base-plugin';
+import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
+import { PluginDTO } from '@shared/plugin-core/base-plugin';
+
+import Manifest from './manifest.json';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface BasicOverrideIcicle extends PluginDTO {}
+export interface BasicOverrideDTO extends PluginDTO {}
 
-export default class BasicOverridePlugin extends BasePlugin<BasicOverrideIcicle> {
+export default class BasicOverridePlugin extends BaseInputPlugin<BasicOverrideDTO> {
+  public constructor(parentId: string, driver: BaseInteractiveInputDriver) {
+    super(Manifest.title, Manifest.description, parentId, driver);
+  }
+
   public process(msg: NumberArrayWithStatus, _meta: MessageProcessorMeta) {
     return msg;
   }
 
-  public freeze(): BasicOverrideIcicle {
+  public freeze(): BasicOverrideDTO {
     return {
       ...super.toDTO(),
     };
   }
 
-  public applyIcicle(icicle: BasicOverrideIcicle): void {
-    super.applyDTO(icicle);
-  }
+  public applyDTO(_dto: BasicOverrideDTO): void {}
 
   public init() {
     // noop

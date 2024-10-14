@@ -74,7 +74,7 @@ export class MainWindowActions extends StatefulWindowActions {
 
   public upsertPlugin(dto: PluginDTO) {
     this.sendReduxEvent({
-      type: 'inputConfigs/upsertOne',
+      type: 'plugins/upsertOne',
       payload: dto,
     });
   }

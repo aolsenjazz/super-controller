@@ -2,6 +2,7 @@ import { SupportedDeviceConfig } from './supported-device-config';
 import { DeviceConfig } from './device-config';
 import { MessageProcessorMeta } from '../message-processor';
 import { MessageTransport } from '../message-transport';
+import { PluginProvider } from '../plugin-provider';
 
 export class AdapterDeviceConfig extends DeviceConfig {
   child?: SupportedDeviceConfig;
@@ -20,20 +21,12 @@ export class AdapterDeviceConfig extends DeviceConfig {
     this.child = config;
   }
 
-  // bindingAvailable(
-  //   statusString: StatusString | 'noteon/noteoff',
-  //   number: number,
-  //   channel: Channel
-  // ) {
-  //   return this.child!.bindingAvailable(statusString, number, channel);
-  // }
-
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
     return this.child?.process(msg, meta);
   }
 
-  public init(loopbackTransport: MessageTransport) {
-    if (this.child) this.child.init(loopbackTransport);
+  public init(loopbackTransport: MessageTransport, pluginProv: PluginProvider) {
+    if (this.child) this.child.init(loopbackTransport, pluginProv);
   }
 
   public get inputs() {

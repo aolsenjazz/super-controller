@@ -1,8 +1,9 @@
+import { XYDriver } from '@shared/driver-types/input-drivers/xy-driver';
 import { useMemo } from 'react';
 // import { useSelector } from 'react-redux';
 
 // import { selectSelectedDevice } from '@selectors/selected-device-selector';
-import { XYDriver } from '@shared/driver-types';
+
 // import { XYState } from '@shared/hardware-config/input-config/xy-config';
 
 type PropTypes = {

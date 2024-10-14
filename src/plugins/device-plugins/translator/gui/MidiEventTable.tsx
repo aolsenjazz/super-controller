@@ -1,7 +1,7 @@
 import { selectRecentRemoteMessagesById } from '@features/recent-remote-messages/recent-remote-messages-slice';
 import { useAppSelector } from '@hooks/use-app-dispatch';
 import { useEffect, useState } from 'react';
-import { getStatusString, readableTime, rowId } from './utils';
+import { getStatusString, rowId } from './utils';
 
 function NoRecentMessages({ deviceName }: { deviceName: string }) {
   return (
@@ -26,15 +26,12 @@ export function MidiEventTable(props: MidiEventTableProps) {
   const recentMessages = useAppSelector(
     selectRecentRemoteMessagesById(deviceId, 10)
   );
-  d;
+
   useEffect(() => {}, [recentMessages]);
 
-  const midiEvents = recentMessages.map((m) => {
-    return { msg: m, time: readableTime() };
-  });
   const [selectedRow, setSelectedRow] = useState<string>('');
 
-  const rows = midiEvents.map((event) => {
+  const rows = recentMessages.map((event) => {
     const id = rowId(event);
     const selected = id === selectedRow;
 

@@ -28,7 +28,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   const onChange = useCallback(
     (m: NumberArrayWithStatus) => {
       config.steps.set(JSON.stringify(defaultMsg), m);
-      InputConfigService.updateInputs(deviceId, [config]);
+      InputConfigService.updateInputs([config]);
     },
     [defaultMsg, config, deviceId]
   );

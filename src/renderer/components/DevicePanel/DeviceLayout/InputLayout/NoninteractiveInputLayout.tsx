@@ -1,4 +1,4 @@
-import { InputShape } from '@shared/driver-types';
+import { InputShape } from '@shared/driver-types/input-drivers/base-input-driver';
 
 type PropTypes = {
   shape: InputShape;

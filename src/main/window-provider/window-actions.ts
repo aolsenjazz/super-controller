@@ -36,14 +36,14 @@ export abstract class WindowActions {
   public sendLoopbackMessage(
     deviceId: string,
     inputId: string,
-    message: NumberArrayWithStatus | TimestampedMidiEvent
+    msg: NumberArrayWithStatus | TimestampedMidiEvent
   ) {
     this.sendReduxEvent({
       type: 'recentLoopbackMessages/addMessage',
       payload: {
         deviceId,
         inputId,
-        message,
+        message: { msg, time: Date.now() },
       },
     });
   }
@@ -51,14 +51,14 @@ export abstract class WindowActions {
   public sendRemoteMessage(
     deviceId: string,
     inputId: string,
-    message: NumberArrayWithStatus | TimestampedMidiEvent
+    msg: NumberArrayWithStatus | TimestampedMidiEvent
   ) {
     this.sendReduxEvent({
       type: 'recentRemoteMessages/addMessage',
       payload: {
         deviceId,
         inputId,
-        message,
+        message: { msg, time: Date.now() },
       },
     });
   }

@@ -31,8 +31,8 @@ type PropTypes = {
 export function Knob(props: PropTypes) {
   const { shape, endless, id } = props;
 
-  const lastMsg = useAppSelector(selectRecentRemoteMessagesById(id, 1));
-  const value = lastMsg.length === 1 ? lastMsg[0][2] : 64;
+  const recentMessages = useAppSelector(selectRecentRemoteMessagesById(id, 1));
+  const value = recentMessages.length === 1 ? recentMessages[0].msg[2] : 64;
 
   const curDeg = useMemo(() => {
     const degrees = 270;

@@ -1,6 +1,5 @@
 import { byteToStatusString } from '@shared/midi-util';
-
-import { MidiEvent } from './midi-event';
+import { TimestampedMidiEvent } from '@shared/timestamped-midi-event';
 
 export function readableTime() {
   const timestamp = Date.now();
@@ -19,8 +18,8 @@ export function getStatusString(msg: NumberArrayWithStatus) {
   return byteToStatusString(byte, true);
 }
 
-export function rowId(e: MidiEvent) {
-  return `${e.time}:${e.deviceId}`;
+export function rowId(e: TimestampedMidiEvent) {
+  return `${e.time}:${e.msg}`;
 }
 
 export const statusByteMap: { [key: number]: string } = {

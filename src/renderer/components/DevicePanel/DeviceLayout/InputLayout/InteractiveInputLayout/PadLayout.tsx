@@ -15,21 +15,21 @@ type PropTypes = {
 export default function Pad(props: PropTypes) {
   const { driver, id } = props;
 
-  const lastMsgArr = useAppSelector((state) => testLoopback(state, id));
+  const recentMessages = useAppSelector((state) => testLoopback(state, id));
 
   const [color, setColor] = useState<Color>();
   const [fx, setFx] = useState<FxDriver>();
 
   useEffect(() => {
-    if (!lastMsgArr || lastMsgArr.length === 0) return;
-    const lastMsg = lastMsgArr.at(-1)!;
+    if (!recentMessages || recentMessages.length === 0) return;
+    const lastMsg = recentMessages.at(-1)!;
 
     driver.availableColors.forEach((c) => {
       // try to apply fx if they exist
       driver.availableFx.forEach((fxDriver) => {
         fxDriver.validVals.forEach((fxArr) => {
           const affectedColor = sumMidiArrays(c.array, fxArr);
-          if (msgEquals(affectedColor, lastMsg)) {
+          if (msgEquals(affectedColor, lastMsg.msg)) {
             setColor(c);
             setFx(fxDriver);
           }
@@ -37,11 +37,11 @@ export default function Pad(props: PropTypes) {
       });
 
       // set color independent of fx, if necessary
-      if (msgEquals(c.array, lastMsg)) {
+      if (msgEquals(c.array, lastMsg.msg)) {
         setColor(c);
       }
     });
-  }, [lastMsgArr, driver]);
+  }, [recentMessages, driver]);
 
   return (
     <div
