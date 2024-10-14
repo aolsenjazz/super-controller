@@ -26,7 +26,7 @@ export default function InputConfigDrawer() {
   } else if (selectedInput === '') {
     Element = <BasicMessage msg="No inputs selected." />;
   } else if (config && inputConfig) {
-    Element = <InputConfigPanel config={config} input={inputConfig} />;
+    Element = <InputConfigPanel input={inputConfig} />;
   } else {
     return null;
   }

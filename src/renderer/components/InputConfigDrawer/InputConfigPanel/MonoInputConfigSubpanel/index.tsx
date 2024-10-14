@@ -10,13 +10,12 @@ import InputDefaultsSubpanel from '../InputDefaultsSubpanel';
 
 type PropTypes = {
   input: InputDTO;
-  deviceId: string;
 };
 
 const { InputConfigService } = window;
 
 export default function MonoInputConfigPanel(props: PropTypes) {
-  const { input, deviceId } = props;
+  const { input } = props;
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
@@ -46,8 +45,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
         plugins={input.plugins}
         removePlugin={removePlugin}
         showPluginMenu={showPluginMenu}
-        showAddPlugin={true}
-        deviceId={deviceId}
+        showAddPlugin
         importPlugin={(title) => importInputSubcomponent(title, 'gui')}
       />
     </div>

@@ -84,7 +84,6 @@ export default function DeviceDetailsPanel(props: PropTypes) {
           plugins={config?.plugins || []}
           removePlugin={removePlugin}
           showPluginMenu={showPluginMenu}
-          deviceId={id}
           importPlugin={(title) => importDeviceSubcomponent(title, 'gui')}
           showAddPlugin
         />

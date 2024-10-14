@@ -1,4 +1,3 @@
-import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 
 import InputDetailsSubpanel from './InputDetailsSubpanel';
@@ -7,12 +6,11 @@ import InputDetailsSubpanel from './InputDetailsSubpanel';
 import MonoInputConfigPanel from './MonoInputConfigSubpanel';
 
 type InputConfigurationProps = {
-  config: DeviceConfigDTO;
   input: InputDTO;
 };
 
 export default function InputConfigPanel(props: InputConfigurationProps) {
-  const { config, input } = props;
+  const { input } = props;
 
   let Element = null;
   switch (input.type) {
@@ -25,7 +23,7 @@ export default function InputConfigPanel(props: InputConfigurationProps) {
       // Element = <SwitchConfigSubpanel />;
       break;
     default:
-      Element = <MonoInputConfigPanel input={input} deviceId={config.id} />;
+      Element = <MonoInputConfigPanel input={input} />;
   }
 
   return (

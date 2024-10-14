@@ -17,7 +17,6 @@ const { PluginService } = window;
 
 type PropTypes = {
   pluginId: string;
-  selectedDevice: string;
   removePlugin: (pluginId: string) => void;
   importPlugin: (title: string) => Promise<React.FC<PluginUIProps>>;
 };
@@ -27,7 +26,7 @@ type PropTypes = {
  * can cause a single plugin slot to represent n plugins, if all homogenous.
  */
 export default function PluginSlot(props: PropTypes) {
-  const { pluginId, removePlugin, selectedDevice, importPlugin } = props;
+  const { pluginId, removePlugin, importPlugin } = props;
 
   const dispatch = useAppDispatch();
   const selectedPlugin = useSelector(selectSelectedPluginId);
@@ -70,7 +69,6 @@ export default function PluginSlot(props: PropTypes) {
         <PluginBody
           pluginId={pluginId}
           title={plugin.title}
-          selectedDevice={selectedDevice}
           importPlugin={importPlugin}
         />
       )}

@@ -102,19 +102,19 @@ test('getDiff returns 1 pair at second index', () => {
   expect(result[1].length).toBe(1);
 });
 
-describe('id', () => {
+describe('inputIdFromDriver', () => {
   test('returns expected ID for xy driver', () => {
+    const result = inputIdFromDriver(XYDrive);
+    expect(result).toBe('controlchange.11.10/pitchbend.12');
+  });
+
+  test('returns expected ID for two-byte driver', () => {
     const result = inputIdFromDriver(TwoByteDriver);
     expect(result).toBe('programchange.11.10');
   });
 
-  test('returns expected ID for two-byte driver', () => {
+  test('returns expected ID for three-byte driver', () => {
     const result = inputIdFromDriver(ThreeByteDriver);
     expect(result).toBe('controlchange.11.10');
-  });
-
-  test('returns expected ID for three-byte driver', () => {
-    const result = inputIdFromDriver(XYDrive);
-    expect(result).toBe('controlchange.11.10pitchbend.12');
   });
 });

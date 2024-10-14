@@ -15,7 +15,6 @@ const { PluginService } = window;
 type PropTypes = {
   pluginId: string;
   title: string;
-  selectedDevice: string;
   importPlugin: (title: string) => Promise<React.FC<PluginUIProps>>;
 };
 

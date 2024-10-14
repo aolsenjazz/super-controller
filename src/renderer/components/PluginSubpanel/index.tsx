@@ -11,19 +11,12 @@ type PluginSubpanelProps = {
   showPluginMenu: (x: number, y: number) => void;
   removePlugin: (pluginId: string) => void;
   showAddPlugin: boolean;
-  deviceId: string;
   importPlugin: (title: string) => Promise<React.FC<PluginUIProps>>;
 };
 
 export default function PluginSubpanel(props: PluginSubpanelProps) {
-  const {
-    plugins,
-    showPluginMenu,
-    removePlugin,
-    showAddPlugin,
-    deviceId,
-    importPlugin,
-  } = props;
+  const { plugins, showPluginMenu, removePlugin, showAddPlugin, importPlugin } =
+    props;
 
   const pluginSlots = useMemo(() => {
     return plugins.map((x) => {
@@ -31,13 +24,12 @@ export default function PluginSubpanel(props: PluginSubpanelProps) {
         <PluginSlot
           key={`plugin${x}`}
           pluginId={x}
-          selectedDevice={deviceId}
           removePlugin={removePlugin}
           importPlugin={importPlugin}
         />
       );
     });
-  }, [plugins, removePlugin, deviceId, importPlugin]);
+  }, [plugins, removePlugin, importPlugin]);
 
   return (
     <div className="plugin-subpanel">

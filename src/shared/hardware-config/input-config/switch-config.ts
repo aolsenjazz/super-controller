@@ -1,6 +1,5 @@
 import { byteToStatusString } from '@shared/midi-util';
 import { SwitchDriver } from '../../driver-types/input-drivers/switch-driver';
-import { msgEquals, msgIdentityEquals } from '../../util';
 import { BaseInputConfig, InputDefaults, InputDTO } from './base-input-config';
 
 export interface SwitchDTO extends InputDTO {
@@ -45,16 +44,6 @@ export class SwitchConfig extends BaseInputConfig<SwitchDTO, SwitchDriver> {
 
   public init() {
     // noop, for now
-  }
-
-  public isOriginator(msg: NumberArrayWithStatus): boolean {
-    for (let i = 0; i < this.driver.steps.length; i++) {
-      if (msgEquals(msg, this.driver.steps[i])) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   public applyDTO(dto: SwitchDTO) {
