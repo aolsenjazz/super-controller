@@ -15,10 +15,11 @@ type PropTypes = {
 export default function XYLayout(props: PropTypes) {
   const { handleWidth, handleHeight, id, driver } = props;
 
+  const deviceId = id.split('::')[0];
   const xInputId = inputIdFromDriver(driver.x);
   const yInputId = inputIdFromDriver(driver.y);
-  const xQualifiedId = getQualifiedInputId(id, xInputId);
-  const yQualifiedId = getQualifiedInputId(id, yInputId);
+  const xQualifiedId = getQualifiedInputId(deviceId, xInputId);
+  const yQualifiedId = getQualifiedInputId(deviceId, yInputId);
 
   const recentX = useAppSelector(
     selectRecentRemoteMessagesById(xQualifiedId, 1)
@@ -33,7 +34,7 @@ export default function XYLayout(props: PropTypes) {
         value: recentX.length ? recentX[0].msg[2] : 64,
       },
       y: {
-        value: recentY.length ? recentY[0].msg[2] : 64,
+        value: recentY.length ? recentY[0].msg[2] : 0,
       },
     };
   }, [recentX, recentY]);
