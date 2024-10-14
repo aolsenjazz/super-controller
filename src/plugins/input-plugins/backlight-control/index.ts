@@ -15,6 +15,7 @@ import { sumMidiArrays } from '@shared/util';
 
 import { GateStateManager } from './state-manager/gate-state-manager';
 import { StateManager } from './state-manager/state-manager';
+import Manifest from './manifest.json';
 
 const { MainWindow } = WindowProvider;
 
@@ -58,12 +59,7 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     driver: MonoInteractiveDriver,
     _dto?: BacklightControlDTO
   ) {
-    super(
-      'Backlight Control',
-      'Controls the color of the lights for this input.',
-      parentId,
-      driver
-    );
+    super(Manifest.title, Manifest.description, parentId, driver);
 
     this.stateManager = new GateStateManager(driver as PadDriver);
     this.availableColors = driver.availableColors;

@@ -1,6 +1,8 @@
 import { MessageProcessorMeta } from '@shared/message-processor';
 import { BasePlugin, PluginDTO } from '@shared/plugin-core/base-plugin';
+
 import { toString } from './util';
+import Manifest from './manifest.json';
 
 export interface TranslatorDTO extends PluginDTO {
   overrides: Record<string, NumberArrayWithStatus | undefined>;
@@ -10,7 +12,7 @@ export default class TranslatorPlugin extends BasePlugin<TranslatorDTO> {
   overrides: Record<string, NumberArrayWithStatus | undefined> = {};
 
   constructor(parentId: string) {
-    super('Translator', 'Temp description', parentId);
+    super(Manifest.title, Manifest.description, parentId);
   }
 
   public get applicableDeviceTypes(): (

@@ -1,6 +1,8 @@
 import { MessageProcessorMeta } from '@shared/message-processor';
 import { BasePlugin } from '@shared/plugin-core/base-plugin';
+
 import { ShareSustainDTO } from './share-sustain-dto';
+import Manifest from './manifest.json';
 
 const CC = 176;
 const SUSTAIN_NUM = 64;
@@ -9,11 +11,7 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainDTO> {
   public sustainTargets: string[] = [];
 
   constructor(parentId: string, sustainTargets: string[] = []) {
-    super(
-      'Share Sustain',
-      'Whenever a sustain event is received from the controller, send an identical sustain event through other selected controllers.',
-      parentId
-    );
+    super(Manifest.title, Manifest.description, parentId);
     this.sustainTargets = sustainTargets;
   }
 
