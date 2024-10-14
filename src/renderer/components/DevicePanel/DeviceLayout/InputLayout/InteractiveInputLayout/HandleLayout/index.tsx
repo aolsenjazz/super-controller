@@ -1,6 +1,8 @@
 // import { selectSelectedDevice } from '@selectors/selected-device-selector';
 // import { useSelector } from 'react-redux';
 
+import { selectRecentRemoteMessagesById } from '@features/recent-remote-messages/recent-remote-messages-slice';
+import { useAppSelector } from '@hooks/use-app-dispatch';
 import { HorizontalHandleLayout } from './HorizontalHandleLayout';
 import { VerticalHandleLayout } from './VerticalHandleLayout';
 
@@ -19,14 +21,11 @@ type PropTypes = {
 export function HandleLayout(props: PropTypes) {
   const { handleWidth, handleHeight, horizontal, inverted, id } = props;
 
-  // const selectedDevice = useSelector(selectSelectedDevice);
+  const recentMessages = useAppSelector(selectRecentRemoteMessagesById(id, 1));
 
-  // const { state } = useInputState<SliderState>(
-  //   selectedDevice!.id,
-  //   id,
-  //   defaultState
-  // );
-  const state = { value: 127 };
+  const state = {
+    value: recentMessages.length ? recentMessages[0].msg[2] : 127,
+  };
 
   const Layout = horizontal ? HorizontalHandleLayout : VerticalHandleLayout;
 
