@@ -1,14 +1,8 @@
-// import { selectSelectedDevice } from '@selectors/selected-device-selector';
-// import { useSelector } from 'react-redux';
-
 import { selectRecentRemoteMessagesById } from '@features/recent-remote-messages/recent-remote-messages-slice';
 import { useAppSelector } from '@hooks/use-app-dispatch';
+
 import { HorizontalHandleLayout } from './HorizontalHandleLayout';
 import { VerticalHandleLayout } from './VerticalHandleLayout';
-
-// const defaultState = {
-//   value: 127 as MidiNumber,
-// };
 
 type PropTypes = {
   handleWidth: string;
