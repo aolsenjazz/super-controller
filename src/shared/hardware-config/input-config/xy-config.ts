@@ -67,7 +67,7 @@ export class XYConfig extends BaseInputConfig<XYDTO> {
 
   public toDTO(): XYDTO {
     return {
-      ...this.toDTO(),
+      ...super.toDTO(),
       className: this.constructor.name,
       x: this.x.toDTO(),
       y: this.y.toDTO(),

@@ -1,10 +1,9 @@
-import { XYDriver } from '@shared/driver-types/input-drivers/xy-driver';
 import { useMemo } from 'react';
-// import { useSelector } from 'react-redux';
 
-// import { selectSelectedDevice } from '@selectors/selected-device-selector';
-
-// import { XYState } from '@shared/hardware-config/input-config/xy-config';
+import { selectRecentRemoteMessagesById } from '@features/recent-remote-messages/recent-remote-messages-slice';
+import { useAppSelector } from '@hooks/use-app-dispatch';
+import { XYDriver } from '@shared/driver-types/input-drivers/xy-driver';
+import { getQualifiedInputId, inputIdFromDriver } from '@shared/util';
 
 type PropTypes = {
   handleWidth: string;
@@ -16,26 +15,28 @@ type PropTypes = {
 export default function XYLayout(props: PropTypes) {
   const { handleWidth, handleHeight, id, driver } = props;
 
-  // const selectedDevice = useSelector(selectSelectedDevice);
-  const initialState = useMemo(() => {
+  const xInputId = inputIdFromDriver(driver.x);
+  const yInputId = inputIdFromDriver(driver.y);
+  const xQualifiedId = getQualifiedInputId(id, xInputId);
+  const yQualifiedId = getQualifiedInputId(id, yInputId);
+
+  const recentX = useAppSelector(
+    selectRecentRemoteMessagesById(xQualifiedId, 1)
+  );
+  const recentY = useAppSelector(
+    selectRecentRemoteMessagesById(yQualifiedId, 1)
+  );
+
+  const state = useMemo(() => {
     return {
       x: {
-        value: 64,
+        value: recentX.length ? recentX[0].msg[2] : 64,
       },
       y: {
-        value: 64,
+        value: recentY.length ? recentY[0].msg[2] : 64,
       },
     };
-  }, []);
-
-  // const { state } = useInputState<XYState>(
-  //   selectedDevice!.id,
-  //   id,
-  //   initialState
-  // );
-  const state = initialState;
-
-  if (state === undefined) return null;
+  }, [recentX, recentY]);
 
   const xShift = state.x.value / 127;
   const yShift = state.y.value / 127;
