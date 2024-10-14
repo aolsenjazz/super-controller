@@ -1,15 +1,10 @@
 import { MonoInputConfig, InputDefault } from './mono-input-config';
-import { InputState } from './base-input-config';
 import type { MonoInputDTO } from './mono-input-dto';
 import { KnobDriver } from '../../driver-types/input-drivers/knob-driver';
 
 export interface KnobDTO extends MonoInputDTO<KnobDefaults> {
   valueType: 'absolute' | 'endless';
   type: 'knob';
-}
-
-export interface KnobState extends InputState {
-  value: MidiNumber;
 }
 
 interface KnobDefaults extends InputDefault {
@@ -21,9 +16,11 @@ export class KnobConfig extends MonoInputConfig<
   KnobDTO,
   KnobDriver
 > {
-  defaults: KnobDefaults;
+  public defaults: KnobDefaults;
 
-  constructor(
+  public type = 'knob' as const;
+
+  public constructor(
     deviceId: string,
     nickname: string,
     plugins: string[],
@@ -40,7 +37,7 @@ export class KnobConfig extends MonoInputConfig<
     };
   }
 
-  applyStub(s: KnobDTO) {
+  public applyStub(s: KnobDTO) {
     super.applyStub(s);
   }
 
@@ -51,13 +48,5 @@ export class KnobConfig extends MonoInputConfig<
       valueType: this.defaults.knobType, // TODO: this will be buggy
       type: this.type,
     };
-  }
-
-  get state() {
-    return { value: 0 };
-  }
-
-  get type() {
-    return 'knob' as const;
   }
 }

@@ -5,6 +5,8 @@ import { MonoInputDTO } from './mono-input-dto';
 export class PadConfig extends MonoInputConfig {
   public defaults: InputDefault;
 
+  public type = 'pad' as const;
+
   constructor(
     deviceId: string,
     nickname: string,
@@ -21,18 +23,10 @@ export class PadConfig extends MonoInputConfig {
     };
   }
 
-  public get state() {
-    return {};
-  }
-
   public toDTO(): MonoInputDTO {
     return {
       ...super.toDTO(),
       className: this.constructor.name,
     };
-  }
-
-  get type() {
-    return 'pad' as const;
   }
 }

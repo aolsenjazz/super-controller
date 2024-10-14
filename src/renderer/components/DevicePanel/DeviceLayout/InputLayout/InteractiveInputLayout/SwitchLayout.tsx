@@ -1,46 +1,40 @@
-// import { useMemo } from 'react';
-// import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
 
-// import { selectSelectedDevice } from '@selectors/selected-device-selector';
-// import { SwitchState } from '@shared/hardware-config/input-config/switch-config';
+import { selectRecentRemoteMessagesById } from '@features/recent-remote-messages/recent-remote-messages-slice';
+import { useAppSelector } from '@hooks/use-app-dispatch';
+import { SwitchDriver } from '@shared/driver-types/input-drivers/switch-driver';
+import { msgEquals } from '@shared/util';
 
 type PropTypes = {
-  steps: NumberArrayWithStatus[];
-  initialStep: NumberArrayWithStatus;
+  driver: SwitchDriver;
   id: string;
 };
 
 export function SwitchLayout(props: PropTypes) {
-  const { initialStep, steps, id } = props;
+  const { driver, id } = props;
 
-  // const selectedDevice = useSelector(selectSelectedDevice);
-  // const defaultState = useMemo(() => {
-  //   return {
-  //     step: initialStep,
-  //   };
-  // }, [initialStep]);
+  const { steps } = driver;
+  const recentMessages = useAppSelector(selectRecentRemoteMessagesById(id, 1));
+  console.log(recentMessages);
 
-  // const { state } = useInputState<SwitchState>(
-  //   selectedDevice!.id,
-  //   id,
-  //   defaultState
-  // );
-  const state = { step: 0 };
+  const step = useMemo(() => {
+    if (!recentMessages.length) return driver.initialStep;
 
-  const nSteps = steps.length;
-  let stepIdx = 0;
-  steps.forEach((s, i) => {
-    if (JSON.stringify(s) === JSON.stringify(state.step)) {
-      stepIdx = i;
+    for (let i = 0; i < steps.length; i++) {
+      if (msgEquals(steps[i], recentMessages[0].msg)) {
+        return i;
+      }
     }
-  });
 
-  const position = stepIdx / nSteps;
+    return driver.initialStep;
+  }, [recentMessages, driver, steps]);
+
+  const position = step / steps.length;
   const iStyle = {
     top: `calc(${position * 100}% - 1px)`,
     left: -1,
     width: `100%`,
-    height: `${(1 / nSteps) * 100}%`,
+    height: `${(1 / steps.length) * 100}%`,
   };
 
   return (

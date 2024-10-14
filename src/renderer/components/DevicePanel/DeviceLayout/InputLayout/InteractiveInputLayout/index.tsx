@@ -1,9 +1,10 @@
+import { InteractiveInputDriver } from '@shared/driver-types/input-drivers';
+
 import Pad from './PadLayout';
 import { Knob } from './KnobLayout';
 import { HandleLayout } from './HandleLayout';
 import { SwitchLayout } from './SwitchLayout';
 import XYLayout from './XYLayout';
-import { InteractiveInputDriver } from '@shared/driver-types/input-drivers';
 
 type InputLayoutPropTypes = {
   qualifiedInputId: string;
@@ -18,32 +19,21 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
   }
 
   if (driver.type === 'knob') {
-    const asKnob = driver;
     return (
       <Knob
         id={qualifiedInputId}
         shape={driver.shape}
-        endless={asKnob.knobType === 'endless'}
+        endless={driver.knobType === 'endless'}
       />
     );
   }
 
   if (driver.type === 'switch') {
-    const asSwitch = driver;
-    const { steps } = asSwitch;
-
-    return (
-      <SwitchLayout
-        steps={steps}
-        id={qualifiedInputId}
-        initialStep={steps[asSwitch.initialStep]}
-      />
-    );
+    return <SwitchLayout id={qualifiedInputId} driver={driver} />;
   }
 
   if (driver.type === 'xy') {
-    const asXY = driver;
-    const handleWidth = asXY.x.handleWidth as number;
+    const { handleWidth } = driver.x;
 
     return (
       <XYLayout

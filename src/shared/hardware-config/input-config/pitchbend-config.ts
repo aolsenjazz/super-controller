@@ -1,7 +1,6 @@
 import { byteToStatusString } from '@shared/midi-util';
 
 import { InputDefault, MonoInputConfig } from './mono-input-config';
-import { SliderState } from './slider-config';
 import type { MonoInputDTO } from './mono-input-dto';
 import { MonoInteractiveDriver } from '../../driver-types/input-drivers/mono-interactive-driver';
 
@@ -14,6 +13,8 @@ import { MonoInteractiveDriver } from '../../driver-types/input-drivers/mono-int
  */
 export class PitchbendConfig extends MonoInputConfig {
   public defaults: InputDefault;
+
+  public type = 'wheel' as const;
 
   constructor(
     deviceId: string,
@@ -49,22 +50,5 @@ export class PitchbendConfig extends MonoInputConfig {
     }
 
     return false;
-  }
-
-  get type() {
-    return 'wheel' as const;
-  }
-
-  get id() {
-    const ss = this.defaults.statusString;
-    const c = this.defaults.channel;
-
-    return `${ss}.${c}`;
-  }
-
-  get state(): SliderState {
-    return {
-      value: 0, // TODO:
-    };
   }
 }

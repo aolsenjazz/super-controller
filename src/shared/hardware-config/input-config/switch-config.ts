@@ -1,27 +1,34 @@
+import { SwitchDriver } from '@shared/driver-types/input-drivers/switch-driver';
 import { MessageProcessorMeta } from '../../message-processor';
-import { getQualifiedInputId } from '../../util';
-import { BaseInputConfig, InputDTO, InputState } from './base-input-config';
-
-export interface SwitchState extends InputState {
-  step: NumberArrayWithStatus;
-}
+import { msgEquals } from '../../util';
+import { BaseInputConfig, InputDTO } from './base-input-config';
 
 export interface SwitchDTO extends InputDTO {
-  steps: Map<string, NumberArrayWithStatus>;
+  steps: NumberArrayWithStatus[];
+  bindings: Record<string, NumberArrayWithStatus>;
 }
 
-export class SwitchConfig extends BaseInputConfig<SwitchDTO> {
+export class SwitchConfig extends BaseInputConfig<SwitchDTO, SwitchDriver> {
+  // TODO: lol, this goes in a plugin
+  public bindings: Record<string, NumberArrayWithStatus> = {};
+
+  public type = 'switch' as const;
+
+  public constructor(deviceId: string, nickname: string, driver: SwitchDriver) {
+    super(deviceId, nickname, driver);
+  }
+
   public toDTO(): SwitchDTO {
     return {
-      ...this.toDTO(),
+      ...super.toDTO(),
       className: this.constructor.name,
-      steps: new Map(), // TODO:
+      steps: this.driver.steps,
+      bindings: this.bindings,
     };
   }
 
   public process(
-    msg: NumberArrayWithStatus,
-    _meta: MessageProcessorMeta
+    msg: NumberArrayWithStatus
   ): NumberArrayWithStatus | undefined {
     return msg;
   }
@@ -30,47 +37,17 @@ export class SwitchConfig extends BaseInputConfig<SwitchDTO> {
     // noop, for now
   }
 
-  handleMessage(msg: NumberArrayWithStatus): NumberArrayWithStatus | undefined {
-    // TODO:
-    return msg;
-  }
+  public isOriginator(msg: NumberArrayWithStatus): boolean {
+    for (let i = 0; i < this.driver.steps.length; i++) {
+      if (msgEquals(msg, this.driver.steps[i])) {
+        return true;
+      }
+    }
 
-  applyStub(icicle: SwitchDTO) {
-    Array.from(icicle.steps.keys()).forEach((_k) => {
-      // const asArr = JSON.parse(k);
-      // const ma = create(stub.steps.get(k)!);
-      // this.outputPropagator.setStep(asArr, ma);
-      // TODO:
-    });
-  }
-
-  isOriginator(_msg: NumberArrayWithStatus) {
-    // const ma = msg instanceof MidiArray ? msg : create(msg);
-
-    // return Array.from(this.outputPropagator.steps.keys()).includes(
-    //   JSON.stringify(ma.array)
-    // ); TODO:
     return false;
   }
 
-  get type() {
-    return 'switch' as const;
-  }
-
-  get state() {
-    return {
-      step: [144, 0, 0] as NumberArrayWithStatus,
-    };
-  }
-
-  public get id(): string {
-    // const def = this.outputPropagator.defaultStep;
-    // return `switch.${def[1]}`;
-    // TODO:
-    return 'Switch';
-  }
-
-  public get qualifiedId(): string {
-    return getQualifiedInputId(this.deviceId, this.id);
+  public applyDTO(dto: SwitchDTO) {
+    this.bindings = dto.bindings;
   }
 }

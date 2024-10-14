@@ -1,36 +1,25 @@
-import { MessageProcessorMeta } from '@shared/message-processor';
-import { getQualifiedInputId } from '@shared/util';
-
-import { idForMsg } from '../../midi-util';
+import { MessageProcessorMeta } from '../../message-processor';
 import { XYDriver } from '../../driver-types/input-drivers/xy-driver';
 
 import { PitchbendConfig } from './pitchbend-config';
 import { SliderConfig } from './slider-config';
-import { BaseInputConfig, InputDTO, InputState } from './base-input-config';
+import { BaseInputConfig, InputDTO } from './base-input-config';
 import type { MonoInputDTO } from './mono-input-dto';
-
-export interface XYState extends InputState {
-  x: {
-    value: number;
-  };
-  y: {
-    value: number;
-  };
-}
 
 export interface XYDTO extends InputDTO {
   x: MonoInputDTO;
   y: MonoInputDTO;
 }
 
-export class XYConfig extends BaseInputConfig<XYDTO> {
-  x: SliderConfig | PitchbendConfig;
+export class XYConfig extends BaseInputConfig<XYDTO, XYDriver> {
+  public x: SliderConfig | PitchbendConfig;
 
-  y: SliderConfig | PitchbendConfig;
+  public y: SliderConfig | PitchbendConfig;
+
+  public type = 'xy' as const;
 
   constructor(deviceId: string, nickname: string, driver: XYDriver) {
     super(deviceId, nickname, driver);
-
     const XConfig =
       driver.x.status === 'pitchbend' ? PitchbendConfig : SliderConfig;
     const YConfig =
@@ -44,14 +33,6 @@ export class XYConfig extends BaseInputConfig<XYDTO> {
     // noop, for now
   }
 
-  handleMessage(msg: NumberArrayWithStatus) {
-    if (this.x.id === idForMsg(msg)) {
-      return this.x.handleMessage(msg);
-    }
-
-    return this.y.handleMessage(msg);
-  }
-
   applyStub(s: XYDTO): void {
     this.x.applyStub(s.x);
     this.y.applyStub(s.y);
@@ -59,10 +40,6 @@ export class XYConfig extends BaseInputConfig<XYDTO> {
 
   isOriginator(msg: NumberArrayWithStatus) {
     return this.x.isOriginator(msg) || this.y.isOriginator(msg);
-  }
-
-  get type() {
-    return 'xy' as const;
   }
 
   public toDTO(): XYDTO {
@@ -76,29 +53,10 @@ export class XYConfig extends BaseInputConfig<XYDTO> {
 
   public process(
     msg: NumberArrayWithStatus,
-    _meta: MessageProcessorMeta
+    meta: MessageProcessorMeta
   ): NumberArrayWithStatus | undefined {
-    return msg;
-  }
+    if (this.x.isOriginator(msg)) return this.x.process(msg, meta);
 
-  get state(): XYState {
-    return {
-      x: {
-        // value: this.x.value,
-        value: 0, // TODO:
-      },
-      y: {
-        // value: this.y.value,
-        value: 0, // TOOD:
-      },
-    };
-  }
-
-  get id() {
-    return `${this.x.id}/${this.y.id}`;
-  }
-
-  get qualifiedId() {
-    return getQualifiedInputId(this.deviceId, this.id);
+    return this.y.process(msg, meta);
   }
 }

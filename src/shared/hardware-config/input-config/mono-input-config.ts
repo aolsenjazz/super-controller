@@ -11,7 +11,6 @@ import {
   NOTE_ON,
 } from '../../midi-util';
 import { PluginProvider } from '../../plugin-provider';
-import { getQualifiedInputId } from '../../util';
 
 import { BaseInputConfig } from './base-input-config';
 import { MonoInputDTO } from './mono-input-dto';
@@ -107,24 +106,5 @@ export abstract class MonoInputConfig<
       colorCapable: false,
       plugins: this.plugins,
     };
-  }
-
-  public handleMessage(
-    msg: NumberArrayWithStatus
-  ): NumberArrayWithStatus | undefined {
-    // TODO:
-    return msg;
-  }
-
-  public get id() {
-    const ss = this.defaults.statusString;
-    const c = this.defaults.channel;
-    const n = this.defaults.number;
-
-    return `${ss}.${c}.${n}`;
-  }
-
-  public get qualifiedId() {
-    return getQualifiedInputId(this.deviceId, this.id);
   }
 }
