@@ -1,11 +1,11 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
-import { InteractiveInputDriver } from './driver-types/input-drivers';
 import { BaseInteractiveInputDriver } from './driver-types/input-drivers/base-interactive-input-driver';
 import { MonoInteractiveDriver } from './driver-types/input-drivers/mono-interactive-driver';
 import { SwitchDriver } from './driver-types/input-drivers/switch-driver';
 import { XYDriver } from './driver-types/input-drivers/xy-driver';
 import {
   CONTROL_CHANGE,
+  idForMsg,
   NOTE_OFF,
   NOTE_ON,
   PROGRAM_CHANGE,
@@ -101,7 +101,7 @@ export function inputIdFromDriver(driver: BaseInteractiveInputDriver): string {
   if (driver.type === 'switch') {
     const sw = driver as SwitchDriver;
 
-    return `switch.${sw.steps[sw.initialStep][1]}`;
+    return `${idForMsg(sw.steps[sw.initialStep])}`;
   }
 
   const mono = driver as MonoInteractiveDriver;

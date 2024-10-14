@@ -1,24 +1,22 @@
 import { useCallback } from 'react';
 
-import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 import { importInputSubcomponent } from '@plugins/plugin-loader';
 import { getQualifiedInputId } from '@shared/util';
+import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 
 import PluginSubpanel from 'renderer/components/PluginSubpanel';
 
 import InputDefaultsSubpanel from '../InputDefaultsSubpanel';
 
 type PropTypes = {
-  inputs: MonoInputDTO[];
+  input: InputDTO;
   deviceId: string;
 };
 
 const { InputConfigService } = window;
 
 export default function MonoInputConfigPanel(props: PropTypes) {
-  const { inputs, deviceId } = props;
-
-  const input = inputs[0];
+  const { input, deviceId } = props;
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
@@ -43,12 +41,12 @@ export default function MonoInputConfigPanel(props: PropTypes) {
 
   return (
     <div>
-      <InputDefaultsSubpanel inputs={inputs} />
+      <InputDefaultsSubpanel input={input} />
       <PluginSubpanel
         plugins={input.plugins}
         removePlugin={removePlugin}
         showPluginMenu={showPluginMenu}
-        showAddPlugin={inputs.length === 1}
+        showAddPlugin={true}
         deviceId={deviceId}
         importPlugin={(title) => importInputSubcomponent(title, 'gui')}
       />

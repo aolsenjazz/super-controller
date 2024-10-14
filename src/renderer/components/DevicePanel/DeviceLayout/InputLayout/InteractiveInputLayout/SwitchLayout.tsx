@@ -15,7 +15,6 @@ export function SwitchLayout(props: PropTypes) {
 
   const { steps } = driver;
   const recentMessages = useAppSelector(selectRecentRemoteMessagesById(id, 1));
-  console.log(recentMessages);
 
   const step = useMemo(() => {
     if (!recentMessages.length) return driver.initialStep;

@@ -8,7 +8,6 @@ import { getQualifiedInputId } from '@shared/util';
 import { PluginManifest } from '@shared/plugin-core/plugin-manifest';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
 import { importInputSubcomponent } from '@plugins/plugin-loader';
-import { MonoInputConfig } from '@shared/hardware-config/input-config/mono-input-config';
 
 import { INPUT_CONFIG } from './ipc-channels';
 import { WindowProvider } from '../window-provider';
@@ -25,8 +24,7 @@ ipcMain.on(
     const onClick = async (m: PluginManifest) => {
       const input = InputRegistry.get(qualifiedInputId);
 
-      if (!(input instanceof MonoInputConfig))
-        throw new Error(`Adding plugin to ${input} is not defined`);
+      if (!input) throw new Error(`Adding plugin to ${input} is not defined`);
 
       const inputDriver = input.driver;
       const Plugin = await importInputSubcomponent(m.title, 'plugin');
@@ -52,12 +50,13 @@ ipcMain.on(
   (_e: IpcMainEvent, pluginId: string, qualifiedInputId: string) => {
     const inputConfig = InputRegistry.get(qualifiedInputId);
 
-    if (inputConfig instanceof MonoInputConfig) {
-      inputConfig.plugins = inputConfig.plugins.filter((p) => p !== pluginId);
+    if (!inputConfig)
+      throw new Error(`no such config for id ${qualifiedInputId}`);
 
-      PluginRegistry.deregister(pluginId);
-      MainWindow.upsertInputConfig(inputConfig.toDTO());
-    }
+    inputConfig.plugins = inputConfig.plugins.filter((p) => p !== pluginId);
+
+    PluginRegistry.deregister(pluginId);
+    MainWindow.upsertInputConfig(inputConfig.toDTO());
   }
 );
 

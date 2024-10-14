@@ -2,15 +2,15 @@ import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-i
 import BacklightControlPlugin from '@plugins/input-plugins/backlight-control';
 import { PluginRegistry } from '@main/plugin-registry';
 import { WindowProvider } from '@main/window-provider';
+import { InputRegistry } from '@main/input-registry';
 
 import { InteractiveInputDriver } from '../../driver-types/input-drivers';
 import { KnobConfig } from './knob-config';
-import { XYConfig } from './xy-config';
 import { PadConfig } from './pad-config';
 import { SliderConfig } from './slider-config';
-import { SwitchConfig } from './switch-config';
 import { PitchbendConfig } from './pitchbend-config';
-import { MonoInputConfig } from './mono-input-config';
+import { BaseInputConfig } from './base-input-config';
+import { SwitchConfig } from './switch-config';
 
 const { MainWindow } = WindowProvider;
 
@@ -29,19 +29,27 @@ function initPlugins(qualifiedId: string, d: MonoInteractiveDriver) {
 }
 
 export function create(deviceId: string, d: InteractiveInputDriver) {
-  if (d.type === 'xy') return new XYConfig(deviceId, '', d);
-  if (d.type === 'switch') return new SwitchConfig(deviceId, '', d);
+  const configs: BaseInputConfig[] = [];
+  if (d.type === 'xy') {
+    configs.push(create(deviceId, d.x)[0]);
+    configs.push(create(deviceId, d.y)[0]);
+  } else if (d.type === 'switch') {
+    configs.push(new SwitchConfig(deviceId, '', d));
+  } else if (d.type === 'knob') {
+    configs.push(new KnobConfig(deviceId, '', [], d));
+  } else if (d.type === 'pad') {
+    configs.push(new PadConfig(deviceId, '', [], d));
+  } else if (d.status === 'pitchbend') {
+    configs.push(new PitchbendConfig(deviceId, '', [], d));
+  } else {
+    configs.push(new SliderConfig(deviceId, '', [], d));
+  }
 
-  let config: MonoInputConfig;
+  configs.forEach((c) => {
+    const plugins = initPlugins(c.qualifiedId, c.driver);
+    plugins.forEach((p) => c.plugins.push(p));
+    InputRegistry.register(c.qualifiedId, c);
+  });
 
-  if (d.type === 'knob') config = new KnobConfig(deviceId, '', [], d);
-  else if (d.type === 'pad') config = new PadConfig(deviceId, '', [], d);
-  else if (d.status === 'pitchbend')
-    config = new PitchbendConfig(deviceId, '', [], d);
-  else config = new SliderConfig(deviceId, '', [], d);
-
-  const plugins = initPlugins(config.qualifiedId, d);
-  plugins.forEach((p) => config.plugins.push(p));
-
-  return config;
+  return configs;
 }

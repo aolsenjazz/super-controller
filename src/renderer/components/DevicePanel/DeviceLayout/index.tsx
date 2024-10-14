@@ -5,7 +5,7 @@ import InputGridLayout from './InputGridLayout';
 
 type PropTypes = {
   driver: DeviceDriver;
-  onClick: (e: React.MouseEvent, ids: string[]) => void;
+  onClick: (e: React.MouseEvent, id: string) => void;
 };
 
 export default function DeviceLayout(props: PropTypes) {

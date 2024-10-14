@@ -1,8 +1,5 @@
-import { byteToStatusString } from '@shared/midi-util';
-
-import { InputDefault, MonoInputConfig } from './mono-input-config';
-import type { MonoInputDTO } from './mono-input-dto';
 import { MonoInteractiveDriver } from '../../driver-types/input-drivers/mono-interactive-driver';
+import { BaseInputConfig, InputDefaults } from './base-input-config';
 
 /**
  * It should be noted that while `PitchbendConfig` extends `MonoInputConfig`, pitchbend
@@ -11,8 +8,8 @@ import { MonoInteractiveDriver } from '../../driver-types/input-drivers/mono-int
  * pitchbend MIDI message array would be the MSB of the pitchbend value, but because of how
  * create configs from drivers, `config.number` is instead just assigned a meaningless number.
  */
-export class PitchbendConfig extends MonoInputConfig {
-  public defaults: InputDefault;
+export class PitchbendConfig extends BaseInputConfig {
+  public defaults: InputDefaults;
 
   public type = 'wheel' as const;
 
@@ -32,23 +29,10 @@ export class PitchbendConfig extends MonoInputConfig {
     };
   }
 
-  public toDTO(): MonoInputDTO {
+  public toDTO() {
     return {
       ...super.toDTO(),
       className: this.constructor.name,
     };
-  }
-
-  isOriginator(msg: NumberArrayWithStatus) {
-    if (msg.length === 3) {
-      const statusString = byteToStatusString(msg[0]);
-      const channel = msg[0] & 0x0f;
-      return (
-        statusString === this.defaults.statusString &&
-        channel === this.defaults.channel
-      );
-    }
-
-    return false;
   }
 }

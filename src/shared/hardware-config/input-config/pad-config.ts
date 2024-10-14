@@ -1,9 +1,8 @@
 import { PadDriver } from '../../driver-types/input-drivers/pad-driver';
-import { InputDefault, MonoInputConfig } from './mono-input-config';
-import { MonoInputDTO } from './mono-input-dto';
+import { BaseInputConfig, InputDefaults } from './base-input-config';
 
-export class PadConfig extends MonoInputConfig {
-  public defaults: InputDefault;
+export class PadConfig extends BaseInputConfig {
+  public defaults: InputDefaults;
 
   public type = 'pad' as const;
 
@@ -23,7 +22,7 @@ export class PadConfig extends MonoInputConfig {
     };
   }
 
-  public toDTO(): MonoInputDTO {
+  public toDTO() {
     return {
       ...super.toDTO(),
       className: this.constructor.name,

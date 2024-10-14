@@ -6,7 +6,7 @@ type PropTypes = {
   grid: InputGridDriver;
   deviceWidth: number;
   deviceHeight: number;
-  onClick: (e: React.MouseEvent, ids: string[]) => void;
+  onClick: (e: React.MouseEvent, id: string) => void;
 };
 
 const InputGridLayout = (props: PropTypes) => {

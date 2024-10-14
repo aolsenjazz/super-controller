@@ -237,7 +237,6 @@ export class HardwarePortServiceSingleton {
 
         if (message) remoteTransport.send(message);
 
-        console.log(config.id, inputId);
         MainWindow.sendRemoteMessage(config.id, inputId, msg);
       });
     }

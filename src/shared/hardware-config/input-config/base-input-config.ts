@@ -7,20 +7,42 @@ import { MessageTransport } from '../../message-transport';
 import { PluginProvider } from '../../plugin-provider';
 
 import { InputType } from '../../driver-types/input-drivers/base-input-driver';
-import { BaseIcicle } from '../../freezable';
 import { getQualifiedInputId, inputIdFromDriver } from '../../util';
-import { BaseInteractiveInputDriver } from '../../driver-types/input-drivers/base-interactive-input-driver';
+import {
+  InputResponse,
+  MonoInteractiveDriver,
+} from '../../driver-types/input-drivers/mono-interactive-driver';
 
-export interface InputDTO extends BaseIcicle {
-  id: string;
+/* Default values for the input loaded in from a driver */
+export type InputDefaults = {
+  /* Note number, CC number, program number, etc */
+  readonly number: MidiNumber;
+
+  /* MIDI channel */
+  readonly channel: Channel;
+
+  /* MIDI event type */
+  readonly statusString: StatusString | 'noteon/noteoff';
+
+  /* See InputResponse */
+  readonly response: InputResponse;
+};
+
+export interface InputDTO<T extends InputDefaults = InputDefaults> {
+  defaults: T;
+  colorCapable: boolean;
+  plugins: string[];
   deviceId: string;
-  nickname: string;
   type: InputType;
+  nickname: string;
+  id: string;
+  className: string;
 }
 
 export abstract class BaseInputConfig<
   T extends InputDTO = InputDTO,
-  K extends BaseInteractiveInputDriver = BaseInteractiveInputDriver
+  U extends MonoInteractiveDriver = MonoInteractiveDriver,
+  V extends InputDefaults = InputDefaults
 > implements MessageProcessor
 {
   protected nickname: string = '';
@@ -34,28 +56,42 @@ export abstract class BaseInputConfig<
 
   readonly deviceId: string;
 
-  readonly driver: K;
+  readonly driver: U;
 
-  constructor(deviceId: string, nickname: string, driver: K) {
+  public abstract defaults: V;
+
+  public plugins: string[];
+
+  constructor(
+    deviceId: string,
+    nickname: string,
+    plugins: string[],
+    driver: U
+  ) {
     this.deviceId = deviceId;
     this.nickname = nickname;
     this.driver = driver;
 
     this.id = inputIdFromDriver(driver);
+    this.plugins = plugins;
   }
 
-  public toDTO(): T {
+  public toDTO() {
     return {
-      deviceId: this.deviceId,
       id: this.id,
+      deviceId: this.deviceId,
       nickname: this.nickname,
       type: this.type,
-      className: 'BaseInputConfig',
-    } as T;
+      defaults: this.defaults,
+      colorCapable: false,
+      plugins: this.plugins,
+      className: this.constructor.name,
+    };
   }
 
   public applyStub(s: T) {
     this.nickname = s.nickname;
+    this.plugins = s.plugins;
   }
 
   /**
@@ -66,21 +102,29 @@ export abstract class BaseInputConfig<
     return getQualifiedInputId(this.deviceId, this.id);
   }
 
-  public abstract init(
+  public init(
     loopbackTransport: MessageTransport,
     pluginProvider: PluginProvider
-  ): void;
+  ) {
+    this.plugins
+      .map((id) => pluginProvider.get(id))
+      .forEach((p) => p?.init(loopbackTransport));
+  }
 
   public abstract get type(): InputType;
 
-  /**
-   * Returns true if the input this config represents is responsible for generating
-   * `msg`. Used to associate message from devices with its config.
-   */
-  public abstract isOriginator(msg: NumberArrayWithStatus): boolean;
+  public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
+    let message = msg;
 
-  public abstract process(
-    msg: NumberArrayWithStatus,
-    meta: MessageProcessorMeta
-  ): NumberArrayWithStatus | undefined;
+    for (let i = 0; i < this.plugins.length; i++) {
+      const plugin = meta.pluginProvider.get(this.plugins[i]);
+      if (plugin && plugin.on === true) {
+        const toPropagate = plugin.process(message, meta);
+        if (toPropagate === undefined) return undefined;
+        message = toPropagate;
+      }
+    }
+
+    return message;
+  }
 }

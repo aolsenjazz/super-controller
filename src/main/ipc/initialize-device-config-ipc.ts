@@ -32,7 +32,6 @@ ipcMain.on(
     const driver = getDriver(driverName || deviceName) || Anonymous;
     const conf = configFromDriver(deviceName, siblingIdx, driver);
 
-    DeviceRegistry.register(conf.id, conf);
     HardwarePortService.onConfigChange({ action: 'add', changed: [conf] });
     VirtualPortService.onConfigChange({ action: 'add', changed: [conf] });
 

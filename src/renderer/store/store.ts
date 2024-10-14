@@ -7,7 +7,7 @@ import { connectedDevicesSlice } from '../features/connected-devices/connected-d
 import { configuredDevicesSlice } from '../features/configured-devices/configured-devices-slice';
 import { selectedDeviceIdSlice } from '../features/selected-device-id/selected-device-id-slice';
 import { inputConfigsSlice } from '../features/input-configs/input-configs-slice';
-import { selectedInputsSlice } from '../features/selected-inputs/selected-inputs-slice';
+import { selectedInputSlice } from '../features/selected-input/selected-input-slice';
 import { pluginsSlice } from '../features/plugins/plugins-slice';
 import { selectedPluginIdSlice } from '../features/selected-plugin-id/selected-plugin-id-slice';
 import { recentLoopbackMessagesSlice } from '../features/recent-loopback-messages/recent-loopback-messages-slice';
@@ -18,7 +18,7 @@ const rootReducer = combineSlices(
   configuredDevicesSlice,
   selectedDeviceIdSlice,
   inputConfigsSlice,
-  selectedInputsSlice,
+  selectedInputSlice,
   pluginsSlice,
   selectedPluginIdSlice,
   recentLoopbackMessagesSlice,

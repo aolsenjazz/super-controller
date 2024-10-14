@@ -1,5 +1,5 @@
-import { selectManyInputConfigs } from '@features/input-configs/input-configs-slice';
-import { selectSelectedInputs } from '@features/selected-inputs/selected-inputs-slice';
+import { selectInputConfigById } from '@features/input-configs/input-configs-slice';
+import { selectSelectedInput } from '@features/selected-input/selected-input-slice';
 import { useAppSelector } from '@hooks/use-app-dispatch';
 import { selectSelectedDevice } from '@selectors/selected-device-selector';
 import { useSelector } from 'react-redux';
@@ -10,9 +10,9 @@ import InputConfigPanel from './InputConfigPanel';
 export default function InputConfigDrawer() {
   const selectedDevice = useSelector(selectSelectedDevice);
   const config = selectedDevice?.config;
-  const selectedInputs = useSelector(selectSelectedInputs);
-  const inputConfigs = useAppSelector((state) =>
-    selectManyInputConfigs(state, selectedInputs)
+  const selectedInput = useSelector(selectSelectedInput);
+  const inputConfig = useAppSelector((state) =>
+    selectInputConfigById(state, selectedInput)
   );
 
   let Element: JSX.Element | null = null;
@@ -23,10 +23,10 @@ export default function InputConfigDrawer() {
     Element = (
       <BasicMessage msg="This device isn't supported yet, so you can't customize individual knob and buttons. However, you can still add Device Plugins in the left panel." />
     );
-  } else if (selectedInputs.length === 0) {
+  } else if (selectedInput === '') {
     Element = <BasicMessage msg="No inputs selected." />;
-  } else if (config && inputConfigs.length > 0) {
-    Element = <InputConfigPanel config={config} inputConfigs={inputConfigs} />;
+  } else if (config && inputConfig) {
+    Element = <InputConfigPanel config={config} input={inputConfig} />;
   } else {
     return null;
   }

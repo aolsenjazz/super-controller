@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
 import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 
@@ -6,44 +6,33 @@ import ControlledInput from '../../ControlledInput';
 import SectionHeader from '../../SectionHeader';
 
 type PropTypes = {
-  configs: InputDTO[];
+  input: InputDTO;
 };
 
 const { InputConfigService } = window;
 
 export default function InputDetailsSubpanel(props: PropTypes) {
-  const { configs } = props;
+  const { input } = props;
 
-  const name = useMemo(() => {
-    return configs.length > 1
-      ? `${configs.length} Inputs Selected`
-      : `Input: ${configs[0].nickname || configs[0].id}`;
-  }, [configs]);
-
-  const nickname = useMemo(() => {
-    return configs.length > 1 ? '' : configs[0].nickname;
-  }, [configs]);
+  const name = `Input: ${input.nickname || input.id}`;
+  const { nickname } = input;
 
   const onChange = useCallback(
     (n: string) => {
       const newConf = {
-        ...configs[0],
+        ...input,
         nickname: n,
       };
       InputConfigService.updateInputs([newConf]);
     },
-    [configs]
+    [input]
   );
 
   return (
     <div className="details-panel input-details-panel">
       <div>
         <SectionHeader title="INPUT SETTINGS" size="large" />
-        <div
-          className={`subpanel nickname-subpanel ${
-            configs.length !== 1 ? 'deactivated' : ''
-          }`}
-        >
+        <div className="subpanel nickname-subpanel">
           <div className="nickname-display">
             <h1>{name}</h1>
           </div>

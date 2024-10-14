@@ -1,9 +1,8 @@
-import { InputDefault, MonoInputConfig } from './mono-input-config';
-import type { MonoInputDTO } from './mono-input-dto';
 import { MonoInteractiveDriver } from '../../driver-types/input-drivers/mono-interactive-driver';
+import { BaseInputConfig, InputDefaults } from './base-input-config';
 
-export class SliderConfig extends MonoInputConfig {
-  public defaults: InputDefault;
+export class SliderConfig extends BaseInputConfig {
+  public defaults: InputDefaults;
 
   public type = 'slider' as const;
 
@@ -23,7 +22,7 @@ export class SliderConfig extends MonoInputConfig {
     };
   }
 
-  public toDTO(): MonoInputDTO {
+  public toDTO() {
     return {
       ...super.toDTO(),
       className: this.constructor.name,

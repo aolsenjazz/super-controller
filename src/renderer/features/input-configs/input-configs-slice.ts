@@ -1,11 +1,11 @@
 import { createEntityAdapter, createSelector } from '@reduxjs/toolkit';
-import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
+import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 import { getQualifiedInputId } from '@shared/util';
 import type { RootState } from 'renderer/store/store';
 import { createAppSlice } from '../../store/createAppSlice';
 
 const inputConfigsEntityAdapter = createEntityAdapter({
-  selectId: (conf: MonoInputDTO) => getQualifiedInputId(conf.deviceId, conf.id),
+  selectId: (conf: InputDTO) => getQualifiedInputId(conf.deviceId, conf.id),
 });
 
 export const inputConfigsSlice = createAppSlice({

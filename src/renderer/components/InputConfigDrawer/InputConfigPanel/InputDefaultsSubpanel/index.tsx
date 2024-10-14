@@ -1,22 +1,19 @@
-import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
-import { MonoInputAggregate } from '../mono-input-aggregate';
+import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 
 type PropTypes = {
-  inputs: MonoInputDTO[];
+  input: InputDTO;
 };
 
 export default function InputDefaultsSubpanel(props: PropTypes) {
-  const { inputs } = props;
-
-  const group = new MonoInputAggregate(inputs);
+  const { input } = props;
 
   return (
     <div className="subpanel input-defaults-subpanel">
       <h1>Default MIDI Settings</h1>
-      <p>Output Response: {group.outputResponse}</p>
-      <p>Event Type: {group.statusString}</p>
-      <p>Channel: {group.channel}</p>
-      <p>Number: {group.number}</p>
+      <p>Output Response: {input.defaults.response}</p>
+      <p>Event Type: {input.defaults.statusString}</p>
+      <p>Channel: {input.defaults.channel}</p>
+      <p>Number: {input.defaults.number}</p>
     </div>
   );
 }

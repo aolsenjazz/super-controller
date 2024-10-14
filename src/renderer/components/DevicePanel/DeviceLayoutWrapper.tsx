@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { useAppDispatch } from '@hooks/use-app-dispatch';
 import { DeviceDriver } from '@shared/driver-types/device-driver';
-import { setSelectedInputs } from '@features/selected-inputs/selected-inputs-slice';
+import { setSelectedInput } from '@features/selected-input/selected-input-slice';
 
 import DeviceLayout from './DeviceLayout';
 import WarningIcon from '../WarningIcon';
@@ -23,8 +23,8 @@ export default function DeviceLayoutWrapper(
 
   // on input click (or ctrl+click) update selectedInputs
   const onInputSelect = useCallback(
-    (_event: React.MouseEvent, ids: string[]) => {
-      dispatch(setSelectedInputs(ids));
+    (_event: React.MouseEvent, id: string) => {
+      dispatch(setSelectedInput(id));
     },
     [dispatch]
   );
