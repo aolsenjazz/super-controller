@@ -54,6 +54,7 @@ export default function InteractiveInputLayout(props: InputLayoutPropTypes) {
       handleHeight={`${(handleHeight / driver.height) * 100}%`}
       horizontal={horizontal}
       inverted={inverted}
+      defaultVal={driver.status === 'pitchbend' ? 64 : 127}
     />
   );
 }

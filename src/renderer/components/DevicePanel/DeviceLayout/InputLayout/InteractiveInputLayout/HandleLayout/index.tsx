@@ -10,15 +10,17 @@ type PropTypes = {
   horizontal: boolean;
   inverted: boolean;
   id: string;
+  defaultVal: number;
 };
 
 export function HandleLayout(props: PropTypes) {
-  const { handleWidth, handleHeight, horizontal, inverted, id } = props;
+  const { handleWidth, handleHeight, horizontal, inverted, id, defaultVal } =
+    props;
 
   const recentMessages = useAppSelector(selectRecentRemoteMessagesById(id, 1));
 
   const state = {
-    value: recentMessages.length ? recentMessages[0].msg[2] : 127,
+    value: recentMessages.length ? recentMessages[0].msg[2] : defaultVal,
   };
 
   const Layout = horizontal ? HorizontalHandleLayout : VerticalHandleLayout;
