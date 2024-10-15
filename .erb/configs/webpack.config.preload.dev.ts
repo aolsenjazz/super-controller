@@ -36,7 +36,8 @@ const configuration: webpack.Configuration = {
           dirent.name,
           'preload.ts'
         )
-      ),
+      )
+      .filter((p) => fs.existsSync(p)),
     // load input plugins (yeah also ugly)
     ...fs
       .readdirSync(path.join(webpackPaths.pluginsPath, 'input-plugins'), {
@@ -50,7 +51,8 @@ const configuration: webpack.Configuration = {
           dirent.name,
           'preload.ts'
         )
-      ),
+      )
+      .filter((p) => fs.existsSync(p)),
   ],
 
   output: {
