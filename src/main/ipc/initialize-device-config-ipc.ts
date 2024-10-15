@@ -31,6 +31,7 @@ ipcMain.on(
   ) => {
     const driver = getDriver(driverName || deviceName) || Anonymous;
     const conf = configFromDriver(deviceName, siblingIdx, driver);
+    DeviceRegistry.register(conf.id, conf);
 
     HardwarePortService.onConfigChange({ action: 'add', changed: [conf] });
     VirtualPortService.onConfigChange({ action: 'add', changed: [conf] });
@@ -137,9 +138,18 @@ ipcMain.on(
     const child = configFromDriver(
       childDriverName,
       0,
-      driver
+      driver,
+      config.id
     ) as SupportedDeviceConfig;
     config.setChild(child);
+
+    const inputDTOs = config.inputs
+      .map((id) => getQualifiedInputId(config.id, id))
+      .map((qid) => InputRegistry.get(qid)!)
+      .map((i) => i.toDTO());
+
+    MainWindow.upsertInputConfigs(inputDTOs);
+    MainWindow.edited = true;
 
     MainWindow.upsertConfiguredDevice(config.toDTO());
   }

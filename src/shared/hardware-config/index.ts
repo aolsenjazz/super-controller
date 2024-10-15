@@ -1,5 +1,3 @@
-import { DeviceRegistry } from '@main/device-registry';
-
 import { DeviceDriver } from '@shared/driver-types/device-driver';
 import { InteractiveInputDriver } from '@shared/driver-types/input-drivers';
 
@@ -12,7 +10,8 @@ import { DeviceConfig } from './device-config';
 export function configFromDriver(
   portName: string,
   siblingIndex: number,
-  driver: DeviceDriver
+  driver: DeviceDriver,
+  parentId?: string
 ) {
   let config: DeviceConfig;
 
@@ -28,15 +27,13 @@ export function configFromDriver(
       .filter((i) => i.interactive)
       .map((i) => i as InteractiveInputDriver)
       .forEach((d) => {
-        const inputs = create(config.id, d);
+        const inputs = create(parentId || config.id, d);
 
         (config as SupportedDeviceConfig).inputs.push(
           ...inputs.map((i) => i.id)
         );
       });
   }
-
-  DeviceRegistry.register(config.id, config);
 
   return config;
 }

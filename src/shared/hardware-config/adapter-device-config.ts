@@ -31,7 +31,7 @@ export class AdapterDeviceConfig extends DeviceConfig {
 
   public get inputs() {
     if (this.child) {
-      return this.child!.inputs;
+      return this.child.inputs;
     }
     return [];
   }
