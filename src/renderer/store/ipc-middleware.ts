@@ -20,7 +20,7 @@ export const ipcMiddleware: Middleware = (store) => {
   setInterval(() => {
     actions.forEach((a) => store.dispatch(a));
     actions = [];
-  }, 50);
+  }, 20);
 
   return (next) => (action) => next(action);
 };
