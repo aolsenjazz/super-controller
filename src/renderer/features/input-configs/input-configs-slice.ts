@@ -47,5 +47,5 @@ export const {
 
 export const selectManyInputConfigs = createSelector(
   [selectInputConfigEntities, (_: RootState, ids: string[]) => ids],
-  (entities, ids) => ids.map((id) => entities[id]).filter(Boolean)
+  (e, ids) => ids.map((id) => e[id]).filter(Boolean)
 );
