@@ -17,6 +17,15 @@ export const selectedPluginIdSlice = createSlice({
   selectors: {
     selectSelectedPluginId: (state) => state.id,
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase('selectedDeviceId/setId', (state) => {
+        state.id = null;
+      })
+      .addCase('selectedInputId/setId', (state) => {
+        state.id = null;
+      });
+  },
 });
 
 export const { selectSelectedPluginId } = selectedPluginIdSlice.selectors;

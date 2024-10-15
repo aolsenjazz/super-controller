@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { selectSelectedInput } from '@features/selected-input/selected-input-slice';
+import { selectSelectedInputId } from '@features/selected-input-id/selected-input-id-slice';
 import { inputIdFromDriver, getQualifiedInputId } from '@shared/util';
 import { selectSelectedDevice } from '@selectors/selected-device-selector';
 import { BaseInputDriver } from '@shared/driver-types/input-drivers/base-input-driver';
@@ -19,7 +19,7 @@ type InputLayoutPropTypes = {
 export default function InputLayout(props: InputLayoutPropTypes) {
   const { driver, width, height, onClick } = props;
   const selectedDevice = useSelector(selectSelectedDevice);
-  const selectedInput = useSelector(selectSelectedInput);
+  const selectedInput = useSelector(selectSelectedInputId);
 
   let Element;
   if (driver.interactive) {

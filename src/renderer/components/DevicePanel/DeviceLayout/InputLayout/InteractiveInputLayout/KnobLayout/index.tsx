@@ -15,7 +15,8 @@ export function Knob(props: PropTypes) {
   const { shape, endless, id } = props;
 
   const recentMessages = useAppSelector(selectRecentRemoteMessagesById(id, 1));
-  const recentMessage = recentMessages.length > 0 && recentMessages[0];
+  const recentMessage =
+    recentMessages.length > 0 ? recentMessages[0] : undefined;
   const value = recentMessages.length === 1 ? recentMessages[0].msg[2] : 64;
 
   return endless ? (
