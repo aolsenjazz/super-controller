@@ -12,6 +12,7 @@ export const INPUT_CONFIG = {
   REMOVE_PLUGIN: 'remove-input-plugin',
   UPDATE_INPUT: 'update-input',
   INPUT_PLUGIN_MENU: 'input-plugin-menu',
+  GET_INPUT_CONFIGS: 'get-input-configs',
 };
 
 export const DEVICE_CONFIG = {
@@ -21,6 +22,7 @@ export const DEVICE_CONFIG = {
   UPDATE_DEVICE: 'update-device',
   REMOVE_PLUGIN: 'remove-device-plugin',
   SET_CHILD: 'set-child',
+  GET_CONFIGURED_DEVICES: 'get-configured-devices',
 };
 
 export const LAYOUT = {
@@ -34,4 +36,5 @@ export const PLUGIN = {
   UPDATE: 'plugin-update',
   POWER: 'toggle-power',
   COLLAPSED: 'toggle-collapsed',
+  GET_ALL_PLUGINS: 'get-all-plugins',
 };

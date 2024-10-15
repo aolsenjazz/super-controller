@@ -144,3 +144,8 @@ ipcMain.on(
     MainWindow.upsertConfiguredDevice(config.toDTO());
   }
 );
+
+ipcMain.on(DEVICE_CONFIG.GET_CONFIGURED_DEVICES, (e: IpcMainEvent) => {
+  const configs = DeviceRegistry.getAll().map((d) => d.toDTO());
+  e.returnValue = configs;
+});

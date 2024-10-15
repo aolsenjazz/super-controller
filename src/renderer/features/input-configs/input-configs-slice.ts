@@ -1,17 +1,32 @@
 import { createEntityAdapter, createSelector } from '@reduxjs/toolkit';
+
 import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
 import { getQualifiedInputId } from '@shared/util';
-import type { RootState } from 'renderer/store/store';
+
+import type { RootState } from '../../store/store';
 import { createAppSlice } from '../../store/createAppSlice';
+
+const { InputConfigService } = window;
 
 const inputConfigsEntityAdapter = createEntityAdapter({
   selectId: (conf: InputDTO) => getQualifiedInputId(conf.deviceId, conf.id),
 });
 
+// Load initial state from the backend
+const configuredInputs = InputConfigService.getInputConfigs();
+const entities: Record<string, InputDTO> = {};
+configuredInputs.forEach((i) => {
+  entities[getQualifiedInputId(i.deviceId, i.id)] = i;
+});
+const initialState = inputConfigsEntityAdapter.getInitialState({
+  ids: configuredInputs.map((i) => getQualifiedInputId(i.deviceId, i.id)),
+  entities,
+});
+
 export const inputConfigsSlice = createAppSlice({
   name: 'inputConfigs',
 
-  initialState: inputConfigsEntityAdapter.getInitialState(),
+  initialState,
 
   reducers: {
     upsertOne: inputConfigsEntityAdapter.upsertOne,

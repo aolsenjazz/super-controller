@@ -15,4 +15,8 @@ export const InputConfigService = {
   updateInputs(configs: InputDTO[]) {
     ipcRenderer.send(INPUT_CONFIG.UPDATE_INPUT, configs);
   },
+
+  getInputConfigs(): InputDTO[] {
+    return ipcRenderer.sendSync(INPUT_CONFIG.GET_INPUT_CONFIGS);
+  },
 };

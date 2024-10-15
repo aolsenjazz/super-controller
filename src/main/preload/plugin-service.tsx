@@ -15,4 +15,8 @@ export const PluginService = {
   updatePlugin(dto: PluginDTO) {
     ipcRenderer.send(PLUGIN.UPDATE, dto);
   },
+
+  getAllPlugins(): PluginDTO[] {
+    return ipcRenderer.sendSync(PLUGIN.GET_ALL_PLUGINS);
+  },
 };

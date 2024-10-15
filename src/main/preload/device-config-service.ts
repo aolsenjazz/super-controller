@@ -49,4 +49,8 @@ export const DeviceConfigService = {
   removeDevice(deviceId: string) {
     ipcRenderer.send(DEVICE_CONFIG.REMOVE_DEVICE, deviceId);
   },
+
+  getConfiguredDevices(): DeviceConfigDTO[] {
+    return ipcRenderer.sendSync(DEVICE_CONFIG.GET_CONFIGURED_DEVICES);
+  },
 };

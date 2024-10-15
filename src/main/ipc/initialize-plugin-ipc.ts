@@ -37,3 +37,8 @@ ipcMain.on(PLUGIN.UPDATE, (_e: IpcMainEvent, dto: PluginDTO) => {
 
   MainWindow.upsertPlugin(plugin.toDTO());
 });
+
+ipcMain.on(PLUGIN.GET_ALL_PLUGINS, (e: IpcMainEvent) => {
+  const plugins = PluginRegistry.getAll().map((p) => p.toDTO());
+  e.returnValue = plugins;
+});

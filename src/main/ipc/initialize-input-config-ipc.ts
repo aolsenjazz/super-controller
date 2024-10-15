@@ -78,3 +78,8 @@ ipcMain.on(
     MainWindow.edited = true;
   }
 );
+
+ipcMain.on(INPUT_CONFIG.GET_INPUT_CONFIGS, (e: IpcMainEvent) => {
+  const configs = InputRegistry.getAll().map((i) => i.toDTO());
+  e.returnValue = configs || [];
+});
