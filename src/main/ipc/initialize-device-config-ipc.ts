@@ -140,5 +140,7 @@ ipcMain.on(
       driver
     ) as SupportedDeviceConfig;
     config.setChild(child);
+
+    MainWindow.upsertConfiguredDevice(config.toDTO());
   }
 );
