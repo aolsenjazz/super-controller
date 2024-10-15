@@ -15,10 +15,10 @@ function defaultColors(channel: Channel, number: MidiNumber): Color[] {
       effectable: false,
     },
     {
-      array: [(144 + channel) as StatusByte, number, 0],
+      array: [(144 + channel) as StatusByte, number, 1],
       name: 'Red',
       string: 'red',
-      effectable: false,
+      effectable: true,
     },
   ];
 }
@@ -44,9 +44,8 @@ function defaultFx(): FxDriver[] {
         [0, 0, 12],
         [0, 0, 13],
         [0, 0, 14],
-        [0, 0, 15],
       ],
-      defaultVal: [0, 0, 15],
+      defaultVal: [0, 0, 14],
       isDefault: true,
       lowBoundLabel: 'dim',
       highBoundLabel: 'bright',
@@ -164,10 +163,10 @@ function playPad(channel: Channel, number: MidiNumber): PadDriver {
         effectable: false,
       },
       {
-        array: [(144 + channel) as StatusByte, number, 0],
+        array: [(144 + channel) as StatusByte, number, 1],
         name: 'Green',
         string: 'green',
-        effectable: false,
+        effectable: true,
       },
     ],
     availableFx: defaultFx(),
