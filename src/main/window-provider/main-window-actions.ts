@@ -78,4 +78,18 @@ export class MainWindowActions extends StatefulWindowActions {
       payload: dto,
     });
   }
+
+  public removePlugins(plugins: string[]) {
+    this.sendReduxEvent({
+      type: 'plugins/removeMany',
+      payload: plugins,
+    });
+  }
+
+  public removeInputs(inputs: string[]) {
+    this.sendReduxEvent({
+      type: 'inputConfigs/removeMany',
+      payload: inputs,
+    });
+  }
 }

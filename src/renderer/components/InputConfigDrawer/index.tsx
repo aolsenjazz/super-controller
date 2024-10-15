@@ -23,7 +23,7 @@ export default function InputConfigDrawer() {
     Element = (
       <BasicMessage msg="This device isn't supported yet, so you can't customize individual knob and buttons. However, you can still add Device Plugins in the left panel." />
     );
-  } else if (selectedInput === null) {
+  } else if (!inputConfig) {
     Element = <BasicMessage msg="No inputs selected." />;
   } else if (config && inputConfig) {
     Element = <InputConfigPanel input={inputConfig} />;

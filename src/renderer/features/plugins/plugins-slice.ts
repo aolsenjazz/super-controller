@@ -29,6 +29,7 @@ export const pluginsSlice = createAppSlice({
     upsertMany: pluginsEntityAdapter.upsertMany,
     upsertOne: pluginsEntityAdapter.upsertOne,
     removeOne: pluginsEntityAdapter.removeOne,
+    removeMany: pluginsEntityAdapter.removeMany,
   },
 });
 

@@ -57,6 +57,30 @@ ipcMain.on(
   (_e: IpcMainEvent, deviceId: string) => {
     const conf = DeviceRegistry.get(deviceId)!;
 
+    if (
+      conf instanceof SupportedDeviceConfig ||
+      conf instanceof AdapterDeviceConfig
+    ) {
+      const qInputIds = conf.inputs.map((id) =>
+        getQualifiedInputId(conf.id, id)
+      );
+      const pluginIds: string[] = [];
+
+      qInputIds.forEach((i) => {
+        const input = InputRegistry.get(getQualifiedInputId(conf.id, i))!;
+
+        input?.plugins.forEach((p) => {
+          PluginRegistry.deregister(p);
+          pluginIds.push(p);
+        });
+
+        InputRegistry.deregister(i);
+      });
+
+      MainWindow.removePlugins(pluginIds);
+      MainWindow.removeInputs(qInputIds);
+    }
+
     DeviceRegistry.deregister(deviceId);
 
     HardwarePortService.onConfigChange({ action: 'remove', changed: [conf] });
