@@ -16,6 +16,11 @@ export const selectedInputIdSlice = createAppSlice({
   selectors: {
     selectSelectedInputId: (state) => state.id,
   },
+  extraReducers: (builder) => {
+    builder.addCase('selectedDeviceId/setId', (state) => {
+      state.id = null;
+    });
+  },
 });
 
 export const { setId: setSelectedInputId } = selectedInputIdSlice.actions;
