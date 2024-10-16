@@ -52,6 +52,7 @@
 .device-layout .focus .pad,
 .device-layout .focus .switch,
 .device-layout .focus .handle-input,
+.device-layout .focus .xy,
 .device-layout .focus .knob .outer {
   border-style: dashed !important;
   filter: sepia(0.2);
