@@ -1,5 +1,5 @@
 import { MonoInteractiveDriver } from '../../driver-types/input-drivers/mono-interactive-driver';
-import { BaseInputConfig, InputDefaults } from './base-input-config';
+import { InputDefault, MonoInputConfig } from './mono-input-config';
 
 /**
  * It should be noted that while `PitchbendConfig` extends `MonoInputConfig`, pitchbend
@@ -8,8 +8,8 @@ import { BaseInputConfig, InputDefaults } from './base-input-config';
  * pitchbend MIDI message array would be the MSB of the pitchbend value, but because of how
  * create configs from drivers, `config.number` is instead just assigned a meaningless number.
  */
-export class PitchbendConfig extends BaseInputConfig {
-  public defaults: InputDefaults;
+export class PitchbendConfig extends MonoInputConfig {
+  public defaults: InputDefault;
 
   public type = 'wheel' as const;
 

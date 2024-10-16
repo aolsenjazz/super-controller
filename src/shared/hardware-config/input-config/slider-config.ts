@@ -1,8 +1,8 @@
 import { MonoInteractiveDriver } from '../../driver-types/input-drivers/mono-interactive-driver';
-import { BaseInputConfig, InputDefaults } from './base-input-config';
+import { InputDefault, MonoInputConfig } from './mono-input-config';
 
-export class SliderConfig extends BaseInputConfig {
-  public defaults: InputDefaults;
+export class SliderConfig extends MonoInputConfig {
+  public defaults: InputDefault;
 
   public type = 'slider' as const;
 

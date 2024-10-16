@@ -1,16 +1,17 @@
 import { KnobDriver } from '../../driver-types/input-drivers/knob-driver';
-import { BaseInputConfig, InputDefaults, InputDTO } from './base-input-config';
+import { InputDefault, MonoInputConfig } from './mono-input-config';
+import { MonoInputDTO } from './mono-input-dto';
 
-interface KnobDefaults extends InputDefaults {
+interface KnobDefaults extends InputDefault {
   knobType: 'endless' | 'absolute';
 }
 
-export interface KnobDTO extends InputDTO<KnobDefaults> {
+export interface KnobDTO extends MonoInputDTO<KnobDefaults> {
   valueType: 'absolute' | 'endless';
   type: 'knob';
 }
 
-export class KnobConfig extends BaseInputConfig {
+export class KnobConfig extends MonoInputConfig {
   public defaults: KnobDefaults;
 
   public type = 'knob' as const;
@@ -36,7 +37,7 @@ export class KnobConfig extends BaseInputConfig {
     super.applyStub(s);
   }
 
-  public toDTO(): KnobDTO {
+  public toDTO() {
     return {
       ...super.toDTO(),
       defaults: this.defaults,

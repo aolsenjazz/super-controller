@@ -1,4 +1,5 @@
 import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
+import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 
 import InputDetailsSubpanel from './InputDetailsSubpanel';
 // import XYConfigPanel from './XYConfigPanel';
@@ -23,7 +24,7 @@ export default function InputConfigPanel(props: InputConfigurationProps) {
       // Element = <SwitchConfigSubpanel />;
       break;
     default:
-      Element = <MonoInputConfigPanel input={input} />;
+      Element = <MonoInputConfigPanel input={input as MonoInputDTO} />;
   }
 
   return (

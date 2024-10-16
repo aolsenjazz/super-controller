@@ -2,14 +2,14 @@ import { useCallback } from 'react';
 
 import { importInputSubcomponent } from '@plugins/plugin-loader';
 import { getQualifiedInputId } from '@shared/util';
-import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
+import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 
 import PluginSubpanel from 'renderer/components/PluginSubpanel';
 
 import InputDefaultsSubpanel from '../InputDefaultsSubpanel';
 
 type PropTypes = {
-  input: InputDTO;
+  input: MonoInputDTO;
 };
 
 const { InputConfigService } = window;

@@ -1,14 +1,19 @@
 import { byteToStatusString } from '@shared/midi-util';
 import { SwitchDriver } from '../../driver-types/input-drivers/switch-driver';
-import { BaseInputConfig, InputDefaults, InputDTO } from './base-input-config';
+import { InputDefault, MonoInputConfig } from './mono-input-config';
+import { MonoInputDTO } from './mono-input-dto';
 
-export interface SwitchDTO extends InputDTO {
+export interface SwitchDTO extends MonoInputDTO {
   steps: NumberArrayWithStatus[];
   bindings: Record<string, NumberArrayWithStatus>;
 }
 
-export class SwitchConfig extends BaseInputConfig<SwitchDTO, SwitchDriver> {
-  public defaults: InputDefaults;
+export class SwitchConfig extends MonoInputConfig<
+  InputDefault,
+  SwitchDTO,
+  SwitchDriver
+> {
+  public defaults: InputDefault;
 
   public bindings: Record<string, NumberArrayWithStatus> = {};
 
@@ -27,7 +32,7 @@ export class SwitchConfig extends BaseInputConfig<SwitchDTO, SwitchDriver> {
     };
   }
 
-  public toDTO(): SwitchDTO {
+  public toDTO() {
     return {
       ...super.toDTO(),
       className: this.constructor.name,

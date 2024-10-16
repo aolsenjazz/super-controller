@@ -31,7 +31,7 @@ export default function XYLayout(props: PropTypes) {
   const state = useMemo(() => {
     return {
       x: {
-        value: recentX.length ? recentX[0].msg[2] : 64,
+        value: recentX.length ? recentX[0].msg[2] : 0,
       },
       y: {
         value: recentY.length ? recentY[0].msg[2] : 0,

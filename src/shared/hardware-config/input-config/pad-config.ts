@@ -1,8 +1,8 @@
 import { PadDriver } from '../../driver-types/input-drivers/pad-driver';
-import { BaseInputConfig, InputDefaults } from './base-input-config';
+import { InputDefault, MonoInputConfig } from './mono-input-config';
 
-export class PadConfig extends BaseInputConfig {
-  public defaults: InputDefaults;
+export class PadConfig extends MonoInputConfig {
+  public defaults: InputDefault;
 
   public type = 'pad' as const;
 

@@ -1,7 +1,7 @@
-import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
+import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 
 type PropTypes = {
-  input: InputDTO;
+  input: MonoInputDTO;
 };
 
 export default function InputDefaultsSubpanel(props: PropTypes) {
