@@ -67,7 +67,10 @@ export default function DeviceDetailsPanel(props: PropTypes) {
           </div>
           {isAdapter && (
             <>
-              <AdapterDetailsSubpanel /> <AdapterSelect deviceConfig={config} />
+              <AdapterDetailsSubpanel />
+              {config.child === undefined && (
+                <AdapterSelect deviceConfig={config} />
+              )}
             </>
           )}
           <label htmlFor="nickname-input">
