@@ -33,8 +33,7 @@ export class XYConfig extends BaseInputConfig<XYDTO, XYDriver> {
   }
 
   applyStub(s: XYDTO): void {
-    this.x.applyStub(s.x);
-    this.y.applyStub(s.y);
+    super.applyStub(s);
   }
 
   public toDTO(): XYDTO {
