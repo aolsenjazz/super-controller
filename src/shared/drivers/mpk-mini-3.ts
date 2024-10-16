@@ -88,6 +88,8 @@ export const Device: DeviceDriver = {
           shape: 'circle',
           height: 0.9,
           width: 0.9,
+          xPolarity: 'unipolar',
+          yPolarity: 'bipolar',
           x: {
             status: 'pitchbend',
             channel: 0,

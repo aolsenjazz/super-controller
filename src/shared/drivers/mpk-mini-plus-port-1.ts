@@ -145,6 +145,8 @@ export const Device: DeviceDriver = {
           shape: 'circle',
           height: 0.9,
           width: 0.9,
+          xPolarity: 'unipolar',
+          yPolarity: 'bipolar',
           x: {
             status: 'controlchange',
             channel: 0,

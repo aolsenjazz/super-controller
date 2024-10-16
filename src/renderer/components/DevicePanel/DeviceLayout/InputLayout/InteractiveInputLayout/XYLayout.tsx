@@ -12,8 +12,20 @@ type PropTypes = {
   driver: XYDriver;
 };
 
+function unipolarShift(midiValue: number) {
+  return 25 + (midiValue / 127) * 50;
+}
+
+function bipolarShift(midiValue: number) {
+  return 50 + (midiValue / 127) * 25;
+}
+
 export default function XYLayout(props: PropTypes) {
   const { handleWidth, handleHeight, id, driver } = props;
+
+  const { xPolarity, yPolarity } = driver;
+  const xUni = xPolarity === 'unipolar';
+  const yUni = yPolarity === 'unipolar';
 
   const deviceId = id.split('::')[0];
   const xInputId = inputIdFromDriver(driver.x);
@@ -39,8 +51,12 @@ export default function XYLayout(props: PropTypes) {
     };
   }, [recentX, recentY]);
 
-  const xShift = state.x.value / 127;
-  const yShift = state.y.value / 127;
+  const xShift = xUni
+    ? unipolarShift(state.x.value)
+    : bipolarShift(state.x.value);
+  const yShift = yUni
+    ? unipolarShift(state.y.value)
+    : bipolarShift(state.y.value);
 
   const iStyle = {
     marginLeft: -1,
@@ -49,34 +65,22 @@ export default function XYLayout(props: PropTypes) {
     height: '100%',
   };
 
-  const xStyle =
-    driver.x.status === 'pitchbend'
-      ? `calc(25% + ${xShift * 50}%)`
-      : `calc(25% + 25% * ${xShift})`;
-
-  // Compute the offset based on the driver status
-  const yMultiplier = driver.y.status === 'pitchbend' ? 50 : 25;
-  const offset = `${yShift * yMultiplier}%`;
-
-  // Calculate styles for the two circles
-  const yStyleUp = `calc(50% - ${offset})`;
-  const yStyleDown = `calc(50% + ${offset})`;
-
   return (
     <div
       className="xy interactive-indicator"
       tabIndex={0}
       onKeyDown={() => {}}
       role="button"
+      style={{ position: 'relative' }}
     >
       <div
         style={{
-          marginTop: yStyleUp,
-          left: xStyle,
+          bottom: `${yShift}%`,
+          left: `${xShift}%`,
           position: 'absolute',
           width: handleWidth,
           height: handleHeight,
-          transform: `translate(-50%, -50%)`,
+          transform: 'translate(-50%, 50%)',
           opacity: 0.5, // Slightly faded
         }}
       >
@@ -84,12 +88,12 @@ export default function XYLayout(props: PropTypes) {
       </div>
       <div
         style={{
-          marginTop: yStyleDown,
-          left: xStyle,
+          bottom: `${yUni ? yShift : 100 - yShift}%`,
+          left: `${xUni ? xShift : 100 - xShift}%`,
           position: 'absolute',
           width: handleWidth,
+          transform: 'translate(-50%, 50%)',
           height: handleHeight,
-          transform: `translate(-50%, -50%)`,
           opacity: 0.5, // Slightly faded
         }}
       >
