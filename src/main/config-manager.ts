@@ -190,7 +190,7 @@ class ConfigManagerClass {
       parentConfig.inputs.push(c.id);
 
       // create and register default input plugins
-      this.createDefaultInputPlugins(c);
+      if (c instanceof MonoInputConfig) this.createDefaultInputPlugins(c);
     });
 
     // send to main window

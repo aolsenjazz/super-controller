@@ -20,6 +20,10 @@ function bipolarShift(midiValue: number) {
   return 50 + (midiValue / 127) * 25;
 }
 
+function defaultVal(unipolar: boolean) {
+  return unipolar ? 64 : 0;
+}
+
 export default function XYLayout(props: PropTypes) {
   const { handleWidth, handleHeight, id, driver } = props;
 
@@ -43,13 +47,13 @@ export default function XYLayout(props: PropTypes) {
   const state = useMemo(() => {
     return {
       x: {
-        value: recentX.length ? recentX[0].msg[2] : 0,
+        value: recentX.length ? recentX[0].msg[2] : defaultVal(xUni),
       },
       y: {
-        value: recentY.length ? recentY[0].msg[2] : 0,
+        value: recentY.length ? recentY[0].msg[2] : defaultVal(yUni),
       },
     };
-  }, [recentX, recentY]);
+  }, [recentX, recentY, xUni, yUni]);
 
   const xShift = xUni
     ? unipolarShift(state.x.value)

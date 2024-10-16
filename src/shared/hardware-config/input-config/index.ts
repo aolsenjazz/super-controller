@@ -4,14 +4,16 @@ import { PadConfig } from './pad-config';
 import { SliderConfig } from './slider-config';
 import { PitchbendConfig } from './pitchbend-config';
 import { SwitchConfig } from './switch-config';
-import { MonoInputConfig } from './mono-input-config';
+import { XYConfig } from './xy-config';
+import { BaseInputConfig } from './base-input-config';
 
 export function inputConfigsFromDriver(
   deviceId: string,
   d: InteractiveInputDriver
 ) {
-  const configs: MonoInputConfig[] = [];
+  const configs: BaseInputConfig[] = [];
   if (d.type === 'xy') {
+    configs.push(new XYConfig(deviceId, '', d));
     configs.push(inputConfigsFromDriver(deviceId, d.x)[0]);
     configs.push(inputConfigsFromDriver(deviceId, d.y)[0]);
   } else if (d.type === 'switch') {

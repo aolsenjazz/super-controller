@@ -68,9 +68,10 @@ const bodyContainerStyle: CSS.Properties<string, string> = {
   backgroundColor: '#f0ebec',
   border: '1px solid #e2dbdc',
   width: '100%',
-  height: 'calc(100% - 10px)',
   zIndex: 0,
   borderRadius: '5px',
+  paddingTop: '8px',
+  paddingBottom: '8px',
 };
 
 /* ensures body content stays below tabContainer */

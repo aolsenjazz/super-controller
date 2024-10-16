@@ -1,29 +1,21 @@
-import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
+import { XYDTO } from '@shared/hardware-config/input-config/xy-config';
+import { ReactElement } from 'react';
+import OsxTabs from 'renderer/components/OsxTabs';
+import MonoInputConfigPanel from './MonoInputConfigSubpanel';
 
 type PropTypes = {
-  x: InputDTO;
-  y: InputDTO;
-  deviceId: string;
+  input: XYDTO;
 };
 
-export default function XYConfigPanel(_props: PropTypes) {
-  // const { x, y, deviceId } = props;
-  return null;
+export default function XYConfigPanel(props: PropTypes) {
+  const { input } = props;
+  const { x, y } = input;
 
-  // return (
-  //   <>
-  //     <MonoInputConfigPanel
-  //       key="x"
-  //       title="MIDI Settings - X Axis"
-  //       group={createInputGroup([x])}
-  //       deviceId={deviceId}
-  //     />
-  //     <MonoInputConfigPanel
-  //       key="y"
-  //       title="MIDI Settings - Y Axis"
-  //       group={createInputGroup([y])}
-  //       deviceId={deviceId}
-  //     />
-  //   </>
-  // );
+  const XConfigPanel = <MonoInputConfigPanel input={x} />;
+  const YConfigPanel = <MonoInputConfigPanel input={y} />;
+  const Elements: ReactElement[] = [XConfigPanel, YConfigPanel];
+
+  return (
+    <OsxTabs tabBodies={Elements} tabLabels={['Horiztonal', 'Vertical']} />
+  );
 }
