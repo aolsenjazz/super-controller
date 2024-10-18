@@ -51,7 +51,7 @@ export class SwitchConfig extends MonoInputConfig {
     msg: NumberArrayWithStatus,
     meta: MessageProcessorMeta
   ): NumberArrayWithStatus | undefined {
-    const step = this.steps.find((s) => s.value === msg[2]);
+    const step = this.steps.find((s) => s.defaults.value === msg[2]);
     return step!.process(msg, meta);
   }
 
