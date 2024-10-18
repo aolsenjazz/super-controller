@@ -5,7 +5,6 @@ const Manifest: InputPluginManifest = {
   description: 'Basic controls to modify the messages sent by this input.',
   gui: 'basic-override/gui.tsx',
   plugin: 'basic-override/index.ts',
-  ipc: 'basic-override/ipc.ts',
   requirements: [],
 };
 

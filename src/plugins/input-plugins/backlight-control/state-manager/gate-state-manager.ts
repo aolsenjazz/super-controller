@@ -7,12 +7,12 @@ import { StateManager } from './state-manager';
 export class GateStateManager extends StateManager {
   public mode: 'gate' | 'trigger' = 'gate';
 
-  // The expected message from the device when the pad/button is pressed
-  private triggerSource: NumberArrayWithStatus;
-
   public totalStates: number = 2;
 
   public state: number = 0;
+
+  // The expected message from the device when the pad/button is pressed
+  private triggerSource: NumberArrayWithStatus;
 
   constructor(driver: PadDriver) {
     super();
