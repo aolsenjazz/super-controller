@@ -1,4 +1,5 @@
 import { BaseInteractiveInputDriver } from '@shared/driver-types/input-drivers/base-interactive-input-driver';
+
 import { BasePlugin, PluginDTO } from './base-plugin';
 
 export abstract class BaseInputPlugin<

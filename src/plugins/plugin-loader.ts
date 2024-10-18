@@ -1,20 +1,21 @@
-import type { PluginManifest } from '@shared/plugin-core/plugin-manifest';
+import type { BasePluginManifest } from '@shared/plugin-core/base-plugin-manifest';
 import { waitForArray } from '@shared/util';
 
 import type { BasePlugin } from '@shared/plugin-core/base-plugin';
 import type { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
 import { BaseInputDriver } from '@shared/driver-types/input-drivers/base-input-driver';
+import { InputPluginManifest } from '@shared/plugin-core/input-plugin-manifest';
 
 /**
  * List of available device plugin manifests, used for subcomponent discovery + import
  */
-const deviceManifests: PluginManifest[] = [];
+const deviceManifests: BasePluginManifest[] = [];
 
 /**
  * List of available input plugin manifests, used for subcomponent discovery + import
  */
-const inputManifests: PluginManifest[] = [];
+const inputManifests: InputPluginManifest[] = [];
 
 /**
  * Manifests need to be loaded different depending on the environment. When code is running
@@ -31,11 +32,11 @@ async function loadManifestsNode() {
 
     pluginDirs
       .filter((d) => d.isDirectory())
-      .map((d) => path.join(pluginsDir, d.name, 'manifest.json'))
+      .map((d) => path.join(pluginsDir, d.name, 'manifest.ts'))
       .filter((p) => fs.existsSync(p))
       .forEach(async (m) => {
         const manifest = await import(`${m}`);
-        target.push(manifest);
+        target.push(manifest.default);
       });
   }
 
@@ -51,26 +52,26 @@ async function loadManifestsBrowser() {
   const deviceContext = require.context(
     '@plugins/device-plugins',
     true,
-    /manifest.json/,
+    /manifest.ts/,
     'lazy'
   );
   const inputContext = require.context(
     '@plugins/input-plugins',
     true,
-    /manifest.json/,
+    /manifest.ts/,
     'lazy'
   );
 
   deviceContext.keys().forEach((path) =>
-    deviceContext(path).then((m: PluginManifest) => {
-      deviceManifests.push(m);
+    deviceContext(path).then((m: { default: BasePluginManifest }) => {
+      deviceManifests.push(m.default);
       return null;
     })
   );
 
   inputContext.keys().forEach((path) =>
-    inputContext(path).then((m: PluginManifest) => {
-      inputManifests.push(m);
+    inputContext(path).then((m: { default: InputPluginManifest }) => {
+      inputManifests.push(m.default);
       return null;
     })
   );
@@ -110,8 +111,8 @@ export async function importDeviceSubcomponent<
   T extends 'gui' | 'ipc' | 'plugin'
 >(pluginTitle: string, subcomponent: T) {
   const manifests = await getDeviceManifests();
-
   const manifest = manifests.find((m) => m.title === pluginTitle);
+
   if (manifest !== undefined) {
     const { default: Import } = await import(
       `./device-plugins/${manifest[subcomponent]}`

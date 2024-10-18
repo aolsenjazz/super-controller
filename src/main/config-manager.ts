@@ -13,7 +13,8 @@ import { MonoInputConfig } from '@shared/hardware-config/input-config/mono-input
 import { SupportedDeviceConfig } from '@shared/hardware-config/supported-device-config';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
 import { BasePlugin } from '@shared/plugin-core/base-plugin';
-import { PluginManifest } from '@shared/plugin-core/plugin-manifest';
+import { BasePluginManifest } from '@shared/plugin-core/base-plugin-manifest';
+import { InputPluginManifest } from '@shared/plugin-core/input-plugin-manifest';
 import { getQualifiedInputId } from '@shared/util';
 
 import { DeviceRegistry } from './device-registry';
@@ -61,7 +62,7 @@ class ConfigManagerClass {
     MainWindow.edited = true;
   }
 
-  public async addDevicePlugin(deviceId: string, m: PluginManifest) {
+  public async addDevicePlugin(deviceId: string, m: BasePluginManifest) {
     const dev = DeviceRegistry.get(deviceId);
 
     if (!dev) throw new Error(`No config available for deviceId[${deviceId}]`);
@@ -150,7 +151,10 @@ class ConfigManagerClass {
     MainWindow.edited = true;
   }
 
-  public async addInputPlugin(qualifiedInputId: string, m: PluginManifest) {
+  public async addInputPlugin(
+    qualifiedInputId: string,
+    m: InputPluginManifest
+  ) {
     const input = InputRegistry.get(qualifiedInputId) as MonoInputConfig;
 
     if (!input) throw new Error(`Adding plugin to ${input} is not defined`);

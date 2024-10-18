@@ -2,7 +2,7 @@ import { MessageProcessorMeta } from '@shared/message-processor';
 import { BasePlugin } from '@shared/plugin-core/base-plugin';
 
 import { ShareSustainDTO } from './share-sustain-dto';
-import Manifest from './manifest.json';
+import Manifest from './manifest';
 
 const CC = 176;
 const SUSTAIN_NUM = 64;
@@ -46,13 +46,5 @@ export default class ShareSustainPlugin extends BasePlugin<ShareSustainDTO> {
 
   public applyDTO(dto: ShareSustainDTO): void {
     this.sustainTargets = dto.sustainTargets;
-  }
-
-  public get applicableDeviceTypes(): (
-    | 'supported'
-    | 'anonymous'
-    | 'adapter'
-  )[] {
-    return ['anonymous'];
   }
 }

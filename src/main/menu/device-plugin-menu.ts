@@ -1,10 +1,10 @@
 import { MenuItem } from 'electron';
 
 import { getDeviceManifests } from '@plugins/plugin-loader';
-import type { PluginManifest } from '@shared/plugin-core/plugin-manifest';
+import type { BasePluginManifest } from '@shared/plugin-core/base-plugin-manifest';
 
 export async function createDevicePluginMenu(
-  onClick: (m: PluginManifest) => void
+  onClick: (m: BasePluginManifest) => void
 ) {
   const manifests = await getDeviceManifests();
 

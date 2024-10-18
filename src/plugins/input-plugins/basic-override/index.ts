@@ -3,7 +3,7 @@ import { MessageProcessorMeta } from '@shared/message-processor';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
 import { PluginDTO } from '@shared/plugin-core/base-plugin';
 
-import Manifest from './manifest.json';
+import Manifest from './manifest';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface BasicOverrideDTO extends PluginDTO {}
@@ -27,13 +27,5 @@ export default class BasicOverridePlugin extends BaseInputPlugin<BasicOverrideDT
 
   public init() {
     // noop
-  }
-
-  public get applicableDeviceTypes(): (
-    | 'supported'
-    | 'anonymous'
-    | 'adapter'
-  )[] {
-    return ['anonymous'];
   }
 }

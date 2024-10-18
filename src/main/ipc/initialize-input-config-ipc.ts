@@ -5,7 +5,7 @@ import {
   InputDTO,
 } from '@shared/hardware-config/input-config/base-input-config';
 import { getQualifiedInputId } from '@shared/util';
-import { PluginManifest } from '@shared/plugin-core/plugin-manifest';
+import { InputPluginManifest } from '@shared/plugin-core/input-plugin-manifest';
 import { ConfigManager } from '@main/config-manager';
 
 import { INPUT_CONFIG } from './ipc-channels';
@@ -18,13 +18,15 @@ const { MainWindow } = WindowProvider;
 ipcMain.on(
   INPUT_CONFIG.INPUT_PLUGIN_MENU,
   async (e: IpcMainEvent, x: number, y: number, qualifiedInputId: string) => {
+    const input = InputRegistry.get(qualifiedInputId)!;
+
     // create onclick listener
-    const onClick = async (m: PluginManifest) => {
+    const onClick = async (m: InputPluginManifest) => {
       ConfigManager.addInputPlugin(qualifiedInputId, m);
     };
 
     // show the add-plugin-menu
-    const template = await createInputPluginMenu(onClick);
+    const template = await createInputPluginMenu(input, onClick);
     const menu = Menu.buildFromTemplate(template);
     const win = BrowserWindow.fromWebContents(e.sender) || undefined;
     menu.popup({ window: win, x, y });

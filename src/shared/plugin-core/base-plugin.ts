@@ -67,10 +67,4 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
       collapsed: this.collapsed,
     } as T;
   }
-
-  public abstract get applicableDeviceTypes(): (
-    | 'supported'
-    | 'anonymous'
-    | 'adapter'
-  )[];
 }

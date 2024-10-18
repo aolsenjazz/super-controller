@@ -1,7 +1,7 @@
 import { BrowserWindow, ipcMain, IpcMainEvent, Menu } from 'electron';
 
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
-import { PluginManifest } from '@shared/plugin-core/plugin-manifest';
+import { BasePluginManifest } from '@shared/plugin-core/base-plugin-manifest';
 import { ConfigManager } from '@main/config-manager';
 
 import { DEVICE_CONFIG } from './ipc-channels';
@@ -46,7 +46,7 @@ ipcMain.on(
   DEVICE_CONFIG.DEVICE_PLUGIN_MENU,
   async (e: IpcMainEvent, x: number, y: number, deviceId: string) => {
     // menu item onClick listener
-    const onClick = async (m: PluginManifest) => {
+    const onClick = async (m: BasePluginManifest) => {
       ConfigManager.addDevicePlugin(deviceId, m);
     };
 

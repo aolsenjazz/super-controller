@@ -1,6 +1,0 @@
-{
-  "title": "Translator",
-  "description": "Temp description",
-  "gui": "translator/gui/index.tsx",
-  "plugin": "translator/index.ts"
-}
