@@ -1,45 +1,35 @@
-import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
+import { selectManyInputConfigs } from '@features/input-configs/input-configs-slice';
+import { useAppSelector } from '@hooks/use-app-dispatch';
 import { SwitchDTO } from '@shared/hardware-config/input-config/switch-config';
+import { SwitchStepDTO } from '@shared/hardware-config/input-config/switch-step-config';
+import { getQualifiedInputId } from '@shared/util';
+
+import { ReactElement } from 'react';
+import OsxTabs from 'renderer/components/OsxTabs';
+import MonoInputConfigPanel from '../MonoInputConfigSubpanel';
 
 type PropTypes = {
-  deviceConfig: DeviceConfigDTO;
-  inputConfigStub: SwitchDTO;
+  input: SwitchDTO;
 };
 
-export default function SwitchConfigSubpanel(_props: PropTypes) {
-  return null;
-  // const { deviceConfig, inputConfigStub } = props;
+export default function SwitchConfigSubpanel(props: PropTypes) {
+  const { input } = props;
 
-  // const { driver } = useDeviceDriver(deviceConfig.id);
-  // const [inputDriver, setInputDriver] = useState<SwitchDriver>();
+  const configIds = input.steps.map((s) => s.id);
+  const configQIds = configIds.map((i) =>
+    getQualifiedInputId(input.deviceId, i)
+  );
+  const configs = useAppSelector((state) =>
+    selectManyInputConfigs(state, configQIds)
+  ) as SwitchStepDTO[];
 
-  // useEffect(() => {
-  //   if (driver === undefined) return;
-  //   driver.inputGrids.forEach((ig) => {
-  //     ig.inputs.forEach((i) => {
-  //       if (i.interactive && id(i) === inputConfigStub.id) {
-  //         setInputDriver(i as SwitchDriver);
-  //       }
-  //     });
-  //   });
-  // }, [driver, inputConfigStub]);
+  const TabBodies: ReactElement[] = [];
+  const tabLabels: string[] = [];
 
-  // if (inputDriver === undefined) return null;
+  configs.forEach((c) => {
+    TabBodies.push(<MonoInputConfigPanel input={c} />);
+    tabLabels.push(c.label);
+  });
 
-  // const labels = inputDriver.stepLabels;
-  // const bodies = inputDriver.steps.map((msg) => {
-  //   return (
-  //     <SwitchStepConfig
-  //       override={inputConfigStub.steps.get(JSON.stringify(msg))!}
-  //       config={inputConfigStub}
-  //       defaultMsg={msg}
-  //       deviceId={deviceConfig.id}
-  //     />
-  //   );
-  // });
-  // return (
-  //   <div id="switch-panel">
-  //     <OsxTabs tabBodies={bodies} tabLabels={labels} />
-  //   </div>
-  // );
+  return <OsxTabs tabBodies={TabBodies} tabLabels={tabLabels} />;
 }

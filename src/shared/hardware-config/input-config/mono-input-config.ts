@@ -22,6 +22,8 @@ export type InputDefault = {
 
   /* See InputResponse */
   readonly response: InputResponse;
+
+  readonly value?: MidiNumber;
 };
 
 export abstract class MonoInputConfig<
@@ -72,6 +74,10 @@ export abstract class MonoInputConfig<
     this.plugins
       .map((id) => pluginProvider.get(id))
       .forEach((p) => p?.init(loopbackTransport));
+  }
+
+  public addPlugin(id: string) {
+    this.plugins.push(id);
   }
 
   public toDTO() {

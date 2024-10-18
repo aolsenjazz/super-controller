@@ -158,7 +158,7 @@ class ConfigManagerClass {
     const inputDriver = input.driver;
     const Plugin = await importInputSubcomponent(m.title, 'plugin');
     const plugin: BaseInputPlugin = new Plugin(qualifiedInputId, inputDriver);
-    input.plugins.push(plugin.id);
+    input.addPlugin(plugin.id);
 
     PluginRegistry.register(plugin.id, plugin);
 

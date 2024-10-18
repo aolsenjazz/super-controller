@@ -40,7 +40,7 @@ export default function MonoInputConfigPanel(props: PropTypes) {
 
   return (
     <div>
-      <InputDefaultsSubpanel input={input} />
+      <InputDefaultsSubpanel defaults={input.defaults} />
       <PluginSubpanel
         plugins={input.plugins}
         removePlugin={removePlugin}

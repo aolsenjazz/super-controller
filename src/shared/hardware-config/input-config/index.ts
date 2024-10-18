@@ -22,6 +22,7 @@ export function inputConfigsFromDriver(
 
     d.steps.forEach((s) => {
       const stepConfig = new SwitchStepConfig(deviceId, '', [], d, s);
+      configs.push(stepConfig);
     });
   } else if (d.type === 'knob') {
     configs.push(new KnobConfig(deviceId, '', [], d));
