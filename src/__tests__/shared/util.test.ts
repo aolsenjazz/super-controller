@@ -74,6 +74,8 @@ const XYDrive: XYDriver = {
   type: 'xy',
   height: 2,
   width: 2,
+  xPolarity: 'unipolar',
+  yPolarity: 'bipolar',
   interactive: true,
 };
 

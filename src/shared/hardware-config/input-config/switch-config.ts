@@ -3,19 +3,12 @@ import { SwitchDriver } from '../../driver-types/input-drivers/switch-driver';
 import { InputDefault, MonoInputConfig } from './mono-input-config';
 import { MonoInputDTO } from './mono-input-dto';
 
-export interface SwitchDTO extends MonoInputDTO {
-  steps: NumberArrayWithStatus[];
-  bindings: Record<string, NumberArrayWithStatus>;
-}
-
 export class SwitchConfig extends MonoInputConfig<
   InputDefault,
-  SwitchDTO,
+  MonoInputDTO,
   SwitchDriver
 > {
   public defaults: InputDefault;
-
-  public bindings: Record<string, NumberArrayWithStatus> = {};
 
   public type = 'switch' as const;
 
@@ -23,7 +16,6 @@ export class SwitchConfig extends MonoInputConfig<
     super(deviceId, nickname, [], driver);
 
     const initialStep = driver.steps[driver.initialStep];
-
     this.defaults = {
       statusString: byteToStatusString(initialStep[0], true),
       number: initialStep[1] as MidiNumber,
@@ -36,22 +28,20 @@ export class SwitchConfig extends MonoInputConfig<
     return {
       ...super.toDTO(),
       className: this.constructor.name,
-      steps: this.driver.steps,
-      bindings: this.bindings,
     };
   }
 
-  public process(
-    msg: NumberArrayWithStatus
-  ): NumberArrayWithStatus | undefined {
-    return msg;
+  public process(): NumberArrayWithStatus | undefined {
+    throw new Error(
+      'SwitchConfigs shoudlnt process messages; this is the responsbility of its children'
+    );
   }
 
   public init() {
     // noop, for now
   }
 
-  public applyDTO(dto: SwitchDTO) {
-    this.bindings = dto.bindings;
+  public applyStub(dto: MonoInputDTO) {
+    super.applyStub(dto);
   }
 }

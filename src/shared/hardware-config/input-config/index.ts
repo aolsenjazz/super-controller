@@ -6,6 +6,7 @@ import { PitchbendConfig } from './pitchbend-config';
 import { SwitchConfig } from './switch-config';
 import { XYConfig } from './xy-config';
 import { BaseInputConfig } from './base-input-config';
+import { SwitchStepConfig } from './switch-step-config';
 
 export function inputConfigsFromDriver(
   deviceId: string,
@@ -18,6 +19,10 @@ export function inputConfigsFromDriver(
     configs.push(inputConfigsFromDriver(deviceId, d.y)[0]);
   } else if (d.type === 'switch') {
     configs.push(new SwitchConfig(deviceId, '', d));
+
+    d.steps.forEach((s) => {
+      const stepConfig = new SwitchStepConfig(deviceId, '', [], d, s);
+    });
   } else if (d.type === 'knob') {
     configs.push(new KnobConfig(deviceId, '', [], d));
   } else if (d.type === 'pad') {
