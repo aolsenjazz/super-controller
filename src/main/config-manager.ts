@@ -1,4 +1,5 @@
 import BacklightControlPlugin from '@plugins/input-plugins/backlight-control';
+import BasicOverridePlugin from '@plugins/input-plugins/basic-override';
 import {
   importDeviceSubcomponent,
   importInputSubcomponent,
@@ -227,6 +228,7 @@ class ConfigManagerClass {
   private createDefaultInputPlugins(input: MonoInputConfig) {
     const plugins: string[] = [];
 
+    // add backlight config by default if applicable
     if (input.driver.availableColors.length > 0) {
       const backlightPlugin = new BacklightControlPlugin(
         input.qualifiedId,
@@ -237,6 +239,14 @@ class ConfigManagerClass {
 
       MainWindow.upsertPlugin(backlightPlugin.toDTO());
     }
+
+    // add basic override by default
+    const basicOverride = new BasicOverridePlugin(
+      input.qualifiedId,
+      input.driver
+    );
+    PluginRegistry.register(basicOverride.id, basicOverride);
+    plugins.push(basicOverride.id);
 
     input.plugins = plugins;
   }
