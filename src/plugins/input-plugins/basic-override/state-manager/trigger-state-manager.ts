@@ -1,22 +1,26 @@
 import { StateManager } from './state-manager';
 
-export class ConstantStateManager extends StateManager {
+/**
+ * Manages state for inputs which react only once to a single press, e.g. constant
+ * and toggle inputs.
+ */
+export class TriggerStateManager extends StateManager {
   public eligibleOutputStrategies = [
-    'constant' as const,
     'toggle' as const,
+    'constant' as const,
     'n-step' as const,
   ];
 
-  public totalStates: number = 1;
+  public totalStates: number = 2;
 
   public state: number = 0;
 
   private _outputStrategy: 'toggle' | 'constant' | 'n-step';
 
-  public constructor() {
+  public constructor(outputStrategy: TriggerStateManager['_outputStrategy']) {
     super();
 
-    this._outputStrategy = 'constant';
+    this._outputStrategy = outputStrategy;
   }
 
   public get outputStrategy() {
@@ -24,7 +28,7 @@ export class ConstantStateManager extends StateManager {
   }
 
   public set outputStrategy(
-    outputStrategy: ConstantStateManager['_outputStrategy']
+    outputStrategy: TriggerStateManager['_outputStrategy']
   ) {
     if (outputStrategy === 'toggle') this.totalStates = 2;
     if (outputStrategy === 'constant') this.totalStates = 1;

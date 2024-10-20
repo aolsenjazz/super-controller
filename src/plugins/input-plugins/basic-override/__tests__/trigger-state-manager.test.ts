@@ -1,8 +1,8 @@
-import { ToggleStateManager } from '../state-manager/toggle-state-manager';
+import { TriggerStateManager } from '../state-manager/trigger-state-manager';
 
 describe('toggle->toggle', () => {
   it('should flip state for all messages', () => {
-    const manager = new ToggleStateManager();
+    const manager = new TriggerStateManager('toggle');
     expect(manager.state).toBe(0);
 
     const s1 = manager.process();
@@ -18,7 +18,7 @@ describe('toggle->toggle', () => {
 
 describe('toggle->constant', () => {
   it('should repeat 0 for every on message, undefined for off', () => {
-    const manager = new ToggleStateManager();
+    const manager = new TriggerStateManager('toggle');
     manager.outputStrategy = 'constant';
     expect(manager.state).toBe(0);
 
@@ -41,7 +41,7 @@ describe('toggle->constant', () => {
 
 describe('toggle->n-step', () => {
   it('should handle 3 states correctly', () => {
-    const manager = new ToggleStateManager();
+    const manager = new TriggerStateManager('toggle');
     manager.outputStrategy = 'n-step';
     manager.totalStates = 3;
     expect(manager.state).toBe(0);
