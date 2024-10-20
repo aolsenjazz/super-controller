@@ -7,21 +7,47 @@ import { GateStateManager } from './state-manager/gate-state-manager';
 import { StateManager } from './state-manager/state-manager';
 import { TriggerStateManager } from './state-manager/trigger-state-manager';
 
-import { MessageResolver } from './message-resolver/message-resolver';
-import { DiscreetMessageResolver } from './message-resolver/discreet-message-resolver';
-import { BinaryMessageResolver } from './message-resolver/binary-message-resolver';
-import { PitchbendMessageResolver } from './message-resolver/pitchbend-message-resolver';
-import { ContinuousMessageResolver } from './message-resolver/continuous-message-resolver';
+import {
+  DiscreetMessageResolver,
+  DiscreetMessageResolverDTO,
+} from './message-resolver/discreet-message-resolver';
+import {
+  BinaryMessageResolver,
+  BinaryMessageResolverDTO,
+} from './message-resolver/binary-message-resolver';
+import {
+  PitchbendMessageResolver,
+  PitchbendMessageResolverDTO,
+} from './message-resolver/pitchbend-message-resolver';
+import {
+  ContinuousMessageResolver,
+  ContinuousMessageResolverDTO,
+} from './message-resolver/continuous-message-resolver';
 
 import Manifest from './manifest';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface BasicOverrideDTO extends PluginDTO {}
+type ResolverType =
+  | DiscreetMessageResolver
+  | BinaryMessageResolver
+  | PitchbendMessageResolver
+  | ContinuousMessageResolver;
+
+export type ResolverDTOType =
+  | DiscreetMessageResolverDTO
+  | BinaryMessageResolverDTO
+  | PitchbendMessageResolverDTO
+  | ContinuousMessageResolverDTO;
+
+export interface BasicOverrideDTO extends PluginDTO {
+  eligibleOutputStrategies: StateManager['eligibleOutputStrategies'];
+  outputStrategy: StateManager['outputStrategy'];
+  messageResolver: ResolverDTOType;
+}
 
 export default class BasicOverridePlugin extends BaseInputPlugin {
   private stateManager: StateManager;
 
-  private messageResolver: MessageResolver;
+  private messageResolver: ResolverType;
 
   public constructor(parentId: string, driver: MonoInteractiveDriver) {
     super(Manifest.title, Manifest.description, parentId, driver);
@@ -59,10 +85,16 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
   public toDTO(): BasicOverrideDTO {
     return {
       ...super.toDTO(),
+      eligibleOutputStrategies: this.stateManager.eligibleOutputStrategies,
+      outputStrategy: this.stateManager.outputStrategy,
+      messageResolver: this.messageResolver.toDTO(),
     };
   }
 
-  public applyDTO(_dto: BasicOverrideDTO): void {}
+  public applyDTO(_dto: BasicOverrideDTO): void {
+    // this.stateManager.applyDTO(dto);
+    // this.messageResolver.applyDTO(dto);
+  }
 
   public init() {
     // noop

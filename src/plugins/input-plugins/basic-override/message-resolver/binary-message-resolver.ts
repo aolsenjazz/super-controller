@@ -1,5 +1,10 @@
 import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
-import { MessageResolver } from './message-resolver';
+import { MessageResolver, MessageResolverDTO } from './message-resolver';
+
+export interface BinaryMessageResolverDTO
+  extends MessageResolverDTO<'BinaryMessageResolver'> {
+  bindings: BinaryMessageResolver['bindings'];
+}
 
 type BinaryOverride = {
   status: StatusByte;
@@ -8,9 +13,16 @@ type BinaryOverride = {
 };
 
 export class BinaryMessageResolver extends MessageResolver {
+  public eligibleStatuses = [
+    'noteon/noteoff',
+    'controlchange',
+  ] as StatusString[];
+
   private bindings: Record<number, BinaryOverride> = {};
 
-  public constructor(driver: MonoInteractiveDriver) {}
+  public constructor(_driver: MonoInteractiveDriver) {
+    super();
+  }
 
   public resolve(
     state: number,
@@ -27,5 +39,13 @@ export class BinaryMessageResolver extends MessageResolver {
     }
 
     return msg;
+  }
+
+  public toDTO(): BinaryMessageResolverDTO {
+    return {
+      eligibleStatuses: this.eligibleStatuses,
+      bindings: this.bindings,
+      className: 'BinaryMessageResolver' as const,
+    };
   }
 }

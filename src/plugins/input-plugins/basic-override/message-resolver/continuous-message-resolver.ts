@@ -1,8 +1,22 @@
 import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
 import { statusStringToNibble } from '@shared/midi-util';
-import { MessageResolver } from './message-resolver';
+import { MessageResolver, MessageResolverDTO } from './message-resolver';
+
+export interface ContinuousMessageResolverDTO
+  extends MessageResolverDTO<'ContinuousMessageResolver'> {
+  statusOverride: ContinuousMessageResolver['statusOverride'];
+  channelOverride: ContinuousMessageResolver['channelOverride'];
+  numberOverride: ContinuousMessageResolver['numberOverride'];
+}
 
 export class ContinuousMessageResolver extends MessageResolver {
+  public eligibleStatuses = [
+    'noteon',
+    'noteoff',
+    'controlchange',
+    'pitchbend',
+  ] as StatusString[];
+
   private statusOverride: StatusByte;
 
   private channelOverride: Channel;
@@ -31,5 +45,15 @@ export class ContinuousMessageResolver extends MessageResolver {
       this.numberOverride,
       msg[2],
     ] as NumberArrayWithStatus;
+  }
+
+  public toDTO(): ContinuousMessageResolverDTO {
+    return {
+      eligibleStatuses: this.eligibleStatuses,
+      statusOverride: this.statusOverride,
+      channelOverride: this.channelOverride,
+      numberOverride: this.numberOverride,
+      className: 'ContinuousMessageResolver',
+    };
   }
 }

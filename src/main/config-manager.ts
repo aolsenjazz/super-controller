@@ -234,9 +234,9 @@ class ConfigManagerClass {
         input.qualifiedId,
         input.driver
       );
+
       PluginRegistry.register(backlightPlugin.id, backlightPlugin);
       plugins.push(backlightPlugin.id);
-
       MainWindow.upsertPlugin(backlightPlugin.toDTO());
     }
 
@@ -247,6 +247,7 @@ class ConfigManagerClass {
     );
     PluginRegistry.register(basicOverride.id, basicOverride);
     plugins.push(basicOverride.id);
+    MainWindow.upsertPlugin(basicOverride.toDTO());
 
     input.plugins = plugins;
   }

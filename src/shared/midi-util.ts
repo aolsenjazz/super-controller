@@ -1,11 +1,11 @@
-export const NOTE_OFF = 0x80; // 128
-export const NOTE_ON = 0x90; // 144
-export const KEY_PRESSURE = 0xa0; // 160
-export const CONTROL_CHANGE = 0xb0; // 176
-export const PROGRAM_CHANGE = 0xc0; // 192
-export const CHANNEL_PRESSURE = 0xd0; // 208
-export const PITCH_BEND = 0xe0; // 224
-export const SYSEX = 0xf0; // 224
+export const NOTE_OFF = 0x80 as StatusByte; // 128
+export const NOTE_ON = 0x90 as StatusByte; // 144
+export const KEY_PRESSURE = 0xa0 as StatusByte; // 160
+export const CONTROL_CHANGE = 0xb0 as StatusByte; // 176
+export const PROGRAM_CHANGE = 0xc0 as StatusByte; // 192
+export const CHANNEL_PRESSURE = 0xd0 as StatusByte; // 208
+export const PITCH_BEND = 0xe0 as StatusByte; // 224
+export const SYSEX = 0xf0 as StatusByte; // 224
 
 export function isOnIsh(arr: NumberArrayWithStatus, def: boolean) {
   if (arr.length === 3) {
