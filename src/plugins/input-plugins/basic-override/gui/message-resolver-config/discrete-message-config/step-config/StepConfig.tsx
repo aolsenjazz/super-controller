@@ -18,10 +18,20 @@ export default function StepConfig(props: PropTypes) {
   const status = byteToStatusString((bindingMsg[0] & 0xf0) as StatusByte, true);
 
   // TODO: sysex
+  let Element;
 
   if (TWO_BYTE.includes(status)) {
-    return (
+    Element = (
       <TwoByteStepConfig
+        bindingMsg={bindingMsg}
+        defaultMsg={defaultMsg}
+        eligibleStatuses={eligibleStatuses}
+        onChange={onChange}
+      />
+    );
+  } else {
+    Element = (
+      <ThreeByteStepConfig
         bindingMsg={bindingMsg}
         defaultMsg={defaultMsg}
         eligibleStatuses={eligibleStatuses}
@@ -30,12 +40,5 @@ export default function StepConfig(props: PropTypes) {
     );
   }
 
-  return (
-    <ThreeByteStepConfig
-      bindingMsg={bindingMsg}
-      defaultMsg={defaultMsg}
-      eligibleStatuses={eligibleStatuses}
-      onChange={onChange}
-    />
-  );
+  return <div className="step-config">{Element}</div>;
 }

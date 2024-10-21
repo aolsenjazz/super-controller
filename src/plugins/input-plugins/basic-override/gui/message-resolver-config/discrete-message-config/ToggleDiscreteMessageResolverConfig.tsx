@@ -27,5 +27,9 @@ export default function ToggleDiscreteMessageResolverConfig(props: PropTypes) {
     />,
   ];
 
-  return <OsxTabs tabBodies={TabBodies} tabLabels={['Off', 'On']} />;
+  return (
+    <div className="toggle-sections">
+      <OsxTabs tabBodies={TabBodies} tabLabels={['Off', 'On']} />
+    </div>
+  );
 }

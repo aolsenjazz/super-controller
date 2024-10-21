@@ -5,7 +5,6 @@ import ContinuousMessageResolverConfig from './ContinuousMessageResolverConfig';
 import DiscreteMessageResolverConfig from './discrete-message-config/DiscreteMessageResolverConfig';
 import PitchbendMessageResolverConfig from './PitchbendMessageResolverConfig';
 
-import './MessageResolverConfig.css';
 import { StateManager } from '../../state-manager/state-manager';
 
 type PropTypes = {
@@ -54,5 +53,5 @@ export default function MessageResolverConfig(props: PropTypes) {
       );
   }
 
-  return <div className="resolver-config">{Element}</div>;
+  return <>{Element}</>;
 }

@@ -53,23 +53,21 @@ export default function NStepDiscreteMessageResolverConfig(props: PropTypes) {
 
   return (
     <>
-      <label>
-        Step:
-        <select
-          value={step}
-          onChange={(e) => onOptionClick(Number(e.target.value))}
-        >
-          {steps.map((s) => {
-            return (
-              <option key={s} value={s}>
-                Step {s + 1}
-              </option>
-            );
-          })}
-          {AddStep}
-          {nSteps > 1 && DeleteStep}
-        </select>
-      </label>
+      <select
+        value={step}
+        onChange={(e) => onOptionClick(Number(e.target.value))}
+        className="step-selector"
+      >
+        {steps.map((s) => {
+          return (
+            <option key={s} value={s}>
+              Step {s + 1}
+            </option>
+          );
+        })}
+        {AddStep}
+        {nSteps > 1 && DeleteStep}
+      </select>
       <StepConfig
         bindingMsg={bindings[step]}
         defaultMsg={defaults[step]}
