@@ -1,17 +1,17 @@
-import { BaseInteractiveInputDriver } from '@shared/driver-types/input-drivers/base-interactive-input-driver';
+import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
 
 import { BasePlugin, PluginDTO } from './base-plugin';
 
 export abstract class BaseInputPlugin<
   T extends PluginDTO = PluginDTO
 > extends BasePlugin<T> {
-  protected driver: BaseInteractiveInputDriver;
+  protected driver: MonoInteractiveDriver;
 
   constructor(
     title: string,
     description: string,
     parentId: string,
-    driver: BaseInteractiveInputDriver
+    driver: MonoInteractiveDriver
   ) {
     super(title, description, parentId);
 

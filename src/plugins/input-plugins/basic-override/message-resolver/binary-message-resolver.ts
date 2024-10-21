@@ -1,16 +1,19 @@
 import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
+import { statusStringToNibble } from '@shared/midi-util';
 import { MessageResolver, MessageResolverDTO } from './message-resolver';
 
 export interface BinaryMessageResolverDTO
   extends MessageResolverDTO<'BinaryMessageResolver'> {
-  bindings: BinaryMessageResolver['bindings'];
-}
+  defaultStatus: BinaryMessageResolver['defaultStatus'];
+  defaultChannel: BinaryMessageResolver['defaultChannel'];
+  defaultNumber: BinaryMessageResolver['defaultNumber'];
+  defaultValue: BinaryMessageResolver['defaultValue'];
 
-type BinaryOverride = {
-  status: StatusByte;
-  channel: Channel;
-  number: MidiNumber;
-};
+  statusOverride: BinaryMessageResolver['statusOverride'];
+  channelOverride: BinaryMessageResolver['channelOverride'];
+  numberOverride: BinaryMessageResolver['numberOverride'];
+  valueOverride: BinaryMessageResolver['valueOverride'];
+}
 
 export class BinaryMessageResolver extends MessageResolver {
   public eligibleStatuses = [
@@ -18,34 +21,79 @@ export class BinaryMessageResolver extends MessageResolver {
     'controlchange',
   ] as StatusString[];
 
-  private bindings: Record<number, BinaryOverride> = {};
+  private readonly defaultStatus: StatusString | 'noteon/noteoff';
 
-  public constructor(_driver: MonoInteractiveDriver) {
+  private readonly defaultChannel: Channel;
+
+  private readonly defaultNumber: MidiNumber;
+
+  private readonly defaultValue: MidiNumber = 127;
+
+  private statusOverride: StatusString | 'noteon/noteoff';
+
+  private channelOverride: Channel;
+
+  private numberOverride: MidiNumber;
+
+  private valueOverride: MidiNumber;
+
+  public constructor(driver: MonoInteractiveDriver) {
     super();
+
+    this.defaultStatus = driver.status;
+    this.defaultChannel = driver.channel;
+    this.defaultNumber = driver.number;
+
+    this.statusOverride = driver.status;
+    this.channelOverride = driver.channel;
+    this.numberOverride = driver.number;
+    this.valueOverride = this.defaultValue;
   }
 
   public resolve(
     state: number,
     msg: NumberArrayWithStatus
   ): NumberArrayWithStatus {
-    const override = this.bindings[state];
+    let status = this.statusOverride;
 
-    if (override) {
-      return [
-        override.status + override.channel,
-        override.number,
-        msg[2],
-      ] as NumberArrayWithStatus;
+    if (this.statusOverride === 'noteon/noteoff') {
+      status = state === 1 ? 'noteon' : 'noteoff';
     }
 
-    return msg;
+    if (status === 'noteon/noteoff')
+      throw new Error('compiler is not satisfied!');
+
+    const value = state === 1 ? msg[2] : 0;
+
+    return [
+      statusStringToNibble(status) + this.channelOverride,
+      this.numberOverride,
+      value,
+    ] as NumberArrayWithStatus;
   }
 
   public toDTO(): BinaryMessageResolverDTO {
     return {
       eligibleStatuses: this.eligibleStatuses,
-      bindings: this.bindings,
+
+      defaultStatus: this.defaultStatus,
+      defaultChannel: this.defaultChannel,
+      defaultNumber: this.defaultNumber,
+      defaultValue: this.defaultValue,
+
+      statusOverride: this.statusOverride,
+      channelOverride: this.channelOverride,
+      numberOverride: this.numberOverride,
+      valueOverride: this.valueOverride,
+
       className: 'BinaryMessageResolver' as const,
     };
+  }
+
+  public applyDTO(other: BinaryMessageResolverDTO) {
+    this.statusOverride = other.statusOverride;
+    this.channelOverride = other.channelOverride;
+    this.numberOverride = other.numberOverride;
+    this.valueOverride = other.valueOverride;
   }
 }

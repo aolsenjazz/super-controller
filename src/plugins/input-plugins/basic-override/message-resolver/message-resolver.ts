@@ -1,6 +1,6 @@
 export type ClassName =
   | 'PitchbendMessageResolver'
-  | 'DiscreetMessageResolver'
+  | 'DiscreteMessageResolver'
   | 'ContinuousMessageResolver'
   | 'BinaryMessageResolver';
 
@@ -12,7 +12,10 @@ export interface MessageResolverDTO<T extends ClassName = ClassName> {
 export abstract class MessageResolver<
   T extends MessageResolverDTO = MessageResolverDTO
 > {
-  public abstract eligibleStatuses: (StatusString | 'noteon/noteoff')[];
+  public abstract readonly eligibleStatuses: (
+    | StatusString
+    | 'noteon/noteoff'
+  )[];
 
   public abstract resolve(
     state: number,
@@ -20,4 +23,6 @@ export abstract class MessageResolver<
   ): NumberArrayWithStatus;
 
   public abstract toDTO(): T;
+
+  public abstract applyDTO(resolver: T): void;
 }

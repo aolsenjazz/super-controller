@@ -8,9 +8,9 @@ import { StateManager } from './state-manager/state-manager';
 import { TriggerStateManager } from './state-manager/trigger-state-manager';
 
 import {
-  DiscreetMessageResolver,
-  DiscreetMessageResolverDTO,
-} from './message-resolver/discreet-message-resolver';
+  DiscreteMessageResolver,
+  DiscreteMessageResolverDTO,
+} from './message-resolver/discrete-message-resolver';
 import {
   BinaryMessageResolver,
   BinaryMessageResolverDTO,
@@ -27,13 +27,13 @@ import {
 import Manifest from './manifest';
 
 type ResolverType =
-  | DiscreetMessageResolver
+  | DiscreteMessageResolver
   | BinaryMessageResolver
   | PitchbendMessageResolver
   | ContinuousMessageResolver;
 
 export type ResolverDTOType =
-  | DiscreetMessageResolverDTO
+  | DiscreteMessageResolverDTO
   | BinaryMessageResolverDTO
   | PitchbendMessageResolverDTO
   | ContinuousMessageResolverDTO;
@@ -51,6 +51,7 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
 
   public constructor(parentId: string, driver: MonoInteractiveDriver) {
     super(Manifest.title, Manifest.description, parentId, driver);
+    this.driver = driver;
 
     if (driver.response === 'gate') {
       this.stateManager = new GateStateManager(driver);
@@ -69,7 +70,7 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
 
       this.messageResolver =
         driver.response === 'constant'
-          ? new DiscreetMessageResolver(driver)
+          ? new DiscreteMessageResolver(driver.response, driver)
           : new BinaryMessageResolver(driver);
     }
   }
@@ -91,9 +92,29 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
     };
   }
 
-  public applyDTO(_dto: BasicOverrideDTO): void {
-    // this.stateManager.applyDTO(dto);
-    // this.messageResolver.applyDTO(dto);
+  public applyDTO(other: BasicOverrideDTO): void {
+    if (other.outputStrategy !== this.stateManager.outputStrategy) {
+      if (other.outputStrategy === 'gate') {
+        this.messageResolver = new BinaryMessageResolver(this.driver);
+      } else if (other.outputStrategy === 'continuous') {
+        this.messageResolver =
+          this.driver.status === 'pitchbend'
+            ? new PitchbendMessageResolver(this.driver)
+            : new ContinuousMessageResolver(this.driver);
+      } else {
+        this.messageResolver = new DiscreteMessageResolver(
+          other.outputStrategy,
+          this.driver
+        );
+      }
+
+      this.stateManager.outputStrategy = other.outputStrategy;
+    } else {
+      // this is a gross "solution", but the way the update system is currently written,
+      // `dto` is guaranteed to be the "correct" DTO in this case, so it's fine enough
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      this.messageResolver.applyDTO(other.messageResolver as any);
+    }
   }
 
   public init() {

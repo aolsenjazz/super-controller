@@ -1,25 +1,58 @@
+import { ReactNode } from 'react';
 import { ResolverDTOType } from '../..';
 import BinaryMessageResolverConfig from './BinaryMessageResolverConfig';
 import ContinuousMessageResolverConfig from './ContinuousMessageResolverConfig';
-import DiscreetMessageResolverConfig from './DiscreetMessageResolverConfig';
+import DiscreteMessageResolverConfig from './discrete-message-config/DiscreteMessageResolverConfig';
 import PitchbendMessageResolverConfig from './PitchbendMessageResolverConfig';
+
+import './MessageResolverConfig.css';
+import { StateManager } from '../../state-manager/state-manager';
 
 type PropTypes = {
   messageResolver: ResolverDTOType;
+  onChange: (resolver: ResolverDTOType) => void;
+  outputStrategy: StateManager['outputStrategy'];
 };
 
 export default function MessageResolverConfig(props: PropTypes) {
-  const { messageResolver } = props;
+  const { messageResolver, onChange, outputStrategy } = props;
   const { className } = messageResolver;
 
+  let Element: ReactNode;
   switch (className) {
     case 'ContinuousMessageResolver':
-      return <ContinuousMessageResolverConfig resolver={messageResolver} />;
+      Element = (
+        <ContinuousMessageResolverConfig
+          resolver={messageResolver}
+          onChange={onChange}
+        />
+      );
+      break;
     case 'BinaryMessageResolver':
-      return <BinaryMessageResolverConfig resolver={messageResolver} />;
+      Element = (
+        <BinaryMessageResolverConfig
+          resolver={messageResolver}
+          onChange={onChange}
+        />
+      );
+      break;
     case 'PitchbendMessageResolver':
-      return <PitchbendMessageResolverConfig resolver={messageResolver} />;
+      Element = (
+        <PitchbendMessageResolverConfig
+          resolver={messageResolver}
+          onChange={onChange}
+        />
+      );
+      break;
     default:
-      return <DiscreetMessageResolverConfig resolver={messageResolver} />;
+      Element = (
+        <DiscreteMessageResolverConfig
+          resolver={messageResolver}
+          onChange={onChange}
+          outputStrategy={outputStrategy}
+        />
+      );
   }
+
+  return <div className="resolver-config">{Element}</div>;
 }

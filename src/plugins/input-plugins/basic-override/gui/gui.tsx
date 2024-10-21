@@ -1,5 +1,5 @@
 import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
-import { BasicOverrideDTO } from '..';
+import { BasicOverrideDTO, ResolverDTOType } from '..';
 import { StateManager } from '../state-manager/state-manager';
 import MessageResolverConfig from './message-resolver-config/MessageResolverConfig';
 
@@ -14,6 +14,12 @@ export default function GUI(props: PluginUIProps<BasicOverrideDTO>) {
     applyChanges({ ...plugin, outputStrategy: strat as OutputStrategy });
   };
 
+  const onResolverChange = (resolver: ResolverDTOType) => {
+    const newPlugin = { ...plugin };
+    newPlugin.messageResolver = resolver;
+    applyChanges(newPlugin);
+  };
+
   return (
     <div className="basic-override">
       <label>
@@ -23,12 +29,16 @@ export default function GUI(props: PluginUIProps<BasicOverrideDTO>) {
           onChange={(e) => onOutputStrategyClick(e.target.value)}
         >
           {eligibleOutputStrategies.map((strat) => {
-            return <option>{strat}</option>;
+            return <option key={strat}>{strat}</option>;
           })}
         </select>
       </label>
 
-      <MessageResolverConfig messageResolver={messageResolver} />
+      <MessageResolverConfig
+        messageResolver={messageResolver}
+        onChange={onResolverChange}
+        outputStrategy={outputStrategy}
+      />
     </div>
   );
 }
