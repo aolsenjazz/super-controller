@@ -15,12 +15,12 @@ export class TriggerStateManager extends StateManager {
 
   public state: number = 0;
 
-  private _outputStrategy: 'toggle' | 'constant' | 'n-step';
+  private _outputStrategy: 'toggle' | 'constant' | 'n-step' = 'toggle';
 
   public constructor(outputStrategy: TriggerStateManager['_outputStrategy']) {
     super();
 
-    this._outputStrategy = outputStrategy;
+    this.outputStrategy = outputStrategy;
   }
 
   public get outputStrategy() {
