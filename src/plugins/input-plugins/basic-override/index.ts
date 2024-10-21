@@ -114,6 +114,10 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
       // `dto` is guaranteed to be the "correct" DTO in this case, so it's fine enough
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.messageResolver.applyDTO(other.messageResolver as any);
+
+      if (this.messageResolver instanceof DiscreteMessageResolver) {
+        this.stateManager.totalStates = this.messageResolver.nSteps;
+      }
     }
   }
 

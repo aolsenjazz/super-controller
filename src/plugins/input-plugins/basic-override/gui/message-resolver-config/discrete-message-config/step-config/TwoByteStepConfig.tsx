@@ -1,4 +1,6 @@
-import { byteToStatusString, statusStringToNibble } from '@shared/midi-util';
+import { byteToStatusString } from '@shared/midi-util';
+
+import { initMessage } from '../../../../message-resolver/discrete-message-resolver';
 import { MessageResolver } from '../../../../message-resolver/message-resolver';
 import { ChannelSelect } from '../../../ChannelSelect';
 import { NumberSelect } from '../../../NumberSelect';
@@ -29,26 +31,32 @@ export default function TwoByteStepConfig(props: PropTypes) {
   const numberOverride = bindingMsg[1] as MidiNumber;
 
   const handleStatusChange = (status: StatusString | 'noteon/noteoff') => {
-    const newBinding = [
-      statusStringToNibble(status as StatusString) + channelOverride,
+    const newBinding = initMessage(
+      status,
+      channelOverride,
       numberOverride,
-    ] as NumberArrayWithStatus;
+      127
+    );
     onChange(newBinding);
   };
 
   const handleChannelChange = (channel: Channel) => {
-    const newBinding = [
-      statusStringToNibble(statusOverride as StatusString) + channel,
+    const newBinding = initMessage(
+      statusOverride,
+      channel,
       numberOverride,
-    ] as NumberArrayWithStatus;
+      127
+    );
     onChange(newBinding);
   };
 
   const handleNumberChange = (number: MidiNumber) => {
-    const newBinding = [
-      statusStringToNibble(statusOverride as StatusString) + channelOverride,
+    const newBinding = initMessage(
+      statusOverride,
+      channelOverride,
       number,
-    ] as NumberArrayWithStatus;
+      127
+    );
     onChange(newBinding);
   };
 
