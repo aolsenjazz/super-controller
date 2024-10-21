@@ -1,5 +1,6 @@
 import type { FxDriver } from '@shared/driver-types/fx-driver';
 import { msgEquals } from '@shared/util';
+
 import Slider from './Slider';
 
 function indexOfArr(arr: number[], arrays: number[][]) {

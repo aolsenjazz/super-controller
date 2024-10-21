@@ -1,5 +1,6 @@
 import { HardwarePortService } from '@main/port-service';
 import { WindowProvider } from '@main/window-provider';
+
 import type { Color } from '@shared/driver-types/color';
 import type { FxDriver } from '@shared/driver-types/fx-driver';
 import type { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';

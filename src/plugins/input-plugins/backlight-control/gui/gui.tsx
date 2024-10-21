@@ -3,10 +3,10 @@ import type { FxDriver } from '@shared/driver-types/fx-driver';
 import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 
 import { BacklightControlDTO } from '..';
-
-import './BacklightControl.css';
 import BinaryColorSelect from './binary-color-select';
 import NStepColorSelect from './n-step-color-select';
+
+import './BacklightControl.css';
 
 export default function BacklightPluginUI(
   props: PluginUIProps<BacklightControlDTO>
