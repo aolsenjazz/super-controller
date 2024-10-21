@@ -1,3 +1,4 @@
+import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
 import { SwitchDriver } from '@shared/driver-types/input-drivers/switch-driver';
 import { byteToStatusString, idForMsg } from '@shared/midi-util';
 import { msgEquals } from '@shared/util';
@@ -22,6 +23,8 @@ export class SwitchStepConfig extends MonoInputConfig {
    */
   public id: string;
 
+  public driver: MonoInteractiveDriver;
+
   constructor(
     deviceId: string,
     nickname: string,
@@ -43,11 +46,24 @@ export class SwitchStepConfig extends MonoInputConfig {
     this.id = `${idForMsg(step)}.${step[2]}`;
 
     // this is gross, but failing fast is ok here :)
-    let label: string;
+    let label: string | null = null;
     driver.steps.forEach((s, i) => {
       if (msgEquals(s, step)) label = driver.stepLabels[i];
     });
+
+    if (label === null) throw new Error('label must not be null');
+
     this.label = label!;
+
+    // create and set mock driver. because this is a switch step and we treat
+    // individual steps like their own input config, we need to create a fake driver
+    // so that plugins receive a correct interpretation of this "input"
+    this.driver = {
+      ...driver,
+      status,
+      value: step[2] as MidiNumber,
+      response: 'constant',
+    };
   }
 
   public toDTO(): SwitchStepDTO {

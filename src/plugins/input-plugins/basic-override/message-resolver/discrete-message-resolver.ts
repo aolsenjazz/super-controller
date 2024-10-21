@@ -57,7 +57,7 @@ export class DiscreteMessageResolver extends MessageResolver {
         driver.status,
         driver.channel,
         driver.number,
-        127
+        driver.value !== undefined ? driver.value : 127
       );
       this.bindings[0] = def;
       this.defaults[0] = def;

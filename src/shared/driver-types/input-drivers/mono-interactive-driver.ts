@@ -34,6 +34,8 @@ export interface MonoInteractiveDriver extends BaseInteractiveInputDriver {
   /* MIDI event type */
   readonly status: StatusString | 'noteon/noteoff';
 
+  readonly value?: MidiNumber;
+
   /**
    * List of `Color`s this input supports. This field will by default be inherited
    * from the parent `InputGrid`, but that value may be overridden by setting it here.
