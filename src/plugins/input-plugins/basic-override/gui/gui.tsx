@@ -25,7 +25,7 @@ export default function GUI(props: PluginUIProps<BasicOverrideDTO>) {
   return (
     <div className="basic-override">
       <label>
-        Input Response:
+        Output Response:
         <select
           defaultValue={outputStrategy}
           onChange={(e) => onOutputStrategyClick(e.target.value)}

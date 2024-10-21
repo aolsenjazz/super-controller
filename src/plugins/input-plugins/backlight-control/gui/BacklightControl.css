@@ -1,8 +1,18 @@
 #backlight-config {
   padding: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
-#backlight-config .color-config-container .color-sample {
+#backlight-config label > select {
+  margin-left: 4px;
+}
+
+#backlight-config .step-selector {
+  margin-top: 8px;
+}
+
+#backlight-config .color-sample {
   height: 16px;
   width: 16px;
   display: inline-block;
@@ -19,12 +29,13 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.color-config-container p {
+#backlight-config p {
   line-height: 17px;
 }
 
-.color-config-container .color-select-container {
+.color-select-container {
   display: flex;
+  flex-direction: row;
   margin: 10px 0 5px 0;
 }
 
@@ -32,17 +43,13 @@
   border-bottom: none;
 }
 
-.color-config-container .fx-setting {
+#backlight-config .fx-setting {
   display: flex;
   margin-top: 4px;
   padding-bottom: 10px;
 }
 
-.color-config-container .fx-setting > p {
-  margin-right: 5px;
-}
-
-.color-config-container .fx-setting .slider {
+#backlight-config .fx-setting .slider {
   position: relative;
   width: 55%;
   margin-top: 6px;
@@ -50,12 +57,12 @@
   height: 20px;
 }
 
-.color-config-container .fx-setting .slider input {
+#backlight-config .fx-setting .slider input {
   background-color: gray;
   color: gray;
 }
 
-.color-config-container .fx-setting .slider p {
+#backlight-config .fx-setting .slider p {
   font-size: 9px;
   opacity: 0.7;
 }

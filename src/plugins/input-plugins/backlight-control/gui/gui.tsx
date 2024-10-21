@@ -3,10 +3,10 @@ import type { FxDriver } from '@shared/driver-types/fx-driver';
 import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 
 import { BacklightControlDTO } from '..';
-import ColorSelect from './ColorSelect';
-import FxSelect from './FxSelect';
 
 import './BacklightControl.css';
+import BinaryColorSelect from './binary-color-select';
+import NStepColorSelect from './n-step-color-select';
 
 export default function BacklightPluginUI(
   props: PluginUIProps<BacklightControlDTO>
@@ -20,6 +20,8 @@ export default function BacklightPluginUI(
     availableColors,
     availableFx,
     availableStates,
+    outputResponse,
+    elligibleOutputStrategies,
   } = plugin;
 
   const onColorChange = (s: number, color: Color) => {
@@ -63,36 +65,78 @@ export default function BacklightPluginUI(
     applyChanges({ ...plugin, fxValueBindings: bindings });
   };
 
+  const onOutputStrategyClick = (strat: string) => {
+    applyChanges({
+      ...plugin,
+      outputResponse: strat as BacklightControlDTO['outputResponse'],
+    });
+  };
+
+  const onAdd = (state: number, color: Color) => {
+    const newPlugin = {
+      ...plugin,
+      colorBindings: { ...colorBindings },
+    };
+
+    newPlugin.colorBindings[state] = color;
+
+    applyChanges(newPlugin);
+  };
+
+  const onDelete = (state: number) => {
+    const newPlugin = {
+      ...plugin,
+      colorBindings: { ...colorBindings },
+      fxBindings: { ...fxBindings },
+      fxValueBindings: { ...fxValueBindings },
+    };
+
+    delete newPlugin.colorBindings[state];
+    delete newPlugin.fxBindings[state];
+    delete newPlugin.fxValueBindings[state];
+
+    applyChanges(newPlugin);
+  };
+
   return (
     <div id="backlight-config">
-      {availableStates.map((s: number) => {
-        const color = colorBindings[s];
-        const stateStr = s === 0 ? 'off' : 'on';
-
-        return (
-          <div key={s} className="color-config-container">
-            <div>
-              <h5>State: {stateStr}</h5>
-            </div>
-            <ColorSelect
-              availableColors={availableColors}
-              color={color}
-              state={s}
-              onChange={onColorChange}
-            />
-            {color?.effectable && (
-              <FxSelect
-                availableFx={availableFx}
-                activeFx={fxBindings[s]}
-                fxValueArr={fxValueBindings[s]}
-                onFxChange={onFxChange}
-                onFxValueChange={onFxValueChange}
-                state={s}
-              />
-            )}
-          </div>
-        );
-      })}
+      <label>
+        Output Response:
+        <select
+          defaultValue={outputResponse}
+          onChange={(e) => onOutputStrategyClick(e.target.value)}
+        >
+          {elligibleOutputStrategies.map((strat) => {
+            return <option key={strat}>{strat}</option>;
+          })}
+        </select>
+      </label>
+      {outputResponse === 'n-step' ? (
+        <NStepColorSelect
+          availableColors={availableColors}
+          availableFx={availableFx}
+          colorBindings={colorBindings}
+          fxBindings={fxBindings}
+          fxValueBindings={fxValueBindings}
+          onColorChange={onColorChange}
+          onFxChange={onFxChange}
+          onFxValueChange={onFxValueChange}
+          onDelete={onDelete}
+          onAdd={onAdd}
+        />
+      ) : (
+        <BinaryColorSelect
+          availableColors={availableColors}
+          availableFx={availableFx}
+          availableStates={availableStates}
+          colorBindings={colorBindings}
+          fxBindings={fxBindings}
+          fxValueBindings={fxValueBindings}
+          onColorChange={onColorChange}
+          onFxChange={onFxChange}
+          onFxValueChange={onFxValueChange}
+        />
+      )}
     </div>
   );
 }

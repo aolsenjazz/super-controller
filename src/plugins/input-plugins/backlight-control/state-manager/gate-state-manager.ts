@@ -1,20 +1,25 @@
-import { PadDriver } from '@shared/driver-types/input-drivers/pad-driver';
+import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
 import { statusStringToNibble } from '@shared/midi-util';
 import { msgIdentityEquals } from '@shared/util';
 
 import { StateManager } from './state-manager';
 
 export class GateStateManager extends StateManager {
-  public mode: 'gate' | 'trigger' = 'gate';
+  public eligibleOutputStrategies = [
+    'gate' as const,
+    'toggle' as const,
+    'n-step' as const,
+  ];
 
   public totalStates: number = 2;
 
   public state: number = 0;
 
-  // The expected message from the device when the pad/button is pressed
+  private _outputStrategy: 'gate' | 'toggle' | 'n-step';
+
   private triggerSource: NumberArrayWithStatus;
 
-  constructor(driver: PadDriver) {
+  public constructor(driver: MonoInteractiveDriver) {
     super();
 
     const { status, channel, number } = driver;
@@ -25,20 +30,50 @@ export class GateStateManager extends StateManager {
     const triggerStatusByte = (triggerStatusNibble | channel) as StatusByte;
 
     this.triggerSource = [triggerStatusByte, number, 127];
+    this._outputStrategy = 'gate';
   }
 
-  process(msg: NumberArrayWithStatus) {
-    // only respond to "presss" events if in trigger mode
-    if (this.mode === 'trigger' && msgIdentityEquals(msg, this.triggerSource)) {
-      this.state = this.getNextState();
-    } else {
-      this.state = msgIdentityEquals(msg, this.triggerSource) ? 1 : 0;
-    }
+  public get outputStrategy() {
+    return this._outputStrategy;
+  }
 
+  public set outputStrategy(
+    outputStrategy: GateStateManager['_outputStrategy']
+  ) {
+    if (outputStrategy === 'gate') this.totalStates = 2;
+    if (outputStrategy === 'toggle') this.totalStates = 2;
+    if (outputStrategy === 'n-step') this.totalStates = 2;
+
+    this.state = 0;
+    this._outputStrategy = outputStrategy;
+  }
+
+  public process(msg: NumberArrayWithStatus) {
+    if (this.outputStrategy === 'gate') return this.handleAsGate();
+
+    return this.handleAsNStep(msg);
+  }
+
+  private handleAsGate() {
+    this.state = this.state === 1 ? 0 : 1;
     return this.state;
   }
 
-  getNextState(): number {
-    return this.state === this.totalStates - 1 ? 0 : this.state + 1;
+  private handleAsNStep(msg: NumberArrayWithStatus) {
+    // only respond to "presss" events
+    if (msgIdentityEquals(msg, this.triggerSource)) {
+      this.incrementState();
+      return this.state;
+    }
+
+    return undefined;
+  }
+
+  private incrementState() {
+    if (this.state === this.totalStates - 1) {
+      this.state = 0;
+    } else {
+      this.state++;
+    }
   }
 }

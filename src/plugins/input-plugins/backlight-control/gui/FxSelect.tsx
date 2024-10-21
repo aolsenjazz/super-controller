@@ -57,10 +57,12 @@ export default function FxSelect(props: PropTypes) {
 
   return (
     <div className="fx-setting">
-      <p>FX:</p>
-      <select value={value} onChange={(e) => innerFxChange(e.target.value)}>
-        {options}
-      </select>
+      <label>
+        FX:
+        <select value={value} onChange={(e) => innerFxChange(e.target.value)}>
+          {options}
+        </select>
+      </label>
       {activeFx &&
         (() => {
           const defaultIndex = indexOfArr(
