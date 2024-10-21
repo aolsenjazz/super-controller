@@ -219,8 +219,8 @@ export class HardwarePortServiceSingleton {
         if (msg.length < 2) return;
 
         const inputId = idForMsg(msg, false);
-        const remoteTransport = this.ports.get(config.id)!;
-        const loopbackTransport = VirtualPortService.ports.get(config.id)!;
+        const remoteTransport = VirtualPortService.ports.get(config.id)!;
+        const loopbackTransport = this.ports.get(config.id)!;
         const inclusiveLoopback = this.createRendererInclusiveLoopbackTransport(
           config.id,
           inputId,
