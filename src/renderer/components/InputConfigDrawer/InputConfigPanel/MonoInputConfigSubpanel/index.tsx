@@ -1,10 +1,10 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { importInputSubcomponent } from '@plugins/plugin-loader';
 import { getQualifiedInputId } from '@shared/util';
 import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 
-import PluginSubpanel from 'renderer/components/PluginSubpanel';
+import PluginSlot from 'renderer/components/PluginSubpanel/PluginSlot';
 
 import InputDefaultsSubpanel from '../InputDefaultsSubpanel';
 
@@ -17,16 +17,17 @@ const { InputConfigService } = window;
 export default function MonoInputConfigPanel(props: PropTypes) {
   const { input } = props;
 
-  const showPluginMenu = useCallback(
-    (x: number, y: number) => {
-      InputConfigService.showInputPluginMenu(
-        x,
-        y,
-        getQualifiedInputId(input.deviceId, input.id)
-      );
-    },
-    [input]
-  );
+  // Removed ability to add InputPlugins so as to not confuse users
+  // const showPluginMenu = useCallback(
+  //   (x: number, y: number) => {
+  //     InputConfigService.showInputPluginMenu(
+  //       x,
+  //       y,
+  //       getQualifiedInputId(input.deviceId, input.id)
+  //     );
+  //   },
+  //   [input]
+  // );
 
   const removePlugin = useCallback(
     (pluginId: string) => {
@@ -38,16 +39,23 @@ export default function MonoInputConfigPanel(props: PropTypes) {
     [input]
   );
 
+  const pluginSlots = useMemo(() => {
+    return input.plugins.map((x) => {
+      return (
+        <PluginSlot
+          key={`plugin${x}`}
+          pluginId={x}
+          removePlugin={removePlugin}
+          importPlugin={(title) => importInputSubcomponent(title, 'gui')}
+        />
+      );
+    });
+  }, [input, removePlugin]);
+
   return (
     <div>
       <InputDefaultsSubpanel defaults={input.defaults} />
-      <PluginSubpanel
-        plugins={input.plugins}
-        removePlugin={removePlugin}
-        showPluginMenu={showPluginMenu}
-        showAddPlugin
-        importPlugin={(title) => importInputSubcomponent(title, 'gui')}
-      />
+      {pluginSlots}
     </div>
   );
 }

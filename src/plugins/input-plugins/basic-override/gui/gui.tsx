@@ -3,6 +3,8 @@ import { BasicOverrideDTO, ResolverDTOType } from '..';
 import { StateManager } from '../state-manager/state-manager';
 import MessageResolverConfig from './message-resolver-config/MessageResolverConfig';
 
+import './BasicOverride.css';
+
 type OutputStrategy = StateManager['outputStrategy'];
 
 export default function GUI(props: PluginUIProps<BasicOverrideDTO>) {
