@@ -14,9 +14,6 @@ type PropTypes = {
 
 export default function Pad(props: PropTypes) {
   const { driver, id } = props;
-  if (driver.number === 32) {
-    console.log(id);
-  }
 
   const recentMessages = useAppSelector((state) =>
     selectRecentLoopbackMessages(state, id)
