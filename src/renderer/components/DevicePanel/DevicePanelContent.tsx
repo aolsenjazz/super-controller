@@ -21,7 +21,7 @@ export default function DevicePanelContent(props: PropTypes) {
   let Element: React.ReactElement;
 
   if (driverName === 'Anonymous' || driver === undefined) {
-    Element = <NoMatchingDriverView deviceName={connectionDetails!.name} />;
+    Element = <NoMatchingDriverView deviceName={driverName} />;
   } else if (driver.type === 'adapter' && !config?.child) {
     Element = <UsbView active={config !== undefined} />;
   } else if (driver.type === 'adapter' && config?.child) {

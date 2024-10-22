@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import { toString } from '../util';
-import { statusByteMap } from './utils';
+import { toString, statusByteMap } from '../util';
 
 function midiArrayToDropdownOption(arr: NumberArrayWithStatus) {
   const statusByte = arr[0];

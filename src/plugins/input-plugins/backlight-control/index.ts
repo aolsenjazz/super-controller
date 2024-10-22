@@ -1,14 +1,14 @@
-import { HardwarePortService } from '@main/port-service';
-import { WindowProvider } from '@main/window-provider';
+import type {
+  MonoInteractiveDriver,
+  MessageProcessorMeta,
+  MessageTransport,
+  Color,
+  FxDriver,
+} from '../../types';
 
-import type { Color } from '@shared/driver-types/color';
-import type { FxDriver } from '@shared/driver-types/fx-driver';
-import type { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
-import { MessageProcessorMeta } from '@shared/message-processor';
-import { MessageTransport } from '@shared/message-transport';
-import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
-import { PluginDTO } from '@shared/plugin-core/base-plugin';
-import { sumMidiArrays } from '@shared/util';
+import { BaseInputPlugin } from '../../core/base-input-plugin';
+import { PluginDTO } from '../../core/base-plugin';
+import { sumMidiArrays } from './util';
 
 import { GateStateManager } from './state-manager/gate-state-manager';
 import { StateManager } from './state-manager/state-manager';
@@ -16,8 +16,6 @@ import { ContinuousStateManager } from './state-manager/continuous-state-manager
 import { TriggerStateManager } from './state-manager/trigger-state-manager';
 
 import Manifest from './manifest';
-
-const { MainWindow } = WindowProvider;
 
 export interface BacklightControlDTO extends PluginDTO {
   outputResponse: BacklightControlPlugin['stateManager']['outputStrategy'];
@@ -67,7 +65,7 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     driver: MonoInteractiveDriver,
     dto?: BacklightControlDTO
   ) {
-    super(Manifest.title, Manifest.description, parentId, driver);
+    super(Manifest.title, Manifest.description, parentId, driver, dto?.id);
 
     this.availableColors = driver.availableColors;
     this.availableFx = driver.availableFx;
@@ -105,10 +103,6 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
 
       // Send the color message, if defined, to the source device
       loopbackTransport.send(lightMsg);
-
-      // Send the same to the renderer representation
-      const ids = this.parentId.split('::');
-      MainWindow.sendLoopbackMessage(ids[0], ids[1], lightMsg);
     }
   }
 
@@ -148,7 +142,7 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     };
   }
 
-  public applyDTO(dto: BacklightControlDTO): void {
+  public applyDTO(dto: BacklightControlDTO) {
     if (this.stateManager.outputStrategy !== dto.outputResponse) {
       this.stateManager.outputStrategy = dto.outputResponse;
 
@@ -169,12 +163,7 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
       this.fxValueBindings = dto.fxValueBindings;
     }
 
-    // presently, there isn't a built-in system to synchronize devices when
-    // a plugin is updated. this is by design, unless a significant and common
-    // use case comes up. so, here's a hacky way to achieve this
-    //
-    // plugin authors: please don't do this
-    HardwarePortService.syncInput(dto.parentId);
+    return true;
   }
 
   public restoreDefaultColor(state: number) {

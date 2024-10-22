@@ -1,11 +1,8 @@
-import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
-import { BaseInputConfig } from '@shared/hardware-config/input-config/base-input-config';
-import { MonoInputConfig } from '@shared/hardware-config/input-config/mono-input-config';
-
-import { InputPluginManifest } from '@shared/plugin-core/input-plugin-manifest';
+import type { MonoInteractiveDriver, BaseInputConfig } from '../../types';
+import type { InputPluginManifest } from '../../core/input-plugin-manifest';
 
 function colorCapableRequirement(config: BaseInputConfig): boolean {
-  if (config instanceof MonoInputConfig && config.driver.interactive) {
+  if (config.driver.interactive) {
     const asMonoInteractive = config.driver as MonoInteractiveDriver;
     return asMonoInteractive.availableColors.length > 0;
   }

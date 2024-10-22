@@ -1,6 +1,6 @@
 import { ipcRenderer } from 'electron';
 
-import type { PluginDTO } from '@shared/plugin-core/base-plugin';
+import type { PluginDTO } from '@plugins/core/base-plugin';
 import { PLUGIN } from '@main/ipc/ipc-channels';
 
 export const PluginService = {

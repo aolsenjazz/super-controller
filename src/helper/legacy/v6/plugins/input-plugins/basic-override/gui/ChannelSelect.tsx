@@ -1,5 +1,3 @@
-import React from 'react';
-
 type ChannelSelectProps = {
   defaultChannel: Channel;
   channelOverride: Channel;

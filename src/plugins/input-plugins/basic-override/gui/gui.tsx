@@ -1,6 +1,7 @@
-import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
+import { PluginUIProps } from '../../../core/plugin-ui-props';
 import { BasicOverrideDTO, ResolverDTOType } from '..';
 import { StateManager } from '../state-manager/state-manager';
+
 import MessageResolverConfig from './message-resolver-config/MessageResolverConfig';
 
 import './BasicOverride.css';

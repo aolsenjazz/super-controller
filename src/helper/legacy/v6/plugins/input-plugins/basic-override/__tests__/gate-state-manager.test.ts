@@ -1,16 +1,15 @@
-import { PadDriver } from '@shared/driver-types/input-drivers/pad-driver';
 import { GateStateManager } from '../state-manager/gate-state-manager';
 
-const driver: PadDriver = {
-  type: 'pad',
-  number: 0,
-  response: 'gate',
-  channel: 0,
-  status: 'noteon/noteoff',
+const driver = {
+  type: 'pad' as const,
+  number: 0 as MidiNumber,
+  response: 'gate' as const,
+  channel: 0 as Channel,
+  status: 'noteon/noteoff' as const,
   availableColors: [],
   availableFx: [],
-  interactive: true,
-  shape: 'circle',
+  interactive: true as const,
+  shape: 'circle' as const,
   width: 1,
   height: 1,
 };

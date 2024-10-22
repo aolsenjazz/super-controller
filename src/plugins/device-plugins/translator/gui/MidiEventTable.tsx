@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
+
 import { selectRecentRemoteMessagesById } from '@features/recent-remote-messages/recent-remote-messages-slice';
 import { useAppSelector } from '@hooks/use-app-dispatch';
-import { useEffect, useState } from 'react';
-import { getStatusString, rowId } from './utils';
+
+import { getStatusString, rowId } from '../util';
 
 function NoRecentMessages({ deviceName }: { deviceName: string }) {
   return (

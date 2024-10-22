@@ -5,7 +5,6 @@ import { Anonymous, getDriver } from '../drivers';
 
 import { MessageProcessor, MessageProcessorMeta } from '../message-processor';
 import { MessageTransport } from '../message-transport';
-import { InputProvider } from '@shared/input-provider';
 
 export interface DeviceConfigDTO extends BaseIcicle {
   id: string;
@@ -22,7 +21,7 @@ export interface DeviceConfigDTO extends BaseIcicle {
  * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.
  */
 export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
-  implements MessageProcessor
+  implements MessageProcessor 
 {
   /**
    * MIDI-driver-reported name. E.g. for Launchkey Mini MK3:
@@ -67,10 +66,13 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
     this.nickname = stub.nickname;
   }
 
+  /**
+   * Runs initialization procedure for each plugins. Does *not* run child input
+   * initializations.
+   */
   public init(
     loopbackTransport: MessageTransport,
-    pluginProvider: PluginProvider,
-    _inputProvider: InputProvider
+    pluginProvider: PluginProvider
   ) {
     this.plugins
       .map((id) => pluginProvider.get(id))

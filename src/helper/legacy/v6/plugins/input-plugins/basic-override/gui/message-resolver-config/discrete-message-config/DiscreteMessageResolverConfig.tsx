@@ -1,5 +1,5 @@
-import { ResolverDTOType } from '@plugins/input-plugins/basic-override';
-import { StateManager } from '@plugins/input-plugins/basic-override/state-manager/state-manager';
+import { ResolverDTOType } from '../../..';
+import { StateManager } from '../../../state-manager/state-manager';
 import { DiscreteMessageResolverDTO } from '../../../message-resolver/discrete-message-resolver';
 import ConstantDiscreteMessageResolverConfig from './ConstantDiscreteMessageResolverConfig';
 import NStepDiscreteMessageResolverConfig from './NStepDiscreteMessageResolverConfig';

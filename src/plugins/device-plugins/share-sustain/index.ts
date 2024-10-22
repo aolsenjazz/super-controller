@@ -1,21 +1,25 @@
-import { MessageProcessorMeta } from '@shared/message-processor';
-import { BaseDevicePlugin } from '@shared/plugin-core/base-device-plugin';
+import type { MessageProcessorMeta } from '../../types';
+import type { PluginDTO } from '../../core/base-plugin';
+import { BaseDevicePlugin } from '../../core/base-device-plugin';
 
-import { ShareSustainDTO } from './share-sustain-dto';
 import Manifest from './manifest';
 
 const CC = 176;
 const SUSTAIN_NUM = 64;
 
+export interface ShareSustainDTO extends PluginDTO {
+  sustainTargets: string[];
+}
+
 export default class ShareSustainPlugin extends BaseDevicePlugin<ShareSustainDTO> {
   public sustainTargets: string[] = [];
 
   public static override fromDTO(dto: ShareSustainDTO) {
-    return new ShareSustainPlugin(dto.parentId, dto.sustainTargets);
+    return new ShareSustainPlugin(dto.parentId, dto.id, dto.sustainTargets);
   }
 
-  constructor(parentId: string, sustainTargets: string[] = []) {
-    super(Manifest.title, Manifest.description, parentId);
+  constructor(parentId: string, id?: string, sustainTargets: string[] = []) {
+    super(Manifest.title, Manifest.description, parentId, id);
     this.sustainTargets = sustainTargets;
   }
 
@@ -48,7 +52,8 @@ export default class ShareSustainPlugin extends BaseDevicePlugin<ShareSustainDTO
     };
   }
 
-  public applyDTO(dto: ShareSustainDTO): void {
+  public applyDTO(dto: ShareSustainDTO) {
     this.sustainTargets = dto.sustainTargets;
+    return false;
   }
 }

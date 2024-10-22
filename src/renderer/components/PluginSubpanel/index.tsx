@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
+import { PluginUIProps } from '@plugins/core/plugin-ui-props';
 
 import SectionHeader from '../SectionHeader';
 import PluginSlot from './PluginSlot';

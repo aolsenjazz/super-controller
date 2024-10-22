@@ -1,4 +1,4 @@
-import { byteToStatusString } from '@shared/midi-util';
+import { byteToStatusString } from '../../../../util';
 
 import { initMessage } from '../../../../message-resolver/discrete-message-resolver';
 import { MessageResolver } from '../../../../message-resolver/message-resolver';

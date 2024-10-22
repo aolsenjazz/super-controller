@@ -15,10 +15,10 @@ import { inputConfigsFromDriver } from '@shared/hardware-config/input-config';
 import { BaseInputConfig } from '@shared/hardware-config/input-config/base-input-config';
 import { MonoInputConfig } from '@shared/hardware-config/input-config/mono-input-config';
 import { SupportedDeviceConfig } from '@shared/hardware-config/supported-device-config';
-import { BaseDevicePlugin } from '@shared/plugin-core/base-device-plugin';
-import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
-import { BasePluginManifest } from '@shared/plugin-core/base-plugin-manifest';
-import { InputPluginManifest } from '@shared/plugin-core/input-plugin-manifest';
+import { BaseDevicePlugin } from '@plugins/core/base-device-plugin';
+import { BaseInputPlugin } from '@plugins/core/base-input-plugin';
+import { BasePluginManifest } from '@plugins/core/base-plugin-manifest';
+import { InputPluginManifest } from '@plugins/core/input-plugin-manifest';
 import { getQualifiedInputId } from '@shared/util';
 
 import { DeviceRegistry } from './device-registry';

@@ -26,6 +26,8 @@ import { PluginRegistry } from '@main/plugin-registry';
 import { InputRegistry } from '@main/input-registry';
 import { MessageTransport } from '@shared/message-transport';
 import { getQualifiedInputId } from '@shared/util';
+import { SupportedDeviceConfig } from '@shared/hardware-config/supported-device-config';
+import { AdapterDeviceConfig } from '@shared/hardware-config/adapter-device-config';
 
 import { PortScanResult, PortManager } from './port-manager';
 import { PortPair } from './port-pair';
@@ -84,10 +86,22 @@ export class HardwarePortServiceSingleton {
     return HardwarePortServiceSingleton.instance;
   }
 
+  /**
+   * Run initialization procedures for the device and all child inputs.
+   */
   public syncDevice(deviceId: string) {
     const config = DeviceRegistry.get(deviceId)!;
     const loopbackTransport = this.ports.get(deviceId)!;
-    config.init(loopbackTransport, PluginRegistry, InputRegistry);
+    config.init(loopbackTransport, PluginRegistry);
+
+    if (
+      config instanceof SupportedDeviceConfig ||
+      config instanceof AdapterDeviceConfig
+    ) {
+      config.inputs.forEach((id) =>
+        this.syncInput(getQualifiedInputId(config.id, id))
+      );
+    }
   }
 
   public syncInput(qualifiedInputId: string) {
@@ -96,7 +110,13 @@ export class HardwarePortServiceSingleton {
 
     if (!pair || !input) throw new Error(`one of [pair, input] is undefined`);
 
-    input.init(pair, PluginRegistry);
+    const compoundTransport = this.createRendererInclusiveLoopbackTransport(
+      pair.id,
+      input.id,
+      pair
+    );
+
+    input.init(compoundTransport, PluginRegistry);
   }
 
   /**
@@ -212,8 +232,7 @@ export class HardwarePortServiceSingleton {
     const config = DeviceRegistry.get(pair.id);
 
     if (config) {
-      // init
-      config.init(pair, PluginRegistry, InputRegistry);
+      this.syncDevice(pair.id);
 
       // set onMessage
       pair.onMessage((_delta, msg) => {

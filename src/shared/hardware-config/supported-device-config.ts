@@ -1,8 +1,6 @@
 import { DRIVERS } from '../drivers';
 import { MessageProcessorMeta } from '../message-processor';
 import { MessageTransport } from '../message-transport';
-import { PluginProvider } from '../plugin-provider';
-import { InputProvider } from '../input-provider';
 
 import { DeviceConfig, DeviceConfigDTO } from './device-config';
 import { getQualifiedInputId } from '../util';
@@ -36,19 +34,10 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
     return input ? input.process(message, meta) : message;
   }
 
-  public init(
-    loopbackTransport: MessageTransport,
-    pluginProvider: PluginProvider,
-    inputProvider: InputProvider
-  ) {
+  public init(loopbackTransport: MessageTransport) {
     const driver = DRIVERS.get(this.driverName)!;
 
     if (driver.throttle) loopbackTransport.applyThrottle(driver.throttle);
     driver.controlSequence.forEach((msg) => loopbackTransport.send(msg)); // run control sequence
-
-    this.inputs
-      .map((id) => inputProvider.get(getQualifiedInputId(this.id, id)))
-      .filter(Boolean)
-      .forEach((i) => i!.init(loopbackTransport, pluginProvider));
   }
 }

@@ -1,5 +1,5 @@
-import { MessageResolver } from '@plugins/input-plugins/basic-override/message-resolver/message-resolver';
-import { byteToStatusString } from '@shared/midi-util';
+import { MessageResolver } from '../../../../message-resolver/message-resolver';
+import { byteToStatusString } from '../../../../util';
 import ThreeByteStepConfig from './ThreeByteStepConfig';
 import TwoByteStepConfig from './TwoByteStepConfig';
 

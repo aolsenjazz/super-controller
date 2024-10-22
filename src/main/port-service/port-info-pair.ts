@@ -45,7 +45,7 @@ export class PortInfoPair<
    * DeviceName in the system registry. This number is used to disambiguate
    */
   public get siblingIndex() {
-    const occurNum = this.iPort?.siblingIndex || this.oPort?.siblingIndex;
+    const occurNum = this.iPort?.siblingIndex || this.oPort?.siblingIndex || 0;
 
     if (occurNum === undefined)
       throw new Error(`occurNum should not be undefined`);

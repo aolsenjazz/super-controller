@@ -1,6 +1,6 @@
-import { MessageProcessorMeta } from '@shared/message-processor';
-import { BaseDevicePlugin } from '@shared/plugin-core/base-device-plugin';
-import { PluginDTO } from '@shared/plugin-core/base-plugin';
+import { MessageProcessorMeta } from '../../types';
+import { BaseDevicePlugin } from '../../core/base-device-plugin';
+import { PluginDTO } from '../../core/base-plugin';
 
 import { toString } from './util';
 import Manifest from './manifest';
@@ -13,14 +13,15 @@ export default class TranslatorPlugin extends BaseDevicePlugin<TranslatorDTO> {
   overrides: Record<string, NumberArrayWithStatus | undefined> = {};
 
   public static override fromDTO(dto: TranslatorDTO) {
-    return new TranslatorPlugin(dto.parentId, dto.overrides);
+    return new TranslatorPlugin(dto.parentId, dto.id, dto.overrides);
   }
 
   public constructor(
     parentId: string,
+    id?: string,
     overrides?: TranslatorPlugin['overrides']
   ) {
-    super(Manifest.title, Manifest.description, parentId);
+    super(Manifest.title, Manifest.description, parentId, id);
 
     if (overrides) {
       this.overrides = overrides;
@@ -43,7 +44,8 @@ export default class TranslatorPlugin extends BaseDevicePlugin<TranslatorDTO> {
     };
   }
 
-  public applyDTO(dto: TranslatorDTO): void {
+  public applyDTO(dto: TranslatorDTO) {
     this.overrides = dto.overrides;
+    return false;
   }
 }

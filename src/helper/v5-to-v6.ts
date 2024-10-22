@@ -13,10 +13,12 @@ import { DeviceConfig } from './legacy/v6/shared/hardware-config/device-config';
 import { SupportedDeviceConfig } from './legacy/v6/shared/hardware-config/supported-device-config';
 import { AdapterDeviceConfig } from './legacy/v6/shared/hardware-config/adapter-device-config';
 import { ProjectPOJO } from './legacy/v6/shared/project-pojo';
-import { BasePlugin } from './legacy/v6/shared/plugin-core/base-plugin';
+import { BasePlugin } from './legacy/v6/plugins/core/base-plugin';
 import { BaseInputConfig } from './legacy/v6/shared/hardware-config/input-config/base-input-config';
 import { AnonymousDeviceConfig } from './legacy/v6/shared/hardware-config/anonymous-device-config';
 import ShareSustainPlugin from './legacy/v6/plugins/device-plugins/share-sustain/index';
+import TranslatorPlugin from './legacy/v6/plugins/device-plugins/translator';
+import { toString } from './legacy/v6/plugins/device-plugins/translator/util';
 
 const VERSION = 6;
 
@@ -38,6 +40,8 @@ function upgradeSupportedDevice(
     config.plugins.push(shareSustain.id);
   }
 
+  // TODO: iterate over inputs, create, add to inputs
+
   return config;
 }
 
@@ -52,8 +56,25 @@ function upgradeAnonymousDevice(
     []
   );
 
-  // TODO: init share sustain plugin if necessary
-  // TODO: init translator if necessary
+  if (d.shareSustain.length > 0) {
+    const shareSustain = new ShareSustainPlugin(config.id, d.shareSustain);
+    plugins.push(shareSustain);
+    config.plugins.push(shareSustain.id);
+  }
+
+  if (d.overrides.size > 0) {
+    const translator = new TranslatorPlugin(config.id);
+
+    d.overrides.forEach((v, k) => {
+      const msg = JSON.parse(k);
+      const msgAsStr = toString(msg);
+
+      translator.overrides[msgAsStr] = v;
+    });
+
+    plugins.push(translator);
+    config.plugins.push(translator.id);
+  }
 
   return config;
 }
@@ -73,7 +94,11 @@ function upgradeAdapterDevice(
     newChild
   );
 
-  // TODO: init share sustain
+  if (d.shareSustain.length > 0) {
+    const shareSustain = new ShareSustainPlugin(config.id, d.shareSustain);
+    plugins.push(shareSustain);
+    config.plugins.push(shareSustain.id);
+  }
 
   return config;
 }

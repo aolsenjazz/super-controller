@@ -1,5 +1,6 @@
-import { DiscreteMessageResolverDTO } from '@plugins/input-plugins/basic-override/message-resolver/discrete-message-resolver';
 import { useEffect, useState } from 'react';
+
+import { DiscreteMessageResolverDTO } from '../../../message-resolver/discrete-message-resolver';
 
 import StepConfig from './step-config/StepConfig';
 

@@ -1,6 +1,7 @@
 import { ipcMain, IpcMainEvent } from 'electron';
 
-import { PluginDTO } from '@shared/plugin-core/base-plugin';
+import { PluginDTO } from '@plugins/core/base-plugin';
+import { HardwarePortService } from '@main/port-service';
 
 import { WindowProvider } from '../window-provider';
 import { PluginRegistry } from '../plugin-registry';
@@ -33,7 +34,12 @@ ipcMain.on(PLUGIN.UPDATE, (_e: IpcMainEvent, dto: PluginDTO) => {
 
   if (!plugin) throw new Error(`Could not locate plugin for id ${dto.id}`);
 
-  plugin.applyDTO(dto);
+  const resync = plugin.applyDTO(dto);
+  if (resync) {
+    if (plugin.type === 'device')
+      HardwarePortService.syncDevice(plugin.parentId);
+    else HardwarePortService.syncInput(plugin.parentId);
+  }
 
   MainWindow.upsertPlugin(plugin.toDTO());
 });

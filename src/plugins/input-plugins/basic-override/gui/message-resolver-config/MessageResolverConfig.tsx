@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
+
 import { ResolverDTOType } from '../..';
 import BinaryMessageResolverConfig from './BinaryMessageResolverConfig';
 import ContinuousMessageResolverConfig from './ContinuousMessageResolverConfig';
 import DiscreteMessageResolverConfig from './discrete-message-config/DiscreteMessageResolverConfig';
 import PitchbendMessageResolverConfig from './PitchbendMessageResolverConfig';
-
 import { StateManager } from '../../state-manager/state-manager';
 
 type PropTypes = {

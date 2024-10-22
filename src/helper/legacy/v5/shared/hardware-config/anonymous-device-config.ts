@@ -75,7 +75,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     this.#overrides.delete(JSON.stringify(action));
   }
 
-  get overrides(): ImmutableMidiArrayMap {
+  get overrides() {
     return this.#overrides;
   }
 

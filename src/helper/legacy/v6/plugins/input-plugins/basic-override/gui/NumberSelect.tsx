@@ -1,5 +1,4 @@
-import React from 'react';
-import { CC_BINDINGS, NOTE_BINDINGS } from '@shared/util';
+import { CC_BINDINGS, NOTE_BINDINGS } from '../util';
 
 type NumberSelectProps = {
   defaultNumber: MidiNumber;

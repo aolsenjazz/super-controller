@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
+import type { TranslatorDTO } from '..';
+import type { PluginUIProps } from '../../../core/plugin-ui-props';
 
 import { MidiEventTable } from './MidiEventTable';
 import { OverrideControls } from './OverrideControls';
 
 import './translator.css';
-import type { TranslatorDTO } from '..';
 
 export default function GUI(props: PluginUIProps<TranslatorDTO>) {
   const { plugin, selectedDevice, applyChanges } = props;

@@ -1,10 +1,10 @@
-import type { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
+import type { PluginUIProps } from '../../../core/plugin-ui-props';
+import type { ShareSustainDTO } from '..';
 
+import AddADevice from './AddADevice';
 import ShareSustainLine from './ShareSustainLine';
-import { ShareSustainDTO } from '../share-sustain-dto';
 
 import './ShareSustain.css';
-import AddADevice from './AddADevice';
 
 export default function GUI(props: PluginUIProps<ShareSustainDTO>) {
   const { plugin, connectedDevices, selectedDevice, applyChanges } = props;

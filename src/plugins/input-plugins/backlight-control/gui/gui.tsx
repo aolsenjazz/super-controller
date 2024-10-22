@@ -1,6 +1,5 @@
-import type { Color } from '@shared/driver-types/color';
-import type { FxDriver } from '@shared/driver-types/fx-driver';
-import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
+import type { Color, FxDriver } from '../../../types';
+import type { PluginUIProps } from '../../../core/plugin-ui-props';
 
 import { BacklightControlDTO } from '..';
 import BinaryColorSelect from './binary-color-select';

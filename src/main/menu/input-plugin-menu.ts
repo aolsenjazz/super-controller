@@ -1,7 +1,7 @@
 import { MenuItem } from 'electron';
 
 import { getInputManifests } from '@plugins/plugin-loader';
-import { InputPluginManifest } from '@shared/plugin-core/input-plugin-manifest';
+import { InputPluginManifest } from '@plugins/core/input-plugin-manifest';
 import { BaseInputConfig } from '@shared/hardware-config/input-config/base-input-config';
 
 const incapableMsg = 'This plugin in incompatible with this input.';

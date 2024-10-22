@@ -50,21 +50,23 @@ export async function loadProject(filePath: string) {
   const jsonString = fs.readFileSync(filePath, 'utf8');
   const proj = upgradeProject(jsonString) as ProjectPOJO;
 
-  proj.devices.forEach((d) => {
-    DeviceRegistry.register(d.id, deviceConfigFromDTO(d));
-  });
-
-  proj.inputs.forEach((i) => {
-    const config = inputConfigsFromDTO(i);
-    InputRegistry.register(getQualifiedInputId(i.deviceId, i.id), config);
-  });
-
   for (let i = 0; i < proj.plugins.length; i++) {
     // TODO: properly deal with this later
     // eslint-disable-next-line no-await-in-loop
     const plugin = await createPluginFromDTO(proj.plugins[i]);
     PluginRegistry.register(plugin.id, plugin);
+    MainWindow.upsertPlugin(plugin.toDTO());
   }
+
+  proj.inputs.forEach((i) => {
+    const config = inputConfigsFromDTO(i);
+    InputRegistry.register(getQualifiedInputId(i.deviceId, i.id), config);
+    MainWindow.upsertInputConfig(config.toDTO());
+  });
+
+  proj.devices.forEach((d) => {
+    DeviceRegistry.register(d.id, deviceConfigFromDTO(d));
+  });
 
   currentPath = filePath;
 

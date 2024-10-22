@@ -1,13 +1,35 @@
-import type { BasePluginManifest } from '../shared/plugin-core/base-plugin-manifest';
-import { waitForArray } from '../shared/util';
+import type { BaseInputDriver, MonoInteractiveDriver } from './types';
+import type { BasePluginManifest } from './core/base-plugin-manifest';
+import type { InputPluginManifest } from './core/input-plugin-manifest';
+import type { BaseDevicePlugin } from './core/base-device-plugin';
+import type { PluginDTO } from './core/base-plugin';
+import type { PluginUIProps } from './core/plugin-ui-props';
+import type { BaseInputPlugin } from './core/base-input-plugin';
 
-import type { PluginDTO } from '../shared/plugin-core/base-plugin';
-import type { PluginUIProps } from '../shared/plugin-core/plugin-ui-props';
-import { BaseInputPlugin } from '../shared/plugin-core/base-input-plugin';
-import { BaseInputDriver } from '../shared/driver-types/input-drivers/base-input-driver';
-import { InputPluginManifest } from '../shared/plugin-core/input-plugin-manifest';
-import { BaseDevicePlugin } from '../shared/plugin-core/base-device-plugin';
-import { MonoInteractiveDriver } from '../shared/driver-types/input-drivers/mono-interactive-driver';
+/**
+ * Waits for an array to be non-empty. Useful for making sure that we have discovered all
+ * plugin manifests before we try to access them.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function waitForArray(arr: any[], interval = 100, retries = 3) {
+  let r = 0;
+  await new Promise((resolve, reject) => {
+    function checkArr() {
+      if (r === retries) {
+        reject(new Error('Unable to load plugin manifests'));
+      }
+
+      if (arr.length > 0) {
+        resolve(null);
+      } else {
+        r++;
+        setTimeout(checkArr, interval);
+      }
+    }
+
+    checkArr();
+  });
+}
 
 /**
  * List of available device plugin manifests, used for subcomponent discovery + import

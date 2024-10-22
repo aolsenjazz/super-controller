@@ -5,7 +5,7 @@ import {
 import { InteractiveInputDriver } from '@shared/driver-types/input-drivers';
 import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
 import { DRIVERS } from '@shared/drivers';
-import { PluginDTO } from '@shared/plugin-core/base-plugin';
+import { PluginDTO } from '@plugins/core/base-plugin';
 import { inputIdFromDriver } from '@shared/util';
 
 function findInputDriver(dto: PluginDTO) {

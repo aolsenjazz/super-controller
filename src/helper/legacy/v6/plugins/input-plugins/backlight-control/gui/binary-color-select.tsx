@@ -1,6 +1,6 @@
-import { Color } from '@shared/driver-types/color';
-import { FxDriver } from '@shared/driver-types/fx-driver';
-import { BacklightControlDTO } from '..';
+import type { Color, FxDriver } from '../../../types';
+import type { BacklightControlDTO } from '..';
+
 import ColorSelect from './ColorSelect';
 import FxSelect from './FxSelect';
 

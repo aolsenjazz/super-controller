@@ -1,4 +1,5 @@
-import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
+import type { MonoInteractiveDriver } from '../../../types';
+
 import { ContinuousStateManager } from './continuous-state-manager';
 import { GateStateManager } from './gate-state-manager';
 import { StateManagerDTO } from './state-manager';

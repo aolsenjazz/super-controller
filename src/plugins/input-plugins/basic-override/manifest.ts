@@ -1,4 +1,4 @@
-import { InputPluginManifest } from '@shared/plugin-core/input-plugin-manifest';
+import { InputPluginManifest } from '../../core/input-plugin-manifest';
 
 const Manifest: InputPluginManifest = {
   title: 'Input Overrides',

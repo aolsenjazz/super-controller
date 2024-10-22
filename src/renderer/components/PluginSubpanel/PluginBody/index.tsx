@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-
-import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
-
-import './PluginBody.css';
 import { useSelector } from 'react-redux';
+
+import type { PluginUIProps } from '@plugins/core/plugin-ui-props';
+import type { PluginDTO } from '@plugins/core/base-plugin';
 import { selectUnifiedDevices } from '@selectors/unified-devices-selector';
 import { selectSelectedDevice } from '@selectors/selected-device-selector';
-import { PluginDTO } from '@shared/plugin-core/base-plugin';
+
 import { selectPluginById } from '@features/plugins/plugins-slice';
 import { useAppSelector } from '@hooks/use-app-dispatch';
+
+import './PluginBody.css';
 
 const { PluginService } = window;
 

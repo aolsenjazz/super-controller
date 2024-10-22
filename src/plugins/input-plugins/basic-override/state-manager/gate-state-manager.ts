@@ -1,6 +1,5 @@
-import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
-import { statusStringToNibble } from '@shared/midi-util';
-import { msgIdentityEquals } from '@shared/util';
+import { MonoInteractiveDriver } from '../../../types';
+import { statusStringToNibble, msgIdentityEquals } from '../util';
 
 import { StateManager } from './state-manager';
 

@@ -1,6 +1,6 @@
 import { createEntityAdapter } from '@reduxjs/toolkit';
 
-import { PluginDTO } from '@shared/plugin-core/base-plugin';
+import { PluginDTO } from '@plugins/core/base-plugin';
 
 import { createAppSlice } from '../../store/createAppSlice';
 import type { RootState } from '../../store/store';

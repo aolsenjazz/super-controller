@@ -1,5 +1,3 @@
-import React from 'react';
-
 type StatusSelectProps = {
   eligibleStatuses: (StatusString | 'noteon/noteoff')[];
   defaultStatus: StatusString | 'noteon/noteoff';

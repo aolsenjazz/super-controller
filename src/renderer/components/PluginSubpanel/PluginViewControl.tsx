@@ -1,6 +1,6 @@
 import ViewClosed from '@assets/plugin_closed.svg';
 import ViewOpen from '@assets/plugin_open.svg';
-import { PluginDTO } from '@shared/plugin-core/base-plugin';
+import { PluginDTO } from '@plugins/core/base-plugin';
 
 const { PluginService } = window;
 

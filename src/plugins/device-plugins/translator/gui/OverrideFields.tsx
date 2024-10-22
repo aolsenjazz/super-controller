@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { statusByteMap, statusBytes } from './utils';
+import { statusByteMap, statusBytes } from '../util';
 
 type PropTypes = {
   source: NumberArrayWithStatus;

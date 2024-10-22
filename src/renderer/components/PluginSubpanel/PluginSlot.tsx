@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
+import { PluginUIProps } from '@plugins/core/plugin-ui-props';
 import { useAppDispatch, useAppSelector } from '@hooks/use-app-dispatch';
 import {
   selectSelectedPluginId,

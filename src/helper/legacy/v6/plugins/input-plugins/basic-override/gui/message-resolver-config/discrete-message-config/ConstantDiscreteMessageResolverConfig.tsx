@@ -1,4 +1,4 @@
-import { DiscreteMessageResolverDTO } from '@plugins/input-plugins/basic-override/message-resolver/discrete-message-resolver';
+import { DiscreteMessageResolverDTO } from '../../../message-resolver/discrete-message-resolver';
 import StepConfig from './step-config/StepConfig';
 
 type PropTypes = {

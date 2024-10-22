@@ -1,5 +1,5 @@
-import type { FxDriver } from '@shared/driver-types/fx-driver';
-import { msgEquals } from '@shared/util';
+import type { FxDriver } from '../../../types';
+import { msgEquals } from '../util';
 
 import Slider from './Slider';
 

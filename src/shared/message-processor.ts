@@ -1,6 +1,6 @@
-import { InputProvider } from './input-provider';
-import { MessageTransport } from './message-transport';
-import { PluginProvider } from './plugin-provider';
+import type { InputProvider } from './input-provider';
+import type { MessageTransport } from './message-transport';
+import type { PluginProvider } from './plugin-provider';
 
 export type MessageProcessorMeta = {
   /**

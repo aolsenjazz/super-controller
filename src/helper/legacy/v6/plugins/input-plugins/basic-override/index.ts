@@ -1,6 +1,6 @@
-import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
-import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
-import { PluginDTO } from '@shared/plugin-core/base-plugin';
+import { MonoInteractiveDriver } from '../../types';
+import { BaseInputPlugin } from '../../core/base-input-plugin';
+import { PluginDTO } from '../../core/base-plugin';
 
 import { ContinuousStateManager } from './state-manager/continuous-state-manager';
 import { GateStateManager } from './state-manager/gate-state-manager';
@@ -105,7 +105,7 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
     };
   }
 
-  public applyDTO(other: BasicOverrideDTO): void {
+  public applyDTO(other: BasicOverrideDTO) {
     if (other.outputStrategy !== this.stateManager.outputStrategy) {
       if (other.outputStrategy === 'gate') {
         this.messageResolver = new BinaryMessageResolver(this.driver);
@@ -132,6 +132,8 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
         this.stateManager.totalStates = this.messageResolver.nSteps;
       }
     }
+
+    return false;
   }
 
   public init() {

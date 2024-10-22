@@ -1,4 +1,4 @@
-import { BasePluginManifest } from '@shared/plugin-core/base-plugin-manifest';
+import { BasePluginManifest } from '../../core/base-plugin-manifest';
 
 const Manifest: BasePluginManifest = {
   title: 'Share Sustain',

@@ -1,8 +1,9 @@
-import { BasePluginManifest } from '@shared/plugin-core/base-plugin-manifest';
+import { BasePluginManifest } from '../../core/base-plugin-manifest';
 
 const Manifest: BasePluginManifest = {
   title: 'Translator',
-  description: 'Temp description',
+  description:
+    'Translates messages received from the devices into other messages.',
   gui: 'translator/gui/index.tsx',
   plugin: 'translator/index.ts',
 };

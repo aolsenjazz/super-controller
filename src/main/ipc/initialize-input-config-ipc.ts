@@ -5,7 +5,7 @@ import {
   InputDTO,
 } from '@shared/hardware-config/input-config/base-input-config';
 import { getQualifiedInputId } from '@shared/util';
-import { InputPluginManifest } from '@shared/plugin-core/input-plugin-manifest';
+import { InputPluginManifest } from '@plugins/core/input-plugin-manifest';
 import { ConfigManager } from '@main/config-manager';
 
 import { INPUT_CONFIG } from './ipc-channels';
