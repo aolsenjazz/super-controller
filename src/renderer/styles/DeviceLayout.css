@@ -18,12 +18,13 @@
 
 /* positional stuff for the device layout really belongs in a parent file */
 .device-layout {
-  margin-left: 50%;
   position: relative;
+  left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   border: solid 1px #bcbec0;
   max-height: 90%;
+  max-width: 90%;
 }
 
 #device-panel .device-container.configured * {
