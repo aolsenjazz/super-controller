@@ -66,10 +66,10 @@ function upgradeAnonymousDevice(
     const translator = new TranslatorPlugin(config.id);
 
     d.overrides.forEach((v, k) => {
-      const msg = JSON.parse(k);
+      const msg = JSON.parse(k).args[0];
       const msgAsStr = toString(msg);
 
-      translator.overrides[msgAsStr] = v;
+      translator.overrides[msgAsStr] = v.array;
     });
 
     plugins.push(translator);
