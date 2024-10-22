@@ -19,7 +19,7 @@ export default function GUI(props: PluginUIProps<TranslatorDTO>) {
     <div className="translator">
       <MidiEventTable
         setSelectedSource={setSelectedSource}
-        deviceName={selectedDevice.driverName}
+        deviceName={selectedDevice.portName}
         deviceId={selectedDevice.id}
       />
 

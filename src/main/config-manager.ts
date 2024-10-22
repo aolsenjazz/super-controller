@@ -1,3 +1,4 @@
+import TranslatorPlugin from '@plugins/device-plugins/translator';
 import BacklightControlPlugin from '@plugins/input-plugins/backlight-control';
 import BasicOverridePlugin from '@plugins/input-plugins/basic-override';
 import {
@@ -8,6 +9,8 @@ import { InteractiveInputDriver } from '@shared/driver-types/input-drivers';
 import { Anonymous, DRIVERS, getDriver } from '@shared/drivers';
 import { configFromDriver } from '@shared/hardware-config';
 import { AdapterDeviceConfig } from '@shared/hardware-config/adapter-device-config';
+import { AnonymousDeviceConfig } from '@shared/hardware-config/anonymous-device-config';
+import { DeviceConfig } from '@shared/hardware-config/device-config';
 import { inputConfigsFromDriver } from '@shared/hardware-config/input-config';
 import { BaseInputConfig } from '@shared/hardware-config/input-config/base-input-config';
 import { MonoInputConfig } from '@shared/hardware-config/input-config/mono-input-config';
@@ -47,6 +50,9 @@ class ConfigManagerClass {
     const config = configFromDriver(deviceName, siblingIdx, driver);
     DeviceRegistry.register(config.id, config);
 
+    // add default plugins
+    this.addDefaultDevicePlugins(config);
+
     // update port services
     HardwarePortService.onConfigChange({ action: 'add', changed: [config] });
     VirtualPortService.onConfigChange({ action: 'add', changed: [config] });
@@ -61,6 +67,16 @@ class ConfigManagerClass {
     }
 
     MainWindow.edited = true;
+  }
+
+  private addDefaultDevicePlugins(config: DeviceConfig) {
+    if (config instanceof AnonymousDeviceConfig) {
+      const translator = new TranslatorPlugin(config.id);
+      PluginRegistry.register(translator.id, translator);
+      config.plugins.push(translator.id);
+
+      MainWindow.upsertPlugin(translator.toDTO());
+    }
   }
 
   public async addDevicePlugin(deviceId: string, m: BasePluginManifest) {
