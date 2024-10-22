@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { PadDriver } from '@shared/driver-types/input-drivers/pad-driver';
 import { useAppSelector } from '@hooks/use-app-dispatch';
-import { testLoopback } from '@features/recent-loopback-messages/recent-loopback-messages-slice';
+import { selectRecentLoopbackMessages } from '@features/recent-loopback-messages/recent-loopback-messages-slice';
 import { msgEquals, sumMidiArrays } from '@shared/util';
 import { Color } from '@shared/driver-types/color';
 import { FxDriver } from '@shared/driver-types/fx-driver';
@@ -14,14 +14,22 @@ type PropTypes = {
 
 export default function Pad(props: PropTypes) {
   const { driver, id } = props;
+  if (driver.number === 32) {
+    console.log(id);
+  }
 
-  const recentMessages = useAppSelector((state) => testLoopback(state, id));
+  const recentMessages = useAppSelector((state) =>
+    selectRecentLoopbackMessages(state, id)
+  );
 
   const [color, setColor] = useState<Color>();
   const [fx, setFx] = useState<FxDriver>();
 
   useEffect(() => {
-    if (!recentMessages || recentMessages.length === 0) return;
+    if (!recentMessages || recentMessages.length === 0) {
+      setColor(undefined);
+      return;
+    }
     const lastMsg = recentMessages.at(-1)!;
 
     driver.availableColors.forEach((c) => {

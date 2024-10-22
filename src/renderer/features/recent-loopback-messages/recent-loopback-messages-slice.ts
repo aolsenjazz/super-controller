@@ -13,8 +13,6 @@ type AddMessagePayload = {
 
 const initialState: Record<string, TimestampedMidiEvent[]> = {};
 
-// const initialState: Record<string, NumberArrayWithStatus[]> = {};
-
 export const recentLoopbackMessagesSlice = createAppSlice({
   name: 'recentLoopbackMessages',
 
@@ -42,5 +40,5 @@ export const recentLoopbackMessagesSlice = createAppSlice({
   }),
 });
 
-export const testLoopback = (state: RootState, id: string) =>
+export const selectRecentLoopbackMessages = (state: RootState, id: string) =>
   state.recentLoopbackMessages[id];
