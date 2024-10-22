@@ -1,8 +1,8 @@
 import type {
   MessageProcessor,
   MessageProcessorMeta,
-} from '@shared/message-processor';
-import { MessageTransport } from '@shared/message-transport';
+} from '../message-processor';
+import { MessageTransport } from '../message-transport';
 import { generateId } from './plugin-utils';
 
 export interface PluginDTO {
@@ -12,6 +12,7 @@ export interface PluginDTO {
   description: string;
   on: boolean;
   collapsed: boolean;
+  type: 'device' | 'input';
 }
 
 /**
@@ -41,6 +42,8 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
 
   public collapsed = false;
 
+  protected abstract type: 'input' | 'device';
+
   constructor(title: string, description: string, parentId: string) {
     this.title = title;
     this.description = description;
@@ -65,6 +68,7 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
       description: this.description,
       on: this.on,
       collapsed: this.collapsed,
+      type: this.type,
     } as T;
   }
 }

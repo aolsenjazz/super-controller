@@ -1,0 +1,36 @@
+.basic-override {
+  padding: 5px 8px 5px 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.basic-override label {
+  margin: 3px 0 3px 0;
+}
+
+.basic-override label select {
+  margin-left: 5px;
+}
+
+.basic-override .toggle-sections {
+  margin-top: 8px;
+  margin-bottom: 11px;
+}
+
+.basic-override .step-config {
+  display: flex;
+  flex-direction: column;
+}
+
+.basic-override .toggle-sections .step-config label {
+  margin-left: 8px;
+}
+
+.basic-override .toggle-sections > label:last-of-type {
+  margin-bottom: -4px;
+}
+
+.basic-override .step-selector {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}

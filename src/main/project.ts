@@ -1,15 +1,28 @@
 import { app } from 'electron';
 import Store from 'electron-store';
 import path from 'path';
-// import fs from 'fs';
+import fs from 'fs';
 
-// import { DeviceRegistry } from './device-registry';
+import { ProjectPOJO } from '@shared/project-pojo';
+import { getQualifiedInputId } from '@shared/util';
+import { deviceConfigFromDTO } from '@shared/hardware-config';
+import { inputConfigsFromDTO } from '@shared/hardware-config/input-config';
+
+import { upgradeProject } from 'helper/project-upgrader';
+
 import { HardwarePortService } from './port-service';
 import { VirtualPortService } from './port-service/virtual/virtual-port-service';
 import { WindowProvider } from './window-provider';
 import { dialogs } from './dialogs';
+import { InputRegistry } from './input-registry';
+import { PluginRegistry } from './plugin-registry';
+import { DeviceRegistry } from './device-registry';
+
+import { createPluginFromDTO } from './create-plugin-from-dto';
 
 const { MainWindow } = WindowProvider;
+
+export const CURRENT_VERSION = 6;
 
 /* The most-recently-used folder path */
 let currentPath: string | undefined;
@@ -24,11 +37,9 @@ function recommendedDir() {
 export async function initDefault() {
   currentPath = undefined;
 
-  MainWindow.title = 'Untitle project';
+  MainWindow.title = 'Untitled project';
   MainWindow.edited = false;
 
-  // const ids = DeviceRegistry.getAll().map((d) => d.id);
-  // MainWindow.sendConfiguredDevice(ids);
   HardwarePortService.onProjectChange();
   VirtualPortService.onProjectChange();
 }
@@ -36,36 +47,34 @@ export async function initDefault() {
 export async function loadProject(filePath: string) {
   app.addRecentDocument(filePath);
 
-  // const jsonString = fs.readFileSync(filePath, 'utf8');
-  currentPath = filePath;
-  // do something with jsonString
+  const jsonString = fs.readFileSync(filePath, 'utf8');
+  const proj = upgradeProject(jsonString) as ProjectPOJO;
 
-  HardwarePortService.onProjectChange();
+  proj.devices.forEach((d) => {
+    DeviceRegistry.register(d.id, deviceConfigFromDTO(d));
+  });
+
+  proj.inputs.forEach((i) => {
+    const config = inputConfigsFromDTO(i);
+    InputRegistry.register(getQualifiedInputId(i.deviceId, i.id), config);
+  });
+
+  for (let i = 0; i < proj.plugins.length; i++) {
+    // TODO: properly deal with this later
+    // eslint-disable-next-line no-await-in-loop
+    const plugin = await createPluginFromDTO(proj.plugins[i]);
+    PluginRegistry.register(plugin.id, plugin);
+  }
+
+  currentPath = filePath;
+
   MainWindow.title = `${filePath}.controller`;
   MainWindow.edited = false;
 
-  // const ids = DeviceRegistry.getAll().map((d) => d.id);
-  // MainWindow.sendConfiguredDevices(ids);
   HardwarePortService.onProjectChange();
   VirtualPortService.onProjectChange();
-}
 
-/**
- * Write current project to disk at `project`s default path. If no such default path
- * exists, create a saveAs dialog
- */
-export async function save() {
-  // if (currentPath === undefined) await saveAs();
-
-  // const asString = JSON.stringify(project.toDTO());
-  // fs.writeFileSync(currentPath!, asString, {});
-
-  app.addRecentDocument(currentPath!);
-  // TODO: might need to invoke some functions here
-  // this.emit(ProjectProviderEvent.Save, {
-  //   name: path.basename(this.currentPath!, '.controller'),
-  //   project: this.project,
-  // });
+  MainWindow.setConfiguredDevices(proj.devices);
 }
 
 /**
@@ -84,6 +93,25 @@ export async function saveAs() {
 
   currentPath = filePath;
   save();
+}
+
+/**
+ * Write current project to disk at `project`s default path. If no such default path
+ * exists, create a saveAs dialog
+ */
+export async function save() {
+  if (currentPath === undefined) await saveAs();
+
+  const projectObject = {
+    inputs: InputRegistry.getAll().map((i) => i.toDTO()),
+    devices: DeviceRegistry.getAll().map((d) => d.toDTO()),
+    plugins: PluginRegistry.getAll().map((p) => p.toDTO()),
+    version: CURRENT_VERSION,
+  };
+
+  fs.writeFileSync(currentPath!, JSON.stringify(projectObject), {});
+
+  app.addRecentDocument(currentPath!);
 }
 
 /**

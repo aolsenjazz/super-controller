@@ -15,8 +15,8 @@ import { inputConfigsFromDriver } from '@shared/hardware-config/input-config';
 import { BaseInputConfig } from '@shared/hardware-config/input-config/base-input-config';
 import { MonoInputConfig } from '@shared/hardware-config/input-config/mono-input-config';
 import { SupportedDeviceConfig } from '@shared/hardware-config/supported-device-config';
+import { BaseDevicePlugin } from '@shared/plugin-core/base-device-plugin';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
-import { BasePlugin } from '@shared/plugin-core/base-plugin';
 import { BasePluginManifest } from '@shared/plugin-core/base-plugin-manifest';
 import { InputPluginManifest } from '@shared/plugin-core/input-plugin-manifest';
 import { getQualifiedInputId } from '@shared/util';
@@ -86,7 +86,7 @@ class ConfigManagerClass {
 
     // Dynamically import plugin module, instantiate, register
     const Plugin = await importDeviceSubcomponent(m.title, 'plugin');
-    const plugin: BasePlugin = new Plugin(deviceId);
+    const plugin: BaseDevicePlugin = new Plugin(deviceId);
     dev.plugins.push(plugin.id);
 
     PluginRegistry.register(plugin.id, plugin);

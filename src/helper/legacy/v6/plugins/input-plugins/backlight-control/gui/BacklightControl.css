@@ -1,0 +1,68 @@
+#backlight-config {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+#backlight-config label > select {
+  margin-left: 4px;
+}
+
+#backlight-config .step-selector {
+  margin-top: 8px;
+}
+
+#backlight-config .color-sample {
+  height: 16px;
+  width: 16px;
+  display: inline-block;
+  border-radius: 3px;
+  margin-right: 3px;
+  border: 1px solid #dbd7d8;
+  margin-left: 8px;
+}
+
+.color-config-container {
+  display: flex;
+  margin-top: 5px;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+#backlight-config p {
+  line-height: 17px;
+}
+
+.color-select-container {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0 5px 0;
+}
+
+.color-config-container:last-child {
+  border-bottom: none;
+}
+
+#backlight-config .fx-setting {
+  display: flex;
+  margin-top: 4px;
+  padding-bottom: 10px;
+}
+
+#backlight-config .fx-setting .slider {
+  position: relative;
+  width: 55%;
+  margin-top: 6px;
+  margin-left: 15px;
+  height: 20px;
+}
+
+#backlight-config .fx-setting .slider input {
+  background-color: gray;
+  color: gray;
+}
+
+#backlight-config .fx-setting .slider p {
+  font-size: 9px;
+  opacity: 0.7;
+}

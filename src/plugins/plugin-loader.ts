@@ -1,11 +1,13 @@
 import type { BasePluginManifest } from '@shared/plugin-core/base-plugin-manifest';
 import { waitForArray } from '@shared/util';
 
-import type { BasePlugin } from '@shared/plugin-core/base-plugin';
+import type { PluginDTO } from '@shared/plugin-core/base-plugin';
 import type { PluginUIProps } from '@shared/plugin-core/plugin-ui-props';
 import { BaseInputPlugin } from '@shared/plugin-core/base-input-plugin';
 import { BaseInputDriver } from '@shared/driver-types/input-drivers/base-input-driver';
 import { InputPluginManifest } from '@shared/plugin-core/input-plugin-manifest';
+import { BaseDevicePlugin } from '@shared/plugin-core/base-device-plugin';
+import { MonoInteractiveDriver } from '@shared/driver-types/input-drivers/mono-interactive-driver';
 
 /**
  * List of available device plugin manifests, used for subcomponent discovery + import
@@ -97,11 +99,16 @@ export async function getInputManifests() {
   return inputManifests;
 }
 
+type DevicePluginConstructorWithStatic = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  new (...args: any[]): BaseDevicePlugin;
+  fromDTO: (dto: PluginDTO) => BaseDevicePlugin;
+};
+
 type DeviceComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'
   ? React.FC<PluginUIProps>
   : T extends 'plugin'
-  ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    new (...args: any[]) => BasePlugin
+  ? DevicePluginConstructorWithStatic
   : T extends 'ipc'
   ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
     any
@@ -127,11 +134,15 @@ export async function importDeviceSubcomponent<
 
 type InputComponentArgs = [parentId: string, driver: BaseInputDriver];
 
+type InputPluginConstructorWithStatic = {
+  new (...args: InputComponentArgs): BaseInputPlugin;
+  fromDTO: (dto: PluginDTO, driver: MonoInteractiveDriver) => BaseInputPlugin;
+};
+
 type InputComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'
   ? React.FC<PluginUIProps>
   : T extends 'plugin'
-  ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    new (...args: InputComponentArgs) => BaseInputPlugin
+  ? InputPluginConstructorWithStatic
   : T extends 'ipc'
   ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
     any

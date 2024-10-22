@@ -25,6 +25,7 @@ import { DeviceRegistry } from '@main/device-registry';
 import { PluginRegistry } from '@main/plugin-registry';
 import { InputRegistry } from '@main/input-registry';
 import { MessageTransport } from '@shared/message-transport';
+import { getQualifiedInputId } from '@shared/util';
 
 import { PortScanResult, PortManager } from './port-manager';
 import { PortPair } from './port-pair';
@@ -86,7 +87,7 @@ export class HardwarePortServiceSingleton {
   public syncDevice(deviceId: string) {
     const config = DeviceRegistry.get(deviceId)!;
     const loopbackTransport = this.ports.get(deviceId)!;
-    config.init(loopbackTransport, PluginRegistry);
+    config.init(loopbackTransport, PluginRegistry, InputRegistry);
   }
 
   public syncInput(qualifiedInputId: string) {
@@ -212,7 +213,7 @@ export class HardwarePortServiceSingleton {
 
     if (config) {
       // init
-      config.init(pair, PluginRegistry);
+      config.init(pair, PluginRegistry, InputRegistry);
 
       // set onMessage
       pair.onMessage((_delta, msg) => {
@@ -227,13 +228,24 @@ export class HardwarePortServiceSingleton {
           loopbackTransport
         );
 
-        const message = config.process(msg, {
+        const meta = {
           loopbackTransport: inclusiveLoopback,
           remoteTransport,
           loopbackTransports: VirtualPortService.ports,
           remoteTransports: this.ports,
           pluginProvider: PluginRegistry,
-        });
+          inputProvider: InputRegistry,
+        };
+
+        // process at a DeviceConfig level
+        let message = config.process(msg, meta);
+        const inputConfig = InputRegistry.get(
+          getQualifiedInputId(config.id, inputId)
+        );
+
+        // process at an InputConfig level
+        if (inputConfig && message)
+          message = inputConfig.process(message, meta);
 
         if (message) remoteTransport.send(message);
 
