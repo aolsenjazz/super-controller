@@ -14,7 +14,7 @@ export class SwitchConfig extends MonoInputConfig {
 
   public type = 'switch' as const;
 
-  private steps: SwitchStepConfig[] = [];
+  public steps: SwitchStepConfig[] = [];
 
   public constructor(deviceId: string, nickname: string, driver: SwitchDriver) {
     super(deviceId, nickname, [], driver);
