@@ -40,6 +40,7 @@ export class DiscreteMessageResolver extends MessageResolver {
     'noteoff',
     'controlchange',
     'programchange',
+    'sysex',
   ] as StatusString[];
 
   private defaults: Record<number, NumberArrayWithStatus> = {};

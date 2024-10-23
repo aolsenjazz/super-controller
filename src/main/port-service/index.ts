@@ -257,14 +257,7 @@ export class HardwarePortServiceSingleton {
         };
 
         // process at a DeviceConfig level
-        let message = config.process(msg, meta);
-        const inputConfig = InputRegistry.get(
-          getQualifiedInputId(config.id, inputId)
-        );
-
-        // process at an InputConfig level
-        if (inputConfig && message)
-          message = inputConfig.process(message, meta);
+        const message = config.process(msg, meta);
 
         if (message) remoteTransport.send(message);
 
