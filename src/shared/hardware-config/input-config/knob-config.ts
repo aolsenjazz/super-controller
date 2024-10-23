@@ -42,7 +42,7 @@ export class KnobConfig extends MonoInputConfig {
       ...super.toDTO(),
       defaults: this.defaults,
       className: this.constructor.name,
-      valueType: this.defaults.knobType, // TODO: this will be buggy
+      valueType: this.defaults.knobType,
       type: this.type,
     };
   }

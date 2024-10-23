@@ -24,7 +24,7 @@ export class SwitchConfig extends MonoInputConfig {
       statusString: byteToStatusString(initialStep[0], true),
       number: initialStep[1] as MidiNumber,
       channel: (initialStep[0] & 0x0f) as Channel,
-      response: 'enumerated',
+      response: 'n-step',
     };
 
     for (let i = 0; i < driver.steps.length; i++) {

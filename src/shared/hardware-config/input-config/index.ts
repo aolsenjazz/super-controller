@@ -10,6 +10,8 @@ import { BaseInputConfig, InputDTO } from './base-input-config';
 import { DRIVERS } from '../../drivers';
 import { inputIdFromDriver } from '../../util';
 import { MonoInputDTO } from './mono-input-dto';
+import { XYDriver } from '../../driver-types/input-drivers/xy-driver';
+import { InputDriverWithHandle } from '../../driver-types/input-drivers/input-driver-with-handle';
 
 function findDriver(config: InputDTO): InteractiveInputDriver {
   const splitIdx = config.deviceId.lastIndexOf(' ');
@@ -33,61 +35,54 @@ function findDriver(config: InputDTO): InteractiveInputDriver {
   return inputDriver;
 }
 
-/**
- * TODO: This function really could use a cleanup
- */
+function createXYConfig(other: InputDTO, d: XYDriver) {
+  const XConfig = d.x.status === 'pitchbend' ? PitchbendConfig : SliderConfig;
+  const YConfig = d.y.status === 'pitchbend' ? PitchbendConfig : SliderConfig;
+
+  const x = new XConfig(other.id, '', [], d.x);
+  const y = new YConfig(other.id, '', [], d.y);
+
+  return new XYConfig(other.deviceId, other.nickname, d, x, y);
+}
+
+function createSliderOrWheelConfig(other: InputDTO, d: InputDriverWithHandle) {
+  const asMono = other as MonoInputDTO;
+
+  return asMono.defaults.statusString === 'pitchbend'
+    ? new PitchbendConfig(other.deviceId, other.nickname, asMono.plugins, d)
+    : new SliderConfig(other.deviceId, other.nickname, asMono.plugins, d);
+}
+
 export function inputConfigsFromDTO(other: InputDTO): BaseInputConfig {
-  let config: BaseInputConfig;
   const d = findDriver(other);
 
-  if (d.type === 'xy') {
-    const XConfig = d.x.status === 'pitchbend' ? PitchbendConfig : SliderConfig;
-    const YConfig = d.y.status === 'pitchbend' ? PitchbendConfig : SliderConfig;
-
-    const x = new XConfig(other.id, '', [], d.x);
-    const y = new YConfig(other.id, '', [], d.y);
-
-    config = new XYConfig(other.deviceId, other.nickname, d, x, y);
-  } else if (d.type === 'switch') {
-    config = new SwitchConfig(other.deviceId, other.nickname, d);
-    // TODO: do I need to create switch configs here?
-  } else if (d.type === 'knob') {
-    config = new KnobConfig(
-      other.deviceId,
-      other.nickname,
-      (other as MonoInputDTO).plugins,
-      d
-    );
-  } else if (d.type === 'pad') {
-    config = new PadConfig(
-      other.deviceId,
-      other.nickname,
-      (other as MonoInputDTO).plugins,
-      d
-    );
-  } else if (d.type === 'slider' || d.type === 'wheel') {
-    const asMono = other as MonoInputDTO;
-
-    if (asMono.defaults.statusString === 'pitchbend') {
-      config = new PitchbendConfig(
+  switch (d.type) {
+    case 'xy':
+      return createXYConfig(other, d);
+    case 'switch':
+      // TODO: do I need to create switch configs here?
+      return new SwitchConfig(other.deviceId, other.nickname, d);
+    case 'knob':
+      return new KnobConfig(
         other.deviceId,
         other.nickname,
-        asMono.plugins,
+        (other as MonoInputDTO).plugins,
         d
       );
-    } else {
-      config = new SliderConfig(
+    case 'pad':
+      return new PadConfig(
         other.deviceId,
         other.nickname,
-        asMono.plugins,
+        (other as MonoInputDTO).plugins,
         d
       );
+    case 'slider':
+    case 'wheel': {
+      return createSliderOrWheelConfig(other, d);
     }
-  } else {
-    throw new Error(`unaccounted for input ${JSON.stringify(other)}`);
+    default:
+      throw new Error(`unaccounted for input ${JSON.stringify(other)}`);
   }
-
-  return config;
 }
 
 export function inputConfigsFromDriver(

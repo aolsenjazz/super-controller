@@ -21,7 +21,7 @@ export interface DeviceConfigDTO extends BaseIcicle {
  * Base interface for SupportedDeviceConfig and AnonymousDeviceConfig.
  */
 export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
-  implements MessageProcessor
+  implements MessageProcessor 
 {
   /**
    * MIDI-driver-reported name. E.g. for Launchkey Mini MK3:
@@ -83,9 +83,6 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
     return `${this.portName} ${this.siblingIndex}`;
   }
 
-  /**
-   * TODO: is this really how I want to implement this?
-   */
   public get nickname() {
     return this._nickname !== undefined ? this._nickname : this.portName;
   }

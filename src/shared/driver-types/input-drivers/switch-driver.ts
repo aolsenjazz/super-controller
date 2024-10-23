@@ -3,7 +3,7 @@ import { MonoInteractiveDriver } from './mono-interactive-driver';
 export interface SwitchDriver extends MonoInteractiveDriver {
   readonly type: 'switch';
 
-  readonly response: 'enumerated';
+  readonly response: 'n-step';
 
   /**
    * The default MIDI message sent for each step. Note that order is

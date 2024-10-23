@@ -1,4 +1,4 @@
-import { MonoInteractiveDriver } from '../../types';
+import { MonoInteractiveDriver, SwitchDriver } from '../../types';
 import { BaseInputPlugin } from '../../core/base-input-plugin';
 import { PluginDTO } from '../../core/base-plugin';
 
@@ -136,10 +136,6 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
     // Determine the output strategy from DTO or fallback to driver's response
     const outputStrategy = dto?.outputStrategy || driver.response;
 
-    if (outputStrategy === 'enumerated') {
-      throw new Error('Unsure of how to handle response strategy enumerated');
-    }
-
     // Initialize stateManager based on driver's response strategy
     switch (driver.response) {
       case 'gate':
@@ -151,8 +147,12 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
       case 'continuous':
         this.stateManager = new ContinuousStateManager();
         break;
-      case 'enumerated':
-        throw new Error('Unsure how to handle enumerated response');
+      case 'n-step':
+        this.stateManager = new TriggerStateManager(
+          (driver as SwitchDriver).response,
+          (driver as SwitchDriver).steps.length
+        );
+        break;
       default:
         this.stateManager = new TriggerStateManager(driver.response);
         break;

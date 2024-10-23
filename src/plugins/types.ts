@@ -19,6 +19,7 @@ export type { DeviceConfigDTO } from '../shared/hardware-config/device-config';
 
 // driver types
 export type { MonoInteractiveDriver } from '../shared/driver-types/input-drivers/mono-interactive-driver';
+export type { SwitchDriver } from '../shared/driver-types/input-drivers/switch-driver';
 export type { BaseInputDriver } from '../shared/driver-types/input-drivers/base-input-driver';
 export type { Color } from '../shared/driver-types/color';
 export type { FxDriver } from '../shared/driver-types/fx-driver';

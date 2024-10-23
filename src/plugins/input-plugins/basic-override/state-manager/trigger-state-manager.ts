@@ -17,10 +17,16 @@ export class TriggerStateManager extends StateManager {
 
   private _outputStrategy: 'toggle' | 'constant' | 'n-step' = 'toggle';
 
-  public constructor(outputStrategy: TriggerStateManager['_outputStrategy']) {
+  public constructor(
+    outputStrategy: TriggerStateManager['_outputStrategy'] | 'enumerated',
+    nSteps?: number
+  ) {
     super();
 
-    this.outputStrategy = outputStrategy;
+    this.outputStrategy =
+      outputStrategy === 'enumerated' ? 'n-step' : outputStrategy;
+
+    if (nSteps !== undefined) this.totalStates = nSteps;
   }
 
   public get outputStrategy() {
