@@ -29,6 +29,7 @@ export const inputConfigsSlice = createAppSlice({
   initialState,
 
   reducers: {
+    setAll: inputConfigsEntityAdapter.setAll,
     upsertOne: inputConfigsEntityAdapter.upsertOne,
     upsertMany: inputConfigsEntityAdapter.upsertMany,
     removeMany: inputConfigsEntityAdapter.removeMany,

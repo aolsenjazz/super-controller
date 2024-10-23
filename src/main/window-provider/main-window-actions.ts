@@ -73,6 +73,13 @@ export class MainWindowActions extends StatefulWindowActions {
     });
   }
 
+  public setInputConfigs(configs: InputDTO[]) {
+    this.sendReduxEvent({
+      type: 'inputConfigs/setAll',
+      payload: configs,
+    });
+  }
+
   public upsertPlugin(dto: PluginDTO) {
     this.sendReduxEvent({
       type: 'plugins/upsertOne',
@@ -83,6 +90,13 @@ export class MainWindowActions extends StatefulWindowActions {
   public removePlugins(plugins: string[]) {
     this.sendReduxEvent({
       type: 'plugins/removeMany',
+      payload: plugins,
+    });
+  }
+
+  public setPlugins(plugins: PluginDTO[]) {
+    this.sendReduxEvent({
+      type: 'plugins/setAll',
       payload: plugins,
     });
   }

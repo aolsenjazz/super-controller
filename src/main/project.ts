@@ -40,6 +40,10 @@ export async function initDefault() {
   MainWindow.title = 'Untitled project';
   MainWindow.edited = false;
 
+  MainWindow.setConfiguredDevices([]);
+  MainWindow.setInputConfigs([]);
+  MainWindow.setPlugins([]);
+
   HardwarePortService.onProjectChange();
   VirtualPortService.onProjectChange();
 }

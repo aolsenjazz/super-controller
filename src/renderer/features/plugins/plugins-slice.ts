@@ -26,6 +26,7 @@ export const pluginsSlice = createAppSlice({
   name: 'plugins',
   initialState,
   reducers: {
+    setAll: pluginsEntityAdapter.setAll,
     upsertMany: pluginsEntityAdapter.upsertMany,
     upsertOne: pluginsEntityAdapter.upsertOne,
     removeOne: pluginsEntityAdapter.removeOne,

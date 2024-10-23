@@ -1,6 +1,7 @@
+import OsxTabs from 'renderer/components/OsxTabs';
+
 import { DiscreteMessageResolverDTO } from '../../../message-resolver/discrete-message-resolver';
 
-import OsxTabs from 'renderer/components/OsxTabs';
 import StepConfig from './step-config/StepConfig';
 
 type PropTypes = {
