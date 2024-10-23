@@ -15,10 +15,10 @@ export class ColorConfigPropagator extends Propagator<
   InputResponse
 > {
   /* Which colors are set for which state */
-  protected colorBindings: Map<number, Color>;
+  public colorBindings: Map<number, Color>;
 
   /* Which fx values are set for each state */
-  protected fxBindings: Map<number, MidiNumber[]>;
+  public fxBindings: Map<number, MidiNumber[]>;
 
   /**
    * Default color to be returned for getResponse() && repeat()

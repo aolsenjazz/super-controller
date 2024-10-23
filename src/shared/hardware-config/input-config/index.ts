@@ -12,10 +12,12 @@ import { inputIdFromDriver } from '../../util';
 import { MonoInputDTO } from './mono-input-dto';
 
 function findDriver(config: InputDTO): InteractiveInputDriver {
-  const parentDriver = DRIVERS.get(config.deviceId);
+  const splitIdx = config.deviceId.lastIndexOf(' ');
+  const parentName = config.deviceId.substring(0, splitIdx);
+  const parentDriver = DRIVERS.get(parentName);
 
   if (!parentDriver)
-    throw new Error(`unable to locate driver for id ${config.deviceId}`);
+    throw new Error(`unable to locate driver for device id ${config.deviceId}`);
 
   const inputDriver = parentDriver.inputGrids
     .flatMap((g) => g.inputs)
@@ -63,7 +65,7 @@ export function inputConfigsFromDTO(other: InputDTO): BaseInputConfig {
       (other as MonoInputDTO).plugins,
       d
     );
-  } else if (d.type === 'slider') {
+  } else if (d.type === 'slider' || d.type === 'wheel') {
     const asMono = other as MonoInputDTO;
 
     if (asMono.defaults.statusString === 'pitchbend') {
@@ -82,7 +84,7 @@ export function inputConfigsFromDTO(other: InputDTO): BaseInputConfig {
       );
     }
   } else {
-    throw new Error(`unaccounted for input ${other}`);
+    throw new Error(`unaccounted for input ${JSON.stringify(other)}`);
   }
 
   return config;

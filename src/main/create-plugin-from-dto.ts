@@ -11,12 +11,13 @@ import { inputIdFromDriver } from '@shared/util';
 function findInputDriver(dto: PluginDTO) {
   const parts = dto.parentId.split('::');
   const deviceId = parts[0];
+  const deviceName = deviceId.substring(0, deviceId.lastIndexOf(' '));
   const inputId = parts[1];
 
-  const parentDriver = DRIVERS.get(deviceId);
+  const parentDriver = DRIVERS.get(deviceName);
 
   if (!parentDriver)
-    throw new Error(`unable to locate driver for id ${deviceId}`);
+    throw new Error(`unable to locate device driver for id ${deviceName}`);
 
   const inputDriver = parentDriver.inputGrids
     .flatMap((g) => g.inputs)

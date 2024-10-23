@@ -55,6 +55,7 @@ export async function loadProject(filePath: string) {
     // eslint-disable-next-line no-await-in-loop
     const plugin = await createPluginFromDTO(proj.plugins[i]);
     PluginRegistry.register(plugin.id, plugin);
+
     MainWindow.upsertPlugin(plugin.toDTO());
   }
 

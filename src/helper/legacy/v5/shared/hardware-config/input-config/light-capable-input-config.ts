@@ -34,7 +34,7 @@ export interface ColorCapableInputConfigStub extends MonoInputConfigStub {
 }
 
 export abstract class LightCapableInputConfig extends MonoInputConfig {
-  protected readonly devicePropagator: ColorConfigPropagator;
+  public readonly devicePropagator: ColorConfigPropagator;
 
   readonly availableColors: Color[];
 

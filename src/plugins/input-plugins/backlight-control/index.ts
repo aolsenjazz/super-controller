@@ -91,7 +91,12 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
       availableStates.forEach((s) => this.restoreDefaultFx(s));
     }
 
-    if (dto) this.applyDTO(dto);
+    if (dto) {
+      this.colorBindings = dto.colorBindings;
+      this.fxBindings = dto.fxBindings;
+      this.fxValueBindings = dto.fxValueBindings;
+      this.stateManager.outputStrategy = dto.outputResponse;
+    }
   }
 
   public init(loopbackTransport: MessageTransport) {

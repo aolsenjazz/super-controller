@@ -10,7 +10,7 @@ import './translator.css';
 
 export default function GUI(props: PluginUIProps<TranslatorDTO>) {
   const { plugin, selectedDevice, applyChanges } = props;
-  console.log(plugin);
+
   const [selectedSource, setSelectedSource] = useState<
     NumberArrayWithStatus | undefined
   >(undefined);
