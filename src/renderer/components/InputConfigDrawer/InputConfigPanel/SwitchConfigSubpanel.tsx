@@ -1,12 +1,13 @@
+import { ReactElement } from 'react';
+
 import { selectManyInputConfigs } from '@features/input-configs/input-configs-slice';
 import { useAppSelector } from '@hooks/use-app-dispatch';
 import { SwitchDTO } from '@shared/hardware-config/input-config/switch-config';
 import { SwitchStepDTO } from '@shared/hardware-config/input-config/switch-step-config';
 import { getQualifiedInputId } from '@shared/util';
 
-import { ReactElement } from 'react';
 import OsxTabs from 'renderer/components/OsxTabs';
-import MonoInputConfigPanel from '../MonoInputConfigSubpanel';
+import MonoInputConfigPanel from './MonoInputConfigSubpanel';
 
 type PropTypes = {
   input: SwitchDTO;
