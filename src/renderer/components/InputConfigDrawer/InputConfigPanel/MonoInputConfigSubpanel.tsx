@@ -6,7 +6,7 @@ import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dt
 
 import PluginSlot from 'renderer/components/PluginSubpanel/PluginSlot';
 
-import InputDefaultsSubpanel from '../InputDefaultsSubpanel';
+import InputDefaultsSubpanel from './InputDefaultsSubpanel';
 
 type PropTypes = {
   input: MonoInputDTO;
