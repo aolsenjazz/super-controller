@@ -116,9 +116,10 @@ export async function save() {
     version: CURRENT_VERSION,
   };
 
-  fs.writeFileSync(currentPath!, JSON.stringify(projectObject), {});
+  fs.writeFileSync(currentPath!, JSON.stringify(projectObject));
 
   app.addRecentDocument(currentPath!);
+  MainWindow.edited = false;
 }
 
 /**
