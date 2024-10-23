@@ -39,6 +39,8 @@ ipcMain.on(
       config.applyStub(updates);
       MainWindow.upsertConfiguredDevice(config.toDTO());
     }
+
+    MainWindow.edited = true;
   }
 );
 

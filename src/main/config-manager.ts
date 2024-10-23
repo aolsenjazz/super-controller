@@ -69,16 +69,6 @@ class ConfigManagerClass {
     MainWindow.edited = true;
   }
 
-  private addDefaultDevicePlugins(config: DeviceConfig) {
-    if (config instanceof AnonymousDeviceConfig) {
-      const translator = new TranslatorPlugin(config.id);
-      PluginRegistry.register(translator.id, translator);
-      config.plugins.push(translator.id);
-
-      MainWindow.upsertPlugin(translator.toDTO());
-    }
-  }
-
   public async addDevicePlugin(deviceId: string, m: BasePluginManifest) {
     const dev = DeviceRegistry.get(deviceId);
 
@@ -94,6 +84,8 @@ class ConfigManagerClass {
     // Tell the frontend
     MainWindow.upsertPlugin(plugin.toDTO());
     MainWindow.upsertConfiguredDevice(dev.toDTO());
+
+    MainWindow.edited = true;
   }
 
   public removeDevicePlugin(deviceId: string, pluginId: string) {
@@ -105,6 +97,8 @@ class ConfigManagerClass {
 
       const allDevices = DeviceRegistry.getAll().map((c) => c.toDTO());
       MainWindow.setConfiguredDevices(allDevices);
+
+      MainWindow.edited = true;
     }
   }
 
@@ -118,6 +112,8 @@ class ConfigManagerClass {
 
     PluginRegistry.deregister(pluginId);
     MainWindow.upsertInputConfig(inputConfig.toDTO());
+
+    MainWindow.edited = true;
   }
 
   public setAdapterChild(deviceId: string, childDriverName: string) {
@@ -185,6 +181,8 @@ class ConfigManagerClass {
 
     MainWindow.upsertPlugin(plugin.toDTO());
     MainWindow.upsertInputConfig(input.toDTO());
+
+    MainWindow.edited = true;
   }
 
   /**
@@ -217,6 +215,16 @@ class ConfigManagerClass {
     // send to main window
     const inputDTOs = inputs.map((i) => i.toDTO());
     MainWindow.upsertInputConfigs(inputDTOs);
+  }
+
+  private addDefaultDevicePlugins(config: DeviceConfig) {
+    if (config instanceof AnonymousDeviceConfig) {
+      const translator = new TranslatorPlugin(config.id);
+      PluginRegistry.register(translator.id, translator);
+      config.plugins.push(translator.id);
+
+      MainWindow.upsertPlugin(translator.toDTO());
+    }
   }
 
   private removeInputConfigs(configs: BaseInputConfig[]) {

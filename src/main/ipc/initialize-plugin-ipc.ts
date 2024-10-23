@@ -17,6 +17,7 @@ ipcMain.on(PLUGIN.POWER, (_e: IpcMainEvent, pluginId: string) => {
   plugin.on = !plugin.on;
 
   MainWindow.upsertPlugin(plugin.toDTO());
+  MainWindow.edited = true;
 });
 
 ipcMain.on(PLUGIN.COLLAPSED, (_e: IpcMainEvent, pluginId: string) => {
@@ -27,6 +28,7 @@ ipcMain.on(PLUGIN.COLLAPSED, (_e: IpcMainEvent, pluginId: string) => {
   plugin.collapsed = !plugin.collapsed;
 
   MainWindow.upsertPlugin(plugin.toDTO());
+  MainWindow.edited = true;
 });
 
 ipcMain.on(PLUGIN.UPDATE, (_e: IpcMainEvent, dto: PluginDTO) => {
@@ -42,6 +44,7 @@ ipcMain.on(PLUGIN.UPDATE, (_e: IpcMainEvent, dto: PluginDTO) => {
   }
 
   MainWindow.upsertPlugin(plugin.toDTO());
+  MainWindow.edited = true;
 });
 
 ipcMain.on(PLUGIN.GET_ALL_PLUGINS, (e: IpcMainEvent) => {
