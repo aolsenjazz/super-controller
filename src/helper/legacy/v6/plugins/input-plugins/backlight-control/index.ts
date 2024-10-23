@@ -65,7 +65,7 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     driver: MonoInteractiveDriver,
     dto?: BacklightControlDTO
   ) {
-    super(Manifest.title, Manifest.description, parentId, driver);
+    super(Manifest.title, Manifest.description, parentId, driver, dto?.id);
 
     this.availableColors = driver.availableColors;
     this.availableFx = driver.availableFx;

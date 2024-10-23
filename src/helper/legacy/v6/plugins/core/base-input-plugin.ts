@@ -20,9 +20,10 @@ export abstract class BaseInputPlugin<
     title: string,
     description: string,
     parentId: string,
-    driver: BaseInputPlugin['driver']
+    driver: BaseInputPlugin['driver'],
+    id?: string
   ) {
-    super(title, description, parentId);
+    super(title, description, parentId, id);
 
     this.driver = driver;
   }

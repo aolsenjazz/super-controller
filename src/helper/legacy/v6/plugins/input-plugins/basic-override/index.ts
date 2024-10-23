@@ -53,7 +53,13 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
     dto: BasicOverrideDTO,
     driver: MonoInteractiveDriver
   ) {
-    return new BasicOverridePlugin(dto.parentId, driver, dto);
+    const p = new BasicOverridePlugin(dto.parentId, driver, dto);
+    p.applyDTO(dto);
+    // apply twice; first time forces change to correct message resolver,
+    // 2nd time apply message resovler attributes
+    // TODO: this is horrible
+    p.applyDTO(dto);
+    return p;
   }
 
   public constructor(
@@ -61,7 +67,7 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
     driver: MonoInteractiveDriver,
     dto?: BasicOverrideDTO
   ) {
-    super(Manifest.title, Manifest.description, parentId, driver);
+    super(Manifest.title, Manifest.description, parentId, driver, dto?.id);
     this.driver = driver;
 
     if (driver.response === 'gate') {
@@ -84,8 +90,6 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
           ? new DiscreteMessageResolver(driver.response, driver)
           : new BinaryMessageResolver(driver);
     }
-
-    if (dto) this.applyDTO(dto);
   }
 
   public process(msg: NumberArrayWithStatus) {
@@ -107,7 +111,10 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
 
   public applyDTO(other: BasicOverrideDTO) {
     if (other.outputStrategy !== this.stateManager.outputStrategy) {
-      if (other.outputStrategy === 'gate') {
+      if (
+        other.outputStrategy === 'gate' ||
+        other.outputStrategy === 'toggle'
+      ) {
         this.messageResolver = new BinaryMessageResolver(this.driver);
       } else if (other.outputStrategy === 'continuous') {
         this.messageResolver =

@@ -13,14 +13,15 @@ export default class TranslatorPlugin extends BaseDevicePlugin<TranslatorDTO> {
   overrides: Record<string, NumberArrayWithStatus | undefined> = {};
 
   public static override fromDTO(dto: TranslatorDTO) {
-    return new TranslatorPlugin(dto.parentId, dto.overrides);
+    return new TranslatorPlugin(dto.parentId, dto.id, dto.overrides);
   }
 
   public constructor(
     parentId: string,
+    id?: string,
     overrides?: TranslatorPlugin['overrides']
   ) {
-    super(Manifest.title, Manifest.description, parentId);
+    super(Manifest.title, Manifest.description, parentId, id);
 
     if (overrides) {
       this.overrides = overrides;

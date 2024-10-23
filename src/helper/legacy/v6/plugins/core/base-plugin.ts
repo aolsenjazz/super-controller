@@ -41,11 +41,16 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
 
   public abstract type: 'input' | 'device';
 
-  constructor(title: string, description: string, parentId: string) {
+  constructor(
+    title: string,
+    description: string,
+    parentId: string,
+    id?: string
+  ) {
     this.title = title;
     this.description = description;
     this.parentId = parentId;
-    this.id = generateId(this.title);
+    this.id = id || generateId(this.title);
   }
 
   public abstract init(loopbackTransport: MessageTransport): void;

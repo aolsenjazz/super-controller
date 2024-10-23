@@ -24,12 +24,21 @@ import { DRIVERS } from './legacy/v6/shared/drivers';
 import { inputConfigsFromDriver } from './legacy/v6/shared/hardware-config/input-config';
 import { InteractiveInputDriver } from './legacy/v5/shared/driver-types';
 import { inputIdFromDriver } from './legacy/v6/shared/util';
-import { BaseInputConfig, MonoInputConfig } from './legacy/v6/plugins/types';
+import {
+  BaseInputConfig,
+  MonoInputConfig,
+  MonoInteractiveDriver,
+} from './legacy/v6/plugins/types';
 import BacklightControlPlugin, {
   BacklightControlDTO,
 } from './legacy/v6/plugins/input-plugins/backlight-control';
-import { MonoInteractiveDriver } from './legacy/v6/plugins/types';
 import { generateId } from './legacy/v6/plugins/core/plugin-utils';
+import BasicOverridePlugin, {
+  BasicOverrideDTO,
+} from './legacy/v6/plugins/input-plugins/basic-override';
+import { MonoInputConfig as V5MonoInputConfig } from './legacy/v5/shared/hardware-config/input-config/mono-input-config';
+import { MessageResolverDTO } from './legacy/v6/plugins/input-plugins/basic-override/message-resolver/message-resolver';
+import { statusStringToNibble } from './legacy/v6/shared/midi-util';
 
 const VERSION = 6;
 
@@ -104,6 +113,141 @@ function createBacklightPlugin(
   return p;
 }
 
+function onStep(old: V5MonoInputConfig, value?: number) {
+  // init 1 step
+  const { statusString, number, channel } = old.defaults;
+  const parsedStatus =
+    statusString === 'noteon/noteoff' ? 'noteon' : statusString;
+
+  const {
+    statusString: statusOverride,
+    number: numberOverride,
+    channel: channelOverride,
+  } = old.outputPropagator;
+  const parsedStatusOverride =
+    statusOverride === 'noteon/noteoff' ? 'noteon' : statusOverride;
+
+  return [
+    [
+      statusStringToNibble(parsedStatus) + channel,
+      number,
+      value === undefined ? old.value : value,
+    ],
+    [
+      statusStringToNibble(parsedStatusOverride) + channelOverride,
+      numberOverride,
+      value === undefined ? old.outputPropagator.value : value,
+    ],
+  ];
+}
+
+function offStep(old: V5MonoInputConfig, value?: number) {
+  // init 1 step
+  const { statusString, number, channel } = old.defaults;
+  const parsedStatus =
+    statusString === 'noteon/noteoff' ? 'noteoff' : statusString;
+
+  const {
+    statusString: statusOverride,
+    number: numberOverride,
+    channel: channelOverride,
+  } = old.outputPropagator;
+  const parsedStatusOverride =
+    statusOverride === 'noteon/noteoff' ? 'noteoff' : statusOverride;
+
+  return [
+    [
+      statusStringToNibble(parsedStatus) + channel,
+      number,
+      value === undefined ? old.value : value,
+    ],
+    [
+      statusStringToNibble(parsedStatusOverride) + channelOverride,
+      numberOverride,
+      value === undefined ? old.outputPropagator.value : value,
+    ],
+  ];
+}
+
+function createOverridePlugin(
+  old: V5MonoInputConfig,
+  config: MonoInputConfig,
+  driver: MonoInteractiveDriver
+): BasicOverridePlugin {
+  let className: MessageResolverDTO['className'] = 'BinaryMessageResolver';
+
+  if (old.response === 'continuous') className = 'ContinuousMessageResolver';
+  if (old.defaults.response === 'toggle') className = 'DiscreteMessageResolver';
+  if (old.response === 'constant') className = 'DiscreteMessageResolver';
+
+  const messageResolver = {
+    className,
+    // this won't be overwritten
+    // eligibleStatuses: [],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any;
+
+  if (className === 'DiscreteMessageResolver') {
+    if (old.response === 'constant') {
+      const [defaultMsg, override] = onStep(old);
+
+      messageResolver.defaults = {
+        0: defaultMsg,
+      };
+
+      messageResolver.bindings = {
+        0: override,
+      };
+    } else {
+      // init 2 steps
+      const [defaultMsg1, override1] = offStep(old, 0);
+      const [defaultMsg2, override2] = onStep(old, 127);
+
+      messageResolver.defaults = {
+        0: defaultMsg1,
+        1: defaultMsg2,
+      };
+
+      messageResolver.bindings = {
+        0: override1,
+        1: override2,
+      };
+    }
+  } else if (old.defaults.statusString === 'pitchbend') {
+    // pitchbend resolver dto fields
+    messageResolver.statusOverride = old.outputPropagator.statusString;
+    messageResolver.channelOverride = old.outputPropagator.channel;
+  } else {
+    // normal resolver dto fields
+    messageResolver.statusOverride =
+      old.outputPropagator.statusString || old.defaults.statusString;
+    messageResolver.channelOverride =
+      old.outputPropagator.channel || old.defaults.channel;
+    messageResolver.numberOverride =
+      old.outputPropagator.number || old.defaults.number;
+    messageResolver.valueOverride = 127;
+  }
+
+  const dto: BasicOverrideDTO = {
+    collapsed: false,
+    description: 'Change the way this input sends messages.',
+    // this won't be overwritten anyways
+    // eligibleOutputStrategies: ,
+    id: generateId('Input Overrides'),
+    // again, this won't be overwritten
+    messageResolver,
+    on: true,
+    outputStrategy: old.response,
+    parentId: config.qualifiedId,
+    title: 'Input Overrides',
+    type: 'input',
+  } as unknown as BasicOverrideDTO;
+
+  const p = BasicOverridePlugin.fromDTO(dto, driver);
+
+  return p;
+}
+
 function upgradeInput(
   deviceId: string,
   deviceName: string,
@@ -127,8 +271,16 @@ function upgradeInput(
       plugins.push(plugin);
       (newConfigs[0] as MonoInputConfig).plugins.push(plugin.id);
     }
-    // color config plugin
-    // override plugin
+
+    newConfigs.forEach((newConfig) => {
+      const plugin = createOverridePlugin(
+        config as V5MonoInputConfig,
+        newConfig as MonoInputConfig,
+        driver as MonoInteractiveDriver
+      );
+      plugins.push(plugin);
+      (newConfig as MonoInputConfig).plugins.push(plugin.id);
+    });
 
     return newConfigs;
   }
@@ -149,7 +301,11 @@ function upgradeSupportedDevice(
   );
 
   if (d.shareSustain.length > 0) {
-    const shareSustain = new ShareSustainPlugin(config.id, d.shareSustain);
+    const shareSustain = new ShareSustainPlugin(
+      config.id,
+      undefined,
+      d.shareSustain
+    );
     plugins.push(shareSustain);
     config.plugins.push(shareSustain.id);
   }
@@ -175,7 +331,11 @@ function upgradeAnonymousDevice(
   );
 
   if (d.shareSustain.length > 0) {
-    const shareSustain = new ShareSustainPlugin(config.id, d.shareSustain);
+    const shareSustain = new ShareSustainPlugin(
+      config.id,
+      undefined,
+      d.shareSustain
+    );
     plugins.push(shareSustain);
     config.plugins.push(shareSustain.id);
   }
@@ -213,7 +373,11 @@ function upgradeAdapterDevice(
   );
 
   if (d.shareSustain.length > 0) {
-    const shareSustain = new ShareSustainPlugin(config.id, d.shareSustain);
+    const shareSustain = new ShareSustainPlugin(
+      config.id,
+      undefined,
+      d.shareSustain
+    );
     plugins.push(shareSustain);
     config.plugins.push(shareSustain.id);
   }

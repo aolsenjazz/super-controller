@@ -15,11 +15,11 @@ export default class ShareSustainPlugin extends BaseDevicePlugin<ShareSustainDTO
   public sustainTargets: string[] = [];
 
   public static override fromDTO(dto: ShareSustainDTO) {
-    return new ShareSustainPlugin(dto.parentId, dto.sustainTargets);
+    return new ShareSustainPlugin(dto.parentId, dto.id, dto.sustainTargets);
   }
 
-  constructor(parentId: string, sustainTargets: string[] = []) {
-    super(Manifest.title, Manifest.description, parentId);
+  constructor(parentId: string, id?: string, sustainTargets: string[] = []) {
+    super(Manifest.title, Manifest.description, parentId, id);
     this.sustainTargets = sustainTargets;
   }
 

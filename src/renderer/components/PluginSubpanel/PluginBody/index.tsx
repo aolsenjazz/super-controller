@@ -25,8 +25,12 @@ export default function PluginBody(props: PropTypes) {
   const selectedDevice = useSelector(selectSelectedDevice)!;
   const connectedDevices = useSelector(selectUnifiedDevices);
   const plugin = useAppSelector((state) => selectPluginById(state, pluginId));
+
   const connectedDeviceIds = connectedDevices
     .filter((c) => c.connectionDetails)
+    .map((c) => c.id);
+  const configuredDeviceIds = connectedDevices
+    .filter((c) => c.config)
     .map((c) => c.id);
 
   const [UI, setUI] = useState<React.FC<PluginUIProps>>();
@@ -59,6 +63,7 @@ export default function PluginBody(props: PropTypes) {
           plugin={plugin}
           selectedDevice={selectedDevice.config}
           connectedDevices={connectedDeviceIds}
+          configuredDevices={configuredDeviceIds}
           applyChanges={updatePlugin}
         />
       )}

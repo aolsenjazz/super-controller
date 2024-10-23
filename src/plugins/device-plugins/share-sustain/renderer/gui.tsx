@@ -7,7 +7,13 @@ import ShareSustainLine from './ShareSustainLine';
 import './ShareSustain.css';
 
 export default function GUI(props: PluginUIProps<ShareSustainDTO>) {
-  const { plugin, connectedDevices, selectedDevice, applyChanges } = props;
+  const {
+    plugin,
+    connectedDevices,
+    configuredDevices,
+    selectedDevice,
+    applyChanges,
+  } = props;
 
   const onChange = (checked: boolean, id: string) => {
     const newTargets = checked
@@ -20,7 +26,11 @@ export default function GUI(props: PluginUIProps<ShareSustainDTO>) {
     });
   };
 
-  const SustainTargets = connectedDevices
+  const uniqueIds = Array.from(
+    new Set(connectedDevices.concat(configuredDevices)).values()
+  );
+
+  const SustainTargets = uniqueIds
     .filter((d) => d !== selectedDevice.id)
     .map((d) => {
       return (
