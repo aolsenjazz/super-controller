@@ -1,6 +1,3 @@
-import TranslatorPlugin from '@plugins/device-plugins/translator';
-import BacklightControlPlugin from '@plugins/input-plugins/backlight-control';
-import BasicOverridePlugin from '@plugins/input-plugins/basic-override';
 import {
   importDeviceSubcomponent,
   importInputSubcomponent,
@@ -9,11 +6,8 @@ import { InteractiveInputDriver } from '@shared/driver-types/input-drivers';
 import { Anonymous, DRIVERS, getDriver } from '@shared/drivers';
 import { configFromDriver } from '@shared/hardware-config';
 import { AdapterDeviceConfig } from '@shared/hardware-config/adapter-device-config';
-import { AnonymousDeviceConfig } from '@shared/hardware-config/anonymous-device-config';
-import { DeviceConfig } from '@shared/hardware-config/device-config';
 import { inputConfigsFromDriver } from '@shared/hardware-config/input-config';
 import { BaseInputConfig } from '@shared/hardware-config/input-config/base-input-config';
-import { MonoInputConfig } from '@shared/hardware-config/input-config/mono-input-config';
 import { SupportedDeviceConfig } from '@shared/hardware-config/supported-device-config';
 import { BaseDevicePlugin } from '@plugins/core/base-device-plugin';
 import { BaseInputPlugin } from '@plugins/core/base-input-plugin';
@@ -27,6 +21,7 @@ import { PluginRegistry } from './plugin-registry';
 import { HardwarePortService } from './port-service';
 import { VirtualPortService } from './port-service/virtual/virtual-port-service';
 import { WindowProvider } from './window-provider';
+import { RendererInclusivePluginProvider } from './renderer-inclusive-plugin-provider';
 
 const { MainWindow } = WindowProvider;
 
@@ -51,7 +46,7 @@ class ConfigManagerClass {
     DeviceRegistry.register(config.id, config);
 
     // add default plugins
-    this.addDefaultDevicePlugins(config);
+    config.initDefaultPlugins(RendererInclusivePluginProvider);
 
     // update port services
     HardwarePortService.onConfigChange({ action: 'add', changed: [config] });
@@ -103,12 +98,12 @@ class ConfigManagerClass {
   }
 
   public removeInputPlugin(qualifiedInputId: string, pluginId: string) {
-    const inputConfig = InputRegistry.get(qualifiedInputId) as MonoInputConfig;
+    const inputConfig = InputRegistry.get(qualifiedInputId);
 
     if (!inputConfig)
       throw new Error(`no such config for id ${qualifiedInputId}`);
 
-    inputConfig.plugins = inputConfig.plugins.filter((p) => p !== pluginId);
+    inputConfig.removePlugin(pluginId);
 
     PluginRegistry.deregister(pluginId);
     MainWindow.upsertInputConfig(inputConfig.toDTO());
@@ -168,7 +163,7 @@ class ConfigManagerClass {
     qualifiedInputId: string,
     m: InputPluginManifest
   ) {
-    const input = InputRegistry.get(qualifiedInputId) as MonoInputConfig;
+    const input = InputRegistry.get(qualifiedInputId);
 
     if (!input) throw new Error(`Adding plugin to ${input} is not defined`);
 
@@ -207,9 +202,7 @@ class ConfigManagerClass {
     inputs.forEach((c) => {
       InputRegistry.register(c.qualifiedId, c);
       parentConfig.inputs.push(c.id);
-
-      // create and register default input plugins
-      if (c instanceof MonoInputConfig) this.createDefaultInputPlugins(c);
+      c.initDefaultPlugins(RendererInclusivePluginProvider);
     });
 
     // send to main window
@@ -217,25 +210,12 @@ class ConfigManagerClass {
     MainWindow.upsertInputConfigs(inputDTOs);
   }
 
-  private addDefaultDevicePlugins(config: DeviceConfig) {
-    if (config instanceof AnonymousDeviceConfig) {
-      const translator = new TranslatorPlugin(config.id);
-      PluginRegistry.register(translator.id, translator);
-      config.plugins.push(translator.id);
-
-      MainWindow.upsertPlugin(translator.toDTO());
-    }
-  }
-
   private removeInputConfigs(configs: BaseInputConfig[]) {
     // deregister, remove, update frontend of, plugins
     const pluginIds: string[] = [];
-    const monoConfigs = configs.filter(
-      (c) => c instanceof MonoInputConfig
-    ) as MonoInputConfig[];
 
-    monoConfigs.forEach((i) => {
-      i.plugins.forEach((p) => {
+    configs.forEach((i) => {
+      i.getPlugins().forEach((p) => {
         PluginRegistry.deregister(p);
         pluginIds.push(p);
       });
@@ -247,33 +227,6 @@ class ConfigManagerClass {
     configs.forEach((i) => InputRegistry.deregister(i));
     const qids = configs.map((c) => c.qualifiedId);
     MainWindow.removeInputs(qids);
-  }
-
-  private createDefaultInputPlugins(input: MonoInputConfig) {
-    const plugins: string[] = [];
-
-    // add backlight config by default if applicable
-    if (input.driver.availableColors.length > 0) {
-      const backlightPlugin = new BacklightControlPlugin(
-        input.qualifiedId,
-        input.driver
-      );
-
-      PluginRegistry.register(backlightPlugin.id, backlightPlugin);
-      plugins.push(backlightPlugin.id);
-      MainWindow.upsertPlugin(backlightPlugin.toDTO());
-    }
-
-    // add basic override by default
-    const basicOverride = new BasicOverridePlugin(
-      input.qualifiedId,
-      input.driver
-    );
-    PluginRegistry.register(basicOverride.id, basicOverride);
-    plugins.push(basicOverride.id);
-    MainWindow.upsertPlugin(basicOverride.toDTO());
-
-    input.plugins = plugins;
   }
 }
 

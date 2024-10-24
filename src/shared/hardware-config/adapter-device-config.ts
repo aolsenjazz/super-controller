@@ -16,6 +16,10 @@ export class AdapterDeviceConfig extends DeviceConfig {
     this.child = child;
   }
 
+  public initDefaultPlugins() {
+    // no-op
+  }
+
   public setChild(config: SupportedDeviceConfig) {
     this.child = config;
   }

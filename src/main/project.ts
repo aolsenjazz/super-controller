@@ -7,6 +7,8 @@ import { ProjectPOJO } from '@shared/project-pojo';
 import { getQualifiedInputId } from '@shared/util';
 import { deviceConfigFromDTO } from '@shared/hardware-config';
 import { inputConfigsFromDTO } from '@shared/hardware-config/input-config';
+import { BaseInputConfig } from '@plugins/types';
+import { DeviceConfig } from '@shared/hardware-config/device-config';
 
 import { upgradeProject } from 'helper/project-upgrader';
 
@@ -18,7 +20,10 @@ import { InputRegistry } from './input-registry';
 import { PluginRegistry } from './plugin-registry';
 import { DeviceRegistry } from './device-registry';
 
-import { createPluginFromDTO } from './create-plugin-from-dto';
+import {
+  createDevicePluginFromDTO,
+  createInputPluginFromDTO,
+} from './create-plugin-from-dto';
 
 const { MainWindow } = WindowProvider;
 
@@ -38,51 +43,59 @@ function getRecommendedDir(): string {
   return store.get(SAVE_DIR_KEY, app.getPath('desktop')) as string;
 }
 
-/**
- * Loads plugins from the project data.
- * @param proj - The project data object.
- */
-async function loadPlugins(proj: ProjectPOJO): Promise<void> {
-  const pluginPromises = proj.plugins.map((pluginDTO) =>
-    createPluginFromDTO(pluginDTO)
-      .then((plugin) => {
-        PluginRegistry.register(plugin.id, plugin);
-        MainWindow.upsertPlugin(plugin.toDTO());
-        return false;
-      })
-      .catch((error) => {
-        // Handle plugin loading errors if necessary
-        throw new Error(`Failed to load plugin ${pluginDTO.id}: ${error}`);
-      })
+async function loadInputPlugins(config: BaseInputConfig, proj: ProjectPOJO) {
+  await Promise.all(
+    config.getPlugins().map(async (id) => {
+      const dto = proj.plugins[id];
+      const plugin = await createInputPluginFromDTO(dto, config.driver);
+      PluginRegistry.register(plugin.id, plugin);
+    })
   );
-  await Promise.all(pluginPromises);
+}
+
+async function loadDevicePlugins(config: DeviceConfig, proj: ProjectPOJO) {
+  await Promise.all(
+    config.plugins.map(async (id) => {
+      const dto = proj.plugins[id];
+      const plugin = await createDevicePluginFromDTO(dto);
+      PluginRegistry.register(plugin.id, plugin);
+    })
+  );
 }
 
 /**
  * Loads input configurations from the project data.
  * @param proj - The project data object.
  */
-function loadInputs(proj: ProjectPOJO): void {
-  proj.inputs.forEach((inputDTO) => {
-    const config = inputConfigsFromDTO(inputDTO);
-    const qualifiedInputId = getQualifiedInputId(
-      inputDTO.deviceId,
-      inputDTO.id
-    );
-    InputRegistry.register(qualifiedInputId, config);
-    MainWindow.upsertInputConfig(config.toDTO());
-  });
+async function loadInputs(proj: ProjectPOJO) {
+  await Promise.all(
+    Object.values(proj.inputs).map(async (inputDTO) => {
+      const config = inputConfigsFromDTO(inputDTO);
+      const qualifiedInputId = getQualifiedInputId(
+        inputDTO.deviceId,
+        inputDTO.id
+      );
+      InputRegistry.register(qualifiedInputId, config);
+
+      // Load plugins
+      await loadInputPlugins(config, proj);
+    })
+  );
 }
 
 /**
  * Loads device configurations from the project data.
  * @param proj - The project data object.
  */
-function loadDevices(proj: ProjectPOJO): void {
-  proj.devices.forEach((deviceDTO) => {
-    const deviceConfig = deviceConfigFromDTO(deviceDTO);
-    DeviceRegistry.register(deviceDTO.id, deviceConfig);
-  });
+async function loadDevices(proj: ProjectPOJO) {
+  await Promise.all(
+    Object.values(proj.devices).map(async (deviceDTO) => {
+      const deviceConfig = deviceConfigFromDTO(deviceDTO);
+      DeviceRegistry.register(deviceDTO.id, deviceConfig);
+
+      await loadDevicePlugins(deviceConfig, proj);
+    })
+  );
 }
 
 /**
@@ -93,6 +106,10 @@ export async function initDefault(): Promise<void> {
 
   MainWindow.title = 'Untitled Project';
   MainWindow.edited = false;
+
+  PluginRegistry.clear();
+  InputRegistry.clear();
+  DeviceRegistry.clear();
 
   MainWindow.setConfiguredDevices([]);
   MainWindow.setInputConfigs([]);
@@ -112,9 +129,12 @@ export async function loadProject(filePath: string): Promise<void> {
   const jsonString = fs.readFileSync(filePath, 'utf8');
   const proj = upgradeProject(jsonString) as ProjectPOJO;
 
-  await loadPlugins(proj);
-  loadInputs(proj);
-  loadDevices(proj);
+  PluginRegistry.clear();
+  InputRegistry.clear();
+  DeviceRegistry.clear();
+
+  await loadInputs(proj);
+  await loadDevices(proj);
 
   currentPath = filePath;
 
@@ -124,7 +144,9 @@ export async function loadProject(filePath: string): Promise<void> {
   HardwarePortService.onProjectChange();
   VirtualPortService.onProjectChange();
 
-  MainWindow.setConfiguredDevices(proj.devices);
+  MainWindow.setPlugins(PluginRegistry.getAll().map((p) => p.toDTO()));
+  MainWindow.setInputConfigs(InputRegistry.getAll().map((p) => p.toDTO()));
+  MainWindow.setConfiguredDevices(Object.values(proj.devices));
 }
 
 /**
@@ -133,9 +155,9 @@ export async function loadProject(filePath: string): Promise<void> {
  */
 function serializeProject(): ProjectPOJO {
   return {
-    inputs: InputRegistry.getAll().map((input) => input.toDTO()),
-    devices: DeviceRegistry.getAll().map((device) => device.toDTO()),
-    plugins: PluginRegistry.getAll().map((plugin) => plugin.toDTO()),
+    inputs: InputRegistry.toSerializable(),
+    devices: DeviceRegistry.toSerializable(),
+    plugins: PluginRegistry.toSerializable(),
     version: CURRENT_VERSION,
   };
 }

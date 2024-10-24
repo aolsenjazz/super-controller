@@ -66,6 +66,8 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
     this.nickname = stub.nickname;
   }
 
+  public abstract initDefaultPlugins(provider: PluginProvider): void;
+
   /**
    * Runs initialization procedure for each plugins. Does *not* run child input
    * initializations.

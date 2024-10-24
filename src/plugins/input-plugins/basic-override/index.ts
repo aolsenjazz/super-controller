@@ -1,6 +1,6 @@
-import { MonoInteractiveDriver, SwitchDriver } from '../../types';
+import type { MonoInteractiveDriver, SwitchDriver } from '../../types';
+import type { PluginDTO } from '../../core/base-plugin';
 import { BaseInputPlugin } from '../../core/base-input-plugin';
-import { PluginDTO } from '../../core/base-plugin';
 
 import { ContinuousStateManager } from './state-manager/continuous-state-manager';
 import { GateStateManager } from './state-manager/gate-state-manager';
@@ -149,7 +149,7 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
         break;
       case 'n-step':
         this.stateManager = new TriggerStateManager(
-          (driver as SwitchDriver).response,
+          driver.response,
           (driver as SwitchDriver).steps.length
         );
         break;
@@ -163,6 +163,10 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
 
     // Initialize messageResolver based on the determined output strategy
     this.messageResolver = resolverForOutputStrategy(outputStrategy, driver);
+
+    if (dto) {
+      this.applyDTO(dto);
+    }
   }
 
   /**

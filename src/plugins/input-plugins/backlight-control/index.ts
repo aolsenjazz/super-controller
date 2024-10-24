@@ -19,7 +19,7 @@ import Manifest from './manifest';
 
 export interface BacklightControlDTO extends PluginDTO {
   outputResponse: BacklightControlPlugin['stateManager']['outputStrategy'];
-  elligibleOutputStrategies: BacklightControlPlugin['stateManager']['eligibleOutputStrategies'];
+  eligibleOutputStrategies: BacklightControlPlugin['stateManager']['eligibleOutputStrategies'];
   colorBindings: BacklightControlPlugin['colorBindings'];
   fxBindings: BacklightControlPlugin['fxBindings'];
   fxValueBindings: BacklightControlPlugin['fxValueBindings'];
@@ -142,7 +142,7 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
       availableFx: this.availableFx,
       availableStates: this.stateManager.availableStates,
       state: this.stateManager.state,
-      elligibleOutputStrategies: this.stateManager.eligibleOutputStrategies,
+      eligibleOutputStrategies: this.stateManager.eligibleOutputStrategies,
       outputResponse: this.stateManager.outputStrategy,
     };
   }

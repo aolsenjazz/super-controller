@@ -4,6 +4,7 @@ import { PitchbendConfig } from './pitchbend-config';
 import { SliderConfig } from './slider-config';
 import { BaseInputConfig, InputDTO } from './base-input-config';
 import type { MonoInputDTO } from './mono-input-dto';
+import { PluginProvider } from '../../plugin-provider';
 
 export interface XYDTO extends InputDTO {
   x: MonoInputDTO;
@@ -21,20 +22,38 @@ export class XYConfig extends BaseInputConfig<XYDTO, XYDriver> {
     deviceId: string,
     nickname: string,
     driver: XYDriver,
-    x: XYConfig['x'],
-    y: XYConfig['y']
+    dto?: XYDTO
   ) {
-    super(deviceId, nickname, driver);
-    this.x = x;
-    this.y = y;
+    super(deviceId, nickname, driver, []);
+
+    const XConfig =
+      driver.x.status === 'pitchbend' ? PitchbendConfig : SliderConfig;
+    const YConfig =
+      driver.y.status === 'pitchbend' ? PitchbendConfig : SliderConfig;
+
+    let xPlugins: string[] = [];
+    let yPlugins: string[] = [];
+
+    if (dto) {
+      xPlugins = dto.x.plugins;
+      yPlugins = dto.y.plugins;
+    }
+
+    this.x = new XConfig(deviceId, '', xPlugins, driver.x);
+    this.y = new YConfig(deviceId, '', yPlugins, driver.y);
   }
 
   public init() {
     // noop, for now
   }
 
-  applyStub(s: XYDTO): void {
+  public applyStub(s: XYDTO): void {
     super.applyStub(s);
+  }
+
+  public initDefaultPlugins(provider: PluginProvider): void {
+    this.x.initDefaultPlugins(provider);
+    this.y.initDefaultPlugins(provider);
   }
 
   public toDTO(): XYDTO {
@@ -44,6 +63,10 @@ export class XYConfig extends BaseInputConfig<XYDTO, XYDriver> {
       x: this.x.toDTO(),
       y: this.y.toDTO(),
     };
+  }
+
+  public getPlugins() {
+    return [...this.x.getPlugins(), ...this.y.getPlugins()];
   }
 
   public process(): NumberArrayWithStatus | undefined {

@@ -50,6 +50,8 @@ export default function DeviceListItem(props: PropTypes) {
   const deviceName = deviceId.substring(0, deviceId.lastIndexOf(' '));
   const driver = getDriver(deviceName) || Anonymous;
 
+  const siblingIndex = connectionDetails?.id || config?.siblingIndex || 0;
+
   return (
     <div className={`device-list-item ${selected ? 'active' : ''}`}>
       <div className="device-icon-container">
@@ -63,9 +65,7 @@ export default function DeviceListItem(props: PropTypes) {
         onKeyDown={onClick}
       >
         <h2>{config?.nickname || connectionDetails?.name}</h2>
-        <p className="id">
-          {reformatId(deviceId, connectionDetails?.siblingIndex || 0)}
-        </p>
+        <p className="id">{reformatId(deviceId, siblingIndex)}</p>
         <div
           className={`connection-color ${cssClassFor(connected, configured)}`}
         />

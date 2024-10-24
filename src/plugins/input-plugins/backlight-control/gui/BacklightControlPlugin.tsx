@@ -2,8 +2,8 @@ import type { Color, FxDriver } from '../../../types';
 import type { PluginUIProps } from '../../../core/plugin-ui-props';
 
 import { BacklightControlDTO } from '..';
-import BinaryColorSelect from './binary-color-select';
-import NStepColorSelect from './n-step-color-select';
+import BinaryColorSelect from './BinaryColorSelect';
+import NStepColorSelect from './NStepColorSelect';
 
 import './BacklightControl.css';
 
@@ -20,7 +20,7 @@ export default function BacklightPluginUI(
     availableFx,
     availableStates,
     outputResponse,
-    elligibleOutputStrategies,
+    eligibleOutputStrategies,
   } = plugin;
 
   const onColorChange = (s: number, color: Color) => {
@@ -105,7 +105,7 @@ export default function BacklightPluginUI(
           defaultValue={outputResponse}
           onChange={(e) => onOutputStrategyClick(e.target.value)}
         >
-          {elligibleOutputStrategies.map((strat) => {
+          {eligibleOutputStrategies.map((strat) => {
             return <option key={strat}>{strat}</option>;
           })}
         </select>

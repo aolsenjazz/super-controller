@@ -8,7 +8,7 @@ import { OverrideControls } from './OverrideControls';
 
 import './translator.css';
 
-export default function GUI(props: PluginUIProps<TranslatorDTO>) {
+export default function TranslatorPlugin(props: PluginUIProps<TranslatorDTO>) {
   const { plugin, selectedDevice, applyChanges } = props;
 
   const [selectedSource, setSelectedSource] = useState<

@@ -1,3 +1,5 @@
+import BasicOverridePlugin from '../../../plugins/input-plugins/basic-override';
+import BacklightControlPlugin from '../../../plugins/input-plugins/backlight-control';
 import {
   InputResponse,
   MonoInteractiveDriver,
@@ -33,17 +35,13 @@ export abstract class MonoInputConfig<
 > extends BaseInputConfig<U, V> {
   public abstract defaults: T;
 
-  public plugins: string[];
-
   constructor(
     deviceId: string,
     nickname: string,
     plugins: string[],
     driver: V
   ) {
-    super(deviceId, nickname, driver);
-
-    this.plugins = plugins;
+    super(deviceId, nickname, driver, plugins);
   }
 
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
@@ -76,8 +74,28 @@ export abstract class MonoInputConfig<
       .forEach((p) => p?.init(loopbackTransport));
   }
 
-  public addPlugin(id: string) {
-    this.plugins.push(id);
+  public getPlugins() {
+    return this.plugins;
+  }
+
+  public initDefaultPlugins(provider: PluginProvider) {
+    if (this.driver.availableColors.length > 0) {
+      const backlightPlugin = new BacklightControlPlugin(
+        this.qualifiedId,
+        this.driver
+      );
+
+      provider.register(backlightPlugin.id, backlightPlugin);
+      this.plugins.push(backlightPlugin.id);
+    }
+
+    const basicOverride = new BasicOverridePlugin(
+      this.qualifiedId,
+      this.driver
+    );
+
+    provider.register(basicOverride.id, basicOverride);
+    this.plugins.push(basicOverride.id);
   }
 
   public toDTO() {

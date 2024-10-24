@@ -6,7 +6,9 @@ import ShareSustainLine from './ShareSustainLine';
 
 import './ShareSustain.css';
 
-export default function GUI(props: PluginUIProps<ShareSustainDTO>) {
+export default function ShareSustainPlugin(
+  props: PluginUIProps<ShareSustainDTO>
+) {
   const {
     plugin,
     connectedDevices,

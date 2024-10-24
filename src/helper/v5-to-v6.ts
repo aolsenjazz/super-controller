@@ -15,7 +15,7 @@ import { DeviceConfig } from './legacy/v6/shared/hardware-config/device-config';
 import { SupportedDeviceConfig } from './legacy/v6/shared/hardware-config/supported-device-config';
 import { AdapterDeviceConfig } from './legacy/v6/shared/hardware-config/adapter-device-config';
 import { ProjectPOJO } from './legacy/v6/shared/project-pojo';
-import { BasePlugin } from './legacy/v6/plugins/core/base-plugin';
+import { BasePlugin, PluginDTO } from './legacy/v6/plugins/core/base-plugin';
 import { AnonymousDeviceConfig } from './legacy/v6/shared/hardware-config/anonymous-device-config';
 import ShareSustainPlugin from './legacy/v6/plugins/device-plugins/share-sustain/index';
 import TranslatorPlugin from './legacy/v6/plugins/device-plugins/translator';
@@ -23,9 +23,13 @@ import { toString } from './legacy/v6/plugins/device-plugins/translator/util';
 import { DRIVERS } from './legacy/v6/shared/drivers';
 import { inputConfigsFromDriver } from './legacy/v6/shared/hardware-config/input-config';
 import { InteractiveInputDriver } from './legacy/v5/shared/driver-types';
-import { inputIdFromDriver } from './legacy/v6/shared/util';
+import {
+  getQualifiedInputId,
+  inputIdFromDriver,
+} from './legacy/v6/shared/util';
 import {
   BaseInputConfig,
+  DeviceConfigDTO,
   MonoInputConfig,
   MonoInteractiveDriver,
 } from './legacy/v6/plugins/types';
@@ -39,6 +43,7 @@ import BasicOverridePlugin, {
 import { MonoInputConfig as V5MonoInputConfig } from './legacy/v5/shared/hardware-config/input-config/mono-input-config';
 import { MessageResolverDTO } from './legacy/v6/plugins/input-plugins/basic-override/message-resolver/message-resolver';
 import { statusStringToNibble } from './legacy/v6/shared/midi-util';
+import { InputDTO } from './legacy/v6/shared/hardware-config/input-config/base-input-config';
 
 const VERSION = 6;
 
@@ -408,22 +413,38 @@ function upgradeDeviceConfig(
 function upgradeToV6(projString: string) {
   const oldProj = v5Parse<V5Project>(projString);
 
-  const devices: DeviceConfig[] = [];
-  const inputs: BaseInputConfig[] = [];
-  const plugins: BasePlugin[] = [];
+  const devices: Record<string, DeviceConfig> = {};
+  const inputs: Record<string, BaseInputConfig> = {};
+  const plugins: Record<string, BasePlugin> = {};
 
   oldProj.devices.forEach((d) => {
     const [newDevice, newPlugins, newInputs] = upgradeDeviceConfig(d);
 
-    inputs.push(...newInputs);
-    plugins.push(...newPlugins);
-    devices.push(newDevice);
+    newInputs.forEach((i) => {
+      inputs[getQualifiedInputId(i.deviceId, i.id)] = i;
+    });
+    newPlugins.forEach((p) => {
+      plugins[p.id] = p;
+    });
+    devices[newDevice.id] = newDevice;
   });
 
   const newProj: ProjectPOJO = {
-    devices: devices.map((d) => d.toDTO()),
-    inputs: inputs.map((i) => i.toDTO()),
-    plugins: plugins.map((p) => p.toDTO()),
+    devices: Object.fromEntries(
+      Object.entries(devices).map(
+        ([key, device]) => [key, device.toDTO()] as [string, DeviceConfigDTO]
+      )
+    ),
+    inputs: Object.fromEntries(
+      Object.entries(inputs).map(
+        ([key, input]) => [key, input.toDTO()] as [string, InputDTO]
+      )
+    ),
+    plugins: Object.fromEntries(
+      Object.entries(plugins).map(
+        ([key, plugin]) => [key, plugin.toDTO()] as [string, PluginDTO]
+      )
+    ),
     version: VERSION,
   };
 

@@ -4,7 +4,7 @@ const Manifest: BasePluginManifest = {
   title: 'Share Sustain',
   description:
     'Whenever a sustain event is received from the controller, send an identical sustain event through other selected controllers.',
-  gui: 'share-sustain/renderer/gui.tsx',
+  gui: 'share-sustain/renderer/ShareSustainPlugin.tsx',
   plugin: 'share-sustain/index.ts',
 };
 

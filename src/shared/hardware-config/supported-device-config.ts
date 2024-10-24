@@ -24,6 +24,10 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
     };
   }
 
+  public initDefaultPlugins() {
+    // no-op
+  }
+
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {
     const message = super.process(msg, meta)!;
     const messageIdentifier = idForMsg(msg, false);
