@@ -1,11 +1,10 @@
-import type { BaseInputDriver } from './types';
+import type { BaseInputDriver, BaseInteractiveInputDriver } from './types';
 import type { BasePluginManifest } from './core/base-plugin-manifest';
 import type { InputPluginManifest } from './core/input-plugin-manifest';
 import type { BaseDevicePlugin } from './core/base-device-plugin';
 import type { PluginDTO } from './core/base-plugin';
 import type { PluginUIProps } from './core/plugin-ui-props';
 import type { BaseInputPlugin } from './core/base-input-plugin';
-import { BaseInteractiveInputDriver } from '@shared/driver-types/input-drivers/base-interactive-input-driver';
 
 /**
  * Waits for an array to be non-empty. Useful for making sure that we have discovered all

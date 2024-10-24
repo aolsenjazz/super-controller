@@ -1,6 +1,6 @@
 import { ipcMain, IpcMainEvent } from 'electron';
 
-import { PluginDTO } from '@plugins/core/base-plugin';
+import type { PluginDTO } from '@plugins/core/base-plugin';
 import { HardwarePortService } from '@main/port-service';
 
 import { WindowProvider } from '../window-provider';

@@ -2,9 +2,9 @@ import { BrowserWindow } from 'electron';
 import os from 'os';
 
 import { DeviceConnectionDetails } from '@shared/device-connection-details';
-import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
-import { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
-import { PluginDTO } from '@plugins/core/base-plugin';
+import type { DeviceConfigDTO } from '@shared/hardware-config/device-config';
+import type { InputDTO } from '@shared/hardware-config/input-config/base-input-config';
+import type { PluginDTO } from '@plugins/core/base-plugin';
 
 import { getAssetPath, getPreloadPath, resolveHtmlPath } from '../util-main';
 import { StatefulWindowActions } from './stateful-window-actions';

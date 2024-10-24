@@ -1,4 +1,4 @@
-import { MonoInteractiveDriver } from '../../../types';
+import type { MonoInteractiveDriver } from '../../../types';
 import { statusStringToNibble } from '../util';
 import { MessageResolver, MessageResolverDTO } from './message-resolver';
 

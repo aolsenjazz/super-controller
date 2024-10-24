@@ -9,7 +9,7 @@ import { MessageTransport } from '../../message-transport';
 import { PluginProvider } from '../../plugin-provider';
 
 import { BaseInputConfig } from './base-input-config';
-import { MonoInputDTO } from './mono-input-dto';
+import type { MonoInputDTO } from './mono-input-dto';
 
 /* Default values for the input loaded in from a driver */
 export type InputDefault = {

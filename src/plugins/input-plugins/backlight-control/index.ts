@@ -7,7 +7,7 @@ import type {
 } from '../../types';
 
 import { BaseInputPlugin } from '../../core/base-input-plugin';
-import { PluginDTO } from '../../core/base-plugin';
+import type { PluginDTO } from '../../core/base-plugin';
 import { sumMidiArrays } from './util';
 
 import { GateStateManager } from './state-manager/gate-state-manager';

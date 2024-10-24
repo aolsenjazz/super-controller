@@ -14,7 +14,7 @@ export type { TimestampedMidiEvent } from '../shared/timestamped-midi-event';
 
 // config types
 export type { BaseInputConfig } from '../shared/hardware-config/input-config/base-input-config';
-export type { MonoInputConfig } from '../shared/hardware-config/input-config/mono-input-config';
+export type { BaseInteractiveInputDriver } from '../shared/driver-types/input-drivers/base-interactive-input-driver';
 export type { DeviceConfigDTO } from '../shared/hardware-config/device-config';
 
 // driver types

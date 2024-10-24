@@ -1,7 +1,7 @@
 import { BrowserWindow, ipcMain, IpcMainEvent, Menu } from 'electron';
 
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
-import { BasePluginManifest } from '@plugins/core/base-plugin-manifest';
+import type { BasePluginManifest } from '@plugins/core/base-plugin-manifest';
 import { ConfigManager } from '@main/config-manager';
 
 import { DEVICE_CONFIG } from './ipc-channels';

@@ -2,8 +2,8 @@ import {
   importDeviceSubcomponent,
   importInputSubcomponent,
 } from '@plugins/plugin-loader';
-import { PluginDTO } from '@plugins/core/base-plugin';
-import { BaseInteractiveInputDriver } from '@shared/driver-types/input-drivers/base-interactive-input-driver';
+import type { PluginDTO } from '@plugins/core/base-plugin';
+import type { BaseInteractiveInputDriver } from '@shared/driver-types/input-drivers/base-interactive-input-driver';
 
 export async function createInputPluginFromDTO(
   dto: PluginDTO,
