@@ -267,7 +267,11 @@ function upgradeInput(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newConfigs = inputConfigsFromDriver(deviceId, driver as any);
 
-    if (config instanceof LightCapableInputConfig && newConfigs.length === 1) {
+    if (
+      config instanceof LightCapableInputConfig &&
+      newConfigs.length === 1 &&
+      (driver as any).availableColors.length > 0
+    ) {
       const plugin = createBacklightPlugin(
         config,
         newConfigs[0] as MonoInputConfig,
