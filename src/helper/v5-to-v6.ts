@@ -296,7 +296,8 @@ function upgradeInput(
 function upgradeSupportedDevice(
   d: V5SupportedDeviceConfig,
   plugins: BasePlugin[],
-  inputs: BaseInputConfig[]
+  inputs: BaseInputConfig[],
+  configId?: string
 ): SupportedDeviceConfig {
   const config = new SupportedDeviceConfig(
     d.portName,
@@ -316,7 +317,12 @@ function upgradeSupportedDevice(
   }
 
   d.inputs.forEach((i) => {
-    const newInputs = upgradeInput(config.id, config.portName, i, plugins);
+    const newInputs = upgradeInput(
+      configId || config.id,
+      config.portName,
+      i,
+      plugins
+    );
 
     if (newInputs && newInputs.length > 0) inputs.push(...newInputs);
   });
@@ -368,7 +374,7 @@ function upgradeAdapterDevice(
   inputs: BaseInputConfig[]
 ): AdapterDeviceConfig {
   const oldChild = d.child!;
-  const newChild = upgradeSupportedDevice(oldChild, plugins, inputs);
+  const newChild = upgradeSupportedDevice(oldChild, plugins, inputs, d.id);
 
   const config = new AdapterDeviceConfig(
     d.portName,
@@ -376,16 +382,6 @@ function upgradeAdapterDevice(
     d.siblingIndex,
     newChild
   );
-
-  if (d.shareSustain.length > 0) {
-    const shareSustain = new ShareSustainPlugin(
-      config.id,
-      undefined,
-      d.shareSustain
-    );
-    plugins.push(shareSustain);
-    config.plugins.push(shareSustain.id);
-  }
 
   return config;
 }

@@ -1,6 +1,6 @@
 import { PluginProvider } from '@shared/plugin-provider';
 
-import { PluginRegistry } from './plugin-registry';
+import { PluginRegistry } from './registry/plugin-registry';
 import { WindowProvider } from './window-provider';
 
 const { MainWindow } = WindowProvider;

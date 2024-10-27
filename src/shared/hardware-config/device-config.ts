@@ -3,8 +3,13 @@ import { PluginProvider } from '../plugin-provider';
 import type { BaseIcicle } from '../freezable';
 import { Anonymous, getDriver } from '../drivers';
 
-import { MessageProcessor, MessageProcessorMeta } from '../message-processor';
-import { MessageTransport } from '../message-transport';
+import type {
+  MessageProcessor,
+  MessageProcessorMeta,
+} from '../message-processor';
+import type { MessageTransport } from '../message-transport';
+import type { BaseDevicePlugin } from '../../plugins/core/base-device-plugin';
+import type { BasePlugin } from '../../plugins/core/base-plugin';
 
 export interface DeviceConfigDTO extends BaseIcicle {
   id: string;
@@ -113,6 +118,20 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
   }
 
   public abstract toDTO(): T;
+
+  public async initPluginsFromDTO(
+    initPlugin: (id: string) => Promise<BaseDevicePlugin>
+  ) {
+    const plugins: BasePlugin[] = [];
+
+    await Promise.all(
+      this.plugins.map(async (id) => {
+        plugins.push(await initPlugin(id));
+      })
+    );
+
+    return plugins;
+  }
 
   /**
    * Processes a MIDI message through a series of plugins, updating the message as it

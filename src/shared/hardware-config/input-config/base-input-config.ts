@@ -10,6 +10,7 @@ import { InputType } from '../../driver-types/input-drivers/base-input-driver';
 import { BaseIcicle } from '../../freezable';
 import { getQualifiedInputId, inputIdFromDriver } from '../../util';
 import { BaseInteractiveInputDriver } from '../../driver-types/input-drivers/base-interactive-input-driver';
+import type { BaseInputPlugin } from '../../../plugins/core/base-input-plugin';
 
 export interface InputDTO extends BaseIcicle {
   id: string;
@@ -76,6 +77,14 @@ export abstract class BaseInputConfig<
 
   public removePlugin(pluginId: string) {
     this.plugins = this.plugins.filter((id) => id !== pluginId);
+  }
+
+  public async initPluginsFromDTO(
+    createPlugin: (
+      driver: BaseInteractiveInputDriver
+    ) => Promise<BaseInputPlugin>
+  ) {
+    return [await createPlugin(this.driver)];
   }
 
   /**

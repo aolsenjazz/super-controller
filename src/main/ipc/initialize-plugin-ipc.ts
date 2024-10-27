@@ -4,7 +4,7 @@ import type { PluginDTO } from '@plugins/core/base-plugin';
 import { HardwarePortService } from '@main/port-service';
 
 import { WindowProvider } from '../window-provider';
-import { PluginRegistry } from '../plugin-registry';
+import { PluginRegistry } from '../registry/plugin-registry';
 import { PLUGIN } from './ipc-channels';
 
 const { MainWindow } = WindowProvider;

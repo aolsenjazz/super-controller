@@ -15,9 +15,9 @@ import { BasePluginManifest } from '@plugins/core/base-plugin-manifest';
 import { InputPluginManifest } from '@plugins/core/input-plugin-manifest';
 import { getQualifiedInputId } from '@shared/util';
 
-import { DeviceRegistry } from './device-registry';
-import { InputRegistry } from './input-registry';
-import { PluginRegistry } from './plugin-registry';
+import { DeviceRegistry } from './registry/device-registry';
+import { InputRegistry } from './registry/input-registry';
+import { PluginRegistry } from './registry/plugin-registry';
 import { HardwarePortService } from './port-service';
 import { VirtualPortService } from './port-service/virtual/virtual-port-service';
 import { WindowProvider } from './window-provider';

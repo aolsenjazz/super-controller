@@ -6,7 +6,7 @@ import { ConfigManager } from '@main/config-manager';
 
 import { DEVICE_CONFIG } from './ipc-channels';
 import { WindowProvider } from '../window-provider';
-import { DeviceRegistry } from '../device-registry';
+import { DeviceRegistry } from '../registry/device-registry';
 import { createDevicePluginMenu } from '../menu/device-plugin-menu';
 
 const { MainWindow } = WindowProvider;

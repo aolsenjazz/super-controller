@@ -1,4 +1,4 @@
-import { DeviceRegistry } from '@main/device-registry';
+import { DeviceRegistry } from '@main/registry/device-registry';
 import { DeviceConfig } from '@shared/hardware-config/device-config';
 
 import { PortScanResult } from '../port-manager';

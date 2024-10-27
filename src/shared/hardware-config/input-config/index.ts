@@ -7,16 +7,15 @@ import { SwitchConfig, SwitchDTO } from './switch-config';
 import { XYConfig, XYDTO } from './xy-config';
 import { BaseInputConfig, InputDTO } from './base-input-config';
 
-import { DRIVERS } from '../../drivers';
 import { inputIdFromDriver } from '../../util';
 import { MonoInputDTO } from './mono-input-dto';
 import { InputDriverWithHandle } from '../../driver-types/input-drivers/input-driver-with-handle';
+import { DeviceDriver } from '../../driver-types/device-driver';
 
-function findDriver(config: InputDTO): InteractiveInputDriver {
-  const splitIdx = config.deviceId.lastIndexOf(' ');
-  const parentName = config.deviceId.substring(0, splitIdx);
-  const parentDriver = DRIVERS.get(parentName);
-
+function findDriver(
+  parentDriver: DeviceDriver,
+  config: InputDTO
+): InteractiveInputDriver {
   if (!parentDriver)
     throw new Error(`unable to locate driver for device id ${config.deviceId}`);
 
@@ -42,8 +41,11 @@ function createSliderOrWheelConfig(other: InputDTO, d: InputDriverWithHandle) {
     : new SliderConfig(other.deviceId, other.nickname, asMono.plugins, d);
 }
 
-export function inputConfigsFromDTO(other: InputDTO): BaseInputConfig {
-  const d = findDriver(other);
+export function inputConfigsFromDTO(
+  parentDriver: DeviceDriver,
+  other: InputDTO
+): BaseInputConfig {
+  const d = findDriver(parentDriver, other);
 
   switch (d.type) {
     case 'xy':

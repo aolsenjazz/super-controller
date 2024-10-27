@@ -5,6 +5,8 @@ import { SliderConfig } from './slider-config';
 import { BaseInputConfig, InputDTO } from './base-input-config';
 import type { MonoInputDTO } from './mono-input-dto';
 import { PluginProvider } from '../../plugin-provider';
+import { BaseInteractiveInputDriver } from '../../../plugins/types';
+import { BaseInputPlugin } from '../../../plugins/core/base-input-plugin';
 
 export interface XYDTO extends InputDTO {
   x: MonoInputDTO;
@@ -54,6 +56,17 @@ export class XYConfig extends BaseInputConfig<XYDTO, XYDriver> {
   public initDefaultPlugins(provider: PluginProvider): void {
     this.x.initDefaultPlugins(provider);
     this.y.initDefaultPlugins(provider);
+  }
+
+  public async initPluginsFromDTO(
+    createPlugin: (
+      driver: BaseInteractiveInputDriver
+    ) => Promise<BaseInputPlugin>
+  ) {
+    return [
+      await createPlugin(this.x.driver),
+      await createPlugin(this.y.driver),
+    ];
   }
 
   public toDTO(): XYDTO {

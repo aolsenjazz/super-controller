@@ -10,7 +10,7 @@ import { ConfigManager } from '@main/config-manager';
 
 import { INPUT_CONFIG } from './ipc-channels';
 import { WindowProvider } from '../window-provider';
-import { InputRegistry } from '../input-registry';
+import { InputRegistry } from '../registry/input-registry';
 import { createInputPluginMenu } from '../menu/input-plugin-menu';
 
 const { MainWindow } = WindowProvider;

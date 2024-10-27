@@ -9,6 +9,8 @@ import { deviceConfigFromDTO } from '@shared/hardware-config';
 import { inputConfigsFromDTO } from '@shared/hardware-config/input-config';
 import { BaseInputConfig } from '@plugins/types';
 import { DeviceConfig } from '@shared/hardware-config/device-config';
+import { DRIVERS } from '@shared/drivers';
+import { DeviceDriver } from '@shared/driver-types/device-driver';
 
 import { upgradeProject } from 'helper/project-upgrader';
 
@@ -16,9 +18,9 @@ import { HardwarePortService } from './port-service';
 import { VirtualPortService } from './port-service/virtual/virtual-port-service';
 import { WindowProvider } from './window-provider';
 import { dialogs } from './dialogs';
-import { InputRegistry } from './input-registry';
-import { PluginRegistry } from './plugin-registry';
-import { DeviceRegistry } from './device-registry';
+import { InputRegistry } from './registry/input-registry';
+import { PluginRegistry } from './registry/plugin-registry';
+import { DeviceRegistry } from './registry/device-registry';
 
 import {
   createDevicePluginFromDTO,
@@ -44,23 +46,28 @@ function getRecommendedDir(): string {
 }
 
 async function loadInputPlugins(config: BaseInputConfig, proj: ProjectPOJO) {
+  // TODO: if inputs and devices are responsible for initializing their
+  // own plugins, we don't need a getPlugins() function
   await Promise.all(
     config.getPlugins().map(async (id) => {
       const dto = proj.plugins[id];
-      const plugin = await createInputPluginFromDTO(dto, config.driver);
-      PluginRegistry.register(plugin.id, plugin);
+
+      const plugins = await config.initPluginsFromDTO(
+        createInputPluginFromDTO.bind(null, dto)
+      );
+
+      plugins.forEach((p) => PluginRegistry.register(p.id, p));
     })
   );
 }
 
 async function loadDevicePlugins(config: DeviceConfig, proj: ProjectPOJO) {
-  await Promise.all(
-    config.plugins.map(async (id) => {
-      const dto = proj.plugins[id];
-      const plugin = await createDevicePluginFromDTO(dto);
-      PluginRegistry.register(plugin.id, plugin);
-    })
-  );
+  const initDevicePlugin = async (id: string) => {
+    return createDevicePluginFromDTO(proj.plugins[id]);
+  };
+
+  const plugins = await config.initPluginsFromDTO(initDevicePlugin);
+  plugins.forEach((p) => PluginRegistry.register(p.id, p));
 }
 
 /**
@@ -70,7 +77,24 @@ async function loadDevicePlugins(config: DeviceConfig, proj: ProjectPOJO) {
 async function loadInputs(proj: ProjectPOJO) {
   await Promise.all(
     Object.values(proj.inputs).map(async (inputDTO) => {
-      const config = inputConfigsFromDTO(inputDTO);
+      const parentConfigDTO = proj.devices[inputDTO.deviceId];
+      let parentDriver: DeviceDriver | undefined;
+
+      if (parentConfigDTO.type === 'adapter') {
+        if (parentConfigDTO.child === undefined) {
+          throw new Error('cannot look up inputs for unset adapter child');
+        }
+
+        parentDriver = DRIVERS.get(parentConfigDTO.child.driverName);
+      } else {
+        parentDriver = DRIVERS.get(parentConfigDTO.driverName);
+      }
+
+      if (parentDriver === undefined) {
+        throw new Error('unable to load device driver');
+      }
+
+      const config = inputConfigsFromDTO(parentDriver, inputDTO);
       const qualifiedInputId = getQualifiedInputId(
         inputDTO.deviceId,
         inputDTO.id
@@ -124,8 +148,6 @@ export async function initDefault(): Promise<void> {
  * @param filePath - The path to the project file.
  */
 export async function loadProject(filePath: string): Promise<void> {
-  app.addRecentDocument(filePath);
-
   const jsonString = fs.readFileSync(filePath, 'utf8');
   const proj = upgradeProject(jsonString) as ProjectPOJO;
 
@@ -146,7 +168,9 @@ export async function loadProject(filePath: string): Promise<void> {
 
   MainWindow.setPlugins(PluginRegistry.getAll().map((p) => p.toDTO()));
   MainWindow.setInputConfigs(InputRegistry.getAll().map((p) => p.toDTO()));
-  MainWindow.setConfiguredDevices(Object.values(proj.devices));
+  MainWindow.setConfiguredDevices(
+    DeviceRegistry.getAll().map((d) => d.toDTO())
+  );
 }
 
 /**

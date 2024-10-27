@@ -21,9 +21,9 @@ import { ipcMain, IpcMainEvent } from 'electron';
 import type { DeviceConfig } from '@shared/hardware-config/device-config';
 import { idForMsg } from '@shared/midi-util';
 
-import { DeviceRegistry } from '@main/device-registry';
-import { PluginRegistry } from '@main/plugin-registry';
-import { InputRegistry } from '@main/input-registry';
+import { DeviceRegistry } from '@main/registry/device-registry';
+import { PluginRegistry } from '@main/registry/plugin-registry';
+import { InputRegistry } from '@main/registry/input-registry';
 import { MessageTransport } from '@shared/message-transport';
 import { getQualifiedInputId } from '@shared/util';
 import { SupportedDeviceConfig } from '@shared/hardware-config/supported-device-config';

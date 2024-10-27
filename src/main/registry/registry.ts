@@ -3,7 +3,7 @@
  * in the backend.
  */
 export class Registry<V, T extends { id: string; toDTO: () => V }> {
-  private items: Map<string, T>;
+  protected items: Map<string, T>;
 
   public constructor() {
     this.items = new Map<string, T>();
