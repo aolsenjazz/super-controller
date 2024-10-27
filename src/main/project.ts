@@ -11,6 +11,9 @@ import { BaseInputConfig, MessageTransport } from '@plugins/types';
 import { DeviceConfig } from '@shared/hardware-config/device-config';
 import { DRIVERS } from '@shared/drivers';
 import { DeviceDriver } from '@shared/driver-types/device-driver';
+import { AnonymousDeviceConfig } from '@shared/hardware-config/anonymous-device-config';
+import { SupportedDeviceConfig } from '@shared/hardware-config/supported-device-config';
+import { AdapterDeviceConfig } from '@shared/hardware-config/adapter-device-config';
 
 import { upgradeProject } from 'helper/project-upgrader';
 
@@ -26,9 +29,6 @@ import {
   createDevicePluginFromDTO,
   createInputPluginFromDTO,
 } from './create-plugin-from-dto';
-import { AnonymousDeviceConfig } from '@shared/hardware-config/anonymous-device-config';
-import { SupportedDeviceConfig } from '@shared/hardware-config/supported-device-config';
-import { AdapterDeviceConfig } from '@shared/hardware-config/adapter-device-config';
 
 const { MainWindow } = WindowProvider;
 
@@ -49,8 +49,6 @@ function getRecommendedDir(): string {
 }
 
 async function loadInputPlugins(config: BaseInputConfig, proj: ProjectPOJO) {
-  // TODO: if inputs and devices are responsible for initializing their
-  // own plugins, we don't need a getPlugins() function
   await Promise.all(
     config.getPlugins().map(async (id) => {
       const dto = proj.plugins[id];

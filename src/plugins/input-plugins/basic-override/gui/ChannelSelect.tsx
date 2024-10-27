@@ -20,7 +20,10 @@ export function ChannelSelect(props: ChannelSelectProps) {
   return (
     <label>
       Channel:
-      <select value={channelOverride} onChange={handleChange}>
+      <select
+        value={channelOverride || defaultChannel || 0}
+        onChange={handleChange}
+      >
         {channels.map((n, i) => (
           <option key={n} value={n}>
             {channelLabels[i]}

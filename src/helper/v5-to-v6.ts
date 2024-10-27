@@ -182,7 +182,7 @@ function createOverridePlugin(
   let className: MessageResolverDTO['className'] = 'BinaryMessageResolver';
 
   if (old.response === 'continuous') className = 'ContinuousMessageResolver';
-  if (old.defaults.response === 'toggle') className = 'DiscreteMessageResolver';
+  if (old.defaults.response === 'toggle') className = 'BinaryMessageResolver';
   if (old.response === 'constant') className = 'DiscreteMessageResolver';
 
   const messageResolver = {
