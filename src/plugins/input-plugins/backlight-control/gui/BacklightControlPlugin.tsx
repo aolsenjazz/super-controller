@@ -34,11 +34,14 @@ export default function BacklightPluginUI(
       fxValueBindings: { ...fxValueBindings },
     };
 
-    if (availableFx.length > 0) {
+    if (availableFx.length > 0 && color.effectable === true) {
       newState.fxBindings[s] = availableFx.find((f) => f.isDefault)!;
       newState.fxValueBindings[s] = availableFx.find(
         (f) => f.isDefault
       )!.defaultVal;
+    } else {
+      newState.fxBindings = {};
+      newState.fxValueBindings = {};
     }
 
     applyChanges(newState);

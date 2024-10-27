@@ -48,7 +48,6 @@ export default function Pad(props: PropTypes) {
       // set color independent of fx, if necessary
       if (msgEquals(c.array, lastMsg.msg)) {
         setColor(c);
-        console.log('hi');
       }
     }
   }, [recentMessages, driver]);
