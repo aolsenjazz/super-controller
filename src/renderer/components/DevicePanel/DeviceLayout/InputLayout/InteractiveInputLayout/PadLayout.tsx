@@ -29,23 +29,28 @@ export default function Pad(props: PropTypes) {
     }
     const lastMsg = recentMessages.at(-1)!;
 
-    driver.availableColors.forEach((c) => {
-      // try to apply fx if they exist
-      driver.availableFx.forEach((fxDriver) => {
-        fxDriver.validVals.forEach((fxArr) => {
+    for (let i = 0; i < driver.availableColors.length; i++) {
+      const c = driver.availableColors[i];
+
+      for (let j = 0; j < driver.availableFx.length; j++) {
+        const fxDriver = driver.availableFx[j];
+
+        for (let k = 0; k < fxDriver.validVals.length; k++) {
+          const fxArr = fxDriver.validVals[k];
+
           const affectedColor = sumMidiArrays(c.array, fxArr);
           if (msgEquals(affectedColor, lastMsg.msg)) {
             setColor(c);
             setFx(fxDriver);
           }
-        });
-      });
-
+        }
+      }
       // set color independent of fx, if necessary
       if (msgEquals(c.array, lastMsg.msg)) {
         setColor(c);
+        console.log('hi');
       }
-    });
+    }
   }, [recentMessages, driver]);
 
   return (
