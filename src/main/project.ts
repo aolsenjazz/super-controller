@@ -7,7 +7,7 @@ import { ProjectPOJO } from '@shared/project-pojo';
 import { getQualifiedInputId } from '@shared/util';
 import { deviceConfigFromDTO } from '@shared/hardware-config';
 import { inputConfigsFromDTO } from '@shared/hardware-config/input-config';
-import { BaseInputConfig } from '@plugins/types';
+import { BaseInputConfig, MessageTransport } from '@plugins/types';
 import { DeviceConfig } from '@shared/hardware-config/device-config';
 import { DRIVERS } from '@shared/drivers';
 import { DeviceDriver } from '@shared/driver-types/device-driver';
@@ -26,6 +26,9 @@ import {
   createDevicePluginFromDTO,
   createInputPluginFromDTO,
 } from './create-plugin-from-dto';
+import { AnonymousDeviceConfig } from '@shared/hardware-config/anonymous-device-config';
+import { SupportedDeviceConfig } from '@shared/hardware-config/supported-device-config';
+import { AdapterDeviceConfig } from '@shared/hardware-config/adapter-device-config';
 
 const { MainWindow } = WindowProvider;
 
@@ -150,6 +153,7 @@ export async function initDefault(): Promise<void> {
 export async function loadProject(filePath: string): Promise<void> {
   const jsonString = fs.readFileSync(filePath, 'utf8');
   const proj = upgradeProject(jsonString) as ProjectPOJO;
+  app.addRecentDocument(filePath);
 
   PluginRegistry.clear();
   InputRegistry.clear();
@@ -171,6 +175,28 @@ export async function loadProject(filePath: string): Promise<void> {
   MainWindow.setConfiguredDevices(
     DeviceRegistry.getAll().map((d) => d.toDTO())
   );
+
+  // Send intitionalization messages to the frontend
+  // TODO: this is really horrible
+  DeviceRegistry.getAll()
+    .filter((d) => !(d instanceof AnonymousDeviceConfig))
+    .map((d) => d as SupportedDeviceConfig | AdapterDeviceConfig)
+    .forEach((d) => {
+      d.inputs.forEach((i) => {
+        const inputConfig = InputRegistry.get(getQualifiedInputId(d.id, i));
+
+        if (!inputConfig) throw new Error();
+
+        const transport: MessageTransport = {
+          send: (msg) => {
+            MainWindow.sendLoopbackMessage(d.id, i, msg);
+          },
+          applyThrottle: () => {},
+        };
+
+        inputConfig.init(transport, PluginRegistry);
+      });
+    });
 }
 
 /**
@@ -192,6 +218,7 @@ function serializeProject(): ProjectPOJO {
  */
 function writeProjectToFile(filePath: string): void {
   const projectObject = serializeProject();
+
   fs.writeFileSync(filePath, JSON.stringify(projectObject, null, 2));
 
   app.addRecentDocument(filePath);

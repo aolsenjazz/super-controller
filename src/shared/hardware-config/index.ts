@@ -1,6 +1,9 @@
 import { DeviceDriver } from '../driver-types/device-driver';
 
-import { SupportedDeviceConfig } from './supported-device-config';
+import {
+  SupportedDeviceConfig,
+  SupportedDeviceConfigDTO,
+} from './supported-device-config';
 import { AnonymousDeviceConfig } from './anonymous-device-config';
 import { AdapterDeviceConfig } from './adapter-device-config';
 import { DeviceConfig, DeviceConfigDTO } from './device-config';
@@ -16,6 +19,10 @@ export function deviceConfigFromDTO(other: DeviceConfigDTO) {
       other.nickname,
       other.plugins
     );
+
+    (config as SupportedDeviceConfig).inputs = (
+      other as SupportedDeviceConfigDTO
+    ).inputs;
   } else if (other.className === 'AdapterDeviceConfig') {
     config = new AdapterDeviceConfig(
       other.portName,

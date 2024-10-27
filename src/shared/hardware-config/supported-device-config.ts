@@ -6,7 +6,7 @@ import { DeviceConfig, DeviceConfigDTO } from './device-config';
 import { getQualifiedInputId } from '../util';
 import { idForMsg } from '../midi-util';
 
-interface SupportedDeviceConfigDTO extends DeviceConfigDTO {
+export interface SupportedDeviceConfigDTO extends DeviceConfigDTO {
   inputs: string[];
   className: 'SupportedDeviceConfig';
 }

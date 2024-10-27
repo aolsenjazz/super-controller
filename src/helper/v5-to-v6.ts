@@ -324,7 +324,10 @@ function upgradeSupportedDevice(
       plugins
     );
 
-    if (newInputs && newInputs.length > 0) inputs.push(...newInputs);
+    if (newInputs && newInputs.length > 0) {
+      inputs.push(...newInputs);
+      config.inputs.push(...newInputs.map((i) => i.id));
+    }
   });
 
   return config;

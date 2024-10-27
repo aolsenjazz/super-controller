@@ -109,7 +109,6 @@ export class HardwarePortServiceSingleton {
     const input = InputRegistry.get(qualifiedInputId);
 
     if (!pair || !input) throw new Error(`one of [pair, input] is undefined`);
-
     const compoundTransport = this.createRendererInclusiveLoopbackTransport(
       pair.id,
       input.id,
