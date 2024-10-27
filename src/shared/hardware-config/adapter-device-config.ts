@@ -25,13 +25,12 @@ export class AdapterDeviceConfig extends DeviceConfig {
   public async initPluginsFromDTO(
     initPlugin: (id: string) => Promise<BaseDevicePlugin>
   ) {
-    const plugins = await super.initPluginsFromDTO(initPlugin);
     let childPlugins: BasePlugin[] = [];
 
     if (this.child)
       childPlugins = await this.child.initPluginsFromDTO(initPlugin);
 
-    return [...plugins, ...childPlugins];
+    return [...childPlugins];
   }
 
   public setChild(config: SupportedDeviceConfig) {

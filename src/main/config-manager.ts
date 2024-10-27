@@ -72,7 +72,13 @@ class ConfigManagerClass {
     // Dynamically import plugin module, instantiate, register
     const Plugin = await importDeviceSubcomponent(m.title, 'plugin');
     const plugin: BaseDevicePlugin = new Plugin(deviceId);
-    dev.plugins.push(plugin.id);
+
+    // TODO: should at a .addPLugin function to device configs to handle this case
+    if (dev instanceof AdapterDeviceConfig) {
+      dev.child!.plugins.push(plugin.id);
+    } else {
+      dev.plugins.push(plugin.id);
+    }
 
     PluginRegistry.register(plugin.id, plugin);
 
@@ -87,7 +93,14 @@ class ConfigManagerClass {
     const config = DeviceRegistry.get(deviceId);
 
     if (config) {
-      config.plugins = config.plugins.filter((p) => p !== pluginId);
+      if (config instanceof AdapterDeviceConfig) {
+        config.child!.plugins = config.child!.plugins.filter(
+          (p) => p !== pluginId
+        );
+      } else {
+        config.plugins = config.plugins.filter((p) => p !== pluginId);
+      }
+
       PluginRegistry.deregister(pluginId);
 
       const allDevices = DeviceRegistry.getAll().map((c) => c.toDTO());

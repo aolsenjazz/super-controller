@@ -27,6 +27,8 @@ export default function DeviceDetailsPanel(props: PropTypes) {
   const deviceName = connDetails?.name || config?.portName || '';
   const deviceNickname = config?.nickname || '';
 
+  const plugins = isAdapter ? config.child?.plugins : config?.plugins;
+
   const onChange = useCallback(
     (n: string) => {
       const newConfig: DeviceConfigDTO = {
@@ -84,7 +86,7 @@ export default function DeviceDetailsPanel(props: PropTypes) {
           </label>
         </div>
         <PluginSubpanel
-          plugins={config?.plugins || []}
+          plugins={plugins || []}
           removePlugin={removePlugin}
           showPluginMenu={showPluginMenu}
           importPlugin={(title) => importDeviceSubcomponent(title, 'gui')}
