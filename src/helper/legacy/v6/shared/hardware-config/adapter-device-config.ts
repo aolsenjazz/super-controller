@@ -2,6 +2,8 @@ import { SupportedDeviceConfig } from './supported-device-config';
 import { DeviceConfig } from './device-config';
 import { MessageProcessorMeta } from '../message-processor';
 import { MessageTransport } from '../message-transport';
+import { BaseDevicePlugin } from '../../plugins/core/base-device-plugin';
+import { BasePlugin } from '../../plugins/core/base-plugin';
 
 export class AdapterDeviceConfig extends DeviceConfig {
   child?: SupportedDeviceConfig;
@@ -14,6 +16,21 @@ export class AdapterDeviceConfig extends DeviceConfig {
   ) {
     super(portName, driverName, siblingIndex, portName);
     this.child = child;
+  }
+
+  public initDefaultPlugins() {
+    // no-op
+  }
+
+  public async initPluginsFromDTO(
+    initPlugin: (id: string) => Promise<BaseDevicePlugin>
+  ) {
+    let childPlugins: BasePlugin[] = [];
+
+    if (this.child)
+      childPlugins = await this.child.initPluginsFromDTO(initPlugin);
+
+    return [...childPlugins];
   }
 
   public setChild(config: SupportedDeviceConfig) {

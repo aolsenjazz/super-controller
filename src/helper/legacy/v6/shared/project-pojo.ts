@@ -1,6 +1,6 @@
-import { DeviceConfigDTO } from './hardware-config/device-config';
-import { InputDTO } from './hardware-config/input-config/base-input-config';
-import { PluginDTO } from '../plugins/core/base-plugin';
+import type { DeviceConfigDTO } from './hardware-config/device-config';
+import type { InputDTO } from './hardware-config/input-config/base-input-config';
+import type { PluginDTO } from '../plugins/core/base-plugin';
 
 export interface ProjectPOJO {
   inputs: Record<string, InputDTO>;

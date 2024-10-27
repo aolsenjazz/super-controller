@@ -1,8 +1,9 @@
+import { BaseIcicle } from '../../shared/freezable';
 import type { MessageProcessor, MessageProcessorMeta } from '../types';
 import { MessageTransport } from '../types';
 import { generateId } from './plugin-utils';
 
-export interface PluginDTO {
+export interface PluginDTO extends BaseIcicle {
   id: string;
   parentId: string;
   title: string;

@@ -33,7 +33,10 @@ export function NumberSelect(props: NumberSelectProps) {
   return (
     <label>
       Number:
-      <select value={numberOverride} onChange={handleChange}>
+      <select
+        value={numberOverride || defaultNumber || 0}
+        onChange={handleChange}
+      >
         {numbers.map((n, i) => (
           <option key={n} value={n}>
             {numberLabels[i]}

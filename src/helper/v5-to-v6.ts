@@ -9,6 +9,7 @@ import {
   DeviceConfig as V5DeviceConfig,
   BaseInputConfig as V5BaseInputConfig,
   LightCapableInputConfig,
+  SwitchConfig as V5SwitchConfig,
 } from './legacy/v5/shared/hardware-config';
 
 import { DeviceConfig } from './legacy/v6/shared/hardware-config/device-config';
@@ -30,7 +31,6 @@ import {
 import {
   BaseInputConfig,
   DeviceConfigDTO,
-  MonoInputConfig,
   MonoInteractiveDriver,
 } from './legacy/v6/plugins/types';
 import BacklightControlPlugin, {
@@ -42,8 +42,10 @@ import BasicOverridePlugin, {
 } from './legacy/v6/plugins/input-plugins/basic-override';
 import { MonoInputConfig as V5MonoInputConfig } from './legacy/v5/shared/hardware-config/input-config/mono-input-config';
 import { MessageResolverDTO } from './legacy/v6/plugins/input-plugins/basic-override/message-resolver/message-resolver';
-import { statusStringToNibble } from './legacy/v6/shared/midi-util';
+import { idForMsg, statusStringToNibble } from './legacy/v6/shared/midi-util';
 import { InputDTO } from './legacy/v6/shared/hardware-config/input-config/base-input-config';
+import { MonoInputConfig } from './legacy/v6/shared/hardware-config/input-config/mono-input-config';
+import { SwitchConfig } from './legacy/v6/shared/hardware-config/input-config/switch-config';
 
 const VERSION = 6;
 
@@ -278,7 +280,7 @@ function upgradeInput(
         driver as MonoInteractiveDriver
       );
       plugins.push(plugin);
-      (newConfigs[0] as MonoInputConfig).plugins.push(plugin.id);
+      (newConfigs[0] as MonoInputConfig).getPlugins().push(plugin.id);
     }
 
     newConfigs.forEach((newConfig) => {
@@ -288,13 +290,25 @@ function upgradeInput(
         driver as MonoInteractiveDriver
       );
       plugins.push(plugin);
-      (newConfig as MonoInputConfig).plugins.push(plugin.id);
+      (newConfig as MonoInputConfig).getPlugins().push(plugin.id);
     });
 
     return newConfigs;
   }
+  const outProp = (config as V5SwitchConfig).outputPropagator;
+  const correctConfigId = `${idForMsg(outProp.defaultStep)}`;
 
-  return undefined;
+  const d = findInputDriver(deviceName, correctConfigId);
+  const newConfigs = inputConfigsFromDriver(deviceId, d as any);
+
+  const c = newConfigs[0] as unknown as SwitchConfig;
+  c.steps.forEach((s) => {
+    const override = new BasicOverridePlugin(s.qualifiedId, s.driver);
+    s.getPlugins().push(override.id);
+    plugins.push(override);
+  });
+
+  return newConfigs;
 }
 
 function upgradeSupportedDevice(

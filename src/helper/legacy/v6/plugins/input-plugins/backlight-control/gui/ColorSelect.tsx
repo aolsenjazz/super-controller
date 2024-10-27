@@ -19,7 +19,7 @@ export default function ColorSelect(props: PropTypes) {
 
   if (!color)
     options.push(
-      <option disabled hidden value={value}>
+      <option key="unset" disabled hidden value={value}>
         Unset
       </option>
     );

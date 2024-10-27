@@ -6,7 +6,7 @@ import { DeviceConfig, DeviceConfigDTO } from './device-config';
 import { getQualifiedInputId } from '../util';
 import { idForMsg } from '../midi-util';
 
-interface SupportedDeviceConfigDTO extends DeviceConfigDTO {
+export interface SupportedDeviceConfigDTO extends DeviceConfigDTO {
   inputs: string[];
   className: 'SupportedDeviceConfig';
 }
@@ -22,6 +22,10 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
       inputs: this.inputs,
       type: 'supported' as const,
     };
+  }
+
+  public initDefaultPlugins() {
+    // no-op
   }
 
   public process(msg: NumberArrayWithStatus, meta: MessageProcessorMeta) {

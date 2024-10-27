@@ -4,6 +4,7 @@ import { SwitchDriver } from '../../driver-types/input-drivers/switch-driver';
 import { InputDefault, MonoInputConfig } from './mono-input-config';
 import { MonoInputDTO } from './mono-input-dto';
 import { SwitchStepConfig, SwitchStepDTO } from './switch-step-config';
+import { PluginProvider } from '../../plugin-provider';
 
 export interface SwitchDTO extends MonoInputDTO {
   steps: SwitchStepDTO[];
@@ -16,7 +17,12 @@ export class SwitchConfig extends MonoInputConfig {
 
   public steps: SwitchStepConfig[] = [];
 
-  public constructor(deviceId: string, nickname: string, driver: SwitchDriver) {
+  public constructor(
+    deviceId: string,
+    nickname: string,
+    driver: SwitchDriver,
+    stepDTOs?: SwitchStepDTO[]
+  ) {
     super(deviceId, nickname, [], driver);
 
     const initialStep = driver.steps[driver.initialStep];
@@ -24,14 +30,17 @@ export class SwitchConfig extends MonoInputConfig {
       statusString: byteToStatusString(initialStep[0], true),
       number: initialStep[1] as MidiNumber,
       channel: (initialStep[0] & 0x0f) as Channel,
-      response: 'enumerated',
+      response: 'n-step',
     };
 
     for (let i = 0; i < driver.steps.length; i++) {
+      let plugins: string[] = [];
+      if (stepDTOs && stepDTOs.length > i) plugins = stepDTOs[i].plugins;
+
       const stepConfig = new SwitchStepConfig(
         deviceId,
         '',
-        [],
+        plugins,
         driver,
         driver.steps[i]
       );
@@ -59,7 +68,15 @@ export class SwitchConfig extends MonoInputConfig {
     // noop, for now
   }
 
+  public initDefaultPlugins(provider: PluginProvider) {
+    this.steps.forEach((s) => s.initDefaultPlugins(provider));
+  }
+
   public applyStub(dto: SwitchDTO) {
     super.applyStub(dto);
+  }
+
+  public getPlugins() {
+    return this.steps.map((s) => s.getPlugins()).flatMap((a) => a);
   }
 }

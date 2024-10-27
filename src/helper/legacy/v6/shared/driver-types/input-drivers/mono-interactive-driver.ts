@@ -17,7 +17,7 @@ export type InputResponse =
   | 'toggle'
   | 'continuous'
   | 'constant'
-  | 'enumerated';
+  | 'n-step';
 
 export interface MonoInteractiveDriver extends BaseInteractiveInputDriver {
   readonly type: 'knob' | 'pad' | 'slider' | 'wheel' | 'switch';

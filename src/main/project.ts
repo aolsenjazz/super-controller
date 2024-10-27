@@ -100,6 +100,7 @@ async function loadInputs(proj: ProjectPOJO) {
         inputDTO.deviceId,
         inputDTO.id
       );
+
       InputRegistry.register(qualifiedInputId, config);
 
       // Load plugins

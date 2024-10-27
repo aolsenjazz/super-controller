@@ -1,4 +1,4 @@
-import type { BaseInputDriver, MonoInteractiveDriver } from './types';
+import type { BaseInputDriver, BaseInteractiveInputDriver } from './types';
 import type { BasePluginManifest } from './core/base-plugin-manifest';
 import type { InputPluginManifest } from './core/input-plugin-manifest';
 import type { BaseDevicePlugin } from './core/base-device-plugin';
@@ -158,7 +158,10 @@ type InputComponentArgs = [parentId: string, driver: BaseInputDriver];
 
 type InputPluginConstructorWithStatic = {
   new (...args: InputComponentArgs): BaseInputPlugin;
-  fromDTO: (dto: PluginDTO, driver: MonoInteractiveDriver) => BaseInputPlugin;
+  fromDTO: (
+    dto: PluginDTO,
+    driver: BaseInteractiveInputDriver
+  ) => BaseInputPlugin;
 };
 
 type InputComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'

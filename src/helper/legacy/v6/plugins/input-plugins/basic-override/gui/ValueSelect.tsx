@@ -20,7 +20,10 @@ export function ValueSelect(props: ValueSelectProps) {
   return (
     <label>
       Value:
-      <select value={valueOverride} onChange={handleChange}>
+      <select
+        value={valueOverride || defaultValue || 0}
+        onChange={handleChange}
+      >
         {numbers.map((n, i) => (
           <option key={n} value={n}>
             {numberLabels[i]}

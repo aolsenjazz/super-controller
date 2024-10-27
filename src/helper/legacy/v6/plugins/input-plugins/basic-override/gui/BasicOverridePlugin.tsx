@@ -8,7 +8,9 @@ import './BasicOverride.css';
 
 type OutputStrategy = StateManager['outputStrategy'];
 
-export default function GUI(props: PluginUIProps<BasicOverrideDTO>) {
+export default function BasicOverridePlugin(
+  props: PluginUIProps<BasicOverrideDTO>
+) {
   const { plugin, applyChanges } = props;
 
   const { messageResolver, outputStrategy, eligibleOutputStrategies } = plugin;

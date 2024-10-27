@@ -27,8 +27,9 @@ function findDriver(
       return inputIdFromDriver(d) === config.id;
     });
 
-  if (!inputDriver)
-    throw new Error(`unable to located input driver for id ${config.id}`);
+  if (!inputDriver) {
+    throw new Error(`unable to locate input driver for id ${config.id}`);
+  }
 
   return inputDriver;
 }

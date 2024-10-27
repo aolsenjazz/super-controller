@@ -19,7 +19,7 @@ export interface SwitchConfigStub extends InputConfigStub {
 
 @Revivable.register
 export class SwitchConfig extends BaseInputConfig {
-  private outputPropagator: NonsequentialStepPropagator;
+  outputPropagator: NonsequentialStepPropagator;
 
   #nickname?: string;
 

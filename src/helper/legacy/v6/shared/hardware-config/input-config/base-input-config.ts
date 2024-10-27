@@ -10,12 +10,14 @@ import { InputType } from '../../driver-types/input-drivers/base-input-driver';
 import { BaseIcicle } from '../../freezable';
 import { getQualifiedInputId, inputIdFromDriver } from '../../util';
 import { BaseInteractiveInputDriver } from '../../driver-types/input-drivers/base-interactive-input-driver';
+import type { BaseInputPlugin } from '../../../plugins/core/base-input-plugin';
 
 export interface InputDTO extends BaseIcicle {
   id: string;
   deviceId: string;
   nickname: string;
   type: InputType;
+  plugins: string[];
 }
 
 export abstract class BaseInputConfig<
@@ -38,10 +40,18 @@ export abstract class BaseInputConfig<
 
   readonly driver: K;
 
-  constructor(deviceId: string, nickname: string, driver: K) {
+  protected plugins: string[];
+
+  constructor(
+    deviceId: string,
+    nickname: string,
+    driver: K,
+    plugins: string[]
+  ) {
     this.deviceId = deviceId;
     this.nickname = nickname;
     this.driver = driver;
+    this.plugins = plugins;
 
     this.id = inputIdFromDriver(driver);
   }
@@ -52,12 +62,29 @@ export abstract class BaseInputConfig<
       id: this.id,
       nickname: this.nickname,
       type: this.type,
+      plugins: this.plugins,
       className: 'BaseInputConfig',
     } as T;
   }
 
   public applyStub(s: T) {
     this.nickname = s.nickname;
+  }
+
+  public addPlugin(id: string) {
+    this.plugins.push(id);
+  }
+
+  public removePlugin(pluginId: string) {
+    this.plugins = this.plugins.filter((id) => id !== pluginId);
+  }
+
+  public async initPluginsFromDTO(
+    createPlugin: (
+      driver: BaseInteractiveInputDriver
+    ) => Promise<BaseInputPlugin>
+  ) {
+    return [await createPlugin(this.driver)];
   }
 
   /**
@@ -68,10 +95,14 @@ export abstract class BaseInputConfig<
     return getQualifiedInputId(this.deviceId, this.id);
   }
 
+  public abstract getPlugins(): string[];
+
   public abstract init(
     loopbackTransport: MessageTransport,
     pluginProvider: PluginProvider
   ): void;
+
+  public abstract initDefaultPlugins(provider: PluginProvider): void;
 
   public abstract process(
     msg: NumberArrayWithStatus,
