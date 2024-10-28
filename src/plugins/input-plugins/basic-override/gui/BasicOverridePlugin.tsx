@@ -36,7 +36,7 @@ export default function BasicOverridePlugin(
         >
           {eligibleOutputStrategies.map((strat) => {
             return (
-              <option key={strat}>
+              <option key={strat} value={strat}>
                 {strat}
                 {strat === defaultOutputStrategy ? ' [default]' : ''}
               </option>
