@@ -197,6 +197,10 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
       }
     }
 
+    if (this.stateManager.state >= this.stateManager.totalStates) {
+      this.stateManager.state = 0;
+    }
+
     // Tell the application that updating this plugin should not trigger a resync of
     // the hardware with super controller.
     return false;
