@@ -12,6 +12,7 @@ export default function BasicOverridePlugin(
   props: PluginUIProps<BasicOverrideDTO>
 ) {
   const { plugin, applyChanges } = props;
+  const { defaultOutputStrategy } = plugin;
 
   const { messageResolver, outputStrategy, eligibleOutputStrategies } = plugin;
 
@@ -34,7 +35,12 @@ export default function BasicOverridePlugin(
           onChange={(e) => onOutputStrategyClick(e.target.value)}
         >
           {eligibleOutputStrategies.map((strat) => {
-            return <option key={strat}>{strat}</option>;
+            return (
+              <option key={strat}>
+                {strat}
+                {strat === defaultOutputStrategy ? ' [default]' : ''}
+              </option>
+            );
           })}
         </select>
       </label>

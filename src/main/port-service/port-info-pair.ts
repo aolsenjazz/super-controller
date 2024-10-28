@@ -47,9 +47,6 @@ export class PortInfoPair<
   public get siblingIndex() {
     const occurNum = this.iPort?.siblingIndex || this.oPort?.siblingIndex || 0;
 
-    if (occurNum === undefined)
-      throw new Error(`occurNum should not be undefined`);
-
     return occurNum;
   }
 

@@ -105,17 +105,32 @@ export class HardwarePortServiceSingleton {
   }
 
   public syncInput(qualifiedInputId: string) {
-    const pair = this.ports.get(qualifiedInputId.split('::')[0]);
+    const deviceId = qualifiedInputId.split('::')[0];
+    const pair = this.ports.get(deviceId);
     const input = InputRegistry.get(qualifiedInputId);
 
-    if (!pair || !input) throw new Error(`one of [pair, input] is undefined`);
-    const compoundTransport = this.createRendererInclusiveLoopbackTransport(
-      pair.id,
-      input.id,
-      pair
-    );
+    if (!input) throw new Error(`unable to lcoated input ${qualifiedInputId}`);
 
-    input.init(compoundTransport, PluginRegistry);
+    let transport: MessageTransport;
+
+    if (pair) {
+      // device is plugged in, init both device and frontend
+      transport = this.createRendererInclusiveLoopbackTransport(
+        pair.id,
+        input.id,
+        pair
+      );
+    } else {
+      // device probably isnt plugged in, just init frontend
+      transport = {
+        send(msg: NumberArrayWithStatus) {
+          MainWindow.sendLoopbackMessage(deviceId, input.id, msg);
+        },
+        applyThrottle: () => {},
+      };
+    }
+
+    input.init(transport, PluginRegistry);
   }
 
   /**

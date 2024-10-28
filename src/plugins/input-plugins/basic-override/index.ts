@@ -87,6 +87,8 @@ export interface BasicOverrideDTO extends PluginDTO {
    * The DTO representation of the message resolver.
    */
   messageResolver: ResolverDTOType;
+
+  defaultOutputStrategy: StateManager['outputStrategy'];
 }
 
 /**
@@ -232,6 +234,7 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
       ...super.toDTO(),
       eligibleOutputStrategies: this.stateManager.eligibleOutputStrategies,
       outputStrategy: this.stateManager.outputStrategy,
+      defaultOutputStrategy: this.driver.response,
       messageResolver: this.messageResolver.toDTO(),
     };
   }

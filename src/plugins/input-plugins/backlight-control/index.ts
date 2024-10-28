@@ -147,16 +147,27 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
     };
   }
 
+  /**
+   * This really isn't pretty. Would be nice to fix this up
+   */
   public applyDTO(dto: BacklightControlDTO) {
     if (this.stateManager.outputStrategy !== dto.outputResponse) {
       this.stateManager.outputStrategy = dto.outputResponse;
 
       this.restoreDefaultColor(0);
       this.restoreDefaultColor(1);
-      this.restoreDefaultFx(0);
-      this.restoreDefaultFx(1);
-      this.restoreDefaultFxValue(0);
-      this.restoreDefaultFxValue(1);
+
+      if (this.colorBindings[0].effectable) {
+        this.restoreDefaultFx(0);
+        this.restoreDefaultFx(1);
+        this.restoreDefaultFxValue(0);
+        this.restoreDefaultFxValue(1);
+      } else {
+        delete this.fxBindings[0];
+        delete this.fxBindings[1];
+        delete this.fxValueBindings[0];
+        delete this.fxValueBindings[1];
+      }
     } else {
       this.stateManager.totalStates = Object.keys(dto.colorBindings).length;
       if (this.stateManager.totalStates === this.stateManager.state) {
