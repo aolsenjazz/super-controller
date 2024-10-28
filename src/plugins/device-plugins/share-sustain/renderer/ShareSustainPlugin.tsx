@@ -9,13 +9,7 @@ import './ShareSustain.css';
 export default function ShareSustainPlugin(
   props: PluginUIProps<ShareSustainDTO>
 ) {
-  const {
-    plugin,
-    connectedDevices,
-    configuredDevices,
-    selectedDevice,
-    applyChanges,
-  } = props;
+  const { plugin, configuredDevices, selectedDevice, applyChanges } = props;
 
   const onChange = (checked: boolean, id: string) => {
     const newTargets = checked
@@ -28,11 +22,7 @@ export default function ShareSustainPlugin(
     });
   };
 
-  const uniqueIds = Array.from(
-    new Set(connectedDevices.concat(configuredDevices)).values()
-  );
-
-  const SustainTargets = uniqueIds
+  const SustainTargets = configuredDevices
     .filter((d) => d !== selectedDevice.id)
     .map((d) => {
       return (
