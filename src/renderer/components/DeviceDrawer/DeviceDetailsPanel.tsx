@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
-import { importDeviceSubcomponent } from '@plugins/plugin-loader';
 
 import PluginSubpanel from '../PluginSubpanel';
 import SectionHeader from '../SectionHeader';
@@ -89,7 +88,6 @@ export default function DeviceDetailsPanel(props: PropTypes) {
           plugins={plugins || []}
           removePlugin={removePlugin}
           showPluginMenu={showPluginMenu}
-          importPlugin={(title) => importDeviceSubcomponent(title, 'gui')}
           showAddPlugin
         />
       </div>

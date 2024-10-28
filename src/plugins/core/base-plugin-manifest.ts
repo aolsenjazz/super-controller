@@ -4,14 +4,14 @@
  * plugins.
  */
 export interface BasePluginManifest {
-  title: string;
-  description: string;
-  gui: string;
+  readonly title: string;
+  readonly description: string;
+  readonly gui: string;
 
   /**
    * Relative path to the Plugin file
    */
-  plugin: string;
+  readonly plugin: string;
 
   /**
    * For plugins that need more sophisticated functionality, optionally provide

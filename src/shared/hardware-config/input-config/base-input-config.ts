@@ -79,12 +79,10 @@ export abstract class BaseInputConfig<
     this.plugins = this.plugins.filter((id) => id !== pluginId);
   }
 
-  public async initPluginsFromDTO(
-    createPlugin: (
-      driver: BaseInteractiveInputDriver
-    ) => Promise<BaseInputPlugin>
+  public initPluginsFromDTO(
+    createPlugin: (driver: BaseInteractiveInputDriver) => BaseInputPlugin
   ) {
-    return [await createPlugin(this.driver)];
+    return [createPlugin(this.driver)];
   }
 
   /**

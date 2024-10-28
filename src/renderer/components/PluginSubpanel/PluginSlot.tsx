@@ -1,7 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { PluginUIProps } from '@plugins/core/plugin-ui-props';
 import { useAppDispatch, useAppSelector } from '@hooks/use-app-dispatch';
 import {
   selectSelectedPluginId,
@@ -18,7 +17,6 @@ const { PluginService } = window;
 type PropTypes = {
   pluginId: string;
   removePlugin: (pluginId: string) => void;
-  importPlugin: (title: string) => Promise<React.FC<PluginUIProps>>;
 };
 
 /**
@@ -26,7 +24,7 @@ type PropTypes = {
  * can cause a single plugin slot to represent n plugins, if all homogenous.
  */
 export default function PluginSlot(props: PropTypes) {
-  const { pluginId, removePlugin, importPlugin } = props;
+  const { pluginId, removePlugin } = props;
 
   const dispatch = useAppDispatch();
   const selectedPlugin = useSelector(selectSelectedPluginId);
@@ -66,11 +64,7 @@ export default function PluginSlot(props: PropTypes) {
         <h5>{plugin.title}</h5>
       </div>
       {!plugin.collapsed && (
-        <PluginBody
-          pluginId={pluginId}
-          title={plugin.title}
-          importPlugin={importPlugin}
-        />
+        <PluginBody pluginId={pluginId} title={plugin.title} />
       )}
     </div>
   );

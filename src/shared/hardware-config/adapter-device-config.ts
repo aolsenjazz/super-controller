@@ -22,13 +22,10 @@ export class AdapterDeviceConfig extends DeviceConfig {
     // no-op
   }
 
-  public async initPluginsFromDTO(
-    initPlugin: (id: string) => Promise<BaseDevicePlugin>
-  ) {
+  public initPluginsFromDTO(initPlugin: (id: string) => BaseDevicePlugin) {
     let childPlugins: BasePlugin[] = [];
 
-    if (this.child)
-      childPlugins = await this.child.initPluginsFromDTO(initPlugin);
+    if (this.child) childPlugins = this.child.initPluginsFromDTO(initPlugin);
 
     return [...childPlugins];
   }

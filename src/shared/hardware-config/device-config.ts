@@ -119,16 +119,12 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
 
   public abstract toDTO(): T;
 
-  public async initPluginsFromDTO(
-    initPlugin: (id: string) => Promise<BaseDevicePlugin>
-  ) {
+  public initPluginsFromDTO(initPlugin: (id: string) => BaseDevicePlugin) {
     const plugins: BasePlugin[] = [];
 
-    await Promise.all(
-      this.plugins.map(async (id) => {
-        plugins.push(await initPlugin(id));
-      })
-    );
+    this.plugins.map(async (id) => {
+      plugins.push(initPlugin(id));
+    });
 
     return plugins;
   }

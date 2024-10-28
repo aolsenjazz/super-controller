@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from 'react';
 
-import { importInputSubcomponent } from '@plugins/plugin-loader';
 import { getQualifiedInputId } from '@shared/util';
 import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 
@@ -46,7 +45,6 @@ export default function MonoInputConfigPanel(props: PropTypes) {
           key={`plugin${x}`}
           pluginId={x}
           removePlugin={removePlugin}
-          importPlugin={(title) => importInputSubcomponent(title, 'gui')}
         />
       );
     });

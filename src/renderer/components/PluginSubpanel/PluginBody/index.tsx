@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import type { PluginUIProps } from '@plugins/core/plugin-ui-props';
 import type { PluginDTO } from '@plugins/core/base-plugin';
 import { selectUnifiedDevices } from '@selectors/unified-devices-selector';
 import { selectSelectedDevice } from '@selectors/selected-device-selector';
@@ -10,17 +8,17 @@ import { selectPluginById } from '@features/plugins/plugins-slice';
 import { useAppSelector } from '@hooks/use-app-dispatch';
 
 import './PluginBody.css';
+import { getPluginUI } from 'renderer/plugin-files';
 
 const { PluginService } = window;
 
 type PropTypes = {
   pluginId: string;
   title: string;
-  importPlugin: (title: string) => Promise<React.FC<PluginUIProps>>;
 };
 
 export default function PluginBody(props: PropTypes) {
-  const { pluginId, title, importPlugin } = props;
+  const { pluginId, title } = props;
 
   const selectedDevice = useSelector(selectSelectedDevice)!;
   const connectedDevices = useSelector(selectUnifiedDevices);
@@ -33,18 +31,7 @@ export default function PluginBody(props: PropTypes) {
     .filter((c) => c.config)
     .map((c) => c.id);
 
-  const [UI, setUI] = useState<React.FC<PluginUIProps>>();
-
-  useEffect(() => {
-    importPlugin(title)
-      .then((Element) => {
-        setUI(() => Element);
-        return null;
-      })
-      .catch((e) => {
-        throw e;
-      });
-  }, [title, importPlugin]);
+  const UI = getPluginUI(title);
 
   const updatePlugin = (dto: PluginDTO) => {
     PluginService.updatePlugin(dto);

@@ -7,7 +7,11 @@ import { ProjectPOJO } from '@shared/project-pojo';
 import { getQualifiedInputId } from '@shared/util';
 import { deviceConfigFromDTO } from '@shared/hardware-config';
 import { inputConfigsFromDTO } from '@shared/hardware-config/input-config';
-import { BaseInputConfig, MessageTransport } from '@plugins/types';
+import {
+  BaseInputConfig,
+  BaseInteractiveInputDriver,
+  MessageTransport,
+} from '@plugins/types';
 import { DeviceConfig } from '@shared/hardware-config/device-config';
 import { DRIVERS } from '@shared/drivers';
 import { DeviceDriver } from '@shared/driver-types/device-driver';
@@ -24,11 +28,7 @@ import { dialogs } from './dialogs';
 import { InputRegistry } from './registry/input-registry';
 import { PluginRegistry } from './registry/plugin-registry';
 import { DeviceRegistry } from './registry/device-registry';
-
-import {
-  createDevicePluginFromDTO,
-  createInputPluginFromDTO,
-} from './create-plugin-from-dto';
+import { getDevicePlugin, getInputPlugin } from './plugin-files';
 
 const { MainWindow } = WindowProvider;
 
@@ -48,26 +48,28 @@ function getRecommendedDir(): string {
   return store.get(SAVE_DIR_KEY, app.getPath('desktop')) as string;
 }
 
-async function loadInputPlugins(config: BaseInputConfig, proj: ProjectPOJO) {
-  await Promise.all(
-    config.getPlugins().map(async (id) => {
-      const dto = proj.plugins[id];
+function loadInputPlugins(config: BaseInputConfig, proj: ProjectPOJO) {
+  config.getPlugins().forEach((id) => {
+    const dto = proj.plugins[id];
 
-      const plugins = await config.initPluginsFromDTO(
-        createInputPluginFromDTO.bind(null, dto)
-      );
+    const plugins = config.initPluginsFromDTO(
+      (driver: BaseInteractiveInputDriver) => {
+        const Plugin = getInputPlugin(dto.title);
+        return Plugin.fromDTO(dto, driver);
+      }
+    );
 
-      plugins.forEach((p) => PluginRegistry.register(p.id, p));
-    })
-  );
+    plugins.forEach((p) => PluginRegistry.register(p.id, p));
+  });
 }
 
-async function loadDevicePlugins(config: DeviceConfig, proj: ProjectPOJO) {
-  const initDevicePlugin = async (id: string) => {
-    return createDevicePluginFromDTO(proj.plugins[id]);
+function loadDevicePlugins(config: DeviceConfig, proj: ProjectPOJO) {
+  const initDevicePlugin = (id: string) => {
+    const Plugin = getDevicePlugin(proj.plugins[id].title);
+    return Plugin.fromDTO(proj.plugins[id]);
   };
 
-  const plugins = await config.initPluginsFromDTO(initDevicePlugin);
+  const plugins = config.initPluginsFromDTO(initDevicePlugin);
   plugins.forEach((p) => PluginRegistry.register(p.id, p));
 }
 
@@ -75,59 +77,55 @@ async function loadDevicePlugins(config: DeviceConfig, proj: ProjectPOJO) {
  * Loads input configurations from the project data.
  * @param proj - The project data object.
  */
-async function loadInputs(proj: ProjectPOJO) {
-  await Promise.all(
-    Object.values(proj.inputs).map(async (inputDTO) => {
-      const parentConfigDTO = proj.devices[inputDTO.deviceId];
-      let parentDriver: DeviceDriver | undefined;
+function loadInputs(proj: ProjectPOJO) {
+  Object.values(proj.inputs).forEach((inputDTO) => {
+    const parentConfigDTO = proj.devices[inputDTO.deviceId];
+    let parentDriver: DeviceDriver | undefined;
 
-      if (parentConfigDTO.type === 'adapter') {
-        if (parentConfigDTO.child === undefined) {
-          throw new Error('cannot look up inputs for unset adapter child');
-        }
-
-        parentDriver = DRIVERS.get(parentConfigDTO.child.driverName);
-      } else {
-        parentDriver = DRIVERS.get(parentConfigDTO.driverName);
+    if (parentConfigDTO.type === 'adapter') {
+      if (parentConfigDTO.child === undefined) {
+        throw new Error('cannot look up inputs for unset adapter child');
       }
 
-      if (parentDriver === undefined) {
-        throw new Error('unable to load device driver');
-      }
+      parentDriver = DRIVERS.get(parentConfigDTO.child.driverName);
+    } else {
+      parentDriver = DRIVERS.get(parentConfigDTO.driverName);
+    }
 
-      const config = inputConfigsFromDTO(parentDriver, inputDTO);
-      const qualifiedInputId = getQualifiedInputId(
-        inputDTO.deviceId,
-        inputDTO.id
-      );
+    if (parentDriver === undefined) {
+      throw new Error('unable to load device driver');
+    }
 
-      InputRegistry.register(qualifiedInputId, config);
+    const config = inputConfigsFromDTO(parentDriver, inputDTO);
+    const qualifiedInputId = getQualifiedInputId(
+      inputDTO.deviceId,
+      inputDTO.id
+    );
 
-      // Load plugins
-      await loadInputPlugins(config, proj);
-    })
-  );
+    InputRegistry.register(qualifiedInputId, config);
+
+    // Load plugins
+    loadInputPlugins(config, proj);
+  });
 }
 
 /**
  * Loads device configurations from the project data.
  * @param proj - The project data object.
  */
-async function loadDevices(proj: ProjectPOJO) {
-  await Promise.all(
-    Object.values(proj.devices).map(async (deviceDTO) => {
-      const deviceConfig = deviceConfigFromDTO(deviceDTO);
-      DeviceRegistry.register(deviceDTO.id, deviceConfig);
+function loadDevices(proj: ProjectPOJO) {
+  Object.values(proj.devices).forEach((deviceDTO) => {
+    const deviceConfig = deviceConfigFromDTO(deviceDTO);
+    DeviceRegistry.register(deviceDTO.id, deviceConfig);
 
-      await loadDevicePlugins(deviceConfig, proj);
-    })
-  );
+    loadDevicePlugins(deviceConfig, proj);
+  });
 }
 
 /**
  * Initializes a new default project with no configurations.
  */
-export async function initDefault(): Promise<void> {
+export function initDefault() {
   currentPath = undefined;
 
   MainWindow.title = 'Untitled Project';
@@ -149,7 +147,7 @@ export async function initDefault(): Promise<void> {
  * Loads a project from the specified file path.
  * @param filePath - The path to the project file.
  */
-export async function loadProject(filePath: string): Promise<void> {
+export function loadProject(filePath: string) {
   const jsonString = fs.readFileSync(filePath, 'utf8');
   const proj = upgradeProject(jsonString) as ProjectPOJO;
   app.addRecentDocument(filePath);
@@ -158,8 +156,8 @@ export async function loadProject(filePath: string): Promise<void> {
   InputRegistry.clear();
   DeviceRegistry.clear();
 
-  await loadInputs(proj);
-  await loadDevices(proj);
+  loadInputs(proj);
+  loadDevices(proj);
 
   currentPath = filePath;
 

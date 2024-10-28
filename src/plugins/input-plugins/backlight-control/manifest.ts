@@ -13,7 +13,7 @@ function colorCapableRequirement(config: BaseInputConfig): boolean {
 }
 
 const Manifest: InputPluginManifest = {
-  title: 'Backlight Control',
+  title: 'Backlight Control' as const,
   description: 'Controls the color of the lights for this input.',
   gui: 'backlight-control/gui/BacklightControlPlugin.tsx',
   plugin: 'backlight-control/index.ts',

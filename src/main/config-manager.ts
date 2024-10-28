@@ -1,7 +1,3 @@
-import {
-  importDeviceSubcomponent,
-  importInputSubcomponent,
-} from '@plugins/plugin-loader';
 import { InteractiveInputDriver } from '@shared/driver-types/input-drivers';
 import { Anonymous, DRIVERS, getDriver } from '@shared/drivers';
 import { configFromDriver } from '@shared/hardware-config';
@@ -22,6 +18,7 @@ import { HardwarePortService } from './port-service';
 import { VirtualPortService } from './port-service/virtual/virtual-port-service';
 import { WindowProvider } from './window-provider';
 import { RendererInclusivePluginProvider } from './renderer-inclusive-plugin-provider';
+import { getDevicePlugin, getInputPlugin } from './plugin-files';
 
 const { MainWindow } = WindowProvider;
 
@@ -70,7 +67,7 @@ class ConfigManagerClass {
     if (!dev) throw new Error(`No config available for deviceId[${deviceId}]`);
 
     // Dynamically import plugin module, instantiate, register
-    const Plugin = await importDeviceSubcomponent(m.title, 'plugin');
+    const Plugin = getDevicePlugin(m.title);
     const plugin: BaseDevicePlugin = new Plugin(deviceId);
 
     // TODO: should at a .addPLugin function to device configs to handle this case
@@ -181,7 +178,7 @@ class ConfigManagerClass {
     if (!input) throw new Error(`Adding plugin to ${input} is not defined`);
 
     const inputDriver = input.driver;
-    const Plugin = await importInputSubcomponent(m.title, 'plugin');
+    const Plugin = getInputPlugin(m.title);
     const plugin: BaseInputPlugin = new Plugin(qualifiedInputId, inputDriver);
     input.addPlugin(plugin.id);
 

@@ -58,15 +58,10 @@ export class XYConfig extends BaseInputConfig<XYDTO, XYDriver> {
     this.y.initDefaultPlugins(provider);
   }
 
-  public async initPluginsFromDTO(
-    createPlugin: (
-      driver: BaseInteractiveInputDriver
-    ) => Promise<BaseInputPlugin>
+  public initPluginsFromDTO(
+    createPlugin: (driver: BaseInteractiveInputDriver) => BaseInputPlugin
   ) {
-    return [
-      await createPlugin(this.x.driver),
-      await createPlugin(this.y.driver),
-    ];
+    return [createPlugin(this.x.driver), createPlugin(this.y.driver)];
   }
 
   public toDTO(): XYDTO {

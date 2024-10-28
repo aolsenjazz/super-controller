@@ -1,8 +1,8 @@
 import { MenuItem } from 'electron';
 
-import { getInputManifests } from '@plugins/plugin-loader';
 import { InputPluginManifest } from '@plugins/core/input-plugin-manifest';
 import { BaseInputConfig } from '@shared/hardware-config/input-config/base-input-config';
+import { getAllInputManifests } from '@main/plugin-files';
 
 const incapableMsg = 'This plugin in incompatible with this input.';
 
@@ -10,7 +10,7 @@ export async function createInputPluginMenu(
   input: BaseInputConfig,
   onClick: (m: InputPluginManifest) => void
 ) {
-  const manifests = await getInputManifests();
+  const manifests = getAllInputManifests();
 
   return manifests.map((m) => {
     // only allow users to select a plugin if it fits all requirements, defined
