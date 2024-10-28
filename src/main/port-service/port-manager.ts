@@ -54,7 +54,10 @@ function coupleAndAddToList(
     const pair = new PortInfoPair(first, second);
     const idList = portPairList.map((p) => p.id);
 
-    if (!idList.includes(pair.id)) {
+    // Some layer of the MIDI stack exhibits a weird behavior where when a port is closing,
+    // its name will become an empty string. When this happens, ignore that port. Unclear
+    // if this behavior is occurring in @julusian/midi, rtmidi, or coremidi.
+    if (port.name !== '' && sister?.name !== '' && !idList.includes(pair.id)) {
       portPairList.push(pair);
     }
   });
