@@ -12,6 +12,7 @@ import { selectedInputIdSlice } from '../features/selected-input-id/selected-inp
 import { selectedPluginIdSlice } from '../features/selected-plugin-id/selected-plugin-id-slice';
 import { recentLoopbackMessagesSlice } from '../features/recent-loopback-messages/recent-loopback-messages-slice';
 import { recentRemoteMessagesSlice } from '../features/recent-remote-messages/recent-remote-messages-slice';
+import { projectNameSlice } from '@features/project-name/project-name-slice';
 
 const rootReducer = combineSlices(
   connectedDevicesSlice,
@@ -22,7 +23,8 @@ const rootReducer = combineSlices(
   pluginsSlice,
   selectedPluginIdSlice,
   recentLoopbackMessagesSlice,
-  recentRemoteMessagesSlice
+  recentRemoteMessagesSlice,
+  projectNameSlice
 );
 export type RootState = ReturnType<typeof rootReducer>;
 

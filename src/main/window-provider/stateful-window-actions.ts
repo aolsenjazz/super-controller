@@ -56,8 +56,10 @@ export abstract class StatefulWindowActions extends WindowActions {
   }
 
   public set title(title: string) {
-    this.windowTitle = title;
-    this.send(HOST.TITLE, title);
+    this.sendReduxEvent({
+      type: 'projectName/setName',
+      payload: title,
+    });
   }
 
   /**
