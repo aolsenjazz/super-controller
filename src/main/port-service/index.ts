@@ -255,7 +255,6 @@ export class HardwarePortServiceSingleton {
           inputProvider: InputRegistry,
         };
 
-        // process at a DeviceConfig level
         const message = config.process(msg, meta);
 
         if (message) remoteTransport.send(message);

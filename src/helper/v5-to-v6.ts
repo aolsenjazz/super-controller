@@ -71,10 +71,11 @@ function createBacklightPlugin(
   config: MonoInputConfig,
   driver: MonoInteractiveDriver
 ) {
+  const defaultColor = driver.availableColors.find((c) => c.default === true);
+
   const colorBindings: BacklightControlDTO['colorBindings'] = {};
-  old.devicePropagator.colorBindings.forEach((v, k) => {
-    colorBindings[k] = v;
-  });
+  colorBindings[0] = old.devicePropagator.colorBindings.get(0) || defaultColor!;
+  colorBindings[1] = old.devicePropagator.colorBindings.get(1) || defaultColor!;
 
   const fxBindings: BacklightControlDTO['fxBindings'] = {};
   const fxValueBindings: BacklightControlDTO['fxValueBindings'] = {};

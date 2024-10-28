@@ -3,7 +3,7 @@ import { statusStringToNibble } from '../util';
 import { StateManager } from '../state-manager/state-manager';
 import { MessageResolver, MessageResolverDTO } from './message-resolver';
 
-const TWO_BYTES = ['programchange', 'pitchbend'];
+const TWO_BYTES = ['programchange'];
 
 export function initMessage(
   statusString: StatusString | 'noteon/noteoff',
@@ -41,6 +41,7 @@ export class DiscreteMessageResolver extends MessageResolver {
     'controlchange',
     'programchange',
     'sysex',
+    'pitchbend',
   ] as StatusString[];
 
   private defaults: Record<number, NumberArrayWithStatus> = {};
