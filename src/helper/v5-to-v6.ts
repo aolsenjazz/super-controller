@@ -273,6 +273,7 @@ function upgradeInput(
     if (
       config instanceof LightCapableInputConfig &&
       newConfigs.length === 1 &&
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (driver as any).availableColors.length > 0
     ) {
       const plugin = createBacklightPlugin(
@@ -300,6 +301,7 @@ function upgradeInput(
   const correctConfigId = `${idForMsg(outProp.defaultStep)}`;
 
   const d = findInputDriver(deviceName, correctConfigId);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const newConfigs = inputConfigsFromDriver(deviceId, d as any);
 
   const c = newConfigs[0] as unknown as SwitchConfig;
@@ -345,7 +347,7 @@ function upgradeSupportedDevice(
 
     if (newInputs && newInputs.length > 0) {
       inputs.push(...newInputs);
-      config.inputs.push(...newInputs.map((i) => i.id));
+      config.inputs.push(...newInputs.map((inp) => inp.id));
     }
   });
 
