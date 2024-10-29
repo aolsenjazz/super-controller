@@ -55,7 +55,7 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
 
   public static override fromDTO(
     dto: BacklightControlDTO,
-    driver: MonoInteractiveDriver
+    driver: MonoInteractiveDriver,
   ) {
     return new BacklightControlPlugin(dto.parentId, driver, dto);
   }
@@ -63,7 +63,7 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
   constructor(
     parentId: string,
     driver: MonoInteractiveDriver,
-    dto?: BacklightControlDTO
+    dto?: BacklightControlDTO,
   ) {
     super(Manifest.title, Manifest.description, parentId, driver, dto?.id);
 
@@ -77,7 +77,7 @@ export default class BacklightControlPlugin extends BaseInputPlugin<BacklightCon
       this.stateManager = new ContinuousStateManager();
     } else {
       this.stateManager = new TriggerStateManager(
-        driver.response as 'toggle' | 'constant'
+        driver.response as 'toggle' | 'constant',
       );
     }
 

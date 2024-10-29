@@ -24,7 +24,7 @@ export class TwoByteMidiArray extends MidiArray {
   static create(
     status: TwoByteStatus | TwoByteString,
     channel: Channel,
-    number: MidiNumber
+    number: MidiNumber,
   ) {
     const numStatus =
       typeof status === 'string' ? statusStringToByte(status) : status;

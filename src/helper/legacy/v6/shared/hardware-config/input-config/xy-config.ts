@@ -24,7 +24,7 @@ export class XYConfig extends BaseInputConfig<XYDTO, XYDriver> {
     deviceId: string,
     nickname: string,
     driver: XYDriver,
-    dto?: XYDTO
+    dto?: XYDTO,
   ) {
     super(deviceId, nickname, driver, []);
 
@@ -60,8 +60,8 @@ export class XYConfig extends BaseInputConfig<XYDTO, XYDriver> {
 
   public async initPluginsFromDTO(
     createPlugin: (
-      driver: BaseInteractiveInputDriver
-    ) => Promise<BaseInputPlugin>
+      driver: BaseInteractiveInputDriver,
+    ) => Promise<BaseInputPlugin>,
   ) {
     return [
       await createPlugin(this.x.driver),
@@ -84,7 +84,7 @@ export class XYConfig extends BaseInputConfig<XYDTO, XYDriver> {
 
   public process(): NumberArrayWithStatus | undefined {
     throw new Error(
-      'It is not the job of the XY config to pass midi messages to its children'
+      'It is not the job of the XY config to pass midi messages to its children',
     );
   }
 }

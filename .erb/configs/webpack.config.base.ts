@@ -57,13 +57,13 @@ const configuration: webpack.Configuration = {
         __dirname,
         '..',
         '..',
-        'src/renderer/selectors/'
+        'src/renderer/selectors/',
       ),
       '@features': path.resolve(
         __dirname,
         '..',
         '..',
-        'src/renderer/features/'
+        'src/renderer/features/',
       ),
     },
   },

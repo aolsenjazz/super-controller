@@ -24,7 +24,7 @@ export class MidiArray extends Array<number> {
     status: StatusString | StatusByte,
     channel: Channel,
     number: MidiNumber,
-    value: MidiNumber
+    value: MidiNumber,
   ): MidiArray {
     const numStatus =
       typeof status === 'string' ? statusStringToByte(status) : status;

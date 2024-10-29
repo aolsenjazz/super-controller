@@ -25,7 +25,7 @@ export default function LinuxNotConfigured(props: PropTypes) {
     (v: string) => {
       DeviceConfigService.addDevice(name, siblingIndex, v);
     },
-    [name, siblingIndex]
+    [name, siblingIndex],
   );
 
   return (

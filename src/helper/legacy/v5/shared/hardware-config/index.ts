@@ -18,7 +18,7 @@ export { SupportedDeviceConfig };
 export function configFromDriver(
   portName: string,
   siblingIndex: number,
-  driver: DeviceDriver
+  driver: DeviceDriver,
 ) {
   if (driver.anonymous) {
     return new AnonymousDeviceConfig(portName, siblingIndex, new Map(), []);

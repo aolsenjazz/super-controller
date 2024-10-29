@@ -10,7 +10,7 @@ export class PadConfig extends MonoInputConfig {
     deviceId: string,
     nickname: string,
     plugins: string[],
-    driver: PadDriver
+    driver: PadDriver,
   ) {
     super(deviceId, nickname, plugins, driver);
 

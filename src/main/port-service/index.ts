@@ -102,7 +102,7 @@ export class HardwarePortServiceSingleton {
       config instanceof AdapterDeviceConfig
     ) {
       config.inputs.forEach((id) =>
-        this.syncInput(getQualifiedInputId(config.id, id))
+        this.syncInput(getQualifiedInputId(config.id, id)),
       );
     }
   }
@@ -121,7 +121,7 @@ export class HardwarePortServiceSingleton {
       transport = this.createRendererInclusiveLoopbackTransport(
         pair.id,
         input.id,
-        pair
+        pair,
       );
     } else {
       // device probably isnt plugged in, just init frontend
@@ -224,7 +224,7 @@ export class HardwarePortServiceSingleton {
   private createRendererInclusiveLoopbackTransport(
     deviceId: string,
     inputId: string,
-    loopbackTransport: MessageTransport
+    loopbackTransport: MessageTransport,
   ): MessageTransport {
     return {
       send(msg: NumberArrayWithStatus) {
@@ -252,7 +252,7 @@ export class HardwarePortServiceSingleton {
         const inclusiveLoopback = this.createRendererInclusiveLoopbackTransport(
           config.id,
           inputId,
-          loopbackTransport
+          loopbackTransport,
         );
 
         const meta = {

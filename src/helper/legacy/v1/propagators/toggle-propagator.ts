@@ -9,7 +9,7 @@ export class TogglePropagator extends StatelessPropagator {
     et: StatusString | 'noteon/noteoff',
     n: MidiNumber,
     c: Channel,
-    v?: MidiNumber
+    v?: MidiNumber,
   ) {
     super('toggle', or, et, n, c, v);
   }

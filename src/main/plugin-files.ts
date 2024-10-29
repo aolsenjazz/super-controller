@@ -49,7 +49,7 @@ type InputPluginConstructorWithStatic = {
   new (...args: InputComponentArgs): BaseInputPlugin;
   fromDTO: (
     dto: PluginDTO,
-    driver: BaseInteractiveInputDriver
+    driver: BaseInteractiveInputDriver,
   ) => BaseInputPlugin;
 };
 
@@ -58,7 +58,7 @@ InputPluginMap.set(BacklightControlManifest.title, BacklightControlPlugin);
 InputPluginMap.set(BasicOverrideManifest.title, BasicOverridePlugin);
 
 export function getInputPlugin(
-  title: string
+  title: string,
 ): InputPluginConstructorWithStatic {
   return InputPluginMap.get(title);
 }
@@ -75,7 +75,7 @@ DevicePluginMap.set(TranslatorManifest.title, TranslatorPlugin);
 DevicePluginMap.set(ShareSustainManifest.title, ShareSustainPlugin);
 
 export function getDevicePlugin(
-  title: string
+  title: string,
 ): DevicePluginConstructorWithStatic {
   return DevicePluginMap.get(title);
 }

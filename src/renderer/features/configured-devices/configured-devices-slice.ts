@@ -36,5 +36,5 @@ export const configuredDevicesSlice = createAppSlice({
 
 export const { selectIds, selectAll, selectById } =
   configuredDevicesAdapter.getSelectors<RootState>(
-    (state) => state.configuredDevices
+    (state) => state.configuredDevices,
   );

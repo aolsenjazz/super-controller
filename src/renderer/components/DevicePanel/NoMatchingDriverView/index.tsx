@@ -12,13 +12,9 @@ export default function NoMatchingDriverView(props: PropTypes) {
 
   const host = HostService.getHost();
 
-  return (
-    <>
-      {host === 'linux' ? (
-        <LinuxNoMatchingDriverView />
-      ) : (
-        <NoPreviewAvailableView deviceName={deviceName} />
-      )}
-    </>
+  return host === 'linux' ? (
+    <LinuxNoMatchingDriverView />
+  ) : (
+    <NoPreviewAvailableView deviceName={deviceName} />
   );
 }

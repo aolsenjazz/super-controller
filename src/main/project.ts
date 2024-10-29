@@ -56,7 +56,7 @@ function loadInputPlugins(config: BaseInputConfig, proj: ProjectPOJO) {
       (driver: BaseInteractiveInputDriver) => {
         const Plugin = getInputPlugin(dto.title);
         return Plugin.fromDTO(dto, driver);
-      }
+      },
     );
 
     plugins.forEach((p) => PluginRegistry.register(p.id, p));
@@ -99,7 +99,7 @@ function loadInputs(proj: ProjectPOJO) {
     const config = inputConfigsFromDTO(parentDriver, inputDTO);
     const qualifiedInputId = getQualifiedInputId(
       inputDTO.deviceId,
-      inputDTO.id
+      inputDTO.id,
     );
 
     InputRegistry.register(qualifiedInputId, config);
@@ -170,7 +170,7 @@ export function loadProject(filePath: string) {
   MainWindow.setPlugins(PluginRegistry.getAll().map((p) => p.toDTO()));
   MainWindow.setInputConfigs(InputRegistry.getAll().map((p) => p.toDTO()));
   MainWindow.setConfiguredDevices(
-    DeviceRegistry.getAll().map((d) => d.toDTO())
+    DeviceRegistry.getAll().map((d) => d.toDTO()),
   );
 
   // Send intitionalization messages to the frontend

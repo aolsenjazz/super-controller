@@ -9,7 +9,7 @@ export function initMessage(
   statusString: StatusString | 'noteon/noteoff',
   channel: Channel,
   number: MidiNumber,
-  value: MidiNumber
+  value: MidiNumber,
 ) {
   const defaultStatus =
     statusString === 'noteon/noteoff' ? 'noteon' : statusString;
@@ -49,7 +49,7 @@ export class DiscreteMessageResolver extends MessageResolver {
 
   public constructor(
     outputStrategy: StateManager['outputStrategy'],
-    driver: MonoInteractiveDriver
+    driver: MonoInteractiveDriver,
   ) {
     super();
     // init with 1 default binding
@@ -58,7 +58,7 @@ export class DiscreteMessageResolver extends MessageResolver {
         driver.status,
         driver.channel,
         driver.number,
-        driver.value !== undefined ? driver.value : 127
+        driver.value !== undefined ? driver.value : 127,
       );
       this.bindings[0] = def;
       this.defaults[0] = def;
@@ -81,7 +81,7 @@ export class DiscreteMessageResolver extends MessageResolver {
 
   public resolve(
     state: number,
-    msg: NumberArrayWithStatus
+    msg: NumberArrayWithStatus,
   ): NumberArrayWithStatus {
     return this.bindings[state] || msg;
   }

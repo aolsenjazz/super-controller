@@ -14,7 +14,7 @@ type ImperativePanelActions = {
 
 function usePanelEffect(
   panelRef: React.MutableRefObject<null>,
-  panelState: PanelState
+  panelState: PanelState,
 ) {
   useEffect(() => {
     const { collapsed, requiresUpdate } = panelState;

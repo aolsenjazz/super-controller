@@ -39,7 +39,7 @@ export default function PluginBody(props: PropTypes) {
 
   if (selectedDevice.config === undefined) {
     throw new Error(
-      'deviceConfig must not be undefined when rendering PluginUI'
+      'deviceConfig must not be undefined when rendering PluginUI',
     );
   }
 

@@ -21,7 +21,7 @@ export class ColorConfigPropagator extends Propagator<
     outputResponse: CorrelatedResponse<InputResponse>,
     colorBindings?: Map<number, ColorImpl>,
     fxBindings?: Map<number, MidiNumber[]>,
-    currentStep?: number
+    currentStep?: number,
   ) {
     super(hardwareResponse, outputResponse);
 

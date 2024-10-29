@@ -19,7 +19,7 @@ export default class TranslatorPlugin extends BaseDevicePlugin<TranslatorDTO> {
   public constructor(
     parentId: string,
     id?: string,
-    overrides?: TranslatorPlugin['overrides']
+    overrides?: TranslatorPlugin['overrides'],
   ) {
     super(Manifest.title, Manifest.description, parentId, id);
 

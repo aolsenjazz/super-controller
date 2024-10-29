@@ -25,7 +25,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
   static fromDriver(
     portName: string,
     siblingIndex: number,
-    driver: DeviceDriver
+    driver: DeviceDriver,
   ) {
     const inputs: BaseInputConfig[] = [];
     driver.inputGrids.forEach((ig) => {
@@ -43,7 +43,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
       [],
       inputs,
       undefined,
-      driver.keyboard
+      driver.keyboard,
     );
 
     return newConfig;
@@ -56,7 +56,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
     shareSustain: string[],
     inputs: BaseInputConfig[],
     nickname?: string,
-    keyboardDriver?: KeyboardDriver
+    keyboardDriver?: KeyboardDriver,
   ) {
     super(name, driverName, siblingIndex, shareSustain, nickname);
     this.inputs = inputs;
@@ -86,7 +86,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
   bindingAvailable(
     statusString: StatusString | 'noteon/noteoff',
     number: number,
-    channel: Channel
+    channel: Channel,
   ) {
     let available = true;
 

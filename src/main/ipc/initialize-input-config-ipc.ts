@@ -30,14 +30,14 @@ ipcMain.on(
     const menu = Menu.buildFromTemplate(template);
     const win = BrowserWindow.fromWebContents(e.sender) || undefined;
     menu.popup({ window: win, x, y });
-  }
+  },
 );
 
 ipcMain.on(
   INPUT_CONFIG.REMOVE_PLUGIN,
   (_e: IpcMainEvent, pluginId: string, qualifiedInputId: string) => {
     ConfigManager.removeInputPlugin(qualifiedInputId, pluginId);
-  }
+  },
 );
 
 ipcMain.on(
@@ -56,7 +56,7 @@ ipcMain.on(
     });
 
     MainWindow.edited = true;
-  }
+  },
 );
 
 ipcMain.on(INPUT_CONFIG.GET_INPUT_CONFIGS, (e: IpcMainEvent) => {

@@ -6,5 +6,5 @@ export const selectSelectedDevice = createSelector(
   [selectUnifiedDevices, selectSelectedDeviceId],
   (devices, id) => {
     return devices.find((d) => d.id === id);
-  }
+  },
 );

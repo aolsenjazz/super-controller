@@ -96,7 +96,7 @@ function convertV1SupportedToV2(d: v1SupportedDeviceConfig) {
       nstep.hardwareResponse,
       nstep.outputResponse,
       colorBindings,
-      fxBindings
+      fxBindings,
     );
 
     const fx = v1.availableFx.map((f) => {
@@ -126,7 +126,7 @@ function convertV1SupportedToV2(d: v1SupportedDeviceConfig) {
       dev,
       v1.knobType,
       v1.valueType,
-      v1.nickname
+      v1.nickname,
     );
   });
 
@@ -136,7 +136,7 @@ function convertV1SupportedToV2(d: v1SupportedDeviceConfig) {
     d.shareSustain,
     inputs,
     d.nickname,
-    d.keyboardDriver
+    d.keyboardDriver,
   );
 }
 
@@ -161,7 +161,7 @@ export function upgradeToV2(projectString: string) {
         d.siblingIndex,
         newOverrides,
         d.shareSustain,
-        d.nickname
+        d.nickname,
       );
     } else if (d instanceof v1AdapterDeviceConfig) {
       // eslint-disable-next-line prefer-destructuring
@@ -173,7 +173,7 @@ export function upgradeToV2(projectString: string) {
       newConfig = new AdapterDeviceConfig(
         d.name,
         d.siblingIndex,
-        child as SupportedDeviceConfig | undefined
+        child as SupportedDeviceConfig | undefined,
       );
     } else {
       throw new Error('wat');

@@ -180,7 +180,7 @@ const subMenuContact: DarwinMenuItemConstructorOptions = {
       label: 'Report a Bug',
       click() {
         shell.openExternal(
-          `mailto:${BUG_REPORT.to}?subject=${BUG_REPORT.subject}&body=${BUG_REPORT.body}`
+          `mailto:${BUG_REPORT.to}?subject=${BUG_REPORT.subject}&body=${BUG_REPORT.body}`,
         );
       },
     },
@@ -188,7 +188,7 @@ const subMenuContact: DarwinMenuItemConstructorOptions = {
       label: 'Feature Request',
       click() {
         shell.openExternal(
-          `mailto:${FEATURE_REQUEST.to}?subject=${FEATURE_REQUEST.subject}&body=${FEATURE_REQUEST.body}`
+          `mailto:${FEATURE_REQUEST.to}?subject=${FEATURE_REQUEST.subject}&body=${FEATURE_REQUEST.body}`,
         );
       },
     },

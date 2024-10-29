@@ -27,7 +27,7 @@ export class NonsequentialStepPropagator extends Propagator<
 
   constructor(
     steps: Map<string, MidiArray>,
-    defaultStep: NumberArrayWithStatus
+    defaultStep: NumberArrayWithStatus,
   ) {
     super('enumerated', 'enumerated');
 

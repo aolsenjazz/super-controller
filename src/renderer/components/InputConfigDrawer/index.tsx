@@ -12,7 +12,7 @@ export default function InputConfigDrawer() {
   const config = selectedDevice?.config;
   const selectedInput = useSelector(selectSelectedInputId);
   const inputConfig = useAppSelector((state) =>
-    selectInputConfigById(state, selectedInput || '')
+    selectInputConfigById(state, selectedInput || ''),
   );
 
   let Element: JSX.Element | null = null;

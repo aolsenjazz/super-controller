@@ -58,7 +58,7 @@ export function msgEquals(a1: number[], a2: number[]) {
 export function msgIdentityEquals(
   msg1: NumberArrayWithStatus,
   msg2: NumberArrayWithStatus,
-  compareValueBytes = false
+  compareValueBytes = false,
 ) {
   if (msg1.length !== msg2.length) return false;
 

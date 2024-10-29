@@ -23,7 +23,7 @@ export class SliderConfig extends MonoInputConfig {
       'continuous',
       d.status,
       d.number,
-      d.channel
+      d.channel,
     );
 
     return new SliderConfig(def, prop);

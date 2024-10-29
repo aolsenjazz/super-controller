@@ -62,7 +62,7 @@ function constructInput(i: V3InputConfig) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (i.outputPropagator as any).knobType,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (i.outputPropagator as any).valueType
+    (i.outputPropagator as any).valueType,
   );
 
   const cb = new Map<number, Color>();
@@ -106,7 +106,7 @@ function constructInput(i: V3InputConfig) {
     defFx,
     cb,
     i.devicePropagator.fxBindings,
-    i.devicePropagator.currentStep
+    i.devicePropagator.currentStep,
   );
 
   switch (i.type) {
@@ -114,7 +114,7 @@ function constructInput(i: V3InputConfig) {
       return new KnobConfig(
         defs,
         outProp as ContinuousPropagator,
-        i.knobType || 'absolute'
+        i.knobType || 'absolute',
       );
     case 'pad':
       return new PadConfig(
@@ -123,7 +123,7 @@ function constructInput(i: V3InputConfig) {
         i.availableFx,
         outProp,
         devProp,
-        i.value
+        i.value,
       );
     case 'wheel':
       return defs.statusString === 'pitchbend'
@@ -177,12 +177,12 @@ export function upgradeToV4(projectString: string) {
         d.child!.shareSustain,
         convertInputs(d.child!.inputs),
         d.child!.nickname,
-        d.child!.keyboardDriver
+        d.child!.keyboardDriver,
       );
       const newConfig = new AdapterDeviceConfig(
         d.name,
         d.siblingIndex,
-        newChild
+        newChild,
       );
 
       configs.push(newConfig);
@@ -193,7 +193,7 @@ export function upgradeToV4(projectString: string) {
         d.shareSustain,
         convertInputs(d.inputs),
         d.nickname,
-        d.keyboardDriver
+        d.keyboardDriver,
       );
       configs.push(newConfig);
     } else {
@@ -202,7 +202,7 @@ export function upgradeToV4(projectString: string) {
         d.siblingIndex,
         (d as V3AnonymousConfig).overrides,
         d.shareSustain,
-        d.nickname
+        d.nickname,
       );
       configs.push(newConfig);
     }

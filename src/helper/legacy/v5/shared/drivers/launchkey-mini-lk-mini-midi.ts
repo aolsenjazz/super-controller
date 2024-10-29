@@ -3,7 +3,7 @@ import { NoninteractiveInputDriver } from '../driver-types/input-drivers';
 
 function createNoninteractivePad(
   width: number,
-  height: number
+  height: number,
 ): NoninteractiveInputDriver {
   return {
     interactive: false,
@@ -16,7 +16,7 @@ function createNoninteractivePad(
 
 function createNoninteractiveKnob(
   width: number,
-  height: number
+  height: number,
 ): NoninteractiveInputDriver {
   return {
     interactive: false,

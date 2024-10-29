@@ -1,5 +1,6 @@
 module.exports = {
   extends: 'erb',
+  plugins: ['@typescript-eslint'],
   rules: {
     // A temporary hack related to IDE not resolving correct package.json
     'import/no-extraneous-dependencies': 'off',
@@ -13,6 +14,13 @@ module.exports = {
     'no-underscore-dangle': 'off',
     '@typescript-eslint/naming-convention': 'off',
     'react/require-default-props': 'off',
+    'no-undef': 'off',
+    'no-use-before-define': 'off',
+    'import/extensions': 'off',
+    'react/jsx-filename-extension': [
+      2,
+      { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+    ],
     'jsx-a11y/label-has-associated-control': [
       'error',
       {
@@ -21,36 +29,31 @@ module.exports = {
         },
       },
     ],
+    'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': [
-      'warn',
+      'warn', // or "error"
       {
         argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_',
       },
     ],
   },
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 2022,
     sourceType: 'module',
-    project: './tsconfig.json',
-    tsconfigRootDir: __dirname,
-    createDefaultProgram: true,
-  },
-  globals: {
-    JSX: 'readonly',
   },
   settings: {
     'import/resolver': {
       // See https://github.com/benmosher/eslint-plugin-import/issues/1396#issuecomment-575727774 for line below
-      node: {},
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', 'src/'],
+      },
       webpack: {
         config: require.resolve('./.erb/configs/webpack.config.eslint.ts'),
       },
       typescript: {},
-    },
-    'jsx-a11y': {
-      components: {
-        ControlledInput: 'input',
-      },
     },
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],

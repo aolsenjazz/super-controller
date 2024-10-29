@@ -17,7 +17,7 @@ export class PitchbendConfig extends MonoInputConfig {
     deviceId: string,
     nickname: string,
     plugins: string[],
-    driver: MonoInteractiveDriver
+    driver: MonoInteractiveDriver,
   ) {
     super(deviceId, nickname, plugins, driver);
 

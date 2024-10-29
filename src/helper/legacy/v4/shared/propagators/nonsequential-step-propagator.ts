@@ -18,7 +18,7 @@ export class NonsequentialStepPropagator extends OverrideablePropagator<
     channel: Channel,
     number: MidiNumber,
     steps: Map<string, MidiArray>,
-    defaultStep: NumberArrayWithStatus
+    defaultStep: NumberArrayWithStatus,
   ) {
     super('enumerated', 'enumerated', status, number, channel);
 

@@ -39,7 +39,7 @@ function upgradeInput(i: v0InputConfig) {
     const onImpl = V1ColorImpl.fromDrivers(
       upgradedOnColor as Color,
       i.default.number as MidiNumber,
-      i.default.channel
+      i.default.channel,
     );
     steps.set(1, onImpl);
   }
@@ -52,7 +52,7 @@ function upgradeInput(i: v0InputConfig) {
     const offImpl = V1ColorImpl.fromDrivers(
       upgradedOffColor as Color,
       i.default.number as MidiNumber,
-      i.default.channel
+      i.default.channel,
     );
     steps.set(0, offImpl);
   }
@@ -60,7 +60,7 @@ function upgradeInput(i: v0InputConfig) {
   const devicePropagator = new V1NStepPropagator(
     i.default.response,
     i.response,
-    steps
+    steps,
   );
 
   const availableColors: V1ColorImpl[] = [];
@@ -72,7 +72,7 @@ function upgradeInput(i: v0InputConfig) {
     const impl = V1ColorImpl.fromDrivers(
       upgraded as Color,
       i.default.number as MidiNumber,
-      i.default.channel
+      i.default.channel,
     );
 
     availableColors.push(impl);
@@ -91,7 +91,7 @@ function upgradeInput(i: v0InputConfig) {
     devicePropagator,
     knobType,
     undefined,
-    i.nickname
+    i.nickname,
   );
 }
 
@@ -124,7 +124,7 @@ export function upgradeToV1(projectString: string) {
         config.shareSustain,
         upgradedInputs,
         undefined,
-        config.keyboardDriver
+        config.keyboardDriver,
       );
 
       upgradeInputIds(upgradedConfig);
@@ -148,7 +148,7 @@ export function upgradeToV1(projectString: string) {
         asAnon.siblingIndex,
         overrides,
         asAnon.shareSustain,
-        asAnon.nickname
+        asAnon.nickname,
       );
 
       upgradedConfigs.push(upgraded);

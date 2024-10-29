@@ -28,7 +28,7 @@ export class PitchbendConfig extends MonoInputConfig {
       'continuous',
       d.status,
       d.number,
-      d.channel
+      d.channel,
     );
 
     return new PitchbendConfig(def, prop);

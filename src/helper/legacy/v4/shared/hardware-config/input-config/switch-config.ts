@@ -18,14 +18,14 @@ export class SwitchConfig extends MonoInputConfig {
     const steps = new Map<string, MidiArray>(
       d.steps.map((step) => {
         return [JSON.stringify(step), create(step)];
-      })
+      }),
     );
     const outputPropagator = new NonsequentialStepPropagator(
       d.status,
       d.channel,
       d.number,
       steps,
-      d.steps[d.initialStep]
+      d.steps[d.initialStep],
     );
 
     return new SwitchConfig(def, outputPropagator);

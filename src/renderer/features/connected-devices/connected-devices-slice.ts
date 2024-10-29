@@ -38,5 +38,5 @@ export const {
   selectAll: selectAllDevices,
   selectById: selecteDevice,
 } = connectedDevicesAdapter.getSelectors<RootState>(
-  (state) => state.connectedDevices
+  (state) => state.connectedDevices,
 );

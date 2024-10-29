@@ -115,7 +115,7 @@ function convertInputs(ins: V2InputConfig[]) {
       newDp,
       i.knobType,
       i.valueType,
-      i.nickname
+      i.nickname,
     );
   });
 }
@@ -132,12 +132,12 @@ function upgradeToV3(projectString: string) {
         d.child!.shareSustain,
         convertInputs(d.child!.inputs),
         d.child!.nickname,
-        d.child!.keyboardDriver
+        d.child!.keyboardDriver,
       );
       const newConfig = new AdapterDeviceConfig(
         d.name,
         d.siblingIndex,
-        newChild
+        newChild,
       );
 
       configs.push(newConfig);
@@ -148,7 +148,7 @@ function upgradeToV3(projectString: string) {
         d.shareSustain,
         convertInputs(d.inputs),
         d.nickname,
-        d.keyboardDriver
+        d.keyboardDriver,
       );
       configs.push(newConfig);
     } else {

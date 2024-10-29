@@ -42,7 +42,7 @@ export default function PluginSlot(props: PropTypes) {
         removePlugin(pluginId);
       }
     },
-    [removePlugin, pluginId, selected]
+    [removePlugin, pluginId, selected],
   );
 
   useEffect(() => {

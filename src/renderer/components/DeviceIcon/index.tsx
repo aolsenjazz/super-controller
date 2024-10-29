@@ -47,5 +47,5 @@ export default function DeviceIcon(props: PropTypes) {
     );
   }
 
-  return <>{Element}</>;
+  return Element;
 }

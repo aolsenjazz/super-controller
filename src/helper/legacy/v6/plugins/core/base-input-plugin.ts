@@ -3,7 +3,7 @@ import type { MonoInteractiveDriver } from '../types';
 import { BasePlugin, PluginDTO } from './base-plugin';
 
 export abstract class BaseInputPlugin<
-  T extends PluginDTO = PluginDTO
+  T extends PluginDTO = PluginDTO,
 > extends BasePlugin<T> {
   protected driver: MonoInteractiveDriver;
 
@@ -11,7 +11,7 @@ export abstract class BaseInputPlugin<
 
   public static fromDTO(
     _dto: PluginDTO,
-    _driver: BaseInputPlugin['driver']
+    _driver: BaseInputPlugin['driver'],
   ): BaseInputPlugin {
     throw new Error('fromDTO is not implemented in derived class!');
   }
@@ -21,7 +21,7 @@ export abstract class BaseInputPlugin<
     description: string,
     parentId: string,
     driver: BaseInputPlugin['driver'],
-    id?: string
+    id?: string,
   ) {
     super(title, description, parentId, id);
 

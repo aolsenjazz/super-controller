@@ -18,7 +18,7 @@ export class ContinuousPropagator extends StatelessPropagator<
     c: Channel,
     v?: MidiNumber,
     knobType?: 'endless' | 'absolute',
-    valueType?: 'endless' | 'absolute'
+    valueType?: 'endless' | 'absolute',
   ) {
     super('continuous', or, et, n, c, v);
 
@@ -56,7 +56,7 @@ export class ContinuousPropagator extends StatelessPropagator<
         this.nextEventType(),
         this.channel,
         this.number,
-        this.nextValue(msg)
+        this.nextValue(msg),
       );
     }
 

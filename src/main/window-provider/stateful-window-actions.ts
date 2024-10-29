@@ -47,7 +47,7 @@ export abstract class StatefulWindowActions extends WindowActions {
   public set edited(edited: boolean) {
     if (this.id === undefined) {
       throw new Error(
-        'Tried to set window.documentEdited because window was created'
+        'Tried to set window.documentEdited because window was created',
       );
     }
 
@@ -80,7 +80,7 @@ export abstract class StatefulWindowActions extends WindowActions {
 
   private notifyListeners() {
     this.listeners.forEach((listener) =>
-      listener(BrowserWindow.getFocusedWindow())
+      listener(BrowserWindow.getFocusedWindow()),
     );
   }
 }

@@ -35,7 +35,7 @@ export class ThreeByteMidiArray extends MidiArray {
     status: ThreeByteStatus | ThreeByteString,
     channel: Channel,
     number: MidiNumber,
-    value: MidiNumber
+    value: MidiNumber,
   ) {
     const numStatus =
       typeof status === 'string' ? statusStringToByte(status) : status;

@@ -18,7 +18,7 @@ export class GatePropagator extends StatefulPropagator<
     n: MidiNumber,
     c: Channel,
     v?: MidiNumber,
-    s?: StatefulPropagator<'gate', 'gate'>['state']
+    s?: StatefulPropagator<'gate', 'gate'>['state'],
   ) {
     super('gate', or, et, n, c, v, s);
   }
@@ -78,7 +78,7 @@ export class GatePropagator extends StatefulPropagator<
       statusString,
       this.channel,
       this.number,
-      msg[2] as MidiNumber
+      msg[2] as MidiNumber,
     );
   };
 

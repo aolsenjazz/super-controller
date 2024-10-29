@@ -12,7 +12,7 @@ export class AdapterDeviceConfig extends DeviceConfig {
     portName: string,
     driverName: string,
     siblingIndex: number,
-    child?: SupportedDeviceConfig
+    child?: SupportedDeviceConfig,
   ) {
     super(portName, driverName, siblingIndex, portName);
     this.child = child;
@@ -23,7 +23,7 @@ export class AdapterDeviceConfig extends DeviceConfig {
   }
 
   public async initPluginsFromDTO(
-    initPlugin: (id: string) => Promise<BaseDevicePlugin>
+    initPlugin: (id: string) => Promise<BaseDevicePlugin>,
   ) {
     let childPlugins: BasePlugin[] = [];
 

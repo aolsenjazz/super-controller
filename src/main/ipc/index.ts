@@ -22,7 +22,7 @@ ipcMain.on(HOST.REQUEST, (_e: IpcMainEvent, deviceName: string) => {
     ? controllerRequest(deviceName)
     : fivePinRequest();
   shell.openExternal(
-    `mailto:${template.to}?subject=${template.subject}&body=${template.body}`
+    `mailto:${template.to}?subject=${template.subject}&body=${template.body}`,
   );
 });
 

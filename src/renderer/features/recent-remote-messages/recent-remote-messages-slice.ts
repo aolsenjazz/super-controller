@@ -35,14 +35,14 @@ export const recentRemoteMessagesSlice = createAppSlice({
 
         state[qid].push(message);
         if (state[qid].length > 100) state[qid].shift();
-      }
+      },
     ),
   }),
 });
 
 export const selectRecentRemoteMessagesById = (
   id: string,
-  numMessages: number
+  numMessages: number,
 ) =>
   createSelector(
     (state: RootState) => state.recentRemoteMessages[id],
@@ -51,5 +51,5 @@ export const selectRecentRemoteMessagesById = (
         return messages;
       }
       return messages.slice(-numMessages);
-    }
+    },
   );

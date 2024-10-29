@@ -9,7 +9,7 @@ type PropTypes = {
   onClick: (e: React.MouseEvent, id: string) => void;
 };
 
-const InputGridLayout = (props: PropTypes) => {
+function InputGridLayout(props: PropTypes) {
   const { grid, onClick, deviceHeight, deviceWidth } = props;
 
   const style = {
@@ -41,6 +41,6 @@ const InputGridLayout = (props: PropTypes) => {
       ))}
     </div>
   );
-};
+}
 
 export default InputGridLayout;

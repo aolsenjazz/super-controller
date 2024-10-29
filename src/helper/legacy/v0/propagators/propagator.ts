@@ -31,7 +31,7 @@ export abstract class Propagator {
   constructor(
     hardwareResponse: InputResponse,
     outputResponse: InputResponse,
-    lastPropagated?: number[]
+    lastPropagated?: number[],
   ) {
     illogicalPairs.forEach((pair) => {
       if (
@@ -39,7 +39,7 @@ export abstract class Propagator {
         JSON.stringify([hardwareResponse, outputResponse])
       )
         throw new Error(
-          `InputResponse[${hardwareResponse}] and OutputResponse[${outputResponse}] is illogical`
+          `InputResponse[${hardwareResponse}] and OutputResponse[${outputResponse}] is illogical`,
         );
     });
 

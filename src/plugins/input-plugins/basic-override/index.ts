@@ -35,7 +35,7 @@ import Manifest from './manifest';
  */
 function resolverForOutputStrategy(
   outputStrategy: StateManager['outputStrategy'],
-  driver: MonoInteractiveDriver
+  driver: MonoInteractiveDriver,
 ): ResolverType {
   switch (outputStrategy) {
     case 'gate':
@@ -116,7 +116,7 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
    */
   public static override fromDTO(
     dto: BasicOverrideDTO,
-    driver: MonoInteractiveDriver
+    driver: MonoInteractiveDriver,
   ): BasicOverridePlugin {
     return new BasicOverridePlugin(dto.parentId, driver, dto);
   }
@@ -131,7 +131,7 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
   public constructor(
     parentId: string,
     driver: MonoInteractiveDriver,
-    dto?: BasicOverrideDTO
+    dto?: BasicOverrideDTO,
   ) {
     super(Manifest.title, Manifest.description, parentId, driver, dto?.id);
 
@@ -152,7 +152,7 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
       case 'n-step':
         this.stateManager = new TriggerStateManager(
           driver.response,
-          (driver as SwitchDriver).steps.length
+          (driver as SwitchDriver).steps.length,
         );
         break;
       default:
@@ -182,7 +182,7 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
       // Update messageResolver based on the new output strategy
       this.messageResolver = resolverForOutputStrategy(
         other.outputStrategy,
-        this.driver
+        this.driver,
       );
 
       // Update the state manager's output strategy
@@ -215,7 +215,7 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
    * @returns The resolved value if the state is defined; otherwise, undefined.
    */
   public process(
-    msg: NumberArrayWithStatus
+    msg: NumberArrayWithStatus,
   ): NumberArrayWithStatus | undefined {
     const state = this.stateManager.process(msg);
 

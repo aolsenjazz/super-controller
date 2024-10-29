@@ -7,7 +7,7 @@ type PropTypes = {
 };
 
 export default function ConstantDiscreteMessageResolverConfig(
-  props: PropTypes
+  props: PropTypes,
 ) {
   const { resolver, onChange } = props;
   const { eligibleStatuses, bindings, defaults } = resolver;

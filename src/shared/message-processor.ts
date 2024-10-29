@@ -31,6 +31,6 @@ export type MessageProcessorMeta = {
 export type MessageProcessor = {
   process: (
     msg: NumberArrayWithStatus,
-    meta: MessageProcessorMeta
+    meta: MessageProcessorMeta,
   ) => NumberArrayWithStatus | undefined;
 };

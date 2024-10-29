@@ -69,7 +69,7 @@ function findInputDriver(deviceName: string, inputId: string) {
 function createBacklightPlugin(
   old: LightCapableInputConfig,
   config: MonoInputConfig,
-  driver: MonoInteractiveDriver
+  driver: MonoInteractiveDriver,
 ) {
   const defaultColor = driver.availableColors.find((c) => c.default === true);
 
@@ -115,7 +115,7 @@ function createBacklightPlugin(
   const p = new BacklightControlPlugin(
     dto.parentId,
     driver as MonoInteractiveDriver,
-    dto
+    dto,
   );
 
   return p;
@@ -180,7 +180,7 @@ function offStep(old: V5MonoInputConfig, value?: number) {
 function createOverridePlugin(
   old: V5MonoInputConfig,
   config: MonoInputConfig,
-  driver: MonoInteractiveDriver
+  driver: MonoInteractiveDriver,
 ): BasicOverridePlugin {
   let className: MessageResolverDTO['className'] = 'BinaryMessageResolver';
 
@@ -260,7 +260,7 @@ function upgradeInput(
   deviceId: string,
   deviceName: string,
   config: V5BaseInputConfig,
-  plugins: BasePlugin[]
+  plugins: BasePlugin[],
 ): BaseInputConfig[] | undefined {
   const driver = findInputDriver(deviceName, config.id);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -279,7 +279,7 @@ function upgradeInput(
       const plugin = createBacklightPlugin(
         config,
         newConfigs[0] as MonoInputConfig,
-        driver as MonoInteractiveDriver
+        driver as MonoInteractiveDriver,
       );
       plugins.push(plugin);
       (newConfigs[0] as MonoInputConfig).getPlugins().push(plugin.id);
@@ -289,7 +289,7 @@ function upgradeInput(
       const plugin = createOverridePlugin(
         config as V5MonoInputConfig,
         newConfig as MonoInputConfig,
-        driver as MonoInteractiveDriver
+        driver as MonoInteractiveDriver,
       );
       plugins.push(plugin);
       (newConfig as MonoInputConfig).getPlugins().push(plugin.id);
@@ -318,20 +318,20 @@ function upgradeSupportedDevice(
   d: V5SupportedDeviceConfig,
   plugins: BasePlugin[],
   inputs: BaseInputConfig[],
-  configId?: string
+  configId?: string,
 ): SupportedDeviceConfig {
   const config = new SupportedDeviceConfig(
     d.portName,
     d.driverName,
     d.siblingIndex,
-    d.nickname
+    d.nickname,
   );
 
   if (d.shareSustain.length > 0) {
     const shareSustain = new ShareSustainPlugin(
       config.id,
       undefined,
-      d.shareSustain
+      d.shareSustain,
     );
     plugins.push(shareSustain);
     config.plugins.push(shareSustain.id);
@@ -342,7 +342,7 @@ function upgradeSupportedDevice(
       configId || config.id,
       config.portName,
       i,
-      plugins
+      plugins,
     );
 
     if (newInputs && newInputs.length > 0) {
@@ -356,20 +356,20 @@ function upgradeSupportedDevice(
 
 function upgradeAnonymousDevice(
   d: V5AnonymousDeviceConfig,
-  plugins: BasePlugin[]
+  plugins: BasePlugin[],
 ): AnonymousDeviceConfig {
   const config = new AnonymousDeviceConfig(
     d.portName,
     d.siblingIndex,
     d.nickname,
-    []
+    [],
   );
 
   if (d.shareSustain.length > 0) {
     const shareSustain = new ShareSustainPlugin(
       config.id,
       undefined,
-      d.shareSustain
+      d.shareSustain,
     );
     plugins.push(shareSustain);
     config.plugins.push(shareSustain.id);
@@ -395,7 +395,7 @@ function upgradeAnonymousDevice(
 function upgradeAdapterDevice(
   d: V5AdapterDeviceConfig,
   plugins: BasePlugin[],
-  inputs: BaseInputConfig[]
+  inputs: BaseInputConfig[],
 ): AdapterDeviceConfig {
   const oldChild = d.child!;
   const newChild = upgradeSupportedDevice(oldChild, plugins, inputs, d.id);
@@ -404,14 +404,14 @@ function upgradeAdapterDevice(
     d.portName,
     d.driverName,
     d.siblingIndex,
-    newChild
+    newChild,
   );
 
   return config;
 }
 
 function upgradeDeviceConfig(
-  d: V5DeviceConfig
+  d: V5DeviceConfig,
 ): [DeviceConfig, BasePlugin[], BaseInputConfig[]] {
   let newDev: DeviceConfig;
   const plugins: BasePlugin[] = [];
@@ -452,18 +452,18 @@ function upgradeToV6(projString: string) {
   const newProj: ProjectPOJO = {
     devices: Object.fromEntries(
       Object.entries(devices).map(
-        ([key, device]) => [key, device.toDTO()] as [string, DeviceConfigDTO]
-      )
+        ([key, device]) => [key, device.toDTO()] as [string, DeviceConfigDTO],
+      ),
     ),
     inputs: Object.fromEntries(
       Object.entries(inputs).map(
-        ([key, input]) => [key, input.toDTO()] as [string, InputDTO]
-      )
+        ([key, input]) => [key, input.toDTO()] as [string, InputDTO],
+      ),
     ),
     plugins: Object.fromEntries(
       Object.entries(plugins).map(
-        ([key, plugin]) => [key, plugin.toDTO()] as [string, PluginDTO]
-      )
+        ([key, plugin]) => [key, plugin.toDTO()] as [string, PluginDTO],
+      ),
     ),
     version: VERSION,
   };

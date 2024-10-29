@@ -57,7 +57,7 @@ function defaultFx(): FxDriver[] {
 function bigKnob(
   channel: Channel,
   number: MidiNumber,
-  mode: 'absolute' | 'endless' = 'absolute'
+  mode: 'absolute' | 'endless' = 'absolute',
 ): KnobDriver {
   return {
     interactive: true,
@@ -78,7 +78,7 @@ function bigKnob(
 function smallKnob(
   channel: Channel,
   number: MidiNumber,
-  mode: 'absolute' | 'endless' = 'absolute'
+  mode: 'absolute' | 'endless' = 'absolute',
 ): KnobDriver {
   return {
     interactive: true,
@@ -177,7 +177,7 @@ function playPad(channel: Channel, number: MidiNumber): PadDriver {
 function circlePad(
   channel: Channel,
   number: MidiNumber,
-  colorCapable = true
+  colorCapable = true,
 ): PadDriver {
   return {
     interactive: true,
@@ -197,7 +197,7 @@ function circlePad(
 function smallCirclePad(
   channel: Channel,
   number: MidiNumber,
-  colorCapable = false
+  colorCapable = false,
 ): PadDriver {
   return {
     interactive: true,

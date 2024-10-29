@@ -38,14 +38,14 @@ export function PanelProvider({ children }: { children: React.ReactNode }) {
     (collapsed: boolean, requiresUpdate: boolean) => {
       setPanel1State({ collapsed, requiresUpdate });
     },
-    []
+    [],
   );
 
   const setPanel2 = useCallback(
     (collapsed: boolean, requiresUpdate: boolean) => {
       setPanel2State({ collapsed, requiresUpdate });
     },
-    []
+    [],
   );
 
   // Use useMemo to create the context value object
@@ -56,7 +56,7 @@ export function PanelProvider({ children }: { children: React.ReactNode }) {
       panel2State,
       setPanel2,
     }),
-    [panel1State, panel2State, setPanel1, setPanel2]
+    [panel1State, panel2State, setPanel1, setPanel2],
   );
 
   return (

@@ -27,12 +27,12 @@ export class SwitchConfig extends BaseInputConfig {
     const steps = new Map<string, MidiArray>(
       d.steps.map((step) => {
         return [JSON.stringify(step), create(step)];
-      })
+      }),
     );
 
     const outputPropagator = new NonsequentialStepPropagator(
       steps,
-      d.steps[d.initialStep]
+      d.steps[d.initialStep],
     );
 
     return new SwitchConfig(outputPropagator);
@@ -40,7 +40,7 @@ export class SwitchConfig extends BaseInputConfig {
 
   constructor(
     outputPropagator: NonsequentialStepPropagator,
-    nickname?: string
+    nickname?: string,
   ) {
     super();
 
@@ -71,7 +71,7 @@ export class SwitchConfig extends BaseInputConfig {
     const ma = msg instanceof MidiArray ? msg : create(msg);
 
     return Array.from(this.outputPropagator.steps.keys()).includes(
-      JSON.stringify(ma.array)
+      JSON.stringify(ma.array),
     );
   }
 

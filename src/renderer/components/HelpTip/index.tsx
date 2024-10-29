@@ -58,7 +58,7 @@ export default function HelpTip({
             <div className="help-tip-arrow" />
             <p>{body}</p>
           </div>,
-          document.getElementById('modal-layer') as HTMLElement
+          document.getElementById('modal-layer') as HTMLElement,
         )}
     </>
   );

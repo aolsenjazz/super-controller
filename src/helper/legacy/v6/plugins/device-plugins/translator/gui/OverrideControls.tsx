@@ -15,7 +15,7 @@ export function OverrideControls(props: OverrideControlsProps) {
 
   const updateOverride = (
     source: NumberArrayWithStatus,
-    override: NumberArrayWithStatus
+    override: NumberArrayWithStatus,
   ) => {
     const overrides = { ...plugin.overrides };
     overrides[toString(source)] = override;

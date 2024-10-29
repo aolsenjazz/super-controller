@@ -18,7 +18,7 @@ export class ConstantPropagator extends StatefulPropagator<
     n: MidiNumber,
     c: Channel,
     v?: MidiNumber,
-    s?: StatefulPropagator<'constant', 'constant'>['state']
+    s?: StatefulPropagator<'constant', 'constant'>['state'],
   ) {
     super('constant', or, et, n, c, v);
 

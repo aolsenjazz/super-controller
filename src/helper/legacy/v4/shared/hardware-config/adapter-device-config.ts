@@ -20,7 +20,7 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
   constructor(
     name: string,
     siblingIndex: number,
-    child?: SupportedDeviceConfig
+    child?: SupportedDeviceConfig,
   ) {
     this.name = name;
     this.siblingIndex = siblingIndex;
@@ -45,7 +45,7 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
   bindingAvailable(
     statusString: StatusString | 'noteon/noteoff',
     number: number,
-    channel: Channel
+    channel: Channel,
   ) {
     return this.child!.bindingAvailable(statusString, number, channel);
   }

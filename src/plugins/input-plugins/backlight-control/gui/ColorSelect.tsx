@@ -21,20 +21,20 @@ export default function ColorSelect(props: PropTypes) {
     options.push(
       <option key="unset" disabled hidden value={value}>
         Unset
-      </option>
+      </option>,
     );
 
   availableColors.forEach((c) => {
     options.push(
       <option value={colorDisplayName(c)} key={colorDisplayName(c)}>
         {colorDisplayName(c)}
-      </option>
+      </option>,
     );
   });
 
   const innerChange = (newColorDisplayName: string) => {
     const newColor = availableColors.find(
-      (c) => colorDisplayName(c) === newColorDisplayName
+      (c) => colorDisplayName(c) === newColorDisplayName,
     );
 
     if (!newColor) throw new Error('Unabled to find color in AvailableColors');

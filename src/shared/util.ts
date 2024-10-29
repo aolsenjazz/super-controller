@@ -55,7 +55,7 @@ export function msgEquals(a1: number[], a2: number[]) {
 export function msgIdentityEquals(
   msg1: NumberArrayWithStatus,
   msg2: NumberArrayWithStatus,
-  compareValueBytes = false
+  compareValueBytes = false,
 ) {
   if (msg1.length !== msg2.length) return false;
 
@@ -117,7 +117,7 @@ export function inputIdFromDriver(driver: BaseInteractiveInputDriver): string {
 export function getDiff<T>(
   l1: T[],
   l2: T[],
-  keyFn: (a: T) => any = (a: T) => a
+  keyFn: (a: T) => any = (a: T) => a,
 ) {
   const l1Ids = l1.map((a) => keyFn(a));
   const l2Ids = l2.map((b) => keyFn(b));
@@ -132,7 +132,7 @@ export function getDiff<T>(
  */
 export function applyDestructiveThrottle(
   func: (...args: any[]) => void,
-  delay: number
+  delay: number,
 ) {
   let timeout: NodeJS.Timeout | null = null;
   return (...args: any[]) => {
@@ -151,7 +151,7 @@ export function applyDestructiveThrottle(
  */
 export function applyNondestructiveThrottle(
   func: (...args: any[]) => void,
-  executionIncrementMs: number
+  executionIncrementMs: number,
 ) {
   let checkpoint = Date.now();
 

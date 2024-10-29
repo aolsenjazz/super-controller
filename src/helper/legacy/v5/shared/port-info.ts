@@ -22,7 +22,7 @@ export class PortInfo {
     index: number,
     type: 'input' | 'output',
     name: string,
-    siblingIndex: number
+    siblingIndex: number,
   ) {
     this.index = index;
     this.type = type;

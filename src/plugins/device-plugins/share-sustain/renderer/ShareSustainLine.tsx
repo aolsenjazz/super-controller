@@ -13,7 +13,7 @@ export default function ShareSustainLine(props: PropTypes) {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange(e.target.checked);
     },
-    [onChange]
+    [onChange],
   );
 
   return (

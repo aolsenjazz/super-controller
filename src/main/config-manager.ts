@@ -36,7 +36,7 @@ class ConfigManagerClass {
   public addDeviceConfig(
     deviceName: string,
     siblingIdx: number,
-    driverName?: string
+    driverName?: string,
   ) {
     const driver = getDriver(driverName || deviceName) || Anonymous;
     const config = configFromDriver(deviceName, siblingIdx, driver);
@@ -92,7 +92,7 @@ class ConfigManagerClass {
     if (config) {
       if (config instanceof AdapterDeviceConfig) {
         config.child!.plugins = config.child!.plugins.filter(
-          (p) => p !== pluginId
+          (p) => p !== pluginId,
         );
       } else {
         config.plugins = config.plugins.filter((p) => p !== pluginId);
@@ -132,7 +132,7 @@ class ConfigManagerClass {
 
     if (!(child instanceof SupportedDeviceConfig))
       throw new Error(
-        'cannot assign a non-supported config to an adapter child'
+        'cannot assign a non-supported config to an adapter child',
       );
 
     config.setChild(child);
@@ -171,7 +171,7 @@ class ConfigManagerClass {
 
   public async addInputPlugin(
     qualifiedInputId: string,
-    m: InputPluginManifest
+    m: InputPluginManifest,
   ) {
     const input = InputRegistry.get(qualifiedInputId);
 
@@ -198,7 +198,7 @@ class ConfigManagerClass {
    */
   private addInputConfigs(
     parentConfig: SupportedDeviceConfig,
-    parentId?: string
+    parentId?: string,
   ) {
     const driver = DRIVERS.get(parentConfig.driverName)!;
     const inputs = driver.inputGrids

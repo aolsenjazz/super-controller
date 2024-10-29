@@ -11,7 +11,7 @@ const convertRange = (
   oldMax: number,
   newMin: number,
   newMax: number,
-  v: number
+  v: number,
 ) => {
   return ((v - oldMin) * (newMax - newMin)) / (oldMax - oldMin) + newMin;
 };

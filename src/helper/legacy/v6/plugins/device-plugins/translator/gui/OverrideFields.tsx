@@ -6,7 +6,7 @@ type PropTypes = {
   override: NumberArrayWithStatus;
   updateOverride: (
     source: NumberArrayWithStatus,
-    override: NumberArrayWithStatus
+    override: NumberArrayWithStatus,
   ) => void;
 };
 

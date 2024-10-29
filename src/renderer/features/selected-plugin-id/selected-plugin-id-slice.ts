@@ -11,7 +11,7 @@ export const selectedPluginIdSlice = createSlice({
     setSelectedPluginId: create.reducer(
       (state, action: PayloadAction<string | null>) => {
         state.id = action.payload;
-      }
+      },
     ),
   }),
   selectors: {

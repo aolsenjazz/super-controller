@@ -35,7 +35,7 @@ export type InputDefault = {
 };
 
 export abstract class MonoInputConfig<
-  T extends InputDefault = InputDefault
+  T extends InputDefault = InputDefault,
 > extends BaseInputConfig {
   defaults: T;
 
@@ -46,7 +46,7 @@ export abstract class MonoInputConfig<
   constructor(
     defaultVals: T,
     outputPropagator: OverrideablePropagator<InputResponse, InputResponse>,
-    nickname?: string
+    nickname?: string,
   ) {
     super();
 
@@ -138,5 +138,6 @@ export abstract class MonoInputConfig<
   }
 
   abstract get response(): InputResponse;
+
   abstract set response(response: InputResponse);
 }

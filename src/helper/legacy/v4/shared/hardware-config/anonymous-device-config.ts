@@ -14,7 +14,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     siblingIndex: number,
     overrides: Map<string, MidiArray>,
     shareSustain: string[],
-    nickname?: string
+    nickname?: string,
   ) {
     super(name, siblingIndex, false, shareSustain, nickname);
 
@@ -58,7 +58,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     newStatus: StatusString | StatusByte,
     newChannel: Channel,
     newNumber: MidiNumber,
-    newValue: MidiNumber
+    newValue: MidiNumber,
   ) {
     const override = create(newStatus, newChannel, newNumber, newValue);
     this.overrides.set(JSON.stringify(targetInput), override);

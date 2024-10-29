@@ -58,7 +58,7 @@ export abstract class DeviceConfig {
     driverName: string,
     siblingIndex: number,
     shareSustain: string[],
-    nickname?: string
+    nickname?: string,
   ) {
     this.portName = portName;
     this.driverName = driverName;
@@ -109,6 +109,8 @@ export abstract class DeviceConfig {
   }
 
   abstract get stub(): DeviceConfigStub;
+
   abstract applyOverrides(msg: MidiArray): MidiArray | undefined;
+
   abstract getResponse(msg: MidiArray): MidiArray | undefined;
 }

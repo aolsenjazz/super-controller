@@ -1,7 +1,7 @@
 import { BasePlugin, PluginDTO } from './base-plugin';
 
 export abstract class BaseDevicePlugin<
-  T extends PluginDTO = PluginDTO
+  T extends PluginDTO = PluginDTO,
 > extends BasePlugin<T> {
   public type = 'device' as const;
 

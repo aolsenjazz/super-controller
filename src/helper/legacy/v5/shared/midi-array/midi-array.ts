@@ -24,16 +24,28 @@ export abstract class MidiArray extends Array<number> {
   }
 
   abstract asString(mergeNoteEvents: boolean): string;
+
   abstract get status(): StatusByte;
+
   abstract get isNoteOff(): boolean;
+
   abstract get isNoteOn(): boolean;
+
   abstract get isControlChange(): boolean;
+
   abstract get isCC(): boolean;
+
   abstract get isKeyPressure(): boolean;
+
   abstract get isProgramChange(): boolean;
+
   abstract get isChannelPressure(): boolean;
+
   abstract get isPitchBend(): boolean;
+
   abstract get isSustain(): boolean;
+
   abstract get isSysex(): boolean;
+
   abstract isOnIsh(def: boolean): boolean;
 }

@@ -15,7 +15,7 @@ type PropTypes = {
 };
 
 export default function DeviceLayoutWrapper(
-  props: PropTypes
+  props: PropTypes,
 ): React.ReactElement {
   const { driver } = props;
 
@@ -26,7 +26,7 @@ export default function DeviceLayoutWrapper(
     (_event: React.MouseEvent, id: string) => {
       dispatch(setSelectedInputId(id));
     },
-    [dispatch]
+    [dispatch],
   );
 
   return (

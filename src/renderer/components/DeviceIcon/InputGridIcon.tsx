@@ -6,7 +6,7 @@ type PropTypes = {
   deviceHeight: number;
 };
 
-const InputGridIcon = (props: PropTypes) => {
+function InputGridIcon(props: PropTypes) {
   const { inputGrid, deviceWidth, deviceHeight } = props;
 
   const igStyle = {
@@ -48,6 +48,6 @@ const InputGridIcon = (props: PropTypes) => {
       })}
     </div>
   );
-};
+}
 
 export default InputGridIcon;

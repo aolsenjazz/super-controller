@@ -12,7 +12,7 @@ export class PitchbendPropagator extends OverrideablePropagator<
     outputResponse: CorrelatedResponse<'continuous'>,
     eventType: StatusString | 'noteon/noteoff',
     number: MidiNumber,
-    channel: Channel
+    channel: Channel,
   ) {
     super('continuous', outputResponse, eventType, number, channel, 64);
   }
@@ -39,7 +39,7 @@ export class PitchbendPropagator extends OverrideablePropagator<
       this.nextEventType(),
       this.channel,
       msg[1] as MidiNumber,
-      msg[2] as MidiNumber
+      msg[2] as MidiNumber,
     );
 
     // eslint-disable-next-line prefer-destructuring

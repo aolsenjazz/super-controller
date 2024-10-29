@@ -17,7 +17,7 @@ export function deviceConfigFromDTO(other: DeviceConfigDTO) {
       other.driverName,
       other.siblingIndex,
       other.nickname,
-      other.plugins
+      other.plugins,
     );
 
     (config as SupportedDeviceConfig).inputs = (
@@ -30,14 +30,14 @@ export function deviceConfigFromDTO(other: DeviceConfigDTO) {
       other.siblingIndex,
       other.child
         ? (deviceConfigFromDTO(other.child) as SupportedDeviceConfig)
-        : undefined
+        : undefined,
     );
   } else if (other.className === 'AnonymousDeviceConfig') {
     config = new AnonymousDeviceConfig(
       other.portName,
       other.siblingIndex,
       other.nickname,
-      other.plugins
+      other.plugins,
     );
   } else {
     throw new Error(`invalid device config DTO class name: ${other.className}`);
@@ -49,7 +49,7 @@ export function deviceConfigFromDTO(other: DeviceConfigDTO) {
 export function configFromDriver(
   portName: string,
   siblingIndex: number,
-  driver: DeviceDriver
+  driver: DeviceDriver,
 ) {
   let config: DeviceConfig;
 

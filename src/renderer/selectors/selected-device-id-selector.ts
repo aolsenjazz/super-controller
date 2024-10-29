@@ -11,5 +11,5 @@ export const selectSelectedDeviceId = createSelector(
     if (device) return selectedId;
 
     return devices.length > 0 ? devices[0].id : null;
-  }
+  },
 );

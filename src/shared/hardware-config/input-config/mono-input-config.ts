@@ -31,7 +31,7 @@ export type InputDefault = {
 export abstract class MonoInputConfig<
   T extends InputDefault = InputDefault,
   U extends MonoInputDTO = MonoInputDTO,
-  V extends MonoInteractiveDriver = MonoInteractiveDriver
+  V extends MonoInteractiveDriver = MonoInteractiveDriver,
 > extends BaseInputConfig<U, V> {
   public abstract defaults: T;
 
@@ -39,7 +39,7 @@ export abstract class MonoInputConfig<
     deviceId: string,
     nickname: string,
     plugins: string[],
-    driver: V
+    driver: V,
   ) {
     super(deviceId, nickname, driver, plugins);
   }
@@ -67,7 +67,7 @@ export abstract class MonoInputConfig<
 
   public init(
     loopbackTransport: MessageTransport,
-    pluginProvider: PluginProvider
+    pluginProvider: PluginProvider,
   ) {
     this.plugins
       .map((id) => pluginProvider.get(id))
@@ -82,7 +82,7 @@ export abstract class MonoInputConfig<
     if (this.driver.availableColors.length > 0) {
       const backlightPlugin = new BacklightControlPlugin(
         this.qualifiedId,
-        this.driver
+        this.driver,
       );
 
       provider.register(backlightPlugin.id, backlightPlugin);
@@ -91,7 +91,7 @@ export abstract class MonoInputConfig<
 
     const basicOverride = new BasicOverridePlugin(
       this.qualifiedId,
-      this.driver
+      this.driver,
     );
 
     provider.register(basicOverride.id, basicOverride);

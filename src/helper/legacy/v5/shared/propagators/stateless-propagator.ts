@@ -4,7 +4,7 @@ import { InputResponse } from '../driver-types';
 
 export abstract class StatelessPropagator<
   T extends InputResponse,
-  U extends InputResponse
+  U extends InputResponse,
 > extends OverrideablePropagator<T, U> {
   nextEventType() {
     return this.statusString as StatusString;
@@ -25,7 +25,7 @@ export abstract class StatelessPropagator<
         this.nextEventType(),
         this.channel,
         this.number,
-        msg[2] as MidiNumber
+        msg[2] as MidiNumber,
       );
     }
 

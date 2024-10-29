@@ -23,7 +23,7 @@ const OUTPUT = new Output();
  */
 function getSister(
   port: PortInfo,
-  sisterList: PortInfo[]
+  sisterList: PortInfo[],
 ): PortInfo | undefined {
   let sister;
   sisterList.forEach((candidate) => {
@@ -44,7 +44,7 @@ function getSister(
 function coupleAndAddToList(
   portList: PortInfo[],
   sisterList: PortInfo[],
-  portPairList: PortInfoPair[]
+  portPairList: PortInfoPair[],
 ) {
   portList.forEach((port: PortInfo) => {
     const sister = getSister(port, sisterList);
@@ -174,10 +174,10 @@ class PortManagerSingleton {
     const stalePortNames = this.ports.map((p) => p.name);
 
     const staleSiblingNames = stalePortNames.filter(
-      (n) => stalePortNames.filter((n1) => n1 === n).length > 1
+      (n) => stalePortNames.filter((n1) => n1 === n).length > 1,
     );
     const staleSiblings = this.ports.filter((p) =>
-      staleSiblingNames.includes(p.name)
+      staleSiblingNames.includes(p.name),
     );
     const newSiblings = ports.filter((p) => staleSiblingNames.includes(p.name));
 
@@ -189,7 +189,7 @@ class PortManagerSingleton {
 
     // If in the new list sibling ports exist, all siblings must be closed
     removedPorts = removedPorts.concat(
-      staleSiblings.filter((p) => !removedIds.includes(p.id))
+      staleSiblings.filter((p) => !removedIds.includes(p.id)),
     );
 
     this.ports = ports;

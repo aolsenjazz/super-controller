@@ -39,7 +39,7 @@ export const DeviceConfigService = {
       DEVICE_CONFIG.ADD_DEVICE,
       deviceName,
       siblingIndex,
-      driverName
+      driverName,
     );
   },
 

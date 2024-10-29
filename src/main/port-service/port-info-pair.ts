@@ -13,7 +13,7 @@ import { OutputPort } from './output-port';
  */
 export class PortInfoPair<
   InputType extends PortInfo | InputPort = PortInfo,
-  OutputType extends PortInfo | OutputPort = PortInfo
+  OutputType extends PortInfo | OutputPort = PortInfo,
 > {
   public iPort?: InputType;
 

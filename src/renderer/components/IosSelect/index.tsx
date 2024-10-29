@@ -11,7 +11,7 @@ type PropTypes<T extends string | number> = {
 };
 
 export default function IosSelect<T extends string | number>(
-  props: PropTypes<T>
+  props: PropTypes<T>,
 ) {
   const { valueList, value, onChange, labelList, placeholder } = props;
   const isMultiple = value === '<multiple values>';

@@ -41,7 +41,7 @@ export class GateStateManager extends StateManager {
   }
 
   public set outputStrategy(
-    outputStrategy: GateStateManager['_outputStrategy']
+    outputStrategy: GateStateManager['_outputStrategy'],
   ) {
     if (outputStrategy === 'gate') this.totalStates = 2;
     if (outputStrategy === 'toggle') this.totalStates = 2;

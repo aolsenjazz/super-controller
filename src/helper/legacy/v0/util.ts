@@ -23,7 +23,7 @@ export function getDiff(l1: string[], l2: string[]) {
 export function inputIdFor(
   msg: number[] | (StatusString | 'noteon/noteoff'),
   channel?: Channel,
-  number?: number
+  number?: number,
 ) {
   let status;
   let num = number;

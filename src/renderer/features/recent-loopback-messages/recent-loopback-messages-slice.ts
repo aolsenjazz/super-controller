@@ -35,7 +35,7 @@ export const recentLoopbackMessagesSlice = createAppSlice({
 
         state[qid].push(message);
         if (state[qid].length > 100) state[qid].shift();
-      }
+      },
     ),
   }),
 });

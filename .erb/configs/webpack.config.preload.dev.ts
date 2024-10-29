@@ -34,8 +34,8 @@ const configuration: webpack.Configuration = {
           webpackPaths.pluginsPath,
           'device-plugins',
           dirent.name,
-          'preload.ts'
-        )
+          'preload.ts',
+        ),
       )
       .filter((p) => fs.existsSync(p)),
     // load input plugins (yeah also ugly)
@@ -49,8 +49,8 @@ const configuration: webpack.Configuration = {
           webpackPaths.pluginsPath,
           'input-plugins',
           dirent.name,
-          'preload.ts'
-        )
+          'preload.ts',
+        ),
       )
       .filter((p) => fs.existsSync(p)),
   ],

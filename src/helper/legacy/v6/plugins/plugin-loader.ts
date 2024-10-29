@@ -77,27 +77,27 @@ async function loadManifestsBrowser() {
     '@plugins/device-plugins',
     true,
     /manifest.ts/,
-    'lazy'
+    'lazy',
   );
   const inputContext = require.context(
     '@plugins/input-plugins',
     true,
     /manifest.ts/,
-    'lazy'
+    'lazy',
   );
 
   deviceContext.keys().forEach((path) =>
     deviceContext(path).then((m: { default: BasePluginManifest }) => {
       deviceManifests.push(m.default);
       return null;
-    })
+    }),
   );
 
   inputContext.keys().forEach((path) =>
     inputContext(path).then((m: { default: InputPluginManifest }) => {
       inputManifests.push(m.default);
       return null;
-    })
+    }),
   );
 }
 
@@ -137,7 +137,7 @@ type DeviceComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'
   : never;
 
 export async function importDeviceSubcomponent<
-  T extends 'gui' | 'ipc' | 'plugin'
+  T extends 'gui' | 'ipc' | 'plugin',
 >(pluginTitle: string, subcomponent: T) {
   const manifests = await getDeviceManifests();
   const manifest = manifests.find((m) => m.title === pluginTitle);
@@ -150,7 +150,7 @@ export async function importDeviceSubcomponent<
   }
 
   throw new Error(
-    `unable to import device plugin subcomponent: ${subcomponent}`
+    `unable to import device plugin subcomponent: ${subcomponent}`,
   );
 }
 
@@ -160,7 +160,7 @@ type InputPluginConstructorWithStatic = {
   new (...args: InputComponentArgs): BaseInputPlugin;
   fromDTO: (
     dto: PluginDTO,
-    driver: BaseInteractiveInputDriver
+    driver: BaseInteractiveInputDriver,
   ) => BaseInputPlugin;
 };
 
@@ -174,7 +174,7 @@ type InputComponentType<T extends 'gui' | 'plugin' | 'ipc'> = T extends 'gui'
   : never;
 
 export async function importInputSubcomponent<
-  T extends 'gui' | 'ipc' | 'plugin'
+  T extends 'gui' | 'ipc' | 'plugin',
 >(pluginTitle: string, subcomponent: T) {
   const manifests = await getInputManifests();
 
@@ -188,6 +188,6 @@ export async function importInputSubcomponent<
   }
 
   throw new Error(
-    `unable to import input plugin subcomponent: ${subcomponent}`
+    `unable to import input plugin subcomponent: ${subcomponent}`,
   );
 }

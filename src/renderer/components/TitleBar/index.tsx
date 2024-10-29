@@ -10,9 +10,5 @@ export default function TitleBar() {
   const Element =
     HostService.getHost() === 'win32' ? WindowsTitleBar : MacTitleBar;
 
-  return (
-    <>
-      <Element />
-    </>
-  );
+  return <Element />;
 }

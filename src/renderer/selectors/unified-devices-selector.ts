@@ -54,5 +54,5 @@ export const selectUnifiedDevices = createSelector(
     });
 
     return deviceList;
-  }
+  },
 );

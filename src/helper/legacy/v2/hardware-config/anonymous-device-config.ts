@@ -14,7 +14,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     siblingIndex: number,
     overrides: Map<string, MidiArray>,
     shareSustain: string[],
-    nickname?: string
+    nickname?: string,
   ) {
     super(name, siblingIndex, false, shareSustain, nickname);
 
@@ -67,7 +67,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     targetInput: MidiArray,
     newStatus: StatusString | StatusByte,
     newChannel: Channel,
-    newNumber: MidiNumber
+    newNumber: MidiNumber,
   ) {
     const valueNegatedTarget = [...targetInput];
     valueNegatedTarget[2] = 0;

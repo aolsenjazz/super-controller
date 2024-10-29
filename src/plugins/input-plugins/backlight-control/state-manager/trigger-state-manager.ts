@@ -28,7 +28,7 @@ export class TriggerStateManager extends StateManager {
   }
 
   public set outputStrategy(
-    outputStrategy: TriggerStateManager['_outputStrategy']
+    outputStrategy: TriggerStateManager['_outputStrategy'],
   ) {
     if (outputStrategy === 'toggle') this.totalStates = 2;
     if (outputStrategy === 'constant') this.totalStates = 1;

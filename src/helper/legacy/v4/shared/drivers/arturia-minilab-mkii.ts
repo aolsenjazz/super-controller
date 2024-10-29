@@ -7,7 +7,7 @@ import {
 
 function createKnob(
   n: MidiNumber,
-  mode: 'endless' | 'absolute' = 'absolute'
+  mode: 'endless' | 'absolute' = 'absolute',
 ): KnobDriver {
   return {
     interactive: true,

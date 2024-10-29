@@ -8,7 +8,7 @@ import { Propagator } from './propagator';
  */
 export abstract class OverrideablePropagator<
   T extends InputResponse,
-  U extends InputResponse
+  U extends InputResponse,
 > extends Propagator<T, U> {
   statusString: StatusString | 'noteon/noteoff';
 
@@ -24,7 +24,7 @@ export abstract class OverrideablePropagator<
     statusString: StatusString | 'noteon/noteoff',
     number: MidiNumber,
     channel: Channel,
-    value?: MidiNumber
+    value?: MidiNumber,
   ) {
     super(hardwareResponse, outputResponse);
 
@@ -45,7 +45,7 @@ export abstract class OverrideablePropagator<
       this.nextEventType(msg),
       this.channel,
       this.number,
-      this.value
+      this.value,
     );
   }
 

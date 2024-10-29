@@ -5,7 +5,7 @@ type State = 'on' | 'off';
 
 export abstract class StatefulPropagator<
   T extends InputResponse,
-  U extends InputResponse
+  U extends InputResponse,
 > extends OverrideablePropagator<T, U> {
   state: State = 'off';
 
@@ -16,7 +16,7 @@ export abstract class StatefulPropagator<
     n: MidiNumber,
     c: Channel,
     v?: MidiNumber,
-    s?: State
+    s?: State,
   ) {
     super(hr, or, et, n, c, v);
 

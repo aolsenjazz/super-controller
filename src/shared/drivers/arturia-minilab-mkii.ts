@@ -6,7 +6,7 @@ import { NoninteractiveInputDriver } from '../driver-types/input-drivers';
 
 function createKnob(
   n: MidiNumber,
-  mode: 'endless' | 'absolute' = 'absolute'
+  mode: 'endless' | 'absolute' = 'absolute',
 ): KnobDriver {
   return {
     interactive: true,

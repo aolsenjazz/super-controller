@@ -7,7 +7,7 @@ import ShareSustainLine from './ShareSustainLine';
 import './ShareSustain.css';
 
 export default function ShareSustainPlugin(
-  props: PluginUIProps<ShareSustainDTO>
+  props: PluginUIProps<ShareSustainDTO>,
 ) {
   const { plugin, configuredDevices, selectedDevice, applyChanges } = props;
 

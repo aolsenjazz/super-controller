@@ -8,7 +8,7 @@ export class DrivenPortInfo extends PortInfo {
     name: string,
     siblingIndex: number,
     connected: boolean,
-    deviceDriver: DeviceDriver
+    deviceDriver: DeviceDriver,
   ) {
     super(name, siblingIndex, connected);
 

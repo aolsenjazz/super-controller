@@ -18,14 +18,14 @@ export default function TwoByteStepConfig(props: PropTypes) {
 
   const defaultStatus = byteToStatusString(
     (defaultMsg[0] & 0xf0) as StatusByte,
-    true
+    true,
   );
   const defaultChannel = (defaultMsg[0] & 0x0f) as Channel;
   const defaultNumber = defaultMsg[1] as MidiNumber;
 
   const statusOverride = byteToStatusString(
     (bindingMsg[0] & 0xf0) as StatusByte,
-    true
+    true,
   );
   const channelOverride = (bindingMsg[0] & 0x0f) as Channel;
   const numberOverride = bindingMsg[1] as MidiNumber;
@@ -35,7 +35,7 @@ export default function TwoByteStepConfig(props: PropTypes) {
       status,
       channelOverride,
       numberOverride,
-      127
+      127,
     );
     onChange(newBinding);
   };
@@ -45,7 +45,7 @@ export default function TwoByteStepConfig(props: PropTypes) {
       statusOverride,
       channel,
       numberOverride,
-      127
+      127,
     );
     onChange(newBinding);
   };
@@ -55,7 +55,7 @@ export default function TwoByteStepConfig(props: PropTypes) {
       statusOverride,
       channelOverride,
       number,
-      127
+      127,
     );
     onChange(newBinding);
   };

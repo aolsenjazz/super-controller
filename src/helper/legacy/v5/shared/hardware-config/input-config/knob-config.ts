@@ -40,7 +40,7 @@ export class KnobConfig extends MonoInputConfig<KnobDefaults> {
       d.number,
       d.channel,
       undefined,
-      d.knobType
+      d.knobType,
     );
 
     return new KnobConfig(def, prop, d.knobType);
@@ -49,7 +49,7 @@ export class KnobConfig extends MonoInputConfig<KnobDefaults> {
   constructor(
     defaultVals: KnobDefaults,
     outputPropagator: ContinuousPropagator,
-    nickname?: string
+    nickname?: string,
   ) {
     super(defaultVals, outputPropagator, nickname);
     this.outputPropagator = outputPropagator;

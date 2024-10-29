@@ -42,7 +42,7 @@ export class PadConfig extends LightCapableInputConfig {
       d.status,
       d.number,
       d.channel,
-      d.value
+      d.value,
     );
 
     return new PadConfig(
@@ -51,7 +51,7 @@ export class PadConfig extends LightCapableInputConfig {
       d.availableFx,
       prop,
       undefined,
-      d.value
+      d.value,
     );
   }
 
@@ -62,7 +62,7 @@ export class PadConfig extends LightCapableInputConfig {
     outputPropagator: OverrideablePropagator<InputResponse, InputResponse>,
     devicePropagator?: ColorConfigPropagator,
     defaultValue?: MidiNumber,
-    nickname?: string
+    nickname?: string,
   ) {
     super(
       defaultVals,
@@ -70,7 +70,7 @@ export class PadConfig extends LightCapableInputConfig {
       availableFx,
       outputPropagator,
       devicePropagator,
-      nickname
+      nickname,
     );
     this.defaultValue = defaultValue;
   }

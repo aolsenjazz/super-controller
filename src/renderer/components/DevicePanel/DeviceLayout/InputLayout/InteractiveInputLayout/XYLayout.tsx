@@ -38,10 +38,10 @@ export default function XYLayout(props: PropTypes) {
   const yQualifiedId = getQualifiedInputId(deviceId, yInputId);
 
   const recentX = useAppSelector(
-    selectRecentRemoteMessagesById(xQualifiedId, 1)
+    selectRecentRemoteMessagesById(xQualifiedId, 1),
   );
   const recentY = useAppSelector(
-    selectRecentRemoteMessagesById(yQualifiedId, 1)
+    selectRecentRemoteMessagesById(yQualifiedId, 1),
   );
 
   const state = useMemo(() => {

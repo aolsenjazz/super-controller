@@ -20,7 +20,7 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
     portName: string,
     driverName: string,
     siblingIndex: number,
-    child?: SupportedDeviceConfig
+    child?: SupportedDeviceConfig,
   ) {
     this.portName = portName;
     this.driverName = driverName;
@@ -43,7 +43,7 @@ export class AdapterDeviceConfig implements SupportedDeviceConfig {
   bindingAvailable(
     statusString: StatusString | 'noteon/noteoff',
     number: number,
-    channel: Channel
+    channel: Channel,
   ) {
     return this.child!.bindingAvailable(statusString, number, channel);
   }

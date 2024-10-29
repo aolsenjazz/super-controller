@@ -8,7 +8,7 @@ const incapableMsg = 'This plugin in incompatible with this input.';
 
 export async function createInputPluginMenu(
   input: BaseInputConfig,
-  onClick: (m: InputPluginManifest) => void
+  onClick: (m: InputPluginManifest) => void,
 ) {
   const manifests = getAllInputManifests();
 

@@ -46,7 +46,7 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
     title: string,
     description: string,
     parentId: string,
-    id?: string
+    id?: string,
   ) {
     this.title = title;
     this.description = description;
@@ -58,7 +58,7 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
 
   public abstract process(
     msg: NumberArrayWithStatus,
-    meta: MessageProcessorMeta
+    meta: MessageProcessorMeta,
   ): NumberArrayWithStatus | undefined;
 
   /**

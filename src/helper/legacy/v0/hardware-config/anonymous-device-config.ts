@@ -13,7 +13,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
       obj.siblingIndex,
       overrides,
       obj.shareSustain,
-      obj.nickname
+      obj.nickname,
     );
   }
 
@@ -22,7 +22,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     siblingIndex: number,
     overrides: Map<string, number[]>,
     shareSustain: string[],
-    nickname?: string
+    nickname?: string,
   ) {
     super(name, siblingIndex, false, shareSustain, nickname);
 
@@ -59,7 +59,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     targetInput: number[],
     newStatus: StatusString,
     newChannel: Channel,
-    newNumber: number
+    newNumber: number,
   ) {
     const valueNegatedTarget = [...targetInput];
     valueNegatedTarget[2] = 0;

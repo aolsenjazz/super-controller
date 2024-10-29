@@ -9,7 +9,7 @@ export function ChannelSelect(props: ChannelSelectProps) {
 
   const channels = Array.from(Array(16).keys());
   const channelLabels = channels.map(
-    (c) => `Channel ${c}${c === defaultChannel ? ' [default]' : ''}`
+    (c) => `Channel ${c}${c === defaultChannel ? ' [default]' : ''}`,
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

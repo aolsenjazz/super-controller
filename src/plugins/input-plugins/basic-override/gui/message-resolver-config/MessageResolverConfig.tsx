@@ -53,5 +53,5 @@ export default function MessageResolverConfig(props: PropTypes) {
       );
   }
 
-  return <>{Element}</>;
+  return Element;
 }

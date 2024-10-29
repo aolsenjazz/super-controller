@@ -41,7 +41,7 @@ export class ColorConfigPropagator extends Propagator<
     defaultFx?: FxDriver,
     colorBindings?: Map<number, Color>,
     fxBindings?: Map<number, MidiNumber[]>,
-    currentStep?: number
+    currentStep?: number,
   ) {
     super(hardwareResponse, outputResponse);
 

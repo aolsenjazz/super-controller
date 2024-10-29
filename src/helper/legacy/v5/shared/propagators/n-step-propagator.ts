@@ -13,7 +13,7 @@ export class NStepPropagator extends Propagator<InputResponse, InputResponse> {
     hardwareResponse: InputResponse,
     outputResponse: InputResponse,
     steps: Map<number, MidiArray>,
-    currentStep?: number
+    currentStep?: number,
   ) {
     super(hardwareResponse, outputResponse);
 

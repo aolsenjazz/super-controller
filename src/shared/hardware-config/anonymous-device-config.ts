@@ -7,7 +7,7 @@ export class AnonymousDeviceConfig extends DeviceConfig {
     portName: string,
     siblingIndex: number,
     nickname?: string,
-    plugins: string[] = []
+    plugins: string[] = [],
   ) {
     super(portName, 'Anonymous', siblingIndex, nickname, plugins);
   }

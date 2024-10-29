@@ -66,7 +66,7 @@ function createMainButton(): NoninteractiveInputDriver {
 
 function createTransport(
   n: MidiNumber,
-  shape: 'circle' | 'rect' = 'rect'
+  shape: 'circle' | 'rect' = 'rect',
 ): PadDriver {
   return {
     status: 'controlchange',

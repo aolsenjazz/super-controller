@@ -25,7 +25,7 @@ export abstract class StatelessPropagator extends OverrideablePropagator<
         this.nextEventType(),
         this.channel,
         this.number,
-        msg[2]
+        msg[2],
       );
     }
 

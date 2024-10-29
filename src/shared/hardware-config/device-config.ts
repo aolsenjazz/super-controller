@@ -58,7 +58,7 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
     driverName: string,
     siblingIndex: number,
     nickname?: string,
-    plugins: string[] = []
+    plugins: string[] = [],
   ) {
     this.portName = portName;
     this.driverName = driverName;
@@ -79,7 +79,7 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
    */
   public init(
     loopbackTransport: MessageTransport,
-    pluginProvider: PluginProvider
+    pluginProvider: PluginProvider,
   ) {
     this.plugins
       .map((id) => pluginProvider.get(id))
@@ -139,7 +139,7 @@ export abstract class DeviceConfig<T extends DeviceConfigDTO = DeviceConfigDTO>
    */
   public process(
     msg: NumberArrayWithStatus,
-    meta: MessageProcessorMeta
+    meta: MessageProcessorMeta,
   ): NumberArrayWithStatus | undefined {
     let message = msg;
 

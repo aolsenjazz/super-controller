@@ -30,7 +30,7 @@ export class SwitchStepConfig extends MonoInputConfig {
     nickname: string,
     plugins: string[],
     driver: SwitchDriver,
-    step: NumberArrayWithStatus
+    step: NumberArrayWithStatus,
   ) {
     super(deviceId, nickname, plugins, driver);
 

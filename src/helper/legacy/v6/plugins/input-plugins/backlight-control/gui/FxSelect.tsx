@@ -39,7 +39,7 @@ export default function FxSelect(props: PropTypes) {
     options.push(
       <option key={fx.title} value={fx.title}>
         {fx.title}
-      </option>
+      </option>,
     );
   });
 
@@ -68,7 +68,7 @@ export default function FxSelect(props: PropTypes) {
         (() => {
           const defaultIndex = indexOfArr(
             activeFx.defaultVal,
-            activeFx.validVals
+            activeFx.validVals,
           );
           const currentIndex = !fxValueArr
             ? 0

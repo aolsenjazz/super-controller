@@ -28,7 +28,7 @@ export abstract class MonoInputConfig extends BaseInputConfig {
   constructor(
     defaultVals: InputDefault,
     outputPropagator: OverrideablePropagator<InputResponse, InputResponse>,
-    nickname?: string
+    nickname?: string,
   ) {
     super();
 
@@ -97,7 +97,10 @@ export abstract class MonoInputConfig extends BaseInputConfig {
   }
 
   abstract get response(): InputResponse;
+
   abstract set response(response: InputResponse);
+
   abstract get eligibleResponses(): InputResponse[];
+
   abstract get eligibleStatusStrings(): StatusString[];
 }

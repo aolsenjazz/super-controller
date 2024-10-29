@@ -24,7 +24,7 @@ const rootReducer = combineSlices(
   selectedPluginIdSlice,
   recentLoopbackMessagesSlice,
   recentRemoteMessagesSlice,
-  projectNameSlice
+  projectNameSlice,
 );
 export type RootState = ReturnType<typeof rootReducer>;
 

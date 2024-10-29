@@ -24,11 +24,11 @@ function reviver(_key: any, value: any) {
       (Clazz: new (...args: any[]) => any) => {
         if (Clazz.name === value.name) {
           const parsed = value.args.map((a: any) =>
-            a === null ? undefined : a
+            a === null ? undefined : a,
           );
           obj = new Clazz(...parsed);
         }
-      }
+      },
     );
   }
 
@@ -67,7 +67,7 @@ export function getDiff(l1: string[], l2: string[]) {
  */
 export function applyDestructiveThrottle(
   func: (...args: any[]) => void,
-  delay: number
+  delay: number,
 ) {
   let timeout: NodeJS.Timeout | null = null;
   return (...args: any[]) => {
@@ -86,7 +86,7 @@ export function applyDestructiveThrottle(
  */
 export function applyNondestructiveThrottle(
   func: (...args: any[]) => void,
-  executionIncrementMs: number
+  executionIncrementMs: number,
 ) {
   let checkpoint = Date.now();
 

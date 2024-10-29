@@ -8,7 +8,7 @@ import {
 
 function createNoninteractivePad(
   width: number,
-  height: number
+  height: number,
 ): NoninteractiveInputDriver {
   return {
     interactive: false,
@@ -22,7 +22,7 @@ function createNoninteractivePad(
 
 function createNoninteractiveKnob(
   width: number,
-  height: number
+  height: number,
 ): NoninteractiveInputDriver {
   return {
     interactive: false,
@@ -54,7 +54,7 @@ function createKnob(n: MidiNumber): KnobDriver {
 
 function createSmallOrangeButton(
   n: MidiNumber,
-  colorNumber?: MidiNumber
+  colorNumber?: MidiNumber,
 ): PadDriver {
   return {
     status: 'noteon/noteoff',
@@ -86,7 +86,7 @@ function createSmallOrangeButton(
 
 function createSmallBlueButton(
   n: MidiNumber,
-  colorNumber?: MidiNumber
+  colorNumber?: MidiNumber,
 ): PadDriver {
   const b = createSmallOrangeButton(n, colorNumber);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -109,7 +109,7 @@ function createSmallBlueButton(
 
 function createLargeOrangeButton(
   n: MidiNumber,
-  colorNumber?: MidiNumber
+  colorNumber?: MidiNumber,
 ): PadDriver {
   return {
     status: 'noteon/noteoff',
@@ -141,7 +141,7 @@ function createLargeOrangeButton(
 
 function createLargeBlueButton(
   n: MidiNumber,
-  colorNumber?: MidiNumber
+  colorNumber?: MidiNumber,
 ): PadDriver {
   const b = createLargeOrangeButton(n, colorNumber);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

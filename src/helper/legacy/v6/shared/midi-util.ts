@@ -51,7 +51,7 @@ export function statusStringToNibble(string: StatusString) {
 
 export function byteToStatusString(
   byte: StatusNumber,
-  individualOnOff = false
+  individualOnOff = false,
 ) {
   const statusNibble = byte & 0xf0;
   switch (statusNibble) {

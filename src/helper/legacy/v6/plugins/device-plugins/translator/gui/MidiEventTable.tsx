@@ -26,7 +26,7 @@ export function MidiEventTable(props: MidiEventTableProps) {
   const { setSelectedSource, deviceName, deviceId } = props;
 
   const recentMessages = useAppSelector(
-    selectRecentRemoteMessagesById(deviceId, 10)
+    selectRecentRemoteMessagesById(deviceId, 10),
   );
 
   useEffect(() => {}, [recentMessages]);

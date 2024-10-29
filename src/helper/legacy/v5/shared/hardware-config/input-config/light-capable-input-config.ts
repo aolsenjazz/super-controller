@@ -46,7 +46,7 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
     availableFx: FxDriver[],
     outputPropagator: OverrideablePropagator<InputResponse, InputResponse>,
     devicePropagator?: ColorConfigPropagator,
-    nickname?: string
+    nickname?: string,
   ) {
     super(defaultVals, outputPropagator, nickname);
 
@@ -160,7 +160,7 @@ export abstract class LightCapableInputConfig extends MonoInputConfig {
 
       if (!set)
         throw new Error(
-          `counldnt find matching color for ${colorOrDisplayName}`
+          `counldnt find matching color for ${colorOrDisplayName}`,
         );
     } else {
       this.devicePropagator.setColor(step, colorOrDisplayName);

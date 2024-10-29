@@ -35,7 +35,7 @@ export abstract class DeviceConfig {
     siblingIndex: number,
     supported: boolean,
     shareSustain: string[],
-    nickname?: string
+    nickname?: string,
   ) {
     this.name = name;
     this.siblingIndex = siblingIndex;

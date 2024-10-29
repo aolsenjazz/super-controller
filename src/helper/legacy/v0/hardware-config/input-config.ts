@@ -93,7 +93,7 @@ export class InputConfig {
 
     const inputOverride = other.override;
     inputOverride.lightConfig = new Map<string, Color>(
-      other.override.lightConfig
+      other.override.lightConfig,
     );
 
     const instance = new InputConfig(
@@ -104,7 +104,7 @@ export class InputConfig {
       other.type,
       other.value,
       other.lastPropagated,
-      other.lastResponse
+      other.lastResponse,
     );
     instance.devicePropagator.outputResponse = other.lightResponse;
 
@@ -128,7 +128,7 @@ export class InputConfig {
       other.availableColors,
       other.overrideable,
       other.type,
-      other.value
+      other.value,
     );
 
     return instance;
@@ -142,7 +142,7 @@ export class InputConfig {
     type: InputType,
     value?: number,
     lastPropagated?: number[],
-    lastResponse?: number[]
+    lastResponse?: number[],
   ) {
     this.default = defaultVals;
     this.override = override;
@@ -159,7 +159,7 @@ export class InputConfig {
       this.override.number || this.default.number,
       this.override.channel || this.default.channel,
       isPitchbend ? 64 : value,
-      lastPropagated
+      lastPropagated,
     );
 
     // create the devicePropagator
@@ -180,12 +180,12 @@ export class InputConfig {
         (this.override.response || this.default.response) as Type,
         onColorMsg,
         offColorMsg,
-        lastResponse
+        lastResponse,
       );
     } else {
       this.devicePropagator = new UndefinedPropagator(
         this.default.response,
-        this.override.response || this.default.response
+        this.override.response || this.default.response,
       );
     }
   }
@@ -226,7 +226,7 @@ export class InputConfig {
     if (this.devicePropagator instanceof BinaryPropagator) {
       const msg = setStatus(
         [this.channel, this.number, color.value],
-        color.eventType
+        color.eventType,
       );
 
       if (state === 'on') this.devicePropagator.onMessage = msg;
@@ -287,14 +287,14 @@ export class InputConfig {
 
       if (on) {
         const color = this.availableColors.filter(
-          (c) => c.value === on[2] && c.eventType === getStatus(on).string
+          (c) => c.value === on[2] && c.eventType === getStatus(on).string,
         )[0];
         config.set('on', color);
       }
 
       if (off) {
         const color = this.availableColors.filter(
-          (c) => c.value === off[2] && c.eventType === getStatus(off).string
+          (c) => c.value === off[2] && c.eventType === getStatus(off).string,
         )[0];
         config.set('off', color);
       }
@@ -398,7 +398,7 @@ export class InputConfig {
     return inputIdFor(
       this.default.eventType,
       this.default.channel,
-      this.default.number
+      this.default.number,
     );
   }
 
@@ -446,13 +446,13 @@ export class InputConfig {
   set lightResponse(response: 'gate' | 'toggle') {
     if (this.default.response === 'toggle' && response === 'gate') {
       throw new Error(
-        `light response cannot be 'gate' for 'toggle' hardware response`
+        `light response cannot be 'gate' for 'toggle' hardware response`,
       );
     }
 
     if (this.default.response === 'continuous') {
       throw new Error(
-        'continuous hardware response doesnt support lights right now'
+        'continuous hardware response doesnt support lights right now',
       );
     }
 

@@ -19,12 +19,12 @@ export default function SysexConfig(props: PropTypes) {
 
   const defaultStatus = byteToStatusString(
     (defaultMsg[0] & 0xf0) as StatusByte,
-    true
+    true,
   );
 
   const statusOverride = byteToStatusString(
     (bindingMsg[0] & 0xf0) as StatusByte,
-    true
+    true,
   );
 
   // Initialize sysexInput from bindingMsg when the component mounts or updates
@@ -36,7 +36,7 @@ export default function SysexConfig(props: PropTypes) {
     } else {
       const dataBytes = bindingMsg.slice(1, bindingMsg.length - 1);
       const hexStrings = dataBytes.map((byte) =>
-        byte.toString(16).padStart(2, '0')
+        byte.toString(16).padStart(2, '0'),
       );
       const sysexStr = hexStrings.join(' ');
       setSysexInput(sysexStr);
@@ -59,7 +59,7 @@ export default function SysexConfig(props: PropTypes) {
 
       // Check that all bytes are between 0x00 and 0x7F
       const allBytesValid = dataBytes.every(
-        (byte) => byte >= 0x00 && byte <= 0x7f
+        (byte) => byte >= 0x00 && byte <= 0x7f,
       );
 
       setIsValid(allBytesValid);

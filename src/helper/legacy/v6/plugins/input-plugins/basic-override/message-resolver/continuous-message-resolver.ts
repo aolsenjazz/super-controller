@@ -46,7 +46,7 @@ export class ContinuousMessageResolver extends MessageResolver {
 
     if (driver.status === 'noteon/noteoff')
       throw new Error(
-        'continuous resolvers must not be used for noteon/noteoff inputs'
+        'continuous resolvers must not be used for noteon/noteoff inputs',
       );
 
     this.defaultStatus = driver.status;
@@ -61,7 +61,7 @@ export class ContinuousMessageResolver extends MessageResolver {
 
   public resolve(
     _state: number,
-    msg: NumberArrayWithStatus
+    msg: NumberArrayWithStatus,
   ): NumberArrayWithStatus {
     return [
       statusStringToNibble(this.statusOverride) + this.channelOverride,

@@ -19,7 +19,7 @@ export default function ThreeByteStepConfig(props: PropTypes) {
 
   const defaultStatus = byteToStatusString(
     (defaultMsg[0] & 0xf0) as StatusByte,
-    true
+    true,
   );
   const defaultChannel = (defaultMsg[0] & 0x0f) as Channel;
   const defaultNumber = defaultMsg[1] as MidiNumber;
@@ -27,7 +27,7 @@ export default function ThreeByteStepConfig(props: PropTypes) {
 
   const statusOverride = byteToStatusString(
     (bindingMsg[0] & 0xf0) as StatusByte,
-    true
+    true,
   );
   const channelOverride = (bindingMsg[0] & 0x0f) as Channel;
   const numberOverride = bindingMsg[1] as MidiNumber;
@@ -38,7 +38,7 @@ export default function ThreeByteStepConfig(props: PropTypes) {
       status,
       channelOverride,
       numberOverride,
-      valueOverride
+      valueOverride,
     );
     onChange(newBinding);
   };
@@ -48,7 +48,7 @@ export default function ThreeByteStepConfig(props: PropTypes) {
       statusOverride,
       channel,
       numberOverride,
-      valueOverride
+      valueOverride,
     );
     onChange(newBinding);
   };
@@ -58,7 +58,7 @@ export default function ThreeByteStepConfig(props: PropTypes) {
       statusOverride,
       channelOverride,
       number,
-      valueOverride
+      valueOverride,
     );
     onChange(newBinding);
   };
@@ -68,7 +68,7 @@ export default function ThreeByteStepConfig(props: PropTypes) {
       statusOverride,
       channelOverride,
       numberOverride,
-      value
+      value,
     );
     onChange(newBinding);
   };

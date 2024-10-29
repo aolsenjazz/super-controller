@@ -20,7 +20,7 @@ export type CorrelatedResponse<T extends InputResponse> = HardwareResponse<T>;
  */
 export abstract class Propagator<
   T extends keyof ResponseMap,
-  U extends HardwareResponse<T>
+  U extends HardwareResponse<T>,
 > {
   /**
    * See InputResponse

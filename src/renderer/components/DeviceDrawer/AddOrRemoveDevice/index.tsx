@@ -16,13 +16,9 @@ export default function AddOrRemoveDevice({
   siblingIndex,
   id,
 }: PropTypes) {
-  return (
-    <>
-      {configured ? (
-        <RemoveDeviceSubpanel id={id} nickname={nickname} />
-      ) : (
-        <NotConfigured name={portName} siblingIndex={siblingIndex} />
-      )}
-    </>
+  return configured ? (
+    <RemoveDeviceSubpanel id={id} nickname={nickname} />
+  ) : (
+    <NotConfigured name={portName} siblingIndex={siblingIndex} />
   );
 }

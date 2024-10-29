@@ -21,7 +21,7 @@ export class SwitchConfig extends MonoInputConfig {
     deviceId: string,
     nickname: string,
     driver: SwitchDriver,
-    stepDTOs?: SwitchStepDTO[]
+    stepDTOs?: SwitchStepDTO[],
   ) {
     super(deviceId, nickname, [], driver);
 
@@ -42,7 +42,7 @@ export class SwitchConfig extends MonoInputConfig {
         '',
         plugins,
         driver,
-        driver.steps[i]
+        driver.steps[i],
       );
       this.steps.push(stepConfig);
     }
@@ -58,7 +58,7 @@ export class SwitchConfig extends MonoInputConfig {
 
   public process(
     msg: NumberArrayWithStatus,
-    meta: MessageProcessorMeta
+    meta: MessageProcessorMeta,
   ): NumberArrayWithStatus | undefined {
     const step = this.steps.find((s) => s.defaults.value === msg[2]);
     return step!.process(msg, meta);

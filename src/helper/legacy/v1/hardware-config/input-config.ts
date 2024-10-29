@@ -83,7 +83,7 @@ export class InputConfig {
    */
   static fromDriver(
     overrides: InputDriver,
-    defaults: InputGridDriver['inputDefaults']
+    defaults: InputGridDriver['inputDefaults'],
   ) {
     const { number, value } = overrides;
     const channel =
@@ -101,7 +101,7 @@ export class InputConfig {
     const availableColors =
       overrides.availableColors || defaults.availableColors || [];
     const colors = availableColors.map((c) =>
-      ColorImpl.fromDrivers(c, number, channel)
+      ColorImpl.fromDrivers(c, number, channel),
     );
 
     const availableFx = overrides.availableFx || defaults.availableFx || [];
@@ -115,7 +115,7 @@ export class InputConfig {
       value,
       undefined,
       undefined,
-      knobType
+      knobType,
     );
 
     return instance;
@@ -132,7 +132,7 @@ export class InputConfig {
     devicePropagator?: NStepPropagator,
     knobType?: 'endless' | 'absolute',
     valueType?: 'endless' | 'absolute',
-    nickname?: string
+    nickname?: string,
   ) {
     this.default = defaultVals;
     this.availableColors = availableColors;
@@ -168,7 +168,7 @@ export class InputConfig {
         this.default.channel,
         value,
         knobType,
-        valueType
+        valueType,
       );
   }
 
@@ -226,7 +226,7 @@ export class InputConfig {
           c.name,
           c.string,
           c.isDefault,
-          c.modifier
+          c.modifier,
         );
         color.channel = arr.channel;
       }
@@ -285,16 +285,16 @@ export class InputConfig {
   setColorForState(state: number, displayName: string) {
     if (state >= this.devicePropagator.nSteps) {
       throw new Error(
-        `tried to set step[${state}] when nSteps is ${this.devicePropagator.nSteps}`
+        `tried to set step[${state}] when nSteps is ${this.devicePropagator.nSteps}`,
       );
     }
     const colors = this.availableColors.filter(
-      (c) => c.displayName === displayName
+      (c) => c.displayName === displayName,
     );
 
     if (colors.length === 0) {
       throw new Error(
-        `color with displayName[${displayName}] is not in availableColors`
+        `color with displayName[${displayName}] is not in availableColors`,
       );
     }
 
@@ -393,7 +393,7 @@ export class InputConfig {
           c.name,
           c.string,
           c.isDefault,
-          c.modifier
+          c.modifier,
         );
         color.channel = arr.channel;
       }
@@ -455,7 +455,7 @@ export class InputConfig {
     return inputIdFor(
       this.default.eventType,
       this.default.channel,
-      this.default.number
+      this.default.number,
     );
   }
 

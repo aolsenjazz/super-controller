@@ -20,7 +20,7 @@ export class KnobConfig extends MonoInputConfig {
     deviceId: string,
     nickname: string,
     plugins: string[],
-    driver: KnobDriver
+    driver: KnobDriver,
   ) {
     super(deviceId, nickname, plugins, driver);
 

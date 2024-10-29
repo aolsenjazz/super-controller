@@ -39,7 +39,7 @@ UIMap.set(TranslatorManifest.title, TranslatorUI);
 UIMap.set(BacklightControlManifest.title, BacklightControlUI);
 
 export function getPluginUI<T extends PluginDTO = PluginDTO>(
-  title: string
+  title: string,
 ): (props: PluginUIProps<T>) => JSX.Element {
   return UIMap.get(title);
 }

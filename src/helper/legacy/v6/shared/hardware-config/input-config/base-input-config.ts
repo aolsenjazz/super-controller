@@ -22,7 +22,7 @@ export interface InputDTO extends BaseIcicle {
 
 export abstract class BaseInputConfig<
   T extends InputDTO = InputDTO,
-  K extends BaseInteractiveInputDriver = BaseInteractiveInputDriver
+  K extends BaseInteractiveInputDriver = BaseInteractiveInputDriver,
 > implements MessageProcessor
 {
   protected nickname: string = '';
@@ -46,7 +46,7 @@ export abstract class BaseInputConfig<
     deviceId: string,
     nickname: string,
     driver: K,
-    plugins: string[]
+    plugins: string[],
   ) {
     this.deviceId = deviceId;
     this.nickname = nickname;
@@ -81,8 +81,8 @@ export abstract class BaseInputConfig<
 
   public async initPluginsFromDTO(
     createPlugin: (
-      driver: BaseInteractiveInputDriver
-    ) => Promise<BaseInputPlugin>
+      driver: BaseInteractiveInputDriver,
+    ) => Promise<BaseInputPlugin>,
   ) {
     return [await createPlugin(this.driver)];
   }
@@ -99,13 +99,13 @@ export abstract class BaseInputConfig<
 
   public abstract init(
     loopbackTransport: MessageTransport,
-    pluginProvider: PluginProvider
+    pluginProvider: PluginProvider,
   ): void;
 
   public abstract initDefaultPlugins(provider: PluginProvider): void;
 
   public abstract process(
     msg: NumberArrayWithStatus,
-    meta: MessageProcessorMeta
+    meta: MessageProcessorMeta,
   ): NumberArrayWithStatus | undefined;
 }

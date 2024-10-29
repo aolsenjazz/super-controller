@@ -12,7 +12,7 @@ export class AdapterDeviceConfig extends DeviceConfig {
     portName: string,
     driverName: string,
     siblingIndex: number,
-    child?: SupportedDeviceConfig
+    child?: SupportedDeviceConfig,
   ) {
     super(portName, driverName, siblingIndex, portName);
     this.child = child;

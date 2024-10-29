@@ -26,7 +26,7 @@ export class OutputPropagator extends Propagator {
     number: number,
     channel: Channel,
     value?: number,
-    lastPropagated?: number[]
+    lastPropagated?: number[],
   ) {
     super(hardwareResponse, outputResponse, lastPropagated);
 
@@ -125,7 +125,7 @@ export class OutputPropagator extends Propagator {
   #handleAsContinuous = (msg: number[]) => {
     return setStatus(
       [this.channel, this.number, msg[2]],
-      this.#nextEventType()
+      this.#nextEventType(),
     );
   };
 
@@ -151,7 +151,7 @@ export class OutputPropagator extends Propagator {
 
     return setStatus(
       [this.channel, this.number, this.#nextValue(this.value)],
-      this.#nextEventType()
+      this.#nextEventType(),
     );
   };
 

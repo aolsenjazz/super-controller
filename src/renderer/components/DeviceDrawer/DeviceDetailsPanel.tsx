@@ -37,21 +37,21 @@ export default function DeviceDetailsPanel(props: PropTypes) {
 
       DeviceConfigService.updateDevice(newConfig);
     },
-    [config]
+    [config],
   );
 
   const removePlugin = useCallback(
     (pluginId: string) => {
       DeviceConfigService.removePlugin(pluginId, id);
     },
-    [id]
+    [id],
   );
 
   const showPluginMenu = useCallback(
     (x: number, y: number) => {
       DeviceConfigService.showDevicePluginMenu(x, y, id);
     },
-    [id]
+    [id],
   );
 
   return (

@@ -9,7 +9,7 @@ import { ipcRenderer, IpcRendererEvent } from 'electron';
 export function addOnChangeListener(
   channel: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  func: (...args: any[]) => void
+  func: (...args: any[]) => void,
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const subscription = (_event: IpcRendererEvent, ...args: any[]) => {

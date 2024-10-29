@@ -100,14 +100,14 @@ export class InputConfig {
       const steps = new Map<string, MidiArray>(
         d.steps.map((step) => {
           return [JSON.stringify(step), create(step)];
-        })
+        }),
       );
       outputPropagator = new NonsequentialStepPropagator(
         d.status,
         d.channel,
         d.number,
         steps,
-        d.steps[d.initialStep]
+        d.steps[d.initialStep],
       );
     }
 
@@ -120,7 +120,7 @@ export class InputConfig {
       value,
       outputPropagator,
       undefined,
-      knobType
+      knobType,
     );
 
     return instance;
@@ -137,7 +137,7 @@ export class InputConfig {
     devicePropagator?: ColorConfigPropagator,
     knobType?: 'endless' | 'absolute',
     valueType?: 'endless' | 'absolute',
-    nickname?: string
+    nickname?: string,
   ) {
     this.default = defaultVals;
     this.availableColors = availableColors;
@@ -161,7 +161,7 @@ export class InputConfig {
         this.default.channel,
         value,
         knobType,
-        valueType
+        valueType,
       );
   }
 
@@ -276,12 +276,12 @@ export class InputConfig {
    */
   setColorForState(state: number, displayName: string) {
     const colors = this.availableColors.filter(
-      (c) => c.displayName === displayName
+      (c) => c.displayName === displayName,
     );
 
     if (colors.length === 0) {
       throw new Error(
-        `color with displayName[${displayName}] is not in availableColors`
+        `color with displayName[${displayName}] is not in availableColors`,
       );
     }
 

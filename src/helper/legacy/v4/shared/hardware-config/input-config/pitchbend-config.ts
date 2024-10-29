@@ -20,7 +20,7 @@ export class PitchbendConfig extends SliderConfig {
       'continuous',
       d.status,
       d.number,
-      d.channel
+      d.channel,
     );
 
     return new PitchbendConfig(def, prop);

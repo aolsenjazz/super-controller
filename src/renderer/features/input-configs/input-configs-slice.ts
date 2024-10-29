@@ -43,10 +43,10 @@ export const {
   selectEntities: selectInputConfigEntities,
   selectIds: selectInputConfigIds,
 } = inputConfigsEntityAdapter.getSelectors<RootState>(
-  (state) => state.inputConfigs
+  (state) => state.inputConfigs,
 );
 
 export const selectManyInputConfigs = createSelector(
   [selectInputConfigEntities, (_: RootState, ids: string[]) => ids],
-  (e, ids) => ids.map((id) => e[id]).filter(Boolean)
+  (e, ids) => ids.map((id) => e[id]).filter(Boolean),
 );

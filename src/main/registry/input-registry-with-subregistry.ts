@@ -34,14 +34,14 @@ export class InputRegistryWithSubregistry extends Registry<
     U extends BaseInputConfig<
       InputDTO,
       BaseInteractiveInputDriver
-    > = BaseInputConfig<InputDTO, BaseInteractiveInputDriver>
+    > = BaseInputConfig<InputDTO, BaseInteractiveInputDriver>,
   >(id: string): U | undefined {
     return super.get(id) || this.InputSubregistry.get(id);
   }
 
   public register(
     key: string,
-    item: BaseInputConfig<InputDTO, BaseInteractiveInputDriver>
+    item: BaseInputConfig<InputDTO, BaseInteractiveInputDriver>,
   ): void {
     super.register(key, item);
 

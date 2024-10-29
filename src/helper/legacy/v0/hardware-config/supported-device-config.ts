@@ -33,7 +33,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
       [],
       inputs,
       undefined,
-      driver.keyboard
+      driver.keyboard,
     );
 
     return newConfig;
@@ -48,7 +48,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
   /* eslint-disable-next-line */
   static fromParsedJSON(parsed: any) {
     const inputs = parsed.inputs.map((inputJSON: string) =>
-      InputConfig.fromJSON(inputJSON)
+      InputConfig.fromJSON(inputJSON),
     );
 
     const newDevice = new SupportedDeviceConfig(
@@ -57,7 +57,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
       parsed.shareSustain,
       inputs,
       parsed.nickname,
-      parsed.keyboardDriver
+      parsed.keyboardDriver,
     );
 
     return newDevice;
@@ -69,7 +69,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
     shareSustain: string[],
     inputs: InputConfig[],
     nickname?: string,
-    keyboardDriver?: KeyboardDriver
+    keyboardDriver?: KeyboardDriver,
   ) {
     super(name, siblingIndex, true, shareSustain, nickname);
     this.inputs = inputs;
@@ -88,7 +88,7 @@ export class SupportedDeviceConfig extends DeviceConfig {
   bindingAvailable(
     eventType: StatusString | 'noteon/noteoff',
     number: number,
-    channel: Channel
+    channel: Channel,
   ) {
     let available = true;
 

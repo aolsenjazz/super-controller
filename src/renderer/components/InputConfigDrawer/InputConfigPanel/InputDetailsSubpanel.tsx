@@ -25,7 +25,7 @@ export default function InputDetailsSubpanel(props: PropTypes) {
       };
       InputConfigService.updateInputs([newConf]);
     },
-    [input]
+    [input],
   );
 
   return (

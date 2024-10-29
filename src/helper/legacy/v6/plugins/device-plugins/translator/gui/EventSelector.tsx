@@ -35,7 +35,7 @@ export default function EventSelector(props: PropTypes) {
   options.push(
     <option disabled key="header-option" value="header-option">
       {msg}
-    </option>
+    </option>,
   );
 
   if (selectedSource && !saved) {
@@ -47,7 +47,7 @@ export default function EventSelector(props: PropTypes) {
         {`${midiArrayToDropdownOption(selectedSource)}${
           saved ? '' : ' (unsaved)'
         }`}
-      </option>
+      </option>,
     );
   }
 
@@ -56,7 +56,7 @@ export default function EventSelector(props: PropTypes) {
     options.push(
       <option key={`${source} ${index}`} value={source}>
         {midiArrayToDropdownOption(toNumberArray(source))}
-      </option>
+      </option>,
     );
   });
 

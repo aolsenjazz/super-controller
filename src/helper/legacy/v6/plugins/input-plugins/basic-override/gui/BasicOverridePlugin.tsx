@@ -9,7 +9,7 @@ import './BasicOverride.css';
 type OutputStrategy = StateManager['outputStrategy'];
 
 export default function BasicOverridePlugin(
-  props: PluginUIProps<BasicOverrideDTO>
+  props: PluginUIProps<BasicOverrideDTO>,
 ) {
   const { plugin, applyChanges } = props;
 

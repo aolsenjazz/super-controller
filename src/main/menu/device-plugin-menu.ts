@@ -4,7 +4,7 @@ import type { BasePluginManifest } from '@plugins/core/base-plugin-manifest';
 import { getAllDeviceManifests } from '@main/plugin-files';
 
 export async function createDevicePluginMenu(
-  onClick: (m: BasePluginManifest) => void
+  onClick: (m: BasePluginManifest) => void,
 ) {
   const manifests = getAllDeviceManifests();
 

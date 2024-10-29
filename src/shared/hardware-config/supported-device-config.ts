@@ -32,7 +32,7 @@ export class SupportedDeviceConfig extends DeviceConfig<SupportedDeviceConfigDTO
     const message = super.process(msg, meta)!;
     const messageIdentifier = idForMsg(msg, false);
     const input = meta.inputProvider.get(
-      getQualifiedInputId(this.id, messageIdentifier)
+      getQualifiedInputId(this.id, messageIdentifier),
     );
 
     return input ? input.process(message, meta) : message;

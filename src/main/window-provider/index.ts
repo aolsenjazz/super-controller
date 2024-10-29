@@ -44,7 +44,7 @@ class WindowProviderSingleton {
 
   private notifyListeners() {
     this.listeners.forEach((listener) =>
-      listener(BrowserWindow.getFocusedWindow())
+      listener(BrowserWindow.getFocusedWindow()),
     );
   }
 }

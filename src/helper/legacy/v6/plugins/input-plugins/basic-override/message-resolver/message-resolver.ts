@@ -10,7 +10,7 @@ export interface MessageResolverDTO<T extends ClassName = ClassName> {
 }
 
 export abstract class MessageResolver<
-  T extends MessageResolverDTO = MessageResolverDTO
+  T extends MessageResolverDTO = MessageResolverDTO,
 > {
   public abstract readonly eligibleStatuses: (
     | StatusString
@@ -19,7 +19,7 @@ export abstract class MessageResolver<
 
   public abstract resolve(
     state: number,
-    msg: NumberArrayWithStatus
+    msg: NumberArrayWithStatus,
   ): NumberArrayWithStatus;
 
   public abstract toDTO(): T;

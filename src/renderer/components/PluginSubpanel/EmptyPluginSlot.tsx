@@ -15,7 +15,7 @@ export default function EmptyPluginSlot(props: PropTypes) {
     (e: React.MouseEvent<HTMLElement>) => {
       showPluginMenu(e.clientX, e.clientY);
     },
-    [showPluginMenu]
+    [showPluginMenu],
   );
 
   return (

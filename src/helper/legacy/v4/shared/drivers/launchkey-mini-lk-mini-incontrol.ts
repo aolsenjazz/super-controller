@@ -7,7 +7,7 @@ import {
 
 function createNoninteractivePad(
   width: number,
-  height: number
+  height: number,
 ): NoninteractiveInputDriver {
   return {
     interactive: false,

@@ -78,14 +78,14 @@ function convertDeviceProp(d: V4ColorConfigPropagator): ColorConfigPropagator {
     defaultFx,
     colorBindings,
     fxBindings,
-    currentStep
+    currentStep,
   );
 }
 
 function convertOutputProp<
   T extends
     | OverrideablePropagator<InputResponse, InputResponse>
-    | NonsequentialStepPropagator
+    | NonsequentialStepPropagator,
 >(o: V4OverrideablePropagator<InputResponse, InputResponse>): T {
   const { outputResponse } = o;
 
@@ -97,7 +97,7 @@ function convertOutputProp<
       statusString,
       number,
       channel,
-      value
+      value,
     ) as unknown as T;
   }
 
@@ -106,7 +106,7 @@ function convertOutputProp<
       outputResponse as 'continuous' | 'constant',
       statusString,
       number,
-      channel
+      channel,
     ) as unknown as T;
   }
 
@@ -124,7 +124,7 @@ function convertOutputProp<
       number,
       channel,
       value,
-      state
+      state,
     ) as unknown as T;
   }
 
@@ -137,7 +137,7 @@ function convertOutputProp<
       channel,
       value,
       knobType,
-      valueType
+      valueType,
     ) as unknown as T;
   }
 
@@ -149,7 +149,7 @@ function convertOutputProp<
       number,
       channel,
       value,
-      state
+      state,
     ) as unknown as T;
   }
 
@@ -168,7 +168,7 @@ function convertInput(i: V4BaseInputConfig): BaseInputConfig {
     return new KnobConfig(
       newDefaults,
       convertOutputProp(outputPropagator) as ContinuousPropagator,
-      nickname
+      nickname,
     );
   }
 
@@ -192,7 +192,7 @@ function convertInput(i: V4BaseInputConfig): BaseInputConfig {
       convertOutputProp(outputPropagator),
       convertDeviceProp(devicePropagator),
       defaultValue,
-      nickname
+      nickname,
     );
   }
 
@@ -201,7 +201,7 @@ function convertInput(i: V4BaseInputConfig): BaseInputConfig {
     return new PitchbendConfig(
       defaults,
       convertOutputProp(outputPropagator),
-      nickname
+      nickname,
     );
   }
 
@@ -210,7 +210,7 @@ function convertInput(i: V4BaseInputConfig): BaseInputConfig {
     return new SliderConfig(
       defaults,
       convertOutputProp(outputPropagator),
-      nickname
+      nickname,
     );
   }
 
@@ -224,7 +224,7 @@ function convertInput(i: V4BaseInputConfig): BaseInputConfig {
     return new XYConfig(
       convertInput(x) as SliderConfig,
       convertInput(y) as SliderConfig,
-      nickname
+      nickname,
     );
   }
 
@@ -246,7 +246,7 @@ function convertAnonymous(d: V4AnonymousDeviceConfig): AnonymousDeviceConfig {
     siblingIndex,
     newOverrides,
     shareSustain,
-    nickname
+    nickname,
   );
 
   return newConf;
@@ -267,7 +267,7 @@ function convertSupported(d: V4SupportedDeviceConfig): SupportedDeviceConfig {
     shareSustain,
     newInputs,
     nickname,
-    keyboardDriver
+    keyboardDriver,
   );
   return newConf;
 }

@@ -52,7 +52,7 @@ export class BinaryMessageResolver extends MessageResolver {
 
   public resolve(
     state: number,
-    msg: NumberArrayWithStatus
+    msg: NumberArrayWithStatus,
   ): NumberArrayWithStatus {
     let status = this.statusOverride;
 

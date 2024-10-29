@@ -8,7 +8,7 @@ import NStepColorSelect from './NStepColorSelect';
 import './BacklightControl.css';
 
 export default function BacklightPluginUI(
-  props: PluginUIProps<BacklightControlDTO>
+  props: PluginUIProps<BacklightControlDTO>,
 ) {
   const { plugin, applyChanges } = props;
 
@@ -37,7 +37,7 @@ export default function BacklightPluginUI(
     if (availableFx.length > 0) {
       newState.fxBindings[s] = availableFx.find((f) => f.isDefault)!;
       newState.fxValueBindings[s] = availableFx.find(
-        (f) => f.isDefault
+        (f) => f.isDefault,
       )!.defaultVal;
     }
 

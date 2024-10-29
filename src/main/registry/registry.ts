@@ -35,7 +35,7 @@ export class Registry<V, T extends { id: string; toDTO: () => V }> {
       Array.from(this.items.entries()).map(([key, value]) => [
         key,
         value.toDTO(),
-      ])
+      ]),
     );
   }
 }

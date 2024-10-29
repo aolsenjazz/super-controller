@@ -36,7 +36,7 @@ export function createPropagator(
   c: Channel,
   v?: MidiNumber,
   knobType?: 'endless' | 'absolute',
-  valueType?: 'endless' | 'absolute'
+  valueType?: 'endless' | 'absolute',
 ) {
   switch (hr) {
     case 'gate':
@@ -53,13 +53,13 @@ export function createPropagator(
             c,
             v,
             knobType,
-            valueType
+            valueType,
           );
     case 'constant':
       return new ConstantPropagator(or as 'toggle' | 'constant', et, n, c, v);
     default:
       throw new Error(
-        `unable to create propagator: unknown hardwareResponse: ${hr}`
+        `unable to create propagator: unknown hardwareResponse: ${hr}`,
       );
   }
 }
@@ -74,6 +74,6 @@ export function propagatorFromJSON(obj: any) {
     obj.channel,
     obj.value,
     obj.knobType,
-    obj.valueType
+    obj.valueType,
   );
 }

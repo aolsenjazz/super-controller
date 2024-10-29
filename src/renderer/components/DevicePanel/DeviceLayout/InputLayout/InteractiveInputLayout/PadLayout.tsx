@@ -16,7 +16,7 @@ export default function Pad(props: PropTypes) {
   const { driver, id } = props;
 
   const recentMessages = useAppSelector((state) =>
-    selectRecentLoopbackMessages(state, id)
+    selectRecentLoopbackMessages(state, id),
   );
 
   const [color, setColor] = useState<Color>();

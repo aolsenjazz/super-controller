@@ -36,7 +36,7 @@ export function createPropagator(
   c: Channel,
   v?: MidiNumber,
   knobType?: 'endless' | 'absolute',
-  valueType?: 'endless' | 'absolute'
+  valueType?: 'endless' | 'absolute',
 ) {
   switch (hr) {
     case 'gate':
@@ -46,7 +46,7 @@ export function createPropagator(
         or as CorrelatedResponse<typeof hr>,
         et,
         n,
-        c
+        c,
       );
     case 'continuous':
       return et === 'pitchbend'
@@ -58,7 +58,7 @@ export function createPropagator(
             c,
             v,
             knobType,
-            valueType
+            valueType,
           );
     case 'constant':
       return new ConstantPropagator(
@@ -66,7 +66,7 @@ export function createPropagator(
         et,
         n,
         c,
-        v
+        v,
       );
     default:
       throw new Error('improper use of createPropagator');
@@ -83,6 +83,6 @@ export function propagatorFromJSON(obj: any) {
     obj.channel,
     obj.value,
     obj.knobType,
-    obj.valueType
+    obj.valueType,
   );
 }

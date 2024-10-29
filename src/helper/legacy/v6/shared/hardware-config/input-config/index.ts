@@ -14,7 +14,7 @@ import { DeviceDriver } from '../../driver-types/device-driver';
 
 function findDriver(
   parentDriver: DeviceDriver,
-  config: InputDTO
+  config: InputDTO,
 ): InteractiveInputDriver {
   if (!parentDriver)
     throw new Error(`unable to locate driver for device id ${config.deviceId}`);
@@ -44,7 +44,7 @@ function createSliderOrWheelConfig(other: InputDTO, d: InputDriverWithHandle) {
 
 export function inputConfigsFromDTO(
   parentDriver: DeviceDriver,
-  other: InputDTO
+  other: InputDTO,
 ): BaseInputConfig {
   const d = findDriver(parentDriver, other);
 
@@ -56,7 +56,7 @@ export function inputConfigsFromDTO(
         other.deviceId,
         other.nickname,
         d,
-        (other as SwitchDTO).steps
+        (other as SwitchDTO).steps,
       );
     case 'knob':
       return new KnobConfig(other.deviceId, other.nickname, other.plugins, d);
@@ -73,7 +73,7 @@ export function inputConfigsFromDTO(
 
 export function inputConfigsFromDriver(
   deviceId: string,
-  d: InteractiveInputDriver
+  d: InteractiveInputDriver,
 ) {
   const configs: BaseInputConfig[] = [];
   if (d.type === 'xy') {

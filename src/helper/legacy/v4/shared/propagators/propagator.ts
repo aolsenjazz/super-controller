@@ -7,7 +7,7 @@ import { InputResponse } from '../driver-types';
  */
 export abstract class Propagator<
   T extends InputResponse,
-  U extends InputResponse
+  U extends InputResponse,
 > {
   /**
    * See InputResponse

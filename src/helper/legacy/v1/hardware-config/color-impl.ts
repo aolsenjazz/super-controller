@@ -20,7 +20,7 @@ export class ColorImpl extends DefaultPreservedMidiArray {
   static fromDrivers(
     c: Color,
     parentNumber: MidiNumber | undefined,
-    parentChannel: Channel | undefined
+    parentChannel: Channel | undefined,
   ) {
     const { eventType, value } = c;
     const number = c.number || parentNumber;
@@ -34,7 +34,7 @@ export class ColorImpl extends DefaultPreservedMidiArray {
       c.name,
       c.string,
       c.default,
-      c.modifier
+      c.modifier,
     );
   }
 
@@ -44,7 +44,7 @@ export class ColorImpl extends DefaultPreservedMidiArray {
     name: string,
     string: string,
     isDefault = false,
-    modifier?: 'blink' | 'pulse'
+    modifier?: 'blink' | 'pulse',
   ) {
     super(defaults);
 

@@ -6,7 +6,7 @@ import { PortInfo } from '@shared/port-info';
  * to the input or output port using the `this.index`
  */
 export abstract class Port<
-  T extends Input | Output = Input | Output
+  T extends Input | Output = Input | Output,
 > extends PortInfo {
   port: T;
 
@@ -14,7 +14,7 @@ export abstract class Port<
     index: number,
     type: 'input' | 'output',
     siblingIndex: number,
-    name: string
+    name: string,
   ) {
     super(index, type, name, siblingIndex);
 
@@ -27,5 +27,6 @@ export abstract class Port<
   }
 
   protected abstract createPort(): T;
+
   protected abstract open(): void;
 }

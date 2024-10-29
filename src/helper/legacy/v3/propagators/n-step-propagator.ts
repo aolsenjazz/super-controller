@@ -16,7 +16,7 @@ export class NStepPropagator extends Propagator<
     hardwareResponse: InputResponse,
     outputResponse: CorrelatedResponse<InputResponse>,
     steps: Map<number, MidiArray>,
-    currentStep?: number
+    currentStep?: number,
   ) {
     super(hardwareResponse, outputResponse);
 

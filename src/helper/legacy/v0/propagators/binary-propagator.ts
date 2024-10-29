@@ -19,7 +19,7 @@ export class BinaryPropagator extends Propagator {
     outputResponse: 'gate' | 'toggle',
     onMessage?: number[],
     offMessage?: number[],
-    lastPropagated?: number[]
+    lastPropagated?: number[],
   ) {
     super(hardwareResponse, outputResponse, lastPropagated);
 

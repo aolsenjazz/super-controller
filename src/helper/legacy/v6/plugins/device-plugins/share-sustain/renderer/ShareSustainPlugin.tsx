@@ -7,7 +7,7 @@ import ShareSustainLine from './ShareSustainLine';
 import './ShareSustain.css';
 
 export default function ShareSustainPlugin(
-  props: PluginUIProps<ShareSustainDTO>
+  props: PluginUIProps<ShareSustainDTO>,
 ) {
   const {
     plugin,
@@ -29,7 +29,7 @@ export default function ShareSustainPlugin(
   };
 
   const uniqueIds = Array.from(
-    new Set(connectedDevices.concat(configuredDevices)).values()
+    new Set(connectedDevices.concat(configuredDevices)).values(),
   );
 
   const SustainTargets = uniqueIds

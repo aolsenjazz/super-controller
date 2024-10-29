@@ -19,7 +19,7 @@ export function create<Type extends MidiArray = MidiArray>(
   arrOrStatus: NumberArrayWithStatus | StatusByte | StatusString,
   channel?: Channel,
   number?: MidiNumber,
-  value?: MidiNumber
+  value?: MidiNumber,
 ): Type {
   if (Array.isArray(arrOrStatus)) {
     const s = (arrOrStatus[0] & 0xf0) as StatusByte;
@@ -42,13 +42,13 @@ export function create<Type extends MidiArray = MidiArray>(
     ? (TwoByteMidiArray.create(
         arrOrStatus as TwoBStatuses,
         channel,
-        number
+        number,
       ) as unknown as Type)
     : (ThreeByteMidiArray.create(
         arrOrStatus as ThreeBStatuses,
         channel,
         number,
-        value || 0
+        value || 0,
       ) as unknown as Type);
 }
 

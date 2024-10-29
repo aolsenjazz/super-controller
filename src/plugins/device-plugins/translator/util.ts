@@ -27,7 +27,7 @@ export function readableTime() {
 
 export function byteToStatusString(
   byte: StatusNumber,
-  individualOnOff = false
+  individualOnOff = false,
 ) {
   const statusNibble = byte & 0xf0;
   switch (statusNibble) {
