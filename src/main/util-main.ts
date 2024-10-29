@@ -39,7 +39,7 @@ export function getAssetPath(...paths: string[]) {
 
 export function getPreloadPath() {
   return app.isPackaged
-    ? path.join(__dirname, 'preload', 'preload.ts')
+    ? path.join(__dirname, 'preload.js')
     : path.join(__dirname, '../../.erb/dll/preload.js');
 }
 
