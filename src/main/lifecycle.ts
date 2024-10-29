@@ -1,8 +1,8 @@
 import { app, Event } from 'electron';
 import os from 'os';
 import installExtension, {
-  REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS,
+  REACT_DEVELOPER_TOOLS,
 } from 'electron-extension-installer';
 
 import { WindowProvider } from './window-provider';
@@ -15,17 +15,22 @@ import { loadProject, save } from './project';
 
 const { MainWindow } = WindowProvider;
 
+/**
+ * As of 10/29/2024, devtools extensions constantly complain in the terminal.
+ * No library has fixed this yet, but maybe the next time this is revisited,
+ * there will be a more robust solution offered by someone.
+ */
 async function installRDT() {
   const isDebug =
     process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
   if (isDebug) {
-    await installExtension(REDUX_DEVTOOLS);
     await installExtension(REACT_DEVELOPER_TOOLS, {
       loadExtensionOptions: {
         allowFileAccess: true,
       },
     });
+    await installExtension(REDUX_DEVTOOLS);
   }
 }
 

@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from 'react';
 
-import { getQualifiedInputId } from '@shared/util';
 import { MonoInputDTO } from '@shared/hardware-config/input-config/mono-input-dto';
 
 import PluginSlot from 'renderer/components/PluginSubpanel/PluginSlot';
@@ -10,8 +9,6 @@ import InputDefaultsSubpanel from './InputDefaultsSubpanel';
 type PropTypes = {
   input: MonoInputDTO;
 };
-
-const { InputConfigService } = window;
 
 export default function MonoInputConfigPanel(props: PropTypes) {
   const { input } = props;
@@ -28,15 +25,8 @@ export default function MonoInputConfigPanel(props: PropTypes) {
   //   [input]
   // );
 
-  const removePlugin = useCallback(
-    (pluginId: string) => {
-      InputConfigService.removePlugin(
-        pluginId,
-        getQualifiedInputId(input.deviceId, input.id)
-      );
-    },
-    [input]
-  );
+  // noop, right now
+  const removePlugin = useCallback(() => {}, []);
 
   const pluginSlots = useMemo(() => {
     return input.plugins.map((x) => {
