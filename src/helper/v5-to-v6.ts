@@ -59,9 +59,6 @@ function findInputDriver(deviceName: string, inputId: string) {
     .flatMap((g) => g.inputs)
     .map((i) => i as InteractiveInputDriver)
     .find((d) => {
-      if (!d.interactive) {
-        console.log(d);
-      }
       return inputIdFromDriver(d) === inputId;
     });
 
