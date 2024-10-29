@@ -1,5 +1,3 @@
-import SelectTab from '@assets/select-tab.svg';
-
 import './IosSelect.css';
 
 type PropTypes<T extends string | number> = {

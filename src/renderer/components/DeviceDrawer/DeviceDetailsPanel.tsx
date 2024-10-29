@@ -74,20 +74,23 @@ export default function DeviceDetailsPanel(props: PropTypes) {
               )}
             </>
           )}
-          <label htmlFor="nickname-input">
-            Nickname:
-            <ControlledInput
-              id="nickname-input"
-              type="text"
-              value={deviceNickname}
-              onChange={(event) => onChange(event.target.value)}
-            />
-          </label>
+          {!isAdapter || (isAdapter && config.child) ? (
+            <label htmlFor="nickname-input">
+              Nickname:
+              <ControlledInput
+                id="nickname-input"
+                type="text"
+                value={deviceNickname}
+                onChange={(event) => onChange(event.target.value)}
+              />
+            </label>
+          ) : null}
         </div>
         <PluginSubpanel
           plugins={plugins || []}
           removePlugin={removePlugin}
           showPluginMenu={showPluginMenu}
+          deactivated={isAdapter && !config.child}
           showAddPlugin
         />
       </div>

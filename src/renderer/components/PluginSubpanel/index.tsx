@@ -9,10 +9,12 @@ type PluginSubpanelProps = {
   showPluginMenu: (x: number, y: number) => void;
   removePlugin: (pluginId: string) => void;
   showAddPlugin: boolean;
+  deactivated?: boolean;
 };
 
 export default function PluginSubpanel(props: PluginSubpanelProps) {
-  const { plugins, showPluginMenu, removePlugin, showAddPlugin } = props;
+  const { plugins, showPluginMenu, removePlugin, showAddPlugin, deactivated } =
+    props;
 
   const pluginSlots = useMemo(() => {
     return plugins.map((x) => {
@@ -27,7 +29,9 @@ export default function PluginSubpanel(props: PluginSubpanelProps) {
   }, [plugins, removePlugin]);
 
   return (
-    <div className="plugin-subpanel">
+    <div
+      className={`plugin-subpanel${deactivated === true ? ' deactivated' : ''}`}
+    >
       <SectionHeader size="small" title="PLUGINS" />
       {pluginSlots}
       {showAddPlugin && <EmptyPluginSlot showPluginMenu={showPluginMenu} />}

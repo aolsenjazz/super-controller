@@ -6,6 +6,12 @@
   border-radius: 4px;
 }
 
+.plugin-subpanel.deactivated {
+  pointer-events: none;
+  filter: grayscale(100%);
+  opacity: 50%;
+}
+
 .plugin-slot {
   width: 100%;
   border-radius: 4px;
