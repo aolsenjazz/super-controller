@@ -11,7 +11,7 @@ import { DeviceConfig, DeviceConfigDTO } from './device-config';
 export function deviceConfigFromDTO(other: DeviceConfigDTO) {
   let config: DeviceConfig;
 
-  if (other.className === 'SupportedDeviceConfig') {
+  if (other.type === 'supported') {
     config = new SupportedDeviceConfig(
       other.portName,
       other.driverName,
@@ -23,7 +23,7 @@ export function deviceConfigFromDTO(other: DeviceConfigDTO) {
     (config as SupportedDeviceConfig).inputs = (
       other as SupportedDeviceConfigDTO
     ).inputs;
-  } else if (other.className === 'AdapterDeviceConfig') {
+  } else if (other.type === 'adapter') {
     config = new AdapterDeviceConfig(
       other.portName,
       other.driverName,
@@ -32,7 +32,7 @@ export function deviceConfigFromDTO(other: DeviceConfigDTO) {
         ? (deviceConfigFromDTO(other.child) as SupportedDeviceConfig)
         : undefined,
     );
-  } else if (other.className === 'AnonymousDeviceConfig') {
+  } else if (other.type === 'anonymous') {
     config = new AnonymousDeviceConfig(
       other.portName,
       other.siblingIndex,
