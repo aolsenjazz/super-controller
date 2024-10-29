@@ -29,6 +29,7 @@ import { InputRegistry } from './registry/input-registry';
 import { PluginRegistry } from './registry/plugin-registry';
 import { DeviceRegistry } from './registry/device-registry';
 import { getDevicePlugin, getInputPlugin } from './plugin-files';
+import { SwitchConfig } from '@shared/hardware-config/input-config/switch-config';
 
 const { MainWindow } = WindowProvider;
 
@@ -49,6 +50,11 @@ function getRecommendedDir(): string {
 }
 
 function loadInputPlugins(config: BaseInputConfig, proj: ProjectPOJO) {
+  if (config instanceof SwitchConfig) {
+    config.steps.forEach((s) => loadInputPlugins(s, proj));
+    return;
+  }
+
   config.getPlugins().forEach((id) => {
     const dto = proj.plugins[id];
 
