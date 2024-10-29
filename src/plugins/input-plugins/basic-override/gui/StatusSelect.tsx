@@ -21,10 +21,7 @@ export function StatusSelect(props: StatusSelectProps) {
   return (
     <label>
       Event type:
-      <select
-        value={statusOverride || defaultStatus || 0}
-        onChange={handleChange}
-      >
+      <select value={statusOverride || defaultStatus} onChange={handleChange}>
         {eligibleStatuses.map((status, i) => (
           <option key={status} value={status}>
             {statusLabels[i]}

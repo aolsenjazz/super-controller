@@ -48,12 +48,14 @@ export default function ContinuousMessageResolverConfig(props: PropTypes) {
         channelOverride={channelOverride}
         onChannelChange={handleChannelChange}
       />
-      <NumberSelect
-        defaultNumber={defaultNumber}
-        numberOverride={numberOverride}
-        statusOverride={statusOverride}
-        onNumberChange={handleNumberChange}
-      />
+      {statusOverride !== 'pitchbend' && (
+        <NumberSelect
+          defaultNumber={defaultNumber}
+          numberOverride={numberOverride}
+          statusOverride={statusOverride}
+          onNumberChange={handleNumberChange}
+        />
+      )}
     </>
   );
 }
