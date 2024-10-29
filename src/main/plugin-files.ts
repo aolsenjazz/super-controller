@@ -1,23 +1,22 @@
-// input plugins
-import BacklightControlManifest from '@plugins/input-plugins/backlight-control/manifest';
-import BacklightControlPlugin from '@plugins/input-plugins/backlight-control/index';
-
-import BasicOverrideManifest from '@plugins/input-plugins/basic-override/manifest';
-import BasicOverridePlugin from '@plugins/input-plugins/basic-override/index';
-
-// device plugins
-import TranslatorManifest from '@plugins/device-plugins/translator/manifest';
-import TranslatorPlugin from '@plugins/device-plugins/translator/index';
-
-import ShareSustainManifest from '@plugins/device-plugins/share-sustain/manifest';
-import ShareSustainPlugin from '@plugins/device-plugins/share-sustain/index';
-
+// Core imports
 import { BasePluginManifest } from '@plugins/core/base-plugin-manifest';
-import { BaseInputDriver, BaseInteractiveInputDriver } from '@plugins/types';
 import { PluginDTO } from '@plugins/core/base-plugin';
 import { BaseInputPlugin } from '@plugins/core/base-input-plugin';
 import { BaseDevicePlugin } from '@plugins/core/base-device-plugin';
 import { InputPluginManifest } from '@plugins/core/input-plugin-manifest';
+import { BaseInputDriver, BaseInteractiveInputDriver } from '@plugins/types';
+
+// Input plugin imports
+import BacklightControlManifest from '@plugins/input-plugins/backlight-control/manifest';
+import BacklightControlPlugin from '@plugins/input-plugins/backlight-control/index';
+import BasicOverrideManifest from '@plugins/input-plugins/basic-override/manifest';
+import BasicOverridePlugin from '@plugins/input-plugins/basic-override/index';
+
+// Device plugin imports
+import TranslatorManifest from '@plugins/device-plugins/translator/manifest';
+import TranslatorPlugin from '@plugins/device-plugins/translator/index';
+import ShareSustainManifest from '@plugins/device-plugins/share-sustain/manifest';
+import ShareSustainPlugin from '@plugins/device-plugins/share-sustain/index';
 
 // manifests
 const InputManifests = new Map<string, InputPluginManifest>();

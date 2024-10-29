@@ -1,6 +1,6 @@
 import { PluginProvider } from '../plugin-provider';
 
-import type { BaseIcicle } from '../freezable';
+import type { Serializable } from '../serializable';
 import { Anonymous, getDriver } from '../drivers';
 
 import type {
@@ -11,7 +11,7 @@ import type { MessageTransport } from '../message-transport';
 import type { BaseDevicePlugin } from '../../plugins/core/base-device-plugin';
 import type { BasePlugin } from '../../plugins/core/base-plugin';
 
-export interface DeviceConfigDTO extends BaseIcicle {
+export interface DeviceConfigDTO extends Serializable {
   id: string;
   portName: string;
   driverName: string;

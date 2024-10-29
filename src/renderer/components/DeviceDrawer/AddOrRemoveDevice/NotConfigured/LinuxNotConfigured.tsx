@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { DRIVERS } from '@shared/drivers';
 
 import DriverRequestButton from '../../../DriverRequestButton';
-import BasicSelect from '../../../BasicSelect';
+import IosSelect from '../../../IosSelect';
 
 const drivers = new Map(Array.from(DRIVERS.entries()));
 
@@ -32,7 +32,7 @@ export default function LinuxNotConfigured(props: PropTypes) {
     <div id="adapter-view-container">
       <div>
         <p className="label">Select Device: </p>
-        <BasicSelect
+        <IosSelect
           valueList={valueList}
           labelList={labelList}
           value={value}

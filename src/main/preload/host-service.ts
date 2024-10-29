@@ -3,7 +3,6 @@ import { ipcRenderer } from 'electron';
 import { DeviceConnectionDetails } from '@shared/device-connection-details';
 
 import { HOST } from '../ipc/ipc-channels';
-import { addOnChangeListener } from './common';
 
 type Host =
   | 'linux'
@@ -18,10 +17,6 @@ type Host =
  * Expose data re. the host (usually the OS + hardware) to the renderer process
  */
 export const HostService = {
-  onTitleChange: (func: (title: string) => void) => {
-    return addOnChangeListener(HOST.TITLE, func);
-  },
-
   /**
    * Returns a string representation of the current operating system
    */

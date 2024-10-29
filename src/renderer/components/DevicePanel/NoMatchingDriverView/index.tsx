@@ -1,5 +1,5 @@
 import LinuxNoMatchingDriverView from './LinuxNoMatchingDriverView';
-import OSXNoMatchingDriverView from './NoPreviewAvailableView';
+import NoPreviewAvailableView from './NoPreviewAvailableView';
 
 const { HostService } = window;
 
@@ -7,7 +7,7 @@ type PropTypes = {
   deviceName: string;
 };
 
-export default function UnsupportedView(props: PropTypes) {
+export default function NoMatchingDriverView(props: PropTypes) {
   const { deviceName } = props;
 
   const host = HostService.getHost();
@@ -17,7 +17,7 @@ export default function UnsupportedView(props: PropTypes) {
       {host === 'linux' ? (
         <LinuxNoMatchingDriverView />
       ) : (
-        <OSXNoMatchingDriverView deviceName={deviceName} />
+        <NoPreviewAvailableView deviceName={deviceName} />
       )}
     </>
   );

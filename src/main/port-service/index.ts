@@ -75,7 +75,10 @@ export class HardwarePortServiceSingleton {
 
   private constructor() {
     this.setHardwareChangeListener();
-    this.setFrontendListeners();
+
+    ipcMain.on(HOST.GET_CONNECTED_DEVICES, (e: IpcMainEvent) => {
+      e.returnValue = this.availableHardwarePorts.map((p) => p.stub);
+    });
   }
 
   public static getInstance(): HardwarePortServiceSingleton {
@@ -131,15 +134,6 @@ export class HardwarePortServiceSingleton {
     }
 
     input.init(transport, PluginRegistry);
-  }
-
-  /**
-   * Listen to IPC comms from frontend
-   */
-  private setFrontendListeners() {
-    ipcMain.on(HOST.GET_CONNECTED_DEVICES, (e: IpcMainEvent) => {
-      e.returnValue = this.availableHardwarePorts.map((p) => p.stub);
-    });
   }
 
   public onConfigChange(event: {

@@ -1,7 +1,7 @@
 import { DRIVERS } from '@shared/drivers';
 import { DeviceConfigDTO } from '@shared/hardware-config/device-config';
 
-import BasicSelect from '../BasicSelect';
+import IosSelect from '../IosSelect';
 
 const fivePins = Array.from(DRIVERS.entries())
   .filter(([_k, v]) => v.type === '5pin')
@@ -25,7 +25,7 @@ export default function AdapterSelect(props: PropTypes) {
     <div id="adapter-select">
       <label htmlFor="adapter-select">
         Select Device:
-        <BasicSelect
+        <IosSelect
           valueList={fivePins}
           labelList={fivePins}
           value={value}

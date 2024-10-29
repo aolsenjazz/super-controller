@@ -7,12 +7,12 @@ import { MessageTransport } from '../../message-transport';
 import { PluginProvider } from '../../plugin-provider';
 
 import { InputType } from '../../driver-types/input-drivers/base-input-driver';
-import { BaseIcicle } from '../../freezable';
+import { Serializable } from '../../serializable';
 import { getQualifiedInputId, inputIdFromDriver } from '../../util';
 import { BaseInteractiveInputDriver } from '../../driver-types/input-drivers/base-interactive-input-driver';
 import type { BaseInputPlugin } from '../../../plugins/core/base-input-plugin';
 
-export interface InputDTO extends BaseIcicle {
+export interface InputDTO extends Serializable {
   id: string;
   deviceId: string;
   nickname: string;

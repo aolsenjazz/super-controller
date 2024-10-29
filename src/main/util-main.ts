@@ -1,5 +1,4 @@
 /* eslint import/prefer-default-export: off, import/no-mutable-exports: off */
-import fs from 'fs';
 import path from 'path';
 import { URL } from 'url';
 import { app } from 'electron';
@@ -19,16 +18,6 @@ if (process.env.NODE_ENV === 'development') {
   };
 }
 
-/**
- * Loads a JSON file
- *
- * @param filePath The path to the JSON file
- * @returns The parsed object
- */
-export function loadJSON(filePath: string) {
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
-}
-
 export function getAssetPath(...paths: string[]) {
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
@@ -41,10 +30,4 @@ export function getPreloadPath() {
   return app.isPackaged
     ? path.join(__dirname, 'preload.js')
     : path.join(__dirname, '../../.erb/dll/preload.js');
-}
-
-export function getPluginsPath() {
-  return app.isPackaged
-    ? path.join(__dirname, '../../.erb/dll/plugins')
-    : path.join(__dirname, '..', 'plugins');
 }

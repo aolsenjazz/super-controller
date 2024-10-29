@@ -69,7 +69,11 @@ class LifecycleSingleton {
    * OSX: Invoked when opening a recent document from File->Open recent submenu
    */
   private subscribeToOpenFile() {
-    app.on('open-file', (_event: Event, filePath: string) => {
+    app.on('open-file', async (_event: Event, filePath: string) => {
+      if (MainWindow.edited === true) {
+        const doSave = dialogs.unsavedCheck();
+        if (doSave === true) await save();
+      }
       loadProject(filePath);
     });
   }

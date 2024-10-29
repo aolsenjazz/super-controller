@@ -10,7 +10,7 @@ type PropTypes<T extends string | number> = {
   onChange: (value: T) => void;
 };
 
-export default function BasicSelect<T extends string | number>(
+export default function IosSelect<T extends string | number>(
   props: PropTypes<T>
 ) {
   const { valueList, value, onChange, labelList, placeholder } = props;
@@ -54,4 +54,4 @@ export default function BasicSelect<T extends string | number>(
 const defaultProps = {
   placeholder: undefined,
 };
-BasicSelect.defaultProps = defaultProps;
+IosSelect.defaultProps = defaultProps;
