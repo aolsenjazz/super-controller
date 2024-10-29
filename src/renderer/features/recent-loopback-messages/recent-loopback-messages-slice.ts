@@ -38,6 +38,14 @@ export const recentLoopbackMessagesSlice = createAppSlice({
       },
     ),
   }),
+  extraReducers: (builder) => {
+    // on project change, clear recent input events
+    builder.addCase('projectName/setName', (state) => {
+      Array.from(Object.keys(state)).forEach((k) => {
+        delete state[k];
+      });
+    });
+  },
 });
 
 export const selectRecentLoopbackMessages = (state: RootState, id: string) =>
