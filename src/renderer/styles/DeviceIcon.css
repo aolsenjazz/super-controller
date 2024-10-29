@@ -15,6 +15,10 @@
   position: relative;
 }
 
+.device-container.disabled .pad {
+  background-color: transparent !important;
+}
+
 .device-icon .pad {
   position: absolute;
   background-color: #808080;

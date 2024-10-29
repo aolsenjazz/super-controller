@@ -1,5 +1,5 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
-import { BaseInteractiveInputDriver } from './driver-types/input-drivers/base-interactive-input-driver';
+import { InputDriver } from 'helper/legacy/v5/shared/driver-types';
 import { MonoInteractiveDriver } from './driver-types/input-drivers/mono-interactive-driver';
 import { SwitchDriver } from './driver-types/input-drivers/switch-driver';
 import { XYDriver } from './driver-types/input-drivers/xy-driver';
@@ -92,7 +92,7 @@ export function getQualifiedInputId(deviceId: string, inputId: string) {
   return `${deviceId}::${inputId}`;
 }
 
-export function inputIdFromDriver(driver: BaseInteractiveInputDriver): string {
+export function inputIdFromDriver(driver: InputDriver): string {
   if (driver.type === 'xy') {
     const xy = driver as XYDriver;
     return `${inputIdFromDriver(xy.x)}/${inputIdFromDriver(xy.y)}`;

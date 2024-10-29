@@ -57,9 +57,11 @@ function findInputDriver(deviceName: string, inputId: string) {
 
   const inputDriver = parentDriver.inputGrids
     .flatMap((g) => g.inputs)
-    .filter((d) => d.interactive === true)
     .map((i) => i as InteractiveInputDriver)
     .find((d) => {
+      if (!d.interactive) {
+        console.log(d);
+      }
       return inputIdFromDriver(d) === inputId;
     });
 
@@ -267,6 +269,7 @@ function upgradeInput(
 
   // for some reason I guess I was creating input configs for noninteractive inputs :)
   if (driver) {
+    if ((driver as any).interactive === false) return [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newConfigs = inputConfigsFromDriver(deviceId, driver as any);
 
@@ -297,6 +300,12 @@ function upgradeInput(
 
     return newConfigs;
   }
+
+  if ((config as any).defaults?.number === -1) return [];
+
+  // messed up with this device at sometime in the past
+  if (deviceName === 'Keystation 61 MK3 (USB MIDI)') return [];
+
   const outProp = (config as V5SwitchConfig).outputPropagator;
   const correctConfigId = `${idForMsg(outProp.defaultStep)}`;
 
