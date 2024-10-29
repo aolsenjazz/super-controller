@@ -18,6 +18,7 @@ import { DeviceDriver } from '@shared/driver-types/device-driver';
 import { AnonymousDeviceConfig } from '@shared/hardware-config/anonymous-device-config';
 import { SupportedDeviceConfig } from '@shared/hardware-config/supported-device-config';
 import { AdapterDeviceConfig } from '@shared/hardware-config/adapter-device-config';
+import { SwitchConfig } from '@shared/hardware-config/input-config/switch-config';
 
 import { upgradeProject } from 'helper/project-upgrader';
 
@@ -29,7 +30,6 @@ import { InputRegistry } from './registry/input-registry';
 import { PluginRegistry } from './registry/plugin-registry';
 import { DeviceRegistry } from './registry/device-registry';
 import { getDevicePlugin, getInputPlugin } from './plugin-files';
-import { SwitchConfig } from '@shared/hardware-config/input-config/switch-config';
 
 const { MainWindow } = WindowProvider;
 
