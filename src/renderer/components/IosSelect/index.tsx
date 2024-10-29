@@ -18,10 +18,6 @@ export default function IosSelect<T extends string | number>(
 
   return (
     <div className="ios-select">
-      <div className="ios-select-tab">
-        <img src={SelectTab} alt="" />
-        <img src={SelectTab} alt="" />
-      </div>
       <select
         value={value}
         onChange={(e) => {
