@@ -7,11 +7,13 @@ type PropTypes = {
   updateOverride: (
     source: NumberArrayWithStatus,
     override: NumberArrayWithStatus,
+    valueIndependent: boolean,
   ) => void;
+  valueIndependent: boolean;
 };
 
 export default function OverrideFields(props: PropTypes) {
-  const { source, override, updateOverride } = props;
+  const { source, override, updateOverride, valueIndependent } = props;
 
   // Compute default values from 'source'
   const defaultStatusByte = 0xf0 & source[0];
@@ -34,7 +36,7 @@ export default function OverrideFields(props: PropTypes) {
           onChange={(e) => {
             const val = Number(e.target.value);
             override[0] = (val | (override[0] & 0x0f)) as StatusNumber;
-            updateOverride(source, override);
+            updateOverride(source, override, valueIndependent);
           }}
         >
           {statusBytes.map((b) => (
@@ -53,7 +55,7 @@ export default function OverrideFields(props: PropTypes) {
           onChange={(e) => {
             const val = Number(e.target.value);
             override[0] = (val | (override[0] & 0xf0)) as StatusNumber;
-            updateOverride(source, override);
+            updateOverride(source, override, valueIndependent);
           }}
         >
           {[...Array(16).keys()].map((i) => (
@@ -71,7 +73,7 @@ export default function OverrideFields(props: PropTypes) {
           value={number}
           onChange={(e) => {
             override[1] = Number(e.target.value);
-            updateOverride(source, override);
+            updateOverride(source, override, valueIndependent);
           }}
         >
           {[...Array(128).keys()].map((i) => (
@@ -89,7 +91,7 @@ export default function OverrideFields(props: PropTypes) {
           value={value}
           onChange={(e) => {
             override[2] = Number(e.target.value);
-            updateOverride(source, override);
+            updateOverride(source, override, valueIndependent);
           }}
         >
           {[...Array(128).keys()].map((i) => (
@@ -98,6 +100,15 @@ export default function OverrideFields(props: PropTypes) {
             </option>
           ))}
         </select>
+      </div>
+
+      <div className="override-field">
+        <label htmlFor="override-value">Value independent:</label>
+        <input
+          type="checkbox"
+          checked={valueIndependent}
+          onChange={() => updateOverride(source, override, !valueIndependent)}
+        />
       </div>
     </div>
   );
