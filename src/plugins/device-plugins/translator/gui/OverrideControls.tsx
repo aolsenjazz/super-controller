@@ -19,7 +19,12 @@ export function OverrideControls(props: OverrideControlsProps) {
   ) => {
     const overrides = { ...plugin.overrides };
     overrides[toString(source)] = override;
-    applyChanges({ ...plugin, overrides });
+
+    const valueIndependencies = { ...plugin.valueIndependencies };
+    valueIndependencies[toString(source)] =
+      !valueIndependencies[toString(source)];
+
+    applyChanges({ ...plugin, overrides, valueIndependencies });
   };
 
   const deleteOverride = () => {
@@ -51,6 +56,9 @@ export function OverrideControls(props: OverrideControlsProps) {
             source={selectedSource}
             updateOverride={updateOverride}
             override={[...o] as NumberArrayWithStatus}
+            valueIndependent={
+              plugin.valueIndependencies[toString(selectedSource)]
+            }
           />
         </>
       )}
