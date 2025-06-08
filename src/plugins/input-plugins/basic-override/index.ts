@@ -107,6 +107,8 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
    */
   private messageResolver: ResolverType;
 
+  protected dataVersion = 1;
+
   /**
    * Creates an instance of BasicOverridePlugin from a DTO.
    *
@@ -118,6 +120,9 @@ export default class BasicOverridePlugin extends BaseInputPlugin {
     dto: BasicOverrideDTO,
     driver: MonoInteractiveDriver,
   ): BasicOverridePlugin {
+    // the original spec was not design w/migrations in mind
+    if (dto.dataVersion === undefined) dto.dataVersion = 1;
+
     return new BasicOverridePlugin(dto.parentId, driver, dto);
   }
 

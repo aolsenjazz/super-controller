@@ -11,11 +11,24 @@ export interface TranslatorDTO extends PluginDTO {
 }
 
 export default class TranslatorPlugin extends BaseDevicePlugin<TranslatorDTO> {
-  overrides: Record<string, NumberArrayWithStatus | undefined> = {};
+  private overrides: Record<string, NumberArrayWithStatus | undefined> = {};
 
-  valueIndependencies: Record<string, boolean> = {};
+  private valueIndependencies: Record<string, boolean> = {};
+
+  protected dataVersion = 1;
 
   public static override fromDTO(dto: TranslatorDTO) {
+    // the original spec was not design w/migrations in mind
+    if (dto.dataVersion === undefined) {
+      dto.dataVersion = 1;
+
+      const valueIndependencies: Record<string, boolean> = {};
+      Object.keys(dto.overrides).forEach((k) => {
+        valueIndependencies[k] = false;
+      });
+      dto.valueIndependencies = valueIndependencies;
+    }
+
     return new TranslatorPlugin(
       dto.parentId,
       dto.id,
@@ -41,9 +54,7 @@ export default class TranslatorPlugin extends BaseDevicePlugin<TranslatorDTO> {
     }
   }
 
-  public init() {
-    // noop
-  }
+  public init() {}
 
   public process(msg: NumberArrayWithStatus, _meta: MessageProcessorMeta) {
     const valueIndependent = Object.entries(this.valueIndependencies)
@@ -71,8 +82,6 @@ export default class TranslatorPlugin extends BaseDevicePlugin<TranslatorDTO> {
         .find(([twoByteKey]) => {
           return twoByteKey[0] === msg[0] && twoByteKey[1] === msg[1];
         });
-
-      console.log(override);
 
       if (override) {
         return override[1];

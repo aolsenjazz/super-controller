@@ -10,6 +10,7 @@ export interface PluginDTO extends Serializable {
   description: string;
   on: boolean;
   collapsed: boolean;
+  dataVersion: number;
   type: 'device' | 'input';
 }
 
@@ -35,6 +36,8 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
   public readonly description: string;
 
   public readonly parentId: string;
+
+  protected abstract dataVersion: number;
 
   public on = true;
 
@@ -76,6 +79,7 @@ export abstract class BasePlugin<T extends PluginDTO = PluginDTO>
       on: this.on,
       collapsed: this.collapsed,
       type: this.type,
+      dataVersion: this.dataVersion,
     } as T;
   }
 }
