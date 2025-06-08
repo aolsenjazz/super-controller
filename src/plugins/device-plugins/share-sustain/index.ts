@@ -14,7 +14,12 @@ export interface ShareSustainDTO extends PluginDTO {
 export default class ShareSustainPlugin extends BaseDevicePlugin<ShareSustainDTO> {
   public sustainTargets: string[] = [];
 
+  protected dataVersion = 1;
+
   public static override fromDTO(dto: ShareSustainDTO) {
+    // the original spec was not design w/migrations in mind
+    if (dto.dataVersion === undefined) dto.dataVersion = 1;
+
     return new ShareSustainPlugin(dto.parentId, dto.id, dto.sustainTargets);
   }
 

@@ -30,33 +30,38 @@ export interface BacklightControlDTO extends PluginDTO {
 }
 
 export default class BacklightControlPlugin extends BaseInputPlugin<BacklightControlDTO> {
-  stateManager: StateManager;
+  private stateManager: StateManager;
 
   /**
    * Maps `Color` objects to a given state
    */
-  colorBindings: Record<number, Color> = {};
+  private colorBindings: Record<number, Color> = {};
 
   /**
    * Maps `FxDriver` objects to a given state
    */
-  fxBindings: Record<number, FxDriver> = {};
+  private fxBindings: Record<number, FxDriver> = {};
 
   /**
    * Maps the current value of the fx for this state. Needs to be separate from
    * the mapped `fxBindings` because fx messages can have different values for each
    * fx style.
    */
-  fxValueBindings: Record<number, MidiNumber[]> = {};
+  private fxValueBindings: Record<number, MidiNumber[]> = {};
 
-  availableColors: Color[];
+  private availableColors: Color[];
 
-  availableFx: FxDriver[];
+  private availableFx: FxDriver[];
+
+  protected dataVersion = 1;
 
   public static override fromDTO(
     dto: BacklightControlDTO,
     driver: MonoInteractiveDriver,
   ) {
+    // the original spec was not design w/migrations in mind
+    if (dto.dataVersion === undefined) dto.dataVersion = 1;
+
     return new BacklightControlPlugin(dto.parentId, driver, dto);
   }
 
