@@ -5,8 +5,6 @@ import { PluginDTO } from '../../core/base-plugin';
 import { toString } from './util';
 import Manifest from './manifest';
 
-const DATA_VERSION = 1;
-
 export interface TranslatorDTO extends PluginDTO {
   overrides: Record<string, NumberArrayWithStatus | undefined>;
   valueIndependencies: Record<string, boolean>;
