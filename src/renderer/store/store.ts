@@ -14,6 +14,8 @@ import { recentLoopbackMessagesSlice } from '../features/recent-loopback-message
 import { recentRemoteMessagesSlice } from '../features/recent-remote-messages/recent-remote-messages-slice';
 import { projectNameSlice } from '../features/project-name/project-name-slice';
 
+import '../middleware/project-name-listener';
+
 const rootReducer = combineSlices(
   connectedDevicesSlice,
   configuredDevicesSlice,
